@@ -8,12 +8,15 @@
 
 #include "Server.h"
 
-#include <experimental/filesystem>
+// #include <experimental/filesystem>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <unistd.h>
 
+#include <stdint.h>
+#include <string>
+#include <vector>
 
 using networking::Server;
 using networking::Connection;
