@@ -1,3 +1,5 @@
+#include <string>
+
 class Exit{
 	private:
 		std::string exitName;

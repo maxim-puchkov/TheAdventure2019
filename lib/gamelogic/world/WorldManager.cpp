@@ -1,3 +1,7 @@
+#include <string>
+#include "Room.h"
+#include "Character.h"
+
 class WorldManager {
 	
 	private:

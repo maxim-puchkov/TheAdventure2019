@@ -1,6 +1,7 @@
-
-#include <string.h> //maybe
-
+#include <string> //maybe
+#include <vector>
+#include "Exit.h"
+#include "Character.h"
 
 class Room {
 	
