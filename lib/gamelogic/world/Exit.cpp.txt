@@ -1,0 +1,8 @@
+class Exit{
+	private:
+		std::string exitName;
+		std::string exitDescription;
+		short cardinalDirection;
+		int targetRoomID;
+
+};

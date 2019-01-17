@@ -1,0 +1,38 @@
+
+#include <string.h> //maybe
+
+
+class Room {
+	
+	private:
+		Exit[4] roomExits;
+		std::string roomName;
+		std::string roomDescription;
+		std::vector<Character*> charactersInRoom;
+		std::vector<Item*> itemsInRoom;
+
+	public:
+		unsigned int move(Character* character, short direction) const;
+		std::string look() const;
+		bool addCharacter(Character* character);
+		bool removeCharacter(Character* character);
+
+};
+
+int Room::move(Character* character, short direction){
+	return -1;
+}
+
+std::string Room::look(){
+	return roomDescription;
+}
+
+bool Room::addCharacter(Character* character){
+	charactersInRoom.push_back(character);
+	//implement better return or exception
+	return true;
+}
+
+bool Room::removeCharacter(Character* character){
+	return false;
+}
