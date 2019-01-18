@@ -25,7 +25,6 @@ using usermanager::UserManager;
 
             // if they are logged in add to onlineUsers and return User
             onlineUsers.insert( pair<std::string,User>(name, search->second) );
-            // return search->second;
             return search->second;
         }
         else{

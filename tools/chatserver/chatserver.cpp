@@ -57,8 +57,11 @@ void authUser(const std::string& message) {
 
   User user{uName, uPwd};
 
-  std::cout << "Check Username: " << user.getUserName() << "\n";
-  std::cout << "Check Password: " << user.getUserPasswd() << "\n";
+  std::cout<<"test is called"<<"\n";
+  UserManager test{};
+  auto testing = test.login("name", "password");
+
+  std::cout << testing.getUserName() << "\n";
 }
 
 void testUserManager() {
