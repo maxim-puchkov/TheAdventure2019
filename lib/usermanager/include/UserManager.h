@@ -1,28 +1,32 @@
 #ifndef USERMANAGER_H
 #define USERMANAGER_H
 
+#include "User.h"
 #include <string>
-#include <User.h>
 #include <iostream> 
 #include <unordered_map> 
 
-class UserManager
-{
-  private:
+
+using usermanager::User; 
+namespace usermanager {
+
+class UserManager {
+  // private:
     
-    unordered_map<string, class User> usersDB;
-    std::unordered_map<string, class User> test;
+  //   std::unordered_map<std::string, User> usersDB;
+  //   std::unordered_map<std::string, User> test;
 
   public:
-    class User login(std::string, std::string );
+    User login(std::string, std::string );
 
-    class User logOut(std::string, std::string );
+    User logOut(std::string, std::string );
 
-    class User createUser(std::string, std::string );
+    User createUser(std::string, std::string );
 
     bool isOnline();
 
     void updateOnlineStatus();
 };
+}
 
 #endif

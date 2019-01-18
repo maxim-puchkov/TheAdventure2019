@@ -8,6 +8,7 @@
 
 #include "Server.h"
 #include "User.h"
+#include "UserManager.h"
 
 // #include <experimental/filesystem>
 #include <fstream>
@@ -23,6 +24,7 @@ using networking::Server;
 using networking::Connection;
 using networking::Message;
 using usermanager::User;
+using usermanager::UserManager;
 
 
 std::vector<Connection> clients;
@@ -59,6 +61,15 @@ void authUser(const std::string& message) {
   std::cout << "Check Password: " << user.getUserPasswd() << "\n";
 }
 
+void testUserManager() {
+  std::cout<<"test is called"<<"\n";
+  UserManager test{};
+  auto testing = test.login("name", "password");
+
+  std::cout << testing.getUserName() << "\n";
+  
+}
+
 std::string
 processMessages(Server &server,
                 const std::deque<Message> &incoming,
@@ -73,6 +84,8 @@ processMessages(Server &server,
       quit = true;
     } else if(token == "login"){
       authUser(message.text);
+    } else if (token == "test") {
+      testUserManager();
     } else {
       result << message.connection.id << "> " << message.text << "\n";
     }

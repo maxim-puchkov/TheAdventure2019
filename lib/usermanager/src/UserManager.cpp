@@ -1,23 +1,22 @@
-#include <UserManager.h>
-#include <string>
+#include "UserManager.h"
 #include "User.h"
+#include <string>
 #include <iostream> 
 #include <unordered_map> 
 using namespace std;
 using usermanager::User; 
+using usermanager::UserManager;
 
-class UserManager
-{
-
-  private:
     
     User fakeUser{"name", "password"};
-    unordered_map<string, class User> usersDB = {{"name", fakeUser}};
-    unordered_map<string, class User> onlineUsers;
+    User nullUser{"", ""};
+
+    unordered_map<string, User> usersDB = {{"name", fakeUser}};
+    unordered_map<string, User> onlineUsers;
 
 
-  public:
-    class User login(std::string name, std::string pwd){
+  
+    User UserManager::login(std::string name, std::string pwd){
         
         //Check if user is logged in in the usersDB
 
@@ -25,16 +24,17 @@ class UserManager
         if (search != usersDB.end() && onlineUsers.find(name) != onlineUsers.end()) {
 
             // if they are logged in add to onlineUsers and return User
-            onlineUsers[name] = search->second;
+            onlineUsers.insert( pair<std::string,User>(name, search->second) );
+            // return search->second;
             return search->second;
         }
         else{
             cout << "Invalid Credentials: User not Found";
-             return fakeUser;
+             return nullUser;
         }
     }
 
-    class User logOut(std::string name, std::string pwd){
+    User UserManager::logOut(std::string name, std::string pwd){
 
         auto search = onlineUsers.find(name);
 
@@ -43,25 +43,28 @@ class UserManager
             return search->second;
         }
         else{
-            return fakeUser;
+            return nullUser;
         }
 
     }
 
-    class User createUser(std::string name, std::string pwd){
+    // User UserManager::createUser(std::string name, std::string pwd){
 
-        auto search = usersDB.find(name);
-        if(search == usersDB.end()){
-            return fakeUser;
-        }
-        else{
-            User user(name,pwd);
-            usersDB[name] = user;
-            return user;
-        }
+    //     auto search = usersDB.find(name);
+    //     if(search == usersDB.end()){
+    //         return fakeUser;
+    //     }
+    //     else{
+    //         User user(name,pwd);
+    //         usersDB[name] = user;
+    //         return user;
+    //     }
+    // }
+
+    bool UserManager::isOnline(){
+        return false;
     }
 
-    bool isOnline();
-
-    void updateOnlineStatus();
-};
+    void UserManager::updateOnlineStatus(){
+        std::cout << "checking" << "\n";
+    }
