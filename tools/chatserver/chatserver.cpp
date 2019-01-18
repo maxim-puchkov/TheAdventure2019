@@ -7,6 +7,7 @@
 
 
 #include "Server.h"
+#include "User.h"
 
 // #include <experimental/filesystem>
 #include <fstream>
@@ -21,6 +22,7 @@
 using networking::Server;
 using networking::Connection;
 using networking::Message;
+using userprofile::User;
 
 
 std::vector<Connection> clients;
@@ -40,6 +42,22 @@ onDisconnect(Connection c) {
   clients.erase(eraseBegin, std::end(clients));
 }
 
+void authUser(const std::string& message) {
+  std::size_t pos = message.find(" ");  
+  std::string userInfo = message.substr(pos + 1);
+  std::cout << userInfo << "\n";
+  pos = userInfo.find(" ");
+  std::string uName = userInfo.substr(0, pos);
+  std::string uPwd = userInfo.substr(pos + 1);
+
+  std::cout << "Username: " << uName << "\n";
+  std::cout << "Password: " << uPwd << "\n";
+
+  User user{uName, uPwd};
+
+  std::cout << "Check Username: " << user.getUserName() << "\n";
+  std::cout << "Check Password: " << user.getUserPasswd() << "\n";
+}
 
 std::string
 processMessages(Server &server,
@@ -47,11 +65,14 @@ processMessages(Server &server,
                 bool &quit) {
   std::ostringstream result;
   for (auto& message : incoming) {
+    std::string token = message.text.substr(0, message.text.find(" "));
     if (message.text == "quit") {
       server.disconnect(message.connection);
     } else if (message.text == "shutdown") {
       std::cout << "Shutting down.\n";
       quit = true;
+    } else if(token == "login"){
+      authUser(message.text);
     } else {
       result << message.connection.id << "> " << message.text << "\n";
     }
