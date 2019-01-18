@@ -1,21 +1,6 @@
-#include <string>
-#include <cstdlib> //std::rand
-#include "Room.h"
-#include "Character.h"
+#include "WorldManager.h"
 
-class WorldManager {
-	
-	private:
-		Room[10] worldRooms;
-
-	public:
-		WorldManager();
-		unsigned int move(Character* character, short direction) const;
-		std::string look(unsigned int roomID) const;
-
-};
-
-worldManager(){
+WorldManager(){
 	//temporary hard coded rooms
 	for(int i = 0; i < 10; i++){
 		std::string roomName = "Room number " + std::to_string(i+1);
@@ -24,8 +9,8 @@ worldManager(){
 		int exit2TargetID = std::rand() % (i+1) //rand ID from 0 to i
 
 		Room r(roomName, roomDescription);
-		r.createExit("Exit 1", "The first exit. Looks shady.", 0, exitTargetID);
-		r.createExit("Exit 2", "The second exit. Looks way better than exit 1.", 0, exitTargetID);
+		r.createExit("Exit 1", "The first exit. Looks shady.", 0, exit1TargetID);
+		r.createExit("Exit 2", "The second exit. Looks way better than exit 1.", 0, exit2TargetID);
 		worldRooms[i] = r;
 	}
 }
