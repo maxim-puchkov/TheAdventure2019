@@ -1,6 +1,8 @@
 add_library(world
         src/Exit.cpp
-)
+        src/Room.cpp
+        src/WorldManager.cpp
+        )
 
 target_include_directories(world
         PUBLIC

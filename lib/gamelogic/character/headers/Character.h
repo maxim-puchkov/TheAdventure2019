@@ -40,18 +40,22 @@ public:
     virtual Attributes getAttributes();
     virtual Inventory getInventory();
     // virtual Room *getCurrentRoom();
-    
-protected:
-    
-    std::string username;
-    
-    Attributes *baseAttributes;
-    
-    Inventory *inventory;
-    
-    Equipment *equipment;
 
-	//Room *currentRoom;
+    //QUICK HACK TO GET WORLDMANAGER.cpp running
+    int getRoomID(){
+        return roomID;
+    }
+    void setRoomID(int newroomID){
+        roomID = newroomID;
+    }
+
+
+protected:
+    std::string username;
+    Attributes *baseAttributes;
+    Inventory *inventory;
+    Equipment *equipment;
+    int roomID;
     
 };
 

@@ -4,6 +4,12 @@
 using namespace std;
 
 
+//Constructors
+Exit::Exit(const string &exitName, const string &exitDescription, short cardinalDirection, unsigned int targetRoomID)
+        : exitName(exitName), exitDescription(exitDescription), cardinalDirection(cardinalDirection),
+          targetRoomID(targetRoomID) {}
+
+
     //Getters
     const string &Exit::getExitName() const {return exitName;}
     const string &Exit::getExitDescription() const {return exitDescription;}
@@ -15,7 +21,5 @@ using namespace std;
     void Exit::setExitDescription(const string &exitDescription) { Exit::exitDescription = exitDescription; }
     void Exit::setCardinalDirection(short cardinalDirection) { Exit::cardinalDirection = cardinalDirection; }
     void Exit::setTargetRoomID(unsigned int targetRoomID) { Exit::targetRoomID = targetRoomID; }
-
-
 
 

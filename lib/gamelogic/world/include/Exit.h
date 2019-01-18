@@ -15,8 +15,9 @@ private:
     unsigned int targetRoomID;
 
 public:
-    Exit(std::string exName, std::string exDescription, short cDirection, int targetID);
-    Exit();
+    Exit(const std::string &exitName, const std::string &exitDescription, short cardinalDirection,
+         unsigned int targetRoomID);
+
 
     //getters
     const std::string &getExitName() const;
