@@ -1,8 +1,8 @@
-add_library(userprofile
+add_library(usermanager
   src/User.cpp
 )
 
-target_include_directories(userprofile
+target_include_directories(usermanager
   PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -11,18 +11,18 @@ target_include_directories(userprofile
     ${Boost_INCLUDE_DIR}
 )
 
-target_link_libraries(userprofile
+target_link_libraries(usermanager
   PRIVATE
     ${Boost_LIBRARIES}
 )
 
-set_target_properties(userprofile
+set_target_properties(usermanager
                       PROPERTIES
                       LINKER_LANGUAGE CXX
                       CXX_STANDARD 17
 )
 
-install(TARGETS userprofile
+install(TARGETS usermanager
   ARCHIVE DESTINATION lib
 )
 

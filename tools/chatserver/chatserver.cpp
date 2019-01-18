@@ -22,7 +22,7 @@
 using networking::Server;
 using networking::Connection;
 using networking::Message;
-using userprofile::User;
+using usermanager::User;
 
 
 std::vector<Connection> clients;

@@ -2,7 +2,7 @@
 #define USERPROFILE_USER_H
 
 #include <string>
-namespace userprofile {
+namespace usermanager {
   
 class User {
   private:
