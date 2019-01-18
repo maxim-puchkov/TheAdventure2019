@@ -21,7 +21,7 @@ using usermanager::UserManager;
         //Check if user is logged in in the usersDB
 
         auto search = usersDB.find(name);
-        if (search != usersDB.end() && onlineUsers.find(name) != onlineUsers.end()) {
+        if (search != usersDB.end() && onlineUsers.find(name) == onlineUsers.end()) {
 
             // if they are logged in add to onlineUsers and return User
             onlineUsers.insert( pair<std::string,User>(name, search->second) );
@@ -29,6 +29,7 @@ using usermanager::UserManager;
         }
         else{
             cout << "Invalid Credentials: User not Found";
+            cout << search->second.getUserName();
              return nullUser;
         }
     }
@@ -47,18 +48,19 @@ using usermanager::UserManager;
 
     }
 
-    // User UserManager::createUser(std::string name, std::string pwd){
+    User UserManager::createUser(std::string name, std::string pwd){
 
-    //     auto search = usersDB.find(name);
-    //     if(search == usersDB.end()){
-    //         return fakeUser;
-    //     }
-    //     else{
-    //         User user(name,pwd);
-    //         usersDB[name] = user;
-    //         return user;
-    //     }
-    // }
+        auto search = usersDB.find(name);
+        if(search == usersDB.end()){
+            return nullUser;
+        }
+        else{
+            User user(name,pwd);
+            usersDB.insert( pair<std::string,User>(name, User{name,pwd}) );
+
+            return user;
+        }
+    }
 
     bool UserManager::isOnline(){
         return false;
@@ -66,4 +68,5 @@ using usermanager::UserManager;
 
     void UserManager::updateOnlineStatus(){
         std::cout << "checking" << "\n";
+
     }
