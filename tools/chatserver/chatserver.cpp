@@ -29,6 +29,8 @@ using usermanager::UserManager;
 
 std::vector<Connection> clients;
 User userLogin{"",""};
+UserManager userManager{};
+
 
 void
 onConnect(Connection c) {
@@ -44,26 +46,47 @@ onDisconnect(Connection c) {
   clients.erase(eraseBegin, std::end(clients));
 }
 
-bool authUser(const std::string& message) {
+std::vector<std::string> getInfo(const std::string& message){
   std::size_t pos = message.find(" ");  
   std::string userInfo = message.substr(pos + 1);
   pos = userInfo.find(" ");
   std::string uName = userInfo.substr(0, pos);
   std::string uPwd = userInfo.substr(pos + 1);
 
-  UserManager checkUser{};
-  
-  auto checkingUser = checkUser.login(uName, uPwd);
+  return std::vector<std::string>{uName, uPwd};
+}
 
+bool authUser(const std::string& message) {
+  std::vector<std::string> userInfo = getInfo(message);
+
+  std::string uName = userInfo[0];
+  std::string uPwd = userInfo[1];
   
+  auto checkingUser = userManager.login(uName, uPwd);
+
   if(checkingUser.getUserName() != "") {
     
     userLogin.setUserName(checkingUser.getUserName());
     userLogin.setUserPasswd(checkingUser.getUserPasswd());
     return true;
   }
-
   return false;
+}
+
+std::string createUser(const std::string& message){
+
+  std::vector<std::string> userInfo = getInfo(message);
+  std::ostringstream result;
+
+  std::string uName = userInfo[0];
+  std::string uPwd = userInfo[1];
+
+  auto userCreated = userManager.createUser(uName, uPwd);
+
+  if(userCreated.getUserName() != "")
+    return "User Created, Please Login.";
+  else
+    return "Username already exits, Sorry :(";
 }
 
 
@@ -88,7 +111,11 @@ processMessages(Server &server,
         result << message.connection.id << "> "
                << "Invalid Credentials: User not Found" << "\n";
       }
-    } else {
+    } 
+    else if(token == "create"){
+      result << message.connection.id << "> " << createUser(message.text);
+    }
+    else {
       result << message.connection.id << "> " << message.text << "\n";
     }
   }
