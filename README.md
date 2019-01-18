@@ -1,4 +1,3 @@
-
 # Single Threaded Web Socket Networking
 
 This repository contains an example library for single threaded client/server
@@ -41,7 +40,7 @@ This project requires:
 
 4. Run CMake with the path to the source.
 
-        cmake ../web-socket-networking/
+        cmake ../adventure2019/
 
 5. Run make inside the build directory:
 
@@ -61,7 +60,7 @@ First run the chat server on an unused port of the server machine. The server
 also takes an HTML file that it will server to standard http requests for
 `index.html`.
 
-    bin/chatserver 4000 ../web-socket-networking/webchat.html
+    bin/chatserver 4000 ../adventure2019/webchat.html
 
 In separate terminals, run multiple instances of the chat client using:
 

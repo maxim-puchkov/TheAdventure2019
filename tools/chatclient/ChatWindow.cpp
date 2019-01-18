@@ -7,12 +7,15 @@
 
 
 #include "ChatWindow.h"
-
+// #include <experimental/filesystem>
 #include <cassert>
 
 #include <form.h>
 #include <ncurses.h>
 
+#include <stdint.h>
+#include <string>
+#include <vector>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Hidden ChatWindow implementation
