@@ -25,7 +25,6 @@ using usermanager::UserManager;
 
             // if they are logged in add to onlineUsers and return User
             onlineUsers.insert( pair<std::string,User>(name, search->second) );
-            // return search->second;
             return search->second;
         }
         else{
@@ -48,18 +47,19 @@ using usermanager::UserManager;
 
     }
 
-    // User UserManager::createUser(std::string name, std::string pwd){
+    User UserManager::createUser(std::string name, std::string pwd){
 
-    //     auto search = usersDB.find(name);
-    //     if(search == usersDB.end()){
-    //         return fakeUser;
-    //     }
-    //     else{
-    //         User user(name,pwd);
-    //         usersDB[name] = user;
-    //         return user;
-    //     }
-    // }
+        auto search = usersDB.find(name);
+        if(search == usersDB.end()){
+            return nullUser;
+        }
+        else{
+            User user(name,pwd);
+            usersDB.insert( pair<std::string,User>(name, User{name,pwd}) );
+
+            return user;
+        }
+    }
 
     bool UserManager::isOnline(){
         return false;
@@ -67,4 +67,5 @@ using usermanager::UserManager;
 
     void UserManager::updateOnlineStatus(){
         std::cout << "checking" << "\n";
+
     }
