@@ -52,7 +52,7 @@ using usermanager::UserManager;
     User UserManager::createUser(std::string name, std::string pwd){
 
         auto search = usersDB.find(name);
-        if(search == usersDB.end()){
+        if(search != usersDB.end()){
             return nullUser;
         }
         else{

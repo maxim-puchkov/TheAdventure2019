@@ -29,6 +29,8 @@ using usermanager::UserManager;
 
 std::vector<Connection> clients;
 User userLogin{"",""};
+UserManager userManager{};
+
 
 void
 onConnect(Connection c) {
@@ -44,28 +46,60 @@ onDisconnect(Connection c) {
   clients.erase(eraseBegin, std::end(clients));
 }
 
-bool authUser(const std::string& message) {
+std::vector<std::string> getInfo(const std::string& message){
   std::size_t pos = message.find(" ");  
   std::string userInfo = message.substr(pos + 1);
   pos = userInfo.find(" ");
   std::string uName = userInfo.substr(0, pos);
   std::string uPwd = userInfo.substr(pos + 1);
 
-  UserManager checkUser{};
-  
-  auto checkingUser = checkUser.login(uName, uPwd);
+  return std::vector<std::string>{uName, uPwd};
+}
 
+std::string authUser(const std::string& message) {
+  std::vector<std::string> userInfo = getInfo(message);
+
+  std::string uName = userInfo[0];
+  std::string uPwd = userInfo[1];
   
+  auto checkingUser = userManager.login(uName, uPwd);
+
   if(checkingUser.getUserName() != "") {
     
     userLogin.setUserName(checkingUser.getUserName());
     userLogin.setUserPasswd(checkingUser.getUserPasswd());
-    return true;
+    return "Welcome " + userLogin.getUserName() + "\n";
   }
-
-  return false;
+  return "Invalid Credentials: User not Found\n";
 }
 
+std::string createUser(const std::string& message){
+
+  std::vector<std::string> userInfo = getInfo(message);
+  std::ostringstream result;
+
+  std::string uName = userInfo[0];
+  std::string uPwd = userInfo[1];
+
+  auto userCreated = userManager.createUser(uName, uPwd);
+
+  if(userCreated.getUserName() != "")
+    return "User Created, Please Login.\n";
+  else
+    return "Username already exits, Sorry :(\n";
+}
+
+std::string logOut() {
+  auto userLogout = userManager.logOut(userLogin.getUserName(), userLogin.getUserPasswd());
+
+  if(userLogout.getUserName() != "") {
+    userLogin.setUserName("");
+    userLogin.setUserPasswd("");
+    return "You are logged out\n";
+  }else{
+    return "Please login! \n";
+  }
+}
 
 std::string
 processMessages(Server &server,
@@ -80,17 +114,13 @@ processMessages(Server &server,
       std::cout << "Shutting down.\n";
       quit = true;
     } else if(token == "login"){
-      auto uLogin =  authUser(message.text);
-      if(uLogin) {
-        result << message.connection.id << "> "
-               << "Welcome " << userLogin.getUserName() << "\n";
-      }else{
-        result << message.connection.id << "> "
-               << "Invalid Credentials: User not Found" << "\n";
-      }
+      result << message.connection.id << "> " << authUser(message.text);
     } else if(token == "logout") {
-
-    }else {
+      result << message.connection.id << "> " << logOut();
+    } else if(token == "create"){
+      result << message.connection.id << "> " << createUser(message.text);
+    }
+    else {
       result << message.connection.id << "> " << message.text << "\n";
     }
   }
