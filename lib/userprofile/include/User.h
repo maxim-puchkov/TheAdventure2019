@@ -14,7 +14,7 @@ class User {
     User(const std::string uName, const std::string uPwd);
 
     ~User();
-    
+
     void setUserName(std::string userName);
 
     void setUserPasswd(std::string userPasswd);
