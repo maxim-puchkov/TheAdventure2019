@@ -21,6 +21,8 @@ using usermanager::UserManager;
         //Check if user is logged in in the usersDB
 
         auto search = usersDB.find(name);
+
+        
         if (search != usersDB.end() && onlineUsers.find(name) == onlineUsers.end()) {
 
             // if they are logged in add to onlineUsers and return User
@@ -28,9 +30,8 @@ using usermanager::UserManager;
             return search->second;
         }
         else{
-            cout << "Invalid Credentials: User not Found";
-            cout << search->second.getUserName();
-             return nullUser;
+            cout << "Invalid Credentials: User not Found" << "\n";
+            return nullUser;
         }
     }
 

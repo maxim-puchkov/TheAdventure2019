@@ -28,7 +28,7 @@ using usermanager::UserManager;
 
 
 std::vector<Connection> clients;
-
+User userLogin{"",""};
 
 void
 onConnect(Connection c) {
@@ -44,34 +44,28 @@ onDisconnect(Connection c) {
   clients.erase(eraseBegin, std::end(clients));
 }
 
-void authUser(const std::string& message) {
+bool authUser(const std::string& message) {
   std::size_t pos = message.find(" ");  
   std::string userInfo = message.substr(pos + 1);
-  std::cout << userInfo << "\n";
   pos = userInfo.find(" ");
   std::string uName = userInfo.substr(0, pos);
   std::string uPwd = userInfo.substr(pos + 1);
 
-  std::cout << "Username: " << uName << "\n";
-  std::cout << "Password: " << uPwd << "\n";
-
-  User user{uName, uPwd};
-
-  std::cout<<"test is called"<<"\n";
-  UserManager test{};
-  auto testing = test.login("name", "password");
-
-  std::cout << testing.getUserName() << "\n";
-}
-
-void testUserManager() {
-  std::cout<<"test is called"<<"\n";
-  UserManager test{};
-  auto testing = test.login("name", "password");
-
-  std::cout << testing.getUserName() << "\n";
+  UserManager checkUser{};
   
+  auto checkingUser = checkUser.login(uName, uPwd);
+
+  
+  if(checkingUser.getUserName() != "") {
+    
+    userLogin.setUserName(checkingUser.getUserName());
+    userLogin.setUserPasswd(checkingUser.getUserPasswd());
+    return true;
+  }
+
+  return false;
 }
+
 
 std::string
 processMessages(Server &server,
@@ -86,9 +80,14 @@ processMessages(Server &server,
       std::cout << "Shutting down.\n";
       quit = true;
     } else if(token == "login"){
-      authUser(message.text);
-    } else if (token == "test") {
-      testUserManager();
+      auto uLogin =  authUser(message.text);
+      if(uLogin) {
+        result << message.connection.id << "> "
+               << "Welcome " << userLogin.getUserName() << "\n";
+      }else{
+        result << message.connection.id << "> "
+               << "Invalid Credentials: User not Found" << "\n";
+      }
     } else {
       result << message.connection.id << "> " << message.text << "\n";
     }
