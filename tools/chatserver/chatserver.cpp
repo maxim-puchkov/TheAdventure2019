@@ -88,7 +88,9 @@ processMessages(Server &server,
         result << message.connection.id << "> "
                << "Invalid Credentials: User not Found" << "\n";
       }
-    } else {
+    } else if(token == "logout") {
+
+    }else {
       result << message.connection.id << "> " << message.text << "\n";
     }
   }
