@@ -2,12 +2,12 @@
 #include <vector>
 //#include <algorithm> //std::any_of
 #include <utility> //std::move (objects)
-#include "Exit.h"
+#include "../include/Exit.h"
 #include "Character.h"
 #include "Item.h"
 
 class Room {
-	
+
 	private:
 		std::string roomName;
 		std::string roomDescription;
