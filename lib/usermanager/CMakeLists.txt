@@ -1,5 +1,6 @@
 add_library(usermanager
   src/User.cpp
+  src/UserManager.cpp
 )
 
 target_include_directories(usermanager
