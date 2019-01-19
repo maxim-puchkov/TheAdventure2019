@@ -9,20 +9,22 @@
 #ifndef Equipment_h
 #define Equipment_h
 
-#include "Attributes.h"
 #include "Clothing.h"
 
 class Equipment {
 public:
     
-	// Calculate total bonus from clothes
-    Attributes attributeBonus();
+    Equipment() {
+        // this->hat = Clothing();
+    }
+    
+    virtual ~Equipment() { }
+    
+    virtual Attributes attributeBonus() { return this->hat.getAttributes(); }
     
 private:
     
-    //Clothing hat;
-    //Clothing armor;
-    //Clothing boots;
+    Clothing hat;
     
 };
 

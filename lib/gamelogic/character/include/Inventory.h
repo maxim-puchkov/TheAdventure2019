@@ -9,21 +9,12 @@
 #ifndef Inventory_h
 #define Inventory_h
 
-#include "InteractiveObject.h"
-#include "Item.h"
-
-class Inventory : public InteractiveObject {
+class Inventory {
 public:
     
-    bool isWearable() { return false; }
+    Inventory() { }
     
-private:
-    
-    int capacity;
-    
-    int currentSize;
-    
-    Item *items;
+    virtual ~Inventory() { }
     
 };
 
