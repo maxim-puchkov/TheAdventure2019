@@ -29,13 +29,19 @@ public:
     virtual void yell(const std::string &str);                    // yell str
     virtual void tell(const std::string &str, Character *recv);   // tell str recv
     
-    // virtual void look(const Examinable &obj);
+    
+    // Interact with Examinable objects (items, players, exits)
+    //      virtual void look(const Examinable &obj);
+    
+    
+    // Take an Interactable item from a Containable object
+    //      virtual void get(const Containable &container, const Interactable &item);
+    
+    
+    // Attack NonPlayerControlledCharacter
+    //      virtual void attack(const NonPlayerControlledCharacter &c);
     
     // ...
-    
-private:
-
-protected:
     
 };
 
