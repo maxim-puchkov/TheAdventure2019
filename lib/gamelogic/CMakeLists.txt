@@ -3,11 +3,14 @@ add_subdirectory(character)
 add_subdirectory(world)
 
 add_library(gamelogic
+  GameManager.cpp
   world/src/WorldManager.cpp
   world/src/Room.cpp
+  GameManager.h
   world/include/WorldManager.h
   world/include/Room.h
-  world/include/Exit.h)
+  world/include/Exit.h 
+)
 
 target_include_directories(gamelogic
   PUBLIC

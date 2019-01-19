@@ -6,13 +6,15 @@
 #define WEBSOCKETNETWORKING_WORLDMANAGER_H
 
 #include "../include/Room.h"
+#include "../../../usermanager/include/User.h"
 
 class WorldManager {
 private:
     Room worldRooms[10];
 public:
     WorldManager();
-    int move(Character* character, short direction);
+    void generateWorld();
+    int move(usermanager::User* character, short direction);
     std::string look(unsigned int roomID) const;
 };
 

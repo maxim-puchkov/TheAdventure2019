@@ -6,6 +6,7 @@ using usermanager::User;
 User::User(const std::string uName, const std::string uPwd) {
     userName = uName;
     userPasswd = uPwd;
+    roomID = 0;
 }
 
 void User::setUserName(std::string userName) {
