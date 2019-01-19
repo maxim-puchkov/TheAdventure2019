@@ -3,7 +3,7 @@
 //#include <algorithm> //std::any_of
 #include <utility> //std::move (objects)
 #include "../include/Exit.h"
-#include "Room.h"
+#include "../include/Room.h"
 
 
 // Returns -1 if move is not valid.

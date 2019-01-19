@@ -5,7 +5,9 @@ add_subdirectory(world)
 add_library(gamelogic
   world/src/WorldManager.cpp
   world/src/Room.cpp
-        include/WorldManager.h include/Room.h include/Exit.h)
+  world/include/WorldManager.h
+  world/include/Room.h
+  world/include/Exit.h)
 
 target_include_directories(gamelogic
   PUBLIC

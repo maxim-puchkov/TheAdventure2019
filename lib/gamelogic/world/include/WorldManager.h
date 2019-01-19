@@ -5,7 +5,7 @@
 #ifndef WEBSOCKETNETWORKING_WORLDMANAGER_H
 #define WEBSOCKETNETWORKING_WORLDMANAGER_H
 
-#include "Room.h"
+#include "../include/Room.h"
 
 class WorldManager {
 private:

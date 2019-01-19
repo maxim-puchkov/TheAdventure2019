@@ -1,6 +1,6 @@
 #include <string>
 #include <cstdlib> //std::rand
-#include "WorldManager.h"
+#include "../include/WorldManager.h"
 #include "../../character/headers/Character.h"
 
 
@@ -27,10 +27,10 @@ int WorldManager::move(Character * character, short direction) {
 	if( newRoomID < 0) return -1; //if move failed, return -1
 
 	character->setRoomID(newRoomID);
-	bool result = worldRooms[newRoomID].addCharacter(character); //add character to new room in world
+	bool moveWasValid = worldRooms[newRoomID].addCharacter(character); //add character to new room in world
 
-	if(result == false) return -1;
-
+	if(moveWasValid == false) return -1;
+	return newRoomID;
 }
 
 std::string WorldManager::look(unsigned int roomID) const {

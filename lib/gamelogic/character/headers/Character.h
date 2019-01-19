@@ -25,8 +25,8 @@ public:
     
     
     // Items
-    virtual void drop(InteractiveObject obj);
-    virtual void wear(InteractiveObject obj);
+    virtual void drop(InteractiveObject *obj);
+    virtual void wear(InteractiveObject *obj);
     // ...
 
 
