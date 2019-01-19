@@ -17,7 +17,7 @@ private:
 
 public:
     static GameManager* getInstance();
-    ~GameManager();
+    //~GameManager();
 	std::string extractCommands(const std::string command) const;
 	void heartbeat() const;
 };

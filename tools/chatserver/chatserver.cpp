@@ -180,7 +180,7 @@ main(int argc, char* argv[]) {
     auto incoming = server.receive();
     auto log      = processMessages(server, incoming, done);
 
-    //GameManager::getInstance()->extractCommands(log);
+    GameManager::getInstance()->extractCommands(log);
 
     auto outgoing = buildOutgoing(log);
     server.send(outgoing);

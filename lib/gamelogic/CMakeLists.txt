@@ -6,6 +6,7 @@ add_library(gamelogic
   GameManager.cpp
   world/src/WorldManager.cpp
   world/src/Room.cpp
+  world/src/Exit.cpp
   GameManager.h
   world/include/WorldManager.h
   world/include/Room.h
