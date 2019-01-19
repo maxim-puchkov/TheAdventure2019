@@ -1,0 +1,30 @@
+/////////////////////////////////////////////////////////////////////////////
+//                              Attributes
+//
+// This file is distributed under the MIT License. See the LICENSE file
+// for details.
+/////////////////////////////////////////////////////////////////////////////
+
+#include "Attributes.h"
+
+Attributes::Attributes()
+: health(DEF_HEALTH), damage(DEF_DAMAGE) { }
+
+Attributes::Attributes(int health, int damage)
+: health(health), damage(damage) { }
+
+Attributes::~Attributes() { }
+
+int Attributes::getHealth() {
+    return this->health;
+}
+
+int Attributes::getDamage() {
+    return this->damage;
+}
+
+Attributes Attributes::operator+(const Attributes &other) {
+    int h = this->health + other.health;
+    int d = this->damage + other.damage;
+    return Attributes(h, d);
+}
