@@ -9,6 +9,7 @@
 #include "Server.h"
 #include "User.h"
 #include "UserManager.h"
+#include "../../lib/gamelogic/GameManager.h"
 
 // #include <experimental/filesystem>
 #include <fstream>
@@ -121,7 +122,8 @@ processMessages(Server &server,
       result << message.connection.id << "> " << createUser(message.text);
     }
     else {
-      result << message.connection.id << "> " << message.text << "\n";
+      result << message.text;
+      //result << message.connection.id << "> " << message.text << "\n";
     }
   }
   return result.str();
@@ -165,6 +167,7 @@ main(int argc, char* argv[]) {
   unsigned short port = std::stoi(argv[1]);
   Server server{port, getHTTPMessage(argv[2]), onConnect, onDisconnect};
 
+
   while (!done) {
     try {
       server.update();
@@ -176,6 +179,9 @@ main(int argc, char* argv[]) {
 
     auto incoming = server.receive();
     auto log      = processMessages(server, incoming, done);
+
+    GameManager::getInstance()->extractCommands(log);
+
     auto outgoing = buildOutgoing(log);
     server.send(outgoing);
     sleep(1);
