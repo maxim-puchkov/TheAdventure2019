@@ -1,7 +1,7 @@
 #include <string>
 #include <cstdlib> //std::rand
 #include "../include/WorldManager.h"
-#include "../../character/headers/Character.h"
+#include "../../character/include/Character.h"
 
 
 
