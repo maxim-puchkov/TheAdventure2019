@@ -19,6 +19,12 @@ target_include_directories(gamelogic
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/world
+    ${Boost_INCLUDE_DIR}
+)
+
+target_link_libraries(gamelogic
+  PRIVATE
+    ${Boost_LIBRARIES}
 )
 
 install(TARGETS gamelogic

@@ -27,12 +27,12 @@ private:
 
 public:
     Room()
-            : roomName{"NO_ROOM_NAME"},
-              roomDescription{"NO_ROOM_DESCRIPTION"}
+            : roomName("NO_ROOM_NAME"),
+              roomDescription("NO_ROOM_DESCRIPTION")
     {}
     Room(std::string rName, std::string rDescription)
-            : roomName{rName},
-              roomDescription{rDescription}
+            : roomName(rName),
+              roomDescription(rDescription)
     {}
     int move(usermanager::User* character, short direction);
     bool createExit(std::string exitName, std::string exitDescription,
