@@ -17,11 +17,11 @@ class UserManager {
   //   std::unordered_map<std::string, User> test;
 
   public:
-    User login(std::string, std::string );
+    std::string login(std::string, std::string);
 
-    User logOut(std::string, std::string );
+    std::string logOut(std::string, std::string);
 
-    User createUser(std::string, std::string );
+    std::string createUser(std::string, std::string);
 
     bool isOnline();
 
