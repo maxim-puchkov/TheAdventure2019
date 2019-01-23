@@ -1,7 +1,7 @@
 #include "User.h"
 #include <string>
 
-using usermanager::User;
+using user::User;
 
 User::User(const std::string uName, const std::string uPwd) {
     userName = uName;
