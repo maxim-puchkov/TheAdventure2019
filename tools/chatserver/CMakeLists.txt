@@ -16,8 +16,12 @@ target_link_libraries(chatserver
   networking
   accountmanager
   gamelogic
+<<<<<<< HEAD
   world
   ServerCommands
+=======
+  serverCommands
+>>>>>>> Renamed library
   ${CMAKE_THREAD_LIBS_INIT}
 )
 
