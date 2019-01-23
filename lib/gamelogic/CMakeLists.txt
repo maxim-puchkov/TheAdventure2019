@@ -1,5 +1,6 @@
 
 add_subdirectory(character)
+add_subdirectory(commands)
 add_subdirectory(world)
 
 add_library(gamelogic

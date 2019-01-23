@@ -25,7 +25,7 @@ string ServerCommands::process(const string &&input) noexcept {
         
         FnDescriptor commandFn = this->env.lookup(commandName);
         
-        std::vector<string> commandArguments = tokens.spaceSeparatedTokens(commandFn.argCount);
+        std::vector<string> commandArguments = tokens.nextTokens(commandFn.argCount);
         
         output = commandFn.functionPtr(commandArguments);
     } catch (std::exception &e) {

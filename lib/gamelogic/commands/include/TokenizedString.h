@@ -29,7 +29,7 @@ public:
     
     TokenizedString(const string &&text)
     : original(std::move(text)) {
-        this->tokenIterator = sregex_token_iterator(original.begin(), original.end(), whitespace);
+        this->tokenIterator = sregex_token_iterator(original.begin(), original.end(), not_whitespace);
     }
     
     bool isFinished() {
@@ -49,7 +49,7 @@ public:
         return EMPTY_STR_TOKEN;
     }
     
-    vector<string> spaceSeparatedTokens(int count) {
+    vector<string> nextTokens(int count) {
         vector<string> tokens;
         for (int i = 0; i < count; i++) {
             tokens.push_back(this->nextToken());
@@ -65,7 +65,7 @@ private:
     
     string original;
     
-    regex whitespace = regex("[^\\s]+");
+    regex not_whitespace = regex("[^\\s]+");
     
 };
 
