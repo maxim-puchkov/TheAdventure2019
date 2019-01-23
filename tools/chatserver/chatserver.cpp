@@ -5,11 +5,14 @@
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
-
+#include "ServerCommands.h"
+#include "CommandDefinitions.h"
 #include "Server.h"
 #include "User.h"
 #include "AccountManager.h"
 #include "GameManager.h"
+#include "UserManager.h"
+#include "ServerCommands.h"
 
 // #include <experimental/filesystem>
 #include <fstream>
@@ -20,6 +23,7 @@
 #include <stdint.h>
 #include <string>
 #include <vector>
+
 
 using networking::Server;
 using networking::Connection;
@@ -102,10 +106,43 @@ std::string logOut() {
   }
 }*/
 
+
+
+/* MOVE: Example ServerCommands usage code */
+
+string exampleFunc1(const vector<string> &args) {
+    string username = args[0];
+    string password = args[1];
+    return "Test output: User " + username + " " + password + " logged in!";
+}
+
+string exampleFunc2(const vector<string> &args) {
+    return "Test output: Example User logged out!";
+}
+
+// Not a field
+ServerCommands createTestCommands() {
+    ServerCommands commands;
+    std::string cmdName = "login";
+    ServerCommands::function_ptr cmdFn = &exampleFunc1;
+    int argCount = 2;
+    commands.createNew(cmdName, cmdFn, argCount); // login
+    commands.createNew("anything", &exampleFunc2, 0); //
+    return commands;
+}
+
+/* MOVE */
+
+
+// Users can type
+//  login <arg> <arg>
+//  anything
+// Crashes if command does not created
 std::string
 processMessages(Server &server,
                 const std::deque<Message> &incoming,
                 bool &quit) {
+<<<<<<< HEAD
   std::ostringstream result;
   for (auto& message : incoming) {
     if (message.text == "quit") {
@@ -120,6 +157,16 @@ processMessages(Server &server,
     }
   }
   return result.str();
+=======
+    std::ostringstream result;
+    ServerCommands test = createTestCommands();
+    for (auto& message : incoming) {
+        result << message.connection.id << " > ";
+        result << test.process(std::move(message.text));
+        result << std::endl;
+    }
+    return result.str();
+>>>>>>> Server commands with any string name can be created and evaluated
 }
 
 
