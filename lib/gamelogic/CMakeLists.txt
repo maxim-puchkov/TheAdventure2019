@@ -4,13 +4,6 @@ add_subdirectory(world)
 
 add_library(gamelogic
   GameManager.cpp
-  world/src/WorldManager.cpp
-  world/src/Room.cpp
-  world/src/Exit.cpp
-  GameManager.h
-  world/include/WorldManager.h
-  world/include/Room.h
-  world/include/Exit.h 
 )
 
 target_include_directories(gamelogic
@@ -23,9 +16,14 @@ target_include_directories(gamelogic
 )
 
 target_link_libraries(gamelogic
+  PUBLIC
+        world
   PRIVATE
     ${Boost_LIBRARIES}
 )
+
+
+
 
 install(TARGETS gamelogic
   ARCHIVE DESTINATION lib
