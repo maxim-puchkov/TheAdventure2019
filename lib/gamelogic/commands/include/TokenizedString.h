@@ -27,9 +27,18 @@ const string EMPTY_STR_TOKEN = "";
 class TokenizedString {
 public:
     
-    TokenizedString(const string &&text)
-    : original(std::move(text)) {
-        this->tokenIterator = sregex_token_iterator(original.begin(), original.end(), not_whitespace);
+    TokenizedString(string &&text)
+    : source(std::move(text)) {
+        this->tokenize();
+    }
+    
+    TokenizedString(const string &text)
+    : source(text) {
+        this->tokenize();
+    }
+    
+    void tokenize() {
+        this->tokenIterator = sregex_token_iterator(source.begin(), source.end(), not_whitespace);
     }
     
     bool isFinished() {
@@ -63,7 +72,7 @@ private:
     
     sregex_token_iterator end = sregex_token_iterator();
     
-    string original;
+    string source;
     
     regex not_whitespace = regex("[^\\s]+");
     
