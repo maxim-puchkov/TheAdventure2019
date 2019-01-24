@@ -3,10 +3,15 @@
 #include "AccountManager.h"
 
 #include <iostream> 
-#include <unordered_map> 
-using namespace std;
+#include <unordered_map>
 
+#include "json.hpp"
+#include <fstream>
+
+using namespace std;
+using nlohmann::json;
 using user::User; 
+
 using accountManager::AccountManager;
 
     
@@ -16,9 +21,16 @@ using accountManager::AccountManager;
     unordered_map<string, User> usersDB = {{"name", fakeUser}};
     unordered_map<string, User> onlineUsers;
 
-
-  
     User AccountManager::login(std::string name, std::string pwd){
+
+        std::ifstream users_file("users.json");
+        json users_json = json::parse(users_file);
+        
+        for(json tmp: users_json){
+            
+            usersDB.insert( pair<std::string,User>(name, User{name,pwd}) );
+
+        }
         
         //Check if user is logged in in the usersDB
         auto search = usersDB.find(name);
