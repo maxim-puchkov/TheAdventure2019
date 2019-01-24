@@ -35,6 +35,7 @@ public:
     Equipment getEquipment();
     LocationCoordinates getCurrentLocation();
     void setCurrentLocation(LocationCoordinates newLocation);
+    void setCurrentLocation(int areaID, int roomID);
     
     
     // States ...

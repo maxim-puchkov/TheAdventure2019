@@ -10,6 +10,7 @@ target_include_directories(gamelogic
   PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/character/include>
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/world
     ${Boost_INCLUDE_DIR}
@@ -18,6 +19,7 @@ target_include_directories(gamelogic
 target_link_libraries(gamelogic
   PUBLIC
         world
+        character
   PRIVATE
     ${Boost_LIBRARIES}
 )

@@ -25,7 +25,6 @@ private:
     std::vector<Exit> exitsInRoom;
 
 public:
-    virtual ~Room();
     Room()
             : roomName("NO_ROOM_NAME"),
               roomDescription("NO_ROOM_DESCRIPTION")

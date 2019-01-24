@@ -2,13 +2,14 @@
 #define USER_H
 
 #include <string>
+//#include "../../gamelogic/character/include/Character.h"
 namespace user {
   
 class User {
   private:
     std::string userName;
     std::string userPasswd;
-    int roomID;
+    //Character playerCharacter;
 
   public:
 

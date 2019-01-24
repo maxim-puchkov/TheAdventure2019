@@ -1,9 +1,6 @@
-#include <string>
-#include <boost/algorithm/string.hpp>
-#include <vector>
+
 #include "GameManager.h"
-#include "../accountmanager/include/AccountManager.h"
-#include "../accountmanager/include/User.h"
+
 
 GameManager* GameManager::instance = 0; //set to null, will be initialized on demand
 
@@ -19,6 +16,12 @@ GameManager::GameManager() {
 	WorldManager newWorld;
 	world = &newWorld;
 	world->generateWorld();
+
+	//temp dummy char setup
+	Character dummy;
+	dummy.setCurrentLocation(0,0);
+	Character* newCharacter = &dummy;
+	this->dummyCharacter = newCharacter;
 }
 
 std::string GameManager::extractCommands(const std::string command) const {
@@ -29,7 +32,8 @@ std::string GameManager::extractCommands(const std::string command) const {
 	trimmed.at(1) = "User";
 	trimmed.at(2) = "Pswd";
 */
-	std::string result;
+	std::string result = command;
+    result.append("\n");
 
 	if(trimmed.at(0) == "LogIn") {
 		accountmanager::AccountManager manager;
@@ -49,8 +53,14 @@ std::string GameManager::extractCommands(const std::string command) const {
 			result = "Account created";
 		}
 	}
-	else if(trimmed.at(0) == "MoveEast") {
-		User *user = getUser(trimmed.at(1));
+	else if(trimmed.at(0) == "move") {
+		if(world->move(this->dummyCharacter, 0)){
+			result = "Move worked";
+		}else{
+			result = "Move failed";
+		}
+		//result = world->look(dummyCharacter->getCurrentLocation());
+		/*User *user = getUser(trimmed.at(1));
 		if( user->getUserName().empty() ) {
 			result = "Invalid move";
 		}
@@ -58,11 +68,11 @@ std::string GameManager::extractCommands(const std::string command) const {
 			//WorldManager manager;
 			result = "Moved to ";
 			result.append(std::to_string(world->move(user, 0)));
-		}
+		}*/
 	}
-	else if(trimmed.at(0) == "Look") {
+	else if(trimmed.at(0) == "look") {
 		//WorldManager manager;
-		result = world->look(0);
+		result = world->look(dummyCharacter->getCurrentLocation());
 	}
 
 	return result;

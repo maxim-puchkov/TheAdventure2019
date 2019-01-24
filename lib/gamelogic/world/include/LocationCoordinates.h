@@ -2,7 +2,7 @@
 #ifndef WEBSOCKETNETWORKING_LOCATIONCOORDINATES_H
 #define WEBSOCKETNETWORKING_LOCATIONCOORDINATES_H
 
-typedef struct LocationCoordinates
+struct LocationCoordinates
 {
     int area;
     int room;

@@ -17,7 +17,7 @@ public:
     WorldManager();
     void generateWorld();
     bool move(Character* character, short direction);
-    std::string look(unsigned int roomID) const;
+    std::string look(LocationCoordinates location) const;
 };
 
 
