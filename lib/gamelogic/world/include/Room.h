@@ -13,19 +13,19 @@
 #include "../include/Exit.h"
 
 //Messyish but we can fix later
-//#include "../../character/headers/Character.h"
-#include "../../../accountmanager/include/User.h"
+#include "../../character/include/Character.h"
 
 class Room {
 
 private:
     std::string roomName;
     std::string roomDescription;
-    std::vector<user::User*> charactersInRoom;
+    std::vector<Character*> charactersInRoom;
     //std::vector<Item> itemsInRoom;
-    std::vector<Exit> roomExits;
+    std::vector<Exit> exitsInRoom;
 
 public:
+    virtual ~Room();
     Room()
             : roomName("NO_ROOM_NAME"),
               roomDescription("NO_ROOM_DESCRIPTION")
@@ -34,11 +34,11 @@ public:
             : roomName(rName),
               roomDescription(rDescription)
     {}
-    int move(user::User* character, short direction);
+    LocationCoordinates findExitLocation(short cardinalDirection) const;
     bool createExit(std::string exitName, std::string exitDescription,
-                    short cardinalDirection, int targetRoomID);
-    bool addCharacter(user::User* character);
-    bool removeCharacter(user::User* character);
+                    short cardinalDirection, int areaID, int roomID);
+    bool addCharacter(Character* character);
+    bool removeCharacter(Character* character);
     //getters
     std::string getName() const { return roomName; }
     std::string getDescription() const { return roomDescription; }

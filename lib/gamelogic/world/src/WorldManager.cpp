@@ -1,10 +1,4 @@
-#include <string>
-#include <cstdlib> //std::rand
-#include "../include/WorldManager.h"
-#include "../../character/include/Character.h"
-
-
-
+#include "WorldManager.h"
 
 WorldManager::WorldManager() {}
 
@@ -23,16 +17,15 @@ void WorldManager::generateWorld() {
     }
 }
 
-int WorldManager::move(user::User * character, short direction) {
-	int currentRoomID = character->getRoomID();
-	int newRoomID = worldRooms[currentRoomID].move(character, direction);
-	if( newRoomID < 0) return -1; //if move failed, return -1
+bool WorldManager::move(Character * character, short direction) {
+    LocationCoordinates currentLocation = character->getCurrentLocation();
+    LocationCoordinates newLocation = worldRooms[currentLocation.room].findExitLocation(direction);
 
-	character->setRoomID(newRoomID);
-	bool moveWasValid = worldRooms[newRoomID].addCharacter(character); //add character to new room in world
+    if(newLocation.area < 0 || newLocation.room < 0) return false; //move failed
 
-	if(moveWasValid == false) return -1;
-	return newRoomID;
+    if(!worldRooms[currentLocation.room].removeCharacter(character)) return false;
+    character->setCurrentLocation(newLocation);
+    return worldRooms[newLocation.room].addCharacter(character);
 }
 
 std::string WorldManager::look(unsigned int roomID) const {

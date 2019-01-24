@@ -5,8 +5,10 @@
 #ifndef WEBSOCKETNETWORKING_WORLDMANAGER_H
 #define WEBSOCKETNETWORKING_WORLDMANAGER_H
 
+#include <string>
+#include <cstdlib> //std::rand
 #include "../include/Room.h"
-#include "../../../accountmanager/include/User.h"
+#include "../../character/include/Character.h"
 
 class WorldManager {
 private:
@@ -14,7 +16,7 @@ private:
 public:
     WorldManager();
     void generateWorld();
-    int move(user::User* character, short direction);
+    bool move(Character* character, short direction);
     std::string look(unsigned int roomID) const;
 };
 

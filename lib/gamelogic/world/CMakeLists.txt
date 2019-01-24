@@ -2,7 +2,7 @@ add_library(world
         src/Exit.cpp
         src/Room.cpp
         src/WorldManager.cpp
-        )
+        include/LocationCoordinates.h)
 
 target_include_directories(world
         PUBLIC

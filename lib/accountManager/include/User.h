@@ -24,13 +24,6 @@ class User {
 
     std::string getUserPasswd();
 
-    //QUICK HACK TO GET GAMEMANAGER.cpp & WORLDMANAGER.cpp running
-    int getRoomID(){
-        return roomID;
-    }
-    void setRoomID(int newroomID){
-        roomID = newroomID;
-    }
 };
 }
 #endif 
