@@ -12,7 +12,7 @@ using namespace std;
 using nlohmann::json;
 using user::User; 
 
-using accountManager::AccountManager;
+using accountmanager::AccountManager;
 
     
     User fakeUser{"name", "password"};
@@ -23,14 +23,14 @@ using accountManager::AccountManager;
 
     User AccountManager::login(std::string name, std::string pwd){
 
-        std::ifstream users_file("users.json");
-        json users_json = json::parse(users_file);
+        // std::ifstream users_file("users.json");
+        // json users_json = json::parse(users_file);
         
-        for(json tmp: users_json){
+        // for(json tmp: users_json){
             
-            usersDB.insert( pair<std::string,User>(name, User{name,pwd}) );
+        //     usersDB.insert( pair<std::string,User>(name, User{name,pwd}) );
 
-        }
+        // }
         
         //Check if user is logged in in the usersDB
         auto search = usersDB.find(name);

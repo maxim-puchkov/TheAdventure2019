@@ -8,7 +8,7 @@
 
 #include "Server.h"
 #include "User.h"
-#include "UserManager.h"
+#include "AccountManager.h"
 #include "../../lib/gamelogic/GameManager.h"
 
 // #include <experimental/filesystem>
@@ -24,13 +24,13 @@
 using networking::Server;
 using networking::Connection;
 using networking::Message;
-using usermanager::User;
-using usermanager::UserManager;
+using user::User;
+using accountmanager::AccountManager;
 
 
 std::vector<Connection> clients;
 User userLogin{"",""};
-UserManager userManager{};
+AccountManager userManager{};
 
 
 void

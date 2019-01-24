@@ -8,7 +8,7 @@
 
 // Returns -1 if move is not valid.
 // Otherwise, removes character from charactersInRoom and returns ID of new room.
-int Room::move(usermanager::User * character, short direction){
+int Room::move(user::User * character, short direction){
 	if(roomExits.size() <= 0) return -1;
 	for (auto exit : roomExits){
 		if(exit.getCardinalDirection() == direction){
@@ -39,7 +39,7 @@ bool Room::createExit(std::string exitName, std::string exitDescription,
 	return true;
 }
 
-bool Room::addCharacter(usermanager::User * character){
+bool Room::addCharacter(user::User * character){
 	try{
 		charactersInRoom.push_back(character);
 	} catch(const std::bad_alloc& e){
@@ -48,7 +48,7 @@ bool Room::addCharacter(usermanager::User * character){
 	return true;
 }
 
-bool Room::removeCharacter(usermanager::User * character){
+bool Room::removeCharacter(user::User * character){
 	int i = 0;
 	for (auto * listCharacter : charactersInRoom){
 		if(character == listCharacter){

@@ -2,8 +2,8 @@
 #include <boost/algorithm/string.hpp>
 #include <vector>
 #include "GameManager.h"
-#include "../usermanager/include/UserManager.h"
-#include "../usermanager/include/User.h"
+#include "../accountmanager/include/AccountManager.h"
+#include "../accountmanager/include/User.h"
 
 GameManager* GameManager::instance = 0; //set to null, will be initialized on demand
 
@@ -32,7 +32,7 @@ std::string GameManager::extractCommands(const std::string command) const {
 	std::string result;
 
 	if(trimmed.at(0) == "LogIn") {
-		usermanager::UserManager manager;
+		accountmanager::AccountManager manager;
 		User user = manager.login(trimmed.at(1), trimmed.at(2));
 		if( user.getUserName().empty() ) {
 			result = "Failed to log in";
@@ -41,7 +41,7 @@ std::string GameManager::extractCommands(const std::string command) const {
 		}
 	}
 	else if(trimmed.at(0) == "CreateAcc") {
-        usermanager::UserManager manager;
+		accountmanager::AccountManager manager;
 		User user = manager.createUser(trimmed.at(1), trimmed.at(2));
 		if( user.getUserName().empty() ) {
 			result = "Failed to create account";

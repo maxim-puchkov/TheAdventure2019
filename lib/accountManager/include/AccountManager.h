@@ -8,7 +8,7 @@
 
 
 using user::User; 
-namespace accountManager {
+namespace accountmanager {
 
 class AccountManager {
   // private:

@@ -13,7 +13,7 @@ private:
     static GameManager* instance;
     GameManager();
     WorldManager *world;
-	usermanager::User* getUser(const std::string userName) const;
+	user::User* getUser(const std::string userName) const;
 
 public:
     static GameManager* getInstance();

@@ -5,6 +5,7 @@
 
 
 
+
 WorldManager::WorldManager() {}
 
 void WorldManager::generateWorld() {
@@ -22,7 +23,7 @@ void WorldManager::generateWorld() {
     }
 }
 
-int WorldManager::move(usermanager::User * character, short direction) {
+int WorldManager::move(user::User * character, short direction) {
 	int currentRoomID = character->getRoomID();
 	int newRoomID = worldRooms[currentRoomID].move(character, direction);
 	if( newRoomID < 0) return -1; //if move failed, return -1

@@ -14,14 +14,14 @@
 
 //Messyish but we can fix later
 //#include "../../character/headers/Character.h"
-#include "../../../usermanager/include/User.h"
+#include "../../../accountmanager/include/User.h"
 
 class Room {
 
 private:
     std::string roomName;
     std::string roomDescription;
-    std::vector<usermanager::User*> charactersInRoom;
+    std::vector<user::User*> charactersInRoom;
     //std::vector<Item> itemsInRoom;
     std::vector<Exit> roomExits;
 
@@ -34,11 +34,11 @@ public:
             : roomName(rName),
               roomDescription(rDescription)
     {}
-    int move(usermanager::User* character, short direction);
+    int move(user::User* character, short direction);
     bool createExit(std::string exitName, std::string exitDescription,
                     short cardinalDirection, int targetRoomID);
-    bool addCharacter(usermanager::User* character);
-    bool removeCharacter(usermanager::User* character);
+    bool addCharacter(user::User* character);
+    bool removeCharacter(user::User* character);
     //getters
     std::string getName() const { return roomName; }
     std::string getDescription() const { return roomDescription; }
