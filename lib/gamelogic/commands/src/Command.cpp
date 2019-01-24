@@ -8,8 +8,13 @@
 #include "Command.h"
 
 template<typename T>
-constexpr std::add_const_t<T>& Command<T>::as_const(T &ts) noexcept {
+constexpr auto &Command<T>::as_const(T &ts) noexcept {
     return ts;
+}
+
+template<typename T>
+auto defineNew(T &&t, T &&ts) {
+    return [=] { test(t, ts); };
 }
 
 template<typename T>
@@ -24,11 +29,6 @@ constexpr auto Command<T>::operator()(T &&ts) {
     
     const auto &ct = t;
     [&, ct] { };
-}
-
-template<typename T>
-auto defineNew(T &&t, T &&ts) {
-    return [=] { test(t, ts); };
 }
 
 template<typename T>
