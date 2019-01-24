@@ -10,11 +10,11 @@
 #include <vector>
 //#include <algorithm> //std::any_of
 #include <utility> //std::move (objects)
-#include "../include/Exit.h"
+#include "Exit.h"
 
 //Messyish but we can fix later
 //#include "../../character/headers/Character.h"
-#include "../../../accountmanager/include/User.h"
+#include "User.h"
 
 class Room {
 

@@ -5,8 +5,8 @@
 #ifndef WEBSOCKETNETWORKING_WORLDMANAGER_H
 #define WEBSOCKETNETWORKING_WORLDMANAGER_H
 
-#include "../include/Room.h"
-#include "../../../accountmanager/include/User.h"
+#include "Room.h"
+#include "User.h"
 
 class WorldManager {
 private:

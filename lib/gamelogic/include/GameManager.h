@@ -5,7 +5,7 @@
 #ifndef WEBSOCKETNETWORKING_GAMEMANAGER_H
 #define WEBSOCKETNETWORKING_GAMEMANAGER_H
 
-#include "world/include/WorldManager.h"
+#include "WorldManager.h"
 
 class GameManager{
 

@@ -2,8 +2,8 @@
 #include <boost/algorithm/string.hpp>
 #include <vector>
 #include "GameManager.h"
-#include "../accountmanager/include/AccountManager.h"
-#include "../accountmanager/include/User.h"
+#include "AccountManager.h"
+#include "User.h"
 
 GameManager* GameManager::instance = 0; //set to null, will be initialized on demand
 

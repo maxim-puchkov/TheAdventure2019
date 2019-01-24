@@ -9,7 +9,7 @@
 #include "Server.h"
 #include "User.h"
 #include "AccountManager.h"
-#include "../../lib/gamelogic/GameManager.h"
+#include "GameManager.h"
 
 // #include <experimental/filesystem>
 #include <fstream>

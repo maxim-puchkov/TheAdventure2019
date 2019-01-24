@@ -1,5 +1,5 @@
 #include <string>
-#include "../include/Exit.h"
+#include "Exit.h"
 
 using namespace std;
 
