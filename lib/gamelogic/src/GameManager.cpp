@@ -5,8 +5,11 @@
 #include "GameManager.h"
 #include "AccountManager.h"
 #include "User.h"
+#include "OnlineUserManager.h"
 
 using namespace std;
+using user::User;
+using usermanager::OnlineUserManager;
 
 GameManager* GameManager::instance = 0; //set to null, will be initialized on demand
 
@@ -22,6 +25,36 @@ GameManager::GameManager() {
 	WorldManager newWorld;
 	world = &newWorld;
 	world->generateWorld();
+}
+
+void testOnlineUser(){
+	OnlineUserManager online{};
+	User user1 {"user1", "123456"};
+	User user2 {"user2", "123456"};
+	User user3 {"user3", "123456"};
+	User user4 {"user4", "123456"};
+	user1.setRoomID(100);
+	user2.setRoomID(50);
+	user3.setRoomID(200);
+	user4.setRoomID(12);
+
+	online.inserUser("1", user1);
+	online.inserUser("2", user2);
+	online.inserUser("3", user3);
+	online.inserUser("4", user4);
+
+	online.printTable();
+
+	// Removing user2
+	online.removeUser("2");
+	std::cout << "Table with user2 removed\n";
+	online.printTable();
+
+	//update timestamp user4
+	online.updateUserTimeStamp("4", 1000);
+	std::cout << "Table with user4 updated to 1000\n";
+	online.printTable();
+
 }
 
 std::string GameManager::extractCommands(const std::string fullMessage) const {
@@ -65,6 +98,8 @@ std::string GameManager::extractCommands(const std::string fullMessage) const {
 		}
 		else if(command == "Look") {
 			result = world->look(0);
+		}else if(command == "test") {
+			testOnlineUser();
 		}
 		return result;
 
