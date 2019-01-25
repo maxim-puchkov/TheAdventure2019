@@ -11,7 +11,6 @@
 #include "User.h"
 #include "AccountManager.h"
 #include "GameManager.h"
-#include "UserManager.h"
 
 // #include <experimental/filesystem>
 #include <fstream>
@@ -50,130 +49,19 @@ onDisconnect(Connection c) {
   clients.erase(eraseBegin, std::end(clients));
 }
 
-/*std::vector<std::string> getInfo(const std::string& message){
-  std::size_t pos = message.find(" ");  
-  std::string userInfo = message.substr(pos + 1);
-  pos = userInfo.find(" ");
-  std::string uName = userInfo.substr(0, pos);
-  std::string uPwd = userInfo.substr(pos + 1);
 
-  return std::vector<std::string>{uName, uPwd};
-}
-
-std::string authUser(const std::string& message) {
-  std::vector<std::string> userInfo = getInfo(message);
-
-  std::string uName = userInfo[0];
-  std::string uPwd = userInfo[1];
-  
-  auto checkingUser = userManager.login(uName, uPwd);
-
-  if(checkingUser.getUserName() != "") {
-    
-    userLogin.setUserName(checkingUser.getUserName());
-    userLogin.setUserPasswd(checkingUser.getUserPasswd());
-    return "Welcome " + userLogin.getUserName() + "\n";
-  }
-  return "Invalid Credentials: User not Found\n";
-}
-
-std::string createUser(const std::string& message){
-
-  std::vector<std::string> userInfo = getInfo(message);
-  std::ostringstream result;
-
-  std::string uName = userInfo[0];
-  std::string uPwd = userInfo[1];
-
-  auto userCreated = userManager.createUser(uName, uPwd);
-
-  if(userCreated.getUserName() != "")
-    return "User Created, Please Login.\n";
-  else
-    return "Username already exits, Sorry :(\n";
-}
-
-std::string logOut() {
-  auto userLogout = userManager.logOut(userLogin.getUserName(), userLogin.getUserPasswd());
-
-  if(userLogout.getUserName() != "") {
-    userLogin.setUserName("");
-    userLogin.setUserPasswd("");
-    return "You are logged out\n";
-  }else{
-    return "Please login! \n";
-  }
-}*/
-
-
-
-/* MOVE: Example ServerCommands usage code */
-
-string exampleFunc1(const vector<string> &args) {
-    string username = args[0];
-    string password = args[1];
-    return "Test output: User " + username + " " + password + " logged in!";
-}
-
-string exampleFunc2(const vector<string> &args) {
-    return "Test output: Example User logged out!";
-}
-
-// Not a field
-ServerCommands createTestCommands() {
-    ServerCommands commands;
-    std::string cmdName = "login";
-    ServerCommands::function_ptr cmdFn = &exampleFunc1;
-    int argCount = 2;
-    commands.createNew(cmdName, cmdFn, argCount); // login
-    commands.createNew("anything", &exampleFunc2, 0); //
-    return commands;
-}
-
-/* MOVE */
-
-
-// Users can type
-//  login <arg> <arg>
-//  anything
-// Crashes if command does not created
 std::string
 processMessages(Server &server,
                 const std::deque<Message> &incoming,
                 bool &quit) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  std::ostringstream result;
-  for (auto& message : incoming) {
-    if (message.text == "quit") {
-      server.disconnect(message.connection);
-    } else if (message.text == "shutdown") {
-      std::cout << "Shutting down.\n";
-      quit = true;
-    } else {
-      result << message.text;
-      GameManager::getInstance()->extractCommands(message.text);
-      result << message.connection.id << "> " << message.text << "\n";
-    }
-  }
-  return result.str();
-=======
-=======
     ServerCommands commands = defineAllCommands();
->>>>>>> Refined server processing, error handling
     std::ostringstream result;
-    ServerCommands test = createTestCommands();
     for (auto& message : incoming) {
         result << message.connection.id << " > ";
-<<<<<<< HEAD
-        result << test.process(std::move(message.text));
-=======
         result << commands.process(std::move(message.text));
->>>>>>> Refined server processing, error handling
         result << std::endl;
     }
     return result.str();
->>>>>>> Server commands with any string name can be created and evaluated
 }
 
 
