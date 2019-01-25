@@ -29,35 +29,6 @@ GameManager::GameManager() {
 	world->generateWorld();
 }
 
-<<<<<<< HEAD
-std::string GameManager::extractCommands(const std::string command) const {
-	std::vector<std::string> trimmed;
-	boost::split(trimmed, command, boost::is_any_of(" "));
-/*	hard coded data
-	trimmed.at(0) = "LogIn";
-	trimmed.at(1) = "User";
-	trimmed.at(2) = "Pswd";
-*/
-	std::string result;
-
-	if(trimmed.at(0) == "LogIn") {
-		AccountManager manager;
-		AccountManager::ACCOUNT_CODE code = manager.login(trimmed.at(1), trimmed.at(2));
-
-		if( code == AccountManager::ACCOUNT_CODE::USER_NOT_FOUND ) {
-			result = "Failed to log in";
-		} else {
-			result = "Succeeded to log in";
-		}
-	}
-	else if(trimmed.at(0) == "CreateAcc") {
-		AccountManager manager;
-		User user = manager.createUser(trimmed.at(1), trimmed.at(2));
-		if( user.getUserName().empty() ) {
-			result = "Failed to create account";
-		} else {
-			result = "Account created";
-=======
 void testOnlineUser(){
 	OnlineUserManager online{};
 	User user1 {"user1", "123456"};
@@ -88,6 +59,18 @@ void testOnlineUser(){
 
 }
 
+void testAccountManager(){
+	AccountManager accountManager{};
+
+	assert( accountManager.createUser("user", "pwd") == AccountManager::ACCOUNT_CODE::ACCOUNT_CREATED);
+
+	// assert( accountManager.login("123","user","test") == AccountManager::ACCOUNT_CODE::INVALID_PASSWORD);
+
+	assert( accountManager.login("123","user","pwd") == AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN);
+	assert( accountManager.login("123","user","pwd") == AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN);
+
+}
+
 std::string GameManager::extractCommands(const std::string fullMessage) const {
 	std::vector<std::string> messageParts;
 	boost::split(messageParts, fullMessage, boost::is_any_of(" "));
@@ -114,7 +97,6 @@ std::string GameManager::extractCommands(const std::string fullMessage) const {
 			//return answer;
 
 			return "test";
->>>>>>> 3a37af32e579c714159e45a4e591b8588b54c1a4
 		}
 		else if(command == "Move") {
 			auto user = getUser(messageParts.at(1));
@@ -132,6 +114,9 @@ std::string GameManager::extractCommands(const std::string fullMessage) const {
 			result = world->look(0);
 		}else if(command == "test") {
 			testOnlineUser();
+		}
+		else if(command == "testaccount"){
+			testAccountManager();
 		}
 		return result;
 

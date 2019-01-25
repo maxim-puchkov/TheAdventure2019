@@ -1,7 +1,7 @@
 #include "User.h"
 #include <string>
 #include "AccountManager.h"
-#include "OnlineUserManager.h"
+#include "../../usermanager/include/OnlineUserManager.h"
 
 #include <iostream> 
 #include <unordered_map>
@@ -46,12 +46,12 @@ using usermanager::OnlineUserManager;
         }
     }
     
-    void saveUsersJSON(){
+    void AccountManager::saveUsersJSON(){
         std::ofstream file("/Users/ParmJohal/Desktop/373project/users.json");
         file << users_json;
     }
 
-    AccountManager::ACCOUNT_CODE AccountManager::login(std::string name, std::string pwd){
+    AccountManager::ACCOUNT_CODE AccountManager::login(std::string id, std::string name, std::string pwd){
         
         if(jsonProcessed == false){
             processUsersJSON();
@@ -60,8 +60,8 @@ using usermanager::OnlineUserManager;
         if((users_json[name]["password"] == pwd)){
 
 
-            if(!onlineUserMananger.inserUser("testid", User{name,pwd})){
-                return AccountManager::ACCOUNT_CODE::USER_LOGGED_IN;
+            if(!onlineUserMananger.inserUser(id, User{name,pwd})){
+                return AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN;
             }
 
             return AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN;
@@ -73,10 +73,9 @@ using usermanager::OnlineUserManager;
         }
     }
 
-    AccountManager::ACCOUNT_CODE AccountManager::logOut(std::string name, std::string pwd){
-        auto search = onlineUsers.find(name);
+    AccountManager::ACCOUNT_CODE AccountManager::logOut(std::string id){
 
-        if ((onlineUserMananger.removeUser("test123").getUserName() == "")) {
+        if ((onlineUserMananger.removeUser(id).getUserName() == "")) {
             //TODO: remove from onlineUsers
             return AccountManager::ACCOUNT_CODE::USER_LOGGED_OUT;
         }
@@ -91,7 +90,11 @@ using usermanager::OnlineUserManager;
             processUsersJSON();
         }
 
-        if((onlineUserMananger.getUser("test123").getUserName() == "")){
+        // if((onlineUserMananger.getUser("test123").getUserName() == "")){
+        //     return AccountManager::ACCOUNT_CODE::INVALID_USERNAME;
+        // }
+        
+        if(users_json[name] != nullptr){
             return AccountManager::ACCOUNT_CODE::INVALID_USERNAME;
         }
         else{
@@ -109,3 +112,8 @@ using usermanager::OnlineUserManager;
     void AccountManager::updateOnlineStatus(){
         std::cout << "checking" << "\n";
     }
+
+    // User* AccountManager::getOnlineUser(std::string id){
+        
+    //     return &onlineUserMananger.getUser(id);
+    // }
