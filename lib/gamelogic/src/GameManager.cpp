@@ -1,9 +1,12 @@
 #include <string>
 #include <boost/algorithm/string.hpp>
 #include <vector>
+#include <exception>
 #include "GameManager.h"
 #include "AccountManager.h"
 #include "User.h"
+
+using namespace std;
 
 GameManager* GameManager::instance = 0; //set to null, will be initialized on demand
 
@@ -21,51 +24,54 @@ GameManager::GameManager() {
 	world->generateWorld();
 }
 
-std::string GameManager::extractCommands(const std::string command) const {
-	std::vector<std::string> trimmed;
-	boost::split(trimmed, command, boost::is_any_of(" "));
-/*	hard coded data
-	trimmed.at(0) = "LogIn";
-	trimmed.at(1) = "User";
-	trimmed.at(2) = "Pswd";
-*/
-	std::string result;
+std::string GameManager::extractCommands(const std::string fullMessage) const {
+	std::vector<std::string> messageParts;
+	boost::split(messageParts, fullMessage, boost::is_any_of(" "));
 
-	if(trimmed.at(0) == "LogIn") {
-		accountmanager::AccountManager manager;
-		User user = manager.login(trimmed.at(1), trimmed.at(2));
-		if( user.getUserName().empty() ) {
-			result = "Failed to log in";
-		} else {
-			result = "Succeeded to log in";
-		}
-	}
-	else if(trimmed.at(0) == "CreateAcc") {
-		accountmanager::AccountManager manager;
-		User user = manager.createUser(trimmed.at(1), trimmed.at(2));
-		if( user.getUserName().empty() ) {
-			result = "Failed to create account";
-		} else {
-			result = "Account created";
-		}
-	}
-	else if(trimmed.at(0) == "MoveEast") {
-		User *user = getUser(trimmed.at(1));
-		if( user->getUserName().empty() ) {
-			result = "Invalid move";
-		}
-		else {
-			//WorldManager manager;
-			result = "Moved to ";
-			result.append(std::to_string(world->move(user, 0)));
-		}
-	}
-	else if(trimmed.at(0) == "Look") {
-		//WorldManager manager;
-		result = world->look(0);
-	}
+	try {
+		auto command = messageParts.at(0);
+		std::string result;
 
-	return result;
+		//will be converted into array of functions later once we have finalized the commands
+		//since different commands require different ways to deal with
+		if(command == "LogIn") {
+			auto username = messageParts.at(1);
+			auto password = messageParts.at(2);
+
+			//auto answer = userManager.login(username, password);
+			//return answer;
+			return "test";
+		}
+		else if(command == "CreateAcc") {
+	        auto username = messageParts.at(1);
+			auto password = messageParts.at(2);
+
+			//auto answer = userManager.createUser(username, password);
+			//return answer;
+
+			return "test";
+		}
+		else if(command == "Move") {
+			auto user = getUser(messageParts.at(1));
+			auto direction = messageParts.at(2);
+
+			if(user == nullptr) {
+				result = "Please log in to play.";
+			}
+			else {
+				result = "Moved to ";
+				result.append(std::to_string(world->move(user, 0)));
+			}
+		}
+		else if(command == "Look") {
+			result = world->look(0);
+		}
+		return result;
+
+	}
+	catch (exception& e) {
+		return "Invalid command. Please try again.";
+	}
 }
 
 void GameManager::heartbeat() const {
@@ -74,5 +80,5 @@ void GameManager::heartbeat() const {
 
 User* GameManager::getUser(const std::string userName) const {
 	return nullptr;
-	//need function getUserByUsername(string username) in UserManager API
+	//need function User* getUserByUsername(string username) in UserManager API
 }

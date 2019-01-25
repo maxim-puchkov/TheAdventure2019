@@ -21,57 +21,45 @@ using accountmanager::AccountManager;
     unordered_map<string, User> usersDB = {{"name", fakeUser}};
     unordered_map<string, User> onlineUsers;
 
-    User AccountManager::login(std::string name, std::string pwd){
-
-        // std::ifstream users_file("users.json");
-        // json users_json = json::parse(users_file);
-        
-        // for(json tmp: users_json){
-            
-        //     usersDB.insert( pair<std::string,User>(name, User{name,pwd}) );
-
-        // }
-        
+    std::string AccountManager::login(std::string name, std::string pwd){
         //Check if user is logged in in the usersDB
-        auto search = usersDB.find(name);
+        auto resultUser = usersDB.find(name);
 
-        if (search != usersDB.end() && onlineUsers.find(name) == onlineUsers.end()) {
+        if (resultUser != usersDB.end()) {
+            //TODO: add to onlineUsers
+            return "Welcome " + resultUser->second.getUserName() + "!";
+        }
+        else {
+            return "Invalid Credentials: User not Found.";
+        }
 
-            // if they are logged in add to onlineUsers and return User
-            onlineUsers.insert( pair<std::string,User>(name, search->second) );
-            return search->second;
-        }
-        else{
-            cout << "Invalid Credentials: User not Found" << "\n";
-            return nullUser;
-        }
+
+
     }
 
-    User AccountManager::logOut(std::string name, std::string pwd){
-
+    std::string AccountManager::logOut(std::string name, std::string pwd){
         auto search = onlineUsers.find(name);
 
         if (search != onlineUsers.end()) {
-            onlineUsers.erase(name);
-            return search->second;
+            //TODO: remove from onlineUsers
+            return "You are logged out.";
         }
-        else{
-            return nullUser;
+        else {
+            return "Please login!"; //to log out lol
         }
-
     }
 
-    User AccountManager::createUser(std::string name, std::string pwd){
-
+    std::string AccountManager::createUser(std::string name, std::string pwd){
         auto search = usersDB.find(name);
         if(search != usersDB.end()){
-            return nullUser;
+            return "Username already exits, Sorry! :(";
         }
         else{
             User user(name,pwd);
-            usersDB.insert( pair<std::string,User>(name, User{name,pwd}) );
+            usersDB.insert(pair<std::string,User>(name, User{name,pwd}));
 
-            return user;
+            //TODO: add to onlineUsers
+            return "User Created.";
         }
     }
 
@@ -81,5 +69,4 @@ using accountmanager::AccountManager;
 
     void AccountManager::updateOnlineStatus(){
         std::cout << "checking" << "\n";
-
     }
