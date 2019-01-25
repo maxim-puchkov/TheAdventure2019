@@ -33,15 +33,15 @@ std::string GameManager::extractCommands(const std::string command) const {
         result = manager.createUser(trimmed.at(1), trimmed.at(2));
     }
     else if(trimmed.at(0) == "move") {
-        LocationCoordinates movLoc = world.move(this->dummyCharacter, 0);
+        LocationCoordinates movLoc = world.move(this->dummyCharacter, Exit::CardinalDirection::NORTH);
         result = "moved to: ";
         result.append(std::to_string(movLoc.area));
         result.append(", ");
         result.append(std::to_string(movLoc.room));
     }
     else if(trimmed.at(0) == "look") {
-        LocationCoordinates loc = this->dummyCharacter->getCurrentLocation();
-        result = world.look(loc);
+        //LocationCoordinates loc = this->dummyCharacter->getCurrentLocation();
+        result = world.look(this->dummyCharacter);
     }
     result.append("\n");
     return result;

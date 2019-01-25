@@ -4,8 +4,8 @@ using namespace std;
 
 
     //Constructors
-    Exit::Exit(const string &exitName, const string &exitDescription, short cardinalDirection, int areaID, int roomID)
-        : exitName(exitName), exitDescription(exitDescription), cardinalDirection(cardinalDirection)
+    Exit::Exit(const string &exitName, const string &exitDescription, Exit::CardinalDirection cardinalDirection, int areaID, int roomID)
+        : exitName(exitName), exitDescription(exitDescription), exitDirection(cardinalDirection)
         {
             setTargetLocation(areaID, roomID);
         }
@@ -14,13 +14,13 @@ using namespace std;
     //Getters
     const string &Exit::getExitName() const {return exitName;}
     const string &Exit::getExitDescription() const {return exitDescription;}
-    short Exit::getCardinalDirection() const {return cardinalDirection;}
+    Exit::CardinalDirection Exit::getCardinalDirection() const {return exitDirection;}
     LocationCoordinates Exit::getTargetLocation() const {return targetLocation;}
 
     //Setters
     void Exit::setExitName(const string &exitName) { Exit::exitName = exitName; }
     void Exit::setExitDescription(const string &exitDescription) { Exit::exitDescription = exitDescription; }
-    void Exit::setCardinalDirection(short cardinalDirection) { Exit::cardinalDirection = cardinalDirection; }
+    void Exit::setCardinalDirection(Exit::CardinalDirection cardinalDirection) { exitDirection = cardinalDirection; }
     void Exit::setTargetLocation(int areaID, int roomID) {
         LocationCoordinates exitLocation;
         exitLocation.area = areaID;

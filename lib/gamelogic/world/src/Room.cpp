@@ -22,7 +22,7 @@
 	return -1;
 }*/
 
-LocationCoordinates Room::findExitLocation(short exitDirection) const {
+LocationCoordinates Room::findExitLocation(Exit::CardinalDirection exitDirection) const {
 	for (auto roomExit : exitsInRoom){
 		if(roomExit.getCardinalDirection() == exitDirection){
 			return roomExit.getTargetLocation();
@@ -35,7 +35,7 @@ LocationCoordinates Room::findExitLocation(short exitDirection) const {
 }
 
 bool Room::createExit(std::string exitName, std::string exitDescription,
-						short cardinalDirection, int areaID, int roomID) {
+						Exit::CardinalDirection cardinalDirection, int areaID, int roomID) {
 
 	Exit newExit(exitName, exitDescription, cardinalDirection, areaID, roomID);
 	try{

@@ -10,30 +10,42 @@
 
 class Exit{
 
-private:
-    std::string exitName;
-    std::string exitDescription;
-    short cardinalDirection;
-    LocationCoordinates targetLocation;
-
 public:
-    Exit(const std::string &exitName, const std::string &exitDescription, short cardinalDirection,
-         int areaID, int roomID);
+    enum CardinalDirection{
+        NONE,
+        NORTH,
+        NORTHEAST,
+        EAST,
+        SOUTHEAST,
+        SOUTH,
+        SOUTHWEST,
+        WEST,
+        NORTHWEST
+    };
+
+    Exit(const std::string &exitName, const std::string &exitDescription,
+            CardinalDirection cardinalDirection, int areaID, int roomID);
 
 
     //getters
     const std::string &getExitName() const;
     const std::string &getExitDescription() const;
-    short getCardinalDirection() const;
+    CardinalDirection getCardinalDirection() const;
     LocationCoordinates getTargetLocation() const;
 
 
     //Setters
     void setExitName(const std::string &exitName);
     void setExitDescription(const std::string &exitDescription);
-    void setCardinalDirection(short cardinalDirection);
+    void setCardinalDirection(CardinalDirection direction);
     void setTargetLocation(int area, int room);
     void setTargetLocation(LocationCoordinates newLocation);
+
+private:
+    std::string exitName;
+    std::string exitDescription;
+    CardinalDirection exitDirection;
+    LocationCoordinates targetLocation;
 };
 
 

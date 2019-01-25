@@ -30,9 +30,9 @@ public:
             : roomName(rName),
               roomDescription(rDescription)
     {}
-    LocationCoordinates findExitLocation(short cardinalDirection) const;
+    LocationCoordinates findExitLocation(Exit::CardinalDirection cardinalDirection) const;
     bool createExit(std::string exitName, std::string exitDescription,
-                    short cardinalDirection, int areaID, int roomID);
+                    Exit::CardinalDirection cardinalDirection, int areaID, int roomID);
     bool addCharacter(Character* character);
     bool removeCharacter(Character* character);
     //getters

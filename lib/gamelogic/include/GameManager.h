@@ -15,6 +15,7 @@
 #include "WorldManager.h"
 #include "AccountManager.h"
 #include "Character.h"
+#include "Exit.h"
 
 class GameManager{
 

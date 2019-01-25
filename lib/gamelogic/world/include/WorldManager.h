@@ -18,8 +18,8 @@ private:
 public:
     WorldManager();
     void generateWorld();
-    LocationCoordinates move(Character* character, short direction) const;
-    std::string look(LocationCoordinates location) const;
+    LocationCoordinates move(Character* character, Exit::CardinalDirection direction) const;
+    std::string look(Character* character) const;
 };
 
 

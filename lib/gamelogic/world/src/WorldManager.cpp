@@ -13,15 +13,15 @@ void WorldManager::generateWorld() {
         int exit2TargetID = /*std::rand() % */(i+2); //rand ID from 0 to i
 
         Room r(roomName, roomDescription);
-        r.createExit("Exit 1", "The first exit. Looks shady.", 0, 0, exit1TargetID);
-        r.createExit("Exit 2", "The second exit. Looks way better than exit 1.", 2, 0, exit2TargetID);
+        r.createExit("Exit 1", "The first exit. Looks shady.", Exit::CardinalDirection::NORTH, 0, exit1TargetID);
+        r.createExit("Exit 2", "The second exit. Looks way better than exit 1.", Exit::CardinalDirection::SOUTH, 0, exit2TargetID);
 
         a.addRoom(r);
     }
     areas.push_back(a);
 }
 
-LocationCoordinates WorldManager::move(Character * character, short direction) const {
+LocationCoordinates WorldManager::move(Character * character, Exit::CardinalDirection direction) const {
     LocationCoordinates currentLocation = character->getCurrentLocation();
 
     Room roomOfInterest = areas.at((unsigned long)currentLocation.area).getRoom(currentLocation.room);
@@ -35,7 +35,9 @@ LocationCoordinates WorldManager::move(Character * character, short direction) c
     return newLocation;
 }
 
-std::string WorldManager::look(LocationCoordinates location) const {
+std::string WorldManager::look(Character* character) const {
+    LocationCoordinates location = character->getCurrentLocation();
+
     if(location.area < 0 || (unsigned int)location.area > areas.size()) return "room not found";
     Area areaOfInterest = areas.at((unsigned int)location.area);
     if(location.room < 0 || (unsigned int)location.room > areaOfInterest.size()) return "room not found";
