@@ -15,7 +15,12 @@ class AccountManager {
     enum class ACCOUNT_CODE : uint8_t {
       SUCCESFUL_LOGIN,    
       USER_NOT_FOUND,  
-      USER_LOGGED_IN       
+      USER_LOGGED_IN,
+      USER_NOT_ONLINE,
+      USER_LOGGED_OUT,
+      INVALID_USERNAME,
+      INVALID_PASSWORD,
+      ACCOUNT_CREATED      
     };
 
   private:
@@ -23,11 +28,13 @@ class AccountManager {
     void processUsersJSON();
 
   public:
+    AccountManager();
+    ~AccountManager();
     ACCOUNT_CODE login(std::string, std::string );
 
-    User logOut(std::string, std::string );
+    ACCOUNT_CODE logOut(std::string, std::string);
 
-    User createUser(std::string, std::string );
+    ACCOUNT_CODE createUser(std::string, std::string);
 
     bool isOnline();
 

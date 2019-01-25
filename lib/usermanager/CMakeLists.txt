@@ -1,12 +1,9 @@
 
-add_subdirectory(character)
-add_subdirectory(world)
-
-add_library(gamelogic
-  src/GameManager.cpp
+add_library(usermanager
+  src/OnlineUserManager.cpp
 )
 
-target_include_directories(gamelogic
+target_include_directories(usermanager
   PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -15,21 +12,19 @@ target_include_directories(gamelogic
     ${Boost_INCLUDE_DIR}
 )
 
-target_link_libraries(gamelogic
+target_link_libraries(usermanager
   PRIVATE
-    world
-    accountmanager
-    usermanager
+  accountmanager
     ${Boost_LIBRARIES}
 )
 
-set_target_properties(gamelogic
+set_target_properties(usermanager
                       PROPERTIES
                       LINKER_LANGUAGE CXX
                       CXX_STANDARD 17
 )
 
-install(TARGETS gamelogic
+install(TARGETS usermanager
   ARCHIVE DESTINATION lib
 )
 

@@ -1,9 +1,15 @@
 #include <string>
 #include <boost/algorithm/string.hpp>
 #include <vector>
+#include <exception>
 #include "GameManager.h"
 #include "AccountManager.h"
 #include "User.h"
+#include "OnlineUserManager.h"
+
+using namespace std;
+using user::User;
+using usermanager::OnlineUserManager;
 
 using namespace accountmanager;
 
@@ -23,6 +29,7 @@ GameManager::GameManager() {
 	world->generateWorld();
 }
 
+<<<<<<< HEAD
 std::string GameManager::extractCommands(const std::string command) const {
 	std::vector<std::string> trimmed;
 	boost::split(trimmed, command, boost::is_any_of(" "));
@@ -50,25 +57,88 @@ std::string GameManager::extractCommands(const std::string command) const {
 			result = "Failed to create account";
 		} else {
 			result = "Account created";
-		}
-	}
-	else if(trimmed.at(0) == "MoveEast") {
-		User *user = getUser(trimmed.at(1));
-		if( user->getUserName().empty() ) {
-			result = "Invalid move";
-		}
-		else {
-			//WorldManager manager;
-			result = "Moved to ";
-			result.append(std::to_string(world->move(user, 0)));
-		}
-	}
-	else if(trimmed.at(0) == "Look") {
-		//WorldManager manager;
-		result = world->look(0);
-	}
+=======
+void testOnlineUser(){
+	OnlineUserManager online{};
+	User user1 {"user1", "123456"};
+	User user2 {"user2", "123456"};
+	User user3 {"user3", "123456"};
+	User user4 {"user4", "123456"};
+	user1.setRoomID(100);
+	user2.setRoomID(50);
+	user3.setRoomID(200);
+	user4.setRoomID(12);
 
-	return result;
+	online.inserUser("1", user1);
+	online.inserUser("2", user2);
+	online.inserUser("3", user3);
+	online.inserUser("4", user4);
+
+	online.printTable();
+
+	// Removing user2
+	online.removeUser("2");
+	std::cout << "Table with user2 removed\n";
+	online.printTable();
+
+	//update timestamp user4
+	online.updateUserTimeStamp("4", 1000);
+	std::cout << "Table with user4 updated to 1000\n";
+	online.printTable();
+
+}
+
+std::string GameManager::extractCommands(const std::string fullMessage) const {
+	std::vector<std::string> messageParts;
+	boost::split(messageParts, fullMessage, boost::is_any_of(" "));
+
+	try {
+		auto command = messageParts.at(0);
+		std::string result;
+
+		//will be converted into array of functions later once we have finalized the commands
+		//since different commands require different ways to deal with
+		if(command == "LogIn") {
+			auto username = messageParts.at(1);
+			auto password = messageParts.at(2);
+
+			//auto answer = userManager.login(username, password);
+			//return answer;
+			return "test";
+		}
+		else if(command == "CreateAcc") {
+	        auto username = messageParts.at(1);
+			auto password = messageParts.at(2);
+
+			//auto answer = userManager.createUser(username, password);
+			//return answer;
+
+			return "test";
+>>>>>>> 3a37af32e579c714159e45a4e591b8588b54c1a4
+		}
+		else if(command == "Move") {
+			auto user = getUser(messageParts.at(1));
+			auto direction = messageParts.at(2);
+
+			if(user == nullptr) {
+				result = "Please log in to play.";
+			}
+			else {
+				result = "Moved to ";
+				result.append(std::to_string(world->move(user, 0)));
+			}
+		}
+		else if(command == "Look") {
+			result = world->look(0);
+		}else if(command == "test") {
+			testOnlineUser();
+		}
+		return result;
+
+	}
+	catch (exception& e) {
+		return "Invalid command. Please try again.";
+	}
 }
 
 void GameManager::heartbeat() const {
@@ -77,5 +147,5 @@ void GameManager::heartbeat() const {
 
 User* GameManager::getUser(const std::string userName) const {
 	return nullptr;
-	//need function getUserByUsername(string username) in UserManager API
+	//need function User* getUserByUsername(string username) in UserManager API
 }
