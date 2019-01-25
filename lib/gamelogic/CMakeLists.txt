@@ -3,7 +3,7 @@ add_subdirectory(character)
 add_subdirectory(world)
 
 add_library(gamelogic
-  GameManager.cpp
+  src/GameManager.cpp
 )
 
 target_include_directories(gamelogic
@@ -12,20 +12,23 @@ target_include_directories(gamelogic
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/character/include>
   PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/world
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${Boost_INCLUDE_DIR}
 )
 
 target_link_libraries(gamelogic
-  PUBLIC
-        world
-        character
   PRIVATE
+    world
+    accountmanager
+    character
     ${Boost_LIBRARIES}
 )
 
-
-
+set_target_properties(gamelogic
+                      PROPERTIES
+                      LINKER_LANGUAGE CXX
+                      CXX_STANDARD 17
+)
 
 install(TARGETS gamelogic
   ARCHIVE DESTINATION lib

@@ -9,7 +9,7 @@
 #include "Server.h"
 #include "User.h"
 #include "AccountManager.h"
-#include "../../lib/gamelogic/GameManager.h"
+#include "GameManager.h"
 
 // #include <experimental/filesystem>
 #include <fstream>
@@ -47,7 +47,7 @@ onDisconnect(Connection c) {
   clients.erase(eraseBegin, std::end(clients));
 }
 
-std::vector<std::string> getInfo(const std::string& message){
+/*std::vector<std::string> getInfo(const std::string& message){
   std::size_t pos = message.find(" ");  
   std::string userInfo = message.substr(pos + 1);
   pos = userInfo.find(" ");
@@ -100,7 +100,7 @@ std::string logOut() {
   }else{
     return "Please login! \n";
   }
-}
+}*/
 
 std::string
 processMessages(Server &server,
@@ -108,20 +108,12 @@ processMessages(Server &server,
                 bool &quit) {
   std::ostringstream result;
   for (auto& message : incoming) {
-    std::string token = message.text.substr(0, message.text.find(" "));
     if (message.text == "quit") {
       server.disconnect(message.connection);
     } else if (message.text == "shutdown") {
       std::cout << "Shutting down.\n";
       quit = true;
-    } else if(token == "login"){
-      result << message.connection.id << "> " << authUser(message.text);
-    } else if(token == "logout") {
-      result << message.connection.id << "> " << logOut();
-    } else if(token == "create"){
-      result << message.connection.id << "> " << createUser(message.text);
-    }
-    else {
+    } else {
       result << message.text;
       //result << message.connection.id << "> " << message.text << "\n";
     }

@@ -8,12 +8,9 @@
 
 #include <string>
 #include <vector>
-//#include <algorithm> //std::any_of
 #include <utility> //std::move (objects)
-#include "../include/Exit.h"
-
-//Messyish but we can fix later
-#include "../../character/include/Character.h"
+#include "Exit.h"
+#include "Character.h"
 
 class Room {
 

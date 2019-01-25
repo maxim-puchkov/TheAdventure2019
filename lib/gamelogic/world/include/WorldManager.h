@@ -10,7 +10,7 @@
 #include <cstdlib> //std::rand
 #include "Area.h"
 #include "Room.h"
-#include "../../character/include/Character.h"
+#include "Character.h"
 
 class WorldManager {
 private:

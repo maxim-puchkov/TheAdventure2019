@@ -5,6 +5,7 @@
 #ifndef WEBSOCKETNETWORKING_EXIT_H
 #define WEBSOCKETNETWORKING_EXIT_H
 
+#include <string>
 #include "LocationCoordinates.h"
 
 class Exit{

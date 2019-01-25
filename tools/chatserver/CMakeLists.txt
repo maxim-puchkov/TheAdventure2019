@@ -16,6 +16,7 @@ target_link_libraries(chatserver
   networking
   accountmanager
   gamelogic
+  world
   ${CMAKE_THREAD_LIBS_INIT}
 )
 

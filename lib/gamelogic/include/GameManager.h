@@ -5,14 +5,16 @@
 #ifndef WEBSOCKETNETWORKING_GAMEMANAGER_H
 #define WEBSOCKETNETWORKING_GAMEMANAGER_H
 
+
 #include <string>
+#include <vector>
+#include <exception>
 #include <cstdlib>
 #include <boost/algorithm/string.hpp>
-#include <vector>
-#include "world/include/WorldManager.h"
-#include "../accountManager/include/AccountManager.h"
-#include "../accountManager/include/User.h"
-#include "character/include/Character.h"
+#include "User.h"
+#include "WorldManager.h"
+#include "AccountManager.h"
+#include "Character.h"
 
 class GameManager{
 

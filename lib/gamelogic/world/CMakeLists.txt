@@ -2,7 +2,8 @@ add_library(world
         src/Exit.cpp
         src/Room.cpp
         src/WorldManager.cpp
-        include/LocationCoordinates.h src/Area.cpp include/Area.h)
+        include/LocationCoordinates.h src/Area.cpp include/Area.h
+)
 
 target_include_directories(world
         PUBLIC
@@ -10,8 +11,12 @@ target_include_directories(world
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}/src
-        )
+)
 
+target_link_libraries(world
+  accountmanager
+  character
+)
 
 set_target_properties(world
     PROPERTIES
