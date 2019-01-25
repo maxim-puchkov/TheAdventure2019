@@ -10,16 +10,25 @@
 template<typename T>
 struct Command {
     
+    Command() {
+        
+    }
+    
     constexpr auto& as_const(T &ts) noexcept;
     
-    auto eval(T &&ts);
+    T eval(const T &ts);
+    
+    T eval(T &&ts);
     
     auto defineNew(T &&ts);
     
     constexpr auto operator()(T &&ts);
     
-    Command& operator=(const Command &) = delete;
+    //
+    //    int handleoperator=(T &&...ts) {
+    //        return all(ts);
+    //    };
     
-    Command& operator=(Command &&) = default;
+    
     
 };

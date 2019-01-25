@@ -17,7 +17,7 @@ using std::string;
 using std::regex;
 using std::sregex_token_iterator;
 
-const string EMPTY_STR_TOKEN = "";
+const string EMPTY_STR_TOKEN = "<NULL ARG>";
 
 /**
  *  @class TokenizedString
@@ -58,7 +58,7 @@ public:
         return EMPTY_STR_TOKEN;
     }
     
-    vector<string> nextTokens(int count) {
+    vector<string> spaceSeparatedTokens(int count) {
         vector<string> tokens;
         for (int i = 0; i < count; i++) {
             tokens.push_back(this->nextToken());

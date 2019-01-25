@@ -8,9 +8,14 @@
 #ifndef Environment_h
 #define Environment_h
 
+#include <exception>
 #include <map>
+#include <iostream>
+#include <string>
 
-const std::string ENV_BINDING_ERROR = "Environment error: Search key is not created.";
+using std::string;
+
+const string ENV_BINDING_ERROR = "Map Environment error: Search key is not created.";
 
 /**
  *  @class Environment
@@ -21,11 +26,15 @@ template<class T, class E>
 class Environment {
 public:
     
+    Environment() {}
+    
+    ~Environment() {}
+    
     void bind(const T t, const E e) {
         this->map.insert(std::pair<T, E>(t, e));
     }
     
-    E lookup(const T &t) throw() {
+    E lookup(const T &t) {
         auto it = this->map.find(t);
         if (it != this->map.end()) {
             return it->second;
@@ -39,6 +48,5 @@ private:
     std::invalid_argument exception = std::invalid_argument(ENV_BINDING_ERROR);
     
 };
-
 
 #endif /* Environment_h */

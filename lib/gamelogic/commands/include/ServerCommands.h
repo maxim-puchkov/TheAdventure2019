@@ -8,8 +8,16 @@
 #include <vector>
 #include <string>
 #include <regex>
-#include "TokenizedString.h"
 #include "Environment.h"
+#include "TokenizedString.h"
+
+typedef string (*function_ptr)(const vector<string>&);
+
+// Function pointer and number of arguments
+struct FnDescriptor {
+    function_ptr functionPtr;
+    int argCount;
+};
 
 using std::vector;
 using std::string;
@@ -21,24 +29,19 @@ using std::string;
  */
 class ServerCommands {
 public:
+    
+    ServerCommands();
+    
     // Function must return string and take one "const vector<string>&" argument
     typedef string (*function_ptr)(const vector<string>&);
     
-    // Function pointer and number of arguments
-    struct FnDescriptor {
-        function_ptr functionPtr;
-        int argCount;
-    };
-    
     // Add a new command
-    void createNew(string commandName, function_ptr commandFn, int argCount);
+    void defineNew(string commandName, function_ptr commandFn, int argCount);
     
-    Environment<string, FnDescriptor> builtIn();
+    Environment<string, FnDescriptor> builtInEnv();
     
     // Tokenize and evaluate input
-    string process(const string &&input) noexcept;
-    
-private:
+    string process(const string &input);
     
     // Built-in commands
     Environment<string, FnDescriptor> env;

@@ -6,13 +6,12 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "ServerCommands.h"
-#include "CommandDefinitions.h"
+#include "CommandDefintions.h"
 #include "Server.h"
 #include "User.h"
 #include "AccountManager.h"
 #include "GameManager.h"
 #include "UserManager.h"
-#include "ServerCommands.h"
 
 // #include <experimental/filesystem>
 #include <fstream>
@@ -143,6 +142,7 @@ processMessages(Server &server,
                 const std::deque<Message> &incoming,
                 bool &quit) {
 <<<<<<< HEAD
+<<<<<<< HEAD
   std::ostringstream result;
   for (auto& message : incoming) {
     if (message.text == "quit") {
@@ -158,11 +158,18 @@ processMessages(Server &server,
   }
   return result.str();
 =======
+=======
+    ServerCommands commands = defineAllCommands();
+>>>>>>> Refined server processing, error handling
     std::ostringstream result;
     ServerCommands test = createTestCommands();
     for (auto& message : incoming) {
         result << message.connection.id << " > ";
+<<<<<<< HEAD
         result << test.process(std::move(message.text));
+=======
+        result << commands.process(std::move(message.text));
+>>>>>>> Refined server processing, error handling
         result << std::endl;
     }
     return result.str();

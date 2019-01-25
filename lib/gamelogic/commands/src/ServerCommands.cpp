@@ -7,16 +7,20 @@
 
 #include "ServerCommands.h"
 
-Environment<string, ServerCommands::FnDescriptor> ServerCommands::builtIn() {
+ServerCommands::ServerCommands() {
+    
+}
+
+Environment<string, FnDescriptor> ServerCommands::builtInEnv() {
     return this->env;
 }
 
-void ServerCommands::createNew(string commandName, function_ptr commandFn, int argCount) {
+void ServerCommands::defineNew(string commandName, function_ptr commandFn, int argCount) {
     FnDescriptor commandFunction = {commandFn, argCount};
     this->env.bind(commandName, commandFunction);
 }
 
-string ServerCommands::process(const string &&input) noexcept {
+string ServerCommands::process(const string &input) {
     string output;
     try {
         TokenizedString tokens(std::move(input));
@@ -25,12 +29,16 @@ string ServerCommands::process(const string &&input) noexcept {
         
         FnDescriptor commandFn = this->env.lookup(commandName);
         
-        std::vector<string> commandArguments = tokens.nextTokens(commandFn.argCount);
+        std::vector<string> commandArguments = tokens.spaceSeparatedTokens(commandFn.argCount);
         
         output = commandFn.functionPtr(commandArguments);
-    } catch (std::exception &e) {
-        output = e.what();
+        
+        // [&output](string x, string y) { commandFn.functionPtr(x, y); };
+    } catch (std::invalid_argument &e) {
+        return e.what();
     }
     
     return output;
 }
+
+
