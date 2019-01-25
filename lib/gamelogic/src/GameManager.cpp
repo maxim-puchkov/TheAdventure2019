@@ -5,6 +5,8 @@
 #include "AccountManager.h"
 #include "User.h"
 
+using namespace accountmanager;
+
 GameManager* GameManager::instance = 0; //set to null, will be initialized on demand
 
 GameManager* GameManager::getInstance() {
@@ -32,16 +34,17 @@ std::string GameManager::extractCommands(const std::string command) const {
 	std::string result;
 
 	if(trimmed.at(0) == "LogIn") {
-		accountmanager::AccountManager manager;
-		User user = manager.login(trimmed.at(1), trimmed.at(2));
-		if( user.getUserName().empty() ) {
+		AccountManager manager;
+		AccountManager::ACCOUNT_CODE code = manager.login(trimmed.at(1), trimmed.at(2));
+
+		if( code == AccountManager::ACCOUNT_CODE::USER_NOT_FOUND ) {
 			result = "Failed to log in";
 		} else {
 			result = "Succeeded to log in";
 		}
 	}
 	else if(trimmed.at(0) == "CreateAcc") {
-		accountmanager::AccountManager manager;
+		AccountManager manager;
 		User user = manager.createUser(trimmed.at(1), trimmed.at(2));
 		if( user.getUserName().empty() ) {
 			result = "Failed to create account";

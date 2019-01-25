@@ -11,13 +11,19 @@ using user::User;
 namespace accountmanager {
 
 class AccountManager {
-  // private:
+  public:
+    enum class ACCOUNT_CODE : uint8_t {
+      SUCCESFUL_LOGIN,    
+      USER_NOT_FOUND,  
+      USER_LOGGED_IN       
+    };
+
+  private:
     
-  //   std::unordered_map<std::string, User> usersDB;
-  //   std::unordered_map<std::string, User> test;
+    void processUsersJSON();
 
   public:
-    User login(std::string, std::string );
+    ACCOUNT_CODE login(std::string, std::string );
 
     User logOut(std::string, std::string );
 
@@ -26,7 +32,7 @@ class AccountManager {
     bool isOnline();
 
     void updateOnlineStatus();
-};
+    };
 }
 
 #endif

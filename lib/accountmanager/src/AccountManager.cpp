@@ -14,36 +14,46 @@ using user::User;
 
 using accountmanager::AccountManager;
 
-    
     User fakeUser{"name", "password"};
     User nullUser{"", ""};
 
     unordered_map<string, User> usersDB = {{"name", fakeUser}};
     unordered_map<string, User> onlineUsers;
 
-    User AccountManager::login(std::string name, std::string pwd){
+    bool jsonProcessed = false;
+    json users_json;
 
-        // std::ifstream users_file("users.json");
-        // json users_json = json::parse(users_file);
+    void AccountManager::processUsersJSON(){
+
+        try{
+            std::ifstream users_file("/Users/ParmJohal/Desktop/373project/users.json");
+            users_json << users_file;
+        }
+        catch(nlohmann::detail::type_error e){
+            cout << e.what() << "\n";
+        }
+    }
+
+    void saveUsersJSON(){
+        std::ofstream file("/Users/ParmJohal/Desktop/373project/users.json");
+        file << users_json;
+    }
+
+    AccountManager::ACCOUNT_CODE AccountManager::login(std::string name, std::string pwd){
         
-        // for(json tmp: users_json){
-            
-        //     usersDB.insert( pair<std::string,User>(name, User{name,pwd}) );
+        if(jsonProcessed == false){
+            processUsersJSON();
+        }
 
-        // }
-        
-        //Check if user is logged in in the usersDB
-        auto search = usersDB.find(name);
+        if((users_json[name]["password"] == pwd)){
 
-        if (search != usersDB.end() && onlineUsers.find(name) == onlineUsers.end()) {
-
-            // if they are logged in add to onlineUsers and return User
-            onlineUsers.insert( pair<std::string,User>(name, search->second) );
-            return search->second;
+            // Insert into the usermanager hash table
+            onlineUsers.insert( pair<std::string,User>(name, User{name,pwd}) );
+            return AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN;
         }
         else{
             cout << "Invalid Credentials: User not Found" << "\n";
-            return nullUser;
+            return AccountManager::ACCOUNT_CODE::USER_NOT_FOUND;
         }
     }
 
@@ -63,15 +73,20 @@ using accountmanager::AccountManager;
 
     User AccountManager::createUser(std::string name, std::string pwd){
 
+        if(jsonProcessed == false){
+            processUsersJSON();
+        }
+
+        // TODO: REPLACE WITH NEW USERMANAGER CODE
         auto search = usersDB.find(name);
         if(search != usersDB.end()){
             return nullUser;
         }
         else{
-            User user(name,pwd);
-            usersDB.insert( pair<std::string,User>(name, User{name,pwd}) );
-
-            return user;
+            users_json[name]["password"] = pwd;
+            cout << users_json << "\n";
+            saveUsersJSON();
+            return User{name,pwd};
         }
     }
 

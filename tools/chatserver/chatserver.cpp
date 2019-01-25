@@ -65,10 +65,10 @@ std::string authUser(const std::string& message) {
   
   auto checkingUser = userManager.login(uName, uPwd);
 
-  if(checkingUser.getUserName() != "") {
+  if(checkingUser == AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN) {
     
-    userLogin.setUserName(checkingUser.getUserName());
-    userLogin.setUserPasswd(checkingUser.getUserPasswd());
+    userLogin.setUserName(uName);
+    userLogin.setUserPasswd(uPwd);
     return "Welcome " + userLogin.getUserName() + "\n";
   }
   return "Invalid Credentials: User not Found\n";
