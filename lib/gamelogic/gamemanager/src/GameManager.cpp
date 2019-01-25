@@ -2,7 +2,7 @@
 #include <boost/algorithm/string.hpp>
 #include <vector>
 #include <exception>
-#include "../include/GameManager.h"
+#include "GameManager.h"
 #include "AccountManager.h"
 #include "User.h"
 
