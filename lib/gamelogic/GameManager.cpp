@@ -2,29 +2,19 @@
 #include "GameManager.h"
 
 
-GameManager* GameManager::instance = 0; //set to null, will be initialized on demand
-
-GameManager* GameManager::getInstance() {
-    if (instance == 0) {
-        GameManager newInstance;
-        instance = &newInstance;
-    }
-	return instance;
-}
-
 GameManager::GameManager() {
 	WorldManager newWorld;
-	world = &newWorld;
-	world->generateWorld();
+	world = newWorld;
+	world.generateWorld();
 
 	//temp dummy char setup
-	Character dummy;
-	dummy.setCurrentLocation(0,0);
-	Character* newCharacter = &dummy;
+	Character* newCharacter = new Character();
+	newCharacter->setCurrentLocation(0,0);
 	this->dummyCharacter = newCharacter;
 }
 
 std::string GameManager::extractCommands(const std::string command) const {
+    if(command.empty()) return command;
 	std::vector<std::string> trimmed;
 	boost::split(trimmed, command, boost::is_any_of(" "));
 /*	hard coded data
@@ -32,8 +22,7 @@ std::string GameManager::extractCommands(const std::string command) const {
 	trimmed.at(1) = "User";
 	trimmed.at(2) = "Pswd";
 */
-	std::string result = command;
-    result.append("\n");
+	std::string result;
 
 	if(trimmed.at(0) == "LogIn") {
 		accountmanager::AccountManager manager;
@@ -54,27 +43,17 @@ std::string GameManager::extractCommands(const std::string command) const {
 		}
 	}
 	else if(trimmed.at(0) == "move") {
-		if(world->move(this->dummyCharacter, 0)){
-			result = "Move worked";
-		}else{
-			result = "Move failed";
-		}
-		//result = world->look(dummyCharacter->getCurrentLocation());
-		/*User *user = getUser(trimmed.at(1));
-		if( user->getUserName().empty() ) {
-			result = "Invalid move";
-		}
-		else {
-			//WorldManager manager;
-			result = "Moved to ";
-			result.append(std::to_string(world->move(user, 0)));
-		}*/
+		LocationCoordinates movLoc = world.move(this->dummyCharacter, 0);
+		result = "moved to: ";
+		result.append(std::to_string(movLoc.area));
+		result.append(", ");
+        result.append(std::to_string(movLoc.room));
 	}
 	else if(trimmed.at(0) == "look") {
-		//WorldManager manager;
-		result = world->look(dummyCharacter->getCurrentLocation());
+		LocationCoordinates loc = this->dummyCharacter->getCurrentLocation();
+		result = world.look(loc);
 	}
-
+	result.append("\n");
 	return result;
 }
 

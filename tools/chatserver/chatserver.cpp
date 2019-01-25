@@ -167,6 +167,7 @@ main(int argc, char* argv[]) {
   unsigned short port = std::stoi(argv[1]);
   Server server{port, getHTTPMessage(argv[2]), onConnect, onDisconnect};
 
+  GameManager gm;
 
   while (!done) {
     try {
@@ -180,7 +181,7 @@ main(int argc, char* argv[]) {
     auto incoming = server.receive();
     auto log      = processMessages(server, incoming, done);
 
-    log = GameManager::getInstance()->extractCommands(log);
+    log = gm.extractCommands(log);
 
     auto outgoing = buildOutgoing(log);
     server.send(outgoing);

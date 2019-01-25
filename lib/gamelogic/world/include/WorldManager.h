@@ -6,20 +6,21 @@
 #define WEBSOCKETNETWORKING_WORLDMANAGER_H
 
 #include <string>
+#include <vector>
 #include <cstdlib> //std::rand
-#include "../include/Room.h"
+#include "Area.h"
+#include "Room.h"
 #include "../../character/include/Character.h"
 
 class WorldManager {
 private:
-    Room worldRooms[10];
+    std::vector<Area> areas;
 public:
     WorldManager();
     void generateWorld();
-    bool move(Character* character, short direction);
+    LocationCoordinates move(Character* character, short direction) const;
     std::string look(LocationCoordinates location) const;
 };
-
 
 
 

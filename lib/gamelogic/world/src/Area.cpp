@@ -7,14 +7,19 @@
 /**
  * Returns a room at a particular index from an area
  */
-Room Area::getRoom(int index) {
-    if(index < 0){
-        //return error?
-    }
+Room Area::getRoom(unsigned int index) const {
     if(index >= rooms.size()){
         //return some invalid room
     }
     return rooms.at(index);
+}
+
+void Area::addRoom(Room room){
+    rooms.push_back(room);
+}
+
+unsigned int Area::size() const{
+    return rooms.size();
 }
 
 const std::string &Area::getName() const {

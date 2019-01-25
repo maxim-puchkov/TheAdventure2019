@@ -6,6 +6,7 @@
 #define WEBSOCKETNETWORKING_GAMEMANAGER_H
 
 #include <string>
+#include <cstdlib>
 #include <boost/algorithm/string.hpp>
 #include <vector>
 #include "world/include/WorldManager.h"
@@ -16,13 +17,12 @@
 class GameManager{
 
 private:
-    static GameManager* instance;
-    GameManager();
-    WorldManager *world;
+    WorldManager world;
     Character *dummyCharacter;
 	user::User *getUser(const std::string userName) const;
 
 public:
+    GameManager();
     static GameManager* getInstance();
     //~GameManager();
 	std::string extractCommands(const std::string command) const;
