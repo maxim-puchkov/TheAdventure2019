@@ -15,9 +15,9 @@ find_package(Threads REQUIRED)
 target_link_libraries(chatserver
   networking
   accountmanager
-  gamelogic
   world
   serverCommands
+  gamemanager
   ${CMAKE_THREAD_LIBS_INIT}
 )
 
