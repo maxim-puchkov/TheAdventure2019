@@ -66,3 +66,23 @@ bool Room::removeCharacter(Character * character){
 	}
 	return false;
 }
+
+std::string Room::lookForName(std::string objName) const{
+	std::string result;
+	for(auto * roomCharacter : charactersInRoom){
+		if(roomCharacter->getName() == objName){
+			result = "A stranger stands before you with the name ";
+			result.append(roomCharacter->getName());
+			return result;
+		}
+	}
+	for(Exit roomExit : exitsInRoom){
+		if(roomExit.getExitName() == objName){
+			result = roomExit.getExitDescription();
+			return result;
+		}
+	}
+	result = "You couldn't find anything called ";
+	result.append(objName);
+	return result;
+}

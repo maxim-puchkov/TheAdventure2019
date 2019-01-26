@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <exception>
 #include <cstdlib> //std::rand
 #include "Area.h"
 #include "Room.h"
@@ -18,8 +19,15 @@ private:
 public:
     WorldManager();
     void generateWorld();
+    Room findRoomByLocation(LocationCoordinates location) const;
+
+    //commands
+    bool kick(Character* character);
+    bool spawn(Character* character, LocationCoordinates location);
+    std::string say (Character* character, std::string message) const;
     LocationCoordinates move(Character* character, Exit::CardinalDirection direction) const;
     std::string look(Character* character) const;
+    std::string look(Character* character, std::string objName) const;
 };
 
 

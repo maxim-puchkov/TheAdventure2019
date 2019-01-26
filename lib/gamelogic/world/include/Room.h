@@ -35,6 +35,7 @@ public:
                     Exit::CardinalDirection cardinalDirection, int areaID, int roomID);
     bool addCharacter(Character* character);
     bool removeCharacter(Character* character);
+    std::string lookForName(std::string objName) const;
     //getters
     std::string getName() const { return roomName; }
     std::string getDescription() const { return roomDescription; }
