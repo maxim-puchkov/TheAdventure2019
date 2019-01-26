@@ -5,7 +5,7 @@
 #include "GameManager.h"
 #include "AccountManager.h"
 #include "User.h"
-#include "OnlineUserManager.h"
+#include "../../../usermanager/include/OnlineUserManager.h"
 
 using namespace std;
 using user::User;
@@ -114,9 +114,6 @@ std::string GameManager::extractCommands(const std::string fullMessage) const {
 			result = world->look(0);
 		}else if(command == "test") {
 			testOnlineUser();
-		}
-		else if(command == "testaccount"){
-			testAccountManager();
 		}
 		return result;
 

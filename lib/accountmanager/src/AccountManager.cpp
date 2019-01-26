@@ -27,7 +27,6 @@ using usermanager::OnlineUserManager;
     bool jsonProcessed = false;
     json users_json;
 
-
     AccountManager::AccountManager(){
         processUsersJSON();
     }
@@ -41,7 +40,7 @@ using usermanager::OnlineUserManager;
             std::ifstream users_file("/Users/ParmJohal/Desktop/373project/users.json");
             users_json << users_file;
         }
-        catch(nlohmann::detail::type_error e){
+        catch(nlohmann::detail::parse_error e){
             cout << e.what() << "\n";
         }
     }
@@ -88,6 +87,9 @@ using usermanager::OnlineUserManager;
 
         if(jsonProcessed == false){
             processUsersJSON();
+        }
+        if(users_json == nullptr){
+            cout << "BITCH";
         }
 
         // if((onlineUserMananger.getUser("test123").getUserName() == "")){
