@@ -51,15 +51,14 @@ onDisconnect(Connection c) {
 }
 
 
-std::unordered_map<std::string, std::string>
+std::unique_ptr<std::unordered_map<std::string, std::string>>
 processMessages(Server &server,
                 const std::deque<Message> &incoming,
                 bool &quit) {
 
-  std::unordered_map<std::string, std::string> result;
-
+  auto result = std::make_unique<std::unordered_map<std::string, std::string>>();
   for (auto& message : incoming) {
-    //std::cout << message.text << "\n";
+
     if (message.text == "quit") {
       server.disconnect(message.connection);
     } else if (message.text == "shutdown") {
@@ -70,21 +69,21 @@ processMessages(Server &server,
       std::string serverAnswer = connectionID + "> " + message.text + "\n";
       serverAnswer.append(gm.extractCommands(connectionID, message.text));
 
-      std::pair<std::string, std::string> answerPair (connectionID, serverAnswer);
-      result.insert(answerPair);
+      std::pair<std::string, std::string> answerPair = std::make_pair(connectionID, serverAnswer);
+
+      result->insert(std::move(answerPair));
     }
   }
   return result;
 }
 
 
-
 std::deque<Message>
-buildOutgoing(const std::unordered_map<std::string, std::string>& logs) {
+buildOutgoing(std::unique_ptr<std::unordered_map<std::string, std::string>> logs) {
   std::deque<Message> outgoing;
   for (auto client : clients) {
-    auto found = logs.find(std::to_string(client.id));
-    if(found != logs.end())
+    auto found = logs->find(std::to_string(client.id));
+    if(found != logs->end())
       outgoing.push_back({client, found->second});
   }
   return outgoing;
@@ -130,7 +129,7 @@ main(int argc, char* argv[]) {
 
     auto incoming = server.receive();
     auto logs      = processMessages(server, incoming, done);
-    auto outgoing = buildOutgoing(logs);
+    auto outgoing = buildOutgoing(std::move(logs));
     server.send(outgoing);
     sleep(1);
   }
