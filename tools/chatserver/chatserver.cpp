@@ -5,7 +5,8 @@
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
-
+#include "ServerCommands.h"
+#include "CommandDefintions.h"
 #include "Server.h"
 #include "User.h"
 #include "AccountManager.h"
@@ -20,6 +21,7 @@
 #include <stdint.h>
 #include <string>
 #include <vector>
+
 
 using networking::Server;
 using networking::Connection;
@@ -47,78 +49,19 @@ onDisconnect(Connection c) {
   clients.erase(eraseBegin, std::end(clients));
 }
 
-/*std::vector<std::string> getInfo(const std::string& message){
-  std::size_t pos = message.find(" ");  
-  std::string userInfo = message.substr(pos + 1);
-  pos = userInfo.find(" ");
-  std::string uName = userInfo.substr(0, pos);
-  std::string uPwd = userInfo.substr(pos + 1);
-
-  return std::vector<std::string>{uName, uPwd};
-}
-
-std::string authUser(const std::string& message) {
-  std::vector<std::string> userInfo = getInfo(message);
-
-  std::string uName = userInfo[0];
-  std::string uPwd = userInfo[1];
-  
-  auto checkingUser = userManager.login(uName, uPwd);
-
-  if(checkingUser.getUserName() != "") {
-    
-    userLogin.setUserName(checkingUser.getUserName());
-    userLogin.setUserPasswd(checkingUser.getUserPasswd());
-    return "Welcome " + userLogin.getUserName() + "\n";
-  }
-  return "Invalid Credentials: User not Found\n";
-}
-
-std::string createUser(const std::string& message){
-
-  std::vector<std::string> userInfo = getInfo(message);
-  std::ostringstream result;
-
-  std::string uName = userInfo[0];
-  std::string uPwd = userInfo[1];
-
-  auto userCreated = userManager.createUser(uName, uPwd);
-
-  if(userCreated.getUserName() != "")
-    return "User Created, Please Login.\n";
-  else
-    return "Username already exits, Sorry :(\n";
-}
-
-std::string logOut() {
-  auto userLogout = userManager.logOut(userLogin.getUserName(), userLogin.getUserPasswd());
-
-  if(userLogout.getUserName() != "") {
-    userLogin.setUserName("");
-    userLogin.setUserPasswd("");
-    return "You are logged out\n";
-  }else{
-    return "Please login! \n";
-  }
-}*/
 
 std::string
 processMessages(Server &server,
                 const std::deque<Message> &incoming,
                 bool &quit) {
-  std::ostringstream result;
-  for (auto& message : incoming) {
-    if (message.text == "quit") {
-      server.disconnect(message.connection);
-    } else if (message.text == "shutdown") {
-      std::cout << "Shutting down.\n";
-      quit = true;
-    } else {
-      result << message.text;
-      //result << message.connection.id << "> " << message.text << "\n";
+    ServerCommands commands = defineAllCommands();
+    std::ostringstream result;
+    for (auto& message : incoming) {
+        result << message.connection.id << " > ";
+        result << commands.process(std::move(message.text));
+        result << std::endl;
     }
-  }
-  return result.str();
+    return result.str();
 }
 
 
@@ -159,7 +102,6 @@ main(int argc, char* argv[]) {
   unsigned short port = std::stoi(argv[1]);
   Server server{port, getHTTPMessage(argv[2]), onConnect, onDisconnect};
 
-  GameManager gm;
 
   while (!done) {
     try {
@@ -172,9 +114,6 @@ main(int argc, char* argv[]) {
 
     auto incoming = server.receive();
     auto log      = processMessages(server, incoming, done);
-
-    log = gm.extractCommands(log);
-
     auto outgoing = buildOutgoing(log);
     server.send(outgoing);
     sleep(1);

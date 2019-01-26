@@ -21,6 +21,7 @@ target_include_directories(chatclient
 
 target_link_libraries(chatclient
   networking
+ 
   ${CURSES_LIBRARIES}
   ${CMAKE_THREAD_LIBS_INIT}
 )

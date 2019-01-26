@@ -10,8 +10,8 @@ void WorldManager::generateWorld() {
     for(int i = 0; i < 10; i++){
         std::string roomName = "Room number " + std::to_string(i+1);
         std::string roomDescription = "This dark room contains only the number " + std::to_string(i+1);
-        int exit1TargetID = /*std::rand() % */(i+1); //rand ID from 0 to i
-        int exit2TargetID = /*std::rand() % */(i+2); //rand ID from 0 to i
+        int exit1TargetID = i+1;
+        int exit2TargetID = i+2;
 
         Room r(roomName, roomDescription);
         r.createExit("Exit 1", "The first exit. Looks shady.", Exit::CardinalDirection::NORTH, 0, exit1TargetID);
