@@ -21,7 +21,8 @@
 #include <stdint.h>
 #include <string>
 #include <vector>
-
+#include <unordered_map>
+#include <utility>
 
 using networking::Server;
 using networking::Connection;
@@ -33,7 +34,7 @@ using accountmanager::AccountManager;
 std::vector<Connection> clients;
 User userLogin{"",""};
 AccountManager userManager{};
-
+GameManager gm;
 
 void
 onConnect(Connection c) {
@@ -50,26 +51,41 @@ onDisconnect(Connection c) {
 }
 
 
-std::string
+std::unordered_map<std::string, std::string>
 processMessages(Server &server,
                 const std::deque<Message> &incoming,
                 bool &quit) {
-    ServerCommands commands = defineAllCommands();
-    std::ostringstream result;
-    for (auto& message : incoming) {
-        result << message.connection.id << " > ";
-        result << commands.process(std::move(message.text));
-        result << std::endl;
+
+  std::unordered_map<std::string, std::string> result;
+
+  for (auto& message : incoming) {
+    //std::cout << message.text << "\n";
+    if (message.text == "quit") {
+      server.disconnect(message.connection);
+    } else if (message.text == "shutdown") {
+      std::cout << "Shutting down.\n";
+      quit = true;
+    } else {
+      std::string connectionID = std::to_string(message.connection.id);
+      std::string serverAnswer = connectionID + "> " + message.text + "\n";
+      serverAnswer.append(gm.extractCommands(connectionID, message.text));
+
+      std::pair<std::string, std::string> answerPair (connectionID, serverAnswer);
+      result.insert(answerPair);
     }
-    return result.str();
+  }
+  return result;
 }
 
 
+
 std::deque<Message>
-buildOutgoing(const std::string& log) {
+buildOutgoing(const std::unordered_map<std::string, std::string>& logs) {
   std::deque<Message> outgoing;
   for (auto client : clients) {
-    outgoing.push_back({client, log});
+    auto found = logs.find(std::to_string(client.id));
+    if(found != logs.end())
+      outgoing.push_back({client, found->second});
   }
   return outgoing;
 }
@@ -113,8 +129,8 @@ main(int argc, char* argv[]) {
     }
 
     auto incoming = server.receive();
-    auto log      = processMessages(server, incoming, done);
-    auto outgoing = buildOutgoing(log);
+    auto logs      = processMessages(server, incoming, done);
+    auto outgoing = buildOutgoing(logs);
     server.send(outgoing);
     sleep(1);
   }

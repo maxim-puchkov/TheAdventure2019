@@ -13,7 +13,11 @@ GameManager::GameManager() {
     this->dummyCharacter = newCharacter;
 }
 
-std::string GameManager::extractCommands(const std::string command) const {
+std::string GameManager::extractCommands(const std::string connectionID, const std::string command) const {
+
+    //test answer
+    return "test";
+
     if(command.empty()) return command;
     std::vector<std::string> trimmed;
     boost::split(trimmed, command, boost::is_any_of(" "));
