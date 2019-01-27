@@ -5,17 +5,27 @@
 #ifndef WEBSOCKETNETWORKING_GAMEMANAGER_H
 #define WEBSOCKETNETWORKING_GAMEMANAGER_H
 
+
+#include <string>
+#include <vector>
+#include <exception>
+#include <cstdlib>
+#include <boost/algorithm/string.hpp>
+#include "User.h"
 #include "WorldManager.h"
+#include "AccountManager.h"
+#include "Character.h"
+#include "Exit.h"
 
 class GameManager{
 
 private:
-    static GameManager* instance;
-    GameManager();
-    WorldManager *world;
-	user::User* getUser(const std::string userName) const;
+    WorldManager world;
+    Character *dummyCharacter;
+	user::User *getUser(const std::string userName) const;
 
 public:
+    GameManager();
     static GameManager* getInstance();
     //~GameManager();
 	std::string extractCommands(const std::string command) const;
