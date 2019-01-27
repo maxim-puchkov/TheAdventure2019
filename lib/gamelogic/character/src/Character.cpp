@@ -33,6 +33,10 @@ LocationCoordinates Character::getCurrentLocation() {
     return this->currentLocation;
 }
 
+void Character::setCurrentLocation(LocationCoordinates newLocation) {
+    this->currentLocation = newLocation;
+}
+
 bool Character::isInCombat() {
     return false;
 }
