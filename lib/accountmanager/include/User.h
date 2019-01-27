@@ -6,6 +6,8 @@
 
 using std::string;
 
+namespace user {
+
 class User {
 public:
     
@@ -42,5 +44,7 @@ private:
     void test();
     
 };
+    
+}
 
 #endif
