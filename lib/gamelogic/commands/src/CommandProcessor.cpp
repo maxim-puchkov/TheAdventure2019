@@ -36,13 +36,10 @@ string CommandProcessor::process(const string &input) {
         std::vector<string> commandArguments = tokens.spaceSeparatedTokens(commandFn.argCount);
         
         output = commandFn.functionPtr(commandArguments);
-    } catch (std::invalid_argument &e) {
-        // int ERROR = 0;
-        return e.what();
-    } catch (string customError) {
-        return customError;
     }
+    catch (std::invalid_argument &e) { return e.what(); }
+    catch (string &customErrorText) { return DEF_CATCH_MESSAGE + customErrorText; }
+    catch (const char *customErrorText) { return DEF_CATCH_MESSAGE + customErrorText; }
     
-    // int OK = 1;
     return output;
 }

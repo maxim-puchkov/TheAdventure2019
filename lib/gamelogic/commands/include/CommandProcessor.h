@@ -14,7 +14,7 @@
 using std::vector;
 using std::string;
 
-
+const string DEF_CATCH_MESSAGE = "Exception caught. Details: ";
 const string CMD_NOT_FOUND = "Invalid command. See available: help";
 
 
