@@ -105,6 +105,22 @@ getHTTPMessage(const char* htmlLocation) {
 }
 
 
+std::unique_ptr<std::unordered_map<std::string, std::string>>
+includeHeartbeatMessages(std::unique_ptr<std::unordered_map<std::string, std::string>> tableA, std::unique_ptr<std::unordered_map<std::string, std::string>> tableB) {
+  // x is each key in the tableB
+  for (auto x : *tableB) {
+    // if key exists in tableA
+    if ((*tableA).count(x.first) >= 0) {  
+      (*tableA).insert(x.first, ((*tableA).at(x.first)).append(x.second));
+    }
+    else {
+      (*tableA).insert(x.first, x.second);
+    }
+  }
+  return tableA;
+}
+
+
 int
 main(int argc, char* argv[]) {
   if (argc < 3) {
