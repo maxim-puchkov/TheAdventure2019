@@ -2,7 +2,7 @@ add_library(world
         src/Exit.cpp
         src/Room.cpp
         src/WorldManager.cpp
-        include/LocationCoordinates.h src/Area.cpp include/Area.h
+	src/Area.cpp
 )
 
 target_include_directories(world
@@ -24,3 +24,6 @@ set_target_properties(world
     CXX_STANDARD 17
 )
 
+install(TARGETS world
+  ARCHIVE DESTINATION lib
+)

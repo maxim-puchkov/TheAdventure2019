@@ -11,6 +11,7 @@
 #include <utility> //std::move (objects)
 #include "Exit.h"
 #include "Character.h"
+#include "LocationCoordinates.h"
 
 class Room {
 

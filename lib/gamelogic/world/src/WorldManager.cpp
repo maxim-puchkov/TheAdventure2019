@@ -54,7 +54,7 @@ bool WorldManager::spawn(Character* character, LocationCoordinates location){
     }
 
     spawnRoom.addCharacter(character);
-    character->setCurrentLocation(location);
+    //character->setCurrentLocation(location);
     return true;
 }
 
@@ -81,7 +81,9 @@ LocationCoordinates WorldManager::move(Character * character, Exit::CardinalDire
     }
 
     roomOfInterest.removeCharacter(character);
-    character->setCurrentLocation(newLocation);
+    
+    //build error: undefined reference
+    //character->setCurrentLocation(newLocation);
     newRoom.addCharacter(character);
     return newLocation;
 }
