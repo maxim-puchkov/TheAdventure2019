@@ -13,9 +13,6 @@
 
 using std::string;
 
-const int DEF_AVATAR_HEALTH = 100;
-const int DEF_AVATAR_DAMAGE = 10;
-const string DEF_AVATAR_NAME = "NO";
 
 
 /**

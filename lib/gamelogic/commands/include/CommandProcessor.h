@@ -21,12 +21,12 @@ struct FnDescriptor {
     int argCount;
 };
 
-/* If needed
- struct CommandResult {
- int status;
- string text;
- };
- */
+/*
+struct CommandResult {
+    int status;
+    string text;
+};
+*/
 
 using std::vector;
 using std::string;

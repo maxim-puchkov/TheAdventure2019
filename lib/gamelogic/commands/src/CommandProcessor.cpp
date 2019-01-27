@@ -8,7 +8,7 @@
 #include "CommandProcessor.h"
 
 CommandProcessor::CommandProcessor() {
-    std::cout << "PROC CREATED\n";
+    //std::cout << "PROCESSOR CREATED\n";
 }
 
 CommandProcessor::~CommandProcessor() {

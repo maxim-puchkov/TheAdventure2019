@@ -9,6 +9,16 @@
 
 Character::~Character() { }
 
+void Character::createCharacter(const std::string &name) {
+    this->name = DEF_CHAR_NAME;
+    this->baseAttr = Attributes(DEF_CHAR_HEALTH, DEF_CHAR_DAMAGE);
+    this->inventory = Inventory();
+    this->equipment = Equipment();
+    
+    // Creating a character
+    this->name = name;
+}
+
 std::string Character::getName() {
     return this->name;
 }

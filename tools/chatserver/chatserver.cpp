@@ -50,7 +50,7 @@ onDisconnect(Connection c) {
   clients.erase(eraseBegin, std::end(clients));
 }
 
-
+/*
 std::unique_ptr<std::unordered_map<std::string, std::string>>
 processMessages(Server &server,
                 const std::deque<Message> &incoming,
@@ -88,7 +88,31 @@ buildOutgoing(std::unique_ptr<std::unordered_map<std::string, std::string>> logs
   }
   return outgoing;
 }
+*/
 
+std::string
+processMessages(Server &server,
+                const std::deque<Message> &incoming,
+                bool &quit) {
+    CommandProcessor processor = BuiltInProcessor();
+    std::ostringstream result;
+    for (auto &message : incoming) {
+        result << message.connection.id << " > ";
+        result << processor.process(std::move(message.text));
+        result << std::endl;
+    }
+    return result.str();
+}
+
+
+std::deque<Message>
+buildOutgoing(const string &message) {
+    std::deque<Message> outgoing;
+    for (auto client : clients) {
+        outgoing.push_back({client, message});
+    }
+    return outgoing;
+}
 
 std::string
 getHTTPMessage(const char* htmlLocation) {
@@ -129,7 +153,7 @@ main(int argc, char* argv[]) {
 
     auto incoming = server.receive();
     auto logs      = processMessages(server, incoming, done);
-    auto outgoing = buildOutgoing(std::move(logs));
+    auto outgoing  = buildOutgoing(std::move(logs));
     server.send(outgoing);
     sleep(1);
   }

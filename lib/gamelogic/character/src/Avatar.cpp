@@ -30,16 +30,12 @@ Avatar::Avatar() {
 Avatar::~Avatar() { }
 
 void Avatar::init() {
-    std::cout << "Avatar created!\n";
+    this->createCharacter("< Test_Avatar >");
     
-    this->name = DEF_AVATAR_NAME;
-    this->baseAttr = Attributes(DEF_AVATAR_HEALTH, DEF_AVATAR_DAMAGE);
-    this->inventory = Inventory();
-    this->equipment = Equipment();
+    std::cout << "Character with name " + this->getName() + " created!\n";
 }
 
 void Avatar::createOnFirstLogin() {
-    this->name = "";
     this->appearance = this->createCustomAppearance();
 }
 

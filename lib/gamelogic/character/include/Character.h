@@ -15,6 +15,11 @@
 #include "Equipment.h"
 #include "../../world/include/LocationCoordinates.h"
 
+const std::string DEF_CHAR_NAME = "DEF_CHAR_NAME";
+const int DEF_CHAR_HEALTH = 100;
+const int DEF_CHAR_DAMAGE = 10;
+
+
 /**
  *  @class Character
  *
@@ -26,6 +31,8 @@ class Character {
 public:
     
     virtual ~Character();
+    
+    virtual void createCharacter(const std::string &name);
     
     // Get
     virtual std::string getName();

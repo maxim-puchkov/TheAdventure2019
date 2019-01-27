@@ -25,7 +25,7 @@ string exampleFunc2(const vector<string> &args) {
     return "Test output: Example User logged out!";
 }
 
-CommandProcessor defineAllCommands() {
+CommandProcessor BuiltInProcessor() {
     CommandProcessor commands;
     string cmdName = "login";
     function_ptr cmdFn = &exampleFunc1;
