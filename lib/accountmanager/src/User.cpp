@@ -1,4 +1,5 @@
 #include "User.h"
+#include <iostream>
 
 using user::User;
 using std::string;
@@ -6,7 +7,7 @@ using std::string;
 User::User(const string &name, const string &password) {
     this->name = name;
     this->password = password;
-    this->avatar = Avatar();
+    this->avatar = Avatar(name);
     
     this->test();
 }
@@ -30,8 +31,7 @@ void User::init() {
 }
 
 void User::test() {
-    string name = this->avatar.getName();
-    this->avatar.say("hi");
+    std::cout << "Debug: User " << this->name << " created\n";
 }
 
 /*

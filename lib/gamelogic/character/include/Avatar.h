@@ -29,6 +29,8 @@ public:
     // Create new avatar and set up Character name and Avatar Appearance
     Avatar();
     
+    Avatar(const string &username);
+    
     // Create avatar with existing appearance
     //Avatar(const Custom::Appearance &appearance);
     

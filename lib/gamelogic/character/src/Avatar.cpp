@@ -9,8 +9,17 @@
 #include <iostream>
 
 Avatar::Avatar() {
-    this->init();
+    this->createCharacter("< Test_Avatar >");
     this->createOnFirstLogin();
+    
+    std::cout << "Debug: Character with name " + this->getName() + " created! -> () \n";
+}
+
+Avatar::Avatar(const string &username) {
+    this->createCharacter(username);
+    this->createOnFirstLogin();
+    
+    std::cout << "Debug: Character with name " + this->getName() + " created! -> (c string&) \n";
 }
 
 /*
@@ -30,9 +39,9 @@ Avatar::Avatar() {
 Avatar::~Avatar() { }
 
 void Avatar::init() {
-    this->createCharacter("< Test_Avatar >");
     
-    std::cout << "Character with name " + this->getName() + " created!\n";
+    
+    
 }
 
 void Avatar::createOnFirstLogin() {

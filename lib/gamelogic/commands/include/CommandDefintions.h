@@ -21,18 +21,31 @@ string log(string s1, string s2) {
     return s1 + s2;
 }
 
+
+
+
 string exampleLogin(const vector<string> &args) {
     string username = args[0];
     string password = args[1];
     
-    return "Test output: User " + username + " " + password + " logged in!";
+    string output;
+    if (username == "bob" && password == "123") {
+        output = "Logged in user bob";
+        user::User bobUser(username, password);
+    } else {
+        output = "Cannot login with (" + username + ", " + password + "): (login bob 123)";
+    }
+    
+    return output;
 }
 
 string exampleShowHelp(const vector<string> &args) {
     return "Available example commands: login, help, say, move, look";
 }
 
-/* In game manager */
+
+
+/* In game manager >> */
     WorldManager TEMP_worldManager;
 
     Avatar TEMP_usersAvatar;
@@ -76,7 +89,12 @@ string exampleWorldMove(const vector<string> &args) {
     return "output";
 }
 
-/* In game manager */
+/* << In game manager  */
+
+
+
+
+
 
 
 CommandProcessor BuiltInProcessor() {
