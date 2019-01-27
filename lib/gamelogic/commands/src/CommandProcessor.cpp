@@ -8,7 +8,7 @@
 #include "CommandProcessor.h"
 
 CommandProcessor::CommandProcessor() {
-    //std::cout << "PROCESSOR CREATED\n";
+    this->env.setExceptionText(CMD_NOT_FOUND);
 }
 
 CommandProcessor::~CommandProcessor() {

@@ -42,7 +42,7 @@ public:
         throw std::invalid_argument(this->exceptionText);
     }
     
-    void setExceptionText(string &&text) {
+    void setExceptionText(const string &text) {
         this->exceptionText = text;
     }
     

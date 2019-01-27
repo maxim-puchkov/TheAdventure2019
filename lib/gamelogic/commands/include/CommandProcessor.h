@@ -11,6 +11,13 @@
 #include "Environment.h"
 #include "TokenizedString.h"
 
+using std::vector;
+using std::string;
+
+
+const string CMD_NOT_FOUND = "Invalid command. See available: help";
+
+
 // Function must return string and take one "const vector<string>&" argument
 typedef string (*function_ptr)(const vector<string>&);
 
@@ -28,8 +35,7 @@ struct CommandResult {
 };
 */
 
-using std::vector;
-using std::string;
+
 
 
 
