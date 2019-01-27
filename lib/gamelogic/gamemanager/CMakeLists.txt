@@ -29,3 +29,4 @@ set_target_properties(gamemanager
 install(TARGETS gamemanager
   ARCHIVE DESTINATION lib
 )
+

@@ -5,32 +5,47 @@
 #ifndef WEBSOCKETNETWORKING_EXIT_H
 #define WEBSOCKETNETWORKING_EXIT_H
 
+#include <string>
+#include "LocationCoordinates.h"
 
 class Exit{
 
-private:
-    std::string exitName;
-    std::string exitDescription;
-    short cardinalDirection;
-    unsigned int targetRoomID;
-
 public:
-    Exit(const std::string &exitName, const std::string &exitDescription, short cardinalDirection,
-         unsigned int targetRoomID);
+    enum CardinalDirection{
+        NONE,
+        NORTH,
+        NORTHEAST,
+        EAST,
+        SOUTHEAST,
+        SOUTH,
+        SOUTHWEST,
+        WEST,
+        NORTHWEST
+    };
+
+    Exit(const std::string &exitName, const std::string &exitDescription,
+            CardinalDirection cardinalDirection, int areaID, int roomID);
 
 
     //getters
     const std::string &getExitName() const;
     const std::string &getExitDescription() const;
-    short getCardinalDirection() const;
-    unsigned int getTargetRoomID() const;
+    CardinalDirection getCardinalDirection() const;
+    LocationCoordinates getTargetLocation() const;
 
 
     //Setters
     void setExitName(const std::string &exitName);
     void setExitDescription(const std::string &exitDescription);
-    void setCardinalDirection(short cardinalDirection);
-    void setTargetRoomID(unsigned int targetRoomID);
+    void setCardinalDirection(CardinalDirection direction);
+    void setTargetLocation(int area, int room);
+    void setTargetLocation(LocationCoordinates newLocation);
+
+private:
+    std::string exitName;
+    std::string exitDescription;
+    CardinalDirection exitDirection;
+    LocationCoordinates targetLocation;
 };
 
 

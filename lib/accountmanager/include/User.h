@@ -2,6 +2,7 @@
 #define USER_H
 
 #include <string>
+//#include "../../gamelogic/character/include/Character.h"
 namespace user {
   
 class User {
@@ -9,6 +10,8 @@ class User {
     std::string userName;
     std::string userPasswd;
     int roomID;
+
+    //Character playerCharacter;
 
   public:
 
@@ -23,7 +26,7 @@ class User {
     std::string getUserName();
 
     std::string getUserPasswd();
-
+    
     //QUICK HACK TO GET GAMEMANAGER.cpp & WORLDMANAGER.cpp running
     int getRoomID(){
         return roomID;
@@ -31,6 +34,8 @@ class User {
     void setRoomID(int newroomID){
         roomID = newroomID;
     }
+
+
 };
 }
 #endif 

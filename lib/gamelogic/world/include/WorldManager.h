@@ -5,19 +5,30 @@
 #ifndef WEBSOCKETNETWORKING_WORLDMANAGER_H
 #define WEBSOCKETNETWORKING_WORLDMANAGER_H
 
+#include <string>
+#include <vector>
+#include <exception>
+#include <cstdlib> //std::rand
+#include "Area.h"
 #include "Room.h"
-#include "User.h"
+#include "Character.h"
 
 class WorldManager {
 private:
-    Room worldRooms[10];
+    std::vector<Area> areas;
 public:
     WorldManager();
     void generateWorld();
-    int move(user::User* character, short direction);
-    std::string look(unsigned int roomID) const;
-};
+    Room findRoomByLocation(LocationCoordinates location) const;
 
+    //commands
+    bool kick(Character* character);
+    bool spawn(Character* character, LocationCoordinates location);
+    std::string say (Character* character, std::string message) const;
+    LocationCoordinates move(Character* character, Exit::CardinalDirection direction) const;
+    std::string look(Character* character) const;
+    std::string look(Character* character, std::string objName) const;
+};
 
 
 
