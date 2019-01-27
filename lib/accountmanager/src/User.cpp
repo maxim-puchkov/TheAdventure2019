@@ -1,28 +1,48 @@
 #include "User.h"
-#include <string>
 
-using user::User;
+using std::string;
 
-User::User(const std::string uName, const std::string uPwd) {
-    userName = uName;
-    userPasswd = uPwd;
-    roomID = 0;
+User::User(const string &name, const string &password) {
+    this->name = name;
+    this->password = password;
+    this->avatar = Avatar();
+    
+    this->test();
 }
 
-void User::setUserName(std::string userName) {
-    this->userName = userName;
-}
-
-void User::setUserPasswd(std::string userPasswd) {
-    this->userPasswd = userPasswd;
-}
-
-std::string User::getUserName() {
-    return this->userName;
-}
-
-std::string User::getUserPasswd() {
-    return this->userPasswd;
+User::User(const string &name, const string &password, const Avatar &avatar) {
+    this->name = name;
+    this->password = password;
+    this->avatar = avatar;
+    
+    this->test();
 }
 
 User::~User() = default;
+
+string User::getUserName() {
+    return this->name;
+}
+
+void User::init() {
+    
+}
+
+void User::test() {
+    string name = this->avatar.getName();
+    this->avatar.say("hi");
+}
+
+/*
+ void User::setUserName(string userName) {
+ this->name = userName;
+ }
+ 
+ void User::setUserPassword(string password) {
+ this->password = password;
+ }
+ 
+ string User::getUserPassword() {
+ return this->password;
+ }
+ */

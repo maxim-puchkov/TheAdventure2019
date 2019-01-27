@@ -2,35 +2,45 @@
 #define USER_H
 
 #include <string>
-namespace user {
-  
+#include "Avatar.h"
+
+using std::string;
+
 class User {
-  private:
-    std::string userName;
-    std::string userPasswd;
-    int roomID;
-
-  public:
-
-    User(const std::string uName, const std::string uPwd);
-
+public:
+    
+    // First time logins
+    User(const string &name, const string &password);
+    
+    // Returning players whose avatar exists
+    User(const string &name, const string &password, const Avatar &avatar);
+    
     ~User();
-
-    void setUserName(std::string userName);
-
-    void setUserPasswd(std::string userPasswd);
-
-    std::string getUserName();
-
-    std::string getUserPasswd();
-
-    //QUICK HACK TO GET GAMEMANAGER.cpp & WORLDMANAGER.cpp running
-    int getRoomID(){
-        return roomID;
-    }
-    void setRoomID(int newroomID){
-        roomID = newroomID;
-    }
+    
+    string getUserName();
+    
+    /*
+     
+     void setUserName(string name);
+     
+     void setUserPassword(string password);
+     
+     string getUserPassword();
+     
+     */
+    
+private:
+    
+    void init();
+    
+    string name;
+    
+    string password;
+    
+    Avatar avatar;
+    
+    void test();
+    
 };
-}
-#endif 
+
+#endif
