@@ -33,7 +33,11 @@ string CommandProcessor::process(const string &input) {
         
         FnDescriptor commandFn = this->env.lookup(commandName);
         
-        std::vector<string> commandArguments = tokens.spaceSeparatedTokens(commandFn.argCount);
+        std::vector<string> commandArguments = tokens.nextTokens(commandFn.argCount);
+        
+        string remainingInput = tokens.split();
+        
+        commandArguments.push_back(remainingInput);
         
         output = commandFn.functionPtr(commandArguments);
     }

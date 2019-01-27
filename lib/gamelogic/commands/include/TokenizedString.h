@@ -11,6 +11,8 @@
 #include <vector>
 #include <string>
 #include <regex>
+#include <iostream>
+#include <sstream>
 
 using std::vector;
 using std::string;
@@ -58,12 +60,20 @@ public:
         return EMPTY_STR_TOKEN;
     }
     
-    vector<string> spaceSeparatedTokens(int count) {
+    vector<string> nextTokens(int count) {
         vector<string> tokens;
         for (int i = 0; i < count; i++) {
             tokens.push_back(this->nextToken());
         }
         return tokens;
+    }
+    
+    string split() {
+        std::stringstream result("");
+        while (this->tokenIterator != this->end) {
+            result << " " << this->nextToken();
+        }
+        return result.str();
     }
     
 private:
@@ -74,7 +84,7 @@ private:
     
     string source;
     
-    regex not_whitespace = regex("[^\\s]+");
+    regex not_whitespace = regex("([^\\s]+)");
     
 };
 

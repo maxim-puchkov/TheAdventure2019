@@ -128,7 +128,7 @@ CommandProcessor BuiltInProcessor() {
     commands.defineNew("login", &exampleLogin, 2); // login <bob> <123>
     commands.defineNew("error", &exampleThrowCustomErr, 1); // error <bob>
     commands.defineNew("tell", &exampleTell, 3); // tell <bob> <msg>
-    commands.defineNew("say", &exampleShowWorldSay, 1); // say <text>
+    commands.defineNew("say", &exampleShowWorldSay, 0); // say 
     commands.defineNew("move", &exampleWorldMove, 1); // move <dir>
     commands.defineNew("look", &exampleShowWorldLook, 1); // look <obj>
     

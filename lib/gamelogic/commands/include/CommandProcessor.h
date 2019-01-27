@@ -28,13 +28,6 @@ struct FnDescriptor {
     int argCount;
 };
 
-/*
-struct CommandResult {
-    int status;
-    string text;
-};
-*/
-
 
 
 
