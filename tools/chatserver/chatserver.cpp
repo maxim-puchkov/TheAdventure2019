@@ -5,7 +5,8 @@
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
-
+#include "CommandProcessor.h"
+#include "CommandDefintions.h"
 #include "Server.h"
 #include "User.h"
 #include "AccountManager.h"
@@ -20,6 +21,8 @@
 #include <stdint.h>
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <utility>
 
 using networking::Server;
 using networking::Connection;
@@ -31,7 +34,7 @@ using accountmanager::AccountManager;
 std::vector<Connection> clients;
 User userLogin{"",""};
 AccountManager userManager{};
-
+// GameManager gm;
 
 void
 onConnect(Connection c) {
@@ -47,87 +50,41 @@ onDisconnect(Connection c) {
   clients.erase(eraseBegin, std::end(clients));
 }
 
-/*std::vector<std::string> getInfo(const std::string& message){
-  std::size_t pos = message.find(" ");  
-  std::string userInfo = message.substr(pos + 1);
-  pos = userInfo.find(" ");
-  std::string uName = userInfo.substr(0, pos);
-  std::string uPwd = userInfo.substr(pos + 1);
 
-  return std::vector<std::string>{uName, uPwd};
-}
-
-std::string authUser(const std::string& message) {
-  std::vector<std::string> userInfo = getInfo(message);
-
-  std::string uName = userInfo[0];
-  std::string uPwd = userInfo[1];
-  
-  auto checkingUser = userManager.login(uName, uPwd);
-
-  if(checkingUser == AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN) {
-    
-    userLogin.setUserName(uName);
-    userLogin.setUserPasswd(uPwd);
-    return "Welcome " + userLogin.getUserName() + "\n";
-  }
-  return "Invalid Credentials: User not Found\n";
-}
-
-std::string createUser(const std::string& message){
-
-  std::vector<std::string> userInfo = getInfo(message);
-  std::ostringstream result;
-
-  std::string uName = userInfo[0];
-  std::string uPwd = userInfo[1];
-
-  auto userCreated = userManager.createUser(uName, uPwd);
-
-  if(userCreated.getUserName() != "")
-    return "User Created, Please Login.\n";
-  else
-    return "Username already exits, Sorry :(\n";
-}
-
-std::string logOut() {
-  auto userLogout = userManager.logOut(userLogin.getUserName(), userLogin.getUserPasswd());
-
-  if(userLogout.getUserName() != "") {
-    userLogin.setUserName("");
-    userLogin.setUserPasswd("");
-    return "You are logged out\n";
-  }else{
-    return "Please login! \n";
-  }
-}*/
-
-std::string
+std::unique_ptr<std::unordered_map<std::string, std::string>>
 processMessages(Server &server,
                 const std::deque<Message> &incoming,
                 bool &quit) {
-  std::ostringstream result;
+
+  auto result = std::make_unique<std::unordered_map<std::string, std::string>>();
   for (auto& message : incoming) {
+
     if (message.text == "quit") {
       server.disconnect(message.connection);
     } else if (message.text == "shutdown") {
       std::cout << "Shutting down.\n";
       quit = true;
     } else {
-      result << message.text;
-      GameManager::getInstance()->extractCommands(message.text);
-      result << message.connection.id << "> " << message.text << "\n";
+      std::string connectionID = std::to_string(message.connection.id);
+      std::string serverAnswer = connectionID + "> " + message.text + "\n";
+      // serverAnswer.append(gm.extractCommands(connectionID, message.text));
+
+      std::pair<std::string, std::string> answerPair = std::make_pair(connectionID, serverAnswer);
+
+      result->insert(std::move(answerPair));
     }
   }
-  return result.str();
+  return result;
 }
 
 
 std::deque<Message>
-buildOutgoing(const std::string& log) {
+buildOutgoing(std::unique_ptr<std::unordered_map<std::string, std::string>> logs) {
   std::deque<Message> outgoing;
   for (auto client : clients) {
-    outgoing.push_back({client, log});
+    auto found = logs->find(std::to_string(client.id));
+    if(found != logs->end())
+      outgoing.push_back({client, found->second});
   }
   return outgoing;
 }
@@ -171,8 +128,8 @@ main(int argc, char* argv[]) {
     }
 
     auto incoming = server.receive();
-    auto log      = processMessages(server, incoming, done);
-    auto outgoing = buildOutgoing(log);
+    auto logs      = processMessages(server, incoming, done);
+    auto outgoing = buildOutgoing(std::move(logs));
     server.send(outgoing);
     sleep(1);
   }

@@ -2,9 +2,11 @@
 #define USER_H
 
 #include <string>
-#include "Avatar.h"
+// #include "Avatar.h"
 
 using std::string;
+
+
 
 namespace user {
 
@@ -15,7 +17,7 @@ public:
     User(const string &name, const string &password);
     
     // Returning players whose avatar exists
-    User(const string &name, const string &password, const Avatar &avatar);
+    //User(const string &name, const string &password, const Avatar &avatar);
     
     ~User();
     
@@ -31,6 +33,17 @@ public:
      
      */
     
+    // To be removed or changed
+    int getRoomID(){
+        return 1;
+    }
+    
+    void setRoomID(int newroomID){
+        
+    }
+    //
+
+    
 private:
     
     void init();
@@ -39,10 +52,10 @@ private:
     
     string password;
     
-    Avatar avatar;
+    //Avatar avatar;
     
     void test();
-    
+
 };
     
 }

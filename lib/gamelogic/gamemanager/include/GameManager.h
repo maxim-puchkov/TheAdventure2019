@@ -6,6 +6,7 @@
 #define WEBSOCKETNETWORKING_GAMEMANAGER_H
 
 #include "WorldManager.h"
+#include "AccountManager.h"
 
 class GameManager{
 

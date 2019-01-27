@@ -1,6 +1,7 @@
 
 add_subdirectory(character)
-add_subdirectory(world)
+add_subdirectory(commands)
 add_subdirectory(gamemanager)
+add_subdirectory(world)
 
 

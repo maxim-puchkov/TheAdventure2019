@@ -29,6 +29,10 @@ Equipment Character::getEquipment() {
     return this->equipment;
 }
 
+LocationCoordinates Character::getCurrentLocation() {
+    return this->currentLocation;
+}
+
 bool Character::isInCombat() {
     return false;
 }

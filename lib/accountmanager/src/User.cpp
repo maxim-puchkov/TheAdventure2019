@@ -6,18 +6,20 @@ using std::string;
 User::User(const string &name, const string &password) {
     this->name = name;
     this->password = password;
-    this->avatar = Avatar();
+    //this->avatar = Avatar();
     
     this->test();
 }
 
-User::User(const string &name, const string &password, const Avatar &avatar) {
+/*
+User::User(const string &name, const string &password, const bool &avatar) {
     this->name = name;
     this->password = password;
     this->avatar = avatar;
     
     this->test();
 }
+*/
 
 User::~User() = default;
 
@@ -30,8 +32,8 @@ void User::init() {
 }
 
 void User::test() {
-    string name = this->avatar.getName();
-    this->avatar.say("hi");
+    //string name = this->avatar.getName();
+    //this->avatar.say("hi");
 }
 
 /*

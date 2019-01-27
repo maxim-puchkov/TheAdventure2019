@@ -15,9 +15,10 @@ find_package(Threads REQUIRED)
 target_link_libraries(chatserver
   networking
   accountmanager
-  usermanager
   gamemanager
   world
+  commands
+  gamemanager
   ${CMAKE_THREAD_LIBS_INIT}
 )
 

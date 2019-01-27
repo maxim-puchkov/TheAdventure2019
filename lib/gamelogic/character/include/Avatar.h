@@ -11,9 +11,12 @@
 #include "PlayerControlledCharacter.h"
 #include "Appearance.h"
 
+using std::string;
+
 const int DEF_AVATAR_HEALTH = 100;
 const int DEF_AVATAR_DAMAGE = 10;
-const std::string DEF_AVATAR_NAME = "NO";
+const string DEF_AVATAR_NAME = "NO";
+
 
 /**
  *  @class Avatar
@@ -21,7 +24,7 @@ const std::string DEF_AVATAR_NAME = "NO";
  *  @brief Character that can be controlled and customized.
  *
  *  Derived from PlayerControlledCharacter.
- *  Handles character creation and customization. 
+ *  Handles character creation and customization.
  */
 class Avatar : public PlayerControlledCharacter {
 public:
@@ -29,17 +32,18 @@ public:
     // Create new avatar and set up Character name and Avatar Appearance
     Avatar();
     
-    // Create named avatar and set up first appearance
-    Avatar(const std::string &name);
+    // Create avatar with existing appearance
+    //Avatar(const Custom::Appearance &appearance);
     
-    // Create avatar with existing name, appearance
-    Avatar(const std::string &name, const Custom::Appearance &appearance);
+    string getName();
     
     virtual ~Avatar();
     
 private:
     
     void init();
+    
+    void createOnFirstLogin();
     
     // Avatar's Appearance will change its in-game looks and stats
     Custom::Appearance createCustomAppearance();

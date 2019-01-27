@@ -9,23 +9,22 @@
 
 Avatar::Avatar() {
     this->init();
-    
-    // Ask for valid input
-    this->name = "ask for input";
-    this->appearance = this->createCustomAppearance();
+    this->createOnFirstLogin();
 }
 
-Avatar::Avatar(const std::string &name) {
-    this->init();
-    this->name = name;
-    this->appearance = this->createCustomAppearance();
-}
-
-Avatar::Avatar(const std::string &name, const Custom::Appearance &appearance) {
-    this->init();
-    this->name = name;
-    this->appearance = appearance;
-}
+/*
+ Avatar::Avatar(const std::string &name) {
+ this->init();
+ this->name = name;
+ this->appearance = this->createCustomAppearance();
+ }
+ 
+ Avatar::Avatar(const std::string &name, const Custom::Appearance &appearance) {
+ this->init();
+ this->name = name;
+ this->appearance = appearance;
+ }
+ */
 
 Avatar::~Avatar() { }
 
@@ -34,6 +33,11 @@ void Avatar::init() {
     this->baseAttr = Attributes(DEF_AVATAR_HEALTH, DEF_AVATAR_DAMAGE);
     this->inventory = Inventory();
     this->equipment = Equipment();
+}
+
+void Avatar::createOnFirstLogin() {
+    this->name = "";
+    this->appearance = this->createCustomAppearance();
 }
 
 Custom::Appearance Avatar::createCustomAppearance() {

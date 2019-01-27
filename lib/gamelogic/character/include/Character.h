@@ -9,9 +9,11 @@
 #define Character_h
 
 #include <string>
+#include <utility> //std::move
 #include "Attributes.h"
 #include "Inventory.h"
 #include "Equipment.h"
+#include "../../world/include/LocationCoordinates.h"
 
 /**
  *  @class Character
@@ -31,7 +33,9 @@ public:
     Attributes getBaseAttributes();
     Inventory getInventory();
     Equipment getEquipment();
-    // virtual Room getCurrentRoom();           // Room.h
+    LocationCoordinates getCurrentLocation();
+    void setCurrentLocation(LocationCoordinates newLocation);
+    void setCurrentLocation(int areaID, int roomID);
     
     
     // States ...
@@ -54,6 +58,8 @@ protected:
     Equipment equipment;
     
     Inventory inventory;
+
+    LocationCoordinates currentLocation;
     
 };
 

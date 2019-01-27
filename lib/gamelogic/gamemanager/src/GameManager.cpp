@@ -107,7 +107,7 @@ std::string GameManager::extractCommands(const std::string fullMessage) const {
 			}
 			else {
 				result = "Moved to ";
-				result.append(std::to_string(world->move(user, 0)));
+				// result.append(std::to_string(world->move(user, 0)));
 			}
 		}
 		else if(command == "Look") {
