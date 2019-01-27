@@ -35,7 +35,7 @@ public:
     // Create avatar with existing appearance
     //Avatar(const Custom::Appearance &appearance);
     
-    string getName();
+    //string getName();
     
     virtual ~Avatar();
     

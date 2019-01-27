@@ -14,6 +14,8 @@ target_include_directories(accountmanager
 )
 
 target_link_libraries(accountmanager
+  PUBLIC
+    character
   PRIVATE
     ${Boost_LIBRARIES}
 )

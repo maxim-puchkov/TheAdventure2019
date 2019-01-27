@@ -28,7 +28,7 @@ public:
     virtual ~Character();
     
     // Get
-    std::string getName();
+    virtual std::string getName();
     Attributes getAttributes();
     Attributes getBaseAttributes();
     Inventory getInventory();

@@ -6,6 +6,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "Avatar.h"
+#include <iostream>
 
 Avatar::Avatar() {
     this->init();
@@ -29,6 +30,8 @@ Avatar::Avatar() {
 Avatar::~Avatar() { }
 
 void Avatar::init() {
+    std::cout << "Avatar created!\n";
+    
     this->name = DEF_AVATAR_NAME;
     this->baseAttr = Attributes(DEF_AVATAR_HEALTH, DEF_AVATAR_DAMAGE);
     this->inventory = Inventory();

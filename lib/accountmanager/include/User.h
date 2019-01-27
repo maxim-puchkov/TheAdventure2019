@@ -2,7 +2,7 @@
 #define USER_H
 
 #include <string>
-// #include "Avatar.h"
+#include "Avatar.h"
 
 using std::string;
 
@@ -17,7 +17,7 @@ public:
     User(const string &name, const string &password);
     
     // Returning players whose avatar exists
-    //User(const string &name, const string &password, const Avatar &avatar);
+    User(const string &name, const string &password, const Avatar &avatar);
     
     ~User();
     
@@ -52,7 +52,7 @@ private:
     
     string password;
     
-    //Avatar avatar;
+    Avatar avatar;
     
     void test();
 
