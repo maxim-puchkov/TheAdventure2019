@@ -11,15 +11,12 @@
 class GameManager{
 
 private:
-    static GameManager* instance;
-    GameManager();
     WorldManager *world;
 	user::User* getUser(const std::string userName) const;
 
 public:
-    static GameManager* getInstance();
-    //~GameManager();
-	std::string extractCommands(const std::string command) const;
+    GameManager();
+	std::string extractCommands(const std::string connectionID, const std::string command) const;
 	void heartbeat() const;
 };
 

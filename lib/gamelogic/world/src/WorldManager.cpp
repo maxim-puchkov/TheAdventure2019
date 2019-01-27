@@ -81,6 +81,7 @@ LocationCoordinates WorldManager::move(Character * character, Exit::CardinalDire
     }
 
     roomOfInterest.removeCharacter(character);
+    
     character->setCurrentLocation(newLocation);
     newRoom.addCharacter(character);
     return newLocation;

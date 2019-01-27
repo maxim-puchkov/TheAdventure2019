@@ -13,7 +13,7 @@
 #include "Attributes.h"
 #include "Inventory.h"
 #include "Equipment.h"
-#include "../../world/include/LocationCoordinates.h"
+#include "LocationCoordinates.h"
 
 /**
  *  @class Character

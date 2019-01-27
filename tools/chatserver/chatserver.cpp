@@ -5,11 +5,8 @@
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
-#include "CommandProcessor.h"
-#include "CommandDefintions.h"
 #include "Server.h"
 #include "User.h"
-#include "AccountManager.h"
 #include "GameManager.h"
 
 // #include <experimental/filesystem>
@@ -27,14 +24,9 @@
 using networking::Server;
 using networking::Connection;
 using networking::Message;
-using user::User;
-using accountmanager::AccountManager;
-
 
 std::vector<Connection> clients;
-User userLogin{"",""};
-AccountManager userManager{};
-// GameManager gm;
+GameManager gm;
 
 void
 onConnect(Connection c) {
@@ -67,11 +59,10 @@ processMessages(Server &server,
     } else {
       std::string connectionID = std::to_string(message.connection.id);
       std::string serverAnswer = connectionID + "> " + message.text + "\n";
-      // serverAnswer.append(gm.extractCommands(connectionID, message.text));
+      serverAnswer.append(gm.extractCommands(connectionID, message.text));
 
-      std::pair<std::string, std::string> answerPair = std::make_pair(connectionID, serverAnswer);
-
-      result->insert(std::move(answerPair));
+      std::pair<std::string, std::string> answerPair (connectionID, serverAnswer);
+      result->insert(answerPair);
     }
   }
   return result;

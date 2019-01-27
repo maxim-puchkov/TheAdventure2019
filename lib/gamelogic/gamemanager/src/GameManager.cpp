@@ -5,30 +5,19 @@
 #include "GameManager.h"
 #include "AccountManager.h"
 #include "User.h"
-#include "../../../usermanager/include/OnlineUserManager.h"
+#include "WorldManager.h"
 
 using namespace std;
 using user::User;
-using usermanager::OnlineUserManager;
 
 using namespace accountmanager;
-
-GameManager* GameManager::instance = 0; //set to null, will be initialized on demand
-
-GameManager* GameManager::getInstance() {
-    if (instance == 0) {
-        GameManager newInstance;
-        instance = &newInstance;
-    }
-	return instance;
-}
 
 GameManager::GameManager() {
 	WorldManager newWorld;
 	world = &newWorld;
 	world->generateWorld();
 }
-
+/*
 void testOnlineUser(){
 	OnlineUserManager online{};
 	User user1 {"user1", "123456"};
@@ -70,8 +59,10 @@ void testAccountManager(){
 	assert( accountManager.login("123","user","pwd") == AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN);
 
 }
-
-std::string GameManager::extractCommands(const std::string fullMessage) const {
+*/
+std::string GameManager::extractCommands(const std::string connectionID, const std::string fullMessage) const {
+    return "test";
+/*
 	std::vector<std::string> messageParts;
 	boost::split(messageParts, fullMessage, boost::is_any_of(" "));
 
@@ -120,7 +111,7 @@ std::string GameManager::extractCommands(const std::string fullMessage) const {
 	}
 	catch (exception& e) {
 		return "Invalid command. Please try again.";
-	}
+	}*/
 }
 
 void GameManager::heartbeat() const {

@@ -12,6 +12,7 @@
 #include "Area.h"
 #include "Room.h"
 #include "Character.h"
+#include "LocationCoordinates.h"
 
 class WorldManager {
 private:
