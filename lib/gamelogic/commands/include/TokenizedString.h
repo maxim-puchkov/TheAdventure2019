@@ -17,7 +17,7 @@ using std::string;
 using std::regex;
 using std::sregex_token_iterator;
 
-const string EMPTY_STR_TOKEN = "<NULL ARG>";
+const string EMPTY_STR_TOKEN = "";
 
 /**
  *  @class TokenizedString
