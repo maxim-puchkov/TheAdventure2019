@@ -41,6 +41,8 @@ public:
     Inventory getInventory();
     Equipment getEquipment();
     LocationCoordinates getCurrentLocation();
+    
+    // Set
     void setCurrentLocation(LocationCoordinates newLocation);
     void setCurrentLocation(int areaID, int roomID);
     

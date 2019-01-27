@@ -43,6 +43,17 @@ LocationCoordinates Character::getCurrentLocation() {
     return this->currentLocation;
 }
 
+void Character::setCurrentLocation(LocationCoordinates newLocation){
+    this->currentLocation = newLocation;
+}
+
+void Character::setCurrentLocation(int areaID, int roomID){
+    LocationCoordinates newLocation;
+    newLocation.area = areaID;
+    newLocation.room = roomID;
+    this->currentLocation = newLocation;
+}
+
 bool Character::isInCombat() {
     return false;
 }
