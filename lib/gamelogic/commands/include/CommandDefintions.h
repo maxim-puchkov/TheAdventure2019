@@ -17,6 +17,8 @@
 using std::string;
 using std::vector;
 
+namespace test { // test::
+
 /* In game manager >> */
 WorldManager TEMP_worldManager;
 Avatar TEMP_usersAvatar;
@@ -55,15 +57,21 @@ string exampleThrowCustomErr(const vector<string> &args) {
 }
 
 
-// Multiple errors
+// Return errors
 string exampleTell(const vector<string> &args) {
     string username = args[0];
     string message = args[1];
     
-    if (username != "bob") throw("Can only tell <bob>");
-    if (message.length() < 5) throw("Message is too short");
-    if (message.length() > 10) throw("Message is too long");
-    if (message == "bad_word") throw("You cannot send this message");
+    const string PROGRAM_EXCEPTION = "Client connection lost.";
+    
+    if (username != "bob") return "Can only tell <bob>";
+    if (message.length() < 5) return "Message is too short";
+    if (message.length() > 10) return "Message is too long";
+    if (message == "bad_word") return "You cannot send this message";
+    
+    if (bool clientDisconnected = true) {
+        throw PROGRAM_EXCEPTION;
+    }
     
     return "Ok, sending " + message + " to " + username;
 }
@@ -106,37 +114,7 @@ string exampleWorldMove(const vector<string> &args) {
 
 /* << In game manager  */
 
-
-
-
-
-
-
-CommandProcessor BuiltInProcessor() {
-    CommandProcessor commands; // instance of a processor
-    
-    
-    // Specify name, function, and arguments required
-    // Function type constraints:
-    //      string ANY_FUNCTION(const vector<string>&)
-    string cmdName = "help";
-    function_ptr cmdFn = &exampleShowHelp;
-    int argCount = 0;
-    commands.defineNew(cmdName, cmdFn, argCount); // help
-    
-    
-    commands.defineNew("login", &exampleLogin, 2); // login <bob> <123>
-    commands.defineNew("error", &exampleThrowCustomErr, 1); // error <bob>
-    commands.defineNew("tell", &exampleTell, 3); // tell <bob> <msg>
-    commands.defineNew("say", &exampleShowWorldSay, 0); // say 
-    commands.defineNew("move", &exampleWorldMove, 1); // move <dir>
-    commands.defineNew("look", &exampleShowWorldLook, 1); // look <obj>
-    
-
-    return commands;
 }
 
 
-
 #endif /* CommandDefintions_h */
-
