@@ -56,7 +56,10 @@ vector<string> TokenizedString::nextTokens(int count) {
 string TokenizedString::split() {
     std::stringstream result("");
     while (this->tokenIterator != this->end) {
-        result << WHITESPACE << this->nextToken();
+        result << this->nextToken();
+        if (!this->isFinished()) {
+            result << WHITESPACE;
+        }
     }
     return result.str();
 }
