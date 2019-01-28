@@ -6,7 +6,6 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "CommandProcessor.h"
-#include "CommandDefintions.h"
 #include "Server.h"
 #include "User.h"
 #include "AccountManager.h"
@@ -92,13 +91,13 @@ buildOutgoing(std::unique_ptr<std::unordered_map<std::string, std::string>> logs
 
 std::string
 processMessages(Server &server,
+                CommandProcessor &&commands,
                 const std::deque<Message> &incoming,
                 bool &quit) {
-    CommandProcessor processor = BuiltInProcessor();
     std::ostringstream result;
     for (auto &message : incoming) {
         result << message.connection.id << " > ";
-        result << processor.process(std::move(message.text));
+        result << commands.process(std::move(message.text));
         result << std::endl;
     }
     return result.str();
@@ -141,7 +140,7 @@ main(int argc, char* argv[]) {
   unsigned short port = std::stoi(argv[1]);
   Server server{port, getHTTPMessage(argv[2]), onConnect, onDisconnect};
 
-
+  CommandProcessor commands;
   while (!done) {
     try {
       server.update();
@@ -152,7 +151,7 @@ main(int argc, char* argv[]) {
     }
 
     auto incoming = server.receive();
-    auto logs      = processMessages(server, incoming, done);
+    auto logs      = processMessages(server, std::move(commands), incoming, done);
     auto outgoing  = buildOutgoing(std::move(logs));
     server.send(outgoing);
     sleep(1);
