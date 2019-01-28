@@ -6,7 +6,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "CommandProcessor.h"
-#include "CommandDefintions.h"
+#include "CommandDefinitions.h"
 
 
 CommandProcessor::CommandProcessor() { CommandProcessor::init(this); }
