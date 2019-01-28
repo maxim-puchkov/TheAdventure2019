@@ -14,12 +14,16 @@
 #include <iostream>
 #include <sstream>
 
+
 using std::vector;
 using std::string;
 using std::regex;
 using std::sregex_token_iterator;
 
+
 const string EMPTY_STR_TOKEN = "";
+const string WHITESPACE = " ";
+
 
 /**
  *  @class TokenizedString
@@ -39,16 +43,8 @@ public:
         this->tokenize();
     }
     
-    void tokenize() {
-        this->tokenIterator = sregex_token_iterator(source.begin(), source.end(), not_whitespace);
-    }
-    
     bool isFinished() {
         return this->tokenIterator == this->end;
-    }
-    
-    void advance() {
-        this->tokenIterator++;
     }
     
     string nextToken() {
@@ -71,20 +67,29 @@ public:
     string split() {
         std::stringstream result("");
         while (this->tokenIterator != this->end) {
-            result << " " << this->nextToken();
+            result << WHITESPACE << this->nextToken();
         }
         return result.str();
     }
     
 private:
     
-    sregex_token_iterator tokenIterator;
-    
-    sregex_token_iterator end = sregex_token_iterator();
-    
     string source;
     
+    sregex_token_iterator tokenIterator;
+    
+    sregex_token_iterator end;
+    
     regex not_whitespace = regex("([^\\s]+)");
+    
+    void tokenize() {
+        this->tokenIterator = sregex_token_iterator(source.begin(), source.end(), not_whitespace);
+        this->end = sregex_token_iterator();
+    }
+    
+    void advance() {
+        this->tokenIterator++;
+    }
     
 };
 
