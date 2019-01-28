@@ -7,9 +7,7 @@
 
 #include "CommandProcessor.h"
 #include "Server.h"
-#include "User.h"
-#include "AccountManager.h"
-#include "GameManager.h"
+
 
 // #include <experimental/filesystem>
 #include <fstream>
@@ -26,13 +24,13 @@
 using networking::Server;
 using networking::Connection;
 using networking::Message;
-using user::User;
-using accountmanager::AccountManager;
+//using user::User;
+//using accountmanager::AccountManager;
 
 
 std::vector<Connection> clients;
-User userLogin{"",""};
-AccountManager userManager{};
+//User userLogin{"",""};
+//AccountManager userManager{};
 // GameManager gm;
 
 void
@@ -105,7 +103,7 @@ processMessages(Server &server,
 
 
 std::deque<Message>
-buildOutgoing(const string &message) {
+buildOutgoing(const std::string &message) {
     std::deque<Message> outgoing;
     for (auto client : clients) {
         outgoing.push_back({client, message});

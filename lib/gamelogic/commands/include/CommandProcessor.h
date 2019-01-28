@@ -14,7 +14,6 @@
 
 #include "Environment.h"
 #include "TokenizedString.h"
-#include "CommandDefintions.h" // test::
 
 using std::vector;
 using std::string;
@@ -37,6 +36,7 @@ struct FnDescriptor {
 };
 
 
+
 /**
  *  @class CommandProcessor
  *
@@ -49,7 +49,6 @@ public:
     
     ~CommandProcessor();
     
-    // Move local commands instead of copying
     CommandProcessor(CommandProcessor &&other);
     
     

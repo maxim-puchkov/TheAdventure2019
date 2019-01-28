@@ -6,6 +6,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "CommandProcessor.h"
+#include "CommandDefintions.h"
 
 
 CommandProcessor::CommandProcessor() { CommandProcessor::init(this); }
@@ -52,12 +53,12 @@ Environment<string, FnDescriptor> CommandProcessor::localEnv() const {
 
 
 /*
-Environment<string, FnDescriptor> CommandProcessor::global;
+ Environment<string, FnDescriptor> CommandProcessor::global;
  
-Environment<string, FnDescriptor> CommandProcessor::globalEnv() {
-    return CommandProcessor::global;
-}
-*/
+ Environment<string, FnDescriptor> CommandProcessor::globalEnv() {
+ return CommandProcessor::global;
+ }
+ */
 
 
 
@@ -72,35 +73,37 @@ Environment<string, FnDescriptor> CommandProcessor::globalEnv() {
 void CommandProcessor::init(CommandProcessor *processor) {
     std::cout << "Running init ...\n";
     
-    processor->createCommand("login", test::exampleLogin, 2);          // login <bob> <123>
-    processor->createCommand("help", test::exampleShowHelp, 0);        // help
-    processor->createCommand("error", test::exampleThrowCustomErr, 1); // error <bob>
-    processor->createCommand("tell", test::exampleTell, 3);            // tell <bob> <msg>
-    processor->createCommand("say", test::exampleShowWorldSay, 0);     // say
-    processor->createCommand("move", test::exampleWorldMove, 1);       // move <dir>
-    processor->createCommand("look", test::exampleShowWorldLook, 1);   // look <obj>
+    processor->createCommand("login", &test::exampleLogin, 2);          // login <bob> <123>
+    processor->createCommand("help", &test::exampleShowHelp, 0);        // help
+    processor->createCommand("error", &test::exampleThrowCustomErr, 1); // error <bob>
+    processor->createCommand("tell", &test::exampleTell, 3);            // tell <bob> <msg>
+    processor->createCommand("say", &test::exampleShowWorldSay, 0);     // say
+    processor->createCommand("move", &test::exampleWorldMove, 1);       // move <dir>
+    processor->createCommand("look", &test::exampleShowWorldLook, 1);   // look <obj>
+    
 }
 
 
-void CommandProcessor::createCommand(string commandName,
-                                     function_ptr commandFn,
-                                     int argCount) {
+
+void CommandProcessor::createCommand(string commandName, function_ptr commandFn, int argCount) {
     FnDescriptor commandFunction = {commandFn, argCount};
     this->local.bind(commandName, commandFunction);
 }
 
 
+
+
 /*
-string CommandProcessor::availableCommands(const vector<string>&) {
-    std::stringstream result("");
-    std::queue<const string> commands = CommandProcessor::global.keys();
-    while (!commands.empty()) {
-        result << commands.front();
-        commands.pop();
-        if (!commands.empty()) {
-            result << DELIMETER;
-        }
-    }
-    return result.str();
-}
-*/
+ string CommandProcessor::availableCommands(const vector<string>&) {
+ std::stringstream result("");
+ std::queue<const string> commands = CommandProcessor::global.keys();
+ while (!commands.empty()) {
+ result << commands.front();
+ commands.pop();
+ if (!commands.empty()) {
+ result << DELIMETER;
+ }
+ }
+ return result.str();
+ }
+ */
