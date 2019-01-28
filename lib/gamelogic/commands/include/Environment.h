@@ -23,109 +23,75 @@ const string ENV_BIND_ERROR = "Map Environment error: Key is already defined.";
 const string ENV_FIND_ERROR = "Map Environment error: Unable to find specified key.";
 
 
-
 /**
  *  @class Environment
  *
- *  @brief Environment binding E to search key T. Validates if needed.
+ *  @brief Custom safe map environment.
+ *
+ *  Binds search key K to value V.
+ *  Most operations validate the key and
+ *  throw exceptions if invalid.
+ *  Required by Cmd-Processor to evaluate input.
+ *  Potentially needed to track users.
  */
 template<class K, class V>
 class Environment {
 public:
     
-    Environment() {}
+    /* Constructors */
     
-    Environment(const Environment &other)
-    : map(std::move(other.map))
-    {}
+    Environment();
     
-    Environment(Environment &&other)
-    : map(std::move(other.map))
-    {}
+    Environment(const Environment &other);
     
-    ~Environment() {}
+    Environment(Environment &&other);
     
-    void bind(const K &k, const V &v) {
-        if (this->exists(k)) {
-            throw std::invalid_argument(ENV_BIND_ERROR);
-        }
-        this->map.insert(std::pair<const K, V>(k, v));
-    }
+    ~Environment();
     
-    void bind(const std::pair<const K, V> &binding) {
-        if (this->exists(binding.first)) {
-            throw std::invalid_argument(ENV_BIND_ERROR);
-        }
-        this->map.insert(binding);
-    }
     
-    void unbind(const K &k) {
-        auto it = this->find(k);
-        this->map.erase(it);
-    }
     
-    void modify(const K &k, const V &v) {
-        auto it = this->find(std::forward(k));
-        it->second = v;
-    }
+    /* Operations */
     
-    V lookup(const K &k) const {
-        auto it = this->find(k);
-        return it->second;
-    }
+    V lookup(const K &k) const;
     
-    bool exists(const K &k) const {
-        auto it = this->map.find(k);
-        if (it == this->map.end()) {
-            return false;
-        }
-        return true;
-    }
+    void bind(const K &k, const V &v);
     
-    std::queue<const K> keys() const {
-        std::queue<const K> keys;
-        auto it = this->begin();
-        while (it != this->end()) {
-            keys.push(it->first);
-            it++;
-        }
-        return keys;
-    }
+    void bind(const std::pair<const K, V> &binding);
     
-    std::queue<std::pair<const K, V>> pairs() const {
-        std::queue<std::pair<const K, V>> pairs;
-        auto it = this->begin();
-        while (it != this->end()) {
-            pairs.push(std::pair<const K, V>(it->first, it->second));
-            it++;
-        }
-        return pairs;
-    }
+    void unbind(const K &k);
     
-    typename unordered_map<K, V>::const_iterator find(const K &k) const {
-        auto it = this->map.find(k);
-        if (it == this->map.end()) {
-            throw std::invalid_argument(ENV_FIND_ERROR);
-        }
-        return it;
-    }
+    void modify(const K &k, const V &v);
     
-    typename unordered_map<K, V>::size_type size() const {
-        return this->map.size();
-    }
+    bool exists(const K &k) const noexcept;
+    
+    void validate(const K &k) const noexcept(false);
+    
+    typename unordered_map<K, V>::const_iterator find(const K &k) const noexcept(false);
+    
+    typename unordered_map<K, V>::size_type size() const;
+    
+    
+    
+    /* Retrieval */
+    
+    std::queue<const K> keys() const;
+    
+    std::queue<std::pair<const K, V>> pairs() const;
+    
+    
+    
+    /* Custom iterator retrieval */
+    
+    typename unordered_map<K, V>::const_iterator begin() const;
+    
+    typename unordered_map<K, V>::const_iterator end() const;
     
 private:
     
     unordered_map<K, V> map;
     
-    typename unordered_map<K, V>::const_iterator begin() const {
-        return this->map.cbegin();
-    }
-    
-    typename unordered_map<K, V>::const_iterator end() const {
-        return this->map.cend();
-    }
-    
 };
+
+#include "Environment.txx"
 
 #endif /* Environment_h */

@@ -29,48 +29,24 @@ const string WHITESPACE = " ";
  *  @class TokenizedString
  *
  *  @brief Every word is a token
+ *
+ *  Breaks up strings at whitespaces. Can be improved
+ *  to help parsing complex commands.
  */
 class TokenizedString {
 public:
     
-    TokenizedString(string &&text)
-    : source(std::move(text)) {
-        this->tokenize();
-    }
+    TokenizedString(const string &text);
     
-    TokenizedString(const string &text)
-    : source(text) {
-        this->tokenize();
-    }
+    TokenizedString(string &&text);
     
-    bool isFinished() {
-        return this->tokenIterator == this->end;
-    }
+    bool isFinished();
     
-    string nextToken() {
-        if (!this->isFinished()) {
-            string token = this->tokenIterator->str();
-            this->advance();
-            return token;
-        }
-        return EMPTY_STR_TOKEN;
-    }
+    string nextToken();
     
-    vector<string> nextTokens(int count) {
-        vector<string> tokens;
-        for (int i = 0; i < count; i++) {
-            tokens.push_back(this->nextToken());
-        }
-        return tokens;
-    }
+    vector<string> nextTokens(int count);
     
-    string split() {
-        std::stringstream result("");
-        while (this->tokenIterator != this->end) {
-            result << WHITESPACE << this->nextToken();
-        }
-        return result.str();
-    }
+    string split();
     
 private:
     
@@ -80,16 +56,11 @@ private:
     
     sregex_token_iterator end;
     
-    regex not_whitespace = regex("([^\\s]+)");
+    regex not_whitespace = regex("[^\\s]+");
     
-    void tokenize() {
-        this->tokenIterator = sregex_token_iterator(source.begin(), source.end(), not_whitespace);
-        this->end = sregex_token_iterator();
-    }
+    void tokenize();
     
-    void advance() {
-        this->tokenIterator++;
-    }
+    void advance();
     
 };
 

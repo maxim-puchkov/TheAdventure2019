@@ -41,6 +41,9 @@ struct FnDescriptor {
  *  @class CommandProcessor
  *
  *  @brief Stores built-in commands and evaluates string input
+ *
+ *  A small compiler that will be useful for for client-side
+ *  commands, scripting, crafting, or minigame implementation.
  */
 class CommandProcessor {
 public:
