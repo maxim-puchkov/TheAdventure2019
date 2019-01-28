@@ -29,15 +29,15 @@ string CommandProcessor::process(const string &input) const {
         
         string commandName = tokens.nextToken();
         
-        FnDescriptor commandFn = this->local.lookup(commandName);
+        Command command = this->local.lookup(commandName);
         
-        std::vector<string> commandArguments = tokens.nextTokens(commandFn.argCount);
+        std::vector<string> commandArguments = tokens.nextTokens(command.argCount);
         
         string remainingInput = tokens.split();
         
         commandArguments.push_back(remainingInput);
         
-        output = commandFn.functionPtr(commandArguments);
+        output = command.function(commandArguments);
     }
     catch (std::invalid_argument &e) {
         return CMD_NOT_FOUND;
@@ -50,7 +50,7 @@ string CommandProcessor::process(const string &input) const {
 }
 
 
-Environment<string, FnDescriptor> CommandProcessor::localEnv() const {
+Environment<string, Command> CommandProcessor::localEnv() const {
     return this->local;
 }
 
@@ -81,8 +81,8 @@ void CommandProcessor::init(CommandProcessor *processor) {
 
 
 
-void CommandProcessor::createCommand(string commandName, function_ptr commandFn, int argCount) {
-    FnDescriptor commandFunction = {commandFn, argCount};
+void CommandProcessor::createCommand(string commandName, cmd_signature commandFn, int argCount) {
+    Command commandFunction = {commandFn, argCount};
     this->local.bind(commandName, commandFunction);
 }
 
