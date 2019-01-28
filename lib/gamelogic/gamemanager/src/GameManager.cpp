@@ -34,9 +34,16 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"help", help});
 }
 
-std::string GameManager::extractCommands(const std::string connectionID, const std::string fullMessage) const {
-    return "test";
+std::string GameManager::extractCommands(const std::string connectionID, const std::string fullMessage) {
+    std::vector<std::string> messageParts;
+    boost::split(messageParts, fullMessage, boost::is_any_of(" "));
 
+    auto found = tableOfCommands.find(messageParts[0]);
+    if(found != tableOfCommands.end()) {
+        commandGuideline guideline = found->second;
+        return (this->*guideline.promptReply)(connectionID, fullMessage);
+    }
+    return "invalid command";
 }
 
 std::string GameManager::commandLogin(std::string connectionID, std::string fullCommand) {

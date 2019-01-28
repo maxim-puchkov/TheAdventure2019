@@ -20,7 +20,7 @@ private:
     WorldManager *world;
 	user::User* getUser(const std::string userName) const;
 	struct commandGuideline {
-		std::string (GameManager::*promtReply)(std::string, std::string);
+		std::string (GameManager::*promptReply)(std::string, std::string);
 		void (GameManager::*heartbeatReply)(User*, std::string);
 		int argCount;
 		std::string helpText;
@@ -46,7 +46,7 @@ private:
 
 public:
     GameManager();
-	std::string extractCommands(const std::string connectionID, const std::string command) const;
+	std::string extractCommands(const std::string connectionID, const std::string command);
 	void heartbeat() const;
 };
 
