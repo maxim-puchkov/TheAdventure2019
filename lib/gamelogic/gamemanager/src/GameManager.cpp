@@ -11,16 +11,16 @@ GameManager::GameManager() {
 }
 
 void GameManager::createTableOfCommands() {
-    commandGuideline login = {&GameManager::commandLogin, &GameManager::commandError, 2, " <username> <password>"};
-    commandGuideline logout = {&GameManager::commandLogout, &GameManager::commandError, 0, ""};
-    commandGuideline create = {&GameManager::commandCreate, &GameManager::commandError, 2, " <username> <password>"};
-    commandGuideline say = {&GameManager::commandAddToActionList, &GameManager::commandSay, 1, " \"<message>\""};
-    commandGuideline yell = {&GameManager::commandAddToActionList, &GameManager::commandYell, 1, " \"<message>\""};
-    commandGuideline tell = {&GameManager::commandAddToActionList, &GameManager::commandTell, 2, " <other-username> \"<message>\""};
-    commandGuideline move = {&GameManager::commandAddToActionList, &GameManager::commandMove, 1, " <direction>"};
-    commandGuideline look = {&GameManager::commandAddToActionList, &GameManager::commandLook, 0, ""};
-    commandGuideline examine = {&GameManager::commandAddToActionList, &GameManager::commandExamine, 1, " <object/username>"};
-    commandGuideline help = {&GameManager::commandHelp, &GameManager::commandError, 0, ""};
+    commandGuideline login = {&GameManager::commandLogin, &GameManager::commandError, 2, 0, " username password"};
+    commandGuideline logout = {&GameManager::commandLogout, &GameManager::commandError, 0, 0, ""};
+    commandGuideline create = {&GameManager::commandCreate, &GameManager::commandError, 2, 0, " username password"};
+    commandGuideline say = {&GameManager::commandAddToActionList, &GameManager::commandSay, 0, 1, ": message"};
+    commandGuideline yell = {&GameManager::commandAddToActionList, &GameManager::commandYell, 0, 1, ": message"};
+    commandGuideline tell = {&GameManager::commandAddToActionList, &GameManager::commandTell, 1, 1, " other-username: message"};
+    commandGuideline move = {&GameManager::commandAddToActionList, &GameManager::commandMove, 1, 0, " direction"};
+    commandGuideline look = {&GameManager::commandAddToActionList, &GameManager::commandLook, 0, 0, ""};
+    commandGuideline examine = {&GameManager::commandAddToActionList, &GameManager::commandExamine, 1, 0, " object/username"};
+    commandGuideline help = {&GameManager::commandHelp, &GameManager::commandError, 0, 0, ""};
     
     tableOfCommands.insert({"log-in", login});
     tableOfCommands.insert({"log-out", logout});
@@ -34,16 +34,40 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"help", help});
 }
 
-std::string GameManager::extractCommands(const std::string connectionID, const std::string fullMessage) {
-    std::vector<std::string> messageParts;
-    boost::split(messageParts, fullMessage, boost::is_any_of(" "));
+std::string GameManager::extractCommands(const std::string& connectionID, std::string fullCommand) {
+    std::vector<std::string> commandParts, splitByColon;
+    breakdownCommand(fullCommand, commandParts, splitByColon);
 
-    auto found = tableOfCommands.find(messageParts[0]);
+    auto found = tableOfCommands.find(commandParts[0]);
     if(found != tableOfCommands.end()) {
         commandGuideline guideline = found->second;
-        return (this->*guideline.promptReply)(connectionID, fullMessage);
+        if (commandIsValid(commandParts.size() - 1, splitByColon.size() - 1, guideline))
+            return (this->*guideline.promptReply)(connectionID, fullCommand);
+        else {
+            std::ostringstream answer;
+            answer << "Invalid command. Command syntax: " << commandParts[0] << guideline.helpText << "\n";
+            return answer.str();
+        }
     }
-    return "invalid command";
+    return "Command not found";
+}
+
+void GameManager::breakdownCommand(std::string fullCommand, std::vector<std::string>& commandParts, std::vector<std::string>& splitByColon) {
+    boost::trim_if(fullCommand, boost::is_any_of(" \t"));
+    boost::split(splitByColon, fullCommand, boost::is_any_of(":"), boost::token_compress_on);
+   
+    for(auto& text : splitByColon) {
+        boost::trim_if(text, boost::is_any_of(" \t"));
+    }
+    boost::split(commandParts, splitByColon[0], boost::is_any_of(" \t"), boost::token_compress_on);
+}
+
+bool GameManager::commandIsValid(size_t commandPartsSize, size_t messagePartsSize, commandGuideline guideline) {
+    if(guideline.commandPartArgCount != commandPartsSize)
+        return false;
+    if(guideline.messagePartArgCount != messagePartsSize)
+        return false;
+    return true;
 }
 
 std::string GameManager::commandLogin(std::string connectionID, std::string fullCommand) {
@@ -94,9 +118,7 @@ void GameManager::commandError(User* user, std::string fullCommand){
 
 }
 
-bool GameManager::commandIsValid(std::string command, std::vector<std::string> args) {
-    return true;
-}
+
 
 
 void GameManager::heartbeat() const {
