@@ -5,7 +5,7 @@
 #include "GameManager.h"
 #include "AccountManager.h"
 #include "User.h"
-#include "../../../usermanager/include/OnlineUserManager.h"
+#include "OnlineUserManager.h"
 
 using namespace std;
 using user::User;
