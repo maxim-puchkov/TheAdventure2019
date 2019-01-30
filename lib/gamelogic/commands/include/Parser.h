@@ -12,6 +12,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "Command.h"
 #include "Environment.h"
 #include "TokenizedString.h"
 
