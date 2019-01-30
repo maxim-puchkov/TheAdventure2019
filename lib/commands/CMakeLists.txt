@@ -1,7 +1,8 @@
 add_library(commands
- 	src/CommandProcessor.cpp
+    src/Environment.txx
+ 	src/Parser.cpp
+    src/Command.cpp
 	src/TokenizedString.cpp
-	src/Environment.txx
 )
 
 target_include_directories(commands

@@ -5,10 +5,17 @@
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
-#include "Environment.h"
+#ifndef Environment_cpp
+#define Environment_cpp
 
-#ifndef Environment_txx
-#define Environment_txx
+
+#include <iostream>
+#include <string>
+#include <unordered_map>
+
+using std::string;
+using std::string;
+
 
 using std::string;
 using std::unordered_map;
@@ -136,4 +143,4 @@ typename unordered_map<K, V>::const_iterator Environment<K, V>::end() const {
     return this->map.cend();
 }
 
-#endif /* Environment_txx */
+#endif /* Environment_cpp */

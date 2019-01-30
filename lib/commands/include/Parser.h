@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////
-//                                  CommandProcessor
+//                                  Parser
 //
 // This file is distributed under the MIT License. See the LICENSE file
 // for details.
@@ -13,7 +13,7 @@
 #include <sstream>
 
 #include "Command.h"
-#include "Environment.h"
+#include "Environment.pch"
 #include "TokenizedString.h"
 
 using std::vector;
@@ -48,7 +48,7 @@ struct Command {
  *  A small compiler that will be useful for for client-side
  *  commands, scripting, crafting, or minigame implementation.
  */
-class CommandProcessor {
+class Parser {
 public:
     
     CommandProcessor();
@@ -58,12 +58,12 @@ public:
     CommandProcessor(CommandProcessor &&other);
     
     
-    // Tokenize and evaluate input
-    string process(const string &input) const;
+    // Tokenize and parse input
+    string parse(const string &input) const;
     
     
     // Local map
-    Environment<string, Command> localEnv() const;
+    // Environment<string, Command> localEnv() const;
     
     
     // (Optional) Global map
@@ -75,7 +75,7 @@ public:
     
     
     // Add a new command
-    void createCommand(string commandName, cmd_signature commandFn, int argCount);
+    // void createCommand(string commandName, cmd_signature commandFn, int argCount);
     
     
 private:

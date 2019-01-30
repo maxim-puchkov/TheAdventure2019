@@ -1,28 +1,28 @@
 /////////////////////////////////////////////////////////////////////////////
-//                                  CommandProcessor
+//                                  Parser
 //
 // This file is distributed under the MIT License. See the LICENSE file
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
-#include "CommandProcessor.h"
+#include "Parser.h"
 #include "CommandDefinitions.h"
 
 
-CommandProcessor::CommandProcessor() {
-    CommandProcessor::init(this);
+Parser::Parser()  {
+    Parser::init(this);
 }
 
 
-CommandProcessor::~CommandProcessor()
+Parser::~Parser()
 { }
 
 
-CommandProcessor::CommandProcessor(CommandProcessor &&other)
+Parser::Parser(Parser &&other)
 : local(std::move(other.local)) { }
 
 
-string CommandProcessor::process(const string &input) const {
+string Parser::process(const string &input) const {
     string output;
     try {
         TokenizedString tokens(std::move(input));
@@ -50,16 +50,16 @@ string CommandProcessor::process(const string &input) const {
 }
 
 
-Environment<string, Command> CommandProcessor::localEnv() const {
+Environment<string, Command> Parser::localEnv() const {
     return this->local;
 }
 
 
 /*
- Environment<string, FnDescriptor> CommandProcessor::global;
+ Environment<string, FnDescriptor> Parser::global;
  
- Environment<string, FnDescriptor> CommandProcessor::globalEnv() {
- return CommandProcessor::global;
+ Environment<string, FnDescriptor> Parser::globalEnv() {
+ return Parser::global;
  }
  */
 
@@ -69,7 +69,7 @@ Environment<string, Command> CommandProcessor::localEnv() const {
 
 /* Private */
 
-void CommandProcessor::init(CommandProcessor *processor) {
+void Parser::init(Parser *processor) {
     processor->createCommand("login", &test::exampleLogin, 2);          // login <bob> <123>
     processor->createCommand("help", &test::exampleShowHelp, 0);        // help
     processor->createCommand("error", &test::exampleThrowCustomErr, 1); // error <bob>
@@ -81,7 +81,7 @@ void CommandProcessor::init(CommandProcessor *processor) {
 
 
 
-void CommandProcessor::createCommand(string commandName, cmd_signature commandFn, int argCount) {
+void Parser::createCommand(string commandName, cmd_signature commandFn, int argCount) {
     Command commandFunction = {commandFn, argCount};
     this->local.bind(commandName, commandFunction);
 }
@@ -90,9 +90,9 @@ void CommandProcessor::createCommand(string commandName, cmd_signature commandFn
 
 
 /*
-string CommandProcessor::availableCommands(const vector<string>&) {
+string Parser::availableCommands(const vector<string>&) {
     std::stringstream result("");
-    std::queue<const string> commands = CommandProcessor::global.keys();
+    std::queue<const string> commands = Parser::global.keys();
     while (!commands.empty()) {
         result << commands.front();
         commands.pop();

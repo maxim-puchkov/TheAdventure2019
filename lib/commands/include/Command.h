@@ -6,9 +6,11 @@
 //  Copyright © 2019 maximpuchkov. All rights reserved.
 //
 
+#include <iostream>
+#include <string>
+
 #ifndef Command_h
 #define Command_h
-
 
 class _Command {
 public:

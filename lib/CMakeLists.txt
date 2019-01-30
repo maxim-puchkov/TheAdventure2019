@@ -1,5 +1,5 @@
+dad_subdirectory(commands)
 add_subdirectory(networking)
-add_subdirectory(gamelogic)
 add_subdirectory(accountmanager)
+add_subdirectory(gamemanager)
 add_subdirectory(usermanager)
-

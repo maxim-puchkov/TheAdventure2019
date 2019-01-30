@@ -5,7 +5,7 @@
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
-#include "CommandProcessor.h"
+#include "Parser.h"
 #include "Server.h"
 
 
@@ -89,7 +89,7 @@ buildOutgoing(std::unique_ptr<std::unordered_map<std::string, std::string>> logs
 
 std::string
 processMessages(Server &server,
-                CommandProcessor &&commands,
+                Parser &&commands,
                 const std::deque<Message> &incoming,
                 bool &quit) {
     std::ostringstream result;
@@ -138,7 +138,7 @@ main(int argc, char* argv[]) {
   unsigned short port = std::stoi(argv[1]);
   Server server{port, getHTTPMessage(argv[2]), onConnect, onDisconnect};
 
-  CommandProcessor commands;
+  Parser commands;
   while (!done) {
     try {
       server.update();
