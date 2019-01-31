@@ -63,11 +63,10 @@ processMessages(Server &server,
     } else {
       std::string connectionID = std::to_string(message.connection.id);
       std::string serverAnswer = connectionID + "> " + message.text + "\n";
-      // serverAnswer.append(gm.extractCommands(connectionID, message.text));
+      serverAnswer.append(gm.extractCommands(connectionID, message.text));
 
-      std::pair<std::string, std::string> answerPair = std::make_pair(connectionID, serverAnswer);
-
-      result->insert(std::move(answerPair));
+      std::pair<std::string, std::string> answerPair (connectionID, serverAnswer);
+      result->insert(answerPair);
     }
   }
   return result;
@@ -121,6 +120,22 @@ getHTTPMessage(const char* htmlLocation) {
               << htmlLocation << "\n";
     std::exit(-1);
   }
+}
+
+
+std::unique_ptr<std::unordered_map<std::string, std::string>>
+includeHeartbeatMessages(std::unique_ptr<std::unordered_map<std::string, std::string>> tableA, std::unique_ptr<std::unordered_map<std::string, std::string>> tableB) {
+  // x is each key in the tableB
+  for (auto x : *tableB) {
+    // if key exists in tableA
+    if (tableA->count(x.first) >= 0) {  
+      tableA->at(x.first) = (tableA->at(x.first)).append(x.second);
+    }
+    else {
+      tableA->insert(make_pair(x.first, x.second));
+    }
+  }
+  return tableA;
 }
 
 

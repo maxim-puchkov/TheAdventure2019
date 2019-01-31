@@ -15,7 +15,8 @@ class OnlineUserManager{
     public:
         bool inserUser(std::string id, const User& user);
         User removeUser(std::string id);
-        User getUser(std::string id);
+        User getUserById(std::string id);
+        User getUserByUsername(std::string userName);
         void updateUserTimeStamp(std::string id, int timeStamp);
         void printTable();
 };
