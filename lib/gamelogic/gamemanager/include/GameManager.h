@@ -10,6 +10,7 @@
 #include <vector>
 #include <exception>
 #include <iostream>
+#include <unordered_map>
 
 #include "WorldManager.h"
 #include "AccountManager.h"

@@ -23,7 +23,7 @@ User OnlineUserManager::removeUser(std::string id){
     }
 }
 
-User OnlineUserManager::getUser(std::string id){
+User OnlineUserManager::getUserById(std::string id){
     auto search = onlineUsers.find(id);
     if (search != onlineUsers.end()) {
         return search->second;
@@ -33,15 +33,25 @@ User OnlineUserManager::getUser(std::string id){
     }
 }
 
+User OnlineUserManager::getUserByUsername(std::string userName){
+    for (auto &element : onlineUsers) {
+        if(element.second.getUserName() == userName) {
+            return element.second;
+        }
+    }
+    User user{"", ""};
+    return user;
+}
+
 void OnlineUserManager::updateUserTimeStamp(std::string id, int timeStamp) {
     auto user = removeUser(id);
-    user.setRoomID(timeStamp);
+    user.setId(timeStamp);
     inserUser(id, user);
 }
 
 void OnlineUserManager::printTable() {
     for(auto& p: onlineUsers)
         std::cout << p.first << " => " << p.second.getUserName() << " "
-                  << p.second.getRoomID() << "\n";
+                  << p.second.getId() << "\n";
 }
 

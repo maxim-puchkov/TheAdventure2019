@@ -1,3 +1,4 @@
+#include <boost/algorithm/string.hpp>
 #include "User.h"
 
 using user::User;
@@ -25,6 +26,33 @@ string User::getUserName() {
     return this->name;
 }
 
+void User::setId(int id){
+    this->id = id;
+}
+
+int User::getId() {
+    int myId = this->id;
+    return myId;
+}
+
+void User::addMessage(std::string message) {
+    messages.push(message);
+}
+
+std::queue<std::string>& User::getMessages() {
+    return messages;
+}
+
+void User::addAction(std::string action){
+    std::vector<std::string> actionParts;
+    boost::split(actionParts, action, boost::is_any_of(" "));
+    actions.push(actionParts);
+}
+
+std::queue<std::vector<std::string>>& User::getActions(){
+    return actions;
+}
+
 void User::init() {
     
 }
@@ -34,16 +62,3 @@ void User::test() {
     this->avatar.say("hi");
 }
 
-/*
- void User::setUserName(string userName) {
- this->name = userName;
- }
- 
- void User::setUserPassword(string password) {
- this->password = password;
- }
- 
- string User::getUserPassword() {
- return this->password;
- }
- */
