@@ -1,11 +1,11 @@
-add_library(world
+add_library(${libworld}
         src/Exit.cpp
         src/Room.cpp
         src/WorldManager.cpp
-	src/Area.cpp
+        src/Area.cpp
 )
 
-target_include_directories(world
+target_include_directories(${libworld}
         PUBLIC
             $<INSTALL_INTERFACE:include>
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -13,17 +13,17 @@ target_include_directories(world
             ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(world
-  accountmanager
-  character
+target_link_libraries(${libworld}
+    ${libusers}
+    ${libcharacters}
 )
 
-set_target_properties(world
+set_target_properties(${libworld}
     PROPERTIES
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
 )
 
-install(TARGETS world
-  ARCHIVE DESTINATION lib
+install(TARGETS ${libworld}
+    ARCHIVE DESTINATION lib
 )

@@ -1,4 +1,4 @@
-add_library(character
+add_library(${libcharacters}
  	src/Character.cpp
 	src/Avatar.cpp
 	src/PlayerControlledCharacter.cpp
@@ -6,7 +6,7 @@ add_library(character
 	src/Attributes.cpp
 )
 
-target_include_directories(character
+target_include_directories(${libcharacters}
   PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -14,17 +14,16 @@ target_include_directories(character
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(character
-  world
+target_link_libraries(${libcharacters}
+    ${libworld}
 )
 
-set_target_properties(character
+set_target_properties(${libcharacters}
                       PROPERTIES
                       LINKER_LANGUAGE CXX
                       CXX_STANDARD 17
 )
 
-install(TARGETS character
+install(TARGETS ${libcharacters}
   ARCHIVE DESTINATION lib
 )
-

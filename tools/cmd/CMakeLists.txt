@@ -12,7 +12,7 @@ set_target_properties(cmd
 find_package(Threads REQUIRED)
 
 target_link_libraries(cmd
-    commands
+    ${libcommands}
 )
 
 install(TARGETS cmd

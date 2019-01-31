@@ -5,6 +5,7 @@
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
+
 #include <iostream>
 #include <unistd.h>
 
@@ -19,4 +20,34 @@ main(int argc, char* argv[]) {
         << "  e.g. " << argv[0] << " localhost 4002\n";
         return 1;
     }
+    
+    networking::Client client{argv[1], argv[2]};
+    
+    bool done = false;
+    auto onTextEntry = [&done, &client] (std::string text) {
+        if ("exit" == text || "quit" == text) {
+            done = true;
+        } else {
+            client.send(text);
+        }
+    };
+    
+    ChatWindow chatWindow(onTextEntry);
+    while (!done && !client.isDisconnected()) {
+        try {
+            client.update();
+        } catch (std::exception& e) {
+            chatWindow.displayText("Exception from Client update:");
+            chatWindow.displayText(e.what());
+            done = true;
+        }
+        
+        auto response = client.receive();
+        if (!response.empty()) {
+            chatWindow.displayText(response);
+        }
+        chatWindow.update();
+    }
+    
+    return 0;
 }

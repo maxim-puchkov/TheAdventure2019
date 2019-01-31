@@ -1,9 +1,9 @@
-
-add_library(usermanager
-  src/OnlineUserManager.cpp
+add_library(${libusers}
+    src/User.cpp
+    src/OnlineUserManager.cpp
 )
 
-target_include_directories(usermanager
+target_include_directories(${libusers}
   PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -12,19 +12,21 @@ target_include_directories(usermanager
     ${Boost_INCLUDE_DIR}
 )
 
-target_link_libraries(usermanager
-  PRIVATE
-  accountmanager
-    ${Boost_LIBRARIES}
+target_link_libraries(${libusers}
+    PUBLIC
+        ${libaccounts}
+        ${libcharacters}
+    PRIVATE
+        ${Boost_LIBRARIES}
 )
 
-set_target_properties(usermanager
+set_target_properties(${libusers}
                       PROPERTIES
                       LINKER_LANGUAGE CXX
                       CXX_STANDARD 17
 )
 
-install(TARGETS usermanager
+install(TARGETS ${libusers}
   ARCHIVE DESTINATION lib
 )
 

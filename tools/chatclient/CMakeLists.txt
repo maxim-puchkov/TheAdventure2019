@@ -14,12 +14,12 @@ find_package(Curses REQUIRED)
 find_package(Threads REQUIRED)
 
 target_include_directories(chatclient
-  PRIVATE
-  ${CURSES_INCLUDE_DIR}
+    PUBLIC
+        ${CURSES_INCLUDE_DIR}
 )
 
 target_link_libraries(chatclient
-  networking
+  ${libnetwork}
   ${CURSES_LIBRARIES}
   ${CMAKE_THREAD_LIBS_INIT}
 )
@@ -27,4 +27,3 @@ target_link_libraries(chatclient
 install(TARGETS chatclient
   RUNTIME DESTINATION bin
 )
-

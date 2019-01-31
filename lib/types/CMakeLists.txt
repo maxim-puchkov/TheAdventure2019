@@ -9,7 +9,6 @@ target_include_directories(${libtypes}
         $<INSTALL_INTERFACE:src>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-    PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
@@ -21,6 +20,4 @@ set_target_properties(${libtypes}
 
 install(TARGETS ${libtypes}
     ARCHIVE DESTINATION lib
-    RUNTIME DESTINATION lib
 )
-

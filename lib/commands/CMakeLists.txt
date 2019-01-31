@@ -1,9 +1,9 @@
-add_library(commands
+add_library(${libcommands}
     src/Parser.cpp
     src/Command.cpp
 )
 
-target_include_directories(commands
+target_include_directories(${libcommands}
   PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -11,17 +11,17 @@ target_include_directories(commands
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-set_target_properties(commands
+set_target_properties(${libcommands}
                       PROPERTIES
                       LINKER_LANGUAGE CXX
                       CXX_STANDARD 17
 )
 
-target_link_libraries(commands
+target_link_libraries(${libcommands}
     ${libtypes}
 )
 
 
-install(TARGETS commands
+install(TARGETS ${libcommands}
   ARCHIVE DESTINATION lib
 )
