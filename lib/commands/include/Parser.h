@@ -5,6 +5,11 @@
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
+#ifndef Parser_h
+#define Parser_h
+
+#include "Environment.h"
+
 #include <queue>
 #include <vector>
 #include <string>
@@ -13,8 +18,9 @@
 #include <sstream>
 
 #include "Command.h"
-#include "Environment.pch"
 #include "TokenizedString.h"
+
+
 
 using std::vector;
 using std::string;
@@ -51,11 +57,11 @@ struct Command {
 class Parser {
 public:
     
-    CommandProcessor();
+    Parser();
     
-    ~CommandProcessor();
+   ~Parser();
     
-    CommandProcessor(CommandProcessor &&other);
+    Parser(Parser &&other);
     
     
     // Tokenize and parse input
@@ -80,10 +86,12 @@ public:
     
 private:
     
-    static void init(CommandProcessor *processor);
+    // static void init(Parser *processor);
     
     Environment<string, Command> local;
     
     // static Environment<string, FnDescriptor> global;
     
 };
+
+#endif /* Parser_h */

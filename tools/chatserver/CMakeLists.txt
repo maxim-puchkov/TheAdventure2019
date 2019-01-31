@@ -16,7 +16,6 @@ target_link_libraries(chatserver
   accountmanager
   gamemanager
   world
-  commands
   gamemanager
   ${CMAKE_THREAD_LIBS_INIT}
 )

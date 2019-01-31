@@ -8,18 +8,13 @@
 #ifndef Environment_cpp
 #define Environment_cpp
 
-
+#include "Environment.h"
 #include <iostream>
 #include <string>
 #include <unordered_map>
 
 using std::string;
-using std::string;
-
-
-using std::string;
 using std::unordered_map;
-
 
 template<class K, class V>
 Environment<K, V>::Environment() { }
@@ -104,7 +99,7 @@ typename unordered_map<K, V>::const_iterator Environment<K, V>::find(const K &k)
 
 template<class K, class V>
 typename unordered_map<K, V>::size_type Environment<K, V>::size() const {
-return this->map.size();
+    return this->map.size();
 }
 
 

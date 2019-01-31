@@ -5,7 +5,6 @@
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
-#include "Parser.h"
 #include "Server.h"
 
 
@@ -89,13 +88,12 @@ buildOutgoing(std::unique_ptr<std::unordered_map<std::string, std::string>> logs
 
 std::string
 processMessages(Server &server,
-                Parser &&commands,
                 const std::deque<Message> &incoming,
                 bool &quit) {
     std::ostringstream result;
     for (auto &message : incoming) {
         result << message.connection.id << " > ";
-        result << commands.process(std::move(message.text));
+        result << message.text;
         result << std::endl;
     }
     return result.str();
@@ -138,7 +136,6 @@ main(int argc, char* argv[]) {
   unsigned short port = std::stoi(argv[1]);
   Server server{port, getHTTPMessage(argv[2]), onConnect, onDisconnect};
 
-  Parser commands;
   while (!done) {
     try {
       server.update();
@@ -149,7 +146,7 @@ main(int argc, char* argv[]) {
     }
 
     auto incoming = server.receive();
-    auto logs      = processMessages(server, std::move(commands), incoming, done);
+    auto logs      = processMessages(server, incoming, done);
     auto outgoing  = buildOutgoing(std::move(logs));
     server.send(outgoing);
     sleep(1);

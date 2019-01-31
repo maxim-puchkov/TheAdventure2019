@@ -6,11 +6,9 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "Parser.h"
-#include "CommandDefinitions.h"
-
 
 Parser::Parser()  {
-    Parser::init(this);
+    //Parser::init(this);
 }
 
 
@@ -22,7 +20,7 @@ Parser::Parser(Parser &&other)
 : local(std::move(other.local)) { }
 
 
-string Parser::process(const string &input) const {
+string Parser::parse(const string &input) const {
     string output;
     try {
         TokenizedString tokens(std::move(input));
@@ -37,7 +35,7 @@ string Parser::process(const string &input) const {
         
         commandArguments.push_back(remainingInput);
         
-        output = command.function(commandArguments);
+        // output = command.function(commandArguments);
     }
     catch (std::invalid_argument &e) {
         return CMD_NOT_FOUND;
@@ -46,14 +44,14 @@ string Parser::process(const string &input) const {
         return DEF_CATCH_MESSAGE + customErrorText;
     }
     
-    return output;
+    return "Parse..."; //output;
 }
 
-
+/*
 Environment<string, Command> Parser::localEnv() const {
     return this->local;
 }
-
+*/
 
 /*
  Environment<string, FnDescriptor> Parser::global;
@@ -69,6 +67,7 @@ Environment<string, Command> Parser::localEnv() const {
 
 /* Private */
 
+/*
 void Parser::init(Parser *processor) {
     processor->createCommand("login", &test::exampleLogin, 2);          // login <bob> <123>
     processor->createCommand("help", &test::exampleShowHelp, 0);        // help
@@ -78,14 +77,15 @@ void Parser::init(Parser *processor) {
     processor->createCommand("move", &test::exampleWorldMove, 1);       // move <dir>
     processor->createCommand("look", &test::exampleShowWorldLook, 1);   // look <obj>
 }
+*/
 
 
-
+/*
 void Parser::createCommand(string commandName, cmd_signature commandFn, int argCount) {
     Command commandFunction = {commandFn, argCount};
     this->local.bind(commandName, commandFunction);
 }
-
+*/
 
 
 

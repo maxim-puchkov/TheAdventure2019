@@ -19,4 +19,4 @@ main(int argc, char* argv[]) {
         << "  e.g. " << argv[0] << " localhost 4002\n";
         return 1;
     }
-
+}

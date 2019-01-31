@@ -8,15 +8,6 @@
 #include "TokenizedString.h"
 
 
-using std::vector;
-using std::string;
-using std::regex;
-using std::sregex_token_iterator;
-
-
-
-
-
 TokenizedString::TokenizedString(const string &text)
 : source(text) {
     this->tokenize();

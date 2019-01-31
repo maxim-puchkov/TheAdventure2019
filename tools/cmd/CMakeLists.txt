@@ -12,10 +12,10 @@ set_target_properties(cmd
 find_package(Threads REQUIRED)
 
 target_link_libraries(cmd
-    ${CMAKE_THREAD_LIBS_INIT}
+    commands
 )
 
 install(TARGETS cmd
-RUNTIME DESTINATION bin
+    RUNTIME DESTINATION cmd/bin
 )
 
