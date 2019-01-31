@@ -8,42 +8,21 @@
 #ifndef Parser_h
 #define Parser_h
 
-#include "Environment.h"
-
 #include <queue>
 #include <vector>
 #include <string>
 #include <regex>
 #include <iostream>
 #include <sstream>
-
 #include "Command.h"
-#include "TokenizedString.h"
-
 
 
 using std::vector;
 using std::string;
 
+
 const string CMD_HELP = "help";
-const string DELIMETER = ", ";
-
-const string DEF_CATCH_MESSAGE = "Exception caught. Details: ";
 const string CMD_NOT_FOUND = "Invalid command. See available: " + CMD_HELP;
-
-
-// Function must return string and take one "const vector<string>&" argument
-//typedef string (*function_ptr)(const vector<string>&);
-
-using cmd_signature = std::function<string(vector<string>&)>;
-
-
-// Function pointer and number of arguments
-struct Command {
-    cmd_signature function;
-    int argCount;
-};
-
 
 
 /**
@@ -61,36 +40,11 @@ public:
     
    ~Parser();
     
-    Parser(Parser &&other);
-    
-    
     // Tokenize and parse input
     string parse(const string &input) const;
     
     
-    // Local map
-    // Environment<string, Command> localEnv() const;
-    
-    
-    // (Optional) Global map
-    // static Environment<string, FnDescriptor> globalEnv();
-    
-    
-    //
-    // string availableCommands();
-    
-    
-    // Add a new command
-    // void createCommand(string commandName, cmd_signature commandFn, int argCount);
-    
-    
 private:
-    
-    // static void init(Parser *processor);
-    
-    Environment<string, Command> local;
-    
-    // static Environment<string, FnDescriptor> global;
     
 };
 
