@@ -1,0 +1,13 @@
+/////////////////////////////////////////////////////////////////////////////
+//                              CommandDefintions
+//
+// This file is distributed under the MIT License. See the LICENSE file
+// for details.
+/////////////////////////////////////////////////////////////////////////////
+
+#ifndef CommandDefintions_h
+#define CommandDefintions_h
+
+
+
+#endif /* CommandDefintions_h */

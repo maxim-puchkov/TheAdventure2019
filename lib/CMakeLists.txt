@@ -1,4 +1,8 @@
-add_subdirectory(networking)
-add_subdirectory(gamelogic)
-add_subdirectory(accountmanager)
-
+add_subdirectory(${libaccounts})
+add_subdirectory(${libcharacters})
+add_subdirectory(${libcommands})
+add_subdirectory(${libgame})
+add_subdirectory(${libnetwork})
+add_subdirectory(${libtypes})
+add_subdirectory(${libusers})
+add_subdirectory(${libworld})
