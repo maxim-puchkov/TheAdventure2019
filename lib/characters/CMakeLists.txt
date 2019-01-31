@@ -14,11 +14,7 @@ target_include_directories(${libcharacters}
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(${libcharacters}
-    ${libworld}
-)
-
-set_target_properties(${libcharacters}
+set_target_properties(character
                       PROPERTIES
                       LINKER_LANGUAGE CXX
                       CXX_STANDARD 17
