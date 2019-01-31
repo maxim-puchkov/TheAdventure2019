@@ -1,11 +1,9 @@
-set(LIB_NAME "types")
-
-add_library(LIB_NAME
+add_library(${libtypes}
     src/Environment.cpp
     src/TokenizedString.cpp
 )
 
-target_include_directories(LIB_NAME
+target_include_directories(${libtypes}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<INSTALL_INTERFACE:src>
@@ -15,13 +13,13 @@ target_include_directories(LIB_NAME
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-set_target_properties(LIB_NAME
+set_target_properties(${libtypes}
     PROPERTIES
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
 )
 
-install(TARGETS LIB_NAME
+install(TARGETS ${libtypes}
     ARCHIVE DESTINATION lib
     RUNTIME DESTINATION lib
 )

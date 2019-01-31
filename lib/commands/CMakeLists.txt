@@ -18,7 +18,7 @@ set_target_properties(commands
 )
 
 target_link_libraries(commands
-    data
+    ${libtypes}
 )
 
 
