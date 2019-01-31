@@ -80,6 +80,7 @@ bool GameManager::commandIsValid(size_t commandPartsSize, size_t splitByColon, c
 }
 
 std::string GameManager::commandLogin(std::string connectionID, std::vector<std::string> fullCommand) {
+    //Using this to test user class
     getUser("user2");
     return "log-in test";
 }
