@@ -1,3 +1,7 @@
+# Clone the newest branch
+
+## git clone -b libs https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019.git
+
 # Single Threaded Web Socket Networking
 
 This repository contains an example library for single threaded client/server
