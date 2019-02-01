@@ -4,8 +4,10 @@
 #include "AccountManager.h"
 #include "User.h"
 #include "OnlineUserManager.h"
+#include <boost/algorithm/string.hpp>
 
 using usermanager::OnlineUserManager;
+using accountmanager::AccountManager;
 
 GameManager::GameManager() {
     WorldManager newWorld;
@@ -81,9 +83,24 @@ bool GameManager::commandIsValid(size_t commandPartsSize, size_t splitByColon, c
     return true;
 }
 
+void testAccountManager(){
+    std::cout << "*** AccountManager TEST ***\n";
+    
+    AccountManager accountManager{};
+    std::string userName = "user6";
+    std::string pwd = "pwd";
+    std::string id = "123";
+
+    assert( accountManager.createUser(userName, pwd) == AccountManager::ACCOUNT_CODE::ACCOUNT_CREATED);
+    // assert( accountManager.login("123","user","test") == AccountManager::ACCOUNT_CODE::INVALID_PASSWORD);
+    assert( accountManager.login(id,userName,pwd) == AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN);
+    assert( accountManager.login(id,userName,pwd) == AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN);
+
+}
 std::string GameManager::commandLogin(std::string connectionID, std::vector<std::string> fullCommand) {
     //Using this to test user class
     getUser("user2");
+    // testAccountManager();
     return "log-in test";
 }
 
@@ -96,7 +113,10 @@ std::string GameManager::commandCreate(std::string connectionID, std::vector<std
 }
 
 std::string GameManager::commandAddToActionList(std::string connectionID, std::vector<std::string> fullCommand) {
-    return "add-to-action-queue test";
+    std::string combined;
+    for (const auto &commandPart : fullCommand) combined += commandPart;
+    dummyUser.addAction(combined);
+    return "command-add-test";
 }
 
 std::string GameManager::commandHelp(std::string connectionID, std::vector<std::string> fullCommand) {
@@ -204,19 +224,9 @@ User* GameManager::getUser(const std::string userName) const {
 
     return &user; //Note: nullptr = not online, processed in the upper level
 }
+
+
 /*
-void testAccountManager(){
-    AccountManager accountManager{};
-
-    assert( accountManager.createUser("user", "pwd") == AccountManager::ACCOUNT_CODE::ACCOUNT_CREATED);
-
-    // assert( accountManager.login("123","user","test") == AccountManager::ACCOUNT_CODE::INVALID_PASSWORD);
-
-    assert( accountManager.login("123","user","pwd") == AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN);
-    assert( accountManager.login("123","user","pwd") == AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN);
-
-}
-
     std::vector<std::string> messageParts;
     boost::split(messageParts, fullMessage, boost::is_any_of(" "));
 

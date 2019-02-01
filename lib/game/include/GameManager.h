@@ -6,11 +6,11 @@
 #define WEBSOCKETNETWORKING_GAMEMANAGER_H
 
 #include <string>
-#include <boost/algorithm/string.hpp>
 #include <vector>
 #include <exception>
 #include <iostream>
 #include <unordered_map>
+// #include <boost/algorithm/string.hpp>
 
 #include "WorldManager.h"
 #include "AccountManager.h"
@@ -19,6 +19,7 @@
 class GameManager{
 
 private:
+    User dummyUser{"bob","123"};
     WorldManager *world;
     user::User* getUser(const std::string userName) const;
     struct commandGuideline {
