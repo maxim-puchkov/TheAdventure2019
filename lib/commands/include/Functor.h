@@ -1,5 +1,5 @@
 //
-//  Command.h
+//  Functor.h
 //  adventure2019
 //
 //  Created by admin on 2019-01-29.
@@ -9,31 +9,33 @@
 #include <iostream>
 #include <string>
 
-#ifndef Command_h
-#define Command_h
+#ifndef Functor_h
+#define Functor_h
 
-class _Command {
+
+template<class F, typename ...T>
+class Functor;
+
+template<class F, typename ...T>
+class Functor<F(T...)> {
 public:
     
-    ~_Command() { }
+    ~Functor() { }
     
-    template<class F, class ...T>
-    _Command(F &&f, T &&...ts) {
-        _Command(f, std::forward<T>(ts)...);
+    Functor(F &&f, T &&...ts) {
+        Functor(f, std::forward<T>(ts)...);
     }
     
-    template<class F>
-    void operator()(F &&f) {
-        f();
+    template<class R>
+    void operator()(R &&r) {
+        r();
     }
     
-    template<class F, class ...T>
     void operator()(F &&f, T &&...ts) {
         f(std::forward<T>(ts)...);
     }
     
-    template<class R, class ...T>
-    R operator()(T &&...ts) {
+    F operator()(T &&...ts) {
         return f(std::forward<T>(ts)...);
     }
     
@@ -66,7 +68,7 @@ void Test_3(std::string Login, std::string Password) {
 
 
 void test() {
-    _Command c = _Command::_Command(Test_2, "hi");
+    _Functor c = _Functor::_Functor(Test_2, "hi");
     
     c(Test);
     
@@ -77,4 +79,4 @@ void test() {
 
 */
 
-#endif /* Command_h */
+#endif /* Functor_h */
