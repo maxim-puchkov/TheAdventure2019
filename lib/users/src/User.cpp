@@ -44,14 +44,18 @@ std::queue<std::string>& User::getMessages() {
     return messages;
 }
 
-void User::addAction(std::string action){
-    std::vector<std::string> actionParts;
-    boost::split(actionParts, action, boost::is_any_of(" "));
-    actions.push(actionParts);
+void User::addCommandToList(std::string command){
+    std::vector<std::string> commandParts;
+    boost::split(commandParts, command, boost::is_any_of(" "));
+
+    for(auto& value: commandParts) {
+        boost::trim(value);
+    }
+    commands.push(commandParts);
 }
 
-std::queue<std::vector<std::string>>& User::getActions(){
-    return actions;
+std::queue<std::vector<std::string>>& User::getCommands(){
+    return commands;
 }
 
 void User::init() {
