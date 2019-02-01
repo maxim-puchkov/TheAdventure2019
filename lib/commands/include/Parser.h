@@ -14,7 +14,7 @@
 #include <regex>
 #include <iostream>
 #include <sstream>
-#include "Command.h"
+#include "Functor.h"
 
 
 using std::vector;
