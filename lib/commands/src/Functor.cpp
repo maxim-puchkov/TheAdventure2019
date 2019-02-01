@@ -1,5 +1,5 @@
 //
-//  Command.cpp
+//  Functor.cpp
 //  adventure2019
 //
 //  Created by admin on 2019-01-30.
@@ -7,4 +7,4 @@
 //
 
 #include <stdio.h>
-#include "Command.h"
+#include "Functor.h"
