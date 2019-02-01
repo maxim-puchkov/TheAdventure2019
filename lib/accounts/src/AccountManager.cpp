@@ -2,8 +2,7 @@
 #include <string>
 #include "AccountManager.h"
 #include "OnlineUserManager.h"
-//#include "../../usermanager/include/OnlineUserManager.h"
-
+#include "JsonParser.h"
 
 #include <iostream> 
 #include <unordered_map>
@@ -25,37 +24,23 @@ using usermanager::OnlineUserManager;
     unordered_map<string, User> onlineUsers;
 
     auto onlineUserMananger = OnlineUserManager();
+    auto jsonParser = JsonParser();
 
     bool jsonProcessed = false;
     json users_json;
+    std::string json_filePath = "/Users/ParmJohal/Desktop/373project/users.json";
 
     AccountManager::AccountManager(){
-        processUsersJSON();
+        users_json = jsonParser.processJSON(json_filePath);
     }
     AccountManager::~AccountManager(){
-        saveUsersJSON();
-    }
-
-    void AccountManager::processUsersJSON(){
-
-        try{
-            std::ifstream users_file("/Users/ParmJohal/Desktop/373project/users.json");
-            users_json << users_file;
-        }
-        catch(nlohmann::detail::parse_error e){
-            cout << e.what() << "\n";
-        }
-    }
-    
-    void AccountManager::saveUsersJSON(){
-        std::ofstream file("/Users/ParmJohal/Desktop/373project/users.json");
-        file << users_json;
+        jsonParser.saveJSON(users_json, json_filePath);
     }
 
     AccountManager::ACCOUNT_CODE AccountManager::login(std::string id, std::string name, std::string pwd){
         
         if(jsonProcessed == false){
-            processUsersJSON();
+            jsonParser.processJSON(json_filePath);
         }
 
         if((users_json[name]["password"] == pwd)){
@@ -88,15 +73,12 @@ using usermanager::OnlineUserManager;
     AccountManager::ACCOUNT_CODE AccountManager::createUser(std::string name, std::string pwd){
 
         if(jsonProcessed == false){
-            processUsersJSON();
+            jsonParser.processJSON(json_filePath);
         }
         if(users_json == nullptr){
             cout << "BITCH";
         }
 
-        // if((onlineUserMananger.getUser("test123").getUserName() == "")){
-        //     return AccountManager::ACCOUNT_CODE::INVALID_USERNAME;
-        // }
         
         if(users_json[name] != nullptr){
             return AccountManager::ACCOUNT_CODE::INVALID_USERNAME;
@@ -104,7 +86,7 @@ using usermanager::OnlineUserManager;
         else{
             users_json[name]["password"] = pwd;
             cout << users_json << "\n";
-            saveUsersJSON();
+            jsonParser.saveJSON(users_json, json_filePath);
             return AccountManager::ACCOUNT_CODE::ACCOUNT_CREATED;
         }
     }

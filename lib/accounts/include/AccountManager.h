@@ -23,9 +23,6 @@ class AccountManager {
     };
 
   private:
-    
-    void processUsersJSON();
-    void saveUsersJSON();
 
   public:
     AccountManager();
