@@ -83,7 +83,6 @@ bool GameManager::commandIsValid(size_t commandPartsSize, size_t splitByColon, c
 
 std::string GameManager::commandLogin(std::string connectionID, std::vector<std::string> fullCommand) {
     //Using this to test user class
-    getUser("user2");
     return "log-in test";
 }
 
@@ -96,7 +95,10 @@ std::string GameManager::commandCreate(std::string connectionID, std::vector<std
 }
 
 std::string GameManager::commandAddToActionList(std::string connectionID, std::vector<std::string> fullCommand) {
-    return "add-to-action-queue test";
+    std::string combined;
+    for (const auto &commandPart : fullCommand) combined += commandPart;
+    dummyUser.addAction(combined);
+    return "command-add-test";
 }
 
 std::string GameManager::commandHelp(std::string connectionID, std::vector<std::string> fullCommand) {
