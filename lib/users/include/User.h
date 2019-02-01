@@ -31,9 +31,9 @@ public:
 
     std::queue<std::string>& getMessages();
 
-    void addAction(std::string action);
+    void addCommandToList(std::string command);
 
-    std::queue<std::vector<std::string>>& getActions();
+    std::queue<std::vector<std::string>>& getCommands();
     
     
 private:
@@ -41,7 +41,7 @@ private:
     int id;
 
     std::queue<std::string> messages;
-    std::queue<std::vector<std::string>> actions;
+    std::queue<std::vector<std::string>> commands;
 
     void init();
     
