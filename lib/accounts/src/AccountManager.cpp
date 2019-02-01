@@ -17,11 +17,6 @@ using user::User;
 using accountmanager::AccountManager;
 using usermanager::OnlineUserManager;
 
-    User fakeUser{"name", "password"};
-    User nullUser{"", ""};
-
-    unordered_map<string, User> usersDB = {{"name", fakeUser}};
-    unordered_map<string, User> onlineUsers;
 
     auto onlineUserMananger = OnlineUserManager();
     auto jsonParser = JsonParser();
@@ -40,7 +35,7 @@ using usermanager::OnlineUserManager;
         jsonParser.saveJSON(users_json, json_filePath);
     }
 
-    AccountManager::ACCOUNT_CODE AccountManager::login(std::string id, std::string name, std::string pwd){
+    AccountManager::ACCOUNT_CODE AccountManager::login(std::string& id, std::string& name, std::string& pwd){
         
         if(jsonProcessed == false){
             users_json = jsonParser.processJSON(json_filePath);
@@ -62,9 +57,9 @@ using usermanager::OnlineUserManager;
         }
     }
 
-    AccountManager::ACCOUNT_CODE AccountManager::logOut(std::string id){
+    AccountManager::ACCOUNT_CODE AccountManager::logOut(std::string& id){
 
-        if ((onlineUserMananger.removeUser(id).getUserName() == "")) {
+        if ((onlineUserMananger.removeUser(id).getUserName() != "")) {
             //TODO: remove from onlineUsers
             return AccountManager::ACCOUNT_CODE::USER_LOGGED_OUT;
         }
@@ -73,7 +68,7 @@ using usermanager::OnlineUserManager;
         }
     }
 
-    AccountManager::ACCOUNT_CODE AccountManager::createUser(std::string name, std::string pwd){
+    AccountManager::ACCOUNT_CODE AccountManager::createUser(std::string& name, std::string& pwd){
 
         if(jsonProcessed == false){
             users_json = jsonParser.processJSON(json_filePath);
@@ -96,6 +91,10 @@ using usermanager::OnlineUserManager;
 
     void AccountManager::updateOnlineStatus(){
         std::cout << "checking" << "\n";
+    }
+
+    const OnlineUserManager& AccountManager::getUserManager(){
+        return onlineUserMananger;
     }
 
     // User* AccountManager::getOnlineUser(std::string id){

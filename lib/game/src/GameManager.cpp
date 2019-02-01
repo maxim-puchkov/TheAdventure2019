@@ -87,11 +87,14 @@ void testAccountManager(){
     std::cout << "*** AccountManager TEST ***\n";
     
     AccountManager accountManager{};
+    std::string userName = "user6";
+    std::string pwd = "pwd";
+    std::string id = "123";
 
-    assert( accountManager.createUser("user6", "pwd") == AccountManager::ACCOUNT_CODE::ACCOUNT_CREATED);
+    assert( accountManager.createUser(userName, pwd) == AccountManager::ACCOUNT_CODE::ACCOUNT_CREATED);
     // assert( accountManager.login("123","user","test") == AccountManager::ACCOUNT_CODE::INVALID_PASSWORD);
-    assert( accountManager.login("123","user6","pwd") == AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN);
-    assert( accountManager.login("123","user6","pwd") == AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN);
+    assert( accountManager.login(id,userName,pwd) == AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN);
+    assert( accountManager.login(id,userName,pwd) == AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN);
 
 }
 std::string GameManager::commandLogin(std::string connectionID, std::vector<std::string> fullCommand) {
