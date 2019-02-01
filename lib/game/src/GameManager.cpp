@@ -115,7 +115,6 @@ std::string GameManager::commandCreate(std::string connectionID, std::vector<std
 std::string GameManager::commandAddToActionList(std::string connectionID, std::vector<std::string> fullCommand) {
     std::string combined;
     for (const auto &commandPart : fullCommand) combined += commandPart;
-    dummyUser.addAction(combined);
     return "command-add-test";
 }
 
