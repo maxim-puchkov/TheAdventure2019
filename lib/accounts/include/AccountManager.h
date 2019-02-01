@@ -2,11 +2,13 @@
 #define ACCOUNTMANAGER_H
 
 #include "User.h"
+#include "OnlineUserManager.h"
 #include <string>
 #include <iostream> 
 
-
+using usermanager::OnlineUserManager;
 using user::User; 
+
 namespace accountmanager {
 
 class AccountManager {
@@ -23,22 +25,20 @@ class AccountManager {
     };
 
   private:
-    
-    void processUsersJSON();
-    void saveUsersJSON();
 
   public:
     AccountManager();
     ~AccountManager();
-    ACCOUNT_CODE login(std::string id, std::string, std::string );
+    ACCOUNT_CODE login(std::string&, std::string&, std::string& );
 
-    ACCOUNT_CODE logOut(std::string);
+    ACCOUNT_CODE logOut(std::string&);
 
-    ACCOUNT_CODE createUser(std::string, std::string);
+    ACCOUNT_CODE createUser(std::string&, std::string&);
 
     bool isOnline();
 
     void updateOnlineStatus();
+    const OnlineUserManager& getUserManager();
     // User* getOnlineUser(std::string);
 
     };
