@@ -3,7 +3,6 @@ add_library(${libnetwork}
   src/Client.cpp
 )
 
-
 find_package(Boost 1.68 COMPONENTS system REQUIRED)
 
 target_include_directories(${libnetwork}
