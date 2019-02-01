@@ -7,32 +7,32 @@ your dependecies set up correctly. Show how your code works and    ```cout``` yo
 
 # Keep current libraries maintained and push your *working* code
 ## Always be up to date: you can clone this branch
-```
+
     git clone -b libs https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019.git
-```
+`
 
 
 
 ## Build and test your code
 
 1. Run CMake with the path to the source.
-```
-cmake ../adventure2019/
-```
+
+    ```cmake ../adventure2019/```
+
 2. Each class has a build scheme where you can write code to perform tests.
 
 Available schemes:  ``` sworld, sgame, susers, saccs```
 
 3. Run make install <scheme> inside the build directory:
 
-```
-make install sworld
-```
+
+    ```make install sworld```
+
 
 4. Your files have to compile. You can run your executable code with:
-```
-bin/sworld
-```
+
+    ```bin/sworld```
+
 
 
 ## Configure your builds
