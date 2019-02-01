@@ -19,6 +19,7 @@
 class GameManager{
 
 private:
+    User dummyUser{"bob","123"};
     WorldManager *world;
     user::User* getUser(const std::string userName) const;
     struct commandGuideline {

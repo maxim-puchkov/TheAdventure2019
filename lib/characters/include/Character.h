@@ -44,7 +44,6 @@ public:
     
     // Set
     void setCurrentLocation(LocationCoordinates newLocation);
-    void setCurrentLocation(int areaID, int roomID);
     
     
     // States ...

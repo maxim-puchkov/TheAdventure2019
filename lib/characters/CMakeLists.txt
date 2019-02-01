@@ -15,8 +15,8 @@ target_include_directories(${libcharacters}
 )
 
 target_link_libraries(${libcharacters}
-    ${libworld}
-)
+		world
+		)
 
 set_target_properties(${libcharacters}
                       PROPERTIES
