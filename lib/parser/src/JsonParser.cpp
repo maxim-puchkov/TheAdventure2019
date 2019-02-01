@@ -7,10 +7,10 @@ json JsonParser::processJSON(const std::string& filePath){
 
     char char_filePath[filePath.length()+1];
     strcpy(char_filePath, filePath.c_str());
-
+    json users_json;
     try{
         std::ifstream users_file(char_filePath);
-        json users_json = json::parse(users_file);
+        users_json = json::parse(users_file);
     }
     catch(nlohmann::detail::parse_error e){
         return nullptr;

@@ -32,6 +32,9 @@ using usermanager::OnlineUserManager;
 
     AccountManager::AccountManager(){
         users_json = jsonParser.processJSON(json_filePath);
+        if(users_json == nullptr){
+            cout << "BITCH";
+        }
     }
     AccountManager::~AccountManager(){
         jsonParser.saveJSON(users_json, json_filePath);
@@ -40,7 +43,7 @@ using usermanager::OnlineUserManager;
     AccountManager::ACCOUNT_CODE AccountManager::login(std::string id, std::string name, std::string pwd){
         
         if(jsonProcessed == false){
-            jsonParser.processJSON(json_filePath);
+            users_json = jsonParser.processJSON(json_filePath);
         }
 
         if((users_json[name]["password"] == pwd)){
@@ -73,13 +76,9 @@ using usermanager::OnlineUserManager;
     AccountManager::ACCOUNT_CODE AccountManager::createUser(std::string name, std::string pwd){
 
         if(jsonProcessed == false){
-            jsonParser.processJSON(json_filePath);
-        }
-        if(users_json == nullptr){
-            cout << "BITCH";
+            users_json = jsonParser.processJSON(json_filePath);
         }
 
-        
         if(users_json[name] != nullptr){
             return AccountManager::ACCOUNT_CODE::INVALID_USERNAME;
         }
