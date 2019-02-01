@@ -3,6 +3,7 @@
 
 #include <unordered_map> 
 #include <string>
+#include <vector>
 // #include "../../accountManager/include/User.h"
 #include "User.h"
 
@@ -12,12 +13,15 @@ namespace usermanager{
 class OnlineUserManager{
     private:
         std::unordered_map<std::string, User> onlineUsers;
+        std::unordered_map<std::string, std::vector<std::string>> onlineUserCommandsList;
     public:
-        bool inserUser(std::string id, const User& user);
-        User removeUser(std::string id);
-        User getUserById(std::string id);
-        User getUserByUsername(std::string userName);
-        void updateUserTimeStamp(std::string id, int timeStamp);
+        bool inserUser(const std::string& id, const User& user);
+        User removeUser(const std::string& id);
+        User getUserById(const std::string& id);
+        User getUserByUsername(const std::string& userName);
+        void onlineUserAddCommandToList(const std::string& userName, const std::string& command);
+        std::unordered_map<std::string, std::vector<std::string>>& getOnlineUserCommandList();
+        void updateUserTimeStamp(const std::string& id, int timeStamp);
         void printTable();
 };
 }
