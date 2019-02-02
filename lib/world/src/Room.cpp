@@ -46,7 +46,8 @@ bool Room::createExit(std::string exitName, std::string exitDescription,
 	return true;
 }
 
-bool Room::addCharacter(Character * character){
+
+bool Room::addCharacter(const std::string &character){
 	try{
 		charactersInRoom.push_back(character);
 	} catch(const std::bad_alloc& e){
@@ -55,34 +56,40 @@ bool Room::addCharacter(Character * character){
 	return true;
 }
 
-bool Room::removeCharacter(Character * character){
-	int i = 0;
-	for (auto * roomCharacter : charactersInRoom){
-		if(character == roomCharacter){
-			charactersInRoom.erase(charactersInRoom.begin() + i);
-			return true;
-		}
-		i++;
-	}
-	return false;
+/**
+ *Removes username from Room. Note that it removes duplicates (but we shouldn't have duplicates)
+ * @param userName - UserNmae you want to remove
+ * @return true if the username is removed, false if not found
+ */
+bool Room::removeCharacter(const std::string &userName){
+	auto iter = std::remove(charactersInRoom.begin(),charactersInRoom.end(),userName);
+	charactersInRoom.erase(iter,charactersInRoom.end());
+	return ( !( charactersInRoom.end() == iter ) ); //If iter==char.end() then userName wasn't found in list
 }
 
-std::string Room::lookForName(std::string objName) const{
+std::string Room::lookForName(const std::string &objName) const{
 	std::string result;
-	for(auto * roomCharacter : charactersInRoom){
-		if(roomCharacter->getName() == objName){
-			result = "A stranger stands before you with the name ";
-			result.append(roomCharacter->getName());
-			return result;
-		}
+	auto iter = std::find_if(charactersInRoom.begin(),charactersInRoom.end(),objName);
+
+	if(iter != charactersInRoom.end()){
+		result = "A stranger stands before you with the name " + (*iter)  ;
+		return result;
 	}
-	for(Exit roomExit : exitsInRoom){
-		if(roomExit.getExitName() == objName){
-			result = roomExit.getExitDescription();
-			return result;
-		}
-	}
-	result = "You couldn't find anything called ";
-	result.append(objName);
-	return result;
+	return "You couldn't find anything called " + objName;
 }
+
+std::string Room::lookRoomName(const std::string &objName) const {
+	std::string result;
+	auto roomExit = std::find_if(exitsInRoom.begin(), exitsInRoom.end(),
+								 [&](const auto& i) {return objName == i.getExitName();} );
+
+	if(roomExit != exitsInRoom.end()){
+		result = (*roomExit).getExitDescription();
+		return result;
+	}
+	return "You couldn't find anything called " + objName;
+}
+
+
+
+
