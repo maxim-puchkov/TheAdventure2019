@@ -20,6 +20,7 @@ set(libnetwork "network")
 set(libtypes "types")
 set(libusers "users")
 set(libworld "world")
+set(libparsers "parsers")
 
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
