@@ -42,7 +42,7 @@ bool WorldManager::kick(Character* character){
         return false;
     }
 
-    return currentRoom.removeCharacter(character);
+    return currentRoom.removeCharacter(character->getName());
 }
 
 bool WorldManager::spawn(Character* character, LocationCoordinates location){
@@ -53,7 +53,7 @@ bool WorldManager::spawn(Character* character, LocationCoordinates location){
         return false;
     }
 
-    spawnRoom.addCharacter(character);
+    spawnRoom.addCharacter(character->getName());
     character->setCurrentLocation(location);
     return true;
 }
@@ -80,10 +80,10 @@ LocationCoordinates WorldManager::move(Character * character, Exit::CardinalDire
         return currentLocation;
     }
 
-    roomOfInterest.removeCharacter(character);
+    roomOfInterest.removeCharacter(character->getName());
     
     character->setCurrentLocation(newLocation);
-    newRoom.addCharacter(character);
+    newRoom.addCharacter(character->getName());
     return newLocation;
 }
 
