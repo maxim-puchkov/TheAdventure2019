@@ -8,6 +8,7 @@
 
 
 #include "Functor.h"
+#include "Command.h"
 #include <iostream>
 using namespace std;
 

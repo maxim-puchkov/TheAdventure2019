@@ -35,8 +35,9 @@ Functor<F> createFunctor(F f) {
     return Functor<F>(f);
 }
 
+/*
 template<class F, typename ...T>
-Functor<F> /* class */ createCommand(F f, T &&...ts) {
+Functor<F> createCommand(F f, T &&...ts) {
     Functor<F> functor = createFunctor(f);
     int argc = sizeof ...(ts);
     if (functor.argc() == argc) {
@@ -47,9 +48,8 @@ Functor<F> /* class */ createCommand(F f, T &&...ts) {
     print("error");
     // return 6;
     throw(argc);
-    
 }
-
+*/
 
 
 
@@ -106,11 +106,13 @@ public:
         return callArgs == argCount;
     }
     
+    std::function<R(As...)> f;
+    
 private:
     
     const unsigned int argCount = sizeof ...(As);
     
-    std::function<R(As...)> f;
+    
     
 };
 
