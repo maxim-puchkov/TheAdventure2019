@@ -31,7 +31,7 @@ public:
 
     std::queue<std::string>& getMessages();
 
-    void addCommandToList(std::string action);
+    void addCommandToList(const std::string& command);
 
     std::queue<std::vector<std::string>>& getCommands();
     

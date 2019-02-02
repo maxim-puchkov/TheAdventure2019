@@ -1,18 +1,18 @@
 #include <iostream>
 #include <unordered_map> 
 #include <string>
+#include <boost/algorithm/string.hpp>
 #include "OnlineUserManager.h"
-// #include "../../accountManager/include/User.h"
 #include "User.h"
 
 using user::User;
 using usermanager::OnlineUserManager;
 
-bool OnlineUserManager::inserUser(std::string id, const User& user){
+bool OnlineUserManager::inserUser(const std::string& id, const User& user){
     return onlineUsers.insert(std::make_pair(id, user)).second;
 }
 
-User OnlineUserManager::removeUser(std::string id){
+User OnlineUserManager::removeUser(const std::string& id){
     auto search = onlineUsers.find(id);
     if (search != onlineUsers.end()) {
         onlineUsers.erase(id);
@@ -23,7 +23,7 @@ User OnlineUserManager::removeUser(std::string id){
     }
 }
 
-User OnlineUserManager::getUserById(std::string id){
+User OnlineUserManager::getUserById(const std::string& id){
     auto search = onlineUsers.find(id);
     if (search != onlineUsers.end()) {
         return search->second;
@@ -33,7 +33,7 @@ User OnlineUserManager::getUserById(std::string id){
     }
 }
 
-User OnlineUserManager::getUserByUsername(std::string userName){
+User OnlineUserManager::getUserByUsername(const std::string& userName){
     for (auto &element : onlineUsers) {
         if(element.second.getUserName() == userName) {
             return element.second;
@@ -43,15 +43,31 @@ User OnlineUserManager::getUserByUsername(std::string userName){
     return user;
 }
 
-void OnlineUserManager::updateUserTimeStamp(std::string id, int timeStamp) {
+void OnlineUserManager::updateUserTimeStamp(const std::string& id, int timeStamp) {
     auto user = removeUser(id);
     user.setId(timeStamp);
     inserUser(id, user);
 }
 
 void OnlineUserManager::printTable() {
-    for(auto& p: onlineUsers)
+    for(auto& p: onlineUsers){
         std::cout << p.first << " => " << p.second.getUserName() << " "
                   << p.second.getId() << "\n";
+    }
+}
+
+void OnlineUserManager::onlineUserAddCommandToList(const std::string& userName, const std::string& command){
+    std::vector<std::string> commandParts;
+    boost::split(commandParts, command, boost::is_any_of(" "));
+
+    for(auto& value: commandParts) {
+        boost::trim(value);
+    }
+
+    onlineUserCommandsList.insert(std::make_pair(userName, commandParts)).second;
+}
+
+std::unordered_map<std::string, std::vector<std::string>>& OnlineUserManager::getOnlineUserCommandList(){
+    return onlineUserCommandsList;
 }
 
