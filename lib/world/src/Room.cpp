@@ -68,24 +68,21 @@ bool Room::removeCharacter(const std::string &userName){
 }
 
 std::string Room::lookForName(const std::string &objName) const{
-	std::string result;
-	auto iter = std::find_if(charactersInRoom.begin(),charactersInRoom.end(),objName);
 
+	auto iter = std::find_if(charactersInRoom.begin(),charactersInRoom.end(),objName);
 	if(iter != charactersInRoom.end()){
-		result = "A stranger stands before you with the name " + (*iter)  ;
-		return result;
+		return "A stranger stands before you with the name " + (*iter)  ;
 	}
 	return "You couldn't find anything called " + objName;
 }
 
 std::string Room::lookRoomName(const std::string &objName) const {
-	std::string result;
+
 	auto roomExit = std::find_if(exitsInRoom.begin(), exitsInRoom.end(),
 								 [&](const auto& i) {return objName == i.getExitName();} );
 
 	if(roomExit != exitsInRoom.end()){
-		result = (*roomExit).getExitDescription();
-		return result;
+		return (*roomExit).getExitDescription();
 	}
 	return "You couldn't find anything called " + objName;
 }
