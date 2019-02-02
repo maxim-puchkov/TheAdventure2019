@@ -1,4 +1,5 @@
 add_library(${libcommands}
+    src/CommandParser.cpp
     src/Functor.cpp
     include/Command.h
 )

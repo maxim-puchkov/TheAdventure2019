@@ -1,17 +1,15 @@
 /////////////////////////////////////////////////////////////////////////////
-//                                  Parser
+//                                  CommandParser
 //
 // This file is distributed under the MIT License. See the LICENSE file
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
-#ifndef Parser_h
-#define Parser_h
+#ifndef CommandParser_h
+#define CommandParser_h
 
-#include <queue>
 #include <vector>
 #include <string>
-#include <regex>
 #include <iostream>
 #include <sstream>
 
@@ -25,19 +23,18 @@ const string CMD_NOT_FOUND = "Invalid command. See available: " + CMD_HELP;
 
 
 /**
- *  @class CommandProcessor
+ *  @class CommandParser
  *
- *  @brief Stores built-in commands and evaluates string input
+ *  @brief ...
  *
- *  A small compiler that will be useful for for client-side
- *  commands, scripting, crafting, or minigame implementation.
+ *  ...
  */
-class Parser {
+class CommandParser {
 public:
     
-    Parser();
+    CommandParser();
     
-   ~Parser();
+    ~CommandParser();
     
     // Tokenize and parse input
     string parse(const string &input) const;
@@ -47,4 +44,4 @@ private:
     
 };
 
-#endif /* Parser_h */
+#endif /* CommandParser_h */

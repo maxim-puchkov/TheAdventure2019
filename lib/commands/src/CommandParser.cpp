@@ -1,21 +1,24 @@
 /////////////////////////////////////////////////////////////////////////////
-//                                  Parser
+//                                  CommandParser
 //
 // This file is distributed under the MIT License. See the LICENSE file
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
-#include "Parser.h"
+#include "CommandParser.h"
 
-Parser::Parser()
-{ }
+CommandParser::CommandParser() { }
 
+CommandParser::~CommandParser() { }
 
-Parser::~Parser()
-{ }
-
-
-string Parser::parse(const string &input) const {
+string CommandParser::parse(const string &input) const {
+    
+    size_t position = input.find(" ");
+    string commandName = input.substr(0, position);
+    string commandText = input.substr(position + 1);
+    
+    std::cout << commandName << " >>> '" << commandText << "'" << std::endl;
+    
     string output;
     try {
         string commandName = ""; // tokens.nextToken();
