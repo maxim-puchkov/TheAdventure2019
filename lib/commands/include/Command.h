@@ -66,8 +66,8 @@ Command<F> createCommand(F f, T &&...ts) {
  *                   (a) "example 2 3"   ~>     {"example", 2, 3}
  *                   (b) "example 1"     ~>     {"example, 1}
  *
- *          4. (a) OK:      f1 = Functor(example, 2, 3)
- *             (b) Invalid: f2 = Functor(example, 1)
+ *          4. (a) OK:      f1 = createCommand(Functor(example), 2, 3)
+ *             (b) Invalid: f2 = createCommand(Functor(example), 1)
  *
  *          5. If functor valid
  &                    cmd = Command(f1)
