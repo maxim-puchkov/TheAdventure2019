@@ -14,8 +14,8 @@ using namespace std;
 
 
 
- 
- // Outputs: Hello, World!
+
+// Outputs: Hello, World!
 void Test(int i) {
     print( "Hello, World!\n" );
 }
@@ -31,7 +31,7 @@ void Test_3(std::string Login, std::string Password) {
     print( "Login: " + Login + ", Password: " + Password + "! \n" );
 }
 
-int X() {
+int X(int, int) {
     return 1;
 }
 
@@ -64,15 +64,37 @@ int test() {
     Aclass Accounts;
     Aname::Bclass Game;
     
-    auto f1 = createFunctor(Test);
-    print(f1.argc());
-    f1.rtype(); // PFviE
-    if (typeid(f1.rtype()) != typeid(void)) return 1;
-    //print(f1.rtype().name());
+    // 1. Create command Test(int)
     
-    auto f2 = createFunctor(X);
-    print(f2.argc());
-    if (typeid(f1.rtype()) != typeid(void)) return 2;
+    try {
+        auto f1 = createCommand(Test, 1, 2, 3, 4, 5);
+    } catch (int i) { print(i); } // Error 5
+    
+    try {
+        auto f1 = createCommand(Test, 1);
+    } catch (int i) { print(i); } // OK
+    
+    try {
+        auto f1 = createCommand(Test, 2);
+    } catch (int i) { print(i); } // OK
+    
+    
+    
+    // 2. Create command X(int, int)
+    
+    try {
+        auto f2 = createCommand(X, 1, 2, 3, 4, 5);
+    } catch (int i) { print(i); } // Error 5
+    
+    try {
+        auto f2 = createCommand(X, 1);
+    } catch (int i) { print(i); } // Error 1
+    
+    try {
+        auto f2 = createCommand(X, 2, 10000);
+    } catch (int i) { print(i); } // OK
+    
+    
     
     
     // auto f3 = createFunctor(Accounts.Login);
@@ -80,19 +102,17 @@ int test() {
     
     auto f4 = createFunctor(Accounts.Logout);
     print(f4.argc());
-    if (typeid(f1.rtype()) != typeid(void)) return 3;
-    
+    //f4(input);
     
     auto f5 = createFunctor(Game.send);
     print(f5.argc());
-    if (typeid(f1.rtype()) != typeid(void)) return 4;
     
-   
+    
     print("OK");
     return 0;
 }
- 
- 
+
+
 
 
 

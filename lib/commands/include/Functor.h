@@ -30,9 +30,24 @@ class Functor<R(C::*)(As...)> {
 };
 
 
-template<typename F>
+template<class F>
 Functor<F> createFunctor(F f) {
     return Functor<F>(f);
+}
+
+template<class F, typename ...T>
+Functor<F> /* class */ createCommand(F f, T &&...ts) {
+    Functor<F> functor = createFunctor(f);
+    int argc = sizeof ...(ts);
+    if (functor.argc() == argc) {
+        print("OK");
+        return functor;
+    }
+    
+    print("error");
+    // return 6;
+    throw(argc);
+    
 }
 
 
@@ -40,18 +55,13 @@ Functor<F> createFunctor(F f) {
 
 
 
-template<class F>
-struct ReturnType;
 
-template<class R, class ...As>
-struct ReturnType<R(*)(As...)> {
-    using type = R;
-};
-
-
-template<>
-struct ReturnType<void> {
-    using type = void;
+template<class P>
+class ArgumentPack {
+public:
+    
+    
+    
 };
 
 
@@ -80,14 +90,20 @@ public:
         return this->argCount;
     }
     
+    /*
     template<typename ...T>
-    /* R */ void operator()(T &&...ts) {
-        this->f(std::forward<T>(ts)...);
+    R operator()(T &&...ts) {
+        if (this->validate(std::forward<T>(ts)...)) {
+            
+        }
     }
-    
-    int rtype() {
-        print(this->f.target_type().name());
-        return -1;
+    */
+     
+    template<typename ...T>
+    bool validate(T &&...ts) {
+        int callArgs = sizeof...(ts);
+        print("Call args: ", argCount);
+        return callArgs == argCount;
     }
     
 private:
@@ -95,11 +111,22 @@ private:
     const unsigned int argCount = sizeof ...(As);
     
     std::function<R(As...)> f;
-
     
 };
 
 
 // <void>
+
+//class Cmd {
+//public:
+//    template<typename ...T>
+//    Cmd() {
+//        int inputArgCount = sizeof...(argv);
+//        if (argc != argv) {
+//            
+//        }
+//    }
+//}
+
 
 #endif /* Functor_h */
