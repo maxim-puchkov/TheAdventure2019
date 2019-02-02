@@ -30,6 +30,7 @@ Command<F> createCommand(F f, T &&...ts) {
         return cmd;
     }
     
+    // Parser will catch exceptions
     print("Command constructor ARGC error");
     throw(argc);
     

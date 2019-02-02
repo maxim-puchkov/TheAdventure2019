@@ -128,6 +128,26 @@ int test() {
 
 
 
+#include "User.h"
+using user::User; // !
+
+User login(string u, string p) {
+    User user(u, p);
+    return user;
+}
+
+
+
+void test_users() {
+    auto cmdLogin = createCommand(login, "user", "pass");
+    
+    cmdLogin("user", "pass");
+}
+
+
+
 int main(int argc, const char * argv[]) {
-    return test();
+    // test();
+    test_users();
+    return 0;
 }
