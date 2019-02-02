@@ -214,8 +214,8 @@ User* GameManager::getUser(const std::string userName) const {
 
     //testing action queue for user1
     std::cout << "Add action to user1 \n";
-    user1.addCommandToList("    move     left        right   ");
-    auto actions = user1.getCommands();
+    // user1.addCommandToList("    move     left        right   ");
+    // auto actions = user1.getCommands();
     auto actionVector = actions.front();
     
     for(auto const& value: actionVector){
