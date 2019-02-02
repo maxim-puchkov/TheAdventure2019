@@ -45,7 +45,9 @@ public:
         return 2;
     }
     static bool Logout(string s) {
-        return (s == "hello");
+        print("call logout: ", s);
+        return s == "a";
+        //return (s == "hello");
     }
 private:
     
@@ -72,6 +74,7 @@ int test() {
     
     try {
         auto f1 = createCommand(Test, 1, 2, 3, 4, 5);
+        f1(1);
     } catch (int i) { print(i); } // Error 5
     
     try {
@@ -106,14 +109,16 @@ int test() {
     
     // auto f3 = createFunctor(Accounts.Login);
     
-    
-    auto f4 = createFunctor(Accounts.Logout);
-    print(f4.argc());
-    //f4(input);
+    string input4 = "user";
+    try {
+        auto f4 = createCommand(Accounts.Logout, "a"); //input4);
+        bool res4 = f4("a");
+        print(res4 == true ? "Logout ok" : "Error");
+    } catch (int i) { print(i); }
+
     
     auto f5 = createFunctor(Game.send);
-    print(f5.argc());
-    
+
     
     print("OK");
     return 0;

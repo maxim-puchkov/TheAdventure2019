@@ -97,12 +97,12 @@ public:
 //        this->functor(std::forward<A>(as)...);
 //    }
     
-    void operator()(A &&...as) {
+    R operator()(A &&...as) {
         int asCount = sizeof ...(as);
         print("Size of as: ");
         print(asCount);
         print("");
-        this->function(std::forward<A>(as)...);
+        return this->function(std::forward<A>(as)...);
     }
     
 private:
