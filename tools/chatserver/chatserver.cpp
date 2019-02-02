@@ -63,7 +63,6 @@ processMessages(Server &server,
 
       std::pair<std::string, std::string> answerPair (connectionID, serverAnswer);
       result->insert(answerPair);
-
     }
   }
   return result;
@@ -98,18 +97,20 @@ getHTTPMessage(const char* htmlLocation) {
 
 
 std::unique_ptr<std::unordered_map<std::string, std::string>>
-includeHeartbeatMessages(std::unique_ptr<std::unordered_map<std::string, std::string>> tableA, std::unique_ptr<std::unordered_map<std::string, std::string>> tableB) {
-    // x is each key in the tableB
+includeHeartbeatMessages(std::unique_ptr<std::unordered_map<std::string, std::string>>   tableA,
+                         std::unique_ptr<std::unordered_map<std::string, std::string>>  tableB) {
+  // x is each key in the tableB
   for (auto x : *tableB) {
     // if key exists in tableA
-    if (tableA->count(x.first) > 0) {
-      tableA->at(x.first) = (tableA->at(x.first)).append(x.second);
+    if (tableA->find(x.first) != tableA->end()) {
+      // first append space then append the string so space in between the two strings
+      tableA->at(x.first) = ((tableA->at(x.first)).append(" ")).append(x.second);
     }
     else {
       tableA->insert(make_pair(x.first, x.second));
     }
   }
-  return tableA;
+  return std::move(tableA);
 }
 
 

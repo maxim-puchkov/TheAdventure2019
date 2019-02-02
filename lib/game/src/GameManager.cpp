@@ -87,7 +87,7 @@ void testAccountManager(){
     std::cout << "*** AccountManager TEST ***\n";
     
     AccountManager accountManager{};
-    std::string userName = "user6";
+    std::string userName = "user9";
     std::string pwd = "pwd";
     std::string id = "123";
 
