@@ -14,7 +14,6 @@
 #include <regex>
 #include <iostream>
 #include <sstream>
-#include "Functor.h"
 
 
 using std::vector;

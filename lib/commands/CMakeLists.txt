@@ -1,6 +1,5 @@
 add_library(${libcommands}
     src/Parser.cpp
-    src/Functor.cpp
 )
 
 target_include_directories(${libcommands}
