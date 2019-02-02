@@ -27,12 +27,12 @@ string User::getUserName() {
     return this->name;
 }
 
-void User::setId(int id){
+void User::setId(long int id){
     this->id = id;
 }
 
-int User::getId() {
-    int myId = this->id;
+long int User::getId() {
+    long int myId = this->id;
     return myId;
 }
 
@@ -56,6 +56,12 @@ void User::addCommandToList(const std::string& command){
 
 std::queue<std::vector<std::string>>& User::getCommands(){
     return commands;
+}
+
+void User::popCommand(){
+    if(!commands.empty()){
+        commands.pop();
+    }
 }
 
 void User::init() {

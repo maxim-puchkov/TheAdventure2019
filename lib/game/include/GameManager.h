@@ -10,6 +10,8 @@
 #include <exception>
 #include <iostream>
 #include <unordered_map>
+
+#include <memory>
 // #include <boost/algorithm/string.hpp>
 
 #include "WorldManager.h"
@@ -52,7 +54,7 @@ private:
 public:
     GameManager();
     std::string extractCommands(const std::string& connectionID, std::string fullCommand);
-    std::unordered_map<std::string, std::string> heartbeat();
+    std::unique_ptr<std::unordered_map<std::string, std::string>> heartbeat();
 };
 
 #endif //WEBSOCKETNETWORKING_GAMEMANAGER_H

@@ -24,8 +24,8 @@ public:
     
     string getUserName();
 
-    void setId(int id);
-    int getId();
+    void setId(long int id);
+    long int getId();
 
     void addMessage(std::string message);
 
@@ -34,11 +34,13 @@ public:
     void addCommandToList(const std::string& command);
 
     std::queue<std::vector<std::string>>& getCommands();
+
+    void popCommand();
     
     
 private:
     //using as connection id
-    int id;
+    long int id;
 
     std::queue<std::string> messages;
     std::queue<std::vector<std::string>> commands;

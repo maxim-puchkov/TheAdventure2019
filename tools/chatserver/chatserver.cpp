@@ -63,6 +63,7 @@ processMessages(Server &server,
 
       std::pair<std::string, std::string> answerPair (connectionID, serverAnswer);
       result->insert(answerPair);
+
     }
   }
   return result;
@@ -98,10 +99,10 @@ getHTTPMessage(const char* htmlLocation) {
 
 std::unique_ptr<std::unordered_map<std::string, std::string>>
 includeHeartbeatMessages(std::unique_ptr<std::unordered_map<std::string, std::string>> tableA, std::unique_ptr<std::unordered_map<std::string, std::string>> tableB) {
-  // x is each key in the tableB
+    // x is each key in the tableB
   for (auto x : *tableB) {
     // if key exists in tableA
-    if (tableA->count(x.first) >= 0) {
+    if (tableA->count(x.first) > 0) {
       tableA->at(x.first) = (tableA->at(x.first)).append(x.second);
     }
     else {
@@ -136,6 +137,9 @@ main(int argc, char* argv[]) {
 
     auto incoming = server.receive();
     auto logs      = processMessages(server, incoming, done);
+
+    logs = includeHeartbeatMessages(std::move(logs), gm.heartbeat());
+
     auto outgoing = buildOutgoing(std::move(logs));
     server.send(outgoing);
     sleep(1);
