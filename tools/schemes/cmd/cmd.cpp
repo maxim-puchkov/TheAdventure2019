@@ -32,7 +32,10 @@ void Test_3(std::string Login, std::string Password) {
     print( "Login: " + Login + ", Password: " + Password + "! \n" );
 }
 
-int X(int, int) {
+int X(int x1, int x2) {
+    print("Arguments on call: ");
+    print(x1, x2);
+    print("");
     return 1;
 }
 
@@ -84,16 +87,19 @@ int test() {
     // 2. Create command X(int, int)
     
     try {
-        auto f2 = createCommand(X, 1, 2, 3, 4, 5);
-    } catch (int i) { print(i); } // Error 5
+        auto f2 = createCommand(X, 1, 2, 3, 4, 5);  // Error
+        f2(2, 10000);                               // Not reachable
+    } catch (int i) { print(i); }                   // Caught
     
     try {
-        auto f2 = createCommand(X, 1);
-    } catch (int i) { print(i); } // Error 1
+        auto f2 = createCommand(X, 1);              // Error
+        f2(2, 10000);                               // Not reachable
+    } catch (int i) { print(i); }                   // Caught
     
     try {
-        auto f2 = createCommand(X, 2, 10000);
-    } catch (int i) { print(i); } // OK
+        auto f2 = createCommand(X, 2, 10000);       // OK
+        f2(2, 10000);                               // Calls X(2, 10000)
+    } catch (int i) { print(i); }                   // No errors
     
     
     

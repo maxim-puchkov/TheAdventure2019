@@ -15,18 +15,20 @@ template<class>
 class Command;
 
 
+
+//template<class F>
+//class Command : Command<decltype(&F::operator())> { };
+
+
 template<class F, typename ...T>
 Command<F> createCommand(F f, T &&...ts) {
     Functor<F> functor = createFunctor(f);
-    int argc = sizeof ...(T);
-    
-    
+    int argc = sizeof ...(ts);
     if (functor.argc() == argc) {
-        Command<F> command = Command(functor.f);
-        print("Command<F(T...)> created!");
-        return command;
+        print("OK");
+        Command<F> cmd = Command<F>(f);
+        return cmd;
     }
-    
     
     print("Command constructor ARGC error");
     throw(argc);
@@ -77,17 +79,17 @@ Command<F> createCommand(F f, T &&...ts) {
  *                    result = ClassB.cmd()
  *                    // result = 2+3 = 5
  */
-template<typename R, typename ...T>
-class Command<R(*)(T...)> {
+template<typename R, typename ...A>
+class Command<R(*)(A...)> {
 public:
     
     
 
-    Command(std::function<R(T...)> f) {
+    Command(std::function<R(A...)> f) {
         this->function = f;
     }
     
-//    Command(Functor<R(T...)> f) {
+//    Command(Functor<R(A...)> f) {
 //        this->functor = f;
 //    }
     
@@ -95,9 +97,17 @@ public:
 //        this->functor(std::forward<A>(as)...);
 //    }
     
+    void operator()(A &&...as) {
+        int asCount = sizeof ...(as);
+        print("Size of as: ");
+        print(asCount);
+        print("");
+        this->function(std::forward<A>(as)...);
+    }
+    
 private:
     
-    std::function<R(T...)> function;
+    std::function<R(A...)> function;
     
 };
 
