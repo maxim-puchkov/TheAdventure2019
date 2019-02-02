@@ -13,87 +13,93 @@
 #define Functor_h
 
 
-template<class F, typename ...T>
+template<typename ...T>
+void print(T &&...ts) {
+    (std::cout << ... << ts) << std::endl;
+}
+
+
+template<class>
 class Functor;
 
-template<class F, typename ...T>
-class Functor<F(T...)> {
+template<typename R, class C, typename ...As>
+class Functor<R(C::*)(As...)> {
+    Functor() {
+        print("R(C::*)(As...)");
+    }
+};
+
+
+template<typename F>
+Functor<F> createFunctor(F f) {
+    return Functor<F>(f);
+}
+
+
+
+
+
+
+template<class F>
+struct ReturnType;
+
+template<class R, class ...As>
+struct ReturnType<R(*)(As...)> {
+    using type = R;
+};
+
+
+template<>
+struct ReturnType<void> {
+    using type = void;
+};
+
+
+
+
+
+
+
+
+
+
+template<class F>
+class Functor : Functor<decltype(&F::operator())> { };
+
+template<typename R, typename ...As>
+class Functor<R(*)(As...)> {
 public:
+    
+    Functor(std::function<R(As...)> func) {
+        this->f = func;
+    }
     
     ~Functor() { }
     
-    Functor(F &&f, T &&...ts) {
-        Functor(f, std::forward<T>(ts)...);
+    const unsigned int argc() {
+        return this->argCount;
     }
     
-    template<template<class, typename> R>
-    void operator()(R &&r) {
-        r();
+    template<typename ...T>
+    /* R */ void operator()(T &&...ts) {
+        this->f(std::forward<T>(ts)...);
     }
     
-    
-    
-    F operator()(T &&...ts) {
-        return f(std::forward<T>(ts)...);
+    int rtype() {
+        print(this->f.target_type().name());
+        return -1;
     }
     
 private:
     
-};
-
-template<>
-class Functor<F(void)> {
-    void operator()(F &&f, T &&...ts) {
-        f(std::forward<T>(ts)...);
-    }
-}
-
-
-class Command {
+    const unsigned int argCount = sizeof ...(As);
     
-    Command() { }
-    
-    
-    template<class F>
-    Command<F>(F &&f) {
-        
-    }
+    std::function<R(As...)> f;
+
     
 };
 
 
-
-
-/* Tests */
-
-/*
- 
- // Outputs: Hello, World!
- void Test(...) {
- std::cout << "Hello, World!\n";
- }
- 
- // Outputs: Hello, <Input>!
- void Test_2(std::string Input) {
- std::cout << "Hello, " << Input << "! \n";
- }
- 
- // Outputs: Login: <Login>, Password: <Password>!
- void Test_3(std::string Login, std::string Password) {
- std::cout << "Login: " << Login << ", Password: " << Password << "! \n";
- }
- 
- 
- void test() {
- _Functor c = _Functor::_Functor(Test_2, "hi");
- 
- c(Test);
- 
- c(Test_2, ("username"));
- 
- c(Test_3, "Login", "Password");
- }
- 
- */
+// <void>
 
 #endif /* Functor_h */
