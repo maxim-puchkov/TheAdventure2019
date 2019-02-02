@@ -58,7 +58,7 @@ std::string GameManager::extractCommands(const std::string& connectionID, std::s
             return answer.str();
         }
     }
-    return "Command not found";
+    return "Command not found\n";
 }
 
 void GameManager::reassembleCommand(std::string fullCommand, std::vector<std::string>& commandParts, std::vector<std::string>& splitByColon) {
@@ -98,21 +98,31 @@ void testAccountManager(){
 
 }
 std::string GameManager::commandLogin(std::string connectionID, std::vector<std::string> fullCommand) {
-    return "log-in test";
+    try {
+        long int id = std::stol(connectionID, nullptr, 10);
+        dummyUser.setId(id);
+    }catch (std::out_of_range& e){
+        return connectionID;
+    }
+    return "log-in test\n";
 }
 
 std::string GameManager::commandLogout(std::string connectionID, std::vector<std::string> fullCommand) {
-    return "log-out test";
+    return "log-out test\n";
 }
 
 std::string GameManager::commandCreate(std::string connectionID, std::vector<std::string> fullCommand) {
-    return "create-acc test";
+    return "create-acc test\n";
 }
 
 std::string GameManager::commandAddToActionList(std::string connectionID, std::vector<std::string> fullCommand) {
     std::string combined;
-    for (const auto &commandPart : fullCommand) combined += commandPart;
-    return "command-add-test";
+    for (const auto &commandPart : fullCommand){
+        combined += commandPart;
+        combined += " ";
+    }
+    dummyUser.addCommandToList(combined);
+    return "command-add-test\n";
 }
 
 std::string GameManager::commandHelp(std::string connectionID, std::vector<std::string> fullCommand) {
@@ -153,10 +163,40 @@ void GameManager::commandError(User* user, std::vector<std::string> fullCommand)
     //Intended to be a null-function. Normally it should never reach this.
 }
 
-std::unordered_map<std::string, std::string> GameManager::heartbeat() {
-    //fill this
-    std::unordered_map<std::string, std::string> heartbeatMessagesToUsers;
-    return heartbeatMessagesToUsers;
+
+
+
+std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
+    //TODO: get list of online users and do for each
+
+    auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
+
+    User *currentUser = &dummyUser;
+    std::string userID;
+    try {
+        userID = std::to_string(currentUser->getId());
+    }catch(std::out_of_range& e){
+        std::cout << e.what();
+        return map;
+    }
+
+    auto commandQueue = currentUser->getCommands();
+    if(!commandQueue.empty()){
+        const auto commandParts = commandQueue.front();
+        const auto commandName = commandParts.at(0);
+
+        auto found = tableOfCommands.find(commandName);
+        commandGuideline guideline = found->second;
+        //calls the command function
+        (this->*guideline.heartbeatReply)(currentUser, commandParts);
+
+        const auto userMessage = commandName + "\n";
+
+        map->insert({userID, userMessage});
+        currentUser->popCommand();
+    }
+
+    return map;
 }
 
 //This should just return a User object

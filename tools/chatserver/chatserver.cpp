@@ -97,9 +97,9 @@ getHTTPMessage(const char* htmlLocation) {
 
 
 std::unique_ptr<std::unordered_map<std::string, std::string>>
-includeHeartbeatMessages(std::unique_ptr<std::unordered_map<std::string, std::string>> & tableA,
-                         std::unique_ptr<std::unordered_map<std::string, std::string>> & tableB) {
-  // x is each key in the tableB 
+includeHeartbeatMessages(std::unique_ptr<std::unordered_map<std::string, std::string>>   tableA,
+                         std::unique_ptr<std::unordered_map<std::string, std::string>>  tableB) {
+  // x is each key in the tableB
   for (auto x : *tableB) {
     // if key exists in tableA
     if (tableA->find(x.first) != tableA->end()) {
@@ -138,6 +138,9 @@ main(int argc, char* argv[]) {
 
     auto incoming = server.receive();
     auto logs      = processMessages(server, incoming, done);
+
+    logs = includeHeartbeatMessages(std::move(logs), gm.heartbeat());
+
     auto outgoing = buildOutgoing(std::move(logs));
     server.send(outgoing);
     sleep(1);
