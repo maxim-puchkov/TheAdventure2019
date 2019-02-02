@@ -44,7 +44,7 @@ std::queue<std::string>& User::getMessages() {
     return messages;
 }
 
-void User::addCommandToList(std::string command){
+void User::addCommandToList(const std::string& command){
     std::vector<std::string> commandParts;
     boost::split(commandParts, command, boost::is_any_of(" "));
 

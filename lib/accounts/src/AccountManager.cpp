@@ -28,21 +28,16 @@ using usermanager::OnlineUserManager;
     AccountManager::AccountManager(){
         users_json = jsonParser.processJSON(json_filePath);
         if(users_json == nullptr){
-            cout << "BITCH";
+            cout << "PATH TO JSON FILE NOT FOUND \n";
         }
     }
     AccountManager::~AccountManager(){
         jsonParser.saveJSON(users_json, json_filePath);
     }
 
-    AccountManager::ACCOUNT_CODE AccountManager::login(std::string& id, std::string& name, std::string& pwd){
+    AccountManager::ACCOUNT_CODE AccountManager::login(const std::string& id, const std::string& name, const std::string& pwd){
         
-        if(jsonProcessed == false){
-            users_json = jsonParser.processJSON(json_filePath);
-        }
-
         if((users_json[name]["password"] == pwd)){
-
 
             if(!onlineUserMananger.inserUser(id, User{name,pwd})){
                 return AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN;
@@ -57,10 +52,10 @@ using usermanager::OnlineUserManager;
         }
     }
 
-    AccountManager::ACCOUNT_CODE AccountManager::logOut(std::string& id){
+    AccountManager::ACCOUNT_CODE AccountManager::logOut(const std::string& id){
 
         if ((onlineUserMananger.removeUser(id).getUserName() != "")) {
-            //TODO: remove from onlineUsers
+            
             return AccountManager::ACCOUNT_CODE::USER_LOGGED_OUT;
         }
         else {
@@ -68,11 +63,7 @@ using usermanager::OnlineUserManager;
         }
     }
 
-    AccountManager::ACCOUNT_CODE AccountManager::createUser(std::string& name, std::string& pwd){
-
-        if(jsonProcessed == false){
-            users_json = jsonParser.processJSON(json_filePath);
-        }
+    AccountManager::ACCOUNT_CODE AccountManager::createUser(const std::string& name, const std::string& pwd){
 
         if(users_json[name] != nullptr){
             return AccountManager::ACCOUNT_CODE::INVALID_USERNAME;

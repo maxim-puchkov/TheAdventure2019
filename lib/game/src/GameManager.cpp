@@ -87,7 +87,7 @@ void testAccountManager(){
     std::cout << "*** AccountManager TEST ***\n";
     
     AccountManager accountManager{};
-    std::string userName = "user6";
+    std::string userName = "user9";
     std::string pwd = "pwd";
     std::string id = "123";
 
@@ -98,9 +98,6 @@ void testAccountManager(){
 
 }
 std::string GameManager::commandLogin(std::string connectionID, std::vector<std::string> fullCommand) {
-    //Using this to test user class
-    getUser("user2");
-    // testAccountManager();
     return "log-in test";
 }
 
@@ -115,7 +112,6 @@ std::string GameManager::commandCreate(std::string connectionID, std::vector<std
 std::string GameManager::commandAddToActionList(std::string connectionID, std::vector<std::string> fullCommand) {
     std::string combined;
     for (const auto &commandPart : fullCommand) combined += commandPart;
-    dummyUser.addAction(combined);
     return "command-add-test";
 }
 
@@ -157,9 +153,6 @@ void GameManager::commandError(User* user, std::vector<std::string> fullCommand)
     //Intended to be a null-function. Normally it should never reach this.
 }
 
-
-
-
 std::unordered_map<std::string, std::string> GameManager::heartbeat() {
     //fill this
     std::unordered_map<std::string, std::string> heartbeatMessagesToUsers;
@@ -168,60 +161,7 @@ std::unordered_map<std::string, std::string> GameManager::heartbeat() {
 
 //This should just return a User object
 User* GameManager::getUser(const std::string userName) const {
-    OnlineUserManager onlineManager{};
-    User user1 {"user1", "123456"};
-    User user2 {"user2", "123456"};
-    User user3 {"user3", "123456"};
-    User user4 {"user4", "123456"};
-
-    user1.setId(100);
-    user2.setId(50);
-    user3.setId(200);
-    user4.setId(12);
-
-    onlineManager.inserUser("1", user1);
-    onlineManager.inserUser("2", user2);
-    onlineManager.inserUser("3", user3);
-    onlineManager.inserUser("4", user4);
-
-    onlineManager.printTable();
-
-    //get user by Username
-    auto user = onlineManager.getUserByUsername(userName);
-    std::cout << "Username is: " << user.getUserName();
-    std::cout <<"\n";
-    std::cout << "ID is: " << user.getId();
-    std::cout <<"\n";
-
-    std::cout << "testing messages\n";
-    user.addMessage("Hello");
-    user.addMessage("Hi");
-    auto messages = user.getMessages();
-
-    while(!messages.empty()) {
-        std::cout << messages.front() << "\n";
-        messages.pop();
-    }
-    // Removing user2
-    onlineManager.removeUser("2");
-    std::cout << "Table with user2 removed\n";
-    onlineManager.printTable();
-
-    //update timestamp user4
-    onlineManager.updateUserTimeStamp("4", 1000);
-    std::cout << "Table with user4 updated to 1000\n";
-    onlineManager.printTable();
-
-    //testing action queue for user1
-    std::cout << "Add action to user1 \n";
-    // user1.addCommandToList("    move     left        right   ");
-    // auto actions = user1.getCommands();
-    auto actionVector = actions.front();
-    
-    for(auto const& value: actionVector){
-        std::cout << value << " \n";
-    }
-
+    User user{"",""};
     return &user; //Note: nullptr = not online, processed in the upper level
 }
 
