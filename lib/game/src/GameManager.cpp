@@ -62,14 +62,17 @@ std::string GameManager::extractCommands(const std::string& connectionID, std::s
 }
 
 void GameManager::reassembleCommand(std::string fullCommand, std::vector<std::string>& commandParts, std::vector<std::string>& splitByColon) {
+	//Format: <command> <arg> : <optional-text-message> 
     boost::trim_if(fullCommand, boost::is_any_of(" \t"));
     boost::split(splitByColon, fullCommand, boost::is_any_of(":"), boost::token_compress_on);
    
+   	//trim any space before and after ":"
     for(auto& text : splitByColon) {
         boost::trim_if(text, boost::is_any_of(" \t"));
     }
     boost::split(commandParts, splitByColon[0], boost::is_any_of(" \t"), boost::token_compress_on);
 
+    //reassemble
     for(auto& text : splitByColon) {
         commandParts.push_back(text);
     }
@@ -97,25 +100,73 @@ void testAccountManager(){
     assert( accountManager.login(id,userName,pwd) == AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN);
 
 }
-std::string GameManager::commandLogin(std::string connectionID, std::vector<std::string> fullCommand) {
-    try {
+std::string GameManager::commandLogin(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
+    /*try {
         long int id = std::stol(connectionID, nullptr, 10);
         dummyUser.setId(id);
     }catch (std::out_of_range& e){
         return connectionID;
-    }
-    return "log-in test\n";
+    }*/
+
+	auto answer = accountManager.login(connectionID, fullCommand[0], fullCommand[1]);
+	switch(answer) {
+		case accountmanager::AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN:
+			return "You are now logged in.\n";
+		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_FOUND:
+			return "Error! Username not found. Please try again.\n";
+		case accountmanager::AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN:
+			return "Error! You are already logged in.\n";
+		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_ONLINE:
+		case accountmanager::AccountManager::ACCOUNT_CODE::USER_LOGGED_OUT:
+		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_USERNAME:
+		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_PASSWORD:
+		case accountmanager::AccountManager::ACCOUNT_CODE::ACCOUNT_CREATED:
+			;
+	}
+	//swallow
+    return "";
 }
 
-std::string GameManager::commandLogout(std::string connectionID, std::vector<std::string> fullCommand) {
-    return "log-out test\n";
+std::string GameManager::commandLogout(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
+    auto answer = accountManager.logOut(connectionID);
+	switch(answer) {
+		case accountmanager::AccountManager::ACCOUNT_CODE::USER_LOGGED_OUT:
+			return "You are now logged out.\n";
+		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_ONLINE:
+			return "Error! You are not logged in.\n";
+		case accountmanager::AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN:
+		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_FOUND:
+		case accountmanager::AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN:
+		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_USERNAME:
+		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_PASSWORD:
+		case accountmanager::AccountManager::ACCOUNT_CODE::ACCOUNT_CREATED:
+			;
+	}
+	//swallow
+    return "";
 }
 
-std::string GameManager::commandCreate(std::string connectionID, std::vector<std::string> fullCommand) {
-    return "create-acc test\n";
+std::string GameManager::commandCreate(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
+    auto answer = accountManager.createUser(fullCommand[0], fullCommand[1]);
+	switch(answer) {
+		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_USERNAME:
+			return "Error! Invalid username.\n";
+		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_PASSWORD:
+			return "Error! Invalid password.\n";
+		case accountmanager::AccountManager::ACCOUNT_CODE::ACCOUNT_CREATED:
+			return "Account created. Please log in to play the game.\n";
+		case accountmanager::AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN:
+		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_FOUND:
+		case accountmanager::AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN:
+		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_ONLINE:
+		case accountmanager::AccountManager::ACCOUNT_CODE::USER_LOGGED_OUT:
+			;
+	}
+	//swallow
+    return "";
 }
 
-std::string GameManager::commandAddToActionList(std::string connectionID, std::vector<std::string> fullCommand) {
+std::string GameManager::commandAddToActionList(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     std::string combined;
     for (const auto &commandPart : fullCommand){
         combined += commandPart;
@@ -123,15 +174,19 @@ std::string GameManager::commandAddToActionList(std::string connectionID, std::v
     }
     dummyUser.addCommandToList(combined);
     return "command-add-test\n";
+
+    //Needs accountManager API
+    //accountManager.addToActionList(connectionID, fullCommand);
+    //return "";
 }
 
-std::string GameManager::commandHelp(std::string connectionID, std::vector<std::string> fullCommand) {
+std::string GameManager::commandHelp(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     std::ostringstream answer;
     answer << "--------------------------------------------------\n";
     answer << "Supported commands: \n";
     for (const auto& [command, guideline] : tableOfCommands) {
         answer << command << guideline.helpText << std::endl;
-}   
+	}   
     return answer.str();
 }
 

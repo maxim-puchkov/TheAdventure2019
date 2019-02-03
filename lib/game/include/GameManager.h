@@ -23,9 +23,10 @@ class GameManager{
 private:
     User dummyUser{"bob","123"};
     WorldManager *world;
+    accountmanager::AccountManager accountManager;
     user::User* getUser(const std::string userName) const;
     struct commandGuideline {
-        std::string (GameManager::*promptReply)(std::string, std::vector<std::string>);
+        std::string (GameManager::*promptReply)(const std::string&, const std::vector<std::string>&);
         void (GameManager::*heartbeatReply)(User*, std::vector<std::string>);
         size_t commandPartArgCount;
         size_t messagePartArgCount;
@@ -33,12 +34,14 @@ private:
     };
     std::unordered_map<std::string, commandGuideline> tableOfCommands;
 
-    std::string commandLogin(std::string connectionID, std::vector<std::string> fullCommand);
-    std::string commandLogout(std::string connectionID, std::vector<std::string> fullCommand);
-    std::string commandCreate(std::string connectionID, std::vector<std::string> fullCommand);
-    std::string commandAddToActionList(std::string connectionID, std::vector<std::string> fullCommand);
-    std::string commandHelp(std::string connectionID, std::vector<std::string> fullCommand);
+    //promptReply functions
+    std::string commandLogin(const std::string& connectionID, const std::vector<std::string>& fullCommand);
+    std::string commandLogout(const std::string& connectionID, const std::vector<std::string>& fullCommand);
+    std::string commandCreate(const std::string& connectionID, const std::vector<std::string>& fullCommand);
+    std::string commandAddToActionList(const std::string& connectionID, const std::vector<std::string>& fullCommand);
+    std::string commandHelp(const std::string& connectionID, const std::vector<std::string>& fullCommand);
     
+    //heartbeatReply functions
     void commandSay(User* user, std::vector<std::string> fullCommand);
     void commandYell(User* user, std::vector<std::string> fullCommand);
     void commandTell(User* user, std::vector<std::string> fullCommand);
