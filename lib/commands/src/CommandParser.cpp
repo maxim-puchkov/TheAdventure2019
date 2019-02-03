@@ -7,27 +7,50 @@
 
 #include "CommandParser.h"
 
-CommandParser::CommandParser() { }
+
+CommandParser::CommandParser() { CommandParser::init(this); }
+
 
 CommandParser::~CommandParser() { }
 
+
 string CommandParser::parse(const string &input) const {
-    
-    size_t position = input.find(" ");
-    string commandName = input.substr(0, position);
-    string commandText = input.substr(position + 1);
-    
-    std::cout << commandName << " >>> '" << commandText << "'" << std::endl;
-    
     string output;
     try {
-        string commandName = ""; // tokens.nextToken();
+
     }
     catch (std::invalid_argument &e) {
         return CMD_NOT_FOUND;
     }
     
-    return "Parse..."; //output;
+    return output;
 }
 
 
+
+
+
+
+
+// Private
+
+void CommandParser::init(CommandParser *p) {
+    std::cout << "Running init ...\n";
+    
+    /*
+    p->createCommand("login", &test::exampleLogin, 2);          // login <bob> <123>
+    p->createCommand("help", &test::exampleShowHelp, 0);        // help
+    p->createCommand("error", &test::exampleThrowCustomErr, 1); // error <bob>
+    p->createCommand("tell", &test::exampleTell, 3);            // tell <bob> <msg>
+    p->createCommand("say", &test::exampleShowWorldSay, 0);     // say
+    p->createCommand("move", &test::exampleWorldMove, 1);       // move <dir>
+    p->createCommand("look", &test::exampleShowWorldLook, 1);   // look <obj>
+     */
+    
+}
+
+
+
+void CommandParser::createCommand(string commandName, std::function<string(vector<string> &)> commandFn) {
+    this->env.bind(commandName, commandFn);
+}
