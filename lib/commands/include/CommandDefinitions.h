@@ -33,4 +33,6 @@ namespace game {
     
 }
 
+#include "../src/CommandDefinitions.cpp"
+
 #endif /* CommandDefintions_h */

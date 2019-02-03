@@ -49,9 +49,8 @@ void CommandParser::createCommand(const string &name, command function) {
 
 
 void CommandParser::init(CommandParser *p) {
-    std::cout << "Running init ...\n";
-    
-    p->createCommand("login", &accounts::command_login);
+    p->createCommand("login",    &accounts::command_login);
+    p->createCommand("logout",   &accounts::command_logout);
     
     /*
     p->createCommand("login", &test::exampleLogin, 2);          // login <bob> <123>

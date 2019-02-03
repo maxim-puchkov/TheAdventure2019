@@ -51,7 +51,7 @@ private:
 
 public:
     GameManager();
-    std::string extractCommands(const std::string& connectionID, std::string fullCommand);
+    std::string extractCommands(const std::string& connectionID, const std::string &fullCommand);
     std::unordered_map<std::string, std::string> heartbeat();
 };
 

@@ -8,6 +8,9 @@
 
 #include <stdio.h>
 
+#ifndef CommandDefinitions_cpp
+#define CommandDefinitions_cpp
+
 #include "CommandDefinitions.h"
 
 namespace accounts {
@@ -29,3 +32,5 @@ namespace accounts {
     
     
 }
+
+#endif /* CommandDefinitions_cpp */

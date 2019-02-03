@@ -15,6 +15,7 @@ target_link_libraries(${libgame}
     ${libaccounts}
     ${libcharacters}
     ${libworld}
+    ${libcommands}
     ${libusers}
     ${Boost_LIBRARIES}
 )
