@@ -18,9 +18,7 @@ using std::vector;
 using std::string;
 
 const string CMD_HELP = "help";
-const string DELIMETER = ", ";
 
-const string DEF_CATCH_MESSAGE = "Exception caught. Details: ";
 const string CMD_NOT_FOUND = "Invalid command. See available: " + CMD_HELP;
 
 
@@ -35,7 +33,7 @@ public:
     string parse(const string &input) const;
     
     // Add a new command
-    void createCommand(string commandName, std::function<string(vector<string> &)> commandFn);
+    void createCommand(const string &commandName, std::function<string(vector<string> &)> commandFn);
     
     
 private:

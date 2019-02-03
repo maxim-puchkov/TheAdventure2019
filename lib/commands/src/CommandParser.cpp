@@ -17,7 +17,13 @@ CommandParser::~CommandParser() { }
 string CommandParser::parse(const string &input) const {
     string output;
     try {
-
+        size_t position = input.find(" ");
+        string name = input.substr(0, position);
+        std::istringstream text(input.substr(position + 1));
+        vector<string> arguments{std::istream_iterator<string>{text},
+                                 std::istream_iterator<string>{}};
+        std::function<string(vector<string> &)> fn = this->env.lookup(name);
+        fn(arguments);
     }
     catch (std::invalid_argument &e) {
         return CMD_NOT_FOUND;
@@ -26,7 +32,10 @@ string CommandParser::parse(const string &input) const {
     return output;
 }
 
-
+void CommandParser::createCommand(const string &commandName,
+                                  std::function<string(vector<string> &)> commandFn) {
+    this->env.bind(commandName, commandFn);
+}
 
 
 
@@ -51,6 +60,4 @@ void CommandParser::init(CommandParser *p) {
 
 
 
-void CommandParser::createCommand(string commandName, std::function<string(vector<string> &)> commandFn) {
-    this->env.bind(commandName, commandFn);
-}
+
