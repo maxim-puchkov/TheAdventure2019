@@ -15,9 +15,9 @@ namespace accounts {
 
 using accountmanager::AccountManager;
 
-    void command_login(arguments args) { }
+    void command_login(arguments args);
     
-    void command_logout(arguments args) { }
+    void command_logout(arguments args);
     
 }
 
