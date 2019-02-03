@@ -19,6 +19,9 @@ set_target_properties(${libcommands}
 )
 
 target_link_libraries(${libcommands}
+    ${libaccounts}
+    ${libusers}
+    ${libworld}
     ${libtypes}
 )
 

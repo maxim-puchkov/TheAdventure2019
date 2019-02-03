@@ -14,11 +14,15 @@
 
 #include "Environment.h"
 
+
+
 using std::vector;
 using std::string;
 
-const string CMD_HELP = "help";
+using arguments = const vector<string>&;
+using command = std::function<void(arguments)>;
 
+const string CMD_HELP = "help";
 const string CMD_NOT_FOUND = "Invalid command. See available: " + CMD_HELP;
 
 
@@ -29,17 +33,14 @@ public:
     
     ~CommandParser();
     
-    // Tokenize and evaluate input
-    string parse(const string &input) const;
+    void parse(const string &input) const;
     
-    // Add a new command
-    void createCommand(const string &commandName, std::function<string(vector<string> &)> commandFn);
-    
+    void createCommand(const string &name, command function);
     
 private:
     
     static void init(CommandParser *p);
     
-    Environment<string, std::function<string(vector<string> &)>> env;
+    Environment<string, command> env;
     
 };

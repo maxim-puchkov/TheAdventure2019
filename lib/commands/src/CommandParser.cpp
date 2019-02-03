@@ -6,6 +6,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "CommandParser.h"
+#include "CommandDefinitions.h"
 
 
 CommandParser::CommandParser() { CommandParser::init(this); }
@@ -14,27 +15,29 @@ CommandParser::CommandParser() { CommandParser::init(this); }
 CommandParser::~CommandParser() { }
 
 
-string CommandParser::parse(const string &input) const {
-    string output;
+void CommandParser::parse(const string &input) const {
+    // string output;
     try {
         size_t position = input.find(" ");
         string name = input.substr(0, position);
+        
+        
         std::istringstream text(input.substr(position + 1));
         vector<string> arguments{std::istream_iterator<string>{text},
                                  std::istream_iterator<string>{}};
-        std::function<string(vector<string> &)> fn = this->env.lookup(name);
+        
+        
+        command fn = this->env.lookup(name);
         fn(arguments);
-    }
-    catch (std::invalid_argument &e) {
-        return CMD_NOT_FOUND;
+    } catch (std::invalid_argument &e) {
+        // return CMD_NOT_FOUND;
     }
     
-    return output;
+    // return output;
 }
 
-void CommandParser::createCommand(const string &commandName,
-                                  std::function<string(vector<string> &)> commandFn) {
-    this->env.bind(commandName, commandFn);
+void CommandParser::createCommand(const string &name, command function) {
+    this->env.bind(name, function);
 }
 
 
@@ -43,8 +46,12 @@ void CommandParser::createCommand(const string &commandName,
 
 // Private
 
+
+
 void CommandParser::init(CommandParser *p) {
     std::cout << "Running init ...\n";
+    
+    p->createCommand("login", &accounts::command_login);
     
     /*
     p->createCommand("login", &test::exampleLogin, 2);          // login <bob> <123>
