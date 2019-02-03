@@ -108,6 +108,7 @@ std::string GameManager::commandLogin(std::string connectionID, std::vector<std:
 }
 
 std::string GameManager::commandLogout(std::string connectionID, std::vector<std::string> fullCommand) {
+    getUser("hello");
     return "log-out test\n";
 }
 
@@ -202,6 +203,13 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
 //This should just return a User object
 User* GameManager::getUser(const std::string userName) const {
     User user{"",""};
+    user.addCommandToList("tesing 1 hello");
+    user.addCommandToList("tesing 2 how are you");
+
+    auto& commands = user.getCommands();
+    std::cout<<commands.size()<<"\n";
+    std::cout<<user.getCommandSize()<<"\n";
+
     return &user; //Note: nullptr = not online, processed in the upper level
 }
 

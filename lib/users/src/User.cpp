@@ -64,6 +64,10 @@ void User::popCommand(){
     }
 }
 
+int User::getCommandSize(){
+    return commands.size();
+}
+
 void User::init() {
     
 }

@@ -37,7 +37,7 @@ public:
 
     void popCommand();
     
-    
+    int getCommandSize();
 private:
     //using as connection id
     long int id;
