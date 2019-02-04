@@ -8,16 +8,28 @@
 #ifndef Character_h
 #define Character_h
 
+
 #include <string>
-#include <utility> //std::move
+#include <utility>
+
+
 #include "Attributes.h"
 #include "Inventory.h"
 #include "Equipment.h"
-#include "LocationCoordinates.h"
 
-const std::string DEF_CHAR_NAME = "DEF_CHAR_NAME";
+
+
+using std::string;
+
+const string DEF_CHAR_NAME = "Character";
 const int DEF_CHAR_HEALTH = 100;
 const int DEF_CHAR_DAMAGE = 10;
+
+#include "LocationCoordinates.h"      /* Should belong to character's library if needed */
+//struct Location {                   /* ~> Location */
+//    unsigned int area;
+//    unsigned int room;
+//};
 
 
 /**
@@ -32,32 +44,65 @@ public:
     
     virtual ~Character();
     
-    virtual void createCharacter(const std::string &name);
+    virtual void createCharacter(string &&name);
     
-    // Get
+    
+    
+    
+    
+    /* Get character's properties */
+    
     virtual std::string getName();
+    
     Attributes getAttributes();
+    
     Attributes getBaseAttributes();
+    
     Inventory getInventory();
+    
     Equipment getEquipment();
+    
     LocationCoordinates getCurrentLocation();
     
-    // Set
+    unsigned int getCurrentAreaId();
+    
+    unsigned int getCurrentRoomId();
+    
+    
+    
+    
+    
+    /* Set */
+    
     void setCurrentLocation(LocationCoordinates newLocation);
     
+    void setCurrentArea(unsigned int areaId);
     
-    // States ...
+    void setCurrentRoom(unsigned int roomId);
+    
+    
+    
+    
+    
+    /* Check character's state */
+    
     virtual bool isInCombat();
+    
     virtual bool isAlive();
     
     
-    // Compare characters' usernames
+    
+    
+    
+    /* Custom members */
+    
     virtual bool operator==(const Character &other);
+    
     virtual bool operator!=(const Character &other);
     
 protected:
     
-    std::string name;
+    string name;
     
     Attributes baseAttr;
     
@@ -67,7 +112,11 @@ protected:
     
     Inventory inventory;
 
-    LocationCoordinates currentLocation;
+    LocationCoordinates currentLocation; // !
+    
+    unsigned int areaId;
+    
+    unsigned int roomId;
     
 };
 

@@ -6,29 +6,11 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "Avatar.h"
-#include <iostream>
-
-/*
-Avatar::Avatar() {
-    this->createCharacter("< Test_Avatar >");
-    this->createOnFirstLogin();
-}
-*/
 
 
 Avatar::Avatar(string &&name) {
     this->createCharacter(std::move(name));
     this->createOnFirstLogin();
-    
-    // std::cout << "Debug: Character with name " + this->getName() + " created! -> (c string&) \n";
-}
-
-
-Avatar::Avatar(string &&name, Custom::Appearance &&appearance) {
-    this->createCharacter(std::move(name));
-    this->appearance = appearance;
-    
-    
 }
 
 /*
@@ -47,11 +29,7 @@ Avatar::Avatar(string &&name, Custom::Appearance &&appearance) {
 
 Avatar::~Avatar() { }
 
-void Avatar::init() {
-    
-    
-    
-}
+void Avatar::init() { /* undefined */ }
 
 void Avatar::createOnFirstLogin() {
     this->appearance = this->createCustomAppearance();
@@ -61,13 +39,13 @@ Custom::Appearance Avatar::createCustomAppearance() {
     Custom::Appearance appr;
     int input = 0;
     
-    // Ask for valid input
+    // Ask for valid input [male, female] local input
     appr.setSex((Custom::Sex)input);
     
-    // Ask for valid input [old, young]
+    // Ask for valid input [old, young] local input
     appr.setAge((Custom::Age)input);
     
-    // Ask for valid input
+    // Ask for valid input [,] local input
     appr.setSkill((Custom::Skill)input);
     
     return appr;

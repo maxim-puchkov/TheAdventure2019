@@ -9,7 +9,7 @@
 
 Character::~Character() { }
 
-void Character::createCharacter(const std::string &name) {
+void Character::createCharacter(string &&name) {
     this->name = DEF_CHAR_NAME;
     this->baseAttr = Attributes(DEF_CHAR_HEALTH, DEF_CHAR_DAMAGE);
     this->inventory = Inventory();
@@ -18,6 +18,12 @@ void Character::createCharacter(const std::string &name) {
     // Creating a character
     this->name = name;
 }
+
+
+
+
+
+/* Getters */
 
 std::string Character::getName() {
     return this->name;
@@ -39,13 +45,49 @@ Equipment Character::getEquipment() {
     return this->equipment;
 }
 
+
+
+
+
+/* Location */
+
 LocationCoordinates Character::getCurrentLocation() {
     return this->currentLocation;
+    // return {this->areaId, this->roomId};
 }
 
-void Character::setCurrentLocation(LocationCoordinates newLocation){
+unsigned int Character::getCurrentAreaId() {
+    return this->areaId;
+}
+
+unsigned int Character::getCurrentRoomId() {
+    return this->roomId;
+}
+
+
+
+
+
+/* Setters */
+
+// Now set separately
+void Character::setCurrentLocation(LocationCoordinates newLocation) {
     this->currentLocation = newLocation;
 }
+
+void Character::setCurrentArea(unsigned int areaId) {
+    this->areaId = areaId;
+}
+
+void Character::setCurrentRoom(unsigned int roomId) {
+    this->roomId = roomId;
+}
+
+
+
+
+
+/* States */
 
 bool Character::isInCombat() {
     return false;
@@ -55,6 +97,12 @@ bool Character::isAlive() {
     Attributes attr = this->getAttributes();
     return attr.getHealth() <= 0;
 }
+
+
+
+
+
+/* Custom */
 
 bool Character::operator==(const Character &other) {
     return this->name.compare(other.name) == 0;
