@@ -20,7 +20,9 @@ public:
     
     virtual ~Equipment() { }
     
-    virtual Attributes attributeBonus() { return this->hat.getAttributes(); }
+    virtual Attributes attributeBonus() const {
+        return this->hat.getAttributes();
+    }
     
 private:
     

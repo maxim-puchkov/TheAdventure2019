@@ -22,7 +22,9 @@ public:
     
     virtual ~Clothing() { }
     
-    virtual Attributes getAttributes() { return this->attributes; }
+    virtual Attributes getAttributes() const {
+        return this->attributes;
+    }
     
 private:
     

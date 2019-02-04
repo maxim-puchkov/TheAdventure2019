@@ -52,21 +52,21 @@ public:
     
     /* Get character's properties */
     
-    virtual std::string getName();
+    virtual std::string getName() const;
     
-    Attributes getAttributes();
+    Attributes getAttributes() const;
     
-    Attributes getBaseAttributes();
+    Attributes getBaseAttributes() const;
     
-    Inventory getInventory();
+    Inventory getInventory() const;
     
-    Equipment getEquipment();
+    Equipment getEquipment() const;
+    
+    unsigned int getCurrentAreaId() const;
+    
+    unsigned int getCurrentRoomId() const;
     
     LocationCoordinates getCurrentLocation();
-    
-    unsigned int getCurrentAreaId();
-    
-    unsigned int getCurrentRoomId();
     
     
     
@@ -74,13 +74,11 @@ public:
     
     /* Set */
     
-    void setCurrentLocation(LocationCoordinates newLocation);
-    
     void setCurrentArea(unsigned int areaId);
     
     void setCurrentRoom(unsigned int roomId);
     
-    
+    void setCurrentLocation(LocationCoordinates newLocation);
     
     
     

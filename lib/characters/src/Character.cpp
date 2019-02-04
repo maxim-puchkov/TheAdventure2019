@@ -25,23 +25,23 @@ void Character::createCharacter(string &&name) {
 
 /* Getters */
 
-std::string Character::getName() {
+std::string Character::getName() const {
     return this->name;
 }
 
-Attributes Character::getAttributes() {
+Attributes Character::getAttributes() const {
     return this->currentAttr + this->equipment.attributeBonus();
 }
 
-Attributes Character::getBaseAttributes() {
+Attributes Character::getBaseAttributes() const {
     return this->baseAttr;
 }
 
-Inventory Character::getInventory() {
+Inventory Character::getInventory() const {
     return this->inventory;
 }
 
-Equipment Character::getEquipment() {
+Equipment Character::getEquipment() const {
     return this->equipment;
 }
 
@@ -51,18 +51,21 @@ Equipment Character::getEquipment() {
 
 /* Location */
 
+// Use separate setters instead
+unsigned int Character::getCurrentAreaId() const {
+    return this->areaId;
+}
+
+unsigned int Character::getCurrentRoomId() const {
+    return this->roomId;
+}
+
 LocationCoordinates Character::getCurrentLocation() {
     return this->currentLocation;
     // return {this->areaId, this->roomId};
 }
 
-unsigned int Character::getCurrentAreaId() {
-    return this->areaId;
-}
 
-unsigned int Character::getCurrentRoomId() {
-    return this->roomId;
-}
 
 
 
