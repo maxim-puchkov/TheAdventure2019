@@ -5,6 +5,8 @@
 #include "User.h"
 #include "OnlineUserManager.h"
 #include <boost/algorithm/string.hpp>
+#include "Avatar.h"
+#include "LocationCoordinates.h"
 
 using usermanager::OnlineUserManager;
 using accountmanager::AccountManager;
@@ -85,7 +87,7 @@ bool GameManager::commandIsValid(size_t commandPartsSize, size_t splitByColon, c
         return false;
     return true;
 }
-
+/*
 void testAccountManager(){
     std::cout << "*** AccountManager TEST ***\n";
     
@@ -100,6 +102,7 @@ void testAccountManager(){
     assert( accountManager.login(id,userName,pwd) == AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN);
 
 }
+*/
 std::string GameManager::commandLogin(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     /*try {
         long int id = std::stol(connectionID, nullptr, 10);
@@ -108,6 +111,7 @@ std::string GameManager::commandLogin(const std::string& connectionID, const std
         return connectionID;
     }*/
 
+	AccountManager accountManager;
 	auto answer = accountManager.login(connectionID, fullCommand[0], fullCommand[1]);
 	switch(answer) {
 		case accountmanager::AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN:
@@ -128,6 +132,7 @@ std::string GameManager::commandLogin(const std::string& connectionID, const std
 }
 
 std::string GameManager::commandLogout(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
+    AccountManager accountManager;
     auto answer = accountManager.logOut(connectionID);
 	switch(answer) {
 		case accountmanager::AccountManager::ACCOUNT_CODE::USER_LOGGED_OUT:
@@ -147,6 +152,7 @@ std::string GameManager::commandLogout(const std::string& connectionID, const st
 }
 
 std::string GameManager::commandCreate(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
+    AccountManager accountManager;
     auto answer = accountManager.createUser(fullCommand[0], fullCommand[1]);
 	switch(answer) {
 		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_USERNAME:
@@ -167,17 +173,18 @@ std::string GameManager::commandCreate(const std::string& connectionID, const st
 }
 
 std::string GameManager::commandAddToActionList(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    std::string combined;
+    /*std::string combined;
     for (const auto &commandPart : fullCommand){
         combined += commandPart;
         combined += " ";
     }
     dummyUser.addCommandToList(combined);
-    return "command-add-test\n";
+    return "command-add-test\n";*/
 
     //Needs accountManager API
+    //AccountManager accountManager;
     //accountManager.addToActionList(connectionID, fullCommand);
-    //return "";
+    return "";
 }
 
 std::string GameManager::commandHelp(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
@@ -190,32 +197,57 @@ std::string GameManager::commandHelp(const std::string& connectionID, const std:
     return answer.str();
 }
 
-void GameManager::commandSay(User* user, std::vector<std::string> fullCommand) {
-
+std::string GameManager::commandSay(User* user, const std::vector<std::string>& fullCommand) {
+	Avatar avatar = user->getAvatar();
+	return world->say(&avatar, fullCommand[1]);
 }
 
-void GameManager::commandYell(User* user, std::vector<std::string> fullCommand) {
-
+std::string GameManager::commandYell(User* user, const std::vector<std::string>& fullCommand) {
+	/* Waiting for implementation in WorldManager
+	Avatar avatar = user->getAvatar();
+	return world->say(&avatar, fullCommand[1]);
+	*/
+	return "test-yell";
 }
 
-void GameManager::commandTell(User* user, std::vector<std::string> fullCommand){
+std::string GameManager::commandTell(User* user, const std::vector<std::string>& fullCommand){
+	/* Waiting for implementation in WorldManager, AccountManager, UserManager
+	Avatar speaker = user->getAvatar();
 
+	auto listenerUser = getUser(fullCommand[1]);
+	if(listenerUser == nullptr) {
+		return "Invalid name";
+	}
+	Avatar listener = listenerUser->getAvatar();
+
+	return world->say(&speaker, &listener, fullCommand[2]);
+	*/
+	return "test-tell";
 }
 
-void GameManager::commandMove(User* user, std::vector<std::string> fullCommand) {
-
+std::string GameManager::commandMove(User* user, const std::vector<std::string>& fullCommand) {
+	Avatar avatar = user->getAvatar();
+	/* Change API to accept raw string
+	LocationCoordinates newLocation = world->move(&avatar, fullCommand[1]);
+	std::ostringstream answer;
+	answer << "Current location: Area:" << newLocation.area << ", Room: " << newLocation.room << "\n";
+	return answer */
+	return "test-move";
 }
 
-void GameManager::commandLook(User* user, std::vector<std::string> fullCommand) {
-
+std::string GameManager::commandLook(User* user, const std::vector<std::string>& fullCommand) {
+	Avatar avatar = user->getAvatar();
+	return world->look(&avatar);
 }
 
-void GameManager::commandExamine(User* user, std::vector<std::string> fullCommand) {
-
+std::string GameManager::commandExamine(User* user, const std::vector<std::string>& fullCommand) {
+	Avatar avatar = user->getAvatar();
+	return world->look(&avatar, fullCommand[1]);
 }
 
-void GameManager::commandError(User* user, std::vector<std::string> fullCommand){
+std::string GameManager::commandError(User* user, const std::vector<std::string>& fullCommand){
     //Intended to be a null-function. Normally it should never reach this.
+    return "";
 }
 
 
@@ -225,7 +257,7 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
     //TODO: get list of online users and do for each
 
     auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
-
+/*
     User *currentUser = &dummyUser;
     std::string userID;
     try {
@@ -250,14 +282,18 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
         map->insert({userID, userMessage});
         currentUser->popCommand();
     }
-
-    return map;
+*/
+    return std::move(map);
 }
 
 //This should just return a User object
-User* GameManager::getUser(const std::string userName) const {
+User* GameManager::getUser(const std::string& userName) const {
     User user{"",""};
+    //AccountManager accountManager;
+    //auto user = accountManager.findByUsername(userName);
     return &user; //Note: nullptr = not online, processed in the upper level
+
+
 }
 
 
