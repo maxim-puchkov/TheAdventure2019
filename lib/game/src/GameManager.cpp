@@ -5,7 +5,6 @@
 #include "User.h"
 #include "OnlineUserManager.h"
 #include <boost/algorithm/string.hpp>
-#include "CommandParser.h"
 
 using usermanager::OnlineUserManager;
 using accountmanager::AccountManager;
@@ -45,11 +44,6 @@ void GameManager::createTableOfCommands() {
 //tell a : a;
 
 std::string GameManager::extractCommands(const std::string& connectionID, const std::string &fullCommand) {
-    
-    CommandParser parser;
-    parser.parse(fullCommand);
-    
-    
     std::vector<std::string> commandParts, splitByColon;
     reassembleCommand(fullCommand, commandParts, splitByColon);
 

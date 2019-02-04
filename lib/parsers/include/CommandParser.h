@@ -19,8 +19,10 @@
 using std::vector;
 using std::string;
 
+
 using arguments = const vector<string>&;
 using command = std::function<void(arguments)>;
+
 
 const string CMD_HELP = "help";
 const string CMD_NOT_FOUND = "Invalid command. See available: " + CMD_HELP;

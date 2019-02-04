@@ -8,7 +8,17 @@
 #ifndef CommandDefintions_h
 #define CommandDefintions_h
 
+#include <vector>
+#include <string>
 #include "AccountManager.h"
+
+
+using std::vector;
+using std::string;
+
+
+using arguments = const vector<string>&;
+using command = std::function<void(arguments)>;
 
 
 namespace accounts {
@@ -27,9 +37,9 @@ using accountmanager::AccountManager;
 
 namespace game {
     
-    void command_say(arguments args) { }
+    void command_say(arguments args); /* undefined */
     
-    void command_yell(arguments args) { }
+    void command_yell(arguments args); /* undefined */
     
 }
 
