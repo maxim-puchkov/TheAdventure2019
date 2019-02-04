@@ -1,5 +1,6 @@
 #include <unordered_map>
 #include <iostream>
+#include <string>
 #include "GameManager.h"
 #include "AccountManager.h"
 #include "User.h"
@@ -10,6 +11,9 @@
 
 using usermanager::OnlineUserManager;
 using accountmanager::AccountManager;
+
+//global user to test
+User dummy{"bob","123"};
 
 GameManager::GameManager() {
     WorldManager newWorld;
@@ -173,18 +177,15 @@ std::string GameManager::commandCreate(const std::string& connectionID, const st
 }
 
 std::string GameManager::commandAddToActionList(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    /*std::string combined;
-    for (const auto &commandPart : fullCommand){
-        combined += commandPart;
-        combined += " ";
-    }
-    dummyUser.addCommandToList(combined);
-    return "command-add-test\n";*/
-
-    //Needs accountManager API
-    //AccountManager accountManager;
-    //accountManager.addToActionList(connectionID, fullCommand);
-    return "";
+    // std::string combined;
+    // for (const auto &commandPart : fullCommand){
+    //     combined += commandPart;
+    //     combined += " ";
+    // }
+    dummy.addCommandToList(fullCommand);
+    auto& commands = dummy.getCommands();
+    std::cout<<commands.size()<<"\n";
+    return "command-add-test\n";
 }
 
 std::string GameManager::commandHelp(const std::string& connectionID, const std::vector<std::string>& fullCommand) {

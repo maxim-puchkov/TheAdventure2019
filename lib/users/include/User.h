@@ -32,13 +32,13 @@ public:
 
     std::queue<std::string>& getMessages();
 
-    void addCommandToList(const std::string& command);
+    void addCommandToList(const std::vector<std::string>& command);
 
     std::queue<std::vector<std::string>>& getCommands();
 
     void popCommand();
     
-    
+    int getCommandSize();
 private:
     //using as connection id
     long int id;

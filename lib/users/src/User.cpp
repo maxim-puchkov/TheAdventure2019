@@ -48,14 +48,8 @@ std::queue<std::string>& User::getMessages() {
     return messages;
 }
 
-void User::addCommandToList(const std::string& command){
-    std::vector<std::string> commandParts;
-    boost::split(commandParts, command, boost::is_any_of(" "));
-
-    for(auto& value: commandParts) {
-        boost::trim(value);
-    }
-    commands.push(commandParts);
+void User::addCommandToList(const std::vector<std::string>& command){
+    commands.push(command);
 }
 
 std::queue<std::vector<std::string>>& User::getCommands(){
@@ -66,6 +60,10 @@ void User::popCommand(){
     if(!commands.empty()){
         commands.pop();
     }
+}
+
+int User::getCommandSize(){
+    return commands.size();
 }
 
 void User::init() {
