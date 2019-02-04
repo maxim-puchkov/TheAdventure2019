@@ -27,6 +27,10 @@ string User::getUserName() {
     return this->name;
 }
 
+Avatar User::getAvatar() const {
+    return avatar;
+}
+
 void User::setId(long int id){
     this->id = id;
 }
