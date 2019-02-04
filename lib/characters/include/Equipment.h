@@ -18,7 +18,7 @@ public:
         // this->hat = Clothing();
     }
     
-    virtual ~Equipment() { }
+    ~Equipment() { }
     
     virtual Attributes attributeBonus() const {
         return this->hat.getAttributes();

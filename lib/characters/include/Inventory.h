@@ -14,7 +14,7 @@ public:
     
     Inventory() { }
     
-    virtual ~Inventory() { }
+    ~Inventory() { }
     
 };
 

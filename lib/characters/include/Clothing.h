@@ -20,9 +20,9 @@ public:
         this->attributes = attr;
     }
     
-    virtual ~Clothing() { }
+    ~Clothing() { }
     
-    virtual Attributes getAttributes() const {
+    Attributes getAttributes() const {
         return this->attributes;
     }
     
