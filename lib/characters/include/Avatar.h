@@ -9,7 +9,7 @@
 #define Avatar_h
 
 
-#include "PlayerControlledCharacter.h"
+#include "Character.h"
 #include "Appearance.h"
 
 
@@ -24,7 +24,7 @@ using std::string;
  *  Derived from PlayerControlledCharacter.
  *  Handles character creation and customization.
  */
-class Avatar : public PlayerControlledCharacter {
+class Avatar : public Character {
 public:
         
     // Create new avatar and set up its appearance
