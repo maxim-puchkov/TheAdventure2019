@@ -8,17 +8,13 @@ using std::string;
 User::User(const string &name, const string &password) {
     this->name = name;
     this->password = password;
-    this->avatar = Avatar(name);
-    
-    this->test();
+    //this->avatar = newAvatar;
 }
 
-User::User(const string &name, const string &password, const Avatar &avatar) {
+User::User(const string &name, const string &password, Avatar &&avatar) {
     this->name = name;
     this->password = password;
     this->avatar = avatar;
-    
-    this->test();
 }
 
 User::~User() = default;
@@ -65,12 +61,3 @@ void User::popCommand(){
 int User::getCommandSize(){
     return commands.size();
 }
-
-void User::init() {
-    
-}
-
-void User::test() {
-    std::cout << "Debug: User " << this->name << " created\n";
-}
-

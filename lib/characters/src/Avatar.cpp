@@ -8,18 +8,27 @@
 #include "Avatar.h"
 #include <iostream>
 
+/*
 Avatar::Avatar() {
     this->createCharacter("< Test_Avatar >");
     this->createOnFirstLogin();
-    
-    std::cout << "Debug: Character with name " + this->getName() + " created! -> () \n";
 }
+*/
 
-Avatar::Avatar(const string &username) {
-    this->createCharacter(username);
+
+Avatar::Avatar(string &&name) {
+    this->createCharacter(std::move(name));
     this->createOnFirstLogin();
     
-    std::cout << "Debug: Character with name " + this->getName() + " created! -> (c string&) \n";
+    // std::cout << "Debug: Character with name " + this->getName() + " created! -> (c string&) \n";
+}
+
+
+Avatar::Avatar(string &&name, Custom::Appearance &&appearance) {
+    this->createCharacter(std::move(name));
+    this->appearance = appearance;
+    
+    
 }
 
 /*

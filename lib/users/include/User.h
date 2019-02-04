@@ -18,7 +18,7 @@ public:
     User(const string &name, const string &password);
     
     // Returning players whose avatar exists
-    User(const string &name, const string &password, const Avatar &avatar);
+    User(const string &name, const string &password, Avatar &&avatar);
     
     ~User();
     
@@ -45,16 +45,12 @@ private:
 
     std::queue<std::string> messages;
     std::queue<std::vector<std::string>> commands;
-
-    void init();
     
     std::string name;
     
     std::string password;
     
-    Avatar avatar;
-    
-    void test();
+    Avatar avatar = Avatar(std::move(this->name));
 
 };
     

@@ -26,15 +26,16 @@ using std::string;
 class Avatar : public PlayerControlledCharacter {
 public:
     
-    // Create new avatar and set up Character name and Avatar Appearance
-    Avatar();
+    // Not allowed. Created with a name of its user.
+    // Avatar();
     
-    Avatar(const string &username);
+    // Create new avatar and set up its appearance
+    Avatar(const string &name) = delete;
+    Avatar(string &&name);
     
-    // Create avatar with existing appearance
-    //Avatar(const Custom::Appearance &appearance);
-    
-    //string getName();
+    // Load avatar with existing appearance
+    Avatar(const string &name, const Custom::Appearance &appearance) = delete;
+    Avatar(string &&name, Custom::Appearance &&appearance);
     
     virtual ~Avatar();
     
@@ -46,8 +47,8 @@ private:
     
     // Avatar's Appearance will change its in-game looks and stats
     Custom::Appearance createCustomAppearance();
-    
-protected:
+
+    string name;
     
     Custom::Appearance appearance;
     
