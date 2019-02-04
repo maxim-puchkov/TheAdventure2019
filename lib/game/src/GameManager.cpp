@@ -254,9 +254,13 @@ std::string GameManager::commandError(User* user, const std::vector<std::string>
 
 
 std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
-    //TODO: get list of online users and do for each
-
     auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
+    /*TODO:
+    	Get list of top commands of all online users
+    	Loop through and process each command
+    	Gather return messages and put in the table
+   	*/
+
 /*
     User *currentUser = &dummyUser;
     std::string userID;
