@@ -76,8 +76,9 @@ bool WorldManager::spawn(Character& character, LocationCoordinates location){
     return true;
 }
 
-std::string WorldManager::say (Character& character, std::string message) const{
-     return "You said the thing.";
+const std::vector<std::string>& WorldManager::getUserNamesInRoom (LocationCoordinates location) const{
+    Room roomOfInterest = findRoomByLocation(location);
+    return roomOfInterest.getUserNames();
 }
 
 LocationCoordinates WorldManager::move(Character& character, const std::string& direction) const {

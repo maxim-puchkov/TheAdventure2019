@@ -26,7 +26,7 @@ public:
     bool kick(Character& character);
     bool spawn(Character& character, LocationCoordinates location);
     std::string listExits(const Character& character) const;
-    std::string say (Character& character, std::string message) const;
+    const std::vector<std::string>& getUserNamesInRoom (LocationCoordinates location) const;
     LocationCoordinates move(Character& character, const std::string& direction) const;
     std::string look(Character& character) const;
     std::string look(Character& character, std::string objName) const;
