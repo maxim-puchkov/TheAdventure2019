@@ -10,6 +10,7 @@
 #include <string>
 #include <sstream>
 #include "Environment.h"
+#include "Script.h"
 
 
 using std::vector;
@@ -25,36 +26,19 @@ using function = std::function<void(arguments)>;
 const string WHITESPACE = " ";
 
 
-struct Script {
-    function fn;
-    vector<string> args;
-};
-
-
 /**
  *  @class ScriptParser
  *
  *  @brief Parses scripts and local input.
  *
- *  Parses and validates string input structure.
  */
 class ScriptParser {
 public:
     
     ScriptParser();
     
-    ~ScriptParser();
-    
     vector<string> parseInput(string &&input) const noexcept;
     
     Script parseScript(string &&script, Environment<string, function> &&env) const noexcept(false);
-    
-    // void createCommand(const string &name, command function);
-    
-private:
-    
-    // static void init(ScriptParser *p);
-    
-    // Environment<string, command> env;
     
 };

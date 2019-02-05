@@ -12,9 +12,6 @@
 ScriptParser::ScriptParser() { }
 
 
-ScriptParser::~ScriptParser() { }
-
-
 vector<string> ScriptParser::parseInput(string &&input) const noexcept {
     istringstream text(input);
     return {istream_iterator<string>{text}, istream_iterator<string>{}};
@@ -29,7 +26,7 @@ Script ScriptParser::parseScript(string &&script, Environment<string, function> 
     vector<string> args = this->parseInput(std::move(body));
     
     function fn = env.lookup(name);
-    return {fn, args};
+    return Script(std::move(fn), std::move(args));
 }
 
 
@@ -41,7 +38,3 @@ Script ScriptParser::parseScript(string &&script, Environment<string, function> 
 //void ScriptParser::init(ScriptParser *p) {
 //    // p->createCommand("login",    &accounts::command_login);
 //}
-
-
-
-
