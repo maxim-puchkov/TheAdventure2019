@@ -19,7 +19,13 @@ using std::istringstream;
 
 
 using arguments = const vector<string>&;
-using script = std::function<void(arguments)>;
+using function = std::function<void(arguments)>;
+
+
+struct Script {
+    function fn;
+    arguments args;
+};
 
 
 /**
@@ -36,7 +42,7 @@ public:
     
     ~ScriptParser();
     
-    void parseScript(string &&input, Environment<string, script> &&env) const noexcept(false);
+    Script parseScript(string &&input, Environment<string, function> &&env) const noexcept(false);
     
     // void createCommand(const string &name, command function);
     

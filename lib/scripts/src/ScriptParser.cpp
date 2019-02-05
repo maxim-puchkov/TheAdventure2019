@@ -15,7 +15,7 @@ ScriptParser::ScriptParser() { }
 ScriptParser::~ScriptParser() { }
 
 
-void ScriptParser::parseScript(string &&input, Environment<string, script> &&env) const noexcept(false) {
+Script ScriptParser::parseScript(string &&input, Environment<string, function> &&env) const noexcept(false) {
     size_t position = input.find(" ");
     string name = input.substr(0, position);
     
@@ -25,8 +25,8 @@ void ScriptParser::parseScript(string &&input, Environment<string, script> &&env
                              istream_iterator<string>{}};
     
     
-    script fn = env.lookup(name);
-    fn(arguments);
+    function fn = env.lookup(name);
+    return {fn, arguments};
 }
 
 
