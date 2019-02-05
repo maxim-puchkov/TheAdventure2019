@@ -15,15 +15,18 @@ ScriptParser::ScriptParser() { }
 ScriptParser::~ScriptParser() { }
 
 
-Script ScriptParser::parseScript(string &&input, Environment<string, function> &&env) const noexcept(false) {
-    size_t position = input.find(" ");
-    string name = input.substr(0, position);
+vector<string> ScriptParser::parseInput(string &&input) const noexcept {
+    istringstream text(input);
+    return {istream_iterator<string>{text}, istream_iterator<string>{}};
+}
+
+
+Script ScriptParser::parseScript(string &&script, Environment<string, function> &&env) const noexcept(false) {
+    size_t position = script.find(WHITESPACE);
+    string name = script.substr(0, position);
+    string body = script.substr(position + 1);
     
-    
-    istringstream text(input.substr(position + 1));
-    vector<string> arguments{istream_iterator<string>{text},
-                             istream_iterator<string>{}};
-    
+    vector<string> arguments = this->parseInput(std::move(body));
     
     function fn = env.lookup(name);
     return {fn, arguments};

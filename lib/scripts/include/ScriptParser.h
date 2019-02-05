@@ -22,6 +22,9 @@ using arguments = const vector<string>&;
 using function = std::function<void(arguments)>;
 
 
+const string WHITESPACE = " ";
+
+
 struct Script {
     function fn;
     arguments args;
@@ -42,7 +45,9 @@ public:
     
     ~ScriptParser();
     
-    Script parseScript(string &&input, Environment<string, function> &&env) const noexcept(false);
+    vector<string> parseInput(string &&input) const noexcept;
+    
+    Script parseScript(string &&script, Environment<string, function> &&env) const noexcept(false);
     
     // void createCommand(const string &name, command function);
     
