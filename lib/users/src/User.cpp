@@ -52,7 +52,7 @@ void User::addCommandToList(const std::vector<std::string>& command){
     commands.push(command);
 }
 
-std::queue<std::vector<std::string>>& User::getCommands(){
+std::queue<std::vector<std::string>>& User::getCommands() {
     return commands;
 }
 
@@ -62,7 +62,7 @@ void User::popCommand(){
     }
 }
 
-int User::getCommandSize(){
+int User::getCommandSize() const {
     return commands.size();
 }
 

@@ -108,12 +108,13 @@ void testAccountManager(){
 }
 */
 std::string GameManager::commandLogin(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    //temp code
-    long int id = std::stol(connectionID, nullptr, 10);
+    /* dummyUser implementation for testing
+     *
+     * long int id = std::stol(connectionID, nullptr, 10);
     dummy.setId(id);
     LocationCoordinates spawn{0,0};
-    dummy.getAvatar().setCurrentLocation(spawn);
-    //end of temp
+    dummy.getAvatar().setCurrentLocation(spawn);*/
+
 
 	AccountManager accountManager;
 	auto answer = accountManager.login(connectionID, fullCommand[0], fullCommand[1]);
@@ -177,9 +178,11 @@ std::string GameManager::commandCreate(const std::string& connectionID, const st
 }
 
 std::string GameManager::commandAddToActionList(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    dummy.addCommandToList(fullCommand);
+    /* dummyUser implementation for testing
+     *
+     * dummy.addCommandToList(fullCommand);
     auto& commands = dummy.getCommands();
-    std::cout<<commands.size()<<"\n";
+    std::cout<<commands.size()<<"\n";*/
     return "command-add-test\n";
 }
 
@@ -195,7 +198,14 @@ std::string GameManager::commandHelp(const std::string& connectionID, const std:
 
 std::string GameManager::commandSay(User* user, const std::vector<std::string>& fullCommand) {
 	auto& avatar = user->getAvatar();
-	return world.say(avatar, fullCommand[1]);
+
+    auto& userNamesInRoom = world.getUserNamesInRoom(avatar.getCurrentLocation());
+    for(auto name : userNamesInRoom){
+        auto recipient = getUser(name);
+        recipient->addMessage("message string goes here");
+    }
+
+	return "test-say\n";
 }
 
 std::string GameManager::commandYell(User* user, const std::vector<std::string>& fullCommand) {
@@ -203,7 +213,7 @@ std::string GameManager::commandYell(User* user, const std::vector<std::string>&
 	Avatar& avatar = user->getAvatar();
 	return world.say(avatar, fullCommand[1]);
 	*/
-	return "test-yell";
+	return "test-yell\n";
 }
 
 std::string GameManager::commandTell(User* user, const std::vector<std::string>& fullCommand){
@@ -218,7 +228,7 @@ std::string GameManager::commandTell(User* user, const std::vector<std::string>&
 
 	return world.say(speaker, &listener, fullCommand[2]);
 	*/
-	return "test-tell";
+	return "test-tell\n";
 }
 
 std::string GameManager::commandMove(User* user, const std::vector<std::string>& fullCommand) {
@@ -258,7 +268,9 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
     	Gather return messages and put in the table
    	*/
 
-    std::string userID;
+    /* dummyUser implementation for testing
+    /*
+     * std::string userID;
     try {
         userID = std::to_string(dummy.getId());
     }catch(std::out_of_range& e){
@@ -277,13 +289,11 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
 
         //calls the command function
         const auto userMessage = (this->*guideline.heartbeatReply)(&dummy, commandParts);
-        //const auto userMessage = "testmessage-heartbeat\n";
 
         map->insert(std::make_pair(userID, userMessage));
 
-        //commandQueue.pop();
         dummy.popCommand();
-    }
+    }*/
     return std::move(map);
 }
 
@@ -292,7 +302,7 @@ User* GameManager::getUser(const std::string& userName) const {
     User user{"",""};
     //AccountManager accountManager;
     //auto user = accountManager.findByUsername(userName);
-    return &user; //Note: nullptr = not online, processed in the upper level
+    return nullptr; //Note: nullptr = not online, processed in the upper level
 
 
 }

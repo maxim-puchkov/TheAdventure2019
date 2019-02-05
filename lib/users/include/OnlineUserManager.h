@@ -20,7 +20,7 @@ class OnlineUserManager{
         User getUserById(const std::string& id);
         User getUserByUsername(const std::string& userName);
         void onlineUserAddCommandToList(const std::string& userName, const std::vector<std::string>& commands);
-        std::unordered_map<User, std::vector<std::string>>& getOnlineUserCommandList();
+        std::unordered_map<std::string, std::vector<std::string>> getOnlineUserCommandList() const ;
         //std::unordered_map<std::string, std::vector<std::string>>& getOnlineUserCommandList();
         void updateUserTimeStamp(const std::string& id, int timeStamp);
         void printTable();

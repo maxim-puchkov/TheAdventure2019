@@ -76,14 +76,15 @@ void OnlineUserManager::onlineUserAddCommandToList(const std::string& userName, 
      */
 }
 
-std::unordered_map<User, std::vector<std::string>>& OnlineUserManager::getOnlineUserCommandList() {
-    std::unordered_map<User, std::vector<std::string>> commandMap;
+std::unordered_map<std::string, std::vector<std::string>> OnlineUserManager::getOnlineUserCommandList() const {
+    std::unordered_map<std::string, std::vector<std::string>> commandMap;
 
     for (auto &element : onlineUsers) {
-        auto& currentUser = element.second;
+        auto currentUser = element.second;
+
         if(currentUser.getCommandSize() > 0) {
             auto fullCommand = currentUser.getCommands().front();
-            commandMap.insert(std::make_pair(currentUser, fullCommand));
+            commandMap.insert(std::make_pair(currentUser.getUserName(), fullCommand));
             currentUser.getCommands().pop();
         }
     }
