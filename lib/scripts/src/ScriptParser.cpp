@@ -9,28 +9,24 @@
 #include "ScriptParser.h"
 
 
-ScriptParser::ScriptParser() { ScriptParser::init(this); }
+ScriptParser::ScriptParser() { }
 
 
 ScriptParser::~ScriptParser() { }
 
 
-void ScriptParser::parse(string &&input) const {
-    try {
-        size_t position = input.find(" ");
-        string name = input.substr(0, position);
-        
-        
-        std::istringstream text(input.substr(position + 1));
-        vector<string> arguments{std::istream_iterator<string>{text},
-                                 std::istream_iterator<string>{}};
-        
-        
-        command fn = this->env.lookup(name);
-        fn(arguments);
-    } catch (std::invalid_argument &e) {
-        // return CMD_NOT_FOUND;
-    }
+void ScriptParser::parseScript(string &&input, Environment<string, script> &&env) const noexcept(false) {
+    size_t position = input.find(" ");
+    string name = input.substr(0, position);
+    
+    
+    istringstream text(input.substr(position + 1));
+    vector<string> arguments{istream_iterator<string>{text},
+                             istream_iterator<string>{}};
+    
+    
+    script fn = env.lookup(name);
+    fn(arguments);
 }
 
 

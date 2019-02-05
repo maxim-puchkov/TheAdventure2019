@@ -8,15 +8,18 @@
 
 #include <vector>
 #include <string>
+#include <sstream>
 #include "Environment.h"
 
 
 using std::vector;
 using std::string;
+using std::istream_iterator;
+using std::istringstream;
 
 
 using arguments = const vector<string>&;
-using command = std::function<void(arguments)>;
+using script = std::function<void(arguments)>;
 
 
 /**
@@ -33,7 +36,7 @@ public:
     
     ~ScriptParser();
     
-    void parse(string &&input) const;
+    void parseScript(string &&input, Environment<string, script> &&env) const noexcept(false);
     
     // void createCommand(const string &name, command function);
     
@@ -41,6 +44,6 @@ private:
     
     // static void init(ScriptParser *p);
     
-    Environment<string, command> env;
+    // Environment<string, command> env;
     
 };
