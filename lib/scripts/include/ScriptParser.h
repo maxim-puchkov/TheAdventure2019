@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////
-//                                  CommandParser
+//                                  ScriptParser
 //
 // This file is distributed under the MIT License. See the LICENSE file
 // for details.
@@ -28,12 +28,12 @@ const string CMD_HELP = "help";
 const string CMD_NOT_FOUND = "Invalid command. See available: " + CMD_HELP;
 
 
-class CommandParser {
+class ScriptParser {
 public:
     
-    CommandParser();
+    ScriptParser();
     
-    ~CommandParser();
+    ~ScriptParser();
     
     void parse(const string &input) const;
     
@@ -41,7 +41,7 @@ public:
     
 private:
     
-    static void init(CommandParser *p);
+    static void init(ScriptParser *p);
     
     Environment<string, command> env;
     

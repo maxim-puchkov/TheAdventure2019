@@ -1,21 +1,21 @@
 /////////////////////////////////////////////////////////////////////////////
-//                                  CommandParser
+//                                  ScriptParser
 //
 // This file is distributed under the MIT License. See the LICENSE file
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
-#include "CommandParser.h"
-#include "CommandDefinitions.h"
+
+#include "ScriptParser.h"
 
 
-CommandParser::CommandParser() { CommandParser::init(this); }
+ScriptParser::ScriptParser() { ScriptParser::init(this); }
 
 
-CommandParser::~CommandParser() { }
+ScriptParser::~ScriptParser() { }
 
 
-void CommandParser::parse(const string &input) const {
+void ScriptParser::parse(const string &input) const {
     try {
         size_t position = input.find(" ");
         string name = input.substr(0, position);
@@ -24,12 +24,7 @@ void CommandParser::parse(const string &input) const {
         std::istringstream text(input.substr(position + 1));
         vector<string> arguments{std::istream_iterator<string>{text},
                                  std::istream_iterator<string>{}};
-
-        /* Display arguments to check
-        for (auto& arg : arguments) {
-            std::cout << arg << std::endl;
-        }
-        */
+        
         
         command fn = this->env.lookup(name);
         fn(arguments);
@@ -38,7 +33,7 @@ void CommandParser::parse(const string &input) const {
     }
 }
 
-void CommandParser::createCommand(const string &name, command function) {
+void ScriptParser::createCommand(const string &name, command function) {
     this->env.bind(name, function);
 }
 
@@ -50,11 +45,12 @@ void CommandParser::createCommand(const string &name, command function) {
 
 
 
-void CommandParser::init(CommandParser *p) {
-    p->createCommand("login",    &accounts::command_login);
-    p->createCommand("logout",   &accounts::command_logout);
+void ScriptParser::init(ScriptParser *p) {
+
     
     /*
+    p->createCommand("login",    &accounts::command_login);
+    p->createCommand("logout",   &accounts::command_logout);
     p->createCommand("login", &test::exampleLogin, 2);          // login <bob> <123>
     p->createCommand("help", &test::exampleShowHelp, 0);        // help
     p->createCommand("error", &test::exampleThrowCustomErr, 1); // error <bob>
