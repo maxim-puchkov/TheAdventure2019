@@ -27,7 +27,7 @@ const string WHITESPACE = " ";
 
 struct Script {
     function fn;
-    arguments args;
+    vector<string> args;
 };
 
 
