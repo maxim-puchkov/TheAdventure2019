@@ -183,7 +183,14 @@ std::string GameManager::commandAddToActionList(const std::string& connectionID,
      * dummy.addCommandToList(fullCommand);
     auto& commands = dummy.getCommands();
     std::cout<<commands.size()<<"\n";*/
-    return "command-add-test\n";
+    AccountManager accountManager;
+    auto userManager = accountManager.getUserManager();
+    bool success = userManager.onlineUserAddCommandToList(connectionID, fullCommand);
+    if(!success) {
+    	return "User is not online.";
+    }
+    //Do nothing, answer only when executing command 
+    return "";
 }
 
 std::string GameManager::commandHelp(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
@@ -197,15 +204,17 @@ std::string GameManager::commandHelp(const std::string& connectionID, const std:
 }
 
 std::string GameManager::commandSay(User* user, const std::vector<std::string>& fullCommand) {
-	auto& avatar = user->getAvatar();
+	AccountManager accountManager;
+    auto userManager = accountManager.getUserManager();
 
+	auto& avatar = user->getAvatar();
     auto& userNamesInRoom = world.getUserNamesInRoom(avatar.getCurrentLocation());
+
     for(auto name : userNamesInRoom){
-        auto recipient = getUser(name);
-        recipient->addMessage("message string goes here");
+        userManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
     }
 
-	return "test-say\n";
+	return "You said: \"" + fullCommand[1] + "\"\n";
 }
 
 std::string GameManager::commandYell(User* user, const std::vector<std::string>& fullCommand) {
@@ -262,6 +271,35 @@ std::string GameManager::commandError(User* user, const std::vector<std::string>
 
 std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
     auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
+
+    AccountManager accountManager;
+    auto userManager = accountManager.getUserManager();
+
+    //process commands
+    auto userCommands = userManager.getOnlineUserCommandList();
+    for(auto& element : userCommands) {
+    	auto found = tableOfCommands.find((element.second)[0]);
+	    commandGuideline guideline = found->second;
+    	
+    	auto replyMessage = (this->*guideline.heartbeatReply)(&element.first, element.second);
+    	auto connectionID = getUserIDByUsername(element.first.getUserName());
+
+    	map->insert(std::make_pair(connectionID, replyMessage));
+    }
+
+    //process messages
+    auto userMessages = userManager.getOnlineUserMessageList();
+    for (auto& element : userMessages) {
+	    auto found = map->find(element.first);
+	    if (found != map->end()) {
+	      (found->second.append("\n")).append(element.second);
+	    }
+	    else {
+	      map->insert(make_pair(element.first, element.second));
+	    }
+	  }
+    return std::move(map);
+
     /*TODO:
     	Get list of top commands of all online users
     	Loop through and process each command
@@ -294,17 +332,19 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
 
         dummy.popCommand();
     }*/
-    return std::move(map);
 }
 
 //This should just return a User object
-User* GameManager::getUser(const std::string& userName) const {
-    User user{"",""};
-    //AccountManager accountManager;
-    //auto user = accountManager.findByUsername(userName);
-    return nullptr; //Note: nullptr = not online, processed in the upper level
+std::string GameManager::getUserIDByUsername(const std::string& userName) const {
+    AccountManager accountManager;
+    auto userManager = accountManager.getUserManager();
+    return userManager.getConnectionID(userName);
+}
 
-
+user::User GameManager::getUser(const std::string& userName) const {
+	AccountManager accountManager;
+    auto userManager = accountManager.getUserManager();
+	return userManager.getUserByUsername(userName);
 }
 
 

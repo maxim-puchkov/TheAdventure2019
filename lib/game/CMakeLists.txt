@@ -16,8 +16,9 @@ target_link_libraries(${libgame}
     ${libcharacters}
     ${libworld}
     ${libusers}
-	${libcharacter}
+    ${libcharacter}
     ${Boost_LIBRARIES}
+    ${libusers}
 )
 
 set_target_properties(${libgame}

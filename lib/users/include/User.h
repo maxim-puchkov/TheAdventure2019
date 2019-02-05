@@ -30,20 +30,20 @@ public:
 
     void addMessage(std::string message);
 
-    std::queue<std::string>& getMessages();
+    std::deque<std::string> getMessages();
 
-    void addCommandToList(const std::vector<std::string>& command);
+    void addCommandToList(std::vector<std::string> command);
 
     std::queue<std::vector<std::string>>& getCommands();
 
-    void popCommand();
+    std::vector<std::string> popCommand();
     
     int getCommandSize() const;
 private:
     //using as connection id
     long int id;
 
-    std::queue<std::string> messages;
+    std::deque<std::string> messages;
     std::queue<std::vector<std::string>> commands;
 
     void init();

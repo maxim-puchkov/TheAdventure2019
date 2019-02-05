@@ -41,14 +41,16 @@ long int User::getId() {
 }
 
 void User::addMessage(std::string message) {
-    messages.push(message);
+    messages.push_back(message);
 }
 
-std::queue<std::string>& User::getMessages() {
-    return messages;
+std::deque<std::string> User::getMessages() {
+    std::deque<std::string> result;
+    std::swap(result, messages);
+    return result;
 }
 
-void User::addCommandToList(const std::vector<std::string>& command){
+void User::addCommandToList(std::vector<std::string> command){
     commands.push(command);
 }
 
@@ -56,10 +58,13 @@ std::queue<std::vector<std::string>>& User::getCommands() {
     return commands;
 }
 
-void User::popCommand(){
+std::vector<std::string> User::popCommand(){
+    std::vector<std::string> command;
     if(!commands.empty()){
+        command = commands.front();
         commands.pop();
     }
+    return command;
 }
 
 int User::getCommandSize() const {

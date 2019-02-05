@@ -23,7 +23,9 @@ class GameManager{
 private:
     WorldManager world;
     //accountmanager::AccountManager accountManager;
-    user::User* getUser(const std::string& userName) const;
+    user::User getUser(const std::string& userName) const;
+    std::string getUserIDByUsername(const std::string& userName) const;
+
     struct commandGuideline {
         std::string (GameManager::*promptReply)(const std::string&, const std::vector<std::string>&);
         std::string (GameManager::*heartbeatReply)(User*, const std::vector<std::string>&);
@@ -52,6 +54,7 @@ private:
     bool commandIsValid(size_t commandPartsSize, size_t messagePartSize, commandGuideline guideline);
     void reassembleCommand(std::string fullCommand, std::vector<std::string>& commandParts, std::vector<std::string>& splitByColon);
     void createTableOfCommands();
+
 
 public:
     GameManager();

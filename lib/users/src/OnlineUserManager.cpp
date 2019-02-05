@@ -43,6 +43,15 @@ User OnlineUserManager::getUserByUsername(const std::string& userName){
     return user;
 }
 
+std::string OnlineUserManager::getConnectionID(const std::string& userName) {
+	for (auto &element : onlineUsers) {
+        if(element.second.getUserName() == userName) {
+            return element.first;
+        }
+    }
+    return "Invalid";
+}
+
 void OnlineUserManager::updateUserTimeStamp(const std::string& id, int timeStamp) {
     auto user = removeUser(id);
     user.setId(timeStamp);
@@ -56,16 +65,52 @@ void OnlineUserManager::printTable() {
     }
 }
 
-void OnlineUserManager::onlineUserAddCommandToList(const std::string& userName, const std::vector<std::string>& commands){
+std::vector<std::pair<std::string, std::string>> OnlineUserManager::getOnlineUserMessageList() {
+
+	std::vector<std::pair<std::string, std::string>> messageList;
+
+	for (auto &element : onlineUsers) {
+        auto messageQueue = element.second.getMessages();
+        if(messageQueue.size() > 0) {
+        	std::string returnMessage = "";
+        	for(auto& message: messageQueue) {
+        		returnMessage.append(message);
+        	}      
+            messageList.push_back(std::make_pair(element.first, returnMessage));
+        }
+    }
+
+    return std::move(messageList);
+}
+
+
+void OnlineUserManager::addMessage(const std::string& userName, const std::string& message) {
+	for (auto &element : onlineUsers) {
+        if(element.second.getUserName() == userName) {
+            element.second.addMessage(message);
+            return;
+        }
+    }
+}
+
+bool OnlineUserManager::onlineUserAddCommandToList(const std::string& id, const std::vector<std::string>& command){
     //auto commandUser = getUserByUsername(userName);
 
+	auto search = onlineUsers.find(id);
+	if(search != onlineUsers.end()) {
+		search->second.addCommandToList(command);
+		return true;
+	}
+	return false;
+
+/*
     for (auto &element : onlineUsers) {
         if(element.second.getUserName() == userName) {
             element.second.addCommandToList(commands);
             return;
         }
     }
-
+*/
     /*std::vector<std::string> commandParts;
     boost::split(commandParts, command, boost::is_any_of(" "));
 
@@ -76,19 +121,17 @@ void OnlineUserManager::onlineUserAddCommandToList(const std::string& userName, 
      */
 }
 
-std::vector<std::pair<User, std::vector<std::string>>> OnlineUserManager::getOnlineUserCommandList() const {
+std::vector<std::pair<User, std::vector<std::string>>> OnlineUserManager::getOnlineUserCommandList() {
     std::vector<std::pair<User, std::vector<std::string>>> commandList;
 
     for (auto &element : onlineUsers) {
         auto currentUser = element.second;
 
         if(currentUser.getCommandSize() > 0) {
-            auto fullCommand = currentUser.getCommands().front();
+            auto fullCommand = element.second.popCommand();
             auto userCommandPair = std::make_pair(currentUser, fullCommand);
 
             commandList.push_back(userCommandPair);
-
-            currentUser.getCommands().pop(); //since Users are by copy atm this does nothing
         }
     }
 
