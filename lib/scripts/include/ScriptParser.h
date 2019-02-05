@@ -30,7 +30,6 @@ const string WHITESPACE = " ";
  *  @class ScriptParser
  *
  *  @brief Parses scripts and local input.
- *
  */
 class ScriptParser {
 public:
