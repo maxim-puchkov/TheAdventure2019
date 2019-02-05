@@ -41,7 +41,7 @@ public:
 
 
     std::string lookForName(const std::string &objName) const;
-    std::string lookRoomName(const std::string &objName) const;
+    std::string lookForExitName(const std::string &objName) const;
 
 
     //getters

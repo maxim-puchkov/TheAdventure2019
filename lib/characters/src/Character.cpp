@@ -39,7 +39,7 @@ Equipment Character::getEquipment() {
     return this->equipment;
 }
 
-LocationCoordinates Character::getCurrentLocation() {
+LocationCoordinates Character::getCurrentLocation() const {
     return this->currentLocation;
 }
 

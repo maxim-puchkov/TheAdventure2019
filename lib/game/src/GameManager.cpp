@@ -16,9 +16,9 @@ using accountmanager::AccountManager;
 User dummy{"bob","123"};
 
 GameManager::GameManager() {
-    WorldManager newWorld;
-    world = &newWorld;
-    world->generateWorld();
+    //WorldManager newWorld;
+    world = WorldManager{};
+    world.generateWorld();
 
     createTableOfCommands();
 }
@@ -194,21 +194,21 @@ std::string GameManager::commandHelp(const std::string& connectionID, const std:
 }
 
 std::string GameManager::commandSay(User* user, const std::vector<std::string>& fullCommand) {
-	Avatar avatar = user->getAvatar();
-	return world->say(&avatar, fullCommand[1]);
+	auto& avatar = user->getAvatar();
+	return world.say(avatar, fullCommand[1]);
 }
 
 std::string GameManager::commandYell(User* user, const std::vector<std::string>& fullCommand) {
 	/* Waiting for implementation in WorldManager
-	Avatar avatar = user->getAvatar();
-	return world->say(&avatar, fullCommand[1]);
+	Avatar& avatar = user->getAvatar();
+	return world.say(avatar, fullCommand[1]);
 	*/
 	return "test-yell";
 }
 
 std::string GameManager::commandTell(User* user, const std::vector<std::string>& fullCommand){
 	/* Waiting for implementation in WorldManager, AccountManager, UserManager
-	Avatar speaker = user->getAvatar();
+	Avatar& speaker = user->getAvatar();
 
 	auto listenerUser = getUser(fullCommand[1]);
 	if(listenerUser == nullptr) {
@@ -216,29 +216,30 @@ std::string GameManager::commandTell(User* user, const std::vector<std::string>&
 	}
 	Avatar listener = listenerUser->getAvatar();
 
-	return world->say(&speaker, &listener, fullCommand[2]);
+	return world.say(speaker, &listener, fullCommand[2]);
 	*/
 	return "test-tell";
 }
 
 std::string GameManager::commandMove(User* user, const std::vector<std::string>& fullCommand) {
-	Avatar avatar = user->getAvatar();
-	LocationCoordinates newLocation = world->move(&avatar, fullCommand[1]);
+	auto& avatar = user->getAvatar();
+	LocationCoordinates newLocation = world.move(avatar, fullCommand[1]);
 	std::ostringstream answer;
 	answer << "Current location: Area:" << newLocation.area << ", Room: " << newLocation.room << "\n";
 	return answer.str();
 }
 
 std::string GameManager::commandLook(User* user, const std::vector<std::string>& fullCommand) {
-    //LocationCoordinates spawn{0,0};
-	Avatar avatar = user->getAvatar();
-	//avatar.setCurrentLocation(spawn);
-	return world->look(&avatar);
+	auto& avatar = user->getAvatar();
+	return world.look(avatar) + "\n";
 }
 
 std::string GameManager::commandExamine(User* user, const std::vector<std::string>& fullCommand) {
-	Avatar avatar = user->getAvatar();
-	return world->look(&avatar, fullCommand[1]);
+	auto& avatar = user->getAvatar();
+	if(fullCommand[1] == "exits")
+	    return world.listExits(avatar) + "\n";
+	else
+	    return world.look(avatar, fullCommand[1]) + "\n";
 }
 
 std::string GameManager::commandError(User* user, const std::vector<std::string>& fullCommand){
@@ -278,7 +279,7 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
         const auto userMessage = (this->*guideline.heartbeatReply)(&dummy, commandParts);
         //const auto userMessage = "testmessage-heartbeat\n";
 
-        map->insert({userID, userMessage});
+        map->insert(std::make_pair(userID, userMessage));
 
         //commandQueue.pop();
         dummy.popCommand();

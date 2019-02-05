@@ -8,7 +8,7 @@
 using user::User;
 using usermanager::OnlineUserManager;
 
-bool OnlineUserManager::inserUser(const std::string& id, const User& user){
+bool OnlineUserManager::insertUser(const std::string &id, const User &user){
     return onlineUsers.insert(std::make_pair(id, user)).second;
 }
 
@@ -46,7 +46,7 @@ User OnlineUserManager::getUserByUsername(const std::string& userName){
 void OnlineUserManager::updateUserTimeStamp(const std::string& id, int timeStamp) {
     auto user = removeUser(id);
     user.setId(timeStamp);
-    inserUser(id, user);
+    insertUser(id, user);
 }
 
 void OnlineUserManager::printTable() {
@@ -56,18 +56,42 @@ void OnlineUserManager::printTable() {
     }
 }
 
-void OnlineUserManager::onlineUserAddCommandToList(const std::string& userName, const std::string& command){
-    std::vector<std::string> commandParts;
+void OnlineUserManager::onlineUserAddCommandToList(const std::string& userName, const std::vector<std::string>& commands){
+    //auto commandUser = getUserByUsername(userName);
+
+    for (auto &element : onlineUsers) {
+        if(element.second.getUserName() == userName) {
+            element.second.addCommandToList(commands);
+            return;
+        }
+    }
+
+    /*std::vector<std::string> commandParts;
     boost::split(commandParts, command, boost::is_any_of(" "));
 
     for(auto& value: commandParts) {
         boost::trim(value);
     }
-
     onlineUserCommandsList.insert(std::make_pair(userName, commandParts)).second;
+     */
 }
 
-std::unordered_map<std::string, std::vector<std::string>>& OnlineUserManager::getOnlineUserCommandList(){
-    return onlineUserCommandsList;
+std::unordered_map<User, std::vector<std::string>>& OnlineUserManager::getOnlineUserCommandList() {
+    std::unordered_map<User, std::vector<std::string>> commandMap;
+
+    for (auto &element : onlineUsers) {
+        auto& currentUser = element.second;
+        if(currentUser.getCommandSize() > 0) {
+            auto fullCommand = currentUser.getCommands().front();
+            commandMap.insert(std::make_pair(currentUser, fullCommand));
+            currentUser.getCommands().pop();
+        }
+    }
+
+    return std::move(commandMap);
 }
+
+/*std::unordered_map<std::string, std::vector<std::string>>& OnlineUserManager::getOnlineUserCommandList() {
+    return onlineUserCommandsList;
+}*/
 

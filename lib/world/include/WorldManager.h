@@ -23,12 +23,13 @@ public:
     Room findRoomByLocation(LocationCoordinates location) const;
 
     //commands
-    bool kick(Character* character);
-    bool spawn(Character* character, LocationCoordinates location);
-    std::string say (Character* character, std::string message) const;
-    LocationCoordinates move(Character* character, const std::string& direction) const;
-    std::string look(Character* character) const;
-    std::string look(Character* character, std::string objName) const;
+    bool kick(Character& character);
+    bool spawn(Character& character, LocationCoordinates location);
+    std::string listExits(const Character& character) const;
+    std::string say (Character& character, std::string message) const;
+    LocationCoordinates move(Character& character, const std::string& direction) const;
+    std::string look(Character& character) const;
+    std::string look(Character& character, std::string objName) const;
 };
 
 

@@ -39,7 +39,7 @@ using usermanager::OnlineUserManager;
         
         if((users_json[name]["password"] == pwd)){
 
-            if(!onlineUserMananger.inserUser(id, User{name,pwd})){
+            if(!onlineUserMananger.insertUser(id, User{name, pwd})){
                 return AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN;
             }
 

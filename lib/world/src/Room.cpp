@@ -58,7 +58,7 @@ std::string Room::lookForName(const std::string &objName) const{
 	return "You couldn't find anything called " + objName;
 }
 
-std::string Room::lookRoomName(const std::string &objName) const {
+std::string Room::lookForExitName(const std::string &objName) const {
 
 	auto roomExit = std::find_if(exitsInRoom.begin(), exitsInRoom.end(),
 								 [&](const auto& i) {return objName == i.getExitName();} );

@@ -21,7 +21,7 @@
 class GameManager{
 
 private:
-    WorldManager *world;
+    WorldManager world;
     //accountmanager::AccountManager accountManager;
     user::User* getUser(const std::string& userName) const;
     struct commandGuideline {
