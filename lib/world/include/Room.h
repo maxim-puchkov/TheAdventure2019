@@ -30,13 +30,13 @@ public:
               roomDescription("NO_ROOM_DESCRIPTION")
     {}
     Room(std::string rName, std::string rDescription)
-            : roomName(rName),
-              roomDescription(rDescription)
+            : roomName(std::move(rName)),
+              roomDescription(std::move(rDescription))
     {}
-    LocationCoordinates findExitLocation(Exit::CardinalDirection cardinalDirection) const;
-    bool createExit(std::string exitName, std::string exitDescription,
-                    Exit::CardinalDirection cardinalDirection, int areaID, int roomID);
-    bool addCharacter(const std::string &character);
+    LocationCoordinates findExitLocation(const std::string& cardinalDirection) const;
+    bool createExit(const std::string& exitName, const std::string& exitDescription,
+                    const std::string& cardinalDirection, int areaID, int roomID);
+    bool addCharacter(const std::string &userName);
     bool removeCharacter(const std::string &userName);
 
 

@@ -26,7 +26,7 @@ public:
     bool kick(Character* character);
     bool spawn(Character* character, LocationCoordinates location);
     std::string say (Character* character, std::string message) const;
-    LocationCoordinates move(Character* character, Exit::CardinalDirection direction) const;
+    LocationCoordinates move(Character* character, const std::string& direction) const;
     std::string look(Character* character) const;
     std::string look(Character* character, std::string objName) const;
 };

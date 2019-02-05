@@ -14,8 +14,8 @@ void WorldManager::generateWorld() {
         int exit2TargetID = i+2;
 
         Room r(roomName, roomDescription);
-        r.createExit("Exit 1", "The first exit. Looks shady.", Exit::CardinalDirection::NORTH, 0, exit1TargetID);
-        r.createExit("Exit 2", "The second exit. Looks way better than exit 1.", Exit::CardinalDirection::SOUTH, 0, exit2TargetID);
+        r.createExit("Exit 1", "The first exit. Looks shady.", "north", 0, exit1TargetID);
+        r.createExit("Exit 2", "The second exit. Looks way better than exit 1.", "south", 0, exit2TargetID);
 
         a.addRoom(r);
     }
@@ -62,7 +62,7 @@ std::string WorldManager::say (Character* character, std::string message) const{
      return "You said the thing.";
 }
 
-LocationCoordinates WorldManager::move(Character * character, Exit::CardinalDirection direction) const {
+LocationCoordinates WorldManager::move(Character* character, const std::string& direction) const {
     LocationCoordinates currentLocation = character->getCurrentLocation();
     Room roomOfInterest;
     try{
@@ -71,6 +71,7 @@ LocationCoordinates WorldManager::move(Character * character, Exit::CardinalDire
         return currentLocation;
     }
 
+    //find the target location of the exit in the current room with input direction
     LocationCoordinates newLocation = roomOfInterest.findExitLocation(direction);
 
     Room newRoom;

@@ -108,12 +108,12 @@ void testAccountManager(){
 }
 */
 std::string GameManager::commandLogin(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    /*try {
-        long int id = std::stol(connectionID, nullptr, 10);
-        dummyUser.setId(id);
-    }catch (std::out_of_range& e){
-        return connectionID;
-    }*/
+    //temp code
+    long int id = std::stol(connectionID, nullptr, 10);
+    dummy.setId(id);
+    LocationCoordinates spawn{0,0};
+    dummy.getAvatar().setCurrentLocation(spawn);
+    //end of temp
 
 	AccountManager accountManager;
 	auto answer = accountManager.login(connectionID, fullCommand[0], fullCommand[1]);
@@ -177,11 +177,6 @@ std::string GameManager::commandCreate(const std::string& connectionID, const st
 }
 
 std::string GameManager::commandAddToActionList(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    // std::string combined;
-    // for (const auto &commandPart : fullCommand){
-    //     combined += commandPart;
-    //     combined += " ";
-    // }
     dummy.addCommandToList(fullCommand);
     auto& commands = dummy.getCommands();
     std::cout<<commands.size()<<"\n";
@@ -228,16 +223,16 @@ std::string GameManager::commandTell(User* user, const std::vector<std::string>&
 
 std::string GameManager::commandMove(User* user, const std::vector<std::string>& fullCommand) {
 	Avatar avatar = user->getAvatar();
-	/* Change API to accept raw string
 	LocationCoordinates newLocation = world->move(&avatar, fullCommand[1]);
 	std::ostringstream answer;
 	answer << "Current location: Area:" << newLocation.area << ", Room: " << newLocation.room << "\n";
-	return answer */
-	return "test-move";
+	return answer.str();
 }
 
 std::string GameManager::commandLook(User* user, const std::vector<std::string>& fullCommand) {
+    //LocationCoordinates spawn{0,0};
 	Avatar avatar = user->getAvatar();
+	//avatar.setCurrentLocation(spawn);
 	return world->look(&avatar);
 }
 
@@ -262,32 +257,32 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
     	Gather return messages and put in the table
    	*/
 
-/*
-    User *currentUser = &dummyUser;
     std::string userID;
     try {
-        userID = std::to_string(currentUser->getId());
+        userID = std::to_string(dummy.getId());
     }catch(std::out_of_range& e){
         std::cout << e.what();
         return map;
     }
 
-    auto commandQueue = currentUser->getCommands();
+    auto& commandQueue = dummy.getCommands();
     if(!commandQueue.empty()){
-        const auto commandParts = commandQueue.front();
-        const auto commandName = commandParts.at(0);
+
+        const auto& commandParts = commandQueue.front();
+        const auto& commandName = commandParts.at(0);
 
         auto found = tableOfCommands.find(commandName);
         commandGuideline guideline = found->second;
-        //calls the command function
-        (this->*guideline.heartbeatReply)(currentUser, commandParts);
 
-        const auto userMessage = commandName + "\n";
+        //calls the command function
+        const auto userMessage = (this->*guideline.heartbeatReply)(&dummy, commandParts);
+        //const auto userMessage = "testmessage-heartbeat\n";
 
         map->insert({userID, userMessage});
-        currentUser->popCommand();
+
+        //commandQueue.pop();
+        dummy.popCommand();
     }
-*/
     return std::move(map);
 }
 

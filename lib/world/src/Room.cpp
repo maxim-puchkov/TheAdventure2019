@@ -1,41 +1,23 @@
 #include "Room.h"
 
+LocationCoordinates Room::findExitLocation(const std::string& direction) const {
+	auto checkDirection = Exit::getCardinalDirection(direction);
 
-// Returns -1 if move is not valid.
-// Otherwise, removes character from charactersInRoom and returns ID of new room.
-/*int Room::move(user::User * character, short direction){
-	if(roomExits.size() <= 0) return -1;
-	for (auto exit : roomExits){
-		if(exit.getCardinalDirection() == direction){
-			removeCharacter(character);
-			return exit.getTargetRoomID();
-		}
-	}
-	*//* Fancier implementation
-	if( std::any_of( roomExits.begin(), roomExits.end(),
-	 	[](auto exit) { return exit.getDirection == direction } ) ){
-	 	removeCharacter(character);
-	 	return exit.getTargetID();
-	}
-	 *//*
+	auto iterator = std::find_if(exitsInRoom.begin(), exitsInRoom.end(),
+			[&] (const Exit& e) { return e.getCardinalDirection() == checkDirection; } );
 
-	return -1;
-}*/
+	LocationCoordinates result{-1,-1}; //returns invalid location if exit doesn't exist
 
-LocationCoordinates Room::findExitLocation(Exit::CardinalDirection exitDirection) const {
-	for (auto roomExit : exitsInRoom){
-		if(roomExit.getCardinalDirection() == exitDirection){
-			return roomExit.getTargetLocation();
-		}
+	if(iterator != exitsInRoom.end()){
+		auto index = std::distance(exitsInRoom.begin(), iterator);
+		result = exitsInRoom.at(index).getTargetLocation();
 	}
-	LocationCoordinates invalidLocation;
-	invalidLocation.area = -1;
-	invalidLocation.room = -1;
-	return invalidLocation; //no exit found with that direction
+
+	return result;
 }
 
-bool Room::createExit(std::string exitName, std::string exitDescription,
-						Exit::CardinalDirection cardinalDirection, int areaID, int roomID) {
+bool Room::createExit(const std::string& exitName, const std::string& exitDescription,
+					  const std::string& cardinalDirection, int areaID, int roomID) {
 
 	Exit newExit(exitName, exitDescription, cardinalDirection, areaID, roomID);
 	try{
@@ -47,9 +29,9 @@ bool Room::createExit(std::string exitName, std::string exitDescription,
 }
 
 
-bool Room::addCharacter(const std::string &character){
+bool Room::addCharacter(const std::string &userName){
 	try{
-		charactersInRoom.push_back(character);
+		charactersInRoom.push_back(userName);
 	} catch(const std::bad_alloc& e){
 		return false;
 	}

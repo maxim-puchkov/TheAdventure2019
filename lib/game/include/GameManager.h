@@ -21,7 +21,6 @@
 class GameManager{
 
 private:
-    //User dummyUser{"bob","123"};
     WorldManager *world;
     //accountmanager::AccountManager accountManager;
     user::User* getUser(const std::string& userName) const;
