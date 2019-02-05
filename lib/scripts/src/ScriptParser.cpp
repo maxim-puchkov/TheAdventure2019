@@ -26,10 +26,10 @@ Script ScriptParser::parseScript(string &&script, Environment<string, function> 
     string name = script.substr(0, position);
     string body = script.substr(position + 1);
     
-    vector<string> arguments = this->parseInput(std::move(body));
+    vector<string> args = this->parseInput(std::move(body));
     
     function fn = env.lookup(name);
-    return {fn, arguments};
+    return {fn, args};
 }
 
 
