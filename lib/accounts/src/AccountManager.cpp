@@ -23,7 +23,7 @@ using usermanager::OnlineUserManager;
 
     bool jsonProcessed = false;
     json users_json;
-    std::string json_filePath = "/Users/ParmJohal/Desktop/373project/users.json";
+    std::string json_filePath = "users.json";
 
     AccountManager::AccountManager(){
         users_json = jsonParser.processJSON(json_filePath);

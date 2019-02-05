@@ -117,7 +117,7 @@ std::string GameManager::commandLogin(const std::string& connectionID, const std
 
 
 	AccountManager accountManager;
-	auto answer = accountManager.login(connectionID, fullCommand[0], fullCommand[1]);
+	auto answer = accountManager.login(connectionID, fullCommand[1], fullCommand[2]);
 	switch(answer) {
 		case accountmanager::AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN:
 			return "You are now logged in.\n";
@@ -158,7 +158,7 @@ std::string GameManager::commandLogout(const std::string& connectionID, const st
 
 std::string GameManager::commandCreate(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     AccountManager accountManager;
-    auto answer = accountManager.createUser(fullCommand[0], fullCommand[1]);
+    auto answer = accountManager.createUser(fullCommand[1], fullCommand[2]);
 	switch(answer) {
 		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_USERNAME:
 			return "Error! Invalid username.\n";
