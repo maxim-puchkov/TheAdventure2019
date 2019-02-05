@@ -14,7 +14,7 @@ User::User(const string &name, const string &password) {
 User::User(const string &name, const string &password, Avatar &&avatar) {
     this->name = name;
     this->password = password;
-    this->avatar = avatar;
+    // this->avatar = avatar;
 }
 
 User::~User() = default;
@@ -23,8 +23,8 @@ string User::getUserName() {
     return this->name;
 }
 
-Avatar User::getAvatar() const {
-    return avatar;
+const Avatar User::getAvatar() const {
+    return this->avatar;
 }
 
 void User::setId(long int id){

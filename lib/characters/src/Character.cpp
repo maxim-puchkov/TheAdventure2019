@@ -5,11 +5,11 @@
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
+
 #include "Character.h"
 
-Character::~Character() { }
 
-void Character::createCharacter(string &&name) {
+Character::Character(string &&name) {
     this->name = DEF_CHAR_NAME;
     this->baseAttr = Attributes(DEF_CHAR_HEALTH, DEF_CHAR_DAMAGE);
     this->inventory = Inventory();
@@ -20,6 +20,8 @@ void Character::createCharacter(string &&name) {
 }
 
 
+Character::~Character() { }
+
 
 
 
@@ -29,17 +31,21 @@ std::string Character::getName() const {
     return this->name;
 }
 
+
 Attributes Character::getAttributes() const {
     return this->currentAttr + this->equipment.attributeBonus();
 }
+
 
 Attributes Character::getBaseAttributes() const {
     return this->baseAttr;
 }
 
+
 Inventory Character::getInventory() const {
     return this->inventory;
 }
+
 
 Equipment Character::getEquipment() const {
     return this->equipment;
@@ -56,9 +62,11 @@ unsigned int Character::getCurrentAreaId() const {
     return this->areaId;
 }
 
+
 unsigned int Character::getCurrentRoomId() const {
     return this->roomId;
 }
+
 
 LocationCoordinates Character::getCurrentLocation() {
     return this->currentLocation;
@@ -78,9 +86,11 @@ void Character::setCurrentLocation(LocationCoordinates newLocation) {
     this->currentLocation = newLocation;
 }
 
+
 void Character::setCurrentArea(unsigned int areaId) {
     this->areaId = areaId;
 }
+
 
 void Character::setCurrentRoom(unsigned int roomId) {
     this->roomId = roomId;
@@ -96,6 +106,7 @@ bool Character::isInCombat() {
     return false;
 }
 
+
 bool Character::isAlive() {
     Attributes attr = this->getAttributes();
     return attr.getHealth() <= 0;
@@ -110,6 +121,7 @@ bool Character::isAlive() {
 bool Character::operator==(const Character &other) {
     return this->name.compare(other.name) == 0;
 }
+
 
 bool Character::operator!=(const Character &other) {
     return this->name.compare(other.name) != 0;

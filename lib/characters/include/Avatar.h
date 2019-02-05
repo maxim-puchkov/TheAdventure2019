@@ -21,7 +21,7 @@ using std::string;
  *
  *  @brief Character that can be controlled and customized.
  *
- *  Derived from PlayerControlledCharacter.
+ *  Derived from Character.
  *  Handles character creation and customization.
  */
 class Avatar : public Character {
@@ -30,23 +30,20 @@ public:
     // Create new avatar and set up its appearance
     Avatar(string &&name);
     
-    void loadAppearance(const Custom::Appearance &appearance);
-    
     virtual ~Avatar();
     
+    
+    
+    
+    /* */
+    
 private:
-    
-    Avatar() = delete;
-    
-    Avatar(const string &name) = delete;
     
     void init();
     
     void createOnFirstLogin();
     
     Custom::Appearance createCustomAppearance();
-    
-    
     
     
     

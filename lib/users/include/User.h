@@ -23,7 +23,8 @@ public:
     ~User();
     
     string getUserName();
-    Avatar getAvatar() const;
+    
+    const Avatar getAvatar() const;
 
     void setId(long int id);
     long int getId();

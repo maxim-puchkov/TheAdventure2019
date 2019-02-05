@@ -16,20 +16,15 @@
 #include "Attributes.h"
 #include "Inventory.h"
 #include "Equipment.h"
-
-
+#include "LocationCoordinates.h"      /* Should belong to character's
+                                         library if needed */
 
 using std::string;
 
-const string DEF_CHAR_NAME = "Character";
+
+const string DEF_CHAR_NAME = "New Character";
 const int DEF_CHAR_HEALTH = 100;
 const int DEF_CHAR_DAMAGE = 10;
-
-#include "LocationCoordinates.h"      /* Should belong to character's library if needed */
-//struct Location {                   /* ~> Location */
-//    unsigned int area;
-//    unsigned int room;
-//};
 
 
 /**
@@ -42,9 +37,11 @@ const int DEF_CHAR_DAMAGE = 10;
 class Character {
 public:
     
+    Character(string &&name);
+    
     virtual ~Character();
     
-    virtual void createCharacter(string &&name);
+    
     
     
     
@@ -54,10 +51,6 @@ public:
     
     virtual std::string getName() const;
     
-    Attributes getAttributes() const;
-    
-    Attributes getBaseAttributes() const;
-    
     Inventory getInventory() const;
     
     Equipment getEquipment() const;
@@ -65,8 +58,6 @@ public:
     unsigned int getCurrentAreaId() const;
     
     unsigned int getCurrentRoomId() const;
-    
-    LocationCoordinates getCurrentLocation();
     
     
     
@@ -78,7 +69,7 @@ public:
     
     void setCurrentRoom(unsigned int roomId);
     
-    void setCurrentLocation(LocationCoordinates newLocation);
+    
     
     
     
@@ -98,19 +89,41 @@ public:
     
     virtual bool operator!=(const Character &other);
     
-protected:
     
-    string name;
+    
+    
+    
+    /* Deprecated */
+    
+    void createCharacter(string &&name); /* undefined */
+    
+    LocationCoordinates getCurrentLocation();
+    
+    void setCurrentLocation(LocationCoordinates newLocation);
+    
+    LocationCoordinates currentLocation;
+    
+    Attributes getAttributes() const;
+    
+    Attributes getBaseAttributes() const;
     
     Attributes baseAttr;
     
     Attributes currentAttr;
     
+    
+    
+    
+    
+    /* Protected */
+    
+protected:
+    
+    string name;
+    
     Equipment equipment;
     
     Inventory inventory;
-
-    LocationCoordinates currentLocation; // !
     
     unsigned int areaId;
     
