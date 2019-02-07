@@ -20,13 +20,29 @@ Item::Item(Item &&item)
 }
 
 
+unsigned long Item::getId() const {
+    return this->id;
+}
+
+
 string Item::getDescription() {
     return this->description;
 }
 
 
-Item& Item::operator=(Item &&item) noexcept {
-    this->id = std::move(item.id);
-    this->description = std::move(item.description);
+Item& Item::operator=(Item &&other) noexcept {
+    this->id = std::move(other.id);
+    this->description = std::move(other.description);
     return *this;
 }
+
+
+bool Item::operator==(Item &other) const {
+    return this->id == other.id;
+}
+
+
+bool Item::operator==(const Item &other) const {
+    return this->id == other.id;
+}
+

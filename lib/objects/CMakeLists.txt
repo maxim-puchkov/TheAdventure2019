@@ -1,5 +1,6 @@
 add_library(${libobjects}
     src/Item.cpp
+    src/Collection.cpp
 )
 
 target_include_directories(${libobjects}

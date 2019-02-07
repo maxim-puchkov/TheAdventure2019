@@ -10,6 +10,7 @@
 #define Item_h
 
 #include <string>
+#include <functional>
 #include "Identifiers.h"
 
 using std::string;
@@ -17,15 +18,24 @@ using std::string;
 class Item {
 public:
     
+    Item() { }
+    
     Item(const string &description);
     
     Item(Item &&item);
     
-    virtual ~Item() = 0;
+    virtual ~Item() { };
+    
+    unsigned long getId() const;
     
     string getDescription();
     
-    Item& operator=(Item &&item) noexcept;
+    Item& operator=(Item &&other) noexcept;
+    
+    bool operator==(Item &other) const;
+    
+    bool operator==(const Item &other) const;
+
     
 private:
     
@@ -33,6 +43,12 @@ private:
     
     string description;
     
+};
+
+template <> struct std::hash<Item> {
+    std::size_t operator()(const Item& item) const {
+        return std::hash<unsigned long>{}(item.getId());
+    }
 };
 
 #endif /* Item_h */
