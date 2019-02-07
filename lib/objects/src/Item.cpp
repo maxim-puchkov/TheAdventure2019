@@ -31,7 +31,7 @@ unsigned long Item::getId() const {
 }
 
 
-string Item::getDescription() {
+string Item::getDescription() const {
     return this->description;
 }
 

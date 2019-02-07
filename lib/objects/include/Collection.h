@@ -12,6 +12,7 @@
 #include <string>
 #include <functional>
 #include <unordered_set>
+#include <sstream>
 #include "Item.h"
 
 using std::unordered_set;
@@ -24,12 +25,18 @@ public:
     
     Collection(const string &description) : Item(description) { }
     
-    Collection(Item &&c) : Item(std::move(c)) { }
+    Collection(Collection &&c) : Item(std::move(c)) { }
     
     ~Collection() { }
     
+    unordered_set<Item> getItems() const {
+        return this->items;
+    }
+    
+    string getDescription() const;
+    
     void setLimit(unsigned int limit) {
-        if (limit > this->limit) throw(std::invalid_argument("Collection limit"));
+        // if (limit > this->limit) throw(std::invalid_argument("Collection limit"));
         this->limit = limit;
     }
     

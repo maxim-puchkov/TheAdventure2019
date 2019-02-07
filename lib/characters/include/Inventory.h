@@ -9,6 +9,8 @@
 #ifndef Inventory_h
 #define Inventory_h
 
+#include <iostream>
+#include <string>
 #include <unordered_set>
 #include "Item.h"
 #include "Collection.h"
@@ -16,19 +18,34 @@
 using std::unordered_set;
 using std::string;
 
+const string DESCRIPTION = "Your Inventory";
 
 class Inventory {
 public:
     
     Inventory() {
+        Item i1("first item");
+        Collection c1("first container");
+        Item i2("in container 1");
+        c1.add(std::move(i2));
         
+        items.add(std::move(i1));
+        items.add(std::move(c1));
+        
+        this->listItems();
     }
     
     ~Inventory() { }
     
+    void listItems() const {
+        for (auto& item : this->items.getItems()) {
+            std::cout << item.getDescription() << std::endl;
+        }
+    }
+    
 private:
     
-    unordered_set<Item> items;
+    Collection items = Collection(DESCRIPTION);
     
 };
 

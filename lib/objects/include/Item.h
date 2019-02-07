@@ -27,26 +27,33 @@ public:
     
     virtual ~Item() { };
     
-    unsigned long getId() const;
+    virtual string getDescription() const;
     
-    string getDescription();
+    
+    
+    
     
     Item& operator=(Item &&other) noexcept;
     
     bool operator==(Item &other) const;
     
     bool operator==(const Item &other) const;
+    
+    unsigned long getId() const;
 
+    
+protected:
+    
+    string description;
     
 private:
     
     unsigned long id;
     
-    string description;
-    
 };
 
-template <> struct std::hash<Item> {
+template<>
+struct std::hash<Item> {
     size_t operator()(const Item& item) const;
 };
 

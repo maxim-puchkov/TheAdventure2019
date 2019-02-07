@@ -12,7 +12,7 @@
 Character::Character(string &&name) {
     this->name = DEF_CHAR_NAME;
     this->baseAttr = Attributes(DEF_CHAR_HEALTH, DEF_CHAR_DAMAGE);
-    this->inventory = Inventory();
+    //this->inventory = Inventory();
     this->equipment = Equipment();
     
     // Creating a character

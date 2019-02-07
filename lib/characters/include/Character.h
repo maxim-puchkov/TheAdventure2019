@@ -123,7 +123,7 @@ protected:
     
     Equipment equipment;
     
-    Inventory inventory;
+    Inventory inventory = Inventory();
     
     unsigned int areaId;
     
