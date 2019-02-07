@@ -14,6 +14,12 @@ Item::Item(const string &description)
 }
 
 
+Item::Item(const Item &other)
+: description(std::move(other.description)) {
+    this->id = other.id;
+}
+
+
 Item::Item(Item &&item)
 : description(std::move(item.description)) {
     this->id = item.id;
