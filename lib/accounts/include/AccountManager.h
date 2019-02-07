@@ -6,6 +6,15 @@
 #include <string>
 #include <iostream> 
 
+#include "JsonParser.h"
+#include <unordered_map>
+#include "json.hpp"
+#include <fstream>
+
+using namespace std;
+using nlohmann::json;
+using user::User; 
+
 using usermanager::OnlineUserManager;
 using user::User; 
 
@@ -25,7 +34,12 @@ class AccountManager {
     };
 
   private:
+    OnlineUserManager onlineUserMananger;
+    JsonParser jsonParser;
 
+    bool jsonProcessed = false;
+    json users_json;
+    std::string json_filePath = "users.json";
   public:
     AccountManager();
     ~AccountManager();
@@ -38,7 +52,7 @@ class AccountManager {
     bool isOnline();
 
     void updateOnlineStatus();
-    const OnlineUserManager& getUserManager();
+    OnlineUserManager& getUserManager();
     // User* getOnlineUser(std::string);
 
     };

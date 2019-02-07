@@ -1,16 +1,4 @@
-#include <unordered_map>
-#include <iostream>
-#include <string>
 #include "GameManager.h"
-#include "AccountManager.h"
-#include "User.h"
-#include "OnlineUserManager.h"
-#include <boost/algorithm/string.hpp>
-#include "Avatar.h"
-#include "LocationCoordinates.h"
-
-using usermanager::OnlineUserManager;
-using accountmanager::AccountManager;
 
 //global user to test
 User dummy{"bob","123"};
@@ -47,17 +35,17 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"help", help});
 }
 
-//tell a : a;
-
-std::string GameManager::extractCommands(const std::string& connectionID, std::string fullCommand) {
+std::string GameManager::extractCommands(const std::string& connectionID, const std::string& fullCommand) {
     std::vector<std::string> commandParts, splitByColon;
+
     reassembleCommand(fullCommand, commandParts, splitByColon);
 
     auto found = tableOfCommands.find(commandParts[0]);
     if(found != tableOfCommands.end()) {
         commandGuideline guideline = found->second;
-        if (commandIsValid(commandParts.size(), splitByColon.size(), guideline))
+        if (commandIsValid(commandParts.size(), splitByColon.size(), guideline)) {
             return (this->*guideline.promptReply)(connectionID, commandParts);
+        }
         else {
             std::ostringstream answer;
             answer << "Invalid command. Command syntax: " << commandParts[0] << guideline.helpText << "\n";
@@ -79,13 +67,12 @@ void GameManager::reassembleCommand(std::string fullCommand, std::vector<std::st
     boost::split(commandParts, splitByColon[0], boost::is_any_of(" \t"), boost::token_compress_on);
 
     //reassemble
-    for(auto& text : splitByColon) {
-        commandParts.push_back(text);
-    }
+    if(splitByColon.size() > 1)
+   		commandParts.push_back(splitByColon[1]);
 }
 
 bool GameManager::commandIsValid(size_t commandPartsSize, size_t splitByColon, commandGuideline guideline) {
-    if(guideline.commandPartArgCount != commandPartsSize - 1 - splitByColon)
+    if(guideline.commandPartArgCount != commandPartsSize - splitByColon)
         return false;
     if(guideline.messagePartArgCount != splitByColon - 1)
         return false;
@@ -116,7 +103,6 @@ std::string GameManager::commandLogin(const std::string& connectionID, const std
     dummy.getAvatar().setCurrentLocation(spawn);*/
 
 
-	AccountManager accountManager;
 	auto answer = accountManager.login(connectionID, fullCommand[1], fullCommand[2]);
 	switch(answer) {
 		case accountmanager::AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN:
@@ -137,7 +123,6 @@ std::string GameManager::commandLogin(const std::string& connectionID, const std
 }
 
 std::string GameManager::commandLogout(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    AccountManager accountManager;
     auto answer = accountManager.logOut(connectionID);
 	switch(answer) {
 		case accountmanager::AccountManager::ACCOUNT_CODE::USER_LOGGED_OUT:
@@ -157,7 +142,6 @@ std::string GameManager::commandLogout(const std::string& connectionID, const st
 }
 
 std::string GameManager::commandCreate(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    AccountManager accountManager;
     auto answer = accountManager.createUser(fullCommand[1], fullCommand[2]);
 	switch(answer) {
 		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_USERNAME:
@@ -183,7 +167,6 @@ std::string GameManager::commandAddToActionList(const std::string& connectionID,
      * dummy.addCommandToList(fullCommand);
     auto& commands = dummy.getCommands();
     std::cout<<commands.size()<<"\n";*/
-    AccountManager accountManager;
     auto userManager = accountManager.getUserManager();
     bool success = userManager.onlineUserAddCommandToList(connectionID, fullCommand);
     if(!success) {
@@ -204,7 +187,6 @@ std::string GameManager::commandHelp(const std::string& connectionID, const std:
 }
 
 std::string GameManager::commandSay(User* user, const std::vector<std::string>& fullCommand) {
-	AccountManager accountManager;
     auto userManager = accountManager.getUserManager();
 
 	auto& avatar = user->getAvatar();
@@ -272,7 +254,6 @@ std::string GameManager::commandError(User* user, const std::vector<std::string>
 std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
     auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
 
-    AccountManager accountManager;
     auto userManager = accountManager.getUserManager();
 
     //process commands
@@ -335,14 +316,12 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
 }
 
 //This should just return a User object
-std::string GameManager::getUserIDByUsername(const std::string& userName) const {
-    AccountManager accountManager;
+std::string GameManager::getUserIDByUsername(const std::string& userName) {
     auto userManager = accountManager.getUserManager();
     return userManager.getConnectionID(userName);
 }
 
-user::User GameManager::getUser(const std::string& userName) const {
-	AccountManager accountManager;
+user::User GameManager::getUser(const std::string& userName) {
     auto userManager = accountManager.getUserManager();
 	return userManager.getUserByUsername(userName);
 }

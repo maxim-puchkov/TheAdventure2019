@@ -61,7 +61,7 @@ void OnlineUserManager::updateUserTimeStamp(const std::string& id, int timeStamp
 void OnlineUserManager::printTable() {
     for(auto& p: onlineUsers){
         std::cout << p.first << " => " << p.second.getUserName() << " "
-                  << p.second.getId() << "\n";
+                  << p.second.getId() << " " << p.second.getCommandSize() << "\n";
     }
 }
 
@@ -95,7 +95,6 @@ void OnlineUserManager::addMessage(const std::string& userName, const std::strin
 
 bool OnlineUserManager::onlineUserAddCommandToList(const std::string& id, const std::vector<std::string>& command){
     //auto commandUser = getUserByUsername(userName);
-
 	auto search = onlineUsers.find(id);
 	if(search != onlineUsers.end()) {
 		search->second.addCommandToList(command);
@@ -123,10 +122,8 @@ bool OnlineUserManager::onlineUserAddCommandToList(const std::string& id, const 
 
 std::vector<std::pair<User, std::vector<std::string>>> OnlineUserManager::getOnlineUserCommandList() {
     std::vector<std::pair<User, std::vector<std::string>>> commandList;
-
     for (auto &element : onlineUsers) {
         auto currentUser = element.second;
-
         if(currentUser.getCommandSize() > 0) {
             auto fullCommand = element.second.popCommand();
             auto userCommandPair = std::make_pair(currentUser, fullCommand);

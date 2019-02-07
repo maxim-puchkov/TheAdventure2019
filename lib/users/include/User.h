@@ -34,7 +34,7 @@ public:
 
     void addCommandToList(std::vector<std::string> command);
 
-    std::queue<std::vector<std::string>>& getCommands();
+    std::deque<std::vector<std::string>>& getCommands();
 
     std::vector<std::string> popCommand();
     
@@ -44,7 +44,7 @@ private:
     long int id;
 
     std::deque<std::string> messages;
-    std::queue<std::vector<std::string>> commands;
+    std::deque<std::vector<std::string>> commands;
 
     void init();
     
