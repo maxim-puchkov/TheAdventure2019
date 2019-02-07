@@ -9,12 +9,26 @@
 #ifndef Inventory_h
 #define Inventory_h
 
+#include <unordered_set>
+#include "Item.h"
+#include "Collection.h"
+
+using std::unordered_set;
+using std::string;
+
+
 class Inventory {
 public:
     
-    Inventory() { }
+    Inventory() {
+        
+    }
     
     ~Inventory() { }
+    
+private:
+    
+    unordered_set<Item> items;
     
 };
 
