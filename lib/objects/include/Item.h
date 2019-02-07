@@ -19,9 +19,9 @@ using std::size_t;
 class Item {
 public:
     
-    Item() { }
-    
     Item(const string &description);
+    
+    Item(const Item &item);
     
     Item(Item &&item);
     
