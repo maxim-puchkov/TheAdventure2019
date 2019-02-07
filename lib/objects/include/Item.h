@@ -1,13 +1,13 @@
 //
-//  Item.hpp
+//  Item.h
 //  adventure2019
 //
 //  Created by admin on 2019-02-06.
 //  Copyright © 2019 maximpuchkov. All rights reserved.
 //
 
-#ifndef Item_hpp
-#define Item_hpp
+#ifndef Item_h
+#define Item_h
 
 #include <string>
 #include "Identifiers.h"
@@ -35,4 +35,4 @@ private:
     
 };
 
-#endif /* Item_hpp */
+#endif /* Item_h */

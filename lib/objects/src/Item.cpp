@@ -6,7 +6,7 @@
 //  Copyright © 2019 maximpuchkov. All rights reserved.
 //
 
-#include "Item.hpp"
+#include "Item.h"
 
 Item::Item(const string &description)
 : description(description) {
