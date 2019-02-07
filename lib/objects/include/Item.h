@@ -33,7 +33,7 @@ public:
     
     
     
-    Item& operator=(Item &&other) noexcept;
+    virtual Item& operator=(Item &&other) noexcept;
     
     bool operator==(Item &other) const;
     
@@ -42,11 +42,9 @@ public:
     unsigned long getId() const;
 
     
-protected:
+private:
     
     string description;
-    
-private:
     
     unsigned long id;
     

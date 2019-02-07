@@ -23,9 +23,11 @@ const unsigned int NO_LIMIT = 0;
 class Collection : public Item {
 public:
     
-    Collection(const string &description) : Item(description) { }
+    Collection(const string &description) : Item(std::move(description)) { }
     
-    Collection(Collection &&c) : Item(std::move(c)) { }
+    Collection(Collection &&c) : Collection(std::move(c.description)) {
+        this->items = std::move(c.items);
+    }
     
     ~Collection() { }
     
@@ -51,11 +53,18 @@ public:
         return (this->items.erase(std::move(item)) == 1);
     }
     
+    Collection& operator=(Collection &&c) {
+        this->items = std::move(c.items);
+        return *this;
+    }
+    
 private:
     
     unordered_set<Item> items;
     
     unsigned int limit = NO_LIMIT;
+    
+    string description;
     
     bool limited() {
         return this->limit != NO_LIMIT;
