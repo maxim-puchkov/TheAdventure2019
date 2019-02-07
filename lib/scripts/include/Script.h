@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <string>
+#include <functional>
 
 using std::vector;
 using std::string;
@@ -21,13 +22,19 @@ using function = std::function<void(arguments)>;
 class Script {
 public:
     
-    Script(function &&fn, vector<string> &&args);
+    Script(function &&fn, vector<string> &&args) { }
     
-    bool validateSize(unsigned int argc) const noexcept;
+    bool validateSize(unsigned int argc) const noexcept  {
+        return (this->args.size() == argc);
+    }
     
-    bool validateArgLength(string &&argument, unsigned int minLength) const noexcept;
+    bool validateArgLength(string &&argument, unsigned int minLength) const noexcept {
+        return (argument.length() == minLength);
+    }
     
-    void operator()();
+    void operator()() {
+        fn(std::move(this->args));
+    }
     
     // void operator()(vector<string> &&args);
     
@@ -52,16 +59,14 @@ private:
 
 /* ~> cpp */
 
-bool Script::validateSize(unsigned int argc) const noexcept {
-    return (this->args.size() == argc);
-}
+/*
 
-bool Script::validateArgLength(string &&argument, unsigned int minLength) const noexcept {
-    return (argument.length() == minLength);
-}
+bool Script::validateSize(unsigned int argc) const noexcept
 
-void Script::operator()() {
-    fn(std::move(this->args));
-}
+bool Script::validateArgLength(string &&argument, unsigned int minLength) const noexcept
+
+void Script::operator()()
+ 
+ */
 
 #endif /* Script_h */

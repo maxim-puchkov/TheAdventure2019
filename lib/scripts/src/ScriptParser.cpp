@@ -19,6 +19,8 @@ vector<string> ScriptParser::parseInput(string &&input) const noexcept {
 
 
 Script ScriptParser::parseScript(string &&script, Environment<string, function> &&env) const noexcept(false) {
+    
+    
     size_t position = script.find(WHITESPACE);
     string name = script.substr(0, position);
     string body = script.substr(position + 1);

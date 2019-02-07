@@ -1,5 +1,7 @@
 add_library(${libscripts}
+    src/ScriptController.cpp
     src/ScriptParser.cpp
+    src/Script.cpp
 )
 
 target_include_directories(${libscripts}
