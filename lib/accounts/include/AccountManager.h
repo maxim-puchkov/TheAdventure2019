@@ -29,9 +29,11 @@ class AccountManager {
   public:
     AccountManager();
     ~AccountManager();
-    ACCOUNT_CODE login(const std::string&, const std::string&, const std::string& );
+    
+    // Why is the first parameter id?
+    static ACCOUNT_CODE login(const std::string&, const std::string&, const std::string& );
 
-    ACCOUNT_CODE logOut(const std::string&);
+    static ACCOUNT_CODE logOut(const std::string&);
 
     ACCOUNT_CODE createUser(const std::string&, const std::string&);
 

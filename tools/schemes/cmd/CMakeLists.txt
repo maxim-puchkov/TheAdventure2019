@@ -11,6 +11,7 @@ set_target_properties(cmd
 
 target_link_libraries(cmd
     ${libcommands}
+    ${libusers}
 )
 
 install(TARGETS cmd

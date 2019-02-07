@@ -19,9 +19,10 @@ target_include_directories(chatclient
 )
 
 target_link_libraries(chatclient
-  ${libnetwork}
-  ${CURSES_LIBRARIES}
-  ${CMAKE_THREAD_LIBS_INIT}
+    ${libscripts}
+    ${libnetwork}
+    ${CURSES_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT}
 )
 
 install(TARGETS chatclient

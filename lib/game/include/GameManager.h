@@ -56,8 +56,8 @@ private:
 
 public:
     GameManager();
-    std::string extractCommands(const std::string& connectionID, std::string fullCommand);
-    std::unique_ptr<std::unordered_map<std::string, std::string>> heartbeat();
+    std::string extractCommands(const std::string& connectionID, const std::string &fullCommand);
+    std::unordered_map<std::string, std::string> heartbeat();
 };
 
 #endif //WEBSOCKETNETWORKING_GAMEMANAGER_H
