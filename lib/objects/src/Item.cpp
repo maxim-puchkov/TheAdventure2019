@@ -46,3 +46,8 @@ bool Item::operator==(const Item &other) const {
     return this->id == other.id;
 }
 
+
+size_t std::hash<Item>::operator()(const Item& item) const {
+    return std::hash<unsigned long>{}(item.getId());
+}
+

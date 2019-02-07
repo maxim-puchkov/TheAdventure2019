@@ -14,6 +14,7 @@
 #include "Identifiers.h"
 
 using std::string;
+using std::size_t;
 
 class Item {
 public:
@@ -46,9 +47,7 @@ private:
 };
 
 template <> struct std::hash<Item> {
-    std::size_t operator()(const Item& item) const {
-        return std::hash<unsigned long>{}(item.getId());
-    }
+    size_t operator()(const Item& item) const;
 };
 
 #endif /* Item_h */
