@@ -14,17 +14,25 @@
 #include <memory>
 // #include <boost/algorithm/string.hpp>
 
-#include "WorldManager.h"
 #include "AccountManager.h"
 #include "User.h"
+#include "OnlineUserManager.h"
+#include "WorldManager.h"
+#include <boost/algorithm/string.hpp>
+#include "Avatar.h"
+#include "LocationCoordinates.h"
+
+
+using usermanager::OnlineUserManager;
+using accountmanager::AccountManager;
 
 class GameManager{
 
 private:
     WorldManager world;
-    //accountmanager::AccountManager accountManager;
-    user::User getUser(const std::string& userName) const;
-    std::string getUserIDByUsername(const std::string& userName) const;
+    AccountManager accountManager;
+    user::User getUser(const std::string& userName);
+    std::string getUserIDByUsername(const std::string& userName);
 
     struct commandGuideline {
         std::string (GameManager::*promptReply)(const std::string&, const std::vector<std::string>&);
@@ -58,7 +66,7 @@ private:
 
 public:
     GameManager();
-    std::string extractCommands(const std::string& connectionID, std::string fullCommand);
+    std::string extractCommands(const std::string& connectionID, const std::string& fullCommand);
     std::unique_ptr<std::unordered_map<std::string, std::string>> heartbeat();
 };
 

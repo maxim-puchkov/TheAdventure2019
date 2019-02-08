@@ -51,10 +51,10 @@ std::deque<std::string> User::getMessages() {
 }
 
 void User::addCommandToList(std::vector<std::string> command){
-    commands.push(command);
+    commands.push_back(command);
 }
 
-std::queue<std::vector<std::string>>& User::getCommands() {
+std::deque<std::vector<std::string>>& User::getCommands() {
     return commands;
 }
 
@@ -62,7 +62,7 @@ std::vector<std::string> User::popCommand(){
     std::vector<std::string> command;
     if(!commands.empty()){
         command = commands.front();
-        commands.pop();
+        commands.pop_front();
     }
     return command;
 }

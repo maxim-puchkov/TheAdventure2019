@@ -18,12 +18,7 @@ using accountmanager::AccountManager;
 using usermanager::OnlineUserManager;
 
 
-    auto onlineUserMananger = OnlineUserManager();
-    auto jsonParser = JsonParser();
-
-    bool jsonProcessed = false;
-    json users_json;
-    std::string json_filePath = "users.json";
+    
 
     AccountManager::AccountManager(){
         users_json = jsonParser.processJSON(json_filePath);
@@ -85,7 +80,7 @@ using usermanager::OnlineUserManager;
         std::cout << "checking" << "\n";
     }
 
-    const OnlineUserManager& AccountManager::getUserManager(){
+    OnlineUserManager& AccountManager::getUserManager(){
         return onlineUserMananger;
     }
 
