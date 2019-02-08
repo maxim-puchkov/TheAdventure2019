@@ -168,7 +168,7 @@ std::string GameManager::commandAddToActionList(const std::string& connectionID,
      * dummy.addCommandToList(fullCommand);
     auto& commands = dummy.getCommands();
     std::cout<<commands.size()<<"\n";*/
-    auto userManager = accountManager.getUserManager();
+    auto& userManager = accountManager.getUserManager();
     bool success = userManager.onlineUserAddCommandToList(connectionID, fullCommand);
     if(!success) {
     	return "User is not online.";
@@ -188,7 +188,7 @@ std::string GameManager::commandHelp(const std::string& connectionID, const std:
 }
 
 std::string GameManager::commandSay(User* user, const std::vector<std::string>& fullCommand) {
-    auto userManager = accountManager.getUserManager();
+    auto& userManager = accountManager.getUserManager();
 
 	auto& avatar = user->getAvatar();
     auto& userNamesInRoom = world.getUserNamesInRoom(avatar.getCurrentLocation());
@@ -255,7 +255,7 @@ std::string GameManager::commandError(User* user, const std::vector<std::string>
 std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
     auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
 
-    auto userManager = accountManager.getUserManager();
+    auto& userManager = accountManager.getUserManager();
 
     //process commands
     auto userCommands = userManager.getOnlineUserCommandList();
@@ -289,7 +289,7 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
    	*/
 
     /* dummyUser implementation for testing
-    /*
+     *
      * std::string userID;
     try {
         userID = std::to_string(dummy.getId());
