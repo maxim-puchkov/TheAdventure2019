@@ -39,9 +39,9 @@ public:
     bool addCharacter(const std::string &userName);
     bool removeCharacter(const std::string &userName);
 
-
     std::string lookForName(const std::string &objName) const;
     std::string lookForExitName(const std::string &objName) const;
+    std::string listExits() const;
 
 
     //getters

@@ -12,6 +12,22 @@ using namespace std;
         }
 
 
+    /**
+     * Returns the cardinal direction of a room as a string for viewing, displaying for the user to view
+     */
+    const string& Exit::CardinalToString() const {
+        CardinalDirection result = this->exitDirection;
+        auto search = directionMap.find(result);
+
+        if(search != directionMap.end()){
+            return search->second;
+        }
+
+        return " direction not found ";
+
+    }
+
+    //REARRANGE THIS TO TAKE ADVANTAGE OF MAP "directionMap"
     //Getters
     Exit::CardinalDirection Exit::getCardinalDirection(const std::string& direction) {
         std::string input = direction;
@@ -37,6 +53,21 @@ using namespace std;
 
         return Exit::CardinalDirection::NONE;
     }
+
+    //A map that is used to convert ENUM's into strings for viewing
+    const std::unordered_map<Exit::CardinalDirection, std::string> Exit::directionMap = {
+            {NONE,"none"},
+            {NORTH,"north"},
+            {NORTHEAST,"northeast"},
+            {EAST,"east"},
+            {SOUTHEAST,"southeast"},
+            {SOUTH,"south"},
+            {SOUTHWEST,"southwest"},
+            {WEST,"west"},
+            {NORTHWEST,"northwest"}
+    };
+
+
     const string &Exit::getExitName() const {return exitName;}
     const string &Exit::getExitDescription() const {return exitDescription;}
     Exit::CardinalDirection Exit::getCardinalDirection() const {return exitDirection;}

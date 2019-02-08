@@ -112,6 +112,8 @@ std::string WorldManager::listExits(const Character& character) const{
     Room currentRoom = findRoomByLocation(currentLocation);
     std::string result = "Exits are:";
 
+    result.append( currentRoom.listExits() );
+/*
     currentLocation = currentRoom.findExitLocation("north");
     if(currentLocation.room >= 0)
         result.append(" North");
@@ -128,8 +130,21 @@ std::string WorldManager::listExits(const Character& character) const{
     if(currentLocation.room >= 0)
         result.append(" West");
 
+*/
+
+
+
+
+
+
+
     if(result == "Exits are:")
         result.append(" not anywhere to be seen.");
+
+
+
+
+
 
     return result;
 }
