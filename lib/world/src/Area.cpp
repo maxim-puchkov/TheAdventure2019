@@ -18,7 +18,7 @@ void Area::addRoom(Room room){
     rooms.push_back(room);
 }
 
-unsigned int Area::size() const{
+unsigned long Area::size() const{
     return rooms.size();
 }
 

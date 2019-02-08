@@ -6,53 +6,67 @@
 #define WEBSOCKETNETWORKING_GAMEMANAGER_H
 
 #include <string>
-#include <boost/algorithm/string.hpp>
 #include <vector>
 #include <exception>
 #include <iostream>
 #include <unordered_map>
 
-#include "WorldManager.h"
+#include <memory>
+// #include <boost/algorithm/string.hpp>
+
 #include "AccountManager.h"
 #include "User.h"
+#include "OnlineUserManager.h"
+#include "WorldManager.h"
+#include "Avatar.h"
+#include "LocationCoordinates.h"
+
+
+using usermanager::OnlineUserManager;
+using accountmanager::AccountManager;
 
 class GameManager{
 
 private:
-    User dummyUser{"bob","123"};
-    WorldManager *world;
-    user::User* getUser(const std::string userName) const;
+    WorldManager world;
+    AccountManager accountManager;
+    user::User getUser(const std::string& userName);
+    std::string getUserIDByUsername(const std::string& userName);
+
     struct commandGuideline {
-        std::string (GameManager::*promptReply)(std::string, std::vector<std::string>);
-        void (GameManager::*heartbeatReply)(User*, std::vector<std::string>);
+        std::string (GameManager::*promptReply)(const std::string&, const std::vector<std::string>&);
+        std::string (GameManager::*heartbeatReply)(User*, const std::vector<std::string>&);
         size_t commandPartArgCount;
         size_t messagePartArgCount;
         std::string helpText;
     };
     std::unordered_map<std::string, commandGuideline> tableOfCommands;
 
-    std::string commandLogin(std::string connectionID, std::vector<std::string> fullCommand);
-    std::string commandLogout(std::string connectionID, std::vector<std::string> fullCommand);
-    std::string commandCreate(std::string connectionID, std::vector<std::string> fullCommand);
-    std::string commandAddToActionList(std::string connectionID, std::vector<std::string> fullCommand);
-    std::string commandHelp(std::string connectionID, std::vector<std::string> fullCommand);
+    //promptReply functions
+    std::string commandLogin(const std::string& connectionID, const std::vector<std::string>& fullCommand);
+    std::string commandLogout(const std::string& connectionID, const std::vector<std::string>& fullCommand);
+    std::string commandCreate(const std::string& connectionID, const std::vector<std::string>& fullCommand);
+    std::string commandAddToActionList(const std::string& connectionID, const std::vector<std::string>& fullCommand);
+    std::string commandHelp(const std::string& connectionID, const std::vector<std::string>& fullCommand);
     
-    void commandSay(User* user, std::vector<std::string> fullCommand);
-    void commandYell(User* user, std::vector<std::string> fullCommand);
-    void commandTell(User* user, std::vector<std::string> fullCommand);
-    void commandMove(User* user, std::vector<std::string> fullCommand);
-    void commandLook(User* user, std::vector<std::string> fullCommand);
-    void commandExamine(User* user, std::vector<std::string> fullCommand); //can only examine users
-    void commandError(User* user, std::vector<std::string> fullCommand);
+    //heartbeatReply functions
+    std::string commandSay(User* user, const std::vector<std::string>& fullCommand);
+    std::string commandYell(User* user, const std::vector<std::string>& fullCommand);
+    std::string commandTell(User* user, const std::vector<std::string>& fullCommand);
+    std::string commandMove(User* user, const std::vector<std::string>& fullCommand);
+    std::string commandLook(User* user, const std::vector<std::string>& fullCommand);
+    std::string commandExamine(User* user, const std::vector<std::string>& fullCommand); //can only examine users
+    std::string commandError(User* user, const std::vector<std::string>& fullCommand);
     
     bool commandIsValid(size_t commandPartsSize, size_t messagePartSize, commandGuideline guideline);
     void reassembleCommand(std::string fullCommand, std::vector<std::string>& commandParts, std::vector<std::string>& splitByColon);
     void createTableOfCommands();
 
+
 public:
     GameManager();
-    std::string extractCommands(const std::string& connectionID, std::string fullCommand);
-    std::unordered_map<std::string, std::string> heartbeat();
+    std::string extractCommands(const std::string& connectionID, const std::string& fullCommand);
+    std::unique_ptr<std::unordered_map<std::string, std::string>> heartbeat();
 };
 
 #endif //WEBSOCKETNETWORKING_GAMEMANAGER_H

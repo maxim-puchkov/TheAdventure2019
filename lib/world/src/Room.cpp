@@ -1,41 +1,23 @@
 #include "Room.h"
 
+LocationCoordinates Room::findExitLocation(const std::string& direction) const {
+	auto checkDirection = Exit::getCardinalDirection(direction);
 
-// Returns -1 if move is not valid.
-// Otherwise, removes character from charactersInRoom and returns ID of new room.
-/*int Room::move(user::User * character, short direction){
-	if(roomExits.size() <= 0) return -1;
-	for (auto exit : roomExits){
-		if(exit.getCardinalDirection() == direction){
-			removeCharacter(character);
-			return exit.getTargetRoomID();
-		}
-	}
-	*//* Fancier implementation
-	if( std::any_of( roomExits.begin(), roomExits.end(),
-	 	[](auto exit) { return exit.getDirection == direction } ) ){
-	 	removeCharacter(character);
-	 	return exit.getTargetID();
-	}
-	 *//*
+	auto iterator = std::find_if(exitsInRoom.begin(), exitsInRoom.end(),
+			[&] (const Exit& e) { return e.getCardinalDirection() == checkDirection; } );
 
-	return -1;
-}*/
+	LocationCoordinates result{-1,-1}; //returns invalid location if exit doesn't exist
 
-LocationCoordinates Room::findExitLocation(Exit::CardinalDirection exitDirection) const {
-	for (auto roomExit : exitsInRoom){
-		if(roomExit.getCardinalDirection() == exitDirection){
-			return roomExit.getTargetLocation();
-		}
+	if(iterator != exitsInRoom.end()){
+		auto index = std::distance(exitsInRoom.begin(), iterator);
+		result = exitsInRoom.at(index).getTargetLocation();
 	}
-	LocationCoordinates invalidLocation;
-	invalidLocation.area = -1;
-	invalidLocation.room = -1;
-	return invalidLocation; //no exit found with that direction
+
+	return result;
 }
 
-bool Room::createExit(std::string exitName, std::string exitDescription,
-						Exit::CardinalDirection cardinalDirection, int areaID, int roomID) {
+bool Room::createExit(const std::string& exitName, const std::string& exitDescription,
+					  const std::string& cardinalDirection, int areaID, int roomID) {
 
 	Exit newExit(exitName, exitDescription, cardinalDirection, areaID, roomID);
 	try{
@@ -46,43 +28,47 @@ bool Room::createExit(std::string exitName, std::string exitDescription,
 	return true;
 }
 
-bool Room::addCharacter(Character * character){
+
+bool Room::addCharacter(const std::string &userName){
 	try{
-		charactersInRoom.push_back(character);
+		charactersInRoom.push_back(userName);
 	} catch(const std::bad_alloc& e){
 		return false;
 	}
 	return true;
 }
 
-bool Room::removeCharacter(Character * character){
-	int i = 0;
-	for (auto * roomCharacter : charactersInRoom){
-		if(character == roomCharacter){
-			charactersInRoom.erase(charactersInRoom.begin() + i);
-			return true;
-		}
-		i++;
-	}
-	return false;
+/**
+ *Removes username from Room. Note that it removes duplicates (but we shouldn't have duplicates)
+ * @param userName - UserNmae you want to remove
+ * @return true if the username is removed, false if not found
+ */
+bool Room::removeCharacter(const std::string &userName){
+	auto iter = std::remove(charactersInRoom.begin(),charactersInRoom.end(),userName);
+	charactersInRoom.erase(iter,charactersInRoom.end());
+	return ( !( charactersInRoom.end() == iter ) ); //If iter==char.end() then userName wasn't found in list
 }
 
-std::string Room::lookForName(std::string objName) const{
-	std::string result;
-	for(auto * roomCharacter : charactersInRoom){
-		if(roomCharacter->getName() == objName){
-			result = "A stranger stands before you with the name ";
-			result.append(roomCharacter->getName());
-			return result;
-		}
+std::string Room::lookForName(const std::string &objName) const{
+
+	auto iter = std::find(charactersInRoom.begin(),charactersInRoom.end(), objName);
+	if(iter != charactersInRoom.end()){
+		return "A stranger stands before you with the name " + (*iter)  ;
 	}
-	for(Exit roomExit : exitsInRoom){
-		if(roomExit.getExitName() == objName){
-			result = roomExit.getExitDescription();
-			return result;
-		}
-	}
-	result = "You couldn't find anything called ";
-	result.append(objName);
-	return result;
+	return "You couldn't find anything called " + objName;
 }
+
+std::string Room::lookForExitName(const std::string &objName) const {
+
+	auto roomExit = std::find_if(exitsInRoom.begin(), exitsInRoom.end(),
+								 [&](const auto& i) {return objName == i.getExitName();} );
+
+	if(roomExit != exitsInRoom.end()){
+		return (*roomExit).getExitDescription();
+	}
+	return "You couldn't find anything called " + objName;
+}
+
+
+
+

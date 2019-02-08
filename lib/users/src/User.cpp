@@ -27,31 +27,48 @@ string User::getUserName() {
     return this->name;
 }
 
-void User::setId(int id){
+Avatar& User::getAvatar() {
+    return avatar;
+}
+
+void User::setId(long int id){
     this->id = id;
 }
 
-int User::getId() {
-    int myId = this->id;
+long int User::getId() {
+    long int myId = this->id;
     return myId;
 }
 
 void User::addMessage(std::string message) {
-    messages.push(message);
+    messages.push_back(message);
 }
 
-std::queue<std::string>& User::getMessages() {
-    return messages;
+std::deque<std::string> User::getMessages() {
+    std::deque<std::string> result;
+    std::swap(result, messages);
+    return result;
 }
 
-void User::addAction(std::string action){
-    std::vector<std::string> actionParts;
-    boost::split(actionParts, action, boost::is_any_of(" "));
-    actions.push(actionParts);
+void User::addCommandToList(std::vector<std::string> command){
+    commands.push_back(command);
 }
 
-std::queue<std::vector<std::string>>& User::getActions(){
-    return actions;
+std::deque<std::vector<std::string>>& User::getCommands() {
+    return commands;
+}
+
+std::vector<std::string> User::popCommand(){
+    std::vector<std::string> command;
+    if(!commands.empty()){
+        command = commands.front();
+        commands.pop_front();
+    }
+    return command;
+}
+
+int User::getCommandSize() const {
+    return commands.size();
 }
 
 void User::init() {

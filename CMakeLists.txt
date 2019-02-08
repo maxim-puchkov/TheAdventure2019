@@ -20,6 +20,7 @@ set(libnetwork "network")
 set(libtypes "types")
 set(libusers "users")
 set(libworld "world")
+set(libparsers "parsers")
 
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -35,7 +36,6 @@ message("")
 message("Building " ${CMAKE_BUILD_TYPE} ". Try RELEASE when pushing important code... ")
 message("   cmake -DCMAKE_BUILD_TYPE=RELEASE ../adventure2019")
 message("")
-
 
 
 

@@ -97,18 +97,19 @@ getHTTPMessage(const char* htmlLocation) {
 
 
 std::unique_ptr<std::unordered_map<std::string, std::string>>
-includeHeartbeatMessages(std::unique_ptr<std::unordered_map<std::string, std::string>> tableA, std::unique_ptr<std::unordered_map<std::string, std::string>> tableB) {
-  // x is each key in the tableB
-  for (auto x : *tableB) {
-    // if key exists in tableA
-    if (tableA->count(x.first) >= 0) {
-      tableA->at(x.first) = (tableA->at(x.first)).append(x.second);
+includeHeartbeatMessages(std::unique_ptr<std::unordered_map<std::string, std::string>> tableA,
+                         std::unique_ptr<std::unordered_map<std::string, std::string>> tableB) {
+  
+  for (auto element : *tableB) {
+    auto found = tableA->find(element.first);
+    if (found != tableA->end()) {
+      (found->second.append("\n")).append(element.second);
     }
     else {
-      tableA->insert(make_pair(x.first, x.second));
+      tableA->insert(make_pair(element.first, element.second));
     }
   }
-  return tableA;
+  return std::move(tableA);
 }
 
 
@@ -124,7 +125,6 @@ main(int argc, char* argv[]) {
   unsigned short port = std::stoi(argv[1]);
   Server server{port, getHTTPMessage(argv[2]), onConnect, onDisconnect};
 
-
   while (!done) {
     try {
       server.update();
@@ -135,7 +135,11 @@ main(int argc, char* argv[]) {
     }
 
     auto incoming = server.receive();
-    auto logs      = processMessages(server, incoming, done);
+    auto promptReplies = processMessages(server, incoming, done);
+    auto heartbeatReplies = gm.heartbeat();
+
+    auto logs = includeHeartbeatMessages(std::move(promptReplies), std::move(heartbeatReplies));
+
     auto outgoing = buildOutgoing(std::move(logs));
     server.send(outgoing);
     sleep(1);

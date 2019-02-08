@@ -40,7 +40,7 @@ public:
     Attributes getBaseAttributes();
     Inventory getInventory();
     Equipment getEquipment();
-    LocationCoordinates getCurrentLocation();
+    LocationCoordinates getCurrentLocation() const;
     
     // Set
     void setCurrentLocation(LocationCoordinates newLocation);

@@ -26,7 +26,7 @@ class Area {
 
         void addRoom(Room room);
 
-        unsigned int size() const;
+        unsigned long size() const;
 
     const std::string &getName() const;
 
