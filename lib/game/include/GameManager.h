@@ -18,7 +18,6 @@
 #include "User.h"
 #include "OnlineUserManager.h"
 #include "WorldManager.h"
-#include <boost/algorithm/string.hpp>
 #include "Avatar.h"
 #include "LocationCoordinates.h"
 

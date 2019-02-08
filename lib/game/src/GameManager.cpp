@@ -1,4 +1,5 @@
 #include "GameManager.h"
+#include <boost/algorithm/string.hpp>
 
 //global user to test
 User dummy{"bob","123"};
