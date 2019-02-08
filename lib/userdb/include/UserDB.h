@@ -42,7 +42,7 @@ class UserDB {
     UserDB();
     ~UserDB();
 
-    DB_CODE createUser(const std::string&, const std::string&, const std::string& );
+    DB_CODE createUser(const std::string&, const std::string&);
 
     DB_CODE updateUser(User&);
 

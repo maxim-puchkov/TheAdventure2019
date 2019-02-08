@@ -12,7 +12,7 @@ UserDB::~UserDB(){
     jsonParser.saveJSON(users_json, json_filePath);
 }
 
-UserDB::DB_CODE UserDB::createUser(const std::string& name, const std::string& pwd, const std::string& id){
+UserDB::DB_CODE UserDB::createUser(const std::string& name, const std::string& pwd){
     if(users_json[name] != nullptr){
         return UserDB::DB_CODE::INVALID_USERNAME;
     }
@@ -40,7 +40,7 @@ UserDB::DB_CODE UserDB::updateUser(User& user){
 User UserDB::getUser(const std::string& name, const std::string& pwd){
 
     if(users_json[name] != nullptr){
-        return User{nullptr,nullptr};
+        return User{"",""};
     }
     else if (users_json[name]["password"] == pwd){
         // UPDATE when User Constructor changes and you want to get more than just name and pwd
