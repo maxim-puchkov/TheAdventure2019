@@ -28,7 +28,8 @@ using usermanager::OnlineUserManager;
     AccountManager::AccountManager(){
         users_json = jsonParser.processJSON(json_filePath);
         if(users_json == nullptr){
-            //cout << "PATH TO JSON FILE NOT FOUND \n";
+            cout<< "In Account Manager Cons";
+            std::ofstream("users.json");
         }
     }
     AccountManager::~AccountManager(){
