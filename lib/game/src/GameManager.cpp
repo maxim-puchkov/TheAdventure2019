@@ -210,14 +210,15 @@ std::string GameManager::commandYell(User* user, const std::vector<std::string>&
 
 std::string GameManager::commandTell(User* user, const std::vector<std::string>& fullCommand){
     auto& userManager = accountManager.getUserManager();
-    
-    std::string usernameOfListener = fullCommand.at(1);
-	std::string tellMessage = fullCommand.at(2);
 
-    if(userManager.addMessage(usernameOfListener, tellMessage)) {
-        return "message sent\n";
+    std::string usernameOfListener = fullCommand.at(1);
+	std::string message = fullCommand.at(2);
+    std::string messageToSendOtherUser = user->getUserName() + " told you: " + message + "\n";
+
+    if(userManager.addMessage(usernameOfListener, messageToSendOtherUser)) {
+        return "You told " + usernameOfListener + ": " + message + "\n";
     }
-    return "no online user with that name\n";
+    return "Failed to find online user with name: " + usernameOfListener + "\n";
 }
 
 std::string GameManager::commandMove(User* user, const std::vector<std::string>& fullCommand) {
