@@ -44,25 +44,6 @@ using namespace boost; // bring 'insert()' into scope
         }
 
         return iter->second;
-/*
-        if(input == "north"){
-            return Exit::CardinalDirection::NORTH;
-        } else if(input == "northeast"){
-            return Exit::CardinalDirection::NORTHEAST;
-        } else if(input == "east"){
-            return Exit::CardinalDirection::EAST;
-        } else if(input == "southeast"){
-            return Exit::CardinalDirection::SOUTHEAST;
-        } else if(input == "south"){
-            return Exit::CardinalDirection::SOUTH;
-        } else if(input == "southwest"){
-            return Exit::CardinalDirection::SOUTHWEST;
-        } else if(input == "west"){
-            return Exit::CardinalDirection::WEST;
-        } else if(input == "northwest"){
-            return Exit::CardinalDirection::NORTHWEST;
-        }
-        */
 
     }
 
