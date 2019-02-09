@@ -195,9 +195,9 @@ std::string GameManager::commandSay(User* user, const std::vector<std::string>& 
 	auto& avatar = user->getAvatar();
     auto& userNamesInRoom = world.getUserNamesInRoom(avatar.getCurrentLocation());
 
-    cerr <<"Room List:\n";
+    //cerr <<"Room List:\n";
     for(auto name : userNamesInRoom){
-        cerr << name << " is in room.\n";
+        //cerr << name << " is in room.\n";
         userManager.addMessage(name, user->getUserName() + " said: " + fullCommand[1] + "\n");
     }
 
@@ -210,10 +210,10 @@ std::string GameManager::commandYell(User* user, const std::vector<std::string>&
     auto& avatar = user->getAvatar();
     auto& userNamesInRoom = world.getUserNamesInRange(avatar.getCurrentLocation(), YELL_RANGE);
 
-    cerr <<"Room List:\n";
+    //cerr <<"Room List:\n";
     for(auto name : userNamesInRoom){
-        cerr << name << " is in room.\n";
-        userManager.addMessage(name, user->getUserName() + " said: " + fullCommand[1] + "\n");
+        //cerr << name << " is in room.\n";
+        userManager.addMessage(name, user->getUserName() + " yelled: " + fullCommand[1] + "\n");
     }
 
     return "You yelled: \"" + fullCommand[1] + "\"\n";
