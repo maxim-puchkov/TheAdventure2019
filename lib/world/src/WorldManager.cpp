@@ -75,8 +75,28 @@ bool WorldManager::spawn(Character& character, LocationCoordinates location){
 }
 
 const std::vector<std::string>& WorldManager::getUserNamesInRoom (LocationCoordinates location) {
-    auto& roomOfInterest = findRoomByLocation(location);
-    return roomOfInterest.getUserNames();
+    return getUserNamesInRange(location, 0);
+}
+
+const std::vector<std::string>& WorldManager::getUserNamesInRange (LocationCoordinates location, unsigned int range) {
+    try {
+        auto &roomOfInterest = findRoomByLocation(location);
+        auto &exitsInRoom = roomOfInterest.getExits();
+        if(range <= 0 || exitsInRoom.empty()) { return roomOfInterest.getUserNames(); }
+
+        auto nameList = std::make_unique<std::vector<std::string>>();
+        nameList->emplace_back(roomOfInterest.getUserNames());
+
+        for (auto &exit : exitsInRoom) {
+            auto& nextNameList = getUserNamesInRange(exit.getTargetLocation(), range - 1);
+            nameList->emplace_back(nextNameList);
+        }
+
+        return *nameList;
+    } catch(const std::domain_error& e){
+        auto nameList = std::make_unique<std::vector<std::string>>();
+        return *nameList;
+    }
 }
 
 LocationCoordinates WorldManager::move(Character& character, const std::string& direction) {
