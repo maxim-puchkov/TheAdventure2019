@@ -75,28 +75,53 @@ bool WorldManager::spawn(Character& character, LocationCoordinates location){
 }
 
 const std::vector<std::string>& WorldManager::getUserNamesInRoom (LocationCoordinates location) {
-    return getUserNamesInRange(location, 0);
+    auto& room = findRoomByLocation(location);
+    return room.getUserNames();
+    //return getUserNamesInRange(location, 0);
 }
 
-const std::vector<std::string>& WorldManager::getUserNamesInRange (LocationCoordinates location, unsigned int range) {
+const std::vector<std::string> WorldManager::getUserNamesInRange (LocationCoordinates location, unsigned int range) {
+    /*try {
+        const auto &room = findRoomByLocation(location);
+        const auto& exits = room.getExits();
+
+        auto nameList = std::vector<std::string>{};
+        auto& namesHere = room.getUserNames();
+        nameList.reserve(nameList.size() + namesHere.size());
+        nameList.insert(nameList.end(), namesHere.begin(), namesHere.end());
+
+        for(const auto& exit : exits){
+            auto& nextRoomNames = findRoomByLocation(exit.getTargetLocation()).getUserNames();
+            nameList.reserve(nameList.size() + nextRoomNames.size());
+            nameList.insert(nameList.end(), nextRoomNames.begin(), nextRoomNames.end());
+        }
+
+        return nameList;
+    } catch(const std::domain_error& e){
+        auto nameList = std::vector<std::string>{};
+        return nameList;
+    }*/
+
+
     try {
         auto &roomOfInterest = findRoomByLocation(location);
         auto &exitsInRoom = roomOfInterest.getExits();
         if(range <= 0 || exitsInRoom.empty()) { return roomOfInterest.getUserNames(); }
 
-        auto nameList = std::make_unique<std::vector<std::string>>();
-        auto& roomNames = roomOfInterest.getUserNames();
-        nameList->insert(nameList->end(), roomNames.begin(), roomNames.end());
+        auto nameList = std::vector<std::string>{};
+        const auto& roomNames = roomOfInterest.getUserNames();
+        nameList.reserve(nameList.size() + roomNames.size());
+        nameList.insert(nameList.end(), roomNames.begin(), roomNames.end());
 
-        for (auto &exit : exitsInRoom) {
-            auto& nextNameList = getUserNamesInRange(exit.getTargetLocation(), range - 1);
-            nameList->insert(nameList->end(), nextNameList.begin(), nextNameList.end());
+        for (const auto &exit : exitsInRoom) {
+            const auto& nextNameList = getUserNamesInRange(exit.getTargetLocation(), range - 1);
+            nameList.reserve(nameList.size() + nextNameList.size());
+            nameList.insert(nameList.end(), nextNameList.begin(), nextNameList.end());
         }
 
-        return *nameList;
+        return nameList;
     } catch(const std::domain_error& e){
-        auto nameList = std::make_unique<std::vector<std::string>>();
-        return *nameList;
+        return std::vector<std::string>{};
     }
 }
 

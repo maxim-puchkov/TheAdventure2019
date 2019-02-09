@@ -2,7 +2,7 @@
 #include <boost/algorithm/string.hpp>
 
 //global user to test
-User dummy{"bob","123"};
+//User dummy{"bob","123"};
 
 GameManager::GameManager() {
     //WorldManager newWorld;
@@ -107,6 +107,8 @@ std::string GameManager::commandLogin(const std::string& connectionID, const std
 	auto answer = accountManager.login(connectionID, fullCommand[1], fullCommand[2]);
 	switch(answer) {
 		case accountmanager::AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN:
+		    //ugly line for testing
+		    world.spawn(accountManager.getUserManager().getUserByUsername(fullCommand[1]).getAvatar(), LocationCoordinates{0,0});
 			return "You are now logged in.\n";
 		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_FOUND:
 			return "Error! Username not found. Please try again.\n";
@@ -124,9 +126,12 @@ std::string GameManager::commandLogin(const std::string& connectionID, const std
 }
 
 std::string GameManager::commandLogout(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
+    auto& avatar = accountManager.getUserManager().getUserById(connectionID).getAvatar();
     auto answer = accountManager.logOut(connectionID);
 	switch(answer) {
 		case accountmanager::AccountManager::ACCOUNT_CODE::USER_LOGGED_OUT:
+		    //ugly line for testing
+            world.kick(avatar);
 			return "You are now logged out.\n";
 		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_ONLINE:
 			return "Error! You are not logged in.\n";
@@ -193,9 +198,10 @@ std::string GameManager::commandSay(User* user, const std::vector<std::string>& 
 	auto& avatar = user->getAvatar();
     auto& userNamesInRoom = world.getUserNamesInRoom(avatar.getCurrentLocation());
 
+    //cerr <<"Room List:\n";
     for(auto name : userNamesInRoom){
-        if(name != avatar.getName())
-            userManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
+        //cerr << name << " is in room.\n";
+        userManager.addMessage(name, user->getUserName() + " said: " + fullCommand[1] + "\n");
     }
 
 	return "You said: \"" + fullCommand[1] + "\"\n";
@@ -207,12 +213,13 @@ std::string GameManager::commandYell(User* user, const std::vector<std::string>&
     auto& avatar = user->getAvatar();
     auto& userNamesInRoom = world.getUserNamesInRange(avatar.getCurrentLocation(), YELL_RANGE);
 
+    //cerr <<"Room List:\n";
     for(auto name : userNamesInRoom){
-        if(name != avatar.getName())
-            userManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
+        //cerr << name << " is in room.\n";
+        userManager.addMessage(name, user->getUserName() + " yelled: " + fullCommand[1] + "\n");
     }
 
-    return "You said: \"" + fullCommand[1] + "\"\n";
+    return "You yelled: \"" + fullCommand[1] + "\"\n";
 }
 
 std::string GameManager::commandTell(User* user, const std::vector<std::string>& fullCommand){

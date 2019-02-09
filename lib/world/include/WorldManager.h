@@ -28,7 +28,7 @@ public:
     bool spawn(Character& character, LocationCoordinates location);
     std::string listExits(const Character& character) ;
     const std::vector<std::string>& getUserNamesInRoom (LocationCoordinates location) ;
-    const std::vector<std::string>& getUserNamesInRange (LocationCoordinates location, unsigned int range) ;
+    const std::vector<std::string> getUserNamesInRange (LocationCoordinates location, unsigned int range) ;
     LocationCoordinates move(Character& character, const std::string& direction) ;
     std::string look(Character& character) ;
     std::string look(Character& character, std::string objName) ;
