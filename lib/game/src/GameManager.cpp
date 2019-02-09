@@ -201,11 +201,16 @@ std::string GameManager::commandSay(User* user, const std::vector<std::string>& 
 }
 
 std::string GameManager::commandYell(User* user, const std::vector<std::string>& fullCommand) {
-	/* Waiting for implementation in WorldManager
-	Avatar& avatar = user->getAvatar();
-	return world.say(avatar, fullCommand[1]);
-	*/
-	return "test-yell\n";
+    auto& userManager = accountManager.getUserManager();
+
+    auto& avatar = user->getAvatar();
+    auto& userNamesInRoom = world.getUserNamesInRoom(avatar.getCurrentLocation());
+
+    for(auto name : userNamesInRoom){
+        userManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
+    }
+
+    return "You said: \"" + fullCommand[1] + "\"\n";
 }
 
 std::string GameManager::commandTell(User* user, const std::vector<std::string>& fullCommand){
