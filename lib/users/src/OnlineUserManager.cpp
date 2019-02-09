@@ -9,7 +9,8 @@ using user::User;
 using usermanager::OnlineUserManager;
 
 bool OnlineUserManager::insertUser(const std::string &id, const User &user){
-    return onlineUsers.insert(std::make_pair(id, user)).second;
+    bool result = onlineUsers.insert(std::make_pair(id, user)).second;
+    return result;
 }
 
 User OnlineUserManager::removeUser(const std::string& id){
@@ -23,7 +24,7 @@ User OnlineUserManager::removeUser(const std::string& id){
     }
 }
 
-User OnlineUserManager::getUserById(const std::string& id){
+User& OnlineUserManager::getUserById(const std::string& id){
     auto search = onlineUsers.find(id);
     if (search != onlineUsers.end()) {
         return search->second;
@@ -33,7 +34,7 @@ User OnlineUserManager::getUserById(const std::string& id){
     }
 }
 
-User OnlineUserManager::getUserByUsername(const std::string& userName){
+User& OnlineUserManager::getUserByUsername(const std::string& userName){
     for (auto &element : onlineUsers) {
         if(element.second.getUserName() == userName) {
             return element.second;
@@ -52,16 +53,24 @@ std::string OnlineUserManager::getConnectionID(const std::string& userName) {
     return "Invalid";
 }
 
-void OnlineUserManager::updateUserTimeStamp(const std::string& id, int timeStamp) {
-    auto user = removeUser(id);
-    user.setId(timeStamp);
-    insertUser(id, user);
+bool OnlineUserManager::updateUserTimeStamp(const std::string& id, const long timeStamp) {
+    auto user = getUserById(id);
+    if(user.getUserName() != "") {
+        user.setTimeStamp(timeStamp);
+        return true;
+    }
+    return false;
 }
 
 void OnlineUserManager::printTable() {
     for(auto& p: onlineUsers){
         std::cout << p.first << " => " << p.second.getUserName() << " "
-                  << p.second.getId() << " " << p.second.getCommandSize() << "\n";
+                  << p.second.getId() << " " << p.second.getMessageSize() << "\n";
+        auto message = p.second.getMessages();
+        for(auto& m: message) {
+            std::cout << m <<" ";
+        }
+        std::cout <<"\n";
     }
 }
 
@@ -70,7 +79,8 @@ std::vector<std::pair<std::string, std::string>> OnlineUserManager::getOnlineUse
 	std::vector<std::pair<std::string, std::string>> messageList;
 
 	for (auto &element : onlineUsers) {
-        auto messageQueue = element.second.getMessages();
+        //get the gut of user Messages Vector
+        auto messageQueue = std::move (element.second.getMessages());
         if(messageQueue.size() > 0) {
         	std::string returnMessage = "";
         	for(auto& message: messageQueue) {
@@ -85,39 +95,21 @@ std::vector<std::pair<std::string, std::string>> OnlineUserManager::getOnlineUse
 
 
 void OnlineUserManager::addMessage(const std::string& userName, const std::string& message) {
-	for (auto &element : onlineUsers) {
-        if(element.second.getUserName() == userName) {
-            element.second.addMessage(message);
-            return;
-        }
+    std::cout << userName << "\n";
+	auto& user = getUserByUsername(userName);
+    if(user.getUserName() != ""){
+        user.addMessage(message);
     }
+
 }
 
 bool OnlineUserManager::onlineUserAddCommandToList(const std::string& id, const std::vector<std::string>& command){
-    //auto commandUser = getUserByUsername(userName);
-	auto search = onlineUsers.find(id);
-	if(search != onlineUsers.end()) {
-		search->second.addCommandToList(command);
-		return true;
-	}
-	return false;
-
-/*
-    for (auto &element : onlineUsers) {
-        if(element.second.getUserName() == userName) {
-            element.second.addCommandToList(commands);
-            return;
-        }
+    auto user = getUserById(id);
+    if(user.getUserName() != "") {
+        user.addCommandToList(command);
+        return true;
     }
-*/
-    /*std::vector<std::string> commandParts;
-    boost::split(commandParts, command, boost::is_any_of(" "));
-
-    for(auto& value: commandParts) {
-        boost::trim(value);
-    }
-    onlineUserCommandsList.insert(std::make_pair(userName, commandParts)).second;
-     */
+    return false;
 }
 
 std::vector<std::pair<User, std::vector<std::string>>> OnlineUserManager::getOnlineUserCommandList() {
@@ -135,7 +127,6 @@ std::vector<std::pair<User, std::vector<std::string>>> OnlineUserManager::getOnl
     return std::move(commandList);
 }
 
-/*std::unordered_map<std::string, std::vector<std::string>>& OnlineUserManager::getOnlineUserCommandList() {
-    return onlineUserCommandsList;
-}*/
+
+
 

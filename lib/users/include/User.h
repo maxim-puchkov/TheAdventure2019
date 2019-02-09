@@ -30,7 +30,7 @@ public:
 
     void addMessage(std::string message);
 
-    std::deque<std::string> getMessages();
+    std::vector<std::string>& getMessages();
 
     void addCommandToList(std::vector<std::string> command);
 
@@ -39,11 +39,14 @@ public:
     std::vector<std::string> popCommand();
     
     int getCommandSize() const;
+    int getMessageSize() const;
+    void setTimeStamp(const long timeStamp);
+    long getTimeStamp();
 private:
     //using as connection id
     long int id;
 
-    std::deque<std::string> messages;
+    std::vector<std::string> messages;
     std::deque<std::vector<std::string>> commands;
 
     void init();
@@ -51,6 +54,8 @@ private:
     std::string name;
     
     std::string password;
+
+    long timeStamp;
     
     Avatar avatar;
     

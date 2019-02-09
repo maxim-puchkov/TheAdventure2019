@@ -1,14 +1,11 @@
 #include "GameManager.h"
 #include <boost/algorithm/string.hpp>
 
-//global user to test
-User dummy{"bob","123"};
-
 GameManager::GameManager() {
     //WorldManager newWorld;
     world = WorldManager{};
     world.generateWorld();
-
+    
     createTableOfCommands();
 }
 
@@ -189,13 +186,21 @@ std::string GameManager::commandHelp(const std::string& connectionID, const std:
 
 std::string GameManager::commandSay(User* user, const std::vector<std::string>& fullCommand) {
     auto& userManager = accountManager.getUserManager();
+    //userNamesInRoom returns null
+	// auto& avatar = user->getAvatar();
+    // auto& userNamesInRoom = world.getUserNamesInRoom(avatar.getCurrentLocation());
+    
+    // for(auto name : userNamesInRoom){
+    //     userManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
+    // }
 
-	auto& avatar = user->getAvatar();
-    auto& userNamesInRoom = world.getUserNamesInRoom(avatar.getCurrentLocation());
+    std::vector<std::string> nameList = {"test1", "test2", "test3"};
 
-    for(auto name : userNamesInRoom){
+    for(auto name: nameList) {
         userManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
     }
+
+    userManager.printTable();
 
 	return "You said: \"" + fullCommand[1] + "\"\n";
 }
@@ -248,9 +253,6 @@ std::string GameManager::commandError(User* user, const std::vector<std::string>
     //Intended to be a null-function. Normally it should never reach this.
     return "";
 }
-
-
-
 
 std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
     auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
