@@ -52,6 +52,8 @@ UserDB::DB_CODE UserDB::deleteUser(const std::string& name){
 
     if(users_json.at(name) != nullptr){
         users_json.erase(name);
+        jsonParser.saveJSON(users_json, json_filePath);
+        
         return UserDB::DB_CODE::USER_DELETED;
     }else{
         return UserDB::DB_CODE::USER_NOT_FOUND;

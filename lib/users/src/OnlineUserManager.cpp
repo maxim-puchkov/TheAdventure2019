@@ -139,8 +139,6 @@ std::vector<std::pair<User, std::vector<std::string>>> OnlineUserManager::getOnl
 }*/
 
 
-
-
 // ******* Functions that Uses UserDB *******
 
 OnlineUserManager::USER_CODE OnlineUserManager::login(const std::string& userName, const std::string& pwd, const std::string& id){

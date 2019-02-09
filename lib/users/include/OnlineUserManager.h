@@ -6,11 +6,9 @@
 #include <vector>
 // #include "../../accountManager/include/User.h"
 #include "User.h"
-#include "UserDB.h"
+#include "../../userdb/include/UserDB.h"
 
 using user::User; 
-
-UserDB userDB;
 
 namespace usermanager{
 class OnlineUserManager{
@@ -27,6 +25,7 @@ class OnlineUserManager{
     private:
         std::unordered_map<std::string, User> onlineUsers;
         //std::unordered_map<std::string, std::vector<std::string>> onlineUserCommandsList;
+        UserDB userDB;
     public:
         bool insertUser(const std::string &id, const User &user);
         User removeUser(const std::string& id);
