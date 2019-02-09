@@ -210,7 +210,7 @@ std::string GameManager::commandYell(User* user, const std::vector<std::string>&
 
 std::string GameManager::commandTell(User* user, const std::vector<std::string>& fullCommand){
     auto& userManager = accountManager.getUserManager();
-    std::string tell = fullCommand.at(0);
+    
     std::string usernameOfListener = fullCommand.at(1);
 	std::string tellMessage = fullCommand.at(2);
 
