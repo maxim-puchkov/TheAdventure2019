@@ -209,18 +209,16 @@ std::string GameManager::commandYell(User* user, const std::vector<std::string>&
 }
 
 std::string GameManager::commandTell(User* user, const std::vector<std::string>& fullCommand){
-	/* Waiting for implementation in WorldManager, AccountManager, UserManager
-	Avatar& speaker = user->getAvatar();
+    auto& userManager = accountManager.getUserManager();
 
-	auto listenerUser = getUser(fullCommand[1]);
-	if(listenerUser == nullptr) {
-		return "Invalid name";
-	}
-	Avatar listener = listenerUser->getAvatar();
+    std::string usernameOfListener = fullCommand.at(1);
+	std::string message = fullCommand.at(2);
+    std::string messageToSendOtherUser = user->getUserName() + " told you: " + message + "\n";
 
-	return world.say(speaker, &listener, fullCommand[2]);
-	*/
-	return "test-tell\n";
+    if(userManager.addMessage(usernameOfListener, messageToSendOtherUser)) {
+        return "You told " + usernameOfListener + ": " + message + "\n";
+    }
+    return "Failed to find online user with name: " + usernameOfListener + "\n";
 }
 
 std::string GameManager::commandMove(User* user, const std::vector<std::string>& fullCommand) {
