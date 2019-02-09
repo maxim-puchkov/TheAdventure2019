@@ -85,11 +85,12 @@ const std::vector<std::string>& WorldManager::getUserNamesInRange (LocationCoord
         if(range <= 0 || exitsInRoom.empty()) { return roomOfInterest.getUserNames(); }
 
         auto nameList = std::make_unique<std::vector<std::string>>();
-        nameList->emplace_back(roomOfInterest.getUserNames());
+        auto& roomNames = roomOfInterest.getUserNames();
+        nameList->insert(nameList->end(), roomNames.begin(), roomNames.end());
 
         for (auto &exit : exitsInRoom) {
             auto& nextNameList = getUserNamesInRange(exit.getTargetLocation(), range - 1);
-            nameList->emplace_back(nextNameList);
+            nameList->insert(nameList->end(), nextNameList.begin(), nextNameList.end());
         }
 
         return *nameList;
