@@ -209,18 +209,13 @@ std::string GameManager::commandYell(User* user, const std::vector<std::string>&
 }
 
 std::string GameManager::commandTell(User* user, const std::vector<std::string>& fullCommand){
-	/* Waiting for implementation in WorldManager, AccountManager, UserManager
-	Avatar& speaker = user->getAvatar();
+    auto& userManager = accountManager.getUserManager();
+    std::string tell = fullCommand.at(0);
+    std::string usernameOfListener = fullCommand.at(1);
+	std::string tellMessage = fullCommand.at(2);
 
-	auto listenerUser = getUser(fullCommand[1]);
-	if(listenerUser == nullptr) {
-		return "Invalid name";
-	}
-	Avatar listener = listenerUser->getAvatar();
-
-	return world.say(speaker, &listener, fullCommand[2]);
-	*/
-	return "test-tell\n";
+    userManager.addMessage(usernameOfListener, tellMessage);
+    return "sent message";
 }
 
 std::string GameManager::commandMove(User* user, const std::vector<std::string>& fullCommand) {
