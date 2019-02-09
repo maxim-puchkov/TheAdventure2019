@@ -126,11 +126,12 @@ std::string GameManager::commandLogin(const std::string& connectionID, const std
 }
 
 std::string GameManager::commandLogout(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
+    auto& avatar = accountManager.getUserManager().getUserById(connectionID).getAvatar();
     auto answer = accountManager.logOut(connectionID);
 	switch(answer) {
 		case accountmanager::AccountManager::ACCOUNT_CODE::USER_LOGGED_OUT:
 		    //ugly line for testing
-            world.kick(accountManager.getUserManager().getUserById(connectionID).getAvatar());
+            world.kick(avatar);
 			return "You are now logged out.\n";
 		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_ONLINE:
 			return "Error! You are not logged in.\n";
