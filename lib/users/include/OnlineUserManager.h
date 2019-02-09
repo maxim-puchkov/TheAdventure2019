@@ -23,7 +23,7 @@ class OnlineUserManager{
         bool onlineUserAddCommandToList(const std::string& id, const std::vector<std::string>& command);
         std::vector<std::pair<User, std::vector<std::string>>> getOnlineUserCommandList();
         std::vector<std::pair<std::string, std::string>> getOnlineUserMessageList();
-        void addMessage(const std::string& userName, const std::string& message);
+        bool addMessage(const std::string& userName, const std::string& message);
         //std::unordered_map<std::string, std::vector<std::string>>& getOnlineUserCommandList();
         void updateUserTimeStamp(const std::string& id, int timeStamp);
         void printTable();

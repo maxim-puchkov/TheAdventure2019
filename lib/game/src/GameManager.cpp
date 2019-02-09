@@ -214,8 +214,10 @@ std::string GameManager::commandTell(User* user, const std::vector<std::string>&
     std::string usernameOfListener = fullCommand.at(1);
 	std::string tellMessage = fullCommand.at(2);
 
-    userManager.addMessage(usernameOfListener, tellMessage);
-    return "sent message";
+    if(userManager.addMessage(usernameOfListener, tellMessage)) {
+        return "message sent\n";
+    }
+    return "no online user with that name\n";
 }
 
 std::string GameManager::commandMove(User* user, const std::vector<std::string>& fullCommand) {
