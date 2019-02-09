@@ -1,7 +1,9 @@
 #include "Room.h"
 
+
 LocationCoordinates Room::findExitLocation(const std::string& direction) const {
 	auto checkDirection = Exit::getCardinalDirection(direction);
+
 
 	auto iterator = std::find_if(exitsInRoom.begin(), exitsInRoom.end(),
 			[&] (const Exit& e) { return e.getCardinalDirection() == checkDirection; } );
@@ -15,6 +17,7 @@ LocationCoordinates Room::findExitLocation(const std::string& direction) const {
 
 	return result;
 }
+
 
 bool Room::createExit(const std::string& exitName, const std::string& exitDescription,
 					  const std::string& cardinalDirection, int areaID, int roomID) {
@@ -67,6 +70,21 @@ std::string Room::lookForExitName(const std::string &objName) const {
 		return (*roomExit).getExitDescription();
 	}
 	return "You couldn't find anything called " + objName;
+}
+
+
+/**
+ * Check's and see's all the possible exits in a room, then returns a string with all possible exits
+ * @return A string with all the exits listed out
+ */
+std::string Room::listExits() const {
+
+	std::string result = " Exits are: \n";
+	for(Exit iter: exitsInRoom){
+		result += iter.getExitName() + ", " + iter.CardinalToString() + "\n";
+	}
+
+	return result;
 }
 
 

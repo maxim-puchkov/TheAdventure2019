@@ -32,6 +32,7 @@ private:
     AccountManager accountManager;
     user::User getUser(const std::string& userName);
     std::string getUserIDByUsername(const std::string& userName);
+    const int YELL_RANGE = 1;
 
     struct commandGuideline {
         std::string (GameManager::*promptReply)(const std::string&, const std::vector<std::string>&);

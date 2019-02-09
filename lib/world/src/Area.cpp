@@ -7,7 +7,7 @@
 /**
  * Returns a room at a particular index from an area
  */
-Room Area::getRoom(unsigned int index) const {
+Room& Area::getRoom(unsigned int index) {
     if(index >= rooms.size()){
         //return some invalid room
     }

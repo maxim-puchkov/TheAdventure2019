@@ -39,15 +39,16 @@ public:
     bool addCharacter(const std::string &userName);
     bool removeCharacter(const std::string &userName);
 
-
     std::string lookForName(const std::string &objName) const;
     std::string lookForExitName(const std::string &objName) const;
+    std::string listExits() const;
 
 
     //getters
     std::string getName() const { return roomName; }
     std::string getDescription() const { return roomDescription; }
     const std::vector<std::string>& getUserNames() const { return charactersInRoom; }
+    const std::vector<Exit>& getExits() const { return exitsInRoom; }
     //setters
     void setName(std::string newName) { roomName = newName; }
     void setDescription(std::string newDescription) { roomDescription = newDescription; }
