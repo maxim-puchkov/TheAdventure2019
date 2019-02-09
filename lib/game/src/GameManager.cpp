@@ -194,7 +194,8 @@ std::string GameManager::commandSay(User* user, const std::vector<std::string>& 
     auto& userNamesInRoom = world.getUserNamesInRoom(avatar.getCurrentLocation());
 
     for(auto name : userNamesInRoom){
-        userManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
+        if(name != avatar.getName())
+            userManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
     }
 
 	return "You said: \"" + fullCommand[1] + "\"\n";
@@ -204,10 +205,11 @@ std::string GameManager::commandYell(User* user, const std::vector<std::string>&
     auto& userManager = accountManager.getUserManager();
 
     auto& avatar = user->getAvatar();
-    auto& userNamesInRoom = world.getUserNamesInRoom(avatar.getCurrentLocation());
+    auto& userNamesInRoom = world.getUserNamesInRange(avatar.getCurrentLocation(), YELL_RANGE);
 
     for(auto name : userNamesInRoom){
-        userManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
+        if(name != avatar.getName())
+            userManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
     }
 
     return "You said: \"" + fullCommand[1] + "\"\n";
