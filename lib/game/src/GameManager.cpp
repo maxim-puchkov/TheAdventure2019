@@ -79,22 +79,20 @@ bool GameManager::commandIsValid(size_t commandPartsSize, size_t splitByColon, c
         return false;
     return true;
 }
-/*
-void testAccountManager(){
+
+void test_userManager_UserDB(){
     std::cout << "*** AccountManager TEST ***\n";
     
-    AccountManager accountManager{};
-    std::string userName = "user9";
+    OnlineUserManager userManager{};
+    std::string userName = "user3";
     std::string pwd = "pwd";
     std::string id = "123";
 
-    assert( accountManager.createUser(userName, pwd) == AccountManager::ACCOUNT_CODE::ACCOUNT_CREATED);
-    // assert( accountManager.login("123","user","test") == AccountManager::ACCOUNT_CODE::INVALID_PASSWORD);
-    assert( accountManager.login(id,userName,pwd) == AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN);
-    assert( accountManager.login(id,userName,pwd) == AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN);
-
+    userManager.createUser(userName, pwd);
+    userManager.login(userName,pwd, id);
+    userManager.logout(userName, id);
 }
-*/
+
 std::string GameManager::commandLogin(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     /* dummyUser implementation for testing
      *
@@ -102,7 +100,6 @@ std::string GameManager::commandLogin(const std::string& connectionID, const std
     dummy.setId(id);
     LocationCoordinates spawn{0,0};
     dummy.getAvatar().setCurrentLocation(spawn);*/
-
 
 	auto answer = accountManager.login(connectionID, fullCommand[1], fullCommand[2]);
 	switch(answer) {
