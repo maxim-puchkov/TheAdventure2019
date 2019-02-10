@@ -9,8 +9,9 @@
 #include <algorithm>
 #include "LocationCoordinates.h"
 #include <unordered_map>
-#include <boost/bimap.hpp>
-
+#include <boost/bimap/bimap.hpp>
+#include <boost/bimap/unordered_set_of.hpp>
+using  namespace boost::bimaps;
 
 class Exit{
 
@@ -32,7 +33,7 @@ public:
          const std::string& cardinalDirection, int areaID, int roomID);
 
 
-    static Exit::CardinalDirection getCardinalDirection(const std::string& direction);
+    static Exit::CardinalDirection getCardinalDirection(const std::string &direction) ;
     //getters
     const std::string &getExitName() const;
     const std::string &getExitDescription() const;
@@ -49,18 +50,23 @@ public:
     void setTargetLocation(LocationCoordinates newLocation);
 
 
+    typedef bimap <
+            unordered_set_of<Exit::CardinalDirection>,
+            unordered_set_of<std::string>
+    > bimapType;
+
+    static bimapType const enumStringMap;
+
+
 private:
     std::string exitName;
     std::string exitDescription;
     CardinalDirection exitDirection;
     LocationCoordinates targetLocation;
 
-    //A map that is used to convert CardinalDirection's (enum) into a string for viewing, initialized in cpp
-    typedef boost::bimap<CardinalDirection , std::string> bimapType;
-    static bimapType const enumStringMap;
-
-
 };
+
+
 
 
 
