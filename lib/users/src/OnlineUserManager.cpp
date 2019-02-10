@@ -20,7 +20,7 @@ User OnlineUserManager::removeUser(const std::string& id){
         onlineUsers.erase(id);
         return search->second;
     }else{
-        return User{"",""};
+        return nullUser;
     }
 }
 
@@ -29,8 +29,7 @@ User& OnlineUserManager::getUserById(const std::string& id){
     if (search != onlineUsers.end()) {
         return search->second;
     }else{
-        User user {"",""};
-        return user;
+        return nullUser;
     }
 }
 
@@ -40,8 +39,7 @@ User& OnlineUserManager::getUserByUsername(const std::string& userName){
             return element.second;
         }
     }
-    User user{"", ""};
-    return user;
+    return nullUser;
 }
 
 std::string OnlineUserManager::getConnectionID(const std::string& userName) {

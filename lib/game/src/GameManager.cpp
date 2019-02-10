@@ -143,7 +143,6 @@ std::string GameManager::commandHelp(const std::string& connectionID, const std:
 }
 
 std::string GameManager::commandSay(User* user, const std::vector<std::string>& fullCommand) {
-    auto& userManager = accountManager.getUserManager();
     //userNamesInRoom returns null
 	// auto& avatar = user->getAvatar();
     // auto& userNamesInRoom = world.getUserNamesInRoom(avatar.getCurrentLocation());
@@ -155,10 +154,9 @@ std::string GameManager::commandSay(User* user, const std::vector<std::string>& 
     std::vector<std::string> nameList = {"test1", "test2", "test3"};
 
     for(auto name: nameList) {
-        userManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
+        onlineUserManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
     }
-
-    userManager.printTable();
+    onlineUserManager.printTable();
 
 	return "You said: \"" + fullCommand[1] + "\"\n";
 }
@@ -215,10 +213,8 @@ std::string GameManager::commandError(User* user, const std::vector<std::string>
 std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
     auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
 
-    auto& userManager = accountManager.getUserManager();
-
     //process commands
-    auto userCommands = userManager.getOnlineUserCommandList();
+    auto userCommands = onlineUserManager.getOnlineUserCommandList();
     for(auto& element : userCommands) {
     	auto found = tableOfCommands.find((element.second)[0]);
 	    commandGuideline guideline = found->second;
@@ -230,7 +226,7 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
     }
 
     //process messages
-    auto userMessages = userManager.getOnlineUserMessageList();
+    auto userMessages = onlineUserManager.getOnlineUserMessageList();
     for (auto& element : userMessages) {
 	    auto found = map->find(element.first);
 	    if (found != map->end()) {
@@ -278,13 +274,11 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
 
 //This should just return a User object
 std::string GameManager::getUserIDByUsername(const std::string& userName) {
-    auto userManager = accountManager.getUserManager();
-    return userManager.getConnectionID(userName);
+    return onlineUserManager.getConnectionID(userName);
 }
 
 user::User GameManager::getUser(const std::string& userName) {
-    auto userManager = accountManager.getUserManager();
-	return userManager.getUserByUsername(userName);
+	return onlineUserManager.getUserByUsername(userName);
 }
 
 

@@ -28,6 +28,7 @@ class OnlineUserManager{
         std::unordered_map<std::string, User> onlineUsers;
         // UserDB userDB = UserDB{};
         UserDB userDB {};
+        User nullUser{"", ""};
     public:
         bool insertUser(const std::string &id, const User &user);
         User removeUser(const std::string& id);
