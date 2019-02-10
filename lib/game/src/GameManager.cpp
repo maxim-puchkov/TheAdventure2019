@@ -124,13 +124,7 @@ std::string GameManager::commandCreate(const std::string& connectionID, const st
 }
 
 std::string GameManager::commandAddToActionList(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    /* dummyUser implementation for testing
-     *
-     * dummy.addCommandToList(fullCommand);
-    auto& commands = dummy.getCommands();
-    std::cout<<commands.size()<<"\n";*/
-    auto& userManager = accountManager.getUserManager();
-    bool success = userManager.onlineUserAddCommandToList(connectionID, fullCommand);
+    bool success = onlineUserManager.onlineUserAddCommandToList(connectionID, fullCommand);
     if(!success) {
     	return "User is not online.";
     }

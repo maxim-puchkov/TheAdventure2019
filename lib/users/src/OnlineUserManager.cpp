@@ -9,6 +9,7 @@ using user::User;
 using usermanager::OnlineUserManager;
 
 bool OnlineUserManager::insertUser(const std::string &id, const User &user){
+    std::cout << id << "\n";    
     bool result = onlineUsers.insert(std::make_pair(id, user)).second;
     return result;
 }
@@ -62,6 +63,9 @@ bool OnlineUserManager::updateUserTimeStamp(const std::string& id, const long ti
 }
 
 void OnlineUserManager::printTable() {
+    std::cout << "Number of online Users ";
+    std::cout << onlineUsers.size();
+    std::cout <<"\n";
     for(auto& p: onlineUsers){
         std::cout << p.first << " => " << p.second.getUserName() << " "
                   << p.second.getId() << " " << p.second.getMessageSize() << "\n";
@@ -103,12 +107,15 @@ void OnlineUserManager::addMessage(const std::string& userName, const std::strin
 }
 
 bool OnlineUserManager::onlineUserAddCommandToList(const std::string& id, const std::vector<std::string>& command){
-    auto user = getUserById(id);
-    if(user.getUserName() != "") {
-        user.addCommandToList(command);
+    auto search = onlineUsers.find(id);
+    if (search != onlineUsers.end()) {
+        std::cout << "I am called\n";
+        search->second.addCommandToList(command);
         return true;
+    }else{
+        return false;
     }
-    return false;
+
 }
 
 std::vector<std::pair<User, std::vector<std::string>>> OnlineUserManager::getOnlineUserCommandList() {
@@ -133,6 +140,8 @@ std::vector<std::pair<User, std::vector<std::string>>> OnlineUserManager::getOnl
 // ******* Functions that Uses UserDB *******
 
 OnlineUserManager::USER_CODE OnlineUserManager::login(const std::string& id, const std::string& userName, const std::string& pwd){
+    std::cout << "Inside Login\n";
+    std::cout << id << "\n";
     User user = userDB.getUser(userName,pwd);
     if(user.getUserName() != ""){
         if(!insertUser(id, user)){

@@ -36,8 +36,7 @@ void User::setId(long int id){
 }
 
 long int User::getId() {
-    long int myId = this->id;
-    return myId;
+    return this->id;
 }
 
 void User::addMessage(std::string message) {
