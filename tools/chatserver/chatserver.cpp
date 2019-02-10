@@ -26,7 +26,7 @@ using networking::Connection;
 using networking::Message;
 
 std::vector<Connection> clients;
-GameManager gm;
+GameManager gm{};
 
 void
 onConnect(Connection c) {

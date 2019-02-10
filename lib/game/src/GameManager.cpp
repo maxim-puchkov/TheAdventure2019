@@ -35,7 +35,7 @@ void GameManager::createTableOfCommands() {
 
 std::string GameManager::extractCommands(const std::string& connectionID, const std::string& fullCommand) {
     std::vector<std::string> commandParts, splitByColon;
-
+    std::cout << "hi\n";
     reassembleCommand(fullCommand, commandParts, splitByColon);
 
     auto found = tableOfCommands.find(commandParts[0]);
@@ -190,7 +190,7 @@ std::string GameManager::commandSay(User* user, const std::vector<std::string>& 
     // for(auto name : userNamesInRoom){
     //     userManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
     // }
-
+    std::cout << "SAYYYYY\n";
     std::vector<std::string> nameList = {"test1", "test2", "test3"};
 
     for(auto name: nameList) {

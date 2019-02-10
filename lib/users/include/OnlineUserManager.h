@@ -24,7 +24,6 @@ class OnlineUserManager{
     };
     private:
         std::unordered_map<std::string, User> onlineUsers;
-        //std::unordered_map<std::string, std::vector<std::string>> onlineUserCommandsList;
         UserDB userDB = UserDB{};
     public:
         bool insertUser(const std::string &id, const User &user);
@@ -36,7 +35,6 @@ class OnlineUserManager{
         std::vector<std::pair<User, std::vector<std::string>>> getOnlineUserCommandList();
         std::vector<std::pair<std::string, std::string>> getOnlineUserMessageList();
         void addMessage(const std::string& userName, const std::string& message);
-        //std::unordered_map<std::string, std::vector<std::string>>& getOnlineUserCommandList();
         bool updateUserTimeStamp(const std::string& id, const long timeStamp);
         void printTable();
 
