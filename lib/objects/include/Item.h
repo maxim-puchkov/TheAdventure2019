@@ -16,6 +16,11 @@
 using std::string;
 using std::size_t;
 
+/**
+ *  @class Item
+ *
+ *  @brief ...
+ */
 class Item {
 public:
     

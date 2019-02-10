@@ -21,6 +21,14 @@ using std::string;
 
 const unsigned int NO_LIMIT = 0;
 
+
+/**
+ *  @class Collection
+ *
+ *  @brief Collection of items.
+ *
+ *  Collection of items (bag, chest) is also an item.
+ */
 class Collection : public Item {
 public:
     
@@ -34,7 +42,7 @@ public:
     
     
     
-    /*  */
+    /* Retrieve */
     
     unordered_set<Item> getItems() const {
         return this->items;
@@ -59,18 +67,13 @@ public:
     
     
     
-    /*  */
+    /* Modify */
     
     void setLimit(unsigned int limit) {
         this->limit = limit;
     }
     
     bool add(Item &&item) {
-//        if (!this->full()) {
-//            return ();
-//        }
-//        return false;
-        
         return (!this->full() && (this->items.insert(std::move(item))).second);
     }
     

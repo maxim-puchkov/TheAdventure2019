@@ -19,7 +19,11 @@
 using std::unordered_set;
 using std::string;
 
-
+/**
+ *  @class Inventory
+ *
+ *  @brief Character's set of items.
+ */
 class Inventory {
 public:
     
