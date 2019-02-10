@@ -1,8 +1,7 @@
-#ifndef ACCOUNTMANAGER_H
-#define ACCOUNTMANAGER_H
+#ifndef USERDB_H
+#define USERDB_H
 
 #include "User.h"
-#include "OnlineUserManager.h"
 #include "JsonParser.h"
 #include "json.hpp"
 
@@ -15,11 +14,7 @@ using namespace std;
 using nlohmann::json;
 using user::User; 
 
-using usermanager::OnlineUserManager;
-using user::User; 
 
-json users_json;
-std::string json_filePath = "users.json";
 
 class UserDB {
   public:
@@ -32,17 +27,14 @@ class UserDB {
     };
 
   private:
-    OnlineUserManager onlineUserMananger;
     JsonParser jsonParser;
-
-    bool jsonProcessed = false;
     json users_json;
     std::string json_filePath = "users.json";
   public:
     UserDB();
     ~UserDB();
 
-    DB_CODE createUser(const std::string&, const std::string&, const std::string& );
+    DB_CODE createUser(const std::string&, const std::string&);
 
     DB_CODE updateUser(User&);
 

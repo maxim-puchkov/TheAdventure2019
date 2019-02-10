@@ -109,7 +109,7 @@ includeHeartbeatMessages(std::unique_ptr<std::unordered_map<std::string, std::st
       tableA->insert(make_pair(element.first, element.second));
     }
   }
-  return std::move(tableA);
+  return tableA;
 }
 
 

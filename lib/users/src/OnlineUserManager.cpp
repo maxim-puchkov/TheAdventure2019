@@ -19,8 +19,7 @@ User OnlineUserManager::removeUser(const std::string& id){
         onlineUsers.erase(id);
         return search->second;
     }else{
-        User user {"",""};
-        return user;
+        return User{"",""};
     }
 }
 
@@ -128,5 +127,40 @@ std::vector<std::pair<User, std::vector<std::string>>> OnlineUserManager::getOnl
 }
 
 
+
+
+
+// ******* Functions that Uses UserDB *******
+
+OnlineUserManager::USER_CODE OnlineUserManager::login(const std::string& userName, const std::string& pwd, const std::string& id){
+
+    User user = userDB.getUser(userName,pwd);
+    if(user.getUserName() != ""){
+        onlineUsers.insert(std::make_pair(id, user));
+        return OnlineUserManager::USER_CODE::USER_LOGGED_IN;
+    }
+    else{
+        return OnlineUserManager::USER_CODE::USER_NOT_FOUND;
+    }
+}
+
+OnlineUserManager::USER_CODE OnlineUserManager::logout(const std::string& userName, const std::string& id){
+    
+    //update the user in DB
+    auto search = onlineUsers.find(id);
+    if (search != onlineUsers.end()) {
+        
+        onlineUsers.erase(id);
+        userDB.updateUser(search->second);
+
+        return OnlineUserManager::USER_CODE::USER_LOGGED_OUT;
+    }else{
+        return OnlineUserManager::USER_CODE::USER_NOT_FOUND;
+    }
+} 
+
+UserDB::DB_CODE OnlineUserManager::createUser(const std::string& userName, const std::string& pwd){
+    return userDB.createUser(userName, pwd);
+}      
 
 
