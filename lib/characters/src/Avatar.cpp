@@ -13,27 +13,14 @@ Avatar::Avatar(string &&name) : Character(std::move(name)) {
     // this->createOnFirstLogin();
 }
 
-/*
- Avatar::Avatar(const std::string &name) {
- this->init();
- this->name = name;
- this->appearance = this->createCustomAppearance();
- }
- 
- Avatar::Avatar(const std::string &name, const Custom::Appearance &appearance) {
- this->init();
- this->name = name;
- this->appearance = appearance;
- }
- */
 
 Avatar::~Avatar() { }
 
-void Avatar::init() { /* undefined */ }
 
 void Avatar::createOnFirstLogin() {
     this->appearance = this->createCustomAppearance();
 }
+
 
 Custom::Appearance Avatar::createCustomAppearance() {
     Custom::Appearance appr;

@@ -29,10 +29,9 @@ main(int argc, char* argv[]) {
     
     bool done = false;
     auto onTextEntry = [&done, &client] (std::string text) {
-        ScriptController scripts;
         if ("exit" == text || "quit" == text) {
             done = true;
-        } else if (!scripts.interrupt(std::move(text))) {
+        } else {
             client.send(text);
         }
     };

@@ -23,7 +23,7 @@ string User::getUserName() {
     return this->name;
 }
 
-const Avatar User::getAvatar() const {
+Avatar& User::getAvatar() {
     return this->avatar;
 }
 

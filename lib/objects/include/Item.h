@@ -27,7 +27,17 @@ public:
     
     virtual ~Item() { };
     
-    virtual string getDescription() const;
+    
+    
+    
+    
+    virtual string getShortDescription() const;
+    
+    virtual string getLongDescription() const;
+    
+    void setLongDescription(string &&longDescription); /* undefined */
+    
+    unsigned long getId() const;
     
     
     
@@ -39,12 +49,11 @@ public:
     
     bool operator==(const Item &other) const;
     
-    unsigned long getId() const;
-
-    
 private:
     
-    string description;
+    string shortDescription;
+    
+    string longDescription;
     
     unsigned long id;
     

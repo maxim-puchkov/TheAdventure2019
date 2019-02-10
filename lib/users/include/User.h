@@ -24,7 +24,7 @@ public:
     
     string getUserName();
     
-    const Avatar getAvatar() const;
+    Avatar& getAvatar();
 
     void setId(long int id);
     long int getId();

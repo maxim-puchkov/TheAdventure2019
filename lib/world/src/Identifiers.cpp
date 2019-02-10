@@ -8,8 +8,8 @@
 
 #include "Identifiers.h"
 
-static unsigned long lastUsedId = 0;
+static unsigned long uniqueId = 0;
 
 unsigned long Identifiers::uid() {
-    return ++lastUsedId;
+    return ++uniqueId;
 }

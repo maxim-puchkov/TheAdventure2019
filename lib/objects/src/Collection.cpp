@@ -8,15 +8,19 @@
 
 #include "Collection.h"
 #include <iostream>
+//
+//string Collection::getShortDescription() const {
+//    std::cout << "COLLECTION DESC\n";
+//
+//    
+//    std::ostringstream oss;
+//    oss << this->shortDescription << std::endl;
+//    for (auto& item : this->items) {
+//        oss << item.getShortDescription() << std::endl;
+//    }
+//    return oss.str();
+//}
 
-string Collection::getDescription() const {
-    std::cout << "COLLECTION DESC\n";
-
-    
-    std::ostringstream oss;
-    oss << this->description << std::endl;
-    for (auto& item : this->items) {
-        oss << item.getDescription() << std::endl;
-    }
-    return oss.str();
+string Collection::getLongDescription() const {
+    return "long desc";
 }

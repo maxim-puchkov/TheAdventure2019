@@ -7,21 +7,22 @@
 //
 
 #include "Item.h"
+#include <iostream>
 
-Item::Item(const string &description)
-: description(description) {
+Item::Item(const string &shortDescription)
+: shortDescription(shortDescription) {
     this->id = Identifiers::uid();
 }
 
 
 Item::Item(const Item &other)
-: description(std::move(other.description)) {
+: shortDescription(std::move(other.shortDescription)) {
     this->id = other.id;
 }
 
 
 Item::Item(Item &&item)
-: description(std::move(item.description)) {
+: shortDescription(std::move(item.shortDescription)) {
     this->id = item.id;
 }
 
@@ -31,14 +32,21 @@ unsigned long Item::getId() const {
 }
 
 
-string Item::getDescription() const {
-    return this->description;
+string Item::getShortDescription() const {
+    std::cout << "ITEM S DESC\n";
+    return this->shortDescription;
+}
+
+
+string Item::getLongDescription() const {
+    std::cout << "ITEM L DESC\n";
+    return this->longDescription;
 }
 
 
 Item& Item::operator=(Item &&other) noexcept {
     this->id = std::move(other.id);
-    this->description = std::move(other.description);
+    this->shortDescription = std::move(other.shortDescription);
     return *this;
 }
 

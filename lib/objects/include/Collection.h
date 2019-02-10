@@ -13,6 +13,7 @@
 #include <functional>
 #include <unordered_set>
 #include <sstream>
+#include <iostream>
 #include "Item.h"
 
 using std::unordered_set;
@@ -23,58 +24,86 @@ const unsigned int NO_LIMIT = 0;
 class Collection : public Item {
 public:
     
-    Collection(const string &description) : Item(std::move(description)) { }
+    Collection(const string &shortDescription) : Item(shortDescription) { }
     
-    Collection(Collection &&c) : Collection(std::move(c.description)) {
-        this->items = std::move(c.items);
-    }
+    Collection(Collection &&c) : Item(std::move(c.shortDescription)), items(std::move(c.items)) { }
     
     ~Collection() { }
+    
+    
+    
+    
+    
+    /*  */
     
     unordered_set<Item> getItems() const {
         return this->items;
     }
     
-    string getDescription() const;
+    string getShortDescription() const override {
+        std::cout << "COLLECTION DESC\n";
+        
+        
+        std::ostringstream oss;
+        oss << "Collection: " << this->shortDescription << std::endl;
+        for (auto& item : this->items) {
+            oss << item.getShortDescription() << std::endl;
+        }
+        return oss.str();
+    }
+    
+    string getLongDescription() const override;
+    
+    
+    
+    
+    
+    
+    /*  */
     
     void setLimit(unsigned int limit) {
-        // if (limit > this->limit) throw(std::invalid_argument("Collection limit"));
         this->limit = limit;
     }
     
     bool add(Item &&item) {
-        if (!this->full()) {
-            return (this->items.insert(std::move(item))).second;
-        }
-        return false;
+//        if (!this->full()) {
+//            return ();
+//        }
+//        return false;
+        
+        return (!this->full() && (this->items.insert(std::move(item))).second);
     }
     
     bool remove(Item &&item) {
         return (this->items.erase(std::move(item)) == 1);
     }
     
-    Collection& operator=(Collection &&c) {
+    
+    
+    
+    
+    
+    Collection& operator=(Collection &&c) noexcept {
         this->items = std::move(c.items);
         return *this;
     }
     
 private:
     
+    string shortDescription;
+    
+    string longDescription;
+    
     unordered_set<Item> items;
     
     unsigned int limit = NO_LIMIT;
     
-    string description;
-    
     bool limited() {
-        return this->limit != NO_LIMIT;
+        return (this->limit != NO_LIMIT);
     }
     
     bool full() {
-        if (!this->limited()) {
-            return false;
-        }
-        return this->items.size() == this->limit;
+        return (this->limited() && (this->items.size() == this->limit));
     }
     
 };

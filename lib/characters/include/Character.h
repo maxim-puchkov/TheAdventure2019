@@ -129,6 +129,8 @@ protected:
     
     unsigned int roomId;
     
+private:
+    
 };
 
 #endif /* Character_h */

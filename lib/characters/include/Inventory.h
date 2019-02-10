@@ -15,37 +15,41 @@
 #include "Item.h"
 #include "Collection.h"
 
+
 using std::unordered_set;
 using std::string;
 
-const string DESCRIPTION = "Your Inventory";
 
 class Inventory {
 public:
     
     Inventory() {
+        
+
         Item i1("first item");
         Collection c1("first container");
-        Item i2("in container 1");
+        Item i2("second item in first container");
         c1.add(std::move(i2));
-        
-        items.add(std::move(i1));
-        items.add(std::move(c1));
-        
-        this->listItems();
+
+        this->items.insert(&i1);
+        this->items.insert(&c1);
+
+        this->display();
     }
     
     ~Inventory() { }
     
-    void listItems() const {
-        for (auto& item : this->items.getItems()) {
-            std::cout << item.getDescription() << std::endl;
+    void display() const {
+        for (auto item : this->items) {
+            std::cout << item->getShortDescription() << std::endl;
         }
     }
     
 private:
     
-    Collection items = Collection(DESCRIPTION);
+    //Collection items = Collection("description");
+    
+    unordered_set<Item *> items;
     
 };
 
