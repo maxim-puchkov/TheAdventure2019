@@ -132,19 +132,22 @@ std::vector<std::pair<User, std::vector<std::string>>> OnlineUserManager::getOnl
 
 // ******* Functions that Uses UserDB *******
 
-OnlineUserManager::USER_CODE OnlineUserManager::login(const std::string& userName, const std::string& pwd, const std::string& id){
-
+OnlineUserManager::USER_CODE OnlineUserManager::login(const std::string& id, const std::string& userName, const std::string& pwd){
     User user = userDB.getUser(userName,pwd);
     if(user.getUserName() != ""){
+        if(!insertUser(id, user)){
+            return OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN;
+        }
         onlineUsers.insert(std::make_pair(id, user));
         return OnlineUserManager::USER_CODE::USER_LOGGED_IN;
     }
     else{
         return OnlineUserManager::USER_CODE::USER_NOT_FOUND;
     }
+
 }
 
-OnlineUserManager::USER_CODE OnlineUserManager::logout(const std::string& userName, const std::string& id){
+OnlineUserManager::USER_CODE OnlineUserManager::logout(const std::string& id){
     
     //update the user in DB
     auto search = onlineUsers.find(id);
@@ -155,7 +158,7 @@ OnlineUserManager::USER_CODE OnlineUserManager::logout(const std::string& userNa
 
         return OnlineUserManager::USER_CODE::USER_LOGGED_OUT;
     }else{
-        return OnlineUserManager::USER_CODE::USER_NOT_FOUND;
+        return OnlineUserManager::USER_CODE::USER_NOT_ONLINE;
     }
 } 
 

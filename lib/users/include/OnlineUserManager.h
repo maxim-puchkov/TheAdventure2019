@@ -20,11 +20,14 @@ class OnlineUserManager{
       USER_DELETED,
       USER_NOT_FOUND, 
       USER_LOGGED_OUT,
-      USER_LOGGED_IN   
+      USER_LOGGED_IN,
+      USER_ALREADY_LOGGED_IN,
+      USER_NOT_ONLINE   
     };
     private:
         std::unordered_map<std::string, User> onlineUsers;
-        UserDB userDB = UserDB{};
+        // UserDB userDB = UserDB{};
+        UserDB userDB {};
     public:
         bool insertUser(const std::string &id, const User &user);
         User removeUser(const std::string& id);
@@ -41,7 +44,7 @@ class OnlineUserManager{
 
         // ******* Functions that Uses UserDB *******
         USER_CODE login(const std::string& userName, const std::string& pwd, const std::string& id);
-        USER_CODE logout(const std::string& userName, const std::string& id);  
+        USER_CODE logout(const std::string& id);  
         UserDB::DB_CODE createUser(const std::string& userName, const std::string& pwd);      
 
 };

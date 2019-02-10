@@ -35,7 +35,6 @@ void GameManager::createTableOfCommands() {
 
 std::string GameManager::extractCommands(const std::string& connectionID, const std::string& fullCommand) {
     std::vector<std::string> commandParts, splitByColon;
-    std::cout << "hi\n";
     reassembleCommand(fullCommand, commandParts, splitByColon);
 
     auto found = tableOfCommands.find(commandParts[0]);
@@ -77,80 +76,48 @@ bool GameManager::commandIsValid(size_t commandPartsSize, size_t splitByColon, c
     return true;
 }
 
-void test_userManager_UserDB(){
-    std::cout << "*** AccountManager TEST ***\n";
-    
-    OnlineUserManager userManager{};
-    std::string userName = "user3";
-    std::string pwd = "pwd";
-    std::string id = "123";
-
-    userManager.createUser(userName, pwd);
-    userManager.login(userName,pwd, id);
-    userManager.logout(userName, id);
-}
-
 std::string GameManager::commandLogin(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    /* dummyUser implementation for testing
-     *
-     * long int id = std::stol(connectionID, nullptr, 10);
-    dummy.setId(id);
-    LocationCoordinates spawn{0,0};
-    dummy.getAvatar().setCurrentLocation(spawn);*/
-
-	auto answer = accountManager.login(connectionID, fullCommand[1], fullCommand[2]);
+    auto answer = onlineUserManager.login(connectionID, fullCommand[1], fullCommand[2]);
 	switch(answer) {
-		case accountmanager::AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN:
+		case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN:
 			return "You are now logged in.\n";
-		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_FOUND:
+		case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND:
 			return "Error! Username not found. Please try again.\n";
-		case accountmanager::AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN:
+		case usermanager::OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN:
 			return "Error! You are already logged in.\n";
-		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_ONLINE:
-		case accountmanager::AccountManager::ACCOUNT_CODE::USER_LOGGED_OUT:
-		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_USERNAME:
-		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_PASSWORD:
-		case accountmanager::AccountManager::ACCOUNT_CODE::ACCOUNT_CREATED:
-			;
+        default:
+            std::cout << "ERROR SHOULD NOT GET HERE! \n";
+        break;
 	}
 	//swallow
     return "";
 }
 
 std::string GameManager::commandLogout(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    auto answer = accountManager.logOut(connectionID);
+    auto answer = onlineUserManager.logout(connectionID);
 	switch(answer) {
-		case accountmanager::AccountManager::ACCOUNT_CODE::USER_LOGGED_OUT:
+		case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_OUT:
 			return "You are now logged out.\n";
-		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_ONLINE:
+		case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE:
 			return "Error! You are not logged in.\n";
-		case accountmanager::AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN:
-		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_FOUND:
-		case accountmanager::AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN:
-		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_USERNAME:
-		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_PASSWORD:
-		case accountmanager::AccountManager::ACCOUNT_CODE::ACCOUNT_CREATED:
-			;
+		default:
+            std::cout << "ERROR SHOULD NOT GET HERE! \n";
+        break;
 	}
 	//swallow
     return "";
 }
 
 std::string GameManager::commandCreate(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    auto answer = accountManager.createUser(fullCommand[1], fullCommand[2]);
+    auto answer = onlineUserManager.createUser(fullCommand[1], fullCommand[2]);
 	switch(answer) {
-		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_USERNAME:
+		case UserDB::DB_CODE::INVALID_USERNAME:
 			return "Error! Invalid username.\n";
-		case accountmanager::AccountManager::ACCOUNT_CODE::INVALID_PASSWORD:
-			return "Error! Invalid password.\n";
-		case accountmanager::AccountManager::ACCOUNT_CODE::ACCOUNT_CREATED:
+		case UserDB::DB_CODE::ACCOUNT_CREATED:
 			return "Account created. Please log in to play the game.\n";
-		case accountmanager::AccountManager::ACCOUNT_CODE::SUCCESFUL_LOGIN:
-		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_FOUND:
-		case accountmanager::AccountManager::ACCOUNT_CODE::USER_ALREADY_LOGGED_IN:
-		case accountmanager::AccountManager::ACCOUNT_CODE::USER_NOT_ONLINE:
-		case accountmanager::AccountManager::ACCOUNT_CODE::USER_LOGGED_OUT:
-			;
+		default:
+            std::cout << "ERROR SHOULD NOT GET HERE! \n";
+        break;
 	}
 	//swallow
     return "";

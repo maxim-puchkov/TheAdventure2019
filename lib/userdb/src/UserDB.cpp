@@ -40,7 +40,6 @@ UserDB::DB_CODE UserDB::updateUser(User& user){
 }
 
 User UserDB::getUser(const std::string& name, const std::string& pwd){
-
     if(users_json[name] == nullptr){
         return User{"",""};
     }

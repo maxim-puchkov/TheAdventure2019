@@ -30,6 +30,7 @@ class GameManager{
 private:
     WorldManager world;
     AccountManager accountManager;
+    OnlineUserManager onlineUserManager{};
     user::User getUser(const std::string& userName);
     std::string getUserIDByUsername(const std::string& userName);
 
