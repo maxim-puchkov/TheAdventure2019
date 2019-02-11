@@ -150,7 +150,6 @@ std::string GameManager::commandSay(User* user, const std::vector<std::string>& 
     // for(auto name : userNamesInRoom){
     //     userManager.addMessage(name, user->getUserName() + "said: " + fullCommand[1]);
     // }
-    std::cout << "SAYYYYY\n";
     std::vector<std::string> nameList = {"test1", "test2", "test3"};
 
     for(auto name: nameList) {

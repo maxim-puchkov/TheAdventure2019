@@ -61,9 +61,6 @@ bool OnlineUserManager::updateUserTimeStamp(const std::string& id, const long ti
 }
 
 void OnlineUserManager::printTable() {
-    std::cout << "Number of online Users ";
-    std::cout << onlineUsers.size();
-    std::cout <<"\n";
     for(auto& p: onlineUsers){
         std::cout << p.first << " => " << p.second.getUserName() << " "
                   << p.second.getId() << " " << p.second.getMessageSize() << "\n";
@@ -107,7 +104,6 @@ void OnlineUserManager::addMessage(const std::string& userName, const std::strin
 bool OnlineUserManager::onlineUserAddCommandToList(const std::string& id, const std::vector<std::string>& command){
     auto search = onlineUsers.find(id);
     if (search != onlineUsers.end()) {
-        std::cout << "I am called\n";
         search->second.addCommandToList(command);
         return true;
     }else{
