@@ -42,10 +42,10 @@ void WorldManager::generateWorld() {
 
 }
 
-Room WorldManager::findRoomByLocation(LocationCoordinates location) const{
+Room& WorldManager::findRoomByLocation(LocationCoordinates location) {
     if (areas.empty() || location.area < 0 || (unsigned int)location.area >= areas.size())
         throw std::domain_error("Area out of bounds");
-    Area areaOfInterest = areas.at((unsigned long)location.area);
+    auto& areaOfInterest = areas.at((unsigned long)location.area);
     if (areaOfInterest.size() < 1 || location.room < 0 || (unsigned int)location.room >= areaOfInterest.size())
         throw std::domain_error("Room out of bounds");
     return areaOfInterest.getRoom((unsigned int)location.room);
@@ -53,109 +53,132 @@ Room WorldManager::findRoomByLocation(LocationCoordinates location) const{
 
 bool WorldManager::kick(Character& character){
     LocationCoordinates charLocation = character.getCurrentLocation();
-    Room currentRoom;
+
     try{
-        currentRoom = findRoomByLocation(charLocation);
+        auto& currentRoom = findRoomByLocation(charLocation);
+
+        return currentRoom.removeCharacter(character.getName());
     } catch(const std::domain_error& e){
         return false;
     }
-
-    return currentRoom.removeCharacter(character.getName());
 }
 
 bool WorldManager::spawn(Character& character, LocationCoordinates location){
-    Room spawnRoom;
     try{
-        spawnRoom = findRoomByLocation(location);
+        auto& spawnRoom = findRoomByLocation(location);
+        spawnRoom.addCharacter(character.getName());
+        character.setCurrentLocation(location);
     } catch(const std::domain_error& e){
         return false;
     }
-
-    spawnRoom.addCharacter(character.getName());
-    character.setCurrentLocation(location);
     return true;
 }
 
-const std::vector<std::string>& WorldManager::getUserNamesInRoom (LocationCoordinates location) const{
-    Room roomOfInterest = findRoomByLocation(location);
-    return roomOfInterest.getUserNames();
+const std::vector<std::string>& WorldManager::getUserNamesInRoom (LocationCoordinates location) {
+    auto& room = findRoomByLocation(location);
+    return room.getUserNames();
+    //return getUserNamesInRange(location, 0);
 }
 
-LocationCoordinates WorldManager::move(Character& character, const std::string& direction) const {
+const std::vector<std::string> WorldManager::getUserNamesInRange (LocationCoordinates location, unsigned int range) {
+    /*try {
+        const auto &room = findRoomByLocation(location);
+        const auto& exits = room.getExits();
+
+        auto nameList = std::vector<std::string>{};
+        auto& namesHere = room.getUserNames();
+        nameList.reserve(nameList.size() + namesHere.size());
+        nameList.insert(nameList.end(), namesHere.begin(), namesHere.end());
+
+        for(const auto& exit : exits){
+            auto& nextRoomNames = findRoomByLocation(exit.getTargetLocation()).getUserNames();
+            nameList.reserve(nameList.size() + nextRoomNames.size());
+            nameList.insert(nameList.end(), nextRoomNames.begin(), nextRoomNames.end());
+        }
+
+        return nameList;
+    } catch(const std::domain_error& e){
+        auto nameList = std::vector<std::string>{};
+        return nameList;
+    }*/
+
+
+    try {
+        auto &roomOfInterest = findRoomByLocation(location);
+        auto &exitsInRoom = roomOfInterest.getExits();
+        if(range <= 0 || exitsInRoom.empty()) { return roomOfInterest.getUserNames(); }
+
+        auto nameList = std::vector<std::string>{};
+        const auto& roomNames = roomOfInterest.getUserNames();
+        nameList.reserve(nameList.size() + roomNames.size());
+        nameList.insert(nameList.end(), roomNames.begin(), roomNames.end());
+
+        for (const auto &exit : exitsInRoom) {
+            const auto& nextNameList = getUserNamesInRange(exit.getTargetLocation(), range - 1);
+            nameList.reserve(nameList.size() + nextNameList.size());
+            nameList.insert(nameList.end(), nextNameList.begin(), nextNameList.end());
+        }
+
+        return nameList;
+    } catch(const std::domain_error& e){
+        return std::vector<std::string>{};
+    }
+}
+
+LocationCoordinates WorldManager::move(Character& character, const std::string& direction) {
     LocationCoordinates currentLocation = character.getCurrentLocation();
-    Room roomOfInterest;
     try{
-        roomOfInterest = findRoomByLocation(currentLocation);
+        auto& roomOfInterest = findRoomByLocation(currentLocation);
+        LocationCoordinates newLocation = roomOfInterest.findExitLocation(direction);
+
+        auto& newRoom = findRoomByLocation(newLocation);
+
+        roomOfInterest.removeCharacter(character.getName());
+        character.setCurrentLocation(newLocation);
+        newRoom.addCharacter(character.getName());
+
+        return newLocation;
     } catch(const std::domain_error& e){
         return currentLocation;
     }
-
-    //find the target location of the exit in the current room with input direction
-    LocationCoordinates newLocation = roomOfInterest.findExitLocation(direction);
-
-    Room newRoom;
-    try{
-        newRoom = findRoomByLocation(newLocation);
-    } catch(const std::domain_error& e){
-        return currentLocation;
-    }
-
-    roomOfInterest.removeCharacter(character.getName());
-    
-    character.setCurrentLocation(newLocation);
-    newRoom.addCharacter(character.getName());
-    return newLocation;
 }
 
-std::string WorldManager::listExits(const Character& character) const{
+std::string WorldManager::listExits(const Character& character) {
     LocationCoordinates currentLocation = character.getCurrentLocation();
-    Room currentRoom = findRoomByLocation(currentLocation);
-    std::string result = "Exits are:";
+    try{
 
-    currentLocation = currentRoom.findExitLocation("north");
-    if(currentLocation.room >= 0)
-        result.append(" North");
+        auto& currentRoom = findRoomByLocation(currentLocation);
+        std::string result = "Exits are:";
 
-    currentLocation = currentRoom.findExitLocation("east");
-    if(currentLocation.room >= 0)
-        result.append(" East");
+        result.append( currentRoom.listExits() );
 
-    currentLocation = currentRoom.findExitLocation("south");
-    if(currentLocation.room >= 0)
-        result.append(" South");
-
-    currentLocation = currentRoom.findExitLocation("west");
-    if(currentLocation.room >= 0)
-        result.append(" West");
-
-    if(result == "Exits are:")
-        result.append(" not anywhere to be seen.");
-
-    return result;
+        return result;
+    } catch(const std::domain_error& e){
+        return "No exits found! uh oh!";
+    }
 }
 
 
-std::string WorldManager::look(Character& character) const {
+std::string WorldManager::look(Character& character) {
     LocationCoordinates location = character.getCurrentLocation();
 
-    Room roomOfInterest;
     try {
-        roomOfInterest = findRoomByLocation(location);
+        auto& roomOfInterest = findRoomByLocation(location);
+
+        return roomOfInterest.getDescription();
     } catch (const std::domain_error &e) {
         return "You've become terribly lost...";
     }
-
-    return roomOfInterest.getDescription();
 }
 
-std::string WorldManager::look(Character& character, std::string objName) const{
+std::string WorldManager::look(Character& character, std::string objName) {
     LocationCoordinates location = character.getCurrentLocation();
-    Room roomOfInterest;
+
     try{
-        roomOfInterest = findRoomByLocation(location);
+        auto& roomOfInterest = findRoomByLocation(location);
+
+        return roomOfInterest.lookForExitName(objName);
     } catch(const std::domain_error& e){
         return "You've become terribly lost...";
     }
-
-    return roomOfInterest.lookForExitName(objName);
 }

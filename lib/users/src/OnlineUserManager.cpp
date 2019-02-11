@@ -92,13 +92,14 @@ std::vector<std::pair<std::string, std::string>> OnlineUserManager::getOnlineUse
 }
 
 
-void OnlineUserManager::addMessage(const std::string& userName, const std::string& message) {
+bool OnlineUserManager::addMessageToUser(const std::string& userName, const std::string& message) {
     std::cout << userName << "\n";
 	auto& user = getUserByUsername(userName);
     if(user.getUserName() != ""){
         user.addMessage(message);
+        return true;
     }
-
+    return false;
 }
 
 bool OnlineUserManager::onlineUserAddCommandToList(const std::string& id, const std::vector<std::string>& command){
