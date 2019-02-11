@@ -1,8 +1,8 @@
-add_library(userdb
+add_library(${libuserdb}
   src/UserDB.cpp
 )
 
-target_include_directories(userdb
+target_include_directories(${libuserdb}
   PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -11,7 +11,7 @@ target_include_directories(userdb
     ${Boost_INCLUDE_DIR}
 )
 
-target_link_libraries(userdb
+target_link_libraries(${libuserdb}
   PUBLIC
     ${libusers}
     ${libparsers}
@@ -19,13 +19,13 @@ target_link_libraries(userdb
     ${Boost_LIBRARIES}
 )
 
-set_target_properties(userdb
+set_target_properties(${libuserdb}
                       PROPERTIES
                       LINKER_LANGUAGE CXX
                       CXX_STANDARD 17
 )
 
-install(TARGETS userdb
+install(TARGETS ${libuserdb}
     ARCHIVE DESTINATION lib
 )
 

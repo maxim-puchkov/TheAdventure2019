@@ -6,7 +6,7 @@
 #include <vector>
 // #include "../../accountManager/include/User.h"
 #include "User.h"
-#include "../../userdb/include/UserDB.h"
+#include "UserDB.h"
 
 using user::User; 
 
@@ -26,17 +26,21 @@ class OnlineUserManager{
     };
     private:
         std::unordered_map<std::string, User> onlineUsers;
-        // UserDB userDB = UserDB{};
         UserDB userDB {};
         User nullUser{"", ""};
+        Avatar nullAvatar{""};
+
+        User& getUserById(const std::string& id);
+        User& getUserByUsername(const std::string& userName);
     public:
         bool insertUser(const std::string &id, const User &user);
         User removeUser(const std::string& id);
-        User& getUserById(const std::string& id);
-        User& getUserByUsername(const std::string& userName);
+
+        Avatar& getAvatarById(const std::string& id);
+        Avatar& getAvatarByUsername(const std::string& userName);
         std::string getConnectionID(const std::string& userName);
         bool onlineUserAddCommandToList(const std::string& id, const std::vector<std::string>& command);
-        std::vector<std::pair<User, std::vector<std::string>>> getOnlineUserCommandList();
+        std::vector<std::pair<std::string, std::vector<std::string>>> getOnlineUserCommandList();
         std::vector<std::pair<std::string, std::string>> getOnlineUserMessageList();
         bool addMessageToUser(const std::string& userName, const std::string& message);
         bool updateUserTimeStamp(const std::string& id, const long timeStamp);
