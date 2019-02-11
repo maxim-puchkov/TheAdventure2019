@@ -17,9 +17,6 @@ using user::User;
 using accountmanager::AccountManager;
 using usermanager::OnlineUserManager;
 
-
-    
-
     AccountManager::AccountManager(){
         users_json = jsonParser.processJSON(json_filePath);
         if(users_json == nullptr){

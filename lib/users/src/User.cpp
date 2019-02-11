@@ -36,18 +36,15 @@ void User::setId(long int id){
 }
 
 long int User::getId() {
-    long int myId = this->id;
-    return myId;
+    return this->id;
 }
 
 void User::addMessage(std::string message) {
     messages.push_back(message);
 }
 
-std::deque<std::string> User::getMessages() {
-    std::deque<std::string> result;
-    std::swap(result, messages);
-    return result;
+std::vector<std::string>& User::getMessages() {
+    return messages;
 }
 
 void User::addCommandToList(std::vector<std::string> command){
@@ -69,6 +66,18 @@ std::vector<std::string> User::popCommand(){
 
 int User::getCommandSize() const {
     return commands.size();
+}
+
+int User::getMessageSize() const{
+    return messages.size();
+}
+
+void User::setTimeStamp(const long timeStamp){
+    this->timeStamp = timeStamp;
+}
+
+long User::getTimeStamp(){
+    return timeStamp;
 }
 
 void User::init() {
