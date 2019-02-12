@@ -21,13 +21,13 @@ namespace accounts {
         string username = args[1];
         string password = args[2];
         
-        AccountManager::login(id, username, password);
+        // AccountManager::login(id, username, password);
     }
     
     void command_logout(arguments args) {
         string username = args[0];
         
-        AccountManager::logOut(username);
+        // AccountManager::logOut(username);
     }
     
     
