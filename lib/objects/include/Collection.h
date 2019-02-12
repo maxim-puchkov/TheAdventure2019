@@ -32,11 +32,11 @@ const unsigned int NO_LIMIT = 0;
 class Collection : public Item {
 public:
     
-    Collection(const string &description) : shortDescription(description) { }
+    Collection(const string &description);
     
-    Collection(Collection &&c) : shortDescription(std::move(c.shortDescription)), items(std::move(c.items)) { }
+    Collection(Collection &&c);
     
-    ~Collection() { }
+    ~Collection();
     
     
     
@@ -44,9 +44,7 @@ public:
     
     /* Retrieve */
     
-    unordered_set<Item> getItems() const {
-        return this->items;
-    }
+    unordered_set<Item> getItems() const;
     
     string getShortDescription() const override;
     
@@ -59,27 +57,13 @@ public:
     
     /* Modify */
     
-    void setLimit(unsigned int limit) {
-        this->limit = limit;
-    }
+    void setLimit(unsigned int limit);
     
-    bool add(Item &&item) {
-        return (!this->full() && (this->items.insert(std::move(item))).second);
-    }
+    bool add(Item &&item);
     
-    bool remove(Item &&item) {
-        return (this->items.erase(std::move(item)) == 1);
-    }
+    bool remove(Item &&item);
     
-    
-    
-    
-    
-    
-    Collection& operator=(Collection &&c) noexcept {
-        this->items = std::move(c.items);
-        return *this;
-    }
+    Collection& operator=(Collection &&c) noexcept;
     
 private:
     
@@ -91,13 +75,9 @@ private:
     
     unsigned int limit = NO_LIMIT;
     
-    bool limited() {
-        return (this->limit != NO_LIMIT);
-    }
+    bool isLimited();
     
-    bool full() {
-        return (this->limited() && (this->items.size() == this->limit));
-    }
+    bool isFull();
     
 };
 
