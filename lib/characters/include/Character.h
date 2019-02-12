@@ -8,14 +8,21 @@
 #ifndef Character_h
 #define Character_h
 
+
 #include <string>
-#include <utility> //std::move
+#include <utility>
+
+
 #include "Attributes.h"
 #include "Inventory.h"
 #include "Equipment.h"
-#include "LocationCoordinates.h"
+#include "LocationCoordinates.h"      /* Should belong to character's
+                                         library if needed */
 
-const std::string DEF_CHAR_NAME = "DEF_CHAR_NAME";
+using std::string;
+
+
+const string DEF_CHAR_NAME = "New Character";
 const int DEF_CHAR_HEALTH = 100;
 const int DEF_CHAR_DAMAGE = 10;
 
@@ -30,44 +37,99 @@ const int DEF_CHAR_DAMAGE = 10;
 class Character {
 public:
     
+    Character(string &&name);
+    
     virtual ~Character();
     
-    virtual void createCharacter(const std::string &name);
-    
-    // Get
-    virtual std::string getName();
-    Attributes getAttributes();
-    Attributes getBaseAttributes();
-    Inventory getInventory();
-    Equipment getEquipment();
-    LocationCoordinates getCurrentLocation() const;
-    
-    // Set
-    void setCurrentLocation(LocationCoordinates newLocation);
     
     
-    // States ...
+    
+    
+    
+    
+    /* Get character's properties */
+    
+    virtual std::string getName() const;
+    
+    Inventory getInventory() const;
+    
+    Equipment getEquipment() const;
+    
+    unsigned int getCurrentAreaId() const;
+    
+    unsigned int getCurrentRoomId() const;
+    
+    
+    
+    
+    
+    /* Set */
+    
+    void setCurrentArea(unsigned int areaId);
+    
+    void setCurrentRoom(unsigned int roomId);
+    
+    
+    
+    
+    
+    /* Check character's state */
+    
     virtual bool isInCombat();
+    
     virtual bool isAlive();
     
     
-    // Compare characters' usernames
+    
+    
+    
+    /* Custom members */
+    
     virtual bool operator==(const Character &other);
+    
     virtual bool operator!=(const Character &other);
     
-protected:
     
-    std::string name;
+    
+    
+    
+    /* Deprecated */
+    
+    void createCharacter(string &&name); /* undefined */
+    
+    LocationCoordinates getCurrentLocation() const;
+    
+    void setCurrentLocation(LocationCoordinates newLocation);
+    
+    LocationCoordinates currentLocation;
+    
+    Attributes getAttributes() const;
+    
+    Attributes getBaseAttributes() const;
     
     Attributes baseAttr;
     
     Attributes currentAttr;
     
+    
+    
+    
+    
+    /* Protected */
+    
+protected:
+    
+    string name;
+    
     Equipment equipment;
     
-    Inventory inventory;
-
-    LocationCoordinates currentLocation;
+    Inventory inventory = Inventory();
+    
+    unsigned int areaId;
+    
+    unsigned int roomId;
+    
+private:
     
 };
 

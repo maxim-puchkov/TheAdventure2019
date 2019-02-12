@@ -1,5 +1,5 @@
 add_library(${libcommands}
-    src/Parser.cpp
+    src/CommandDefinitions.cpp
 )
 
 target_include_directories(${libcommands}
@@ -18,6 +18,9 @@ set_target_properties(${libcommands}
 
 target_link_libraries(${libcommands}
     ${libtypes}
+    ${libaccounts}
+    ${libusers}
+    ${libworld}
 )
 
 

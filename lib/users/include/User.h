@@ -18,11 +18,12 @@ public:
     User(const string &name, const string &password);
     
     // Returning players whose avatar exists
-    User(const string &name, const string &password, const Avatar &avatar);
+    User(const string &name, const string &password, Avatar &&avatar);
     
     ~User();
     
     string getUserName();
+    
     Avatar& getAvatar();
 
     void setId(long int id);
@@ -57,9 +58,7 @@ private:
 
     long timeStamp;
     
-    Avatar avatar;
-    
-    void test();
+    Avatar avatar = Avatar(std::move(this->name));
 
 };
     

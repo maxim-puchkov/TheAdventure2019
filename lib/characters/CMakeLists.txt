@@ -1,9 +1,8 @@
 add_library(${libcharacters}
-     src/Character.cpp
+    src/Character.cpp
     src/Avatar.cpp
-    src/PlayerControlledCharacter.cpp
-    src/NonPlayerControlledCharacter.cpp
     src/Attributes.cpp
+    src/Inventory.cpp
 )
 
 target_include_directories(${libcharacters}
@@ -16,6 +15,7 @@ target_include_directories(${libcharacters}
 
 target_link_libraries(${libcharacters}
     ${libworld}
+    ${libobjects}
 )
 
 set_target_properties(${libcharacters}

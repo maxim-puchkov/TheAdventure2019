@@ -21,6 +21,8 @@ set(libtypes "types")
 set(libusers "users")
 set(libworld "world")
 set(libparsers "parsers")
+set(libscripts "scripts")
+set(libobjects "objects")
 
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

@@ -11,6 +11,7 @@
 
 #include "ChatWindow.h"
 #include "Client.h"
+#include "ScriptController.h"
 
 
 int
@@ -22,6 +23,9 @@ main(int argc, char* argv[]) {
     }
     
     networking::Client client{argv[1], argv[2]};
+    
+    
+    
     
     bool done = false;
     auto onTextEntry = [&done, &client] (std::string text) {
