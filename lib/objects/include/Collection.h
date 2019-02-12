@@ -64,7 +64,7 @@ public:
     }
     
     bool add(Item &&item) {
-        return (!this->full() && (this->items.insert(std::move(item))).second);
+        return (!this->isFull() && (this->items.insert(std::move(item))).second);
     }
     
     bool remove(Item &&item) {
@@ -91,12 +91,12 @@ private:
     
     unsigned int limit = NO_LIMIT;
     
-    bool limited() {
+    bool isLimited() {
         return (this->limit != NO_LIMIT);
     }
     
-    bool full() {
-        return (this->limited() && (this->items.size() == this->limit));
+    bool isFull() {
+        return (this->isLimited() && (this->items.size() == this->limit));
     }
     
 };
