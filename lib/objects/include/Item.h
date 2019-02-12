@@ -21,7 +21,7 @@ using std::size_t;
 /**
  *  @class Item
  *
- *  @brief ...
+ *  @brief Any in-game item
  */
 class Item {
 public:
