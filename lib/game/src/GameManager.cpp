@@ -203,9 +203,11 @@ std::string GameManager::commandLook(Avatar& avatar, const std::vector<std::stri
 }
 
 std::string GameManager::commandExamine(Avatar& avatar, const std::vector<std::string>& fullCommand) {
-	if(fullCommand[1] == "exits")
-	    return world.listExits(avatar) + "\n";
-	else
+    if(fullCommand[1] == "exits")
+        return world.listExits(avatar) + "\n";
+    else if(fullCommand[1] == "people")
+        return world.listPeople(avatar) + "\n";
+    else
 	    return world.look(avatar, fullCommand[1]) + "\n";
 }
 
