@@ -81,7 +81,3 @@ using usermanager::OnlineUserManager;
         return onlineUserMananger;
     }
 
-    // User* AccountManager::getOnlineUser(std::string id){
-        
-    //     return &onlineUserMananger.getUser(id);
-    // }

@@ -23,7 +23,7 @@ User::User(const string &name, const string &password, const Avatar &avatar) {
 
 User::~User() = default;
 
-string User::getUserName() {
+const string& User::getUserName() const {
     return this->name;
 }
 
@@ -88,3 +88,10 @@ void User::test() {
     std::cout << "Debug: User " << this->name << " created\n";
 }
 
+bool User::operator==(const User &other) {
+    return this->name.compare(other.name) == 0;
+}
+
+bool User::operator!=(const User &other) {
+    return this->name.compare(other.name) != 0;
+}

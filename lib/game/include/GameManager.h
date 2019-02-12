@@ -1,7 +1,3 @@
-//
-// Created by john on 18/01/19.
-//
-
 #ifndef WEBSOCKETNETWORKING_GAMEMANAGER_H
 #define WEBSOCKETNETWORKING_GAMEMANAGER_H
 
@@ -12,8 +8,6 @@
 #include <unordered_map>
 
 #include <memory>
-// #include <boost/algorithm/string.hpp>
-
 #include "User.h"
 #include "OnlineUserManager.h"
 #include "WorldManager.h"

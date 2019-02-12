@@ -2,7 +2,6 @@
 #include <boost/algorithm/string.hpp>
 
 GameManager::GameManager() {
-    //WorldManager newWorld;
     world = WorldManager{};
     world.generateWorld();
     
@@ -21,8 +20,8 @@ void GameManager::createTableOfCommands() {
     commandGuideline examine = {&GameManager::commandAddToActionList, &GameManager::commandExamine, 1, 0, " [object/username]"};
     commandGuideline help = {&GameManager::commandHelp, &GameManager::commandError, 0, 0, ""};
     
-    tableOfCommands.insert({"log-in", login});
-    tableOfCommands.insert({"log-out", logout});
+    tableOfCommands.insert({"login", login});
+    tableOfCommands.insert({"logout", logout});
     tableOfCommands.insert({"create-account", create});
     tableOfCommands.insert({"say", say});
     tableOfCommands.insert({"yell", yell});
@@ -85,7 +84,6 @@ std::string GameManager::commandLogin(const std::string& connectionID, const std
     auto answer = onlineUserManager.login(connectionID, fullCommand[1], fullCommand[2]);
 	switch(answer) {
 		case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN:
-		    //ugly line for testing
 		    world.spawn(getAvatarByUsername(fullCommand[1]), LocationCoordinates{0,0});
 			return "You are now logged in.\n";
 		case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND:
@@ -105,7 +103,6 @@ std::string GameManager::commandLogout(const std::string& connectionID, const st
     auto& avatar = onlineUserManager.getAvatarById(connectionID);
 	switch(answer) {
 		case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_OUT:
-		    //ugly line for testing
             world.kick(avatar);
 			return "You are now logged out.\n";
 		case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE:
@@ -136,7 +133,7 @@ std::string GameManager::commandCreate(const std::string& connectionID, const st
 std::string GameManager::commandAddToActionList(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     bool success = onlineUserManager.onlineUserAddCommandToList(connectionID, fullCommand);
     if(!success) {
-    	return "User is not online.";
+    	return "User is not online.\n";
     }
     //Do nothing, answer only when executing command 
     return "";
@@ -164,9 +161,8 @@ std::string GameManager::commandSay(Avatar& avatar, const std::vector<std::strin
     	if(name == avatar.getName()) {
     		continue;
     	}
-        onlineUserManager.addMessageToUser(name, avatar.getName() + " said: " + fullCommand[1]);
+        onlineUserManager.addMessageToUser(name, avatar.getName() + " said: " + fullCommand[1] + "\n");
     }
-    //onlineUserManager.printTable();
 
 	return "You said: \"" + fullCommand[1] + "\"\n";
 }
@@ -174,12 +170,10 @@ std::string GameManager::commandSay(Avatar& avatar, const std::vector<std::strin
 std::string GameManager::commandYell(Avatar& avatar, const std::vector<std::string>& fullCommand) {
     auto& userNamesInRoom = world.getUserNamesInRange(avatar.getCurrentLocation(), YELL_RANGE);
 
-    //cerr <<"Room List:\n";
     for(auto name : userNamesInRoom){
     	if(name == avatar.getName()) {
     		continue;
     	}
-        //cerr << name << " is in room.\n";
         onlineUserManager.addMessageToUser(name, avatar.getName() + " yelled: " + fullCommand[1] + "\n");
     }
 
@@ -260,7 +254,7 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
     return std::move(map);
 }
 
-//This should just return a User object
+
 std::string GameManager::getUserIDByUsername(const std::string& userName) {
     return onlineUserManager.getConnectionID(userName);
 }

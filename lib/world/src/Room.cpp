@@ -79,9 +79,9 @@ std::string Room::lookForExitName(const std::string &objName) const {
  */
 std::string Room::listExits() const {
 
-	std::string result = " Exits are: \n";
+	std::string result = "Exits are: \n";
 	for(Exit iter: exitsInRoom){
-		result += iter.getExitName() + ", " + iter.CardinalToString() + "\n";
+		result += "- " + iter.getExitName() + ", " + iter.CardinalToString() + "\n";
 	}
 
 	return result;

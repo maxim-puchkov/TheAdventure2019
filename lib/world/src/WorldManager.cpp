@@ -45,9 +45,12 @@ void WorldManager::generateWorld() {
 Room& WorldManager::findRoomByLocation(LocationCoordinates location) {
     if (areas.empty() || location.area < 0 || (unsigned int)location.area >= areas.size())
         throw std::domain_error("Area out of bounds");
+
     auto& areaOfInterest = areas.at((unsigned long)location.area);
+
     if (areaOfInterest.size() < 1 || location.room < 0 || (unsigned int)location.room >= areaOfInterest.size())
         throw std::domain_error("Room out of bounds");
+
     return areaOfInterest.getRoom((unsigned int)location.room);
 }
 
@@ -56,9 +59,10 @@ bool WorldManager::kick(Character& character){
 
     try{
         auto& currentRoom = findRoomByLocation(charLocation);
-
         return currentRoom.removeCharacter(character.getName());
+
     } catch(const std::domain_error& e){
+
         return false;
     }
 }
@@ -77,31 +81,9 @@ bool WorldManager::spawn(Character& character, LocationCoordinates location){
 const std::vector<std::string>& WorldManager::getUserNamesInRoom (LocationCoordinates location) {
     auto& room = findRoomByLocation(location);
     return room.getUserNames();
-    //return getUserNamesInRange(location, 0);
 }
 
 const std::vector<std::string> WorldManager::getUserNamesInRange (LocationCoordinates location, unsigned int range) {
-    /*try {
-        const auto &room = findRoomByLocation(location);
-        const auto& exits = room.getExits();
-
-        auto nameList = std::vector<std::string>{};
-        auto& namesHere = room.getUserNames();
-        nameList.reserve(nameList.size() + namesHere.size());
-        nameList.insert(nameList.end(), namesHere.begin(), namesHere.end());
-
-        for(const auto& exit : exits){
-            auto& nextRoomNames = findRoomByLocation(exit.getTargetLocation()).getUserNames();
-            nameList.reserve(nameList.size() + nextRoomNames.size());
-            nameList.insert(nameList.end(), nextRoomNames.begin(), nextRoomNames.end());
-        }
-
-        return nameList;
-    } catch(const std::domain_error& e){
-        auto nameList = std::vector<std::string>{};
-        return nameList;
-    }*/
-
 
     try {
         auto &roomOfInterest = findRoomByLocation(location);
@@ -118,9 +100,10 @@ const std::vector<std::string> WorldManager::getUserNamesInRange (LocationCoordi
             nameList.reserve(nameList.size() + nextNameList.size());
             nameList.insert(nameList.end(), nextNameList.begin(), nextNameList.end());
         }
-
         return nameList;
+
     } catch(const std::domain_error& e){
+
         return std::vector<std::string>{};
     }
 }
@@ -148,9 +131,7 @@ std::string WorldManager::listExits(const Character& character) {
     try{
 
         auto& currentRoom = findRoomByLocation(currentLocation);
-        std::string result = "Exits are:";
-
-        result.append( currentRoom.listExits() );
+        std::string result = currentRoom.listExits();
 
         return result;
     } catch(const std::domain_error& e){

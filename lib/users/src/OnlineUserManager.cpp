@@ -9,7 +9,8 @@ using user::User;
 using usermanager::OnlineUserManager;
 
 bool OnlineUserManager::insertUser(const std::string &id, const User &user){
-    std::cout << id << "\n";    
+    std::cout << id << "\n";
+    if (getUserByUsername(user.getUserName()) != nullUser) return false;
     bool result = onlineUsers.insert(std::make_pair(id, user)).second;
     return result;
 }

@@ -21,7 +21,6 @@ private:
     std::string roomName;
     std::string roomDescription;
     std::vector<std::string> charactersInRoom;
-    //std::vector<Item> itemsInRoom;
     std::vector<Exit> exitsInRoom;
 
 public:
