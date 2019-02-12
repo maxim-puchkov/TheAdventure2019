@@ -32,9 +32,9 @@ const unsigned int NO_LIMIT = 0;
 class Collection : public Item {
 public:
     
-    Collection(const string &shortDescription) : Item(shortDescription) { }
+    Collection(const string &description) : shortDescription(description) { }
     
-    Collection(Collection &&c) : Item(std::move(c.shortDescription)), items(std::move(c.items)) { }
+    Collection(Collection &&c) : shortDescription(std::move(c.shortDescription)), items(std::move(c.items)) { }
     
     ~Collection() { }
     
@@ -48,17 +48,7 @@ public:
         return this->items;
     }
     
-    string getShortDescription() const override {
-        std::cout << "COLLECTION DESC\n";
-        
-        
-        std::ostringstream oss;
-        oss << "Collection: " << this->shortDescription << std::endl;
-        for (auto& item : this->items) {
-            oss << item.getShortDescription() << std::endl;
-        }
-        return oss.str();
-    }
+    string getShortDescription() const override;
     
     string getLongDescription() const override;
     

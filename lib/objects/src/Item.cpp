@@ -9,22 +9,40 @@
 #include "Item.h"
 #include <iostream>
 
-Item::Item(const string &shortDescription)
-: shortDescription(shortDescription) {
+
+Item::Item() {
     this->id = Identifiers::uid();
 }
 
 
+Item::Item(const string &shortDescription)
+: shortDescription(shortDescription), longDescription(shortDescription) {
+    this->id = Identifiers::uid();
+}
+
+
+Item::Item(const string &shortDescription, const string &longDescription)
+: shortDescription(shortDescription), longDescription(shortDescription) {
+    //Item();
+}
+
+
 Item::Item(const Item &other)
-: shortDescription(std::move(other.shortDescription)) {
+: shortDescription(std::move(other.shortDescription)),
+longDescription(std::move(other.longDescription)) {
     this->id = other.id;
 }
 
 
-Item::Item(Item &&item)
-: shortDescription(std::move(item.shortDescription)) {
-    this->id = item.id;
+Item::Item(Item &&other)
+: shortDescription(std::move(other.shortDescription)),
+longDescription(std::move(other.longDescription)) {
+    this->id = other.id;
 }
+
+
+Item::~Item()
+{ }
 
 
 unsigned long Item::getId() const {
@@ -33,14 +51,17 @@ unsigned long Item::getId() const {
 
 
 string Item::getShortDescription() const {
-    std::cout << "ITEM S DESC\n";
     return this->shortDescription;
 }
 
 
 string Item::getLongDescription() const {
-    std::cout << "ITEM L DESC\n";
     return this->longDescription;
+}
+
+
+void Item::setLongDescription(string &&longDescription) {
+    this->longDescription = std::move(longDescription);
 }
 
 
@@ -61,7 +82,7 @@ bool Item::operator==(const Item &other) const {
 }
 
 
-size_t std::hash<Item>::operator()(const Item& item) const {
+size_t std::hash<Item>::operator()(const Item &item) const {
     return std::hash<unsigned long>{}(item.getId());
 }
 

@@ -7,19 +7,20 @@
 //
 
 #include "Collection.h"
-#include <iostream>
-//
-//string Collection::getShortDescription() const {
-//    std::cout << "COLLECTION DESC\n";
-//
-//    
-//    std::ostringstream oss;
-//    oss << this->shortDescription << std::endl;
-//    for (auto& item : this->items) {
-//        oss << item.getShortDescription() << std::endl;
-//    }
-//    return oss.str();
-//}
+
+string Collection::getShortDescription() const {
+    std::ostringstream oss;
+    oss << "Bag: " << this->shortDescription << std::endl;
+    if (this->items.empty()) {
+        oss << "<empty>" << std::endl;
+        return oss.str();
+    }
+    
+    for (auto& item : this->items) {
+        oss << item.getShortDescription() << std::endl;
+    }
+    return oss.str();
+}
 
 string Collection::getLongDescription() const {
     return "long desc";

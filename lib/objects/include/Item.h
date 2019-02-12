@@ -12,9 +12,11 @@
 #include <string>
 #include <functional>
 #include "Identifiers.h"
+#include <iostream>
 
 using std::string;
 using std::size_t;
+
 
 /**
  *  @class Item
@@ -24,13 +26,17 @@ using std::size_t;
 class Item {
 public:
     
-    Item(const string &description);
+    Item();
+    
+    Item(const string &shortDescription);
+    
+    Item(const string &shortDescription, const string &longDescription);
     
     Item(const Item &item);
     
-    Item(Item &&item);
+    Item(Item &&other);
     
-    virtual ~Item() { };
+    virtual ~Item();
     
     
     
@@ -40,9 +46,9 @@ public:
     
     virtual string getLongDescription() const;
     
-    void setLongDescription(string &&longDescription); /* undefined */
-    
     unsigned long getId() const;
+    
+    void setLongDescription(string &&longDescription);
     
     
     
@@ -64,9 +70,11 @@ private:
     
 };
 
+
 template<>
 struct std::hash<Item> {
-    size_t operator()(const Item& item) const;
+    size_t operator()(const Item &item) const;
 };
+
 
 #endif /* Item_h */

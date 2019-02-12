@@ -1,7 +1,8 @@
 add_library(${libcharacters}
-     src/Character.cpp
+    src/Character.cpp
     src/Avatar.cpp
     src/Attributes.cpp
+    src/Inventory.cpp
 )
 
 target_include_directories(${libcharacters}
