@@ -50,8 +50,6 @@ private:
     std::vector<std::string> messages;
     std::deque<std::vector<std::string>> commands;
 
-    void init();
-    
     std::string name;
     
     std::string password;

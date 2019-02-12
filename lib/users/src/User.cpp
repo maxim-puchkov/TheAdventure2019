@@ -76,10 +76,3 @@ long User::getTimeStamp(){
     return timeStamp;
 }
 
-void User::init() {
-    
-}
-
-void User::test() {
-    std::cout << "Debug: User " << this->name << " created\n";
-}
