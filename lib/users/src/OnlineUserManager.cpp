@@ -9,7 +9,8 @@ using user::User;
 using usermanager::OnlineUserManager;
 
 bool OnlineUserManager::insertUser(const std::string &id, const User &user){
-    std::cout << id << "\n";    
+    std::cout << id << "\n";
+    if (getUserByUsername(user.getUserName()) != nullUser) return false;
     bool result = onlineUsers.insert(std::make_pair(id, user)).second;
     return result;
 }
@@ -40,6 +41,22 @@ User& OnlineUserManager::getUserByUsername(const std::string& userName){
         }
     }
     return nullUser;
+}
+
+Avatar& OnlineUserManager::getAvatarById(const std::string& id){
+    auto& search = getUserById(id);
+    if(search.getUserName() != "") {
+    	return search.getAvatar();
+    }
+    return nullAvatar;
+}
+
+Avatar& OnlineUserManager::getAvatarByUsername(const std::string& userName){
+    auto& search = getUserByUsername(userName);
+    if(search.getUserName() != "") {
+    	return search.getAvatar();
+    }
+    return nullAvatar;
 }
 
 std::string OnlineUserManager::getConnectionID(const std::string& userName) {
@@ -113,13 +130,13 @@ bool OnlineUserManager::onlineUserAddCommandToList(const std::string& id, const 
 
 }
 
-std::vector<std::pair<User, std::vector<std::string>>> OnlineUserManager::getOnlineUserCommandList() {
-    std::vector<std::pair<User, std::vector<std::string>>> commandList;
+std::vector<std::pair<std::string, std::vector<std::string>>> OnlineUserManager::getOnlineUserCommandList() {
+    std::vector<std::pair<std::string, std::vector<std::string>>> commandList;
     for (auto &element : onlineUsers) {
-        auto currentUser = element.second;
+        auto& currentUser = element.second;
         if(currentUser.getCommandSize() > 0) {
-            auto fullCommand = element.second.popCommand();
-            auto userCommandPair = std::make_pair(currentUser, fullCommand);
+            auto fullCommand = currentUser.popCommand();
+            auto userCommandPair = std::make_pair(currentUser.getUserName(), fullCommand);
 
             commandList.push_back(userCommandPair);
         }

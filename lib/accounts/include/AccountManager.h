@@ -53,7 +53,6 @@ class AccountManager {
 
     void updateOnlineStatus();
     OnlineUserManager& getUserManager();
-    // User* getOnlineUser(std::string);
 
     };
 }
