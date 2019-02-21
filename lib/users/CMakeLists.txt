@@ -16,6 +16,8 @@ target_link_libraries(${libusers}
     PUBLIC
         ${libaccounts}
         ${libcharacters}
+	${libparsers}
+	${libuserdb}
     PRIVATE
         ${Boost_LIBRARIES}
 )

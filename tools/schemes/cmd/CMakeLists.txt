@@ -9,13 +9,11 @@ set_target_properties(cmd
     PREFIX ""
 )
 
-find_package(Threads REQUIRED)
-
 target_link_libraries(cmd
     ${libcommands}
 )
 
 install(TARGETS cmd
-    RUNTIME DESTINATION cmd/bin
+    RUNTIME DESTINATION bin
 )
 

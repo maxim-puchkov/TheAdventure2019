@@ -7,7 +7,7 @@
 /**
  * Returns a room at a particular index from an area
  */
-Room Area::getRoom(unsigned int index) const {
+Room& Area::getRoom(unsigned int index) {
     if(index >= rooms.size()){
         //return some invalid room
     }
@@ -18,7 +18,7 @@ void Area::addRoom(Room room){
     rooms.push_back(room);
 }
 
-unsigned int Area::size() const{
+unsigned long Area::size() const{
     return rooms.size();
 }
 

@@ -22,19 +22,6 @@ Avatar::Avatar(const string &username) {
     std::cout << "Debug: Character with name " + this->getName() + " created! -> (c string&) \n";
 }
 
-/*
- Avatar::Avatar(const std::string &name) {
- this->init();
- this->name = name;
- this->appearance = this->createCustomAppearance();
- }
- 
- Avatar::Avatar(const std::string &name, const Custom::Appearance &appearance) {
- this->init();
- this->name = name;
- this->appearance = appearance;
- }
- */
 
 Avatar::~Avatar() { }
 

@@ -14,6 +14,7 @@ target_include_directories(${libaccounts}
 target_link_libraries(${libaccounts}
   PUBLIC
     ${libusers}
+    ${libparsers}
   PRIVATE
     ${Boost_LIBRARIES}
 )

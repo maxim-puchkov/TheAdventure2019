@@ -12,6 +12,7 @@ set_target_properties(chatserver
 find_package(Threads REQUIRED)
 
 target_link_libraries(chatserver
+    ${libgame}
     ${libnetwork}
     ${CMAKE_THREAD_LIBS_INIT}
 )

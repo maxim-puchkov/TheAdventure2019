@@ -2,11 +2,22 @@
 #define ACCOUNTMANAGER_H
 
 #include "User.h"
+#include "OnlineUserManager.h"
 #include <string>
 #include <iostream> 
 
+#include "JsonParser.h"
+#include <unordered_map>
+#include "json.hpp"
+#include <fstream>
 
+using namespace std;
+using nlohmann::json;
 using user::User; 
+
+using usermanager::OnlineUserManager;
+using user::User; 
+
 namespace accountmanager {
 
 class AccountManager {
@@ -23,23 +34,25 @@ class AccountManager {
     };
 
   private:
-    
-    void processUsersJSON();
-    void saveUsersJSON();
+    OnlineUserManager onlineUserMananger;
+    JsonParser jsonParser;
 
+    bool jsonProcessed = false;
+    json users_json;
+    std::string json_filePath = "users.json";
   public:
     AccountManager();
     ~AccountManager();
-    ACCOUNT_CODE login(std::string id, std::string, std::string );
+    ACCOUNT_CODE login(const std::string&, const std::string&, const std::string& );
 
-    ACCOUNT_CODE logOut(std::string);
+    ACCOUNT_CODE logOut(const std::string&);
 
-    ACCOUNT_CODE createUser(std::string, std::string);
+    ACCOUNT_CODE createUser(const std::string&, const std::string&);
 
     bool isOnline();
 
     void updateOnlineStatus();
-    // User* getOnlineUser(std::string);
+    OnlineUserManager& getUserManager();
 
     };
 }

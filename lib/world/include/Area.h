@@ -22,11 +22,11 @@ class Area {
                 : name(rName),
                   description(rDescription)
         {}
-        Room getRoom(unsigned int index) const;
+        Room& getRoom(unsigned int index);
 
         void addRoom(Room room);
 
-        unsigned int size() const;
+        unsigned long size() const;
 
     const std::string &getName() const;
 

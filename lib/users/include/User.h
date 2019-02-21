@@ -22,32 +22,43 @@ public:
     
     ~User();
     
-    string getUserName();
+    const string& getUserName() const;
+    Avatar& getAvatar();
 
-    void setId(int id);
-    int getId();
+    void setId(long int id);
+    long int getId();
 
     void addMessage(std::string message);
 
-    std::queue<std::string>& getMessages();
+    std::vector<std::string>& getMessages();
 
-    void addCommandToList(std::string command);
+    void addCommandToList(std::vector<std::string> command);
 
-    std::queue<std::vector<std::string>>& getCommands();
+    std::deque<std::vector<std::string>>& getCommands();
+
+    std::vector<std::string> popCommand();
     
-    
+    int getCommandSize() const;
+    int getMessageSize() const;
+    void setTimeStamp(const long timeStamp);
+    long getTimeStamp();
+
+    virtual bool operator==(const User &other);
+    virtual bool operator!=(const User &other);
 private:
     //using as connection id
-    int id;
+    long int id;
 
-    std::queue<std::string> messages;
-    std::queue<std::vector<std::string>> commands;
+    std::vector<std::string> messages;
+    std::deque<std::vector<std::string>> commands;
 
     void init();
     
     std::string name;
     
     std::string password;
+
+    long timeStamp;
     
     Avatar avatar;
     

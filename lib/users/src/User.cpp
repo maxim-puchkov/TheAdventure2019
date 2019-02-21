@@ -23,35 +23,61 @@ User::User(const string &name, const string &password, const Avatar &avatar) {
 
 User::~User() = default;
 
-string User::getUserName() {
+const string& User::getUserName() const {
     return this->name;
 }
 
-void User::setId(int id){
+Avatar& User::getAvatar() {
+    return avatar;
+}
+
+void User::setId(long int id){
     this->id = id;
 }
 
-int User::getId() {
-    int myId = this->id;
-    return myId;
+long int User::getId() {
+    return this->id;
 }
 
 void User::addMessage(std::string message) {
-    messages.push(message);
+    messages.push_back(message);
 }
 
-std::queue<std::string>& User::getMessages() {
+std::vector<std::string>& User::getMessages() {
     return messages;
 }
 
-void User::addCommandToList(std::string command){
-    std::vector<std::string> actionParts;
-    boost::split(actionParts, command, boost::is_any_of(" "));
-    commands.push(actionParts);
+void User::addCommandToList(std::vector<std::string> command){
+    commands.push_back(command);
 }
 
-std::queue<std::vector<std::string>>& User::getCommands(){
+std::deque<std::vector<std::string>>& User::getCommands() {
     return commands;
+}
+
+std::vector<std::string> User::popCommand(){
+    std::vector<std::string> command;
+    if(!commands.empty()){
+        command = commands.front();
+        commands.pop_front();
+    }
+    return command;
+}
+
+int User::getCommandSize() const {
+    return commands.size();
+}
+
+int User::getMessageSize() const{
+    return messages.size();
+}
+
+void User::setTimeStamp(const long timeStamp){
+    this->timeStamp = timeStamp;
+}
+
+long User::getTimeStamp(){
+    return timeStamp;
 }
 
 void User::init() {
@@ -62,3 +88,10 @@ void User::test() {
     std::cout << "Debug: User " << this->name << " created\n";
 }
 
+bool User::operator==(const User &other) {
+    return this->name.compare(other.name) == 0;
+}
+
+bool User::operator!=(const User &other) {
+    return this->name.compare(other.name) != 0;
+}

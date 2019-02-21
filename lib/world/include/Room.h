@@ -12,14 +12,15 @@
 #include "Exit.h"
 #include "Character.h"
 #include "LocationCoordinates.h"
+#include <algorithm>
+
 
 class Room {
 
 private:
     std::string roomName;
     std::string roomDescription;
-    std::vector<Character*> charactersInRoom;
-    //std::vector<Item> itemsInRoom;
+    std::vector<std::string> charactersInRoom;
     std::vector<Exit> exitsInRoom;
 
 public:
@@ -28,18 +29,25 @@ public:
               roomDescription("NO_ROOM_DESCRIPTION")
     {}
     Room(std::string rName, std::string rDescription)
-            : roomName(rName),
-              roomDescription(rDescription)
+            : roomName(std::move(rName)),
+              roomDescription(std::move(rDescription))
     {}
-    LocationCoordinates findExitLocation(Exit::CardinalDirection cardinalDirection) const;
-    bool createExit(std::string exitName, std::string exitDescription,
-                    Exit::CardinalDirection cardinalDirection, int areaID, int roomID);
-    bool addCharacter(Character* character);
-    bool removeCharacter(Character* character);
-    std::string lookForName(std::string objName) const;
+    LocationCoordinates findExitLocation(const std::string& cardinalDirection) const;
+    bool createExit(const std::string& exitName, const std::string& exitDescription,
+                    const std::string& cardinalDirection, int areaID, int roomID);
+    bool addCharacter(const std::string &userName);
+    bool removeCharacter(const std::string &userName);
+
+    std::string lookForName(const std::string &objName) const;
+    std::string lookForExitName(const std::string &objName) const;
+    std::string listExits() const;
+
+
     //getters
     std::string getName() const { return roomName; }
     std::string getDescription() const { return roomDescription; }
+    const std::vector<std::string>& getUserNames() const { return charactersInRoom; }
+    const std::vector<Exit>& getExits() const { return exitsInRoom; }
     //setters
     void setName(std::string newName) { roomName = newName; }
     void setDescription(std::string newDescription) { roomDescription = newDescription; }
