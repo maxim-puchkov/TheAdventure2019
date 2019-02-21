@@ -4,6 +4,7 @@ add_library(${libcharacters}
     src/PlayerControlledCharacter.cpp
     src/NonPlayerControlledCharacter.cpp
     src/Attributes.cpp
+    src/AvatarManager.cpp
 )
 
 target_include_directories(${libcharacters}
