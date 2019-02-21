@@ -143,9 +143,11 @@ std::string WorldManager::listExits(const Character& character) {
 std::string WorldManager::look(Character& character) {
     LocationCoordinates location = character.getCurrentLocation();
 
+
     try {
         auto& roomOfInterest = findRoomByLocation(location);
-
+        //testing NPC!!!!
+        roomOfInterest.testNPC();
         return roomOfInterest.getDescription();
     } catch (const std::domain_error &e) {
         return "You've become terribly lost...";
