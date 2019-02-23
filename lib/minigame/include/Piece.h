@@ -8,6 +8,8 @@
 
 #endif //CHESS_PIECE_H
 
+
+
 enum Color{ RED,BLUE,COLORLESS };
 
 enum PieceUnit{
@@ -20,34 +22,39 @@ enum PieceUnit{
     NONE
 };
 
-struct PieceType
-{
 
-    PieceUnit MyId;
-    Color mycolor;
-};
+struct ChessCoordinate {
+    int row;
+    int col;
 
-
-
-
-class Piece{
-public:
-    Piece(int rowPosition, int colPosition, char colCharPosition, PieceType typeOfPiece);
-    int getRowPosition() const;
-    void setRowPosition(int rowPosition);
-    int getColPosition() const;
-    void setColPosition(int colPosition);
-    char getColCharPosition() const;
-    void setColCharPosition(char colCharPosition);
-    PieceType getTypeOfPiece() const;
-    void setTypeOfPiece(PieceType typeOfPiece);
-
-
-private:
-
-    int rowPosition;
-    int colPosition;
-    char colCharPosition;
-    PieceType typeOfPiece;
+    bool operator==(const ChessCoordinate a) const {
+        return ( row == a.row  && col == a.col );
+    }
 
 };
+
+
+class Piece {
+    private:
+        PieceUnit pieceId;
+        Color pieceColor;
+        bool validatePawn(const ChessCoordinate &start, const ChessCoordinate &finish, const Color &target) const;
+        bool validateRook(const ChessCoordinate &start, const ChessCoordinate &finish) const;
+        bool validateBishop(const ChessCoordinate &start, const ChessCoordinate &finish) const;
+        bool validateKnight(const ChessCoordinate &start, const ChessCoordinate &finish) const;
+        bool validateKing(const ChessCoordinate &start, const ChessCoordinate &finish) const ;
+        bool validateQueen(const ChessCoordinate &start, const ChessCoordinate &finish) const;
+
+    public:
+        const PieceUnit getPieceUnit() { return pieceId; };
+        const Color getColor(){ return pieceColor; };
+        bool checkMovementIsValid(const ChessCoordinate &start, const ChessCoordinate &finish,const Color &targetColor) const   ;
+        void updatePiece(Piece &source, Piece &destination);
+
+
+
+        Piece(PieceUnit unit, Color color) :
+            pieceId(unit), pieceColor(color){}
+
+};
+
