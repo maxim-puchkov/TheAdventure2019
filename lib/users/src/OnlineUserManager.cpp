@@ -9,7 +9,12 @@ using user::User;
 using usermanager::OnlineUserManager;
 
 bool OnlineUserManager::insertUser(const std::string &id, const User &user){
+    auto myUser = user;
+    std::cout << "DEBUG\n";
     std::cout << id << "\n";
+    std::cout << myUser.getId();
+    std::cout << "\n";
+    std::cout << "--------------------------------\n";
     if (getUserByUsername(user.getUserName()) != nullUser) return false;
     bool result = onlineUsers.insert(std::make_pair(id, user)).second;
     return result;
@@ -145,6 +150,15 @@ std::vector<std::pair<std::string, std::vector<std::string>>> OnlineUserManager:
     return std::move(commandList);
 }
 
+void OnlineUserManager::removeUnactiveUser(){
+    for (auto &element : onlineUsers) {
+        std::cout << element.second.getUserName();
+        std::cout << "\n";
+        std::cout << element.second.getId();
+        std::cout << "\n";
+    }
+}
+
 
 
 
@@ -154,7 +168,7 @@ std::vector<std::pair<std::string, std::vector<std::string>>> OnlineUserManager:
 OnlineUserManager::USER_CODE OnlineUserManager::login(const std::string& id, const std::string& userName, const std::string& pwd){
     std::cout << "Inside Login\n";
     std::cout << id << "\n";
-    User user = userDB.getUser(userName,pwd);
+    auto user = userDB.getUser(userName,pwd);
     if(user.getUserName() != ""){
         if(!insertUser(id, user)){
             return OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN;

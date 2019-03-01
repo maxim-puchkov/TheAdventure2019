@@ -12,7 +12,6 @@ set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
 #   will not need changes.
 # Or search for ${libNAME} to quickly find all
 #   dependencies on any library.
-set(libaccounts "accounts")
 set(libcharacters "characters")
 set(libcommands "commands")
 set(libgame "game")
