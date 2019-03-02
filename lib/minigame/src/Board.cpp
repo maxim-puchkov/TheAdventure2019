@@ -7,6 +7,7 @@
 #include <iostream>
 #include <assert.h>
 #include <algorithm>
+#include <sstream>
 
 #include "termcolor.hpp"
 
@@ -73,31 +74,29 @@ void Board::initializeGame(vector<vector<Piece>> &boardView) {
 
 }
 
-//Shouldn't be here responsibility of the view
-void Board::drawRow(vector<Piece> &listPieceId) const {
+
+void Board::drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const {
 
     for(Piece iter: listPieceId){
         auto search = PieceLookUp.find( iter.getPieceUnit() );
-        //We also need to know the color.....
 
-        //MOVE THIS TO THE VIEW CLASS BUT LEAVE HERE FOR EASY ACCESS FOR NOW
+        //In future we can have view class and move this here if we have time
         switch(iter.getColor())
         {
             case RED:
-                std::cout << termcolor::red << search->second;
-                std::cout << termcolor::reset;
+                stream << termcolor::red << search->second;
+                stream << termcolor::reset;
                 break;
             case BLUE:
-                std::cout << termcolor::blue << search->second;
-                std::cout << termcolor::reset;
+                stream << termcolor::blue << search->second;
+                stream << termcolor::reset;
                 break;
             default:
-                std::cout << search->second ;
+                stream << search->second ;
         }
 
     }
-
-    std::cout << std::endl;
+    stream << '\n';
 
 }
 
@@ -186,7 +185,6 @@ bool Board::isPathClear(const ChessCoordinate &start, const ChessCoordinate &fin
 
     // You are moving horizontally
     if( start.row == finish.row && start.col != finish.col ){
-        std::cout << "Horizontally \n";
        return checkHorizontalPath(start,finish);
     }
 
@@ -205,26 +203,24 @@ bool Board::isPathClear(const ChessCoordinate &start, const ChessCoordinate &fin
 }
 
 
-
 /////END PRIVATE //////
+std::string Board::drawBoard() const {
 
-void Board::drawBoard() const {
+    std::string rst = "";
+    std::stringstream stream;
 
-    std::cout << "   abcdefgh\n___________\n";
+    stream << "   abcdefgh\n___________\n";
 
     int num = 1;
-    for(vector<Piece> p : boardView){
-        std :: cout << num << "| ";
-        drawRow(p);
+    for(vector<Piece> row : boardView){
+        stream << num << "| ";
+        drawRow(row,stream);
         num++;
     }
-    std::cout << "___________\n";
+    stream << "___________\n";
 
+    return stream.str();
 
-}
-
-char Board::pieceLookUp(Piece piece){
-  return  PieceLookUp.find(piece.getPieceUnit())->second;
 }
 
 
@@ -283,7 +279,6 @@ Board::Board() {
     boardView.reserve(8);
     initializeGame(boardView);
 }
-
 
 
 const std::unordered_map<PieceUnit, char> Board::PieceLookUp = {
