@@ -27,17 +27,15 @@ class OnlineUserManager{
         std::unordered_map<std::string, User> onlineUsers;
         UserDB userDB {};
         User nullUser{"", ""};
-        Avatar nullAvatar{""};
 
-        User& getUserById(const std::string& id);
+        User getUserById(const std::string& id) const;
         User& getUserByUsername(const std::string& userName);
     public:
         bool insertUser(const std::string &id, const User &user);
         User removeUser(const std::string& id);
 
-        Avatar& getAvatarById(const std::string& id);
-        Avatar& getAvatarByUsername(const std::string& userName);
         std::string getConnectionID(const std::string& userName);
+        std::string getUsernameFromConnectionID(const std::string& connectionID) const;
         bool onlineUserAddCommandToList(const std::string& id, const std::vector<std::string>& command);
         std::vector<std::pair<std::string, std::vector<std::string>>> getOnlineUserCommandList();
         std::vector<std::pair<std::string, std::string>> getOnlineUserMessageList();
