@@ -67,14 +67,6 @@ long User::getTimeStamp(){
     return timeStamp;
 }
 
-void User::init() {
-    
-}
-
-void User::test() {
-    std::cout << "Debug: User " << this->name << " created\n";
-}
-
 bool User::operator==(const User &other) {
     return this->name.compare(other.name) == 0;
 }

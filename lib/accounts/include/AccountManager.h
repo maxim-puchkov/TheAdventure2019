@@ -43,6 +43,7 @@ class AccountManager {
   public:
     AccountManager();
     ~AccountManager();
+    
     ACCOUNT_CODE login(const std::string&, const std::string&, const std::string& );
 
     ACCOUNT_CODE logOut(const std::string&);

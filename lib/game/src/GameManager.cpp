@@ -58,11 +58,11 @@ std::string GameManager::extractCommands(const std::string& connectionID, const 
 }
 
 void GameManager::reassembleCommand(std::string fullCommand, std::vector<std::string>& commandParts, std::vector<std::string>& splitByColon) {
-	//Format: <command> <arg> : <optional-text-message> 
+    //Format: <command> <arg> : <optional-text-message> 
     boost::trim_if(fullCommand, boost::is_any_of(" \t"));
     boost::split(splitByColon, fullCommand, boost::is_any_of(":"), boost::token_compress_on);
    
-   	//trim any space before and after ":"
+       //trim any space before and after ":"
     for(auto& text : splitByColon) {
         boost::trim_if(text, boost::is_any_of(" \t"));
     }
@@ -70,7 +70,7 @@ void GameManager::reassembleCommand(std::string fullCommand, std::vector<std::st
 
     //reassemble
     if(splitByColon.size() > 1)
-   		commandParts.push_back(splitByColon[1]);
+           commandParts.push_back(splitByColon[1]);
 }
 
 bool GameManager::commandIsValid(size_t commandPartsSize, size_t splitByColon, commandGuideline guideline) {
@@ -122,23 +122,23 @@ std::string GameManager::commandLogout(const std::string& connectionID, const st
 		default:
             std::cout << "ERROR SHOULD NOT GET HERE! \n";
         break;
-	}
-	//swallow
+    }
+    //swallow
     return "";
 }
 
 std::string GameManager::commandCreate(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     auto answer = onlineUserManager.createUser(fullCommand[1], fullCommand[2]);
-	switch(answer) {
-		case UserDB::DB_CODE::INVALID_USERNAME:
-			return "Error! Invalid username.\n";
-		case UserDB::DB_CODE::ACCOUNT_CREATED:
-			return "Account created. Please log in to play the game.\n";
-		default:
+    switch(answer) {
+        case UserDB::DB_CODE::INVALID_USERNAME:
+            return "Error! Invalid username.\n";
+        case UserDB::DB_CODE::ACCOUNT_CREATED:
+            return "Account created. Please log in to play the game.\n";
+        default:
             std::cout << "ERROR SHOULD NOT GET HERE! \n";
         break;
-	}
-	//swallow
+    }
+    //swallow
     return "";
 }
 
@@ -196,13 +196,13 @@ std::string GameManager::commandSay(const std::string& username, const std::vect
     
     auto& userNamesInRoom = world.getUserNamesInRange(location, SAY_RANGE);
     for(auto name: userNamesInRoom) {
-    	if(name == username) {
-    		continue;
-    	}
+        if(name == username) {
+            continue;
+        }
         onlineUserManager.addMessageToUser(name, username + " said: " + fullCommand[1] + "\n");
     }
 
-	return "You said: \"" + fullCommand[1] + "\"\n";
+    return "You said: \"" + fullCommand[1] + "\"\n";
 }
 
 std::string GameManager::commandYell(const std::string& username, const std::vector<std::string>& fullCommand) {
@@ -293,27 +293,65 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
     	auto connectionID = getUserIDByUsername(username);
     	auto replyMessage = (this->*guideline.heartbeatReply)(username, command);
 
-    	map->insert(std::make_pair(connectionID, replyMessage));
+        map->insert(std::make_pair(connectionID, replyMessage));
     }
 
     //process messages
     auto userMessages = onlineUserManager.getOnlineUserMessageList();
     for (auto& element : userMessages) {
-    	auto& connectionID = element.first;
-    	auto& message = element.second;
+        auto& connectionID = element.first;
+        auto& message = element.second;
 
-	    auto found = map->find(connectionID);
-	    if (found != map->end()) {
-	      (found->second.append("\n")).append(message);
-	    }
-	    else {
-	      map->insert(make_pair(connectionID, message));
-	    }
-	  }
+        auto found = map->find(connectionID);
+        if (found != map->end()) {
+          (found->second.append("\n")).append(message);
+        }
+        else {
+          map->insert(make_pair(connectionID, message));
+        }
+      }
     return std::move(map);
+
+    /*TODO:
+        Get list of top commands of all online users
+        Loop through and process each command
+        Gather return messages and put in the table
+       */
+
+    /* dummyUser implementation for testing
+     *
+     * std::string userID;
+    try {
+        userID = std::to_string(dummy.getId());
+    }catch(std::out_of_range& e){
+        std::cout << e.what();
+        return map;
+    }
+
+    auto& commandQueue = dummy.getCommands();
+    if(!commandQueue.empty()){
+
+        const auto& commandParts = commandQueue.front();
+        const auto& commandName = commandParts.at(0);
+
+        auto found = tableOfCommands.find(commandName);
+        commandGuideline guideline = found->second;
+
+        //calls the command function
+        const auto userMessage = (this->*guideline.heartbeatReply)(&dummy, commandParts);
+
+        map->insert(std::make_pair(userID, userMessage));
+
+        dummy.popCommand();
+    }*/
 }
 
 
 std::string GameManager::getUserIDByUsername(const std::string& userName) {
     return onlineUserManager.getConnectionID(userName);
 }
+
+user::User GameManager::getUser(const std::string& userName) {
+    return onlineUserManager.getUserByUsername(userName);
+}
+
