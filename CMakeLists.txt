@@ -27,7 +27,6 @@ set(libparsers "parsers")
 set(libuserdb "userdb")
 set(libscripts "scripts")
 set(libobjects "objects")
-set(libuser-interface "user-interface")
 set(libminigame "minigame")
 
 
