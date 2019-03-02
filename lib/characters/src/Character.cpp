@@ -9,7 +9,7 @@
 #include "Character.h"
 
 
-Character::Character(string &&name) {
+Character::Character(const string &name) {
     this->name = DEF_CHAR_NAME;
     this->baseAttr = Attributes(DEF_CHAR_HEALTH, DEF_CHAR_DAMAGE);
     //this->inventory = Inventory();

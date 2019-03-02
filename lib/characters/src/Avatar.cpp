@@ -8,7 +8,7 @@
 #include "Avatar.h"
 
 
-Avatar::Avatar(string &&name) : Character(std::move(name)) {
+Avatar::Avatar(const string &name) : Character(name) {
     // this->createCharacter(std::move(name));
     // this->createOnFirstLogin();
 }

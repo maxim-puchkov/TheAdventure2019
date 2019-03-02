@@ -37,7 +37,7 @@ const int DEF_CHAR_DAMAGE = 10;
 class Character {
 public:
     
-    Character(string &&name);
+    Character(const string &name);
     
     virtual ~Character();
     

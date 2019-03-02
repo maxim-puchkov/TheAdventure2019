@@ -28,7 +28,7 @@ class Avatar : public Character {
 public:
         
     // Create new avatar and set up its appearance
-    Avatar(string &&name);
+    Avatar(const string &name);
     
     virtual ~Avatar();
     
