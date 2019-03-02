@@ -1,14 +1,11 @@
-# **!** See below how to run your code only.
-## You should **implement tests** and **compile your code**
-Now you don't need to modify existing game files. Install your class build scheme. Write some tests to make sure
-your dependecies set up correctly. Show how your code works and    ```cout``` your outputs. 
+# Iteration 2
 
 
+# Keep current libraries maintained
+## Always be up to date - clone libraries branch
 
-# Keep current libraries maintained and push your *working* code
-## Always be up to date: you can clone this branch
+    git clone -b libraries https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019.git
 
-    git clone -b libs https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019.git
 
 
 
