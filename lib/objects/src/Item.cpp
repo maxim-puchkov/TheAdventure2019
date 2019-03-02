@@ -10,15 +10,11 @@
 #include <iostream>
 
 
-Item::Item() {
-    this->id = Identifiers::uid();
-}
+Item::Item() { }
 
 
 Item::Item(const string &shortDescription)
-: shortDescription(shortDescription), longDescription(shortDescription) {
-    this->id = Identifiers::uid();
-}
+: shortDescription(shortDescription), longDescription(shortDescription) { }
 
 
 Item::Item(const string &shortDescription, const string &longDescription)

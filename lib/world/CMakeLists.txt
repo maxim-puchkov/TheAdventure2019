@@ -3,7 +3,6 @@ add_library(${libworld}
         src/Room.cpp
         src/WorldManager.cpp
         src/Area.cpp
-        src/Identifiers.cpp
 )
 
 target_include_directories(${libworld}
