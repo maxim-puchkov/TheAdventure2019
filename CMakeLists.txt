@@ -8,10 +8,13 @@ set(PACKAGE_STRING "${PACKAGE_NAME} ${PACKAGE_VERSION}")
 set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
 
 
+
+
 # Declare new libraries here. Other CMakeLists
 #   will not need changes.
 # Or search for ${libNAME} to quickly find all
 #   dependencies on any library.
+
 set(libaccounts "accounts")
 set(libcharacters "characters")
 set(libcommands "commands")
@@ -25,8 +28,14 @@ set(libuserdb "userdb")
 set(libscripts "scripts")
 set(libobjects "objects")
 set(libuser-interface "user-interface")
-
 set(libminigame "minigame")
+
+
+
+
+
+
+# Complier optinos
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-rtti")
@@ -42,16 +51,6 @@ message("Building " ${CMAKE_BUILD_TYPE} ". Try RELEASE when pushing important co
 message("   cmake -DCMAKE_BUILD_TYPE=RELEASE ../adventure2019")
 message("")
 
-
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
-
-
-# And the project header and library paths
-link_directories(${LIBRARY_OUTPUT_PATH})
-set(CMAKE_TEMP_LIBRARY_PATH "${PROJECT_BINARY_DIR}/lib")
 
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
