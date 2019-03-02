@@ -9,17 +9,17 @@ void WorldManager::generateWorld() {
     Area b("Secret area", "Welcome to die.");
 
     Room r1("Room1", "This dark room contains only the number 1");
-    r1.createExit("gate", "goes to room 2", "east", 0, 1);
-    r1.createExit("South Gate", "goes to room 3", "south", 0, 2);
+    r1.createExit("East Gate", "goes to room 2", "east", 0, 1);
+    r1.createExit("South Slide", "goes to room 3. ONE WAY EXIT.", "south", 0, 2);
     a.addRoom(r1);
     Room r2("Room2", "This dark room contains only the number 2");
     r2.createExit("West Gate", "goes to room 1", "west", 0, 0);
     r2.createExit("South Gate", "goes to room 4", "south", 0, 3);
     a.addRoom(r2);
     Room r3("Room3", "This dark room contains only the number 3");
-    r3.createExit("East Gate", "goes to room 4", "east", 0, 3);
+    r3.createExit("East Slide", "goes to room 4. ONE WAY EXIT.", "east", 0, 3);
     r3.createExit("West Gate", "goes to room 6", "west", 0, 5);
-    r3.createExit("South Hidden Passage", "goes to room 1", "south", 0, 0);
+    r3.createExit("South Hidden Passage", "goes to room 1. ONE WAY EXIT.", "south", 0, 0);
     a.addRoom(r3);
     Room r4("Room4", "This dark room contains only the number 4");
     r4.createExit("East Gate", "goes to room 5", "east", 0, 4);
@@ -30,11 +30,12 @@ void WorldManager::generateWorld() {
     r5.createExit("West Gate", "goes to room 4", "west", 0, 3);
     a.addRoom(r5);
     Room r6("Room6", "This dark room contains only the number 6");
-    r6.createExit("West Gate", "goes to area 2", "west", 1, 0);
+    r6.createExit("East Gate", "goes to room 3", "east", 0, 2);
+    r6.createExit("West Bungie Drop", "goes to area 2. ONE WAY EXIT.", "west", 1, 0);
     a.addRoom(r6);
 
     Room r7("Room6", "This secret room contains only the number 1");
-    r7.createExit("West Gate", "goes to area 1", "west", 0, 0);
+    r7.createExit("West Rickety Door", "goes to area 1. ONE WAY EXIT.", "west", 0, 0);
     b.addRoom(r7);
 
     areas.push_back(a);
@@ -126,6 +127,23 @@ std::string WorldManager::listExits(LocationCoordinates location) {
         return result;
     } catch(const std::domain_error& e){
         return "No exits found! uh oh!";
+    }
+}
+
+std::string WorldManager::listPeople(const Character& character) {
+    LocationCoordinates currentLocation = character.getCurrentLocation();
+    try{
+
+        auto& currentRoom = findRoomByLocation(currentLocation);
+        auto& peopleList = currentRoom.getUserNames();
+        std::string result = "People in room: \n";
+        for(auto& charName: peopleList){
+            result += "- " + charName + "\n";
+        }
+
+        return result;
+    } catch(const std::domain_error& e){
+        return "No one else in the room.";
     }
 }
 
