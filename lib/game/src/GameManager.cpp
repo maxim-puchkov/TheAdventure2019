@@ -351,7 +351,7 @@ std::string GameManager::getUserIDByUsername(const std::string& userName) {
     return onlineUserManager.getConnectionID(userName);
 }
 
-user::User GameManager::getUser(const std::string& userName) {
-    return onlineUserManager.getUserByUsername(userName);
-}
+//user::User GameManager::getUser(const std::string& userName) {
+//    return onlineUserManager.getUserByUsername(userName);
+//}
 
