@@ -197,8 +197,11 @@ TEST(BoardTest, Rook){
     isValid = move.readChessMove(input);
     EXPECT_EQ(false,isValid);
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> minigame
 }
 
 TEST(BoardTest, badInput){
@@ -305,7 +308,73 @@ TEST(BoardTest, testBishop){
     EXPECT_EQ(bishop.requestUnit({2,6}),BISHOP);
 
 
+<<<<<<< HEAD
 
 }
 
 // Queen is RookAndBishop combined so we don't really need to test, since we reuse function/method.
+=======
+}
+
+TEST(BoardTest, testKing){
+
+    Board testKing;
+
+
+    PieceUnit  tmp = testKing.requestUnit({0,4});
+    EXPECT_EQ(tmp, KING);
+    testKing.movePiece({1,4},{3,4});
+
+    testKing.movePiece({0,4},{0,5});
+
+    tmp = testKing.requestUnit({0,4});
+    EXPECT_EQ(tmp, KING);
+
+
+    testKing.movePiece({0,4},{1,4});
+    tmp = testKing.requestUnit({1,4});
+    EXPECT_EQ(tmp, KING);
+
+    testKing.movePiece({1,4},{2,4});
+    tmp = testKing.requestUnit({2,4});
+    EXPECT_EQ(tmp, KING);
+
+
+    testKing.movePiece({2,4},{3,5});
+    tmp = testKing.requestUnit({3,5});
+    EXPECT_EQ(tmp, KING);
+
+
+    testKing.movePiece({3,5},{4,4});
+    tmp = testKing.requestUnit({4,4});
+    EXPECT_EQ(tmp, KING);
+
+
+
+    testKing.movePiece({4,4},{4,5});
+    tmp = testKing.requestUnit({4,5});
+    EXPECT_EQ(tmp, KING);
+
+
+
+    testKing.movePiece({4,5},{4,4});
+    tmp = testKing.requestUnit({4,4});
+    EXPECT_EQ(tmp, KING);
+
+
+    testKing.movePiece({4,4},{3,3});
+    tmp = testKing.requestUnit({3,3});
+    EXPECT_EQ(tmp, KING);
+
+
+    testKing.movePiece({3,3},{2,4});
+    tmp = testKing.requestUnit({2,4});
+    EXPECT_EQ(tmp, KING);
+
+
+    testKing.movePiece({2,4},{1,4});
+    tmp = testKing.requestUnit({1,4});
+    EXPECT_EQ(tmp, KING);
+
+}
+>>>>>>> minigame

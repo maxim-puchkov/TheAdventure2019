@@ -52,8 +52,16 @@ int MoveValidator::convertChessRowToInt(char input){
 }
 
 
+<<<<<<< HEAD
 std::string MoveValidator::drawBoard(){
     return "nice board display";
+=======
+//No color
+void MoveValidator::drawBoard() {
+    std::string rst = gameBoard.drawBoard();
+    std::cout << rst << "\n";
+
+>>>>>>> minigame
 }
 
 
@@ -109,7 +117,10 @@ bool MoveValidator::readChessMove(std::string &input) {
     ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> minigame
     return processChessMove( startPos, finishPos );
 }
 

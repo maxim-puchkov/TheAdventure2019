@@ -16,7 +16,7 @@ using std::vector;
 class Board {
 public:
     Board();
-    void drawBoard() const; // SHOULD BE SPERATED INTO ANOTHER CLASS BUT LEAVE HERE FOR NOW THIS IS THE MODEL! Maybe mvc isn't what we want.
+    std::string drawBoard() const; // SHOULD BE SPERATED INTO ANOTHER CLASS BUT LEAVE HERE FOR NOW THIS IS THE MODEL! Maybe mvc isn't what we want.
     char pieceLookUp(Piece piece);
 
     Piece& requestPiece(const ChessCoordinate &position);
@@ -31,7 +31,7 @@ private:
 
    void initializeGame(vector<vector<Piece>> &boardView);
    void createBackRank(Color myColor, vector<vector<Piece>> &boardView) ;
-   void drawRow(vector<Piece> &listPieceId) const;
+   void drawRow(vector<Piece> &listPieceId, std::stringstream&) const;
 
 
    bool checkHorizontalPath(const ChessCoordinate &start, const ChessCoordinate &finish) const;
@@ -39,7 +39,6 @@ private:
    bool checkDiagonalPath(const ChessCoordinate &start, const ChessCoordinate &finish) const;
 
    bool isPathClear(const ChessCoordinate &start, const ChessCoordinate &finish) const;
-
 
 
 
