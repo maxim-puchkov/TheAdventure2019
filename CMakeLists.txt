@@ -16,15 +16,12 @@ set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
 #   dependencies on any library.
 
 set(libcharacters "characters")
-set(libcommands "commands")
 set(libgame "game")
 set(libnetwork "network")
-set(libtypes "types")
 set(libusers "users")
 set(libworld "world")
 set(libparsers "parsers")
 set(libuserdb "userdb")
-set(libscripts "scripts")
 set(libobjects "objects")
 set(libminigame "minigame")
 
