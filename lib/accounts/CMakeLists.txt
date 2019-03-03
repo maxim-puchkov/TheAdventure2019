@@ -1,6 +1,6 @@
 add_library(${libaccounts}
   src/AccountManager.cpp
-)
+        ../time/include/TimeStamp.h)
 
 target_include_directories(${libaccounts}
   PUBLIC

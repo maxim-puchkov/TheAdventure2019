@@ -12,6 +12,7 @@ MiniGameMatch::MiniGameMatch() {
 MiniGameMatch::MiniGameMatch(const std::string& userName) {
     this->adminName = userName;
     this->players.push_back(userName);
+    this->currentPlayerTurn = 0;
     MoveValidator newGame;
     this->game = newGame;
 }
@@ -27,25 +28,58 @@ bool MiniGameMatch::hasPlayer(const std::string& playerName) const{
 bool MiniGameMatch::hasSpectator(const std::string& spectatorName) const{
     if(spectators.empty()) return false;
 
-    auto result = std::find(spectators.begin(), spectators.end(),spectatorName);
+    auto result = std::find(spectators.begin(), spectators.end(), spectatorName);
 
     return result != spectators.end();
 }
 
+bool MiniGameMatch::isPlayersTurn(const std::string& playerName) const{
+    return players.at(currentPlayerTurn) == playerName;
+}
+
 bool MiniGameMatch::makePlayerMove(const std::string& playerName, std::string& move){
-    if(!hasPlayer(playerName)) return false;
+    if(!isPlayersTurn(playerName)) return false;
+
+    currentPlayerTurn = (currentPlayerTurn + 1) % players.size();
 
     return game.readChessMove(move);
+}
+
+bool MiniGameMatch::addPlayer(const std::string& playerName){
+    int maxPlayers = 2; //get this from Game.getMaxPlayers()
+
+    if(players.size() >= maxPlayers) return false;
+
+    players.push_back(playerName);
+
+    return true;
+}
+
+void MiniGameMatch::removePlayer(const std::string& playerName){
+    players.erase(std::remove_if(players.begin(), players.end(),
+                                        [&playerName](std::string& name){return name == playerName;}),
+                         players.end());
+}
+
+unsigned int MiniGameMatch::getCurrentPlayers() const{
+    return players.size();
 }
 
 std::string MiniGameMatch::display(){
     return game.drawBoard();
 }
 
-MoveValidator& MiniGameMatch::getGame() {
+/*MoveValidator& MiniGameMatch::getGame() {
     return this->game;
+}*/
+
+std::string MiniGameMatch::getAdminName() const{
+    return this->adminName;
 }
 
-std::string MiniGameMatch::getAdminName() {
-    return this->adminName;
+std::vector<std::string>& MiniGameMatch::getPlayers(){
+    return players;
+}
+std::vector<std::string>& MiniGameMatch::getSpectators(){
+    return spectators;
 }

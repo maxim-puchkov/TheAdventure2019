@@ -15,7 +15,7 @@ void GameManager::createTableOfCommands() {
     commandGuideline logout = {&GameManager::commandLogout, &GameManager::commandError, 0, 0, ""};
     commandGuideline create = {&GameManager::commandCreate, &GameManager::commandError, 2, 0, " [username] [password]"};
     commandGuideline startgame = {&GameManager::commandAddToActionList, &GameManager::commandStartGame, 0, 0, ""};
-    commandGuideline gamemove = {&GameManager::commandAddToActionList, &GameManager::commandGameMove, 1, 0, " [startpos,endpos]"};
+    commandGuideline minigame = {&GameManager::commandAddToActionList, &GameManager::commandMiniGame, 2, 0, " [command] [argument]"};
     commandGuideline say = {&GameManager::commandAddToActionList, &GameManager::commandSay, 0, 1, ": [message]"};
     commandGuideline yell = {&GameManager::commandAddToActionList, &GameManager::commandYell, 0, 1, ": [message]"};
     commandGuideline tell = {&GameManager::commandAddToActionList, &GameManager::commandTell, 1, 1, " [other-username]: [message]"};
@@ -28,7 +28,7 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"logout", logout});
     tableOfCommands.insert({"create-account", create});
     tableOfCommands.insert({"startgame", startgame});
-    tableOfCommands.insert({"gamemove", gamemove});
+    tableOfCommands.insert({"minigame", minigame});
     tableOfCommands.insert({"say", say});
     tableOfCommands.insert({"yell", yell});
     tableOfCommands.insert({"tell", tell});
@@ -171,20 +171,57 @@ std::string GameManager::commandStartGame(const std::string& username, const std
 
     return "started game\n";
 }
-std::string GameManager::commandGameMove(const std::string& username, const std::vector<std::string>& fullCommand) {
-    auto& playerMatch = miniGameLobby.getMatchWithPlayer(username);
+std::string GameManager::commandMiniGame(const std::string& username, const std::vector<std::string>& fullCommand) {
+    auto& arg1 = fullCommand.at(1);
+    if(arg1 == "move"){
+        auto& playerMatch = miniGameLobby.getMatchWithPlayer(username);
+        if(playerMatch.getAdminName() == "null") {
+            return "you are not a player in any minigames.\n";
+        }
 
-    if(playerMatch.getAdminName() == "null") {
-        return "you are not a player in any minigames.\n";
+        auto move = fullCommand.at(2);
+        if(!playerMatch.makePlayerMove(username, move)) {
+            return "invalid move.\n";
+        }
+
+        return playerMatch.display() + "\n";
+
+    } else if(arg1 == "challenge" || arg1 == "invite") {
+        auto& challengedName = fullCommand.at(2);
+        miniGameLobby.createInvite(username, challengedName);
+
+        return "awaiting response from " + challengedName + "\n";
+    } else if(arg1 == "join" || arg1 == "accept"){
+        if(miniGameLobby.confirmInvite(username)){
+            miniGameLobby.removeInvite(username);
+            auto& playerMatch = miniGameLobby.getMatchWithPlayer(username);
+            auto& playerList = playerMatch.getPlayers();
+            std::string pNames;
+            for(auto& pName : playerList){
+                pNames += pName + ", ";
+            }
+            return "joined game with " + pNames + "\n";
+        }
+        return "Invite does not exist or game is full\n";
+    } else if(arg1 == "quit" || arg1 == "exit"){
+        auto& playerMatch = miniGameLobby.getMatchWithPlayer(username);
+        if(playerMatch.getAdminName() == "null") {
+            return "you are not a player in any minigames.\n";
+        }
+        playerMatch.removePlayer(username);
+        if(playerMatch.getCurrentPlayers() == 0){
+            miniGameLobby.deleteGame(playerMatch.getAdminName());
+        }
+        return "left game";
+
+    } else if (arg1 == "print"){
+        if(fullCommand.at(2) == "games")
+            return miniGameLobby.printGames();
+        if(fullCommand.at(2) == "invites")
+            return miniGameLobby.printInvites();
     }
 
-    std::string move = fullCommand.at(1);
-
-    if(!playerMatch.makePlayerMove(username, move)) {
-        return "invalid move.\n";
-    }
-
-    return playerMatch.display();
+    return "invalid minigame command\n";
 }
 
 std::string GameManager::commandSay(const std::string& username, const std::vector<std::string>& fullCommand) {

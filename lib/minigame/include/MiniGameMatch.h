@@ -18,13 +18,19 @@ public:
 
     bool hasPlayer(const std::string& playerName) const;
     bool hasSpectator(const std::string& playerName) const;
+    bool isPlayersTurn(const std::string& playerName) const;
     bool makePlayerMove(const std::string& playerName, std::string& move);
+    bool addPlayer(const std::string& playerName);
+    void removePlayer(const std::string& playerName);
+    unsigned int getCurrentPlayers() const;
 
     std::string display();
 
-    std::string getAdminName() ;
+    std::string getAdminName() const;
+    std::vector<std::string>& getPlayers();
+    std::vector<std::string>& getSpectators();
 
-    MoveValidator& getGame() ;
+    //MoveValidator& getGame() ;
 
 private:
     std::vector<std::string> players;
@@ -32,6 +38,7 @@ private:
 
     MoveValidator game;
     std::string adminName;
+    unsigned int currentPlayerTurn;
 
 };
 

@@ -73,8 +73,6 @@ bool MoveValidator::processChessMove(const ChessCoordinate &startPos, const Ches
         return false;
     }
 
-
-
     return  gameBoard.movePiece(startPos, finishPos);
 
 }

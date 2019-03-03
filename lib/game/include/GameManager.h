@@ -51,7 +51,7 @@ private:
     
     //heartbeatReply functions
     std::string commandStartGame(const std::string& username, const std::vector<std::string>& fullCommand);
-    std::string commandGameMove(const std::string& username, const std::vector<std::string>& fullCommand);
+    std::string commandMiniGame(const std::string& username, const std::vector<std::string>& fullCommand);
     std::string commandSay(const std::string& username, const std::vector<std::string>& fullCommand);
     std::string commandYell(const std::string& username, const std::vector<std::string>& fullCommand);
     std::string commandTell(const std::string& usernameOfSpeaker, const std::vector<std::string>& fullCommand);

@@ -3,20 +3,32 @@
 
 #include <vector>
 #include <string>
+#include <tuple>
 #include "MiniGameMatch.h"
+//#include "TimeStamp.h"
 
 class MiniGameLobby {
 
 public:
     MiniGameLobby();
 
-    void createGame(const std::string& userName);
+    MiniGameMatch& createGame(const std::string& userName);
+    void deleteGame(const std::string& adminName);
+    void createInvite(const std::string& inviterName, const std::string& invitedName);
+    void clearStaleInvites();
+    bool confirmInvite(const std::string& invitedName);
+    void removeInvite(const std::string& eitherName);
 
-    MiniGameMatch& getMatchWithPlayer(const std::string& playerName) ;
+    MiniGameMatch& getMatchWithPlayer(const std::string& playerName);
+
+    std::string printGames() const;
+    std::string printInvites() const;
 
 private:
     MiniGameMatch nullMatch{};
     std::vector<MiniGameMatch> gameList;
+
+    std::vector<std::tuple<std::string, std::string, long>> pendingInvites; // {inviterName, invitedName, timestamp}
 
 };
 

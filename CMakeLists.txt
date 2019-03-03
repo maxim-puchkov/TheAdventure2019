@@ -22,7 +22,7 @@ set(libusers "users")
 set(libworld "world")
 set(libparsers "parsers")
 set(libuserdb "userdb")
-
+set(libtime "time")
 set(libminigame "minigame")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
