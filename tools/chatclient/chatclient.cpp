@@ -11,7 +11,6 @@
 
 #include "ChatWindow.h"
 #include "Client.h"
-#include "ScriptController.h"
 
 
 int
