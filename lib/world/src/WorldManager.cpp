@@ -148,9 +148,20 @@ std::string WorldManager::listPeople(const Character& character) {
 }
 
 
+<<<<<<< HEAD
 std::string WorldManager::look(LocationCoordinates location) {
     try {
         auto& roomOfInterest = findRoomByLocation(location);
+=======
+std::string WorldManager::look(Character& character) {
+    LocationCoordinates location = character.getCurrentLocation();
+
+
+    try {
+        auto& roomOfInterest = findRoomByLocation(location);
+        //testing NPC!!!!
+        roomOfInterest.testNPC();
+>>>>>>> NPC
         return roomOfInterest.getDescription();
     } catch (const std::domain_error &e) {
         return "You've become terribly lost...";

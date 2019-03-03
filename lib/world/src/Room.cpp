@@ -31,6 +31,10 @@ bool Room::createExit(const std::string& exitName, const std::string& exitDescri
 	return true;
 }
 
+//for NPC
+void Room::testNPC(){
+	npc.debug();
+}
 
 bool Room::addCharacter(const std::string &userName){
 	try{

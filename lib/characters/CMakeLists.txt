@@ -1,6 +1,11 @@
 add_library(${libcharacters}
     src/Character.cpp
     src/Avatar.cpp
+<<<<<<< HEAD
+=======
+    src/PlayerControlledCharacter.cpp
+    src/NPC.cpp
+>>>>>>> NPC
     src/Attributes.cpp
     src/Inventory.cpp
     src/AvatarManager.cpp
