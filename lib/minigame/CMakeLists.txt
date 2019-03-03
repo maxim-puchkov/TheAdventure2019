@@ -5,8 +5,6 @@ add_library(${libminigame}
         src/MiniGameLobby.cpp include/MiniGameLobby.h src/MiniGameMatch.cpp include/MiniGameMatch.h)
 
 
-cmake_minimum_required(VERSION 3.12)
-find_package(Boost 1.68 COMPONENTS system REQUIRED)
 
 
 target_include_directories(minigame
