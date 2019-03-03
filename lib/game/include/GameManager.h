@@ -11,6 +11,7 @@
 #include "User.h"
 #include "OnlineUserManager.h"
 #include "WorldManager.h"
+#include "MiniGameLobby.h"
 #include "Avatar.h"
 #include "LocationCoordinates.h"
 #include "AvatarManager.h"
@@ -23,6 +24,7 @@ class GameManager{
 
 private:
     WorldManager world;
+    MiniGameLobby miniGameLobby;
     OnlineUserManager onlineUserManager{};
     AvatarManager avatarManager;
     user::User getUser(const std::string& userName);
@@ -48,6 +50,8 @@ private:
     std::string commandHelp(const std::string& connectionID, const std::vector<std::string>& fullCommand);
     
     //heartbeatReply functions
+    std::string commandStartGame(const std::string& username, const std::vector<std::string>& fullCommand);
+    std::string commandGameMove(const std::string& username, const std::vector<std::string>& fullCommand);
     std::string commandSay(const std::string& username, const std::vector<std::string>& fullCommand);
     std::string commandYell(const std::string& username, const std::vector<std::string>& fullCommand);
     std::string commandTell(const std::string& usernameOfSpeaker, const std::vector<std::string>& fullCommand);

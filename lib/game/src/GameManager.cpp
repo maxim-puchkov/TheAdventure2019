@@ -4,6 +4,8 @@
 GameManager::GameManager() {
     world = WorldManager{};
     world.generateWorld();
+
+    //miniGameLobby
     
     createTableOfCommands();
 }
@@ -12,6 +14,8 @@ void GameManager::createTableOfCommands() {
     commandGuideline login = {&GameManager::commandLogin, &GameManager::commandError, 2, 0, " [username] [password]"};
     commandGuideline logout = {&GameManager::commandLogout, &GameManager::commandError, 0, 0, ""};
     commandGuideline create = {&GameManager::commandCreate, &GameManager::commandError, 2, 0, " [username] [password]"};
+    commandGuideline startgame = {&GameManager::commandAddToActionList, &GameManager::commandStartGame, 0, 0, ""};
+    commandGuideline gamemove = {&GameManager::commandAddToActionList, &GameManager::commandGameMove, 1, 0, " [startpos,endpos]"};
     commandGuideline say = {&GameManager::commandAddToActionList, &GameManager::commandSay, 0, 1, ": [message]"};
     commandGuideline yell = {&GameManager::commandAddToActionList, &GameManager::commandYell, 0, 1, ": [message]"};
     commandGuideline tell = {&GameManager::commandAddToActionList, &GameManager::commandTell, 1, 1, " [other-username]: [message]"};
@@ -23,6 +27,8 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"login", login});
     tableOfCommands.insert({"logout", logout});
     tableOfCommands.insert({"create-account", create});
+    tableOfCommands.insert({"startgame", startgame});
+    tableOfCommands.insert({"gamemove", gamemove});
     tableOfCommands.insert({"say", say});
     tableOfCommands.insert({"yell", yell});
     tableOfCommands.insert({"tell", tell});
@@ -160,6 +166,27 @@ std::string GameManager::commandHelp(const std::string& connectionID, const std:
 
 //----------------------------------------------
 //heartbeat reply functions
+std::string GameManager::commandStartGame(const std::string& username, const std::vector<std::string>& fullCommand) {
+    miniGameLobby.createGame(username);
+
+    return "started game\n";
+}
+std::string GameManager::commandGameMove(const std::string& username, const std::vector<std::string>& fullCommand) {
+    auto& playerMatch = miniGameLobby.getMatchWithPlayer(username);
+
+    if(playerMatch.getAdminName() == "null") {
+        return "you are not a player in any minigames.\n";
+    }
+
+    std::string move = fullCommand.at(1);
+
+    if(!playerMatch.makePlayerMove(username, move)) {
+        return "invalid move.\n";
+    }
+
+    return playerMatch.display();
+}
+
 std::string GameManager::commandSay(const std::string& username, const std::vector<std::string>& fullCommand) {
     auto location = avatarManager.getAvatarLocation(username);
     if(location.area == -1) {
