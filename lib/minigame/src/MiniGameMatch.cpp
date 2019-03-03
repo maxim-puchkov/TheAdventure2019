@@ -38,8 +38,8 @@ bool MiniGameMatch::makePlayerMove(const std::string& playerName, std::string& m
     return game.readChessMove(move);
 }
 
-std::string MiniGameMatch::display(){
-    return game.drawBoard();
+void MiniGameMatch::display(){
+    game.drawBoard();
 }
 
 MoveValidator& MiniGameMatch::getGame() {

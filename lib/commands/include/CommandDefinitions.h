@@ -10,7 +10,7 @@
 
 #include <vector>
 #include <string>
-#include "AccountManager.h"
+#include <functional>
 
 
 using std::vector;
@@ -22,8 +22,6 @@ using command = std::function<void(arguments)>;
 
 
 namespace accounts {
-
-using accountmanager::AccountManager;
 
     void command_login(arguments args);
     

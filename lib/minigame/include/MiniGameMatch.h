@@ -20,7 +20,7 @@ public:
     bool hasSpectator(const std::string& playerName) const;
     bool makePlayerMove(const std::string& playerName, std::string& move);
 
-    std::string display();
+    void display();
 
     std::string getAdminName() ;
 

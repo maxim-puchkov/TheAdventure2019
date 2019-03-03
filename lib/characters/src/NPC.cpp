@@ -10,8 +10,7 @@
 
 NPC::~NPC() { }
 
-NPC::NPC() {
-    this->createCharacter("Test NPC");
+NPC::NPC() : Character("Test NPC") {
     this->id = 8800;
     this->keywords = {"sylvan","elf","scout"};
     this->shortdesc = "a sylvan elf scout";
