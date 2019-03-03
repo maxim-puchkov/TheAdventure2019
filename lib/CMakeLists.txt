@@ -1,4 +1,3 @@
-add_subdirectory(${libaccounts})
 add_subdirectory(${libcharacters})
 add_subdirectory(${libcommands} EXCLUDE_FROM_ALL)
 add_subdirectory(${libgame})

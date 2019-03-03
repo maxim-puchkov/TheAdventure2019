@@ -279,6 +279,7 @@ std::string GameManager::commandError(const std::string& username, const std::ve
 //-------------------------------------------------
 //heartbeat and other helper functions
 std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
+    onlineUserManager.removeUnactiveUser();
     auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
 
     //process commands

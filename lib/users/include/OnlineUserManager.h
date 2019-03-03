@@ -41,6 +41,7 @@ class OnlineUserManager{
         std::vector<std::pair<std::string, std::string>> getOnlineUserMessageList();
         bool addMessageToUser(const std::string& userName, const std::string& message);
         bool updateUserTimeStamp(const std::string& id, const long timeStamp);
+        void removeUnactiveUser();
         void printTable();
 
 
