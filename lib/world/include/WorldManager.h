@@ -27,7 +27,10 @@ public:
     bool kick(const std::string& characterName, LocationCoordinates location);
     bool spawn(const std::string& characterName, LocationCoordinates location);
     std::string listExits(LocationCoordinates location) ;
+<<<<<<< HEAD
     std::string listPeople(const Character& character);
+=======
+>>>>>>> avatar-manager
     const std::vector<std::string>& getUserNamesInRoom (LocationCoordinates location) ;
     const std::vector<std::string> getUserNamesInRange (LocationCoordinates location, unsigned int range) ;
     LocationCoordinates move(const std::string& characterName, LocationCoordinates location, const std::string& direction) ;

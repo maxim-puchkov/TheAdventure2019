@@ -123,6 +123,7 @@ std::string WorldManager::listExits(LocationCoordinates location) {
     try {
         auto& currentRoom = findRoomByLocation(location);
         std::string result = currentRoom.listExits();
+<<<<<<< HEAD
         return result;
     } catch(const std::domain_error& e){
         return "No exits found! uh oh!";
@@ -140,6 +141,8 @@ std::string WorldManager::listPeople(const Character& character) {
             result += "- " + charName + "\n";
         }
 
+=======
+>>>>>>> avatar-manager
         return result;
     } catch(const std::domain_error& e){
         return "No one else in the room.";

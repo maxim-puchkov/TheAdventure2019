@@ -4,7 +4,11 @@ add_library(${libcharacters}
     src/Avatar.cpp
     src/AvatarManager.cpp
     src/Attributes.cpp
+<<<<<<< HEAD
     src/Inventory.cpp
+=======
+    src/AvatarManager.cpp
+>>>>>>> avatar-manager
 )
 
 target_include_directories(${libcharacters}
