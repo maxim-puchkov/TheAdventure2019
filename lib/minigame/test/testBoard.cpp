@@ -197,11 +197,7 @@ TEST(BoardTest, Rook){
     isValid = move.readChessMove(input);
     EXPECT_EQ(false,isValid);
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> minigame
 }
 
 TEST(BoardTest, badInput){
@@ -308,12 +304,6 @@ TEST(BoardTest, testBishop){
     EXPECT_EQ(bishop.requestUnit({2,6}),BISHOP);
 
 
-<<<<<<< HEAD
-
-}
-
-// Queen is RookAndBishop combined so we don't really need to test, since we reuse function/method.
-=======
 }
 
 TEST(BoardTest, testKing){
@@ -377,4 +367,3 @@ TEST(BoardTest, testKing){
     EXPECT_EQ(tmp, KING);
 
 }
->>>>>>> minigame

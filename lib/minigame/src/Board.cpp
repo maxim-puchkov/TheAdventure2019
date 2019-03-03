@@ -7,10 +7,7 @@
 #include <iostream>
 #include <assert.h>
 #include <algorithm>
-<<<<<<< HEAD
-=======
 #include <sstream>
->>>>>>> minigame
 
 #include "termcolor.hpp"
 
@@ -77,33 +74,6 @@ void Board::initializeGame(vector<vector<Piece>> &boardView) {
 
 }
 
-<<<<<<< HEAD
-//Shouldn't be here responsibility of the view
-void Board::drawRow(vector<Piece> &listPieceId) const {
-
-    for(Piece iter: listPieceId){
-        auto search = PieceLookUp.find( iter.getPieceUnit() );
-        //We also need to know the color.....
-
-        //MOVE THIS TO THE VIEW CLASS BUT LEAVE HERE FOR EASY ACCESS FOR NOW
-        switch(iter.getColor())
-        {
-            case RED:
-                std::cout << termcolor::red << search->second;
-                std::cout << termcolor::reset;
-                break;
-            case BLUE:
-                std::cout << termcolor::blue << search->second;
-                std::cout << termcolor::reset;
-                break;
-            default:
-                std::cout << search->second ;
-        }
-
-    }
-
-    std::cout << std::endl;
-=======
 
 void Board::drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const {
 
@@ -127,7 +97,6 @@ void Board::drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const
 
     }
     stream << '\n';
->>>>>>> minigame
 
 }
 
@@ -216,10 +185,6 @@ bool Board::isPathClear(const ChessCoordinate &start, const ChessCoordinate &fin
 
     // You are moving horizontally
     if( start.row == finish.row && start.col != finish.col ){
-<<<<<<< HEAD
-        std::cout << "Horizontally \n";
-=======
->>>>>>> minigame
        return checkHorizontalPath(start,finish);
     }
 
@@ -238,30 +203,6 @@ bool Board::isPathClear(const ChessCoordinate &start, const ChessCoordinate &fin
 }
 
 
-<<<<<<< HEAD
-
-/////END PRIVATE //////
-
-void Board::drawBoard() const {
-
-    std::cout << "   abcdefgh\n___________\n";
-
-    int num = 1;
-    for(vector<Piece> p : boardView){
-        std :: cout << num << "| ";
-        drawRow(p);
-        num++;
-    }
-    std::cout << "___________\n";
-
-
-}
-
-char Board::pieceLookUp(Piece piece){
-  return  PieceLookUp.find(piece.getPieceUnit())->second;
-}
-
-=======
 /////END PRIVATE //////
 std::string Board::drawBoard() const {
 
@@ -282,7 +223,6 @@ std::string Board::drawBoard() const {
 
 }
 
->>>>>>> minigame
 
 bool Board::movePiece(const ChessCoordinate &start, const ChessCoordinate &finish) {
 
@@ -341,10 +281,6 @@ Board::Board() {
 }
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> minigame
 const std::unordered_map<PieceUnit, char> Board::PieceLookUp = {
         {NONE,         '-'},
         {PAWN,         'P'},

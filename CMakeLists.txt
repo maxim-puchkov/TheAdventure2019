@@ -14,11 +14,7 @@ set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
 #   will not need changes.
 # Or search for ${libNAME} to quickly find all
 #   dependencies on any library.
-<<<<<<< HEAD
 
-set(libaccounts "accounts")
-=======
->>>>>>> kick-unactive-user
 set(libcharacters "characters")
 set(libcommands "commands")
 set(libgame "game")
@@ -27,7 +23,6 @@ set(libtypes "types")
 set(libusers "users")
 set(libworld "world")
 set(libparsers "parsers")
-<<<<<<< HEAD
 set(libuserdb "userdb")
 set(libscripts "scripts")
 set(libobjects "objects")
@@ -35,9 +30,6 @@ set(libminigame "minigame")
 
 
 
-=======
-set(libminigame "minigame")
->>>>>>> minigame
 
 
 

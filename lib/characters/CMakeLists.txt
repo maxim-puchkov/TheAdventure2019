@@ -1,14 +1,10 @@
 add_library(${libcharacters}
     src/Character.cpp
-    src/Avatar.cpp
-<<<<<<< HEAD
-=======
-    src/PlayerControlledCharacter.cpp
     src/NPC.cpp
->>>>>>> NPC
+    src/Avatar.cpp
+    src/AvatarManager.cpp
     src/Attributes.cpp
     src/Inventory.cpp
-    src/AvatarManager.cpp
 )
 
 target_include_directories(${libcharacters}
