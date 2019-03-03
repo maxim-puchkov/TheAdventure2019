@@ -184,7 +184,9 @@ std::string GameManager::commandGameMove(const std::string& username, const std:
         return "invalid move.\n";
     }
 
-    return playerMatch.display();
+    playerMatch.display();
+    
+    return "< player match display >";
 }
 
 std::string GameManager::commandSay(const std::string& username, const std::vector<std::string>& fullCommand) {

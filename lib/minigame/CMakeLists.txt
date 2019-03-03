@@ -2,7 +2,9 @@ add_library(${libminigame}
         src/Board.cpp
         src/MoveValidator.cpp
         src/Piece.cpp
-        src/MiniGameLobby.cpp include/MiniGameLobby.h src/MiniGameMatch.cpp include/MiniGameMatch.h)
+        src/MiniGameLobby.cpp
+        src/MiniGameMatch.cpp
+        )
 
 
 
