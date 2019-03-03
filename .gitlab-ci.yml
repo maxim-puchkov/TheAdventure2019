@@ -2,8 +2,8 @@ image: nsumner/cmpt373:projectbase
 
 stages:
   - build
-  - test
   - analyze
+  - test
 
 build:
   stage: build
