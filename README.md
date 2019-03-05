@@ -1,22 +1,24 @@
-# Iteration 2 overview
+# Faworki
 
+### Iteration Overview
 * [_Libraries_ branch](#libraries)
-
     * [Build & Run code](#run-chat-server-and-chat-client)
-
 * [Compiler warnings](#warnings)
-
 * [Progress checklist](#progress)
 
 
+
+
+
+
+### Quick Links
+
+* View [class schedule](http://www.cs.sfu.ca/~wsumner/teaching/373/19/schedule.html)
+* Make a [submission](https://coursys.sfu.ca/2019sp-cmpt-373-d1/)
+* Read [email archive](http://www.cs.sfu.ca/CourseCentral/Hypermail/cmpt-373/)
+
+
 > _Feb 16 - Mar 15_
-
-
-
-
-
-
-
 
 &nbsp;
 #  _Libraries_ 
@@ -26,13 +28,14 @@
 * Clone _libraries_ branch
 
         git clone -b libraries https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019.git
+        
+* View latest changes
+
+        git checkout tags/lib/0.3
 
 * Follow [instuctions](#run-chat-server-and-chat-client) to test your code
-
 * Commit compilable code
-
-* Resolve known [compiler warnings](#warnings)
-
+* Resolve known [{-compiler warnings-}](#warnings)
 * View the [checklist](#progress)
 
 > Original [README.md](https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/tree/master/lib/network)
@@ -312,10 +315,13 @@ chat on the server via web sockets in browsers that support web sockets.
 
 
 
-### ...
-* [ ] .........
-
-
-
-
+## {+Updated+} Requirements
+* [ ] Users with required permissions may temporarily __swap bodies__ with another character.
+* [ ] Users may __confuse__ another player, changing all messages sent to that user to gibberish.
+* [ ] When in combat, create a copy of user's character that will fight another character with __decoy__.
+* [ ] Combat may be initiated against __another player__.
+* [ ] Examine __ambiguity__ of names. Names of characters, objects, areas, etc, must be unique.
+* [ ] World must be able to __reset__.
+* [ ] Characters must be able to engage in __combat__.
+* [ ] __Roles__ must be fliexible and changable in-game.
 
