@@ -151,7 +151,7 @@ bool Piece::checkMovementIsValid(const ChessCoordinate &start, const ChessCoordi
         case NONE:
             return false;
         default:
-            assert(-1 && "Somehow there is an invalid piece");
+            assert(false && "Somehow there is an invalid piece");
     }
 
     return false;
