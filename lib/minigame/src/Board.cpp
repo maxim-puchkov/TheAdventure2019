@@ -191,7 +191,6 @@ bool Board::isPathClear(const ChessCoordinate &start, const ChessCoordinate &fin
 /////END PRIVATE //////
 std::string Board::drawBoard() const {
 
-    std::string rst = "";
     std::stringstream stream;
 
     stream << "   abcdefgh\n___________\n";
