@@ -53,9 +53,8 @@ int MoveValidator::convertChessRowToInt(char input){
 
 
 std::string MoveValidator::drawBoard(){
-    return "nice board display";
+    return gameBoard.drawBoard();
 }
-
 
 /**
  * Checks to see if the input is valid.
@@ -92,8 +91,6 @@ bool MoveValidator::readChessMove(std::string &input) {
     boost::split(result,input,boost::is_any_of(","));
 
     if(result.size() > 2  || result.at(0).size() != 2 || result.at(1).size() != 2 ){
-        //print out error message
-        std::cout << "Invalid input !!!! \n";
         return false;
     }
 

@@ -56,7 +56,6 @@ bool Piece::validatePawn(const ChessCoordinate &start, const ChessCoordinate &fi
 
 }
 
-
 /**
  * Check's to see if the Rook can move in this way, Path checked in Board.cpp already
  */
@@ -73,7 +72,6 @@ bool Piece::validateRook(const ChessCoordinate &start, const ChessCoordinate &fi
 
     return false;
 }
-
 
 bool Piece::validateKnight(const ChessCoordinate &start, const ChessCoordinate &finish) const {
 
@@ -129,7 +127,6 @@ void Piece::updatePiece(Piece &source, Piece &destination) {
 
     source.pieceId = NONE;
     source.pieceColor = COLORLESS;
-
 }
 
 
@@ -154,7 +151,7 @@ bool Piece::checkMovementIsValid(const ChessCoordinate &start, const ChessCoordi
         case NONE:
             return false;
         default:
-            assert(-1);
+            assert(false && "Somehow there is an invalid piece");
     }
 
     return false;
