@@ -132,7 +132,7 @@ chat on the server via web sockets in browsers that support web sockets.
         
         [-Wreturn-stack-address]
         return char_filePath;
-        ^~~~~~~~~~~~~
+               ^~~~~~~~~~~~~
         
 * OnlineUserManager.cpp:103:12: 
 
@@ -186,26 +186,26 @@ chat on the server via web sockets in browsers that support web sockets.
 
 ### Interaction
 
-* [ ] A user must be able to interact with the world by typing commands into a chat-like interface.
-* [ ] Commands from all users are collected and buffered (to a bounded length) by the server.
-* [ ] At fixed intervals or heartbeats, the server will take the first command each active user's buffer and execute it.
-* [ ] The order between different user's commands is nondeterministic.
-* [ ] Possible messages to users are buffered and then sent back to users once all updates have completed.
-* [ ] Performance of the overall system should scale with impercetible delay for a reasonable number of users.
+* [x] A user must be able to interact with the world by typing commands into a chat-like interface.
+* [x] Commands from all users are collected and buffered (to a bounded length) by the server.
+* [x] At fixed intervals or heartbeats, the server will take the first command each active user's buffer and execute it.
+* [x] The order between different user's commands is nondeterministic.
+* [x] Possible messages to users are buffered and then sent back to users once all updates have completed.
+* [x] Performance of the overall system should scale with impercetible delay for a reasonable number of users.
 
 
 
 
 ### Users, Avatars, Characters, and Worlds
 
-* [ ] A user connecting to the system will either create a new account or log into an existing account with a username and password.
-* [ ] A user experiences the simulated world through the eyes of their avatar. This is a character representation of the user in the world.
+* [x] A user connecting to the system will either create a new account or log into an existing account with a username and password.
+* [x] A user experiences the simulated world through the eyes of their avatar. This is a character representation of the user in the world.
 * [ ] The first time a users logs in, they will go through a process of creating and customizing their avatar.
 * [ ] An avatar will always exist at a particular location in the world called a room.
-* [ ] A room has at least a name and a description. It can contain characters, objects, more detailed descriptions, and other things of interest.
-* [ ] Rooms can be connected to other rooms either by cardinal and ordinal directions, up and down directions, and custom room specific directions.
+* [x] A room has at least a name and a description. It can contain characters, objects, more detailed descriptions, and other things of interest.
+* [x] Rooms can be connected to other rooms either by cardinal and ordinal directions, up and down directions, and custom room specific directions.
 * [ ] The connections between rooms via the directions can be arbitrary. They need not correspond to a Euclidean spatial model or be bidirectional.
-* [ ] The world can be divided into collections of rooms called areas.
+* [x] The world can be divided into collections of rooms called areas.
 * [ ] Characters need not only be users. There may be non-user characters in the world. These may be interacted with in a variety of ways.
 * [ ] Every so often (configurably), an area will reset. This will perform some basic maintenance in order to make sure that the world continues to be usable by additional users.
 * [ ] Characters can have quantified and boolean attributes that will determine how they interact with the world.
@@ -217,9 +217,9 @@ chat on the server via web sockets in browsers that support web sockets.
 
 ### Communication
 
-* [ ] A character can communicate with other users in a room by saying something. For instance, say Howdy! will display a message to all other characters in the room containing <username> says "Howdy!".
+* [x] A character can communicate with other users in a room by saying something. For instance, say Howdy! will display a message to all other characters in the room containing <username> says "Howdy!".
 * [ ] A character can yell, which will be loud enough to be heard in adjacent rooms.
-* [ ] A character can tell another character something, which can be heard by only the other user.
+* [x] A character can tell another character something, which can be heard by only the other user.
 
 
 
@@ -228,7 +228,7 @@ chat on the server via web sockets in browsers that support web sockets.
 
 * [ ] A characters can go in any direction that is valid in a room. Some conditions may make going in a direction fail.
 * [ ] As shorthand for going in a cardinal, ordinal, or vertical direction, the direction name itself can be used as a command: north, south, east, west, northeast, southeast, northwest, southwest, up, down.
-* [ ] A character may look at or examine other characters or items in the room.
+* [x] A character may look at or examine other characters or items in the room.
 * [ ] looking without an argument will look at the room itself and present the name and description of the room as well as a short description of the characters, objects, and cardinal/ordinal/vertical exits within the room.
 * [ ] A room may have special keywords that when looked at provide deeper description.
 * [ ] A character may try to get or take an object in the current room or from within a container object in the current room.
