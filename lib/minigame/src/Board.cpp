@@ -16,7 +16,7 @@ void Board::createBackRank(Color color, vector<vector<Piece>> &boardView) {
 
     vector<Piece> tmp;
     tmp.reserve(8);
-    
+
         tmp.emplace_back(Piece{ROOK,color});
         tmp.emplace_back(Piece{KNIGHT,color});
         tmp.emplace_back(Piece{BISHOP,color});
@@ -165,7 +165,6 @@ bool Board::checkDiagonalPath(const ChessCoordinate &start, const ChessCoordinat
  */
 bool Board::isPathClear(const ChessCoordinate &start, const ChessCoordinate &finish) const {
 
-
     int diffRow = abs( finish.row - start.row);
     int diffCol = abs( finish.col - start.col);
 
@@ -183,7 +182,6 @@ bool Board::isPathClear(const ChessCoordinate &start, const ChessCoordinate &fin
     else if( diffRow == diffCol ){
         return checkDiagonalPath(start,finish);
     }
-
 
 
     return false;
@@ -209,20 +207,12 @@ std::string Board::drawBoard() const {
     return stream.str();
 }
 
-char Board::pieceLookUp(Piece piece){
-  return  PieceLookUp.find(piece.getPieceUnit())->second;
-}
-
 
 bool Board::movePiece(const ChessCoordinate &start, const ChessCoordinate &finish) {
 
-    //Perhaps have to requestPieces??????
+
     Piece &sourcePiece = requestPiece(start);
     Piece &targetPiece = requestPiece(finish);
-
- //   std::cout << " sourcePiece is a " << pieceLookUp(sourcePiece) << " \n"; //debug
- //   std::cout << " targetPiece is a " << pieceLookUp(targetPiece) << " \n"; //debug
-
 
     if( ( sourcePiece.getColor() == targetPiece.getColor() ) || sourcePiece.getPieceUnit() == NONE    ){
         std::cout << "ERROR MOVING PIECE OF SAME UNIT ON TOP OF ITSELF OR ATTEMPTING TO MOVE NOTHING \n";
@@ -240,8 +230,6 @@ bool Board::movePiece(const ChessCoordinate &start, const ChessCoordinate &finis
 
     if(isValid){
         sourcePiece.updatePiece(sourcePiece,targetPiece);
-     //   std::cout << "Updated start unit is : " << pieceLookUp(  requestPiece(start) ) << "\n";
-     //   std::cout << "Updated finish unit is : " << pieceLookUp( requestPiece(finish) ) << " \n"; //debug
         return true;
     } else{
         return false;
@@ -262,7 +250,6 @@ const PieceUnit Board::requestUnit(const ChessCoordinate &position) const {
     Piece a = boardView.at(position.row).at(position.col);
     return a.getPieceUnit();
 }
-
 
 //Constructor
 Board::Board() {
