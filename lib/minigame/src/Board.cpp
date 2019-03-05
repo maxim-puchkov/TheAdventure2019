@@ -73,32 +73,29 @@ void Board::initializeGame(vector<vector<Piece>> &boardView) {
 
 }
 
-//Shouldn't be here responsibility of the view
-void Board::drawRow(vector<Piece> &listPieceId) const {
 
+std::string Board::drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const {
     for(Piece iter: listPieceId){
         auto search = PieceLookUp.find( iter.getPieceUnit() );
-        //We also need to know the color.....
 
-        //MOVE THIS TO THE VIEW CLASS BUT LEAVE HERE FOR EASY ACCESS FOR NOW
+        //In future we can have view class and move this here if we have time
         switch(iter.getColor())
         {
             case RED:
-                std::cout << termcolor::red << search->second;
-                std::cout << termcolor::reset;
+                stream << termcolor::red << search->second;
+                stream << termcolor::reset;
                 break;
             case BLUE:
-                std::cout << termcolor::blue << search->second;
-                std::cout << termcolor::reset;
+                stream << termcolor::blue << search->second;
+                stream << termcolor::reset;
                 break;
             default:
-                std::cout << search->second ;
+                stream << search->second ;
         }
 
     }
-
-    std::cout << std::endl;
-
+    stream << '\n';
+    return stream.str();
 }
 
 /**

@@ -9,6 +9,7 @@
 #include <array>
 #include "Piece.h"
 #include <unordered_map>
+#include <sstream>
 
 using std::vector;
 
@@ -31,7 +32,7 @@ private:
 
    void initializeGame(vector<vector<Piece>> &boardView);
    void createBackRank(Color myColor, vector<vector<Piece>> &boardView) ;
-   void drawRow(vector<Piece> &listPieceId) const;
+   std::string drawRow(vector<Piece> &listPieceId, std::stringstream &strean) const;
 
 
    bool checkHorizontalPath(const ChessCoordinate &start, const ChessCoordinate &finish) const;
