@@ -170,7 +170,6 @@ bool Board::isPathClear(const ChessCoordinate &start, const ChessCoordinate &fin
 
     // You are moving horizontally
     if( start.row == finish.row && start.col != finish.col ){
-        std::cout << "Horizontally \n";
        return checkHorizontalPath(start,finish);
     }
 
@@ -214,7 +213,6 @@ bool Board::movePiece(const ChessCoordinate &start, const ChessCoordinate &finis
     Piece &targetPiece = requestPiece(finish);
 
     if( ( sourcePiece.getColor() == targetPiece.getColor() ) || sourcePiece.getPieceUnit() == NONE    ){
-        std::cout << "ERROR MOVING PIECE OF SAME UNIT ON TOP OF ITSELF OR ATTEMPTING TO MOVE NOTHING \n";
         return false;
     }
 
