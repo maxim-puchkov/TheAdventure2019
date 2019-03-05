@@ -17,7 +17,7 @@ using std::vector;
 class Board {
 public:
     Board();
-    void drawBoard() const; // SHOULD BE SPERATED INTO ANOTHER CLASS BUT LEAVE HERE FOR NOW THIS IS THE MODEL! Maybe mvc isn't what we want.
+    std::string drawBoard() const; // SHOULD BE SPERATED INTO ANOTHER CLASS BUT LEAVE HERE FOR NOW THIS IS THE MODEL! Maybe mvc isn't what we want.
     char pieceLookUp(Piece piece);
 
     Piece& requestPiece(const ChessCoordinate &position);

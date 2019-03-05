@@ -53,9 +53,8 @@ int MoveValidator::convertChessRowToInt(char input){
 
 
 std::string MoveValidator::drawBoard(){
-    return "nice board display";
+    return gameBoard.drawBoard();
 }
-
 
 /**
  * Checks to see if the input is valid.

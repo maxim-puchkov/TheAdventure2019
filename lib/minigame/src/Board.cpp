@@ -7,40 +7,28 @@
 #include <iostream>
 #include <assert.h>
 #include <algorithm>
-
 #include "termcolor.hpp"
 
 
-
-template <typename T>
-void printCont(T const& container){
-
-    for(auto it = container.begin() ; it!=container.end() ; it++){
-        std::cout << *it << ' ';
-    }
-    std::cout << std::endl;
-
-}
 
 //Private Functions
 void Board::createBackRank(Color color, vector<vector<Piece>> &boardView) {
 
     vector<Piece> tmp;
     tmp.reserve(8);
+    
+        tmp.emplace_back(Piece{ROOK,color});
+        tmp.emplace_back(Piece{KNIGHT,color});
+        tmp.emplace_back(Piece{BISHOP,color});
 
 
-        tmp.push_back(Piece{ROOK,color});
-        tmp.push_back(Piece{KNIGHT,color});
-        tmp.push_back(Piece{BISHOP,color});
+        tmp.emplace_back(Piece{QUEEN,color});
+        tmp.emplace_back(Piece{KING,color});
 
 
-        tmp.push_back(Piece{QUEEN,color});
-        tmp.push_back(Piece{KING,color});
-
-
-        tmp.push_back(Piece{BISHOP,color});
-        tmp.push_back(Piece{KNIGHT,color});
-        tmp.push_back(Piece{ROOK,color});
+        tmp.emplace_back(Piece{BISHOP,color});
+        tmp.emplace_back(Piece{KNIGHT,color});
+        tmp.emplace_back(Piece{ROOK,color});
 
 
     boardView.push_back(tmp);
@@ -78,11 +66,11 @@ std::string Board::drawRow(vector<Piece> &listPieceId, std::stringstream &stream
     for(Piece iter: listPieceId){
         auto search = PieceLookUp.find( iter.getPieceUnit() );
 
-        //In future we can have view class and move this here if we have time
+        //Since printing out color doesn't work, we will make 1 side lower case
         switch(iter.getColor())
         {
             case RED:
-                stream << termcolor::red << search->second;
+                stream << termcolor::red << (char)tolower(search->second);
                 stream << termcolor::reset;
                 break;
             case BLUE:
@@ -201,23 +189,24 @@ bool Board::isPathClear(const ChessCoordinate &start, const ChessCoordinate &fin
     return false;
 }
 
-
-
 /////END PRIVATE //////
 
-void Board::drawBoard() const {
+std::string Board::drawBoard() const {
 
-    std::cout << "   abcdefgh\n___________\n";
+    std::string rst = "";
+    std::stringstream stream;
+
+    stream << "   abcdefgh\n___________\n";
 
     int num = 1;
-    for(vector<Piece> p : boardView){
-        std :: cout << num << "| ";
-        drawRow(p);
+    for(vector<Piece> row : boardView){
+        stream << num << "| ";
+        drawRow(row,stream);
         num++;
     }
-    std::cout << "___________\n";
+    stream << "___________\n";
 
-
+    return stream.str();
 }
 
 char Board::pieceLookUp(Piece piece){
