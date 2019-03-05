@@ -54,9 +54,6 @@ TEST(BoardTest,  pawn){
     EXPECT_EQ(true,isValid);
 
     //Now move the attempt to move the pawns directly on top of each other, should be invalid.
-
-    std::cout << move.drawBoard();
-
     input = "h4,h5";
     isValid = move.readChessMove(input);
     EXPECT_EQ(true,!isValid);

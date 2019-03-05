@@ -18,7 +18,6 @@ class Board {
 public:
     Board();
     std::string drawBoard() const; // SHOULD BE SPERATED INTO ANOTHER CLASS BUT LEAVE HERE FOR NOW THIS IS THE MODEL! Maybe mvc isn't what we want.
-    char pieceLookUp(Piece piece);
 
     Piece& requestPiece(const ChessCoordinate &position);
     const PieceUnit requestUnit(const ChessCoordinate &position) const;
@@ -28,20 +27,15 @@ public:
 private:
     vector< vector<Piece> > boardView;
 
-
-
    void initializeGame(vector<vector<Piece>> &boardView);
    void createBackRank(Color myColor, vector<vector<Piece>> &boardView) ;
-   std::string drawRow(vector<Piece> &listPieceId, std::stringstream &strean) const;
+   std::string drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const;
 
 
    bool checkHorizontalPath(const ChessCoordinate &start, const ChessCoordinate &finish) const;
    bool checkVerticalPath(const ChessCoordinate &start, const ChessCoordinate &finish) const;
    bool checkDiagonalPath(const ChessCoordinate &start, const ChessCoordinate &finish) const;
-
    bool isPathClear(const ChessCoordinate &start, const ChessCoordinate &finish) const;
-
-
 
 
    const static std::unordered_map <PieceUnit, char> PieceLookUp;

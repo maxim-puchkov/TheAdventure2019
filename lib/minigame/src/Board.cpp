@@ -187,8 +187,8 @@ bool Board::isPathClear(const ChessCoordinate &start, const ChessCoordinate &fin
     return false;
 }
 
-/////END PRIVATE //////
 
+/////END PRIVATE //////
 std::string Board::drawBoard() const {
 
     std::string rst = "";
@@ -236,7 +236,6 @@ bool Board::movePiece(const ChessCoordinate &start, const ChessCoordinate &finis
     }
 
 }
-
 
 /**
  *  Enter's in a coordinate and returns the piece at that location
