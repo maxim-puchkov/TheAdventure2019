@@ -255,7 +255,7 @@ chat on the server via web sockets in browsers that support web sockets.
 ### Combat
 
 * [ ] Users should be able to start fights with non-user characters by attacking them or trying to kill them.
-* [ ] Upon doing so, the user enters a combat state that only ends when one of the participants loses or flees to a random neighboring * [ ] room.
+* [ ] Upon doing so, the user enters a combat state that only ends when one of the participants loses or flees to a random neighboring room.
 * [ ] While in the combat state, a round of combat will run once every configurable number of heartbeats.
 * [ ] In a single round of combat, both participants do a calculated amount of damage to each other.
 * [ ] Attempts to leave the room or escape combat other than fleeing fail.
