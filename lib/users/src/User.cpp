@@ -8,27 +8,14 @@ using std::string;
 User::User(const string &name, const string &password) {
     this->name = name;
     this->password = password;
-    this->avatar = Avatar(name);
     
-    this->test();
-}
-
-User::User(const string &name, const string &password, const Avatar &avatar) {
-    this->name = name;
-    this->password = password;
-    this->avatar = avatar;
-    
-    this->test();
+    //this->test();
 }
 
 User::~User() = default;
 
-const string& User::getUserName() const {
+string User::getUserName() const {
     return this->name;
-}
-
-Avatar& User::getAvatar() {
-    return avatar;
 }
 
 void User::setId(long int id){
