@@ -10,6 +10,11 @@
 #include "termcolor.hpp"
 
 
+//getters and setters
+const Piece Board::getPieceKilled() const {
+    return lastPieceKilled;
+}
+
 
 //Private Functions
 void Board::createBackRank(Color color, vector<vector<Piece>> &boardView) {
@@ -205,7 +210,6 @@ std::string Board::drawBoard() const {
     return stream.str();
 }
 
-
 bool Board::movePiece(const ChessCoordinate &start, const ChessCoordinate &finish) {
 
 
@@ -215,7 +219,6 @@ bool Board::movePiece(const ChessCoordinate &start, const ChessCoordinate &finis
     if( ( sourcePiece.getColor() == targetPiece.getColor() ) || sourcePiece.getPieceUnit() == NONE    ){
         return false;
     }
-
 
     // If Piece is a Knight path is meaningless since they can jump over units
     bool pathClear = (sourcePiece.getPieceUnit() == KNIGHT);
@@ -227,6 +230,7 @@ bool Board::movePiece(const ChessCoordinate &start, const ChessCoordinate &finis
 
     if(isValid){
         sourcePiece.updatePiece(sourcePiece,targetPiece);
+        lastPieceKilled.setPiece( targetPiece.getPieceUnit() , targetPiece.getColor() );
         return true;
     } else{
         return false;
@@ -251,8 +255,9 @@ const PieceUnit Board::requestUnit(const ChessCoordinate &position) const {
 Board::Board() {
     boardView.reserve(8);
     initializeGame(boardView);
-}
+    lastPieceKilled = Piece{NONE,COLORLESS};
 
+}
 
 
 const std::unordered_map<PieceUnit, char> Board::PieceLookUp = {

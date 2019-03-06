@@ -7,10 +7,8 @@
 #include <iostream>
 
 
-
 /**
  * Converts a column to a integer Ex. the move a2 will convert the 'a' into a 0
- *
  */
 int MoveValidator::convertCharColToInt(char input){
 
@@ -51,7 +49,10 @@ int MoveValidator::convertChessRowToInt(char input){
     return result - 1;
 }
 
-
+/**
+ *
+ * @return A string that you can use to draw the board
+ */
 std::string MoveValidator::drawBoard(){
     return gameBoard.drawBoard();
 }
@@ -74,6 +75,35 @@ bool MoveValidator::processChessMove(const ChessCoordinate &startPos, const Ches
 
     return  gameBoard.movePiece(startPos, finishPos);
 
+}
+
+
+
+bool MoveValidator::isGameFinished() const {
+
+    const Piece &a = gameBoard.getPieceKilled();
+    if(a.getPieceUnit() == KING){
+        return true;
+    }
+
+}
+
+//Should be called after isGameFinished.
+std::string& MoveValidator::gameOverMessage() {
+
+    std::string stream = "";
+    const Piece &piece = gameBoard.getPieceKilled();
+
+    if(piece.getPieceUnit() != KING){
+        stream = "King isn't dead!, try calling isGameFinished first before calling this function";
+    }
+    else if( piece.getColor() == RED ){
+        stream = "team lower case has won the game ";
+    } else {
+        stream = "team upper case has won the game ";
+    }
+
+    return stream;
 }
 
 
