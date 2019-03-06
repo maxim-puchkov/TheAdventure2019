@@ -1,10 +1,19 @@
 #include <stdexcept>
 #include <iostream>
 #include "WorldManager.h"
+#include "AreaGenerator.h"
 
 WorldManager::WorldManager() {}
 
 void WorldManager::generateWorld() {
+
+    // *** AREA GENERATION TEST CODE ***
+    AreaGenerator areaGen;
+    std::string filePath = "mirkwood.json";
+    areaGen.getArea(filePath);
+
+    // *********************************
+
     Area a("Starting Area", "Welcome to adventure.");
     Area b("Secret area", "Welcome to die.");
 

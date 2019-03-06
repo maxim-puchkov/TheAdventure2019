@@ -145,10 +145,6 @@ std::vector<std::pair<std::string, std::vector<std::string>>> OnlineUserManager:
     return std::move(commandList);
 }
 
-
-
-
-
 // ******* Functions that Uses UserDB *******
 
 OnlineUserManager::USER_CODE OnlineUserManager::login(const std::string& id, const std::string& userName, const std::string& pwd){
