@@ -1,6 +1,6 @@
 #include "GameManager.h"
 #include <boost/algorithm/string.hpp>
-
+long timeStamp = 0;
 GameManager::GameManager() {
     world = WorldManager{};
     world.generateWorld();
@@ -40,6 +40,12 @@ std::string GameManager::extractCommands(const std::string& connectionID, const 
     if(found != tableOfCommands.end()) {
         commandGuideline guideline = found->second;
         if (commandIsValid(commandParts.size(), splitByColon.size(), guideline)) {
+            std::cout << "I am called\n";
+            timeStamp = timeStamp + 1;
+            if(onlineUserManager.updateUserTimeStamp(connectionID, timeStamp)){
+                std::cout << "CONNECTION ID in extract: " << connectionID << "\n";
+                std::cout << "TIMESTAMP: " << timeStamp << "\n";
+            }
             return (this->*guideline.promptReply)(connectionID, commandParts);
         }
         else {

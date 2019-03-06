@@ -8,6 +8,7 @@ using std::string;
 User::User(const string &name, const string &password) {
     this->name = name;
     this->password = password;
+    this->timeStamp = 0;
     this->avatar = Avatar(name);
     
     this->test();
@@ -16,6 +17,7 @@ User::User(const string &name, const string &password) {
 User::User(const string &name, const string &password, const Avatar &avatar) {
     this->name = name;
     this->password = password;
+    this->timeStamp = 0;
     this->avatar = avatar;
     
     this->test();
@@ -29,14 +31,6 @@ const string& User::getUserName() const {
 
 Avatar& User::getAvatar() {
     return avatar;
-}
-
-void User::setId(long int id){
-    this->id = id;
-}
-
-long int User::getId() {
-    return this->id;
 }
 
 void User::addMessage(std::string message) {

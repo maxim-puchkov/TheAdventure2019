@@ -9,12 +9,6 @@ using user::User;
 using usermanager::OnlineUserManager;
 
 bool OnlineUserManager::insertUser(const std::string &id, const User &user){
-    auto myUser = user;
-    std::cout << "DEBUG\n";
-    std::cout << id << "\n";
-    std::cout << myUser.getId();
-    std::cout << "\n";
-    std::cout << "--------------------------------\n";
     if (getUserByUsername(user.getUserName()) != nullUser) return false;
     bool result = onlineUsers.insert(std::make_pair(id, user)).second;
     return result;
@@ -74,7 +68,9 @@ std::string OnlineUserManager::getConnectionID(const std::string& userName) {
 }
 
 bool OnlineUserManager::updateUserTimeStamp(const std::string& id, const long timeStamp) {
-    auto user = getUserById(id);
+    std::cout << "connection id to update: " << id;
+    std::cout << "\n";
+    auto &user = getUserById(id);
     if(user.getUserName() != "") {
         user.setTimeStamp(timeStamp);
         return true;
@@ -84,8 +80,7 @@ bool OnlineUserManager::updateUserTimeStamp(const std::string& id, const long ti
 
 void OnlineUserManager::printTable() {
     for(auto& p: onlineUsers){
-        std::cout << p.first << " => " << p.second.getUserName() << " "
-                  << p.second.getId() << " " << p.second.getMessageSize() << "\n";
+        std::cout << p.first << " => " << p.second.getUserName() << "\n";
         auto message = p.second.getMessages();
         for(auto& m: message) {
             std::cout << m <<" ";
@@ -115,7 +110,6 @@ std::vector<std::pair<std::string, std::string>> OnlineUserManager::getOnlineUse
 
 
 bool OnlineUserManager::addMessageToUser(const std::string& userName, const std::string& message) {
-    std::cout << userName << "\n";
 	auto& user = getUserByUsername(userName);
     if(user.getUserName() != ""){
         user.addMessage(message);
@@ -151,10 +145,18 @@ std::vector<std::pair<std::string, std::vector<std::string>>> OnlineUserManager:
 }
 
 void OnlineUserManager::removeUnactiveUser(){
-    for (auto &element : onlineUsers) {
-        std::cout << element.second.getUserName();
+    if(onlineUsers.size() != 0) {
+        auto user = onlineUsers.begin()->second;
+        auto timeStamp = user.getTimeStamp();
+        for (auto &element : onlineUsers) {
+            if(element.second.getTimeStamp() < timeStamp) {
+                user = element.second;
+                timeStamp = user.getTimeStamp();
+            }
+        }
+        std::cout << "Username: " << user.getUserName();
         std::cout << "\n";
-        std::cout << element.second.getId();
+        std::cout << "Timestamp: " << user.getTimeStamp();
         std::cout << "\n";
     }
 }
@@ -166,8 +168,6 @@ void OnlineUserManager::removeUnactiveUser(){
 // ******* Functions that Uses UserDB *******
 
 OnlineUserManager::USER_CODE OnlineUserManager::login(const std::string& id, const std::string& userName, const std::string& pwd){
-    std::cout << "Inside Login\n";
-    std::cout << id << "\n";
     auto user = userDB.getUser(userName,pwd);
     if(user.getUserName() != ""){
         if(!insertUser(id, user)){
