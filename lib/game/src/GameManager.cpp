@@ -1,6 +1,8 @@
 #include "GameManager.h"
 #include <boost/algorithm/string.hpp>
 
+#include <exception>
+
 GameManager::GameManager() {
     world = WorldManager{};
     world.generateWorld();
@@ -30,12 +32,21 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"look", look});
     tableOfCommands.insert({"examine", examine});
     tableOfCommands.insert({"help", help});
+
+    auto commandlogin = make_unique<CommandLogin>(avatarManager, onlineUserManager, world);
+    table.insert({"login", std::move(commandlogin)});
 }
 
 std::string GameManager::extractCommands(const std::string& connectionID, const std::string& fullCommand) {
     std::vector<std::string> commandParts, splitByColon;
     reassembleCommand(fullCommand, commandParts, splitByColon);
 
+	auto found = table.find(commandParts[0]);
+    if(found != table.end()) {
+    	return found->second->execute(connectionID, commandParts);
+    }
+    
+	/*
     auto found = tableOfCommands.find(commandParts[0]);
     if(found != tableOfCommands.end()) {
         commandGuideline guideline = found->second;
@@ -48,6 +59,7 @@ std::string GameManager::extractCommands(const std::string& connectionID, const 
             return answer.str();
         }
     }
+    */
     return "Command not found\n";
 }
 

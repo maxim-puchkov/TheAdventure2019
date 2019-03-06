@@ -14,6 +14,8 @@
 #include "Avatar.h"
 #include "LocationCoordinates.h"
 #include "AvatarManager.h"
+#include "Command.h"
+#include "CommandLogin.h"
 
 
 using usermanager::OnlineUserManager;
@@ -25,6 +27,9 @@ private:
     WorldManager world;
     OnlineUserManager onlineUserManager{};
     AvatarManager avatarManager;
+
+    //CommandLogin commandlogin = CommandLogin(avatarManager, onlineUserManager, world);
+
     user::User getUser(const std::string& userName);
     std::string getUserIDByUsername(const std::string& userName);
     Avatar& getAvatarByUsername(const std::string& userName);
@@ -39,6 +44,7 @@ private:
         std::string helpText;
     };
     std::unordered_map<std::string, commandGuideline> tableOfCommands;
+    std::unordered_map<std::string, std::unique_ptr<Command>> table;
 
     //promptReply functions
     std::string commandLogin(const std::string& connectionID, const std::vector<std::string>& fullCommand);
