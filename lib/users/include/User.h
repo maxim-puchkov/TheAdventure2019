@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include <queue>
-#include "Avatar.h"
 
 
 
@@ -15,15 +14,11 @@ class User {
 public:
     
     // First time logins
-    User(const string &name, const string &password);
-    
-    // Returning players whose avatar exists
-    User(const string &name, const string &password, const Avatar &avatar);
+    User(const std::string &name, const std::string &password);
     
     ~User();
     
-    const string& getUserName() const;
-    Avatar& getAvatar();
+    std::string getUserName() const;
 
     void addMessage(std::string message);
 
@@ -54,9 +49,7 @@ private:
     std::string password;
 
     long timeStamp;
-    
-    Avatar avatar;
-    
+      
     void test();
 
 };

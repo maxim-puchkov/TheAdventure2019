@@ -9,28 +9,15 @@ User::User(const string &name, const string &password) {
     this->name = name;
     this->password = password;
     this->timeStamp = 0;
-    this->avatar = Avatar(name);
     
-    this->test();
+    //this->test();
 }
 
-User::User(const string &name, const string &password, const Avatar &avatar) {
-    this->name = name;
-    this->password = password;
-    this->timeStamp = 0;
-    this->avatar = avatar;
-    
-    this->test();
-}
 
 User::~User() = default;
 
-const string& User::getUserName() const {
+string User::getUserName() const {
     return this->name;
-}
-
-Avatar& User::getAvatar() {
-    return avatar;
 }
 
 void User::addMessage(std::string message) {

@@ -42,21 +42,6 @@ User& OnlineUserManager::getUserByUsername(const std::string& userName){
     return nullUser;
 }
 
-Avatar& OnlineUserManager::getAvatarById(const std::string& id){
-    auto& search = getUserById(id);
-    if(search.getUserName() != "") {
-    	return search.getAvatar();
-    }
-    return nullAvatar;
-}
-
-Avatar& OnlineUserManager::getAvatarByUsername(const std::string& userName){
-    auto& search = getUserByUsername(userName);
-    if(search.getUserName() != "") {
-    	return search.getAvatar();
-    }
-    return nullAvatar;
-}
 
 std::string OnlineUserManager::getConnectionID(const std::string& userName) {
 	for (auto &element : onlineUsers) {
@@ -66,6 +51,12 @@ std::string OnlineUserManager::getConnectionID(const std::string& userName) {
     }
     return "Invalid";
 }
+
+std::string OnlineUserManager::getUsernameFromConnectionID(const std::string& connectionID){
+    auto user = getUserById(connectionID);
+	return user.getUserName();
+}
+
 
 bool OnlineUserManager::updateUserTimeStamp(const std::string& id, const long timeStamp) {
     std::cout << "connection id to update: " << id;
