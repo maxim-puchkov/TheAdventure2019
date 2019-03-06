@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unordered_map> 
 #include <string>
+#include <chrono>
 #include <boost/algorithm/string.hpp>
 #include "OnlineUserManager.h"
 #include "User.h"
@@ -57,10 +58,18 @@ std::string OnlineUserManager::getUsernameFromConnectionID(const std::string& co
 	return user.getUserName();
 }
 
+long OnlineUserManager::getTimeStamp(){
+    auto now = std::chrono::system_clock::now();
+    auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
+    auto epoch = now_ms.time_since_epoch();
+    auto value = std::chrono::duration_cast<std::chrono::milliseconds>(epoch);
+    long timeStamp = value.count();
+    std::cout << "TIME: " << timeStamp << "\n";
+    return timeStamp;
+}
 
-bool OnlineUserManager::updateUserTimeStamp(const std::string& id, const long timeStamp) {
-    std::cout << "connection id to update: " << id;
-    std::cout << "\n";
+bool OnlineUserManager::updateUserTimeStamp(const std::string& id) {
+    long timeStamp = getTimeStamp();
     auto &user = getUserById(id);
     if(user.getUserName() != "") {
         user.setTimeStamp(timeStamp);
@@ -135,13 +144,15 @@ std::vector<std::pair<std::string, std::vector<std::string>>> OnlineUserManager:
     return std::move(commandList);
 }
 
-void OnlineUserManager::removeUnactiveUser(){
+std::string OnlineUserManager::removeUnactiveUser(){
     if(onlineUsers.size() != 0) {
         auto user = onlineUsers.begin()->second;
+        auto connectionID = onlineUsers.begin()->first;
         auto timeStamp = user.getTimeStamp();
         for (auto &element : onlineUsers) {
             if(element.second.getTimeStamp() < timeStamp) {
                 user = element.second;
+                connectionID = element.first;
                 timeStamp = user.getTimeStamp();
             }
         }
@@ -149,7 +160,9 @@ void OnlineUserManager::removeUnactiveUser(){
         std::cout << "\n";
         std::cout << "Timestamp: " << user.getTimeStamp();
         std::cout << "\n";
+        return connectionID;
     }
+    return "";
 }
 
 
