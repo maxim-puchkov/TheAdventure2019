@@ -12,7 +12,8 @@ No description.
 ### Documentation
 
 <!-- Add developers here -->
-__Developers__: <!-- @developer -->
+Developers: <!-- @developer -->
+Testers: <!-- @tester -->
 
 
 <!-- See the Feature Change Documentation Workflow https://docs.gitlab.com/ee/development/documentation/feature-change-workflow.html
