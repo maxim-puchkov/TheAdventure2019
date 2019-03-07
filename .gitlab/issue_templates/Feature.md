@@ -1,4 +1,4 @@
-# Feature <!-- Include feature name-->
+# Feature: <!-- Include feature name-->
 
 No description.
 <!-- Write a feature description here -->
@@ -6,13 +6,15 @@ No description.
 
 
 <!-- copy if the feature adds or removes functionality -->
-<!-- {+New Something+} -->
-<!-- {-Deleted Something-} -->
+<!-- * [ ] {+++}New Something -->
+<!-- * [ ] {---}Deleted Something -->
 
 ### Documentation
 
 <!-- Add developers here -->
 Developers: <!-- @developer -->
+
+<!-- Add testers here -->
 Testers: <!-- @tester -->
 
 
@@ -23,9 +25,9 @@ Add all known Documentation Requirements here, per https://docs.gitlab.com/ee/de
 
 <!-- Include use cases, benefits, and/or goals (contributes to our vision?) -->
 
-
-
 ---
 
+<!-- /assign @someone -->
+
 <!-- Add labels here -->
-> Labels: ~feature
+/label ~feature
