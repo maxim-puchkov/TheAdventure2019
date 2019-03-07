@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include <boost/algorithm/string.hpp>
 
+int heartBeatDuration = 50;
 GameManager::GameManager() {
     world = WorldManager{};
     world.generateWorld();
@@ -40,6 +41,7 @@ std::string GameManager::extractCommands(const std::string& connectionID, const 
     if(found != tableOfCommands.end()) {
         commandGuideline guideline = found->second;
         if (commandIsValid(commandParts.size(), splitByColon.size(), guideline)) {
+            onlineUserManager.updateUserTimeStamp(connectionID);
             return (this->*guideline.promptReply)(connectionID, commandParts);
         }
         else {
@@ -252,6 +254,14 @@ std::string GameManager::commandError(const std::string& username, const std::ve
 //-------------------------------------------------
 //heartbeat and other helper functions
 std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
+    std::cout << "TIME TO KICK: " << heartBeatDuration <<"\n";
+    if (heartBeatDuration == 0) {
+        std::string connectionID = onlineUserManager.removeUnactiveUser();
+        std::vector<std::string> vecForTest;
+        commandLogout(connectionID, vecForTest);
+        heartBeatDuration = 50;
+    }
+    heartBeatDuration--;
     auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
 
     //process commands
