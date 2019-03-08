@@ -1,24 +1,42 @@
 # Faworki
 
-### Iteration Overview
-* [_Libraries_ branch](#libraries)
-    * [Build & Run code](#run-chat-server-and-chat-client)
-* [Compiler warnings](#warnings)
-* [Progress checklist](#progress)
-
-
-
-
-
 
 ### Quick Links
-
-* View [class schedule](http://www.cs.sfu.ca/~wsumner/teaching/373/19/schedule.html)
-* Make a [submission](https://coursys.sfu.ca/2019sp-cmpt-373-d1/)
-* Read [email archive](http://www.cs.sfu.ca/CourseCentral/Hypermail/cmpt-373/)
-
+* Iteration
+    * [Boards][boards]
+    * [Issues][issues]
+        * [Add][issues/new]
+    * [Milestones][milestones]
+* Branches
+    * [_Master_](#master)
+    * [_Libraries_](#libraries)
+    * [Graph][graph]
+* Details
+    * [Build & Run code](#run-chat-server-and-chat-client)
+    * [Compiler warnings](#warnings)
+    * [Progress checklist](#progress)
+* Class
+    * View [class schedule](http://www.cs.sfu.ca/~wsumner/teaching/373/19/schedule.html)
+    * Make a [submission](https://coursys.sfu.ca/2019sp-cmpt-373-d1/)
+    * Read [email archive](http://www.cs.sfu.ca/CourseCentral/Hypermail/cmpt-373/)
+* More
+    * [Labels][labels]
+    * [Markdown][markdown]
 
 > _Feb 16 - Mar 15_
+
+
+
+&nbsp;
+# _Master_
+* [Update this branch][merge/new]
+* [Contribution guide](CONTRIBUTING.md)
+
+
+
+
+
+
 
 &nbsp;
 #  _Libraries_ 
@@ -35,13 +53,10 @@
 
 * Follow [instuctions](#run-chat-server-and-chat-client) to test your code
 * Commit compilable code
-* Resolve known [{-compiler warnings-}](#warnings)
+* Resolve known [compiler warnings](#warnings) ~warning
 * View the [checklist](#progress)
 
 > Original [README.md](https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/tree/master/lib/network)
-
-
-
 
 
 
@@ -126,7 +141,7 @@ chat on the server via web sockets in browsers that support web sockets.
 &nbsp;
 # Warnings
 
-### Debug
+### Debug ~warning
 **4** compiler warnings are generated:
 
 * JsonParser.cpp:33:12: 
@@ -159,7 +174,7 @@ chat on the server via web sockets in browsers that support web sockets.
         return std::move(commandList);
                ^
 
-    Remove ```std::move call``` here
+    Remove `std::move call` here
         
         return std::move(commandList);
                ^~~~~~~~~~           ~
@@ -172,7 +187,7 @@ chat on the server via web sockets in browsers that support web sockets.
         return std::move(map);
                ^
                
-    Remove ```std::move call``` here
+    Remove `std::move call` here
         
         return std::move(map);
                ^~~~~~~~~~   ~
@@ -187,7 +202,7 @@ chat on the server via web sockets in browsers that support web sockets.
 &nbsp;
 # Progress
 
-### Interaction
+### Interaction ~complete
 
 * [x] A user must be able to interact with the world by typing commands into a chat-like interface.
 * [x] Commands from all users are collected and buffered (to a bounded length) by the server.
@@ -199,7 +214,8 @@ chat on the server via web sockets in browsers that support web sockets.
 
 
 
-### Users, Avatars, Characters, and Worlds
+
+### Users, Avatars, Characters, and Worlds ~incomplete
 
 * [x] A user connecting to the system will either create a new account or log into an existing account with a username and password.
 * [x] A user experiences the simulated world through the eyes of their avatar. This is a character representation of the user in the world.
@@ -218,7 +234,7 @@ chat on the server via web sockets in browsers that support web sockets.
 
 
 
-### Communication
+### Communication ~incomplete
 
 * [x] A character can communicate with other users in a room by saying something. For instance, say Howdy! will display a message to all other characters in the room containing <username> says "Howdy!".
 * [ ] A character can yell, which will be loud enough to be heard in adjacent rooms.
@@ -227,7 +243,7 @@ chat on the server via web sockets in browsers that support web sockets.
 
 
 
-### Movement and World Interaction
+### Movement and World Interaction ~incomplete
 
 * [ ] A characters can go in any direction that is valid in a room. Some conditions may make going in a direction fail.
 * [ ] As shorthand for going in a cardinal, ordinal, or vertical direction, the direction name itself can be used as a command: north, south, east, west, northeast, southeast, northwest, southwest, up, down.
@@ -239,10 +255,10 @@ chat on the server via web sockets in browsers that support web sockets.
 
 
 
-### Objects and Inventories
+### Objects and Inventories ~incomplete
 
 * [ ] A character may have an inventory of objects.
-* [ ] Some of these objects may themselves be containers containing other objects.
+* [ ] Some of these objects may themselves be containers containing other objects. ~issue #13
 * [ ] A character may put an object from their inventory into a container.
 * [ ] A character may drop an object into their current room.
 * [ ] A character may give an object to another character in the room.
@@ -252,7 +268,7 @@ chat on the server via web sockets in browsers that support web sockets.
 
 
 
-### Combat
+### Combat ~incomplete
 
 * [ ] Users should be able to start fights with non-user characters by attacking them or trying to kill them.
 * [ ] Upon doing so, the user enters a combat state that only ends when one of the participants loses or flees to a random neighboring room.
@@ -263,7 +279,7 @@ chat on the server via web sockets in browsers that support web sockets.
 
 
 
-### World Builders
+### World Builders ~incomplete
 
 * [ ] Some users should be authorized to participate in building the world using special world building commands.
 * [ ] This includes designing, creating, and modifying areas, rooms, non-user characters, and objects.
@@ -271,22 +287,18 @@ chat on the server via web sockets in browsers that support web sockets.
 
 
 
-### Importing Data
+### Importing Data ~incomplete
 
-* [ ] You should be able to import areas of the game from provided JSON formatted files.
-* [ ] The spellings of commands should be configurable and easily internationalized.
+* [ ] You should be able to import areas of the game from provided JSON formatted files. ~issue #12
+* [ ] The spellings of commands should be configurable and easily internationalized. ~issue #14
 * [ ] Global settings for the game should be configurable via a single JSON configuration file.
  
  
 
 
-### Minigames
+### Minigames ~incomplete
 
-* [ ] You should support at least one minigame that can be played by users in the same room. Such example minigames are:
-    * Multiple choice quizzes.
-    * Bluff based question/answer games.
-    * Hangman style question answer games.
-    * Role based social deduction games.
+* [ ] You should support at least one minigame that can be played by users in the same room. ~issue #15
 * [ ] Players in the same room can join a minigame.
 * [ ] Rounds of the minigame may span multiple heartbeats.
 * [ ] Commands not used for movement or combat will still work during the minigames.
@@ -295,7 +307,7 @@ chat on the server via web sockets in browsers that support web sockets.
 
 
 
-### Roles and Rights
+### Roles and Rights ~incomplete
 
 * [ ] Different users may have different rights that can be assigned or revoked, e.g. world building or minigame starting.
 * [ ] Care should be taken to ensure that users without those rights cannot take those actions.
@@ -304,7 +316,7 @@ chat on the server via web sockets in browsers that support web sockets.
 
 
 
-### Extras
+### Extras ~incomplete
 
 * [ ] Other possible features that may be added include but are not limited to:
     * Crafting
@@ -315,7 +327,7 @@ chat on the server via web sockets in browsers that support web sockets.
 
 
 
-## {+Updated+} Requirements
+## {+++}Updated Requirements ~incomplete
 * [ ] Users with required permissions may temporarily __swap bodies__ with another character.
 * [ ] Users may __confuse__ another player, changing all messages sent to that user to gibberish.
 * [ ] When in combat, create a copy of user's character that will fight another character with __decoy__.
@@ -325,3 +337,17 @@ chat on the server via web sockets in browsers that support web sockets.
 * [ ] Characters must be able to engage in __combat__.
 * [ ] __Roles__ must be fliexible and changable in-game.
 
+
+
+
+
+
+
+[issues]: /../issues/
+[issues/new]: /../issues/new/
+[boards]: /../boards/
+[milestones]: /../milestones/
+[merge/new]: /../merge_requests/new/
+[graph]: /../network/master
+[labels]: /../labels/
+[markdown]: https://csil-git1.cs.surrey.sfu.ca/help/user/markdown.md
