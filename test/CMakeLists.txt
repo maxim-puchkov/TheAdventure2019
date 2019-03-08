@@ -3,8 +3,8 @@ add_subdirectory(lib)
 add_executable(runAllTests
   # Add all new test files to the list here.
   # Place each file name on a separate line.
-  tests.cpp
-  Dummy.cpp # This file is a placeholder and tests nothing.
+  TestRunner.cpp # Contains main that will run tests
+  
 )
 
 target_link_libraries(runAllTests
