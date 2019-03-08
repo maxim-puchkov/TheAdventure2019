@@ -1,21 +1,21 @@
-# Feature: <!-- Include feature name-->
+# Documentation update
 
 No description.
-<!-- Write a feature description here -->
+<!-- Write a description here -->
 
 
 
-<!-- copy if the feature adds or removes functionality -->
+<!-- If a document is changed -->
 <!-- * [ ] {+++}New Something -->
 <!-- * [ ] {---}Deleted Something -->
 
 ### Documentation
 
-<!-- Add developers here -->
-Developers: <!-- @developer -->
+<!-- Add editors here -->
+Ediitor: <!-- @editor -->
 
-<!-- Add testers here -->
-Testers: <!-- @tester -->
+<!-- Mention anyone here -->
+<!-- Notify: <!-- @anyone --> -->
 
 
 <!-- See the Feature Change Documentation Workflow https://docs.gitlab.com/ee/development/documentation/feature-change-workflow.html
@@ -27,7 +27,7 @@ Add all known Documentation Requirements here, per https://docs.gitlab.com/ee/de
 
 ---
 
-<!-- /assign @someone -->
+<!-- /assign @editor -->
 
 <!-- Add labels here -->
-/label ~feature
+/label ~documentation
