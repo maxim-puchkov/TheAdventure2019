@@ -15,7 +15,11 @@
 class MoveValidator {
     public:
         bool readChessMove(std::string &input);
+        bool isGameFinished() const;
+        std::string& gameOverMessage();
+
         std::string drawBoard(); //helper
+
     private:
         Board gameBoard;
 

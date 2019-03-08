@@ -46,14 +46,16 @@ class Piece {
         bool validateQueen(const ChessCoordinate &start, const ChessCoordinate &finish) const;
 
     public:
-        const PieceUnit getPieceUnit() { return pieceId; };
-        const Color getColor(){ return pieceColor; };
+        const PieceUnit getPieceUnit() const { return pieceId; };
+        const Color getColor() const { return pieceColor; };
         bool checkMovementIsValid(const ChessCoordinate &start, const ChessCoordinate &finish,const Color &targetColor) const   ;
         void updatePiece(Piece &source, Piece &destination);
+        void setPiece(PieceUnit pieceUnit, Color color);
 
 
 
-        Piece(PieceUnit unit, Color color) :
+    Piece();
+    Piece(PieceUnit unit, Color color) :
             pieceId(unit), pieceColor(color){}
 
 };
