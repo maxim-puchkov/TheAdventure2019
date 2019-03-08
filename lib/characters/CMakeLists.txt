@@ -21,9 +21,9 @@ target_link_libraries(${libcharacters}
 
 set_target_properties(${libcharacters}
                       PROPERTIES
-		      COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
                       LINKER_LANGUAGE CXX
                       CXX_STANDARD 17
+			COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
 )
 
 install(TARGETS ${libcharacters}
