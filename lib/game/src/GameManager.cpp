@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include <boost/algorithm/string.hpp>
 
+int heartBeatDuration = 50;
 GameManager::GameManager() {
     world = WorldManager{};
     world.generateWorld();
@@ -46,6 +47,7 @@ std::string GameManager::extractCommands(const std::string& connectionID, const 
     if(found != tableOfCommands.end()) {
         commandGuideline guideline = found->second;
         if (commandIsValid(commandParts.size(), splitByColon.size(), guideline)) {
+            onlineUserManager.updateUserTimeStamp(connectionID);
             return (this->*guideline.promptReply)(connectionID, commandParts);
         }
         else {
@@ -58,11 +60,11 @@ std::string GameManager::extractCommands(const std::string& connectionID, const 
 }
 
 void GameManager::reassembleCommand(std::string fullCommand, std::vector<std::string>& commandParts, std::vector<std::string>& splitByColon) {
-	//Format: <command> <arg> : <optional-text-message> 
+    //Format: <command> <arg> : <optional-text-message> 
     boost::trim_if(fullCommand, boost::is_any_of(" \t"));
     boost::split(splitByColon, fullCommand, boost::is_any_of(":"), boost::token_compress_on);
    
-   	//trim any space before and after ":"
+       //trim any space before and after ":"
     for(auto& text : splitByColon) {
         boost::trim_if(text, boost::is_any_of(" \t"));
     }
@@ -70,7 +72,7 @@ void GameManager::reassembleCommand(std::string fullCommand, std::vector<std::st
 
     //reassemble
     if(splitByColon.size() > 1)
-   		commandParts.push_back(splitByColon[1]);
+           commandParts.push_back(splitByColon[1]);
 }
 
 bool GameManager::commandIsValid(size_t commandPartsSize, size_t splitByColon, commandGuideline guideline) {
@@ -88,64 +90,64 @@ bool GameManager::commandIsValid(size_t commandPartsSize, size_t splitByColon, c
 //Prompt reply commands
 std::string GameManager::commandLogin(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     auto answer = onlineUserManager.login(connectionID, fullCommand[1], fullCommand[2]);
-	switch(answer) {
-		case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN:
-		{
-			auto spawnLocation = avatarManager.spawnAvatar(fullCommand[1]);
-		    world.spawn(fullCommand[1], spawnLocation);
-			return "You are now logged in.\n";
-		}
-		case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND:
-			return "Error! Username not found. Please try again.\n";
-		case usermanager::OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN:
-			return "Error! You are already logged in.\n";
+    switch(answer) {
+        case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN:
+        {
+            auto spawnLocation = avatarManager.spawnAvatar(fullCommand[1]);
+            world.spawn(fullCommand[1], spawnLocation);
+            return "You are now logged in.\n";
+        }
+        case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND:
+            return "Error! Username not found. Please try again.\n";
+        case usermanager::OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN:
+            return "Error! You are already logged in.\n";
         default:
             std::cout << "ERROR SHOULD NOT GET HERE! \n";
         break;
-	}
-	//swallow
+    }
+    //swallow
     return "";
 }
 
 std::string GameManager::commandLogout(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
     auto answer = onlineUserManager.logout(connectionID);
-	switch(answer) {
-		case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_OUT:
-		{
+    switch(answer) {
+        case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_OUT:
+        {
             world.kick(username, avatarManager.getAvatarLocation(username));
             avatarManager.kickAvatar(username);
-			return "You are now logged out.\n";
-		}
-		case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE:
-			return "Error! You are not logged in.\n";
-		default:
+            return "You are now logged out.\n";
+        }
+        case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE:
+            return "Error! You are not logged in.\n";
+        default:
             std::cout << "ERROR SHOULD NOT GET HERE! \n";
         break;
-	}
-	//swallow
+    }
+    //swallow
     return "";
 }
 
 std::string GameManager::commandCreate(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     auto answer = onlineUserManager.createUser(fullCommand[1], fullCommand[2]);
-	switch(answer) {
-		case UserDB::DB_CODE::INVALID_USERNAME:
-			return "Error! Invalid username.\n";
-		case UserDB::DB_CODE::ACCOUNT_CREATED:
-			return "Account created. Please log in to play the game.\n";
-		default:
+    switch(answer) {
+        case UserDB::DB_CODE::INVALID_USERNAME:
+            return "Error! Invalid username.\n";
+        case UserDB::DB_CODE::ACCOUNT_CREATED:
+            return "Account created. Please log in to play the game.\n";
+        default:
             std::cout << "ERROR SHOULD NOT GET HERE! \n";
         break;
-	}
-	//swallow
+    }
+    //swallow
     return "";
 }
 
 std::string GameManager::commandAddToActionList(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     bool success = onlineUserManager.onlineUserAddCommandToList(connectionID, fullCommand);
     if(!success) {
-    	return "User is not online.\n";
+        return "User is not online.\n";
     }
     //Do nothing, answer only when executing command 
     return "";
@@ -157,7 +159,7 @@ std::string GameManager::commandHelp(const std::string& connectionID, const std:
     answer << "Supported commands: \n";
     for (const auto& [command, guideline] : tableOfCommands) {
         answer << command << guideline.helpText << std::endl;
-	}   
+    }   
     return answer.str();
 }
 
@@ -192,33 +194,33 @@ std::string GameManager::commandGameMove(const std::string& username, const std:
 std::string GameManager::commandSay(const std::string& username, const std::vector<std::string>& fullCommand) {
     auto location = avatarManager.getAvatarLocation(username);
     if(location.area == -1) {
-    	//should not reach here, report error
-    	return "";
+        //should not reach here, report error
+        return "";
     }
     
     auto& userNamesInRoom = world.getUserNamesInRange(location, SAY_RANGE);
     for(auto name: userNamesInRoom) {
-    	if(name == username) {
-    		continue;
-    	}
+        if(name == username) {
+            continue;
+        }
         onlineUserManager.addMessageToUser(name, username + " said: " + fullCommand[1] + "\n");
     }
 
-	return "You said: \"" + fullCommand[1] + "\"\n";
+    return "You said: \"" + fullCommand[1] + "\"\n";
 }
 
 std::string GameManager::commandYell(const std::string& username, const std::vector<std::string>& fullCommand) {
     auto location = avatarManager.getAvatarLocation(username);
     if(location.area == -1) {
-    	//should not reach here, report error
-    	return "";
+        //should not reach here, report error
+        return "";
     }
 
     auto& userNamesInRoom = world.getUserNamesInRange(location, YELL_RANGE);
     for(auto name : userNamesInRoom){
-    	if(name == username) {
-    		continue;
-    	}
+        if(name == username) {
+            continue;
+        }
         onlineUserManager.addMessageToUser(name, username + " yelled: " + fullCommand[1] + "\n");
     }
 
@@ -227,7 +229,7 @@ std::string GameManager::commandYell(const std::string& username, const std::vec
 
 std::string GameManager::commandTell(const std::string& usernameOfSpeaker, const std::vector<std::string>& fullCommand){
     std::string usernameOfListener = fullCommand.at(1);
-	std::string message = fullCommand.at(2);
+    std::string message = fullCommand.at(2);
     std::string messageToSendOtherUser = usernameOfSpeaker + " told you: " + message + "\n";
 
     if(onlineUserManager.addMessageToUser(usernameOfListener, messageToSendOtherUser)) {
@@ -237,38 +239,38 @@ std::string GameManager::commandTell(const std::string& usernameOfSpeaker, const
 }
 
 std::string GameManager::commandMove(const std::string& username, const std::vector<std::string>& fullCommand) {
-	auto location = avatarManager.getAvatarLocation(username);
+    auto location = avatarManager.getAvatarLocation(username);
     if(location.area == -1) {
-    	//should not reach here, report error
-    	return "";
+        //should not reach here, report error
+        return "";
     }
-	auto newLocation = world.move(username, location, fullCommand[1]);
-	avatarManager.changeAvatarLocation(username, location);
-	std::ostringstream answer;
-	answer << "Current location: Area:" << newLocation.area << ", Room: " << newLocation.room << "\n";
-	return answer.str();
+    auto newLocation = world.move(username, location, fullCommand[1]);
+    avatarManager.changeAvatarLocation(username, location);
+    std::ostringstream answer;
+    answer << "Current location: Area:" << newLocation.area << ", Room: " << newLocation.room << "\n";
+    return answer.str();
 }
 
 std::string GameManager::commandLook(const std::string& username, const std::vector<std::string>& fullCommand) {
-	auto location = avatarManager.getAvatarLocation(username);
+    auto location = avatarManager.getAvatarLocation(username);
     if(location.area == -1) {
-    	//should not reach here, report error
-    	return "";
+        //should not reach here, report error
+        return "";
     }
-	return world.look(location) + "\n";
+    return world.look(location) + "\n";
 }
 
 std::string GameManager::commandExamine(const std::string& username, const std::vector<std::string>& fullCommand) {
-	auto location = avatarManager.getAvatarLocation(username);
+    auto location = avatarManager.getAvatarLocation(username);
     if(location.area == -1) {
-    	//should not reach here, report error
-    	return "";
+        //should not reach here, report error
+        return "";
     }
 
-	if(fullCommand[1] == "exits")
-	    return world.listExits(location) + "\n";
-	else
-	    return world.look(location, fullCommand[1]) + "\n";
+    if(fullCommand[1] == "exits")
+        return world.listExits(location) + "\n";
+    else
+        return world.look(location, fullCommand[1]) + "\n";
 }
 
 std::string GameManager::commandError(const std::string& username, const std::vector<std::string>& fullCommand){
@@ -281,37 +283,45 @@ std::string GameManager::commandError(const std::string& username, const std::ve
 //-------------------------------------------------
 //heartbeat and other helper functions
 std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
+    std::cout << "TIME TO KICK: " << heartBeatDuration <<"\n";
+    if (heartBeatDuration == 0) {
+        std::string connectionID = onlineUserManager.removeUnactiveUser();
+        std::vector<std::string> vecForTest;
+        commandLogout(connectionID, vecForTest);
+        heartBeatDuration = 50;
+    }
+    heartBeatDuration--;
     auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
 
     //process commands
     auto userCommands = onlineUserManager.getOnlineUserCommandList();
     for(auto& element : userCommands) {
-    	auto& username = element.first;
-    	auto& command = element.second;
+        auto& username = element.first;
+        auto& command = element.second;
 
-    	auto found = tableOfCommands.find(command[0]);
-	    commandGuideline guideline = found->second;
+        auto found = tableOfCommands.find(command[0]);
+        commandGuideline guideline = found->second;
 
-    	auto connectionID = getUserIDByUsername(username);
-    	auto replyMessage = (this->*guideline.heartbeatReply)(username, command);
+        auto connectionID = getUserIDByUsername(username);
+        auto replyMessage = (this->*guideline.heartbeatReply)(username, command);
 
-    	map->insert(std::make_pair(connectionID, replyMessage));
+        map->insert(std::make_pair(connectionID, replyMessage));
     }
 
     //process messages
     auto userMessages = onlineUserManager.getOnlineUserMessageList();
     for (auto& element : userMessages) {
-    	auto& connectionID = element.first;
-    	auto& message = element.second;
+        auto& connectionID = element.first;
+        auto& message = element.second;
 
-	    auto found = map->find(connectionID);
-	    if (found != map->end()) {
-	      (found->second.append("\n")).append(message);
-	    }
-	    else {
-	      map->insert(make_pair(connectionID, message));
-	    }
-	  }
+        auto found = map->find(connectionID);
+        if (found != map->end()) {
+          (found->second.append("\n")).append(message);
+        }
+        else {
+          map->insert(make_pair(connectionID, message));
+        }
+      }
     return std::move(map);
 }
 

@@ -8,22 +8,16 @@ using std::string;
 User::User(const string &name, const string &password) {
     this->name = name;
     this->password = password;
+    this->timeStamp = 0;
     
     //this->test();
 }
+
 
 User::~User() = default;
 
 string User::getUserName() const {
     return this->name;
-}
-
-void User::setId(long int id){
-    this->id = id;
-}
-
-long int User::getId() {
-    return this->id;
 }
 
 void User::addMessage(std::string message) {

@@ -20,9 +20,6 @@ public:
     
     std::string getUserName() const;
 
-    void setId(long int id);
-    long int getId();
-
     void addMessage(std::string message);
 
     std::vector<std::string>& getMessages();
@@ -41,8 +38,6 @@ public:
     virtual bool operator==(const User &other);
     virtual bool operator!=(const User &other);
 private:
-    //using as connection id
-    long int id;
 
     std::vector<std::string> messages;
     std::deque<std::vector<std::string>> commands;
