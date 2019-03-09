@@ -65,9 +65,6 @@ bool Character::operator!=(const Character &other) {
     return this->name.compare(other.name) != 0;
 }
 
-void Character::doDamageToCharacter(const int &damage) {
-    Attributes characterAttributes = this->getAttributes();
-    int health = -1 * characterAttributes.getHealth();
-    Attributes tempCharacter(health, 0);
-    currentAttr = currentAttr + tempCharacter;
+void Character::characterTakeDamage(const int &damage) {
+    currentAttr.setHealth(currentAttr.getHealth() - damage);
 }

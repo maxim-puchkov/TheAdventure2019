@@ -56,7 +56,7 @@ public:
     virtual bool operator!=(const Character &other);
 
     // Combat WIP
-    void doDamageToCharacter(const int &damage);
+    void characterTakeDamage(const int &damage);
     
 protected:
     

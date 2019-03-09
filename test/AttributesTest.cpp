@@ -26,3 +26,12 @@ TEST(AttributesTest, OverloadedOperatorWorkCorrectly) {
     EXPECT_EQ(healthValue2, testObject2.getHealth());
     EXPECT_EQ(damageValue2, testObject2.getDamage());
 }
+
+TEST(AttributesTest, Setters) {
+    Attributes testObject(100, 100);
+    testObject.setHealth(10);
+    testObject.setDamage(10);
+    
+    EXPECT_EQ(10, testObject.getHealth());
+    EXPECT_EQ(10, testObject.getDamage());
+}

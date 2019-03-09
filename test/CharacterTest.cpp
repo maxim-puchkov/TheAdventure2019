@@ -29,10 +29,12 @@ TEST(CharacterTests, CharacterAliveOnCreate) {
 }
 
 TEST(CharacterTests, CharacterDies) {
-    std::string username = "tester";
-    Character testCharacter;
-    testCharacter.createCharacter(username);
+   std::string username = "tester";
+   Character testCharacter;
+   testCharacter.createCharacter(username);
 
-    testCharacter.doDamageToCharacter((testCharacter.getAttributes()).getHealth() + 1);
-    EXPECT_FALSE(testCharacter.isAlive());
+   int damageToDo = testCharacter.getAttributes().getHealth() + 1;
+   testCharacter.characterTakeDamage(damageToDo);
+
+   EXPECT_FALSE(testCharacter.isAlive());
 }
