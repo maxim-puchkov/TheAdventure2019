@@ -1,6 +1,15 @@
 add_library(${libcommands}
     src/Parser.cpp
+    src/Command.cpp
     src/CommandLogin.cpp
+    src/CommandLogout.cpp
+    src/CommandCreate.cpp
+    src/CommandHelp.cpp
+    src/CommandSay.cpp
+    src/CommandTell.cpp
+    src/CommandYell.cpp
+    src/CommandLook.cpp
+    src/CommandExamine.cpp
 )
 
 target_include_directories(${libcommands}

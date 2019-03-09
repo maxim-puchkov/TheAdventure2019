@@ -1,6 +1,6 @@
 #include "CommandLogin.h"
 
-std::string CommandLogin::execute(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
+std::string CommandLogin::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
 	auto answer = onlineUserManager.login(connectionID, fullCommand[1], fullCommand[2]);
 	switch(answer) {
 		case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN:

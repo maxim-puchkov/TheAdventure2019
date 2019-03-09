@@ -19,7 +19,8 @@ protected:
 
 public:
 	Command(AvatarManager& a, OnlineUserManager& u, WorldManager& w): avatarManager(a), onlineUserManager(u), worldManager(w) {}
-	virtual std::string execute(const std::string& connectionID, const std::vector<std::string>& fullCommand) = 0;
+	virtual std::string executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand);
+	virtual void executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand);
 };
 
 #endif

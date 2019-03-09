@@ -1,16 +1,16 @@
-#ifndef CommandLogin_h
-#define CommandLogin_h
+#ifndef CommandHelp_h
+#define CommandHelp_h
 
 #include "Command.h"
-#include "LocationCoordinates.h"
+#include <sstream>
 
 using usermanager::OnlineUserManager;
 using avatarmanager::AvatarManager;
 
-class CommandLogin : public Command
+class CommandHelp : public Command
 {
 public:
-	CommandLogin(AvatarManager& a, OnlineUserManager& u, WorldManager& w): Command(a, u, w) {}
+	CommandHelp(AvatarManager& a, OnlineUserManager& u, WorldManager& w): Command(a, u, w) {}
 	virtual std::string executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand);
 };
 
