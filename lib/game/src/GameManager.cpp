@@ -45,16 +45,27 @@ std::string GameManager::extractKeyword(std::string& fullCommand) {
 }
 
 std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
-    std::cout << "TIME TO KICK: " << heartBeatDuration <<"\n";
-    if (heartBeatDuration == 0) {
-        std::string connectionID = onlineUserManager.removeUnactiveUser();
-        std::vector<std::string> vecForTest;
-        commandLogout(connectionID, vecForTest);
-        heartBeatDuration = 50;
-    }
-    heartBeatDuration--;
     auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
 
+    //kick inactive users
+    std::cout << "TIME TO KICK: " << heartBeatDuration <<"\n";
+    
+    if (heartBeatDuration == 0) {
+        std::string connectionID = onlineUserManager.removeUnactiveUser();
+        
+        auto found = tableOfCommands.find("logout");
+        std::vector<std::string> fullCommand;
+        fullCommand.push_back("logout");
+        std::string logoutMessage = "You have been idle for too long.\n" + found->second->executePromptReply(connectionID, fullCommand);
+        map->insert(make_pair(connectionID, logoutMessage));
+        //commandLogout(connectionID, vecForTest);
+        
+        heartBeatDuration = 50;
+    
+    }
+    heartBeatDuration--;
+    
+    
     //process commands
     auto userCommands = onlineUserManager.getOnlineUserCommandList();
     for(auto& element : userCommands) {
