@@ -12,7 +12,6 @@ target_include_directories(${libgame}
 )
 
 target_link_libraries(${libgame}
-    ${libaccounts}
     ${libcharacters}
     ${libworld}
     ${libusers}
