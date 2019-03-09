@@ -54,6 +54,9 @@ public:
     // Compare characters' usernames
     virtual bool operator==(const Character &other);
     virtual bool operator!=(const Character &other);
+
+    // Combat WIP
+    void doDamageToCharacter(const int &damage);
     
 protected:
     

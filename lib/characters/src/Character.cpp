@@ -54,7 +54,7 @@ bool Character::isInCombat() {
 
 bool Character::isAlive() {
     Attributes attr = this->getAttributes();
-    return attr.getHealth() <= 0;
+    return attr.getHealth() > 0;
 }
 
 bool Character::operator==(const Character &other) {
@@ -63,4 +63,11 @@ bool Character::operator==(const Character &other) {
 
 bool Character::operator!=(const Character &other) {
     return this->name.compare(other.name) != 0;
+}
+
+void Character::doDamageToCharacter(const int &damage) {
+    Attributes characterAttributes = this->getAttributes();
+    int health = -1 * characterAttributes.getHealth();
+    Attributes tempCharacter(health, 0);
+    currentAttr = currentAttr + tempCharacter;
 }

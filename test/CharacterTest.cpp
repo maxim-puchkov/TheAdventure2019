@@ -20,14 +20,19 @@ TEST(CharacterTests, GetBaseAttributes) {
     EXPECT_EQ(testAttributes.getHealth(), (testCharacter.getBaseAttributes()).getHealth());
 }
 
-TEST(CharacterTests, CharacterAliveOrDeadDependingOnHealth) {
+TEST(CharacterTests, CharacterAliveOnCreate) {
     std::string username = "tester";
     Character testCharacter;
     testCharacter.createCharacter(username);
 
-    // Check if created character is created alive
-    EXPECT_GT(0, (testCharacter.getAttributes()).getHealth());
     EXPECT_TRUE(testCharacter.isAlive());
+}
 
-    // WIP: add part that deals damage and kills character then checks if isAlive = false
+TEST(CharacterTests, CharacterDies) {
+    std::string username = "tester";
+    Character testCharacter;
+    testCharacter.createCharacter(username);
+
+    testCharacter.doDamageToCharacter((testCharacter.getAttributes()).getHealth() + 1);
+    EXPECT_FALSE(testCharacter.isAlive());
 }
