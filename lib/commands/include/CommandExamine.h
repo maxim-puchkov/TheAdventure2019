@@ -10,12 +10,10 @@ class CommandExamine : public Command
 {
 public:
 	CommandExamine(AvatarManager& a, OnlineUserManager& u, WorldManager& w): Command(a, u, w) {}
+	
 	virtual void executeInHeartbeat(const std::string& connectionID, const std::vector<std::string>& fullCommand);
-private:
-	const int YELL_RANGE = 1;
+	virtual std::vector<std::string> reassembleCommand(std::string& fullCommand, bool& commandIsValid);
 };
-
-
 
 
 #endif

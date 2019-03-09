@@ -1,20 +1,19 @@
-#ifndef CommandSay_h
-#define CommandSay_h
+#ifndef CommandMove_h
+#define CommandMove_h
 
 #include "Command.h"
+#include <sstream>
 
 using usermanager::OnlineUserManager;
 using avatarmanager::AvatarManager;
 
-class CommandSay : public Command
+class CommandMove : public Command
 {
 public:
-	CommandSay(AvatarManager& a, OnlineUserManager& u, WorldManager& w): Command(a, u, w) {}
+	CommandMove(AvatarManager& a, OnlineUserManager& u, WorldManager& w): Command(a, u, w) {}
 	
 	virtual void executeInHeartbeat(const std::string& connectionID, const std::vector<std::string>& fullCommand);
 	virtual std::vector<std::string> reassembleCommand(std::string& fullCommand, bool& commandIsValid);
-private:
-	const int SAY_RANGE = 0;
 };
 
 

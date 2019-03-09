@@ -1,17 +1,14 @@
-#ifndef WEBSOCKETNETWORKING_GAMEMANAGER_H
-#define WEBSOCKETNETWORKING_GAMEMANAGER_H
+#ifndef GAMEMANAGER_H
+#define GAMEMANAGER_H
 
 #include <string>
 #include <vector>
-#include <exception>
 #include <iostream>
 #include <unordered_map>
+#include <boost/algorithm/string.hpp>
 
-#include "User.h"
 #include "OnlineUserManager.h"
 #include "WorldManager.h"
-#include "Avatar.h"
-#include "LocationCoordinates.h"
 #include "AvatarManager.h"
 
 #include "Command.h"
@@ -24,6 +21,7 @@
 #include "CommandYell.h"
 #include "CommandLook.h"
 #include "CommandExamine.h"
+#include "CommandMove.h"
 
 using usermanager::OnlineUserManager;
 using avatarmanager::AvatarManager;
@@ -31,20 +29,19 @@ using avatarmanager::AvatarManager;
 class GameManager{
 
 private:
-    WorldManager world;
+    WorldManager world{};
     OnlineUserManager onlineUserManager{};
     AvatarManager avatarManager;
-    std::unordered_map<std::string, std::unique_ptr<Command>> table;
+    std::unordered_map<std::string, std::unique_ptr<Command>> tableOfCommands;
     
-    bool commandIsValid(size_t commandPartsSize, size_t messagePartSize);
-    void reassembleCommand(std::string fullCommand, std::vector<std::string>& commandParts, std::vector<std::string>& splitByColon);
+    std::string extractKeyword(std::string& fullCommand);
     void createTableOfCommands();
 
 
 public:
     GameManager();
-    std::string extractCommands(const std::string& connectionID, const std::string& fullCommand);
+    std::string extractCommands(const std::string& connectionID, std::string fullCommand);
     std::unique_ptr<std::unordered_map<std::string, std::string>> heartbeat();
 };
 
-#endif //WEBSOCKETNETWORKING_GAMEMANAGER_H
+#endif //GAMEMANAGER_H

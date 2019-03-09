@@ -10,6 +10,7 @@ add_library(${libcommands}
     src/CommandYell.cpp
     src/CommandLook.cpp
     src/CommandExamine.cpp
+    src/CommandMove.cpp
 )
 
 target_include_directories(${libcommands}
@@ -18,6 +19,7 @@ target_include_directories(${libcommands}
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${Boost_INCLUDE_DIR}
 )
 
 set_target_properties(${libcommands}

@@ -100,7 +100,6 @@ std::vector<std::pair<std::string, std::string>> OnlineUserManager::getOnlineUse
 
 
 bool OnlineUserManager::addMessageToUser(const std::string& userName, const std::string& message) {
-    std::cout << userName << "\n";
 	auto& user = getUserByUsername(userName);
     if(user.getUserName() != ""){
         user.addMessage(message);

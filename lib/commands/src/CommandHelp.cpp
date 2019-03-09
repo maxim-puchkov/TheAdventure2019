@@ -19,3 +19,20 @@ std::string CommandHelp::executePromptReply(const std::string& connectionID, con
 
     return answer.str();
 }
+
+std::vector<std::string> CommandHelp::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
+    std::vector<std::string> processedCommand;
+
+    //Format: help
+    boost::trim_if(fullCommand, boost::is_any_of(" \t"));
+
+    //split by " " and compress all long spaces
+    boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
+    if(processedCommand.size() != 1) {
+        commandIsValid = false;
+    } else {
+        commandIsValid = true;
+    }
+   
+    return processedCommand;
+}

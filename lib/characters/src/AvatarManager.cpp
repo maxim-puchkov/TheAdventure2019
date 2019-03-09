@@ -1,4 +1,5 @@
 #include "AvatarManager.h"
+#include <iostream>
 
 using avatarmanager::AvatarManager;
 
@@ -38,4 +39,6 @@ void AvatarManager::changeAvatarLocation(const std::string& username, LocationCo
 	if (found != onlineAvatars.end()) {
 		found->second.setCurrentLocation(newLocation);
     }
+    
+    std::cout << std::to_string(newLocation.area) << " " << std::to_string(newLocation.room) << "\n";
 }
