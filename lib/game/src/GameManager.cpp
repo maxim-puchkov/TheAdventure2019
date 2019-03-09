@@ -172,8 +172,12 @@ std::string GameManager::commandStartGame(const std::string& username, const std
     return "started game\n";
 }
 std::string GameManager::commandMiniGame(const std::string& username, const std::vector<std::string>& fullCommand) {
-    auto& arg1 = fullCommand.at(1);
-    if(arg1 == "move"){
+    auto &arg1 = fullCommand.at(1);
+
+    if(arg1 == "start"){
+        miniGameLobby.createGame(username);
+        return "started game\n";
+    }else if(arg1 == "move"){
         auto& playerMatch = miniGameLobby.getMatchWithPlayer(username);
         if(playerMatch.getAdminName() == "null") {
             return "you are not a player in any minigames.\n";
@@ -189,7 +193,7 @@ std::string GameManager::commandMiniGame(const std::string& username, const std:
     } else if(arg1 == "challenge" || arg1 == "invite") {
         auto& challengedName = fullCommand.at(2);
         miniGameLobby.createInvite(username, challengedName);
-
+        onlineUserManager.addMessageToUser(challengedName, username + " has challenged you to a game\n");
         return "awaiting response from " + challengedName + "\n";
     } else if(arg1 == "join" || arg1 == "accept"){
         if(miniGameLobby.confirmInvite(username)){
@@ -198,6 +202,7 @@ std::string GameManager::commandMiniGame(const std::string& username, const std:
             auto& playerList = playerMatch.getPlayers();
             std::string pNames;
             for(auto& pName : playerList){
+                onlineUserManager.addMessageToUser(pName, username + " has joined the game\n");
                 pNames += pName + ", ";
             }
             return "joined game with " + pNames + "\n";
@@ -212,7 +217,7 @@ std::string GameManager::commandMiniGame(const std::string& username, const std:
         if(playerMatch.getCurrentPlayers() == 0){
             miniGameLobby.deleteGame(playerMatch.getAdminName());
         }
-        return "left game";
+        return "left game\n";
 
     } else if (arg1 == "print"){
         if(fullCommand.at(2) == "games")

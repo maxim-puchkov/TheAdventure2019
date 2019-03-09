@@ -15,6 +15,7 @@ class MiniGameMatch {
 public:
     MiniGameMatch();
     MiniGameMatch(const std::string& userName);
+    MiniGameMatch(const std::string& player1Name, const std::string& player2Name);
 
     bool hasPlayer(const std::string& playerName) const;
     bool hasSpectator(const std::string& playerName) const;
@@ -29,8 +30,6 @@ public:
     std::string getAdminName() const;
     std::vector<std::string>& getPlayers();
     std::vector<std::string>& getSpectators();
-
-    //MoveValidator& getGame() ;
 
 private:
     std::vector<std::string> players;

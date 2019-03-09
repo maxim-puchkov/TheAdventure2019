@@ -13,8 +13,17 @@ MiniGameMatch::MiniGameMatch(const std::string& userName) {
     this->adminName = userName;
     this->players.push_back(userName);
     this->currentPlayerTurn = 0;
-    MoveValidator newGame;
-    this->game = newGame;
+    //MoveValidator newGame;
+    //this->game = newGame;
+}
+
+MiniGameMatch::MiniGameMatch(const std::string& player1Name, const std::string& player2Name) {
+    this->adminName = player1Name;
+    this->players.push_back(player1Name);
+    this->players.push_back(player2Name);
+    this->currentPlayerTurn = 0;
+    //MoveValidator newGame;
+    //this->game = newGame;
 }
 
 bool MiniGameMatch::hasPlayer(const std::string& playerName) const{

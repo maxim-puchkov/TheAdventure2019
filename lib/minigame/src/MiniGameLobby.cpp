@@ -1,14 +1,16 @@
+#include <iostream>
 #include "MiniGameLobby.h"
 
 MiniGameLobby::MiniGameLobby() {}
 
 MiniGameMatch& MiniGameLobby::createGame(const std::string& userName) {
     MiniGameMatch newGame{userName};
-    this->gameList.push_back(newGame);
+    this->gameList.emplace_back(newGame);
     return gameList.back();
 }
 
-//potential issue: deletes all games owned by adminName. may switch to unique matchID if we do not prevent players from creating more than one game
+//potential issue: deletes all games owned by adminName. may switch to unique matchID
+// if we do not prevent players from creating more than one game
 void MiniGameLobby::deleteGame(const std::string& adminName){
     gameList.erase(std::remove_if(gameList.begin(), gameList.end(),
                                         [&adminName](MiniGameMatch& x){return x.getAdminName() == adminName;}),
@@ -46,9 +48,13 @@ bool MiniGameLobby::confirmInvite(const std::string& invitedName){
             auto& match = getMatchWithPlayer(inviter);
 
             if (match.getAdminName() == "null"){ //if inviter is not in a match, create new one
-                match = createGame(inviter); //PROBLEM HERE. when accepting challenge when no game exists, challengee is not properly added to game (or game is not added to gameList)
+                std::cerr << "making new match\n";
+                //match = createGame(inviter); //PROBLEM HERE. when accepting challenge when no game exists, challengee is not properly added to game (or game is not added to gameList)
+                match = MiniGameMatch{inviter, invited}; //new constructor as temp solution. 1hr+ of debugging could not find solution to previous line
+                gameList.emplace_back(match);
             }
-            return match.addPlayer(invited);
+            //return match.addPlayer(invited);
+            return true;
         }
     }
     return false;
