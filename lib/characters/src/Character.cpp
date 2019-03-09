@@ -54,7 +54,7 @@ bool Character::isInCombat() {
 
 bool Character::isAlive() {
     Attributes attr = this->getAttributes();
-    return attr.getHealth() <= 0;
+    return attr.getHealth() > 0;
 }
 
 bool Character::operator==(const Character &other) {
