@@ -18,6 +18,7 @@
 class Room {
 
 private:
+    int roomId;
     std::string roomName;
     std::string roomDescription;
     std::vector<std::string> charactersInRoom;
@@ -51,6 +52,9 @@ public:
     //setters
     void setName(std::string newName) { roomName = newName; }
     void setDescription(std::string newDescription) { roomDescription = newDescription; }
+    void setRoomID(int id){roomId = id;}
+
+
 };
 
 

@@ -4,6 +4,7 @@
 #include <unordered_map> 
 #include <string>
 #include <vector>
+#include <chrono>
 #include "User.h"
 #include "UserDB.h"
 
@@ -27,22 +28,21 @@ class OnlineUserManager{
         std::unordered_map<std::string, User> onlineUsers;
         UserDB userDB {};
         User nullUser{"", ""};
-        Avatar nullAvatar{""};
 
         User& getUserById(const std::string& id);
         User& getUserByUsername(const std::string& userName);
     public:
         bool insertUser(const std::string &id, const User &user);
         User removeUser(const std::string& id);
-
-        Avatar& getAvatarById(const std::string& id);
-        Avatar& getAvatarByUsername(const std::string& userName);
+        long getTimeStamp();
         std::string getConnectionID(const std::string& userName);
+        std::string getUsernameFromConnectionID(const std::string& connectionID);
         bool onlineUserAddCommandToList(const std::string& id, const std::vector<std::string>& command);
         std::vector<std::pair<std::string, std::vector<std::string>>> getOnlineUserCommandList();
         std::vector<std::pair<std::string, std::string>> getOnlineUserMessageList();
         bool addMessageToUser(const std::string& userName, const std::string& message);
-        bool updateUserTimeStamp(const std::string& id, const long timeStamp);
+        bool updateUserTimeStamp(const std::string& id);
+        std::string removeUnactiveUser();
         void printTable();
 
 

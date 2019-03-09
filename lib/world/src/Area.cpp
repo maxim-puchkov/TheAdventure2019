@@ -37,3 +37,7 @@ const std::string &Area::getDescription() const {
 void Area::setDescription(const std::string &description) {
     Area::description = description;
 }
+
+std::vector<Room> Area::getRooms(){
+    return rooms;
+}

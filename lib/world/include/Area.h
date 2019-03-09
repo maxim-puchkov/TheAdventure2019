@@ -36,6 +36,8 @@ class Area {
 
     void setDescription(const std::string &description);
 
+    //Debugging Functions
+    std::vector<Room> getRooms();
 };
 
 

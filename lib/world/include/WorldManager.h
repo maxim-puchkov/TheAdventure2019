@@ -24,14 +24,14 @@ public:
     Room& findRoomByLocation(LocationCoordinates location);
 
     //commands
-    bool kick(Character& character);
-    bool spawn(Character& character, LocationCoordinates location);
-    std::string listExits(const Character& character) ;
+    bool kick(const std::string& characterName, LocationCoordinates location);
+    bool spawn(const std::string& characterName, LocationCoordinates location);
+    std::string listExits(LocationCoordinates location) ;
     const std::vector<std::string>& getUserNamesInRoom (LocationCoordinates location) ;
     const std::vector<std::string> getUserNamesInRange (LocationCoordinates location, unsigned int range) ;
-    LocationCoordinates move(Character& character, const std::string& direction) ;
-    std::string look(Character& character) ;
-    std::string look(Character& character, std::string objName) ;
+    LocationCoordinates move(const std::string& characterName, LocationCoordinates location, const std::string& direction) ;
+    std::string look(LocationCoordinates location) ;
+    std::string look(LocationCoordinates location, std::string objName) ;
 };
 
 
