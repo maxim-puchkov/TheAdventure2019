@@ -24,8 +24,12 @@ public:
 
     bool movePiece(const ChessCoordinate &start, const ChessCoordinate &finish);
 
+    const Piece getPieceKilled() const;
+
+
 private:
     vector< vector<Piece> > boardView;
+    Piece lastPieceKilled;
 
    void initializeGame(vector<vector<Piece>> &boardView);
    void createBackRank(Color myColor, vector<vector<Piece>> &boardView) ;
