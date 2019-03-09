@@ -1,5 +1,6 @@
 #include "GameManager.h"
 
+int heartBeatDuration = 50;
 GameManager::GameManager() {
     world.generateWorld();
     
@@ -44,6 +45,14 @@ std::string GameManager::extractKeyword(std::string& fullCommand) {
 }
 
 std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
+    std::cout << "TIME TO KICK: " << heartBeatDuration <<"\n";
+    if (heartBeatDuration == 0) {
+        std::string connectionID = onlineUserManager.removeUnactiveUser();
+        std::vector<std::string> vecForTest;
+        commandLogout(connectionID, vecForTest);
+        heartBeatDuration = 50;
+    }
+    heartBeatDuration--;
     auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
 
     //process commands
