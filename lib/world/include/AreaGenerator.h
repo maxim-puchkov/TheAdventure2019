@@ -14,11 +14,11 @@ class AreaGenerator {
 
   private:
     JsonParser jsonParser;
-    void generateRooms(json rooms, Area& area);
-    std::string removeQuotes(std::string str);
-    std::string json2string(json j);
 
-    
+    void generateRooms(json rooms, Area& area);
+    void generateNPC(json allNPC);
+    void generateObjects(json rooms, Area& area);
+
   public:
     Area getArea(std::string filepath);
 
