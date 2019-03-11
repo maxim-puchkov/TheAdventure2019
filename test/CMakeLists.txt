@@ -12,6 +12,7 @@ target_link_libraries(runAllTests
   gtest
   gtest_main
   characters
+  game
 )
 
 set_target_properties(runAllTests

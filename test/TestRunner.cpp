@@ -2,6 +2,7 @@
 #include "gmock/gmock.h"
 #include "AttributesTest.cpp"
 #include "CharacterTest.cpp"
+#include "CommandsTest.cpp"
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);

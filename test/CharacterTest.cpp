@@ -2,7 +2,7 @@
 #include "gmock/gmock.h"
 #include "Character.h"
 
-TEST(CharacterTests, CreatingCharacter) {
+TEST(CharacterTest, CreatingCharacter) {
     std::string username = "tester";
     Character testCharacter;
     testCharacter.createCharacter(username);
@@ -10,7 +10,7 @@ TEST(CharacterTests, CreatingCharacter) {
     EXPECT_EQ(username, testCharacter.getName());
 }
 
-TEST(CharacterTests, GetBaseAttributes) {
+TEST(CharacterTest, GetBaseAttributes) {
     std::string username = "tester";
     Character testCharacter;
     testCharacter.createCharacter(username);
@@ -20,7 +20,7 @@ TEST(CharacterTests, GetBaseAttributes) {
     EXPECT_EQ(testAttributes.getHealth(), (testCharacter.getBaseAttributes()).getHealth());
 }
 
-TEST(CharacterTests, CharacterAliveOnCreate) {
+TEST(CharacterTest, CharacterAliveOnCreate) {
     std::string username = "tester";
     Character testCharacter;
     testCharacter.createCharacter(username);
@@ -28,7 +28,7 @@ TEST(CharacterTests, CharacterAliveOnCreate) {
     EXPECT_TRUE(testCharacter.isAlive());
 }
 
-TEST(CharacterTests, CharacterDies) {
+TEST(CharacterTest, CharacterDies) {
    std::string username = "tester";
    Character testCharacter;
    testCharacter.createCharacter(username);
