@@ -23,11 +23,7 @@ std::vector<std::string> CommandMove::reassembleCommand(std::string& fullCommand
 
     //split by " " and compress all long spaces
     boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
-    if(processedCommand.size() != 2) {
-        commandIsValid = false;
-    } else {
-        commandIsValid = true;
-    }
+    commandIsValid = (processedCommand.size() == 2);
    
     return processedCommand;
 }

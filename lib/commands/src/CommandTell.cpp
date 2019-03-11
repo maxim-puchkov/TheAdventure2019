@@ -14,15 +14,15 @@ void CommandTell::executeInHeartbeat(const std::string& username, const std::vec
 
 std::vector<std::string> CommandTell::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
 	std::vector<std::string> processedCommand;
+    commandIsValid = false;
 
 	//Format: tell <username> : <message>
 	boost::trim_if(fullCommand, boost::is_any_of(" \t"));
 
-	//Split by ":" and compress all spaces on both sides of ":"
+	//Split by ":"
 	std::vector<std::string> splitByColon;
 	boost::split(splitByColon, fullCommand, boost::is_any_of(":"), boost::token_compress_on);
-	if(splitByColon.size() != 2) {
-		commandIsValid = false;
+	if(splitByColon.size() != 2) {	
 		return processedCommand;
 	}
 
@@ -33,7 +33,6 @@ std::vector<std::string> CommandTell::reassembleCommand(std::string& fullCommand
     //split the left side of ":" by " "
     boost::split(processedCommand, splitByColon[0], boost::is_any_of(" \t"), boost::token_compress_on);
     if(processedCommand.size() != 2) {
-    	commandIsValid = false;
     	return processedCommand;
     }
 

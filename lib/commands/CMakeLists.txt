@@ -11,6 +11,20 @@ add_library(${libcommands}
     src/CommandLook.cpp
     src/CommandExamine.cpp
     src/CommandMove.cpp
+    src/CommandCreateAva.cpp
+    src/CommandEditAva.cpp
+    src/CommandCreateRoom.cpp
+    src/CommandEditRoom.cpp
+    src/CommandUse.cpp
+    src/CommandEquip.cpp
+    src/CommandPickup.cpp
+    src/CommandDrop.cpp
+    src/CommandPut.cpp
+    src/CommandMinigame.cpp
+    src/CommandCombat.cpp
+    src/CommandAttack.cpp
+    src/CommandFlee.cpp
+    src/CommandCast.cpp
 )
 
 target_include_directories(${libcommands}

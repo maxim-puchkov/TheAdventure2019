@@ -28,11 +28,7 @@ std::vector<std::string> CommandLogout::reassembleCommand(std::string& fullComma
 
     //split by " " and compress all long spaces
     boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
-    if(processedCommand.size() != 1) {
-        commandIsValid = false;
-    } else {
-    	commandIsValid = true;
-    }
+    commandIsValid = (processedCommand.size() == 1);
    
     return processedCommand;
 }
