@@ -1,14 +1,14 @@
 #include "CommandMove.h"
 
 void CommandMove::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
-    auto location = avatarManager.getAvatarLocation(username);
+    auto location = characterManager.getCharacterLocation(username);
     if(location.area == -1) {
         //should not reach here, report error
         return;
     }
     
     auto newLocation = worldManager.move(username, location, fullCommand[1]);
-    avatarManager.changeAvatarLocation(username, newLocation);
+    characterManager.changeCharacterLocation(username, newLocation);
     
     std::stringstream answer;
     answer << "Current location: Area:" << newLocation.area << ", Room: " << newLocation.room << "\n";

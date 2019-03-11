@@ -6,8 +6,8 @@ std::string CommandLogout::executePromptReply(const std::string& connectionID, c
 	switch(answer) {
 		case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_OUT:
 		{
-            worldManager.kick(username, avatarManager.getAvatarLocation(username));
-            avatarManager.kickAvatar(username);
+            worldManager.kick(username, characterManager.getCharacterLocation(username));
+            characterManager.kickCharacter(username);
 			return "You are now logged out.\n";
 		}
 		case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE:

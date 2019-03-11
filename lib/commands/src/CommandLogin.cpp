@@ -5,7 +5,7 @@ std::string CommandLogin::executePromptReply(const std::string& connectionID, co
 	switch(answer) {
 		case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN:
 		{
-			auto spawnLocation = avatarManager.spawnAvatar(fullCommand[1]);
+			auto spawnLocation = characterManager.spawnCharacter(fullCommand[1]);
 		    worldManager.spawn(fullCommand[1], spawnLocation);
 			return "You are now logged in.\n";
 		}

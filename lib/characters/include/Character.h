@@ -30,9 +30,9 @@ const int DEF_CHAR_DAMAGE = 10;
 class Character {
 public:
     
-    virtual ~Character();
+    Character(const std::string &name);
     
-    virtual void createCharacter(const std::string &name);
+    
     
     // Get
     virtual std::string getName();
@@ -56,7 +56,7 @@ public:
     virtual bool operator!=(const Character &other);
     
 protected:
-    
+    virtual void createCharacter(const std::string &name);
     std::string name;
     
     Attributes baseAttr;
