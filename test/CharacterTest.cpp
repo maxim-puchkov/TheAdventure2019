@@ -4,16 +4,14 @@
 
 TEST(CharacterTest, CreatingCharacter) {
     std::string username = "tester";
-    Character testCharacter;
-    testCharacter.createCharacter(username);
+    Character testCharacter(username);
     
     EXPECT_EQ(username, testCharacter.getName());
 }
 
 TEST(CharacterTest, GetBaseAttributes) {
     std::string username = "tester";
-    Character testCharacter;
-    testCharacter.createCharacter(username);
+    Character testCharacter(username);
 
     Attributes testAttributes;
 
@@ -22,16 +20,14 @@ TEST(CharacterTest, GetBaseAttributes) {
 
 TEST(CharacterTest, CharacterAliveOnCreate) {
     std::string username = "tester";
-    Character testCharacter;
-    testCharacter.createCharacter(username);
+    Character testCharacter(username);
 
     EXPECT_TRUE(testCharacter.isAlive());
 }
 
 TEST(CharacterTest, CharacterDies) {
    std::string username = "tester";
-   Character testCharacter;
-   testCharacter.createCharacter(username);
+   Character testCharacter(username);
 
    int damageToDo = testCharacter.getAttributes().getHealth() + 1;
    testCharacter.characterTakeDamage(damageToDo);

@@ -54,9 +54,9 @@ TEST(CommandsTest, SayCommand) {
     std::string testCommand5 = "say: tell:";
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand1));
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand2));
-    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand3));
-    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand4));
-    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand5));
+    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(fakeUser, testCommand3));
+    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(fakeUser, testCommand4));
+    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(fakeUser, testCommand5));
 }
 
 TEST(CommandsTest, TellCommand) {
@@ -67,8 +67,8 @@ TEST(CommandsTest, TellCommand) {
     std::string testCommand5 = "tell: say:";
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand1));
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand2));
-    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand3));
-    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand4));
+    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(fakeUser, testCommand3));
+    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(fakeUser, testCommand4));
     EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(fakeUser, testCommand5));
 }
 
@@ -80,7 +80,7 @@ TEST(CommandsTest, YellCommand) {
     std::string testCommand5 = "yell: tell:";
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand1));
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand2));
-    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand3));
-    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand4));
-    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand5));
+    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(fakeUser, testCommand3));
+    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(fakeUser, testCommand4));
+    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(fakeUser, testCommand5));
 }
