@@ -58,3 +58,29 @@ TEST(CommandsTest, SayCommand) {
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand4));
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand5));
 }
+
+TEST(CommandsTest, TellCommand) {
+    std::string testCommand1 = "tell asdadw : test";
+    std::string testCommand2 = "      tElL     userstest:    car     a  test ";
+    std::string testCommand3 = "TELL  user : testTELL:";
+    std::string testCommand4 = "tell   a : tell:";
+    std::string testCommand5 = "tell: say:";
+    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand1));
+    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand2));
+    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand3));
+    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand4));
+    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(fakeUser, testCommand5));
+}
+
+TEST(CommandsTest, YellCommand) {
+    std::string testCommand1 = "yell: test";
+    std::string testCommand2 = "      yELl     :    ssdw     a  test ";
+    std::string testCommand3 = "YELL: testYELL:";
+    std::string testCommand4 = "yell: yell:";
+    std::string testCommand5 = "yell: tell:";
+    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand1));
+    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand2));
+    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand3));
+    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand4));
+    EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(fakeUser, testCommand5));
+}
