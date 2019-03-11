@@ -27,7 +27,7 @@ LocationCoordinates CharacterManager::getCharacterLocation(const std::string& us
 	if (found != onlineCharacters.end()) {
 		auto currentLocation = found->second.getCurrentLocation();
         return currentLocation;
-    } else{
+    } else {
         return nullLocation;
     }
 }
