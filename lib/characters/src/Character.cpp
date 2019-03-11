@@ -7,7 +7,9 @@
 
 #include "Character.h"
 
-Character::~Character() { }
+Character::Character(const std::string &name) {
+    createCharacter(name);
+}
 
 void Character::createCharacter(const std::string &name) {
     this->name = DEF_CHAR_NAME;
