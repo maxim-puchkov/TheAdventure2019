@@ -7,12 +7,12 @@
 using boost::lexical_cast;
 using boost::bad_lexical_cast;
 using usermanager::OnlineUserManager;
-using avatarmanager::AvatarManager;
+using charactermanager::CharacterManager;
 
 class CommandPickup : public Command
 {
 public:
-	CommandPickup(AvatarManager& a, OnlineUserManager& u, WorldManager& w): Command(a, u, w) {}
+	CommandPickup(CharacterManager& c, OnlineUserManager& u, WorldManager& w): Command(c, u, w) {}
 	
 	virtual void executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand);
 	virtual std::vector<std::string> reassembleCommand(std::string& fullCommand, bool& commandIsValid);

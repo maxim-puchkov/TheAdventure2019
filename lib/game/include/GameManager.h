@@ -9,7 +9,7 @@
 
 #include "OnlineUserManager.h"
 #include "WorldManager.h"
-#include "AvatarManager.h"
+#include "CharacterManager.h"
 
 #include "Command.h"
 #include "CommandLogin.h"
@@ -38,14 +38,14 @@
 #include "CommandCast.h"
 
 using usermanager::OnlineUserManager;
-using avatarmanager::AvatarManager;
+using charactermanager::CharacterManager;
 
 class GameManager{
 
 private:
     WorldManager world{};
     OnlineUserManager onlineUserManager{};
-    AvatarManager avatarManager;
+    CharacterManager avatarManager;
     std::unordered_map<std::string, std::unique_ptr<Command>> tableOfCommands;
     
     std::string extractKeyword(std::string& fullCommand);
