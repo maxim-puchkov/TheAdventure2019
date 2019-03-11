@@ -1,7 +1,8 @@
-# Feature: <!-- Include feature name-->
+# Continuous Integration
 
+<!-- Write a description here -->
 No description.
-<!-- Write a feature description here -->
+
 
 
 
@@ -30,4 +31,4 @@ Add all known Documentation Requirements here, per https://docs.gitlab.com/ee/de
 <!-- /assign @someone -->
 
 <!-- Add labels here -->
-/label ~feature
+/label ~"continuous integration"
