@@ -1,302 +1,104 @@
 #include "GameManager.h"
-#include <boost/algorithm/string.hpp>
 
 int heartBeatDuration = 50;
+
 GameManager::GameManager() {
-    world = WorldManager{};
     world.generateWorld();
-    
     createTableOfCommands();
 }
 
 void GameManager::createTableOfCommands() {
-    commandGuideline login = {&GameManager::commandLogin, &GameManager::commandError, 2, 0, " [username] [password]"};
-    commandGuideline logout = {&GameManager::commandLogout, &GameManager::commandError, 0, 0, ""};
-    commandGuideline create = {&GameManager::commandCreate, &GameManager::commandError, 2, 0, " [username] [password]"};
-    commandGuideline say = {&GameManager::commandAddToActionList, &GameManager::commandSay, 0, 1, ": [message]"};
-    commandGuideline yell = {&GameManager::commandAddToActionList, &GameManager::commandYell, 0, 1, ": [message]"};
-    commandGuideline tell = {&GameManager::commandAddToActionList, &GameManager::commandTell, 1, 1, " [other-username]: [message]"};
-    commandGuideline move = {&GameManager::commandAddToActionList, &GameManager::commandMove, 1, 0, " [direction]"};
-    commandGuideline look = {&GameManager::commandAddToActionList, &GameManager::commandLook, 0, 0, ""};
-    commandGuideline examine = {&GameManager::commandAddToActionList, &GameManager::commandExamine, 1, 0, " [object/username]"};
-    commandGuideline help = {&GameManager::commandHelp, &GameManager::commandError, 0, 0, ""};
-    
-    tableOfCommands.insert({"login", login});
-    tableOfCommands.insert({"logout", logout});
-    tableOfCommands.insert({"create-account", create});
-    tableOfCommands.insert({"say", say});
-    tableOfCommands.insert({"yell", yell});
-    tableOfCommands.insert({"tell", tell});
-    tableOfCommands.insert({"move", move});
-    tableOfCommands.insert({"look", look});
-    tableOfCommands.insert({"examine", examine});
-    tableOfCommands.insert({"help", help});
+    tableOfCommands.insert({"login", make_unique<CommandLogin>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"logout", make_unique<CommandLogout>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"create-account", make_unique<CommandCreate>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"help", make_unique<CommandHelp>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"say", make_unique<CommandSay>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"tell", make_unique<CommandTell>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"yell", make_unique<CommandYell>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"look", make_unique<CommandLook>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"examine", make_unique<CommandExamine>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"move", make_unique<CommandMove>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"create-avatar", make_unique<CommandCreateAva>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"edit-avatar", make_unique<CommandEditAva>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"create-room", make_unique<CommandCreateRoom>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"edit-room", make_unique<CommandEditRoom>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"use", make_unique<CommandUse>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"equip", make_unique<CommandEquip>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"pickup", make_unique<CommandPickup>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"drop", make_unique<CommandDrop>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"put", make_unique<CommandPut>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"minigame", make_unique<CommandMinigame>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"combat", make_unique<CommandCombat>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"attack", make_unique<CommandAttack>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"flee", make_unique<CommandFlee>(avatarManager, onlineUserManager, world)});
+    tableOfCommands.insert({"cast", make_unique<CommandCast>(avatarManager, onlineUserManager, world)});
 }
 
-std::string GameManager::extractCommands(const std::string& connectionID, const std::string& fullCommand) {
-    std::vector<std::string> commandParts, splitByColon;
-    reassembleCommand(fullCommand, commandParts, splitByColon);
-
-    auto found = tableOfCommands.find(commandParts[0]);
+std::string GameManager::extractCommands(const std::string& connectionID, std::string fullCommand) {
+	auto found = tableOfCommands.find(extractKeyword(fullCommand));
+    
     if(found != tableOfCommands.end()) {
-        commandGuideline guideline = found->second;
-        if (commandIsValid(commandParts.size(), splitByColon.size(), guideline)) {
-            onlineUserManager.updateUserTimeStamp(connectionID);
-            return (this->*guideline.promptReply)(connectionID, commandParts);
-        }
-        else {
-            std::ostringstream answer;
-            answer << "Invalid command. Command syntax: " << commandParts[0] << guideline.helpText << "\n";
-            return answer.str();
-        }
+    	bool commandIsValid;
+    	auto processedCommand = found->second->reassembleCommand(fullCommand, commandIsValid);
+    	if(commandIsValid) {
+    		return found->second->executePromptReply(connectionID, processedCommand);
+    	}
+    	return "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
     }
-    return "Command not found\n";
+    return "Command not found. Please enter \"help\" to see the syntax.\n";
 }
 
-void GameManager::reassembleCommand(std::string fullCommand, std::vector<std::string>& commandParts, std::vector<std::string>& splitByColon) {
-	//Format: <command> <arg> : <optional-text-message> 
+std::string GameManager::extractKeyword(std::string& fullCommand) {
+	boost::to_lower(fullCommand);
     boost::trim_if(fullCommand, boost::is_any_of(" \t"));
-    boost::split(splitByColon, fullCommand, boost::is_any_of(":"), boost::token_compress_on);
-   
-   	//trim any space before and after ":"
-    for(auto& text : splitByColon) {
-        boost::trim_if(text, boost::is_any_of(" \t"));
-    }
-    boost::split(commandParts, splitByColon[0], boost::is_any_of(" \t"), boost::token_compress_on);
 
-    //reassemble
-    if(splitByColon.size() > 1)
-   		commandParts.push_back(splitByColon[1]);
-}
-
-bool GameManager::commandIsValid(size_t commandPartsSize, size_t splitByColon, commandGuideline guideline) {
-    if(guideline.commandPartArgCount != commandPartsSize - splitByColon)
-        return false;
-    if(guideline.messagePartArgCount != splitByColon - 1)
-        return false;
-    return true;
-}
-
-
-
-
-//-------------------------------------------------------
-//Prompt reply commands
-std::string GameManager::commandLogin(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    auto answer = onlineUserManager.login(connectionID, fullCommand[1], fullCommand[2]);
-	switch(answer) {
-		case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN:
-		{
-			auto spawnLocation = avatarManager.spawnAvatar(fullCommand[1]);
-		    world.spawn(fullCommand[1], spawnLocation);
-			return "You are now logged in.\n";
-		}
-		case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND:
-			return "Error! Username not found. Please try again.\n";
-		case usermanager::OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN:
-			return "Error! You are already logged in.\n";
-        default:
-            std::cout << "ERROR SHOULD NOT GET HERE! \n";
-        break;
-	}
-	//swallow
-    return "";
-}
-
-std::string GameManager::commandLogout(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
-    auto answer = onlineUserManager.logout(connectionID);
-	switch(answer) {
-		case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_OUT:
-		{
-            world.kick(username, avatarManager.getAvatarLocation(username));
-            avatarManager.kickAvatar(username);
-			return "You are now logged out.\n";
-		}
-		case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE:
-			return "Error! You are not logged in.\n";
-		default:
-            std::cout << "ERROR SHOULD NOT GET HERE! \n";
-        break;
-	}
-	//swallow
-    return "";
-}
-
-std::string GameManager::commandCreate(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    auto answer = onlineUserManager.createUser(fullCommand[1], fullCommand[2]);
-	switch(answer) {
-		case UserDB::DB_CODE::INVALID_USERNAME:
-			return "Error! Invalid username.\n";
-		case UserDB::DB_CODE::ACCOUNT_CREATED:
-			return "Account created. Please log in to play the game.\n";
-		default:
-            std::cout << "ERROR SHOULD NOT GET HERE! \n";
-        break;
-	}
-	//swallow
-    return "";
-}
-
-std::string GameManager::commandAddToActionList(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    bool success = onlineUserManager.onlineUserAddCommandToList(connectionID, fullCommand);
-    if(!success) {
-    	return "User is not online.\n";
-    }
-    //Do nothing, answer only when executing command 
-    return "";
-}
-
-std::string GameManager::commandHelp(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    std::ostringstream answer;
-    answer << "--------------------------------------------------\n";
-    answer << "Supported commands: \n";
-    for (const auto& [command, guideline] : tableOfCommands) {
-        answer << command << guideline.helpText << std::endl;
-	}   
-    return answer.str();
-}
-
-
-
-
-//----------------------------------------------
-//heartbeat reply functions
-std::string GameManager::commandSay(const std::string& username, const std::vector<std::string>& fullCommand) {
-    auto location = avatarManager.getAvatarLocation(username);
-    if(location.area == -1) {
-    	//should not reach here, report error
-    	return "";
-    }
+    std::vector<std::string> commandParts;
+    boost::split(commandParts, fullCommand, boost::is_any_of(" :"), boost::token_compress_on);
     
-    auto& userNamesInRoom = world.getUserNamesInRange(location, SAY_RANGE);
-    for(auto name: userNamesInRoom) {
-    	if(name == username) {
-    		continue;
-    	}
-        onlineUserManager.addMessageToUser(name, username + " said: " + fullCommand[1] + "\n");
-    }
-
-	return "You said: \"" + fullCommand[1] + "\"\n";
+    return commandParts[0];
 }
 
-std::string GameManager::commandYell(const std::string& username, const std::vector<std::string>& fullCommand) {
-    auto location = avatarManager.getAvatarLocation(username);
-    if(location.area == -1) {
-    	//should not reach here, report error
-    	return "";
-    }
-
-    auto& userNamesInRoom = world.getUserNamesInRange(location, YELL_RANGE);
-    for(auto name : userNamesInRoom){
-    	if(name == username) {
-    		continue;
-    	}
-        onlineUserManager.addMessageToUser(name, username + " yelled: " + fullCommand[1] + "\n");
-    }
-
-    return "You yelled: \"" + fullCommand[1] + "\"\n";
-}
-
-std::string GameManager::commandTell(const std::string& usernameOfSpeaker, const std::vector<std::string>& fullCommand){
-    std::string usernameOfListener = fullCommand.at(1);
-	std::string message = fullCommand.at(2);
-    std::string messageToSendOtherUser = usernameOfSpeaker + " told you: " + message + "\n";
-
-    if(onlineUserManager.addMessageToUser(usernameOfListener, messageToSendOtherUser)) {
-        return "You told " + usernameOfListener + ": " + message + "\n";
-    }
-    return "Failed to find online user with name: " + usernameOfListener + "\n";
-}
-
-std::string GameManager::commandMove(const std::string& username, const std::vector<std::string>& fullCommand) {
-	auto location = avatarManager.getAvatarLocation(username);
-    if(location.area == -1) {
-    	//should not reach here, report error
-    	return "";
-    }
-	auto newLocation = world.move(username, location, fullCommand[1]);
-	avatarManager.changeAvatarLocation(username, location);
-	std::ostringstream answer;
-	answer << "Current location: Area:" << newLocation.area << ", Room: " << newLocation.room << "\n";
-	return answer.str();
-}
-
-std::string GameManager::commandLook(const std::string& username, const std::vector<std::string>& fullCommand) {
-	auto location = avatarManager.getAvatarLocation(username);
-    if(location.area == -1) {
-    	//should not reach here, report error
-    	return "";
-    }
-	return world.look(location) + "\n";
-}
-
-std::string GameManager::commandExamine(const std::string& username, const std::vector<std::string>& fullCommand) {
-	auto location = avatarManager.getAvatarLocation(username);
-    if(location.area == -1) {
-    	//should not reach here, report error
-    	return "";
-    }
-
-	if(fullCommand[1] == "exits")
-	    return world.listExits(location) + "\n";
-	else
-	    return world.look(location, fullCommand[1]) + "\n";
-}
-
-std::string GameManager::commandError(const std::string& username, const std::vector<std::string>& fullCommand){
-    //Intended to be a null-function. Normally it should never reach this.
-    return "";
-}
-
-
-
-//-------------------------------------------------
-//heartbeat and other helper functions
 std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
+    auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
+/*
+    //kick inactive users
     std::cout << "TIME TO KICK: " << heartBeatDuration <<"\n";
+    
     if (heartBeatDuration == 0) {
         std::string connectionID = onlineUserManager.removeUnactiveUser();
-        std::vector<std::string> vecForTest;
-        commandLogout(connectionID, vecForTest);
+        
+        auto found = tableOfCommands.find("logout");
+        std::vector<std::string> fullCommand;
+        fullCommand.push_back("logout");
+        std::string logoutMessage = "You have been idle for too long.\n" + found->second->executePromptReply(connectionID, fullCommand);
+        map->insert(make_pair(connectionID, logoutMessage));
+        //commandLogout(connectionID, vecForTest);
+        
         heartBeatDuration = 50;
+    
     }
     heartBeatDuration--;
-    auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
-
+*/    
+    
     //process commands
     auto userCommands = onlineUserManager.getOnlineUserCommandList();
     for(auto& element : userCommands) {
     	auto& username = element.first;
     	auto& command = element.second;
-
-    	auto found = tableOfCommands.find(command[0]);
-	    commandGuideline guideline = found->second;
-
-    	auto connectionID = getUserIDByUsername(username);
-    	auto replyMessage = (this->*guideline.heartbeatReply)(username, command);
-
-    	map->insert(std::make_pair(connectionID, replyMessage));
-    }
+		
+		auto found = tableOfCommands.find(command[0]);
+	    if(found != tableOfCommands.end()) {
+	    	found->second->executeInHeartbeat(username, command);
+	    }
+	}
 
     //process messages
     auto userMessages = onlineUserManager.getOnlineUserMessageList();
     for (auto& element : userMessages) {
     	auto& connectionID = element.first;
     	auto& message = element.second;
+    	map->insert(make_pair(connectionID, message));
+	}
 
-	    auto found = map->find(connectionID);
-	    if (found != map->end()) {
-	      (found->second.append("\n")).append(message);
-	    }
-	    else {
-	      map->insert(make_pair(connectionID, message));
-	    }
-	  }
     return std::move(map);
-}
-
-
-std::string GameManager::getUserIDByUsername(const std::string& userName) {
-    return onlineUserManager.getConnectionID(userName);
 }
