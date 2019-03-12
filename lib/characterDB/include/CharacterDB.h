@@ -1,7 +1,6 @@
 #ifndef CHARACTERDB_H
 #define CHARACTERDB_H
 
-#include "User.h"
 #include "Character.h"
 #include "JsonParser.h"
 #include "json.hpp"
@@ -13,18 +12,8 @@
 
 using namespace std;
 using nlohmann::json;
-using user::User; 
 
 class CharacterDB {
-  public:
-    enum class DB_CODE : uint8_t {
-      INVALID_USERNAME,
-      ACCOUNT_CREATED,
-      USER_UPDATED,
-      USER_DELETED,
-      USER_NOT_FOUND,      
-    };
-
   private:
     JsonParser jsonParser;
     json characters_json;
@@ -33,12 +22,12 @@ class CharacterDB {
     CharacterDB();
     ~CharacterDB();
 
-    DB_CODE createCharacter(const std::string&, const std::string&);
+    bool createCharacter(const std::string&);
 
-    DB_CODE updateCharacter(User&);
+    bool updateCharacter(Character&);
 
-    User getCharacter(const std::string&, const std::string&);
+    Character getCharacter(const std::string&);
 
-    DB_CODE deleteCharacter(const std::string& );
+    bool deleteCharacter(const std::string& );
 };
 #endif
