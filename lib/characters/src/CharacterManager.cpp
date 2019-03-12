@@ -1,9 +1,19 @@
 #include "CharacterManager.h"
-#include "../../characterDB/include/CharacterDB.h"
+#include "CharacterDB.h"
 
 using charactermanager::CharacterManager;
 
 LocationCoordinates CharacterManager::spawnCharacter(const std::string& username) {
+
+	//DUMMY CODE DELETE
+	CharacterDB a;
+	a.createCharacter("murio");
+	std::cout << a.getCharacter("murio\n").getName();
+
+
+	//END DUMMY CODE
+
+
 	Character character = Character(username);
 	onlineCharacters.insert(std::make_pair(username, character));
 	auto spawnLocation = LocationCoordinates{0, 0};
@@ -26,7 +36,7 @@ std::string CharacterManager::getUsernameFromCharacter(const std::string& userna
 
 
 LocationCoordinates CharacterManager::getCharacterLocation(const std::string& username) const {
-	
+
 
 
 
