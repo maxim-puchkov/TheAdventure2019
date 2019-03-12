@@ -1,5 +1,5 @@
 add_library(${libcharacterdb}
-  src/UserDB.cpp
+  src/CharacterDB.cpp
 )
 
 target_include_directories(${libcharacterdb}

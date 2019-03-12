@@ -1,4 +1,5 @@
 #include "CharacterManager.h"
+#include "../../characterDB/include/CharacterDB.h"
 
 using charactermanager::CharacterManager;
 
@@ -18,11 +19,18 @@ void CharacterManager::kickCharacter(const std::string& username) {
 
 std::string CharacterManager::getUsernameFromCharacter(const std::string& username) const {
 	//for now username = Character name
+
+
 	return username;
 }
 
 
 LocationCoordinates CharacterManager::getCharacterLocation(const std::string& username) const {
+	
+
+
+
+
 	auto found = onlineCharacters.find(username);
 	if (found != onlineCharacters.end()) {
 		auto currentLocation = found->second.getCurrentLocation();
@@ -38,4 +46,7 @@ void CharacterManager::changeCharacterLocation(const std::string& username, Loca
 	if (found != onlineCharacters.end()) {
 		found->second.setCurrentLocation(newLocation);
     }
+
+
+
 }
