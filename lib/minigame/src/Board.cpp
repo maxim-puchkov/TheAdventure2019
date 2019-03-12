@@ -239,16 +239,14 @@ bool Board::movePiece(const ChessCoordinate &start, const ChessCoordinate &finis
 
     bool isValid = sourcePiece.checkMovementIsValid(start,finish,targetPiece.getColor());
 
-    
     if(isValid){
         promotePawn(sourcePiece, finish);
-        sourcePiece.updatePiece(sourcePiece,targetPiece);
         lastPieceKilled.setPiece( targetPiece.getPieceUnit() , targetPiece.getColor() );
+        sourcePiece.updatePiece(sourcePiece,targetPiece);
         return true;
     } else{
         return false;
     }
-
 
 
 }

@@ -307,6 +307,48 @@ TEST(BoardTest, testBishop){
 
 }
 
+TEST(BoardTest, testPromotionAndKillKing){
+
+    Board board;
+
+    board.movePiece({1,1},{3,1});
+    board.movePiece({3,1},{4,1});
+    board.movePiece({4,1},{5,1});
+    board.movePiece({5,1},{6,2});
+    board.movePiece({6,2},{7,3});
+
+    EXPECT_EQ(board.requestUnit({7,3}), QUEEN );
+
+
+    board.movePiece({6,4},{4,4});
+
+    board.movePiece({4,4},{3,4});
+    board.movePiece({3,4},{2,4});
+    board.movePiece({2,4},{1,3});
+    board.movePiece({1,3},{0,2});
+
+
+    EXPECT_EQ(board.requestUnit({0,2}), QUEEN );
+
+
+
+    board.movePiece({0,2},{0,3});
+
+    EXPECT_EQ(board.getPieceKilled().getPieceUnit(), QUEEN);
+
+    std::cout << board.drawBoard();
+    board.movePiece({0,3},{0,4});
+
+    std::cout << board.drawBoard();
+
+
+    EXPECT_EQ(board.getPieceKilled().getPieceUnit(),KING);
+
+
+
+
+
+}
 
 
 
