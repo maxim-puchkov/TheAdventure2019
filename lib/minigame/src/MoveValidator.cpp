@@ -54,7 +54,7 @@ int MoveValidator::convertChessRowToInt(char input){
  * @return A string that you can use to draw the board
  */
 std::string MoveValidator::drawBoard(){
-    return gameBoard.drawBoard();
+    return gameBoard.getBoardView();
 }
 
 /**
@@ -99,7 +99,7 @@ std::string MoveValidator::helpMessage(){
 
 
 bool MoveValidator::isGameFinished() const {
-    const Piece &a = gameBoard.getPieceKilled();
+    const Piece &a = gameBoard.getLastPieceKilled();
     if(a.getPieceUnit() == KING){
         return true;
     }
@@ -110,12 +110,12 @@ bool MoveValidator::isGameFinished() const {
 std::string MoveValidator::gameOverMessage() {
 
     std::string stream = "";
-    const Piece &piece = gameBoard.getPieceKilled();
+    const Piece &piece = gameBoard.getLastPieceKilled();
 
     if(piece.getPieceUnit() != KING){
         stream = "King isn't dead!, try calling isGameFinished first";
     }
-    else if( piece.getColor() == RED ){
+    else if( piece.getColor() == RED_LOWERCASE ){
         stream = "team lower case has won the game ";
     } else {
         stream = "team upper case has won the game ";

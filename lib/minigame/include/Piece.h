@@ -10,7 +10,7 @@
 
 
 
-enum Color{ RED,BLUE,COLORLESS };
+enum Color{ RED_LOWERCASE,BLUE_UPPERCASE,COLORLESS };
 
 enum PieceUnit{
     PAWN,
@@ -49,7 +49,6 @@ class Piece {
         bool checkMovementIsValid(const ChessCoordinate &start, const ChessCoordinate &finish,const Color &targetColor) const   ;
         void updatePiece(Piece &source, Piece &destination);
         void setPiece(PieceUnit pieceUnit, Color color);
-
 
 
     Piece();

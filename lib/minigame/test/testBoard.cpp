@@ -41,7 +41,7 @@ TEST(BoardTest,  pawn){
     input = "a5,a6";
     isValid = move.readChessMove(input);
     EXPECT_EQ(isValid, false);
-   // move.drawBoard();
+   // move.getBoardView();
 
 
     input = "h7,h5";
@@ -68,7 +68,7 @@ TEST(BoardTest,  pawn){
 TEST(BoardTest, pawnDiagonal){
 
     MoveValidator move;
-    //move.drawBoard();
+    //move.getBoardView();
 
     std::string input = "a2,a4";
     move.readChessMove(input);
@@ -81,36 +81,36 @@ TEST(BoardTest, pawnDiagonal){
     bool isValid = move.readChessMove(input);
     EXPECT_EQ(true,isValid);
 
-    //move.drawBoard();
+    //move.getBoardView();
 
     input = "a7,a6";
     move.readChessMove(input);
 
-    //move.drawBoard();
+    //move.getBoardView();
 
     input = "b5,a6";
     isValid = move.readChessMove(input);
 
     EXPECT_EQ(isValid,true);
 
-    //move.drawBoard();
+    //move.getBoardView();
 
     //Now testing the blue side
     input = "b2,b4";
     move.readChessMove(input);
     input = "c7,c5";
     move.readChessMove(input);
-   // move.drawBoard();
+   // move.getBoardView();
 
     input = "c5,b4";
     isValid = move.readChessMove(input);
     EXPECT_EQ(true, isValid);
-   // move.drawBoard();
+   // move.getBoardView();
 
    input = "c2,c3";
    move.readChessMove(input);
 
-   //move.drawBoard();
+   //move.getBoardView();
 
    input = "b4,c3";
    isValid = move.readChessMove(input);
@@ -127,12 +127,12 @@ TEST(BoardTest,pawnDiagonalTwo){
     input = "d7,d5";
     move.readChessMove(input);
 
-    // move.drawBoard();
+    // move.getBoardView();
 
     //Illegal move pawn cannot move in this direction.
     input = "d5,e4";
     bool isValid = move.readChessMove(input);
-    //move.drawBoard();
+    //move.getBoardView();
     EXPECT_EQ(isValid,false);
 
     input = "d5,e6";
@@ -141,7 +141,7 @@ TEST(BoardTest,pawnDiagonalTwo){
 
 }
 
-//To see where the pieces are use move.drawBoard()
+//To see where the pieces are use move.getBoardView()
 TEST(BoardTest, Rook){
 
 
@@ -171,10 +171,10 @@ TEST(BoardTest, Rook){
     input = "h2,f2";
     isValid = move.readChessMove(input);
 
-    // move.drawBoard();
+    // move.getBoardView();
     EXPECT_EQ(false,isValid);
 
-    //Now test if the red rook can "Illegaly go through the blue rook. If you want to see the board do move.drawBoard//
+    //Now test if the red rook can "Illegaly go through the blue rook. If you want to see the board do move.getBoardView//
     input = "h1,h4";
     isValid = move.readChessMove(input);
     EXPECT_EQ(false,isValid);
@@ -263,7 +263,7 @@ TEST(BoardTest, knight){
     input = "e3,g4";
     isValid = move.readChessMove(input);
     EXPECT_EQ(isValid,true);
-    //move.drawBoard();
+    //move.getBoardView();
 
     input = "g4,e3";
     isValid = move.readChessMove(input);
@@ -298,7 +298,6 @@ TEST(BoardTest, testBishop){
     bishop.movePiece({2,0},{6,4});
     EXPECT_EQ(bishop.requestUnit({2,0}),NONE);
 
-    bool isValid = bishop.movePiece({6,4},{3,7});
 
     bishop.movePiece({3,7},{2,6});
     EXPECT_EQ(bishop.requestUnit({2,6}),BISHOP);
@@ -334,15 +333,15 @@ TEST(BoardTest, testPromotionAndKillKing){
 
     board.movePiece({0,2},{0,3});
 
-    EXPECT_EQ(board.getPieceKilled().getPieceUnit(), QUEEN);
+    EXPECT_EQ(board.getLastPieceKilled().getPieceUnit(), QUEEN);
 
-    std::cout << board.drawBoard();
+    std::cout << board.getBoardView();
     board.movePiece({0,3},{0,4});
 
-    std::cout << board.drawBoard();
+    std::cout << board.getBoardView();
 
 
-    EXPECT_EQ(board.getPieceKilled().getPieceUnit(),KING);
+    EXPECT_EQ(board.getLastPieceKilled().getPieceUnit(),KING);
 
 
 

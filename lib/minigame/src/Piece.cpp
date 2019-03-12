@@ -23,7 +23,7 @@ bool Piece::validatePawn(const ChessCoordinate &start, const ChessCoordinate &fi
 
 
     //+ means goes up -1 means goes down the chess board
-    int directionTravel = (this->pieceColor == RED) ? 1 : -1;
+    int directionTravel = (this->pieceColor == RED_LOWERCASE) ? 1 : -1;
 
     int difY = finish.row - start.row;
     int difX = finish.col - start.col;
@@ -55,10 +55,6 @@ bool Piece::validatePawn(const ChessCoordinate &start, const ChessCoordinate &fi
         }
         return false;
     }
-
-
-
-
 
 
 }
