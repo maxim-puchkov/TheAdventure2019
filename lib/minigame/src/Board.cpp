@@ -191,6 +191,17 @@ bool Board::isPathClear(const ChessCoordinate &start, const ChessCoordinate &fin
     return false;
 }
 
+//Automatically promotes pawn at edge of board.
+void Board::promotePawn(Piece &source, const ChessCoordinate &target){
+
+    if( (target.row == 0 || target.row == 7) && (source.getPieceUnit() == PAWN) ){
+        source.setPiece(QUEEN,source.getColor());
+    }
+
+}
+
+
+
 
 /////END PRIVATE //////
 std::string Board::drawBoard() const {
@@ -228,13 +239,17 @@ bool Board::movePiece(const ChessCoordinate &start, const ChessCoordinate &finis
 
     bool isValid = sourcePiece.checkMovementIsValid(start,finish,targetPiece.getColor());
 
+    
     if(isValid){
+        promotePawn(sourcePiece, finish);
         sourcePiece.updatePiece(sourcePiece,targetPiece);
         lastPieceKilled.setPiece( targetPiece.getPieceUnit() , targetPiece.getColor() );
         return true;
     } else{
         return false;
     }
+
+
 
 }
 

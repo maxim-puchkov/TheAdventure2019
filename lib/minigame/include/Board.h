@@ -41,6 +41,7 @@ private:
    bool checkDiagonalPath(const ChessCoordinate &start, const ChessCoordinate &finish) const;
    bool isPathClear(const ChessCoordinate &start, const ChessCoordinate &finish) const;
 
+   void promotePawn(Piece &source, const ChessCoordinate &finish);
 
    const static std::unordered_map <PieceUnit, char> PieceLookUp;
 

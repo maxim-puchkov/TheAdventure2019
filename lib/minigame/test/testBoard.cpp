@@ -307,4 +307,7 @@ TEST(BoardTest, testBishop){
 
 }
 
+
+
+
 // Queen is RookAndBishop combined so we don't really need to test, since we reuse function/method.

@@ -56,6 +56,11 @@ bool Piece::validatePawn(const ChessCoordinate &start, const ChessCoordinate &fi
         return false;
     }
 
+
+
+
+
+
 }
 
 /**

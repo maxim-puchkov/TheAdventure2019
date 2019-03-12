@@ -22,7 +22,6 @@ enum PieceUnit{
     NONE
 };
 
-
 struct ChessCoordinate {
     int row;
     int col;
@@ -32,7 +31,6 @@ struct ChessCoordinate {
     }
 
 };
-
 
 class Piece {
     private:

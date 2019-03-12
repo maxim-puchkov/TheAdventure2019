@@ -79,32 +79,51 @@ bool MoveValidator::processChessMove(const ChessCoordinate &startPos, const Ches
 
 
 
-bool MoveValidator::isGameFinished() const {
 
+
+/**
+ * @return A message on how to play the game
+ */
+std::string MoveValidator::helpMessage(){
+
+    std::string msg = "Welcome to chess2019!. Some of the rules are modified from standard chess\n"
+                      "such as checks/checkmates aren't declared, game ends when king is terminated, \n"
+                      "you cannot execute the En passant maneuver, when you reach the end of the board \n"
+                      "with a pawn your piece is promoted to a queen automatically. To input a move enter\n"
+                      "the source coordinate followed by a , followed by another coordinate \n"
+                      "EX. a2,a4  is move piece at column A, row 2 to column A row 4.\n"
+                      "Coordinates are printed on board for reference.  ";
+
+    return msg;
+}
+
+
+bool MoveValidator::isGameFinished() const {
     const Piece &a = gameBoard.getPieceKilled();
     if(a.getPieceUnit() == KING){
         return true;
     }
-
+    return false;
 }
 
 //Should be called after isGameFinished.
-std::string& MoveValidator::gameOverMessage() {
+std::string MoveValidator::gameOverMessage() {
 
     std::string stream = "";
     const Piece &piece = gameBoard.getPieceKilled();
 
     if(piece.getPieceUnit() != KING){
-        stream = "King isn't dead!, try calling isGameFinished first before calling this function";
+        stream = "King isn't dead!, try calling isGameFinished first";
     }
     else if( piece.getColor() == RED ){
         stream = "team lower case has won the game ";
     } else {
         stream = "team upper case has won the game ";
     }
-
     return stream;
 }
+
+
 
 
 /**
