@@ -23,7 +23,7 @@ const int DEF_CHAR_DAMAGE = 10;
 /**
  *  @class Character
  *
- *  @brief Base class for characters controlled by users or NPC.
+ *  @brief class for both characters controlled by users and NPC via action control modes.
  *
  *  Handles character's attributes, inventory, and equipment.
  */
@@ -32,7 +32,7 @@ public:
     
     Character(const std::string &name);
     
-    
+    //TODO: create control mode interface for combat
     
     // Get
     virtual std::string getName();
@@ -47,29 +47,24 @@ public:
     
     
     // States ...
-    virtual bool isInCombat();
-    virtual bool isAlive();
+    bool isInCombat();
+    bool isAlive();
     
     
     // Compare characters' usernames
-    virtual bool operator==(const Character &other);
-    virtual bool operator!=(const Character &other);
+    bool operator==(const Character &other);
+    bool operator!=(const Character &other);
 
     // Combat WIP
     void characterTakeDamage(const int &damage);
     
 protected:
-    virtual void createCharacter(const std::string &name);
+    void createCharacter(const std::string &name);
     std::string name;
-    
     Attributes baseAttr;
-    
     Attributes currentAttr;
-    
     Equipment equipment;
-    
     Inventory inventory;
-
     LocationCoordinates currentLocation;
     
 };
