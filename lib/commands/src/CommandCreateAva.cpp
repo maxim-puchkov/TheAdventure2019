@@ -1,4 +1,5 @@
 #include "CommandCreateAva.h"
+#include <boost/algorithm/string.hpp>
 
 std::string CommandCreateAva::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
 	// TODO: check user privilege to allow the second format

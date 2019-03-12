@@ -1,4 +1,5 @@
 #include "CommandTell.h"
+#include <boost/algorithm/string.hpp>
 
 void CommandTell::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	std::string usernameOfListener = fullCommand[1];

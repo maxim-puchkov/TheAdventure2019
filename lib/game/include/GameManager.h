@@ -5,7 +5,6 @@
 #include <vector>
 #include <iostream>
 #include <unordered_map>
-#include <boost/algorithm/string.hpp>
 
 #include "OnlineUserManager.h"
 #include "WorldManager.h"

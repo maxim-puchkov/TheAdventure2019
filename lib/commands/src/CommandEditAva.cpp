@@ -1,4 +1,5 @@
 #include "CommandEditAva.h"
+#include <boost/algorithm/string.hpp>
 
 std::string CommandEditAva::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
 	// fill this

@@ -1,4 +1,5 @@
 #include "CommandExamine.h"
+#include <boost/algorithm/string.hpp>
 
 void CommandExamine::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	auto location = characterManager.getCharacterLocation(username);

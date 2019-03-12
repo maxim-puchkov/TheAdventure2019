@@ -1,4 +1,5 @@
 #include "CommandCreate.h"
+#include <boost/algorithm/string.hpp>
 
 std::string CommandCreate::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
 	auto answer = onlineUserManager.createUser(fullCommand[1], fullCommand[2]);

@@ -1,4 +1,5 @@
 #include "CommandLogin.h"
+#include <boost/algorithm/string.hpp>
 
 std::string CommandLogin::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
 	auto answer = onlineUserManager.login(connectionID, fullCommand[1], fullCommand[2]);
