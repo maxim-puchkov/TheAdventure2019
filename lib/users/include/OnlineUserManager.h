@@ -34,7 +34,7 @@ class OnlineUserManager{
     public:
         bool insertUser(const std::string &id, const User &user);
         User removeUser(const std::string& id);
-        long getTimeStamp();
+        long currentTimeStamp();
         std::string getConnectionID(const std::string& userName);
         std::string getUsernameFromConnectionID(const std::string& connectionID);
         bool onlineUserAddCommandToList(const std::string& id, const std::vector<std::string>& command);
@@ -42,7 +42,7 @@ class OnlineUserManager{
         std::vector<std::pair<std::string, std::string>> getOnlineUserMessageList();
         bool addMessageToUser(const std::string& userName, const std::string& message);
         bool updateUserTimeStamp(const std::string& id);
-        std::string removeUnactiveUser();
+        std::vector<std::string> unactiveUser();
         void printTable();
 
 
