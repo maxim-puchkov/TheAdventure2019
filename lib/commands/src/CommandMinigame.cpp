@@ -1,4 +1,5 @@
 #include "CommandMinigame.h"
+#include <boost/algorithm/string.hpp>
 
 void CommandMinigame::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
     //fill this

@@ -1,4 +1,5 @@
 #include "CommandHelp.h"
+#include <boost/algorithm/string.hpp>
 
 std::string CommandHelp::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     //TODO: check user's role to print out appropriate text
@@ -150,7 +151,7 @@ std::string CommandHelp::printCombatCommands(const std::string& userRole) {
 
 std::string CommandHelp::printUtilityCommands(const std::string& userRole) {
     std::stringstream answer;
-    answer << "Utility\n";
+    answer << "Help\n";
     answer << "--------------------------------------------------\n";
     answer << "help Account\n";
     answer << "help Avatar\n";

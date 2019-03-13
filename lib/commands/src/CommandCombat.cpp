@@ -1,4 +1,5 @@
 #include "CommandCombat.h"
+#include <boost/algorithm/string.hpp>
 
 void CommandCombat::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
     //fill this
