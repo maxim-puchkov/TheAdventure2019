@@ -1,5 +1,10 @@
 #include "CommandLook.h"
 
+#include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
+using boost::lexical_cast;
+using boost::bad_lexical_cast;
+
 void CommandLook::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	auto location = characterManager.getCharacterLocation(username);
     if(location.area == -1) {

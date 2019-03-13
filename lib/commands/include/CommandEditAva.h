@@ -2,6 +2,7 @@
 #define CommandEditAva_h
 
 #include "Command.h"
+#include <sstream>
 
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
@@ -13,6 +14,9 @@ public:
 	
 	virtual std::string executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand);
 	virtual std::vector<std::string> reassembleCommand(std::string& fullCommand, bool& commandIsValid);
+private:
+	std::string editUserAvatar(const std::string& connectionID, const std::vector<std::string>& fullCommand);
+	std::string spawnAvatar(const std::string& username);
 };
 
 

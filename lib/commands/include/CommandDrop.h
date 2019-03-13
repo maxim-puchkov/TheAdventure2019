@@ -2,10 +2,7 @@
 #define CommandDrop_h
 
 #include "Command.h"
-#include <boost/lexical_cast.hpp>
 
-using boost::lexical_cast;
-using boost::bad_lexical_cast;
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
 

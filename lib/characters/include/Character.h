@@ -35,21 +35,28 @@ public:
     //TODO: create control mode interface for combat
     
     // Get
-    virtual std::string getName();
+    std::string getName();
     Attributes getAttributes();
     Attributes getBaseAttributes();
     Inventory getInventory();
     Equipment getEquipment();
     LocationCoordinates getCurrentLocation() const;
+
+    std::string getShortdesc() const;
+    std::string getLongdesc() const;
+    std::string getDescription() const;
+    bool getIsDoneFirstTimeSetup() const;
     
     // Set
     void setCurrentLocation(LocationCoordinates newLocation);
-    
+    void setShortdesc(const std::string& shortdesc);
+    void setLongdesc(const std::string& longdesc);
+    void setDescription(const std::string& description);
+    void setFirstTimeSetup();
     
     // States ...
     bool isInCombat();
     bool isAlive();
-    
     
     // Compare characters' usernames
     bool operator==(const Character &other);
@@ -58,8 +65,7 @@ public:
     // Combat WIP
     void characterTakeDamage(const int &damage);
     
-protected:
-    void createCharacter(const std::string &name);
+private:
     std::string name;
     Attributes baseAttr;
     Attributes currentAttr;
@@ -67,6 +73,15 @@ protected:
     Inventory inventory;
     LocationCoordinates currentLocation;
     
+    //basic stuff to allow user edit
+    std::string shortdesc;
+    std::string longdesc;
+    std::string description;
+
+    //first time set up flag
+    bool isDoneFirstTimeSetup = false;
+
+    void createCharacter(const std::string &name);
 };
 
 #endif /* Character_h */

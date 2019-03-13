@@ -1,4 +1,5 @@
 #include "CommandMove.h"
+#include <boost/algorithm/string.hpp>
 
 void CommandMove::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
     auto location = characterManager.getCharacterLocation(username);

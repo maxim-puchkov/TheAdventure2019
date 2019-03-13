@@ -22,7 +22,9 @@ class OnlineUserManager{
       USER_LOGGED_OUT,
       USER_LOGGED_IN,
       USER_ALREADY_LOGGED_IN,
-      USER_NOT_ONLINE   
+      USER_NOT_ONLINE,
+      USER_ADMIN,
+      USER_NORMAL_USER
     };
     private:
         std::unordered_map<std::string, User> onlineUsers;
@@ -32,24 +34,31 @@ class OnlineUserManager{
         User& getUserById(const std::string& id);
         User& getUserByUsername(const std::string& userName);
     public:
-        bool insertUser(const std::string &id, const User &user);
+        bool insertUser(const std::string &id, const User &user);      
         User removeUser(const std::string& id);
-        long getTimeStamp();
+        std::string removeUnactiveUser();
+        
         std::string getConnectionID(const std::string& userName);
         std::string getUsernameFromConnectionID(const std::string& connectionID);
+        
         bool onlineUserAddCommandToList(const std::string& id, const std::vector<std::string>& command);
         std::vector<std::pair<std::string, std::vector<std::string>>> getOnlineUserCommandList();
-        std::vector<std::pair<std::string, std::string>> getOnlineUserMessageList();
+        
         bool addMessageToUser(const std::string& userName, const std::string& message);
+        std::vector<std::pair<std::string, std::string>> getOnlineUserMessageList();
+        
+        long getTimeStamp();
         bool updateUserTimeStamp(const std::string& id);
-        std::string removeUnactiveUser();
+        
+        USER_CODE getUserRole(const std::string& username);
+
         void printTable();
 
 
         // ******* Functions that Uses UserDB *******
         USER_CODE login(const std::string& userName, const std::string& pwd, const std::string& id);
         USER_CODE logout(const std::string& id);  
-        UserDB::DB_CODE createUser(const std::string& userName, const std::string& pwd);      
+        UserDB::DB_CODE createUser(const std::string& userName, const std::string& pwd);
 
 };
 }

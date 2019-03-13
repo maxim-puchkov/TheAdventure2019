@@ -2,6 +2,7 @@
 #define CommandLogin_h
 
 #include "Command.h"
+#include <sstream>
 
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;

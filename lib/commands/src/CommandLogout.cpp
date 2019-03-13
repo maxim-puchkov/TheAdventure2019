@@ -1,4 +1,5 @@
 #include "CommandLogout.h"
+#include <boost/algorithm/string.hpp>
 
 std::string CommandLogout::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
 	auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
