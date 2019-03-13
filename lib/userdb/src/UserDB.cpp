@@ -4,10 +4,10 @@ UserDB::UserDB(){
     users_json = jsonParser.processJSON(json_filePath);
     // cout<< "USER DB CONS()\n";
 
-    if(users_json == nullptr){
-        cout<< "JSON NOT FOUND\n";
-        std::ofstream("users.json");
-    }
+    // if(users_json == nullptr){
+    //     cout<< "JSON NOT FOUND\n";
+    //     std::ofstream("users.json");
+    // }
 }
 
 UserDB::~UserDB(){

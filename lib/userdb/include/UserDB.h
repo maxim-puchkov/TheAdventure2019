@@ -3,7 +3,6 @@
 
 #include "User.h"
 #include "JsonParser.h"
-#include "json.hpp"
 
 #include <unordered_map>
 #include <string>
@@ -29,7 +28,7 @@ class UserDB {
   private:
     JsonParser jsonParser;
     json users_json;
-    std::string json_filePath = "users.json";
+    std::string json_filePath = "../adventure2019/data/db/users.json";
   public:
     UserDB();
     ~UserDB();

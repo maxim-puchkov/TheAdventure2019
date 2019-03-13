@@ -17,7 +17,7 @@ class CharacterDB {
   private:
     JsonParser jsonParser;
     json characters_json;
-    std::string json_filePath = "../adventure2019/data/db/charters.json";
+    std::string json_filePath = "../adventure2019/data/db/characters.json";
   public:
     CharacterDB();
     ~CharacterDB();
