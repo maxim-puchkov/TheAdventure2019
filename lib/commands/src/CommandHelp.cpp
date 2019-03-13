@@ -151,7 +151,7 @@ std::string CommandHelp::printCombatCommands(const std::string& userRole) {
 
 std::string CommandHelp::printUtilityCommands(const std::string& userRole) {
     std::stringstream answer;
-    answer << "Utility\n";
+    answer << "Help\n";
     answer << "--------------------------------------------------\n";
     answer << "help Account\n";
     answer << "help Avatar\n";
