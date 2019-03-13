@@ -177,6 +177,7 @@ OnlineUserManager::USER_CODE OnlineUserManager::login(const std::string& id, con
         if(!insertUser(id, user)){
             return OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN;
         }
+        // user.setTimeStamp(getTimeStamp());
         onlineUsers.insert(std::make_pair(id, user));
         return OnlineUserManager::USER_CODE::USER_LOGGED_IN;
     }
