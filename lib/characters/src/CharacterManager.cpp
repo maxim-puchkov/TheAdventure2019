@@ -41,7 +41,6 @@ LocationCoordinates CharacterManager::getCharacterLocation(const std::string& us
     }
 }
 
-
 void CharacterManager::changeCharacterLocation(const std::string& username, LocationCoordinates newLocation) {
 	auto found = onlineCharacters.find(username);
 	if (found != onlineCharacters.end()) {
@@ -92,7 +91,7 @@ CharacterManager::CHARACTER_CODE CharacterManager::editCharacter(const std::stri
 	} else {
 		answer = CharacterManager::CHARACTER_CODE::CHARACTER_FAILED;
 	}
-	
+	characterDB.updateCharacter(found->second);
 	return answer; 
 }
 

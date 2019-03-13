@@ -35,8 +35,10 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
         //TODO: split avatar name and username (now only use username)
         auto answer = characterManager.createCharacter(username);
         switch(answer) {
-            case charactermanager::CharacterManager::CHARACTER_CODE::CHARACTER_CREATED:
-                return "Avatar created.\nPlease enter \"edit-avatar: shortdesc [value]\" to customize your character.\n";
+            case charactermanager::CharacterManager::CHARACTER_CODE::CHARACTER_CREATED: {
+                characterManager.spawnCharacter(username);
+                return "Avatar created.\nPlease enter \"edit-avatar shortdesc: [value]\" to customize your character.\n";
+            }
             default:
             //error
                 return "";

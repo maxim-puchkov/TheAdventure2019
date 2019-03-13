@@ -4,10 +4,10 @@ UserDB::UserDB(){
     users_json = jsonParser.processJSON(json_filePath);
     // cout<< "USER DB CONS()\n";
 
-    // if(users_json == nullptr){
-    //     cout<< "JSON NOT FOUND\n";
-    //     std::ofstream("users.json");
-    // }
+    if(users_json == nullptr){
+        cout<< "JSON NOT FOUND\n";
+        std::ofstream("users.json");
+    }
 }
 
 UserDB::~UserDB(){
@@ -28,7 +28,7 @@ UserDB::DB_CODE UserDB::createUser(const std::string& name, const std::string& p
 
 UserDB::DB_CODE UserDB::updateUser(User& user){
 
-    if(users_json[user.getUserName()] != nullptr){
+    if(users_json[user.getUserName()] == nullptr){
         return UserDB::DB_CODE::USER_NOT_FOUND;
     }
     else{
