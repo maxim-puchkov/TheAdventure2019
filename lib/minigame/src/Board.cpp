@@ -11,7 +11,7 @@
 
 
 //getters and setters
-const Piece Board::getPieceKilled() const {
+const Piece Board::getLastPieceKilled() const {
     return lastPieceKilled;
 }
 
@@ -43,10 +43,10 @@ void Board::initializeGame(vector<vector<Piece>> &boardView) {
 
 
     //Doing red side
-    createBackRank(RED,boardView);
+    createBackRank(RED_LOWERCASE,boardView);
 
     std::vector<Piece> blackPawn;
-    blackPawn.assign(8, Piece{PAWN,RED});
+    blackPawn.assign(8, Piece{PAWN,RED_LOWERCASE});
     boardView.push_back(blackPawn);
 
 
@@ -58,28 +58,28 @@ void Board::initializeGame(vector<vector<Piece>> &boardView) {
 
     //Doing blue side
     std::vector<Piece> whitePawn;
-    whitePawn.assign(8,Piece{PAWN,BLUE});
+    whitePawn.assign(8,Piece{PAWN,BLUE_UPPERCASE});
     boardView.push_back(whitePawn);
 
-    createBackRank(BLUE,boardView);
+    createBackRank(BLUE_UPPERCASE,boardView);
 
 
 }
 
 
-std::string Board::drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const {
+void Board::drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const {
     for(Piece iter: listPieceId){
         auto search = PieceLookUp.find( iter.getPieceUnit() );
 
         //Since printing out color doesn't work, we will make 1 side lower case
         switch(iter.getColor())
         {
-            case RED:
-                stream << termcolor::red << (char)tolower(search->second);
-                stream << termcolor::reset;
+            case RED_LOWERCASE:
+                stream  << (char)tolower(search->second);
+
                 break;
-            case BLUE:
-                stream << termcolor::blue << search->second;
+            case BLUE_UPPERCASE:
+                stream << search->second;
                 stream << termcolor::reset;
                 break;
             default:
@@ -88,7 +88,6 @@ std::string Board::drawRow(vector<Piece> &listPieceId, std::stringstream &stream
 
     }
     stream << '\n';
-    return stream.str();
 }
 
 /**
@@ -191,9 +190,17 @@ bool Board::isPathClear(const ChessCoordinate &start, const ChessCoordinate &fin
     return false;
 }
 
+//Automatically promotes pawn at edge of board.
+void Board::promotePawnToQueen(Piece &source, const ChessCoordinate &target){
+    if( (target.row == 0 || target.row == 7) && (source.getPieceUnit() == PAWN) ){
+        source.setPiece(QUEEN,source.getColor());
+    }
 
+}
 /////END PRIVATE //////
-std::string Board::drawBoard() const {
+
+// BEGIN PUBLIC METHODS ///
+std::string Board::getBoardView() const {
 
     std::stringstream stream;
 
@@ -212,7 +219,6 @@ std::string Board::drawBoard() const {
 
 bool Board::movePiece(const ChessCoordinate &start, const ChessCoordinate &finish) {
 
-
     Piece &sourcePiece = requestPiece(start);
     Piece &targetPiece = requestPiece(finish);
 
@@ -229,8 +235,9 @@ bool Board::movePiece(const ChessCoordinate &start, const ChessCoordinate &finis
     bool isValid = sourcePiece.checkMovementIsValid(start,finish,targetPiece.getColor());
 
     if(isValid){
-        sourcePiece.updatePiece(sourcePiece,targetPiece);
+        promotePawnToQueen(sourcePiece, finish);
         lastPieceKilled.setPiece( targetPiece.getPieceUnit() , targetPiece.getColor() );
+        sourcePiece.updatePiece(sourcePiece,targetPiece);
         return true;
     } else{
         return false;

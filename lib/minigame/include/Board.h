@@ -17,14 +17,14 @@ using std::vector;
 class Board {
 public:
     Board();
-    std::string drawBoard() const; // SHOULD BE SPERATED INTO ANOTHER CLASS BUT LEAVE HERE FOR NOW THIS IS THE MODEL! Maybe mvc isn't what we want.
+    std::string getBoardView() const; // SHOULD BE SPERATED INTO ANOTHER CLASS BUT LEAVE HERE FOR NOW THIS IS THE MODEL! Maybe mvc isn't what we want.
 
     Piece& requestPiece(const ChessCoordinate &position);
     const PieceUnit requestUnit(const ChessCoordinate &position) const;
 
     bool movePiece(const ChessCoordinate &start, const ChessCoordinate &finish);
 
-    const Piece getPieceKilled() const;
+    const Piece getLastPieceKilled() const;
 
 
 private:
@@ -33,7 +33,7 @@ private:
 
    void initializeGame(vector<vector<Piece>> &boardView);
    void createBackRank(Color myColor, vector<vector<Piece>> &boardView) ;
-   std::string drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const;
+   void drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const;
 
 
    bool checkHorizontalPath(const ChessCoordinate &start, const ChessCoordinate &finish) const;
@@ -41,6 +41,7 @@ private:
    bool checkDiagonalPath(const ChessCoordinate &start, const ChessCoordinate &finish) const;
    bool isPathClear(const ChessCoordinate &start, const ChessCoordinate &finish) const;
 
+   void promotePawnToQueen(Piece &source, const ChessCoordinate &target);
 
    const static std::unordered_map <PieceUnit, char> PieceLookUp;
 

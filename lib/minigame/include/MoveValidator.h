@@ -16,12 +16,13 @@ class MoveValidator {
     public:
         bool readChessMove(std::string &input);
         bool isGameFinished() const;
-        std::string& gameOverMessage();
-
+        std::string gameOverMessage();
         std::string drawBoard(); //helper
+        std::string helpMessage();
 
     private:
         Board gameBoard;
+
 
         int convertCharColToInt(char input);
         int convertChessRowToInt(char input);
