@@ -156,6 +156,7 @@ std::string OnlineUserManager::removeUnactiveUser(){
                 timeStamp = user.getTimeStamp();
             }
         }
+        std::cout << "ConnectionID: " << connectionID << "\n";
         std::cout << "Username: " << user.getUserName();
         std::cout << "\n";
         std::cout << "Timestamp: " << user.getTimeStamp();
@@ -177,8 +178,9 @@ OnlineUserManager::USER_CODE OnlineUserManager::login(const std::string& id, con
         if(!insertUser(id, user)){
             return OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN;
         }
-        // user.setTimeStamp(getTimeStamp());
+        user.setTimeStamp(getTimeStamp());
         onlineUsers.insert(std::make_pair(id, user));
+        std::cout << onlineUsers.size() << "\n";
         return OnlineUserManager::USER_CODE::USER_LOGGED_IN;
     }
     else{
