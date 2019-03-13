@@ -12,7 +12,14 @@ target_link_libraries(runAllTests
   gtest
   gtest_main
   characters
+  commands
   game
+  network
+  types
+  users
+  world
+  parsers
+  userdb
 )
 
 set_target_properties(runAllTests
