@@ -37,10 +37,6 @@ struct CommandsTest : testing::Test {
                                         };
 };
 
-TEST_F(CommandsTest, CommandNotCorrectSyntax) {
-    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "say yes :"));
-}
-
 TEST_F(CommandsTest, CommandsSuccessfullyRecognized) {
     for (int i = 0; i < listOfCommands.size(); i++) {
         EXPECT_NE(commandNotFoundString, testGameManager.extractCommands(testUserName, listOfCommands[i]));
@@ -50,25 +46,16 @@ TEST_F(CommandsTest, CommandsSuccessfullyRecognized) {
 TEST_F(CommandsTest, SayCommand) {
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(testUserName, "say: test"));
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(testUserName, "      sAy     :    ssdw     a  test "));
-    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "SAY: testSAY:"));
-    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "say: say:"));
-    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "say: tell:"));
 }
 
 TEST_F(CommandsTest, TellCommand) {
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(testUserName, "tell auserasd : test"));
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(testUserName, "      tElL     userstest:    car     a  test "));
-    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "TELL    usesadr: testTELL:"));
-    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "tell   a: tell:"));
-    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "tell: yell:"));
 }
 
 TEST_F(CommandsTest, YellCommand) {
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(testUserName, "yell: test"));
     EXPECT_EQ(commandUserNotOnlineString, testGameManager.extractCommands(testUserName, "      yElL     :    ssdw     a  test "));
-    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "YELL: testYELL:"));
-    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "yell: yell:"));
-    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "yell: tell:"));
 }
 
 TEST_F(CommandsTest, UserCanDoStuff) {
@@ -76,5 +63,15 @@ TEST_F(CommandsTest, UserCanDoStuff) {
     testGameManager.extractCommands(testUserName, "login " + testUserName + " " + testUserPassword);
     EXPECT_NE(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "say: this should not crash"));
     EXPECT_NE(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "yell: this should not crash either"));
+    EXPECT_NE(commandNotFoundString, testGameManager.extractCommands(testUserName, "say: this command should work"));
+    EXPECT_NE(commandUserNotOnlineString, testGameManager.extractCommands(testUserName, "say: this command should work"));
     testGameManager.extractCommands(testUserName, "logout");
+}
+
+TEST_F(CommandsTest, CommandNotCorrectSyntaxLoggedIn) {
+    testGameManager.extractCommands(testUserName, "create-account " + testUserName + " " + testUserPassword);
+    testGameManager.extractCommands(testUserName, "login " + testUserName + " " + testUserPassword);
+    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "say   s s : ss"));
+    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "tell   s s : ss"));
+    EXPECT_EQ(commandNotCorrectSyntaxString, testGameManager.extractCommands(testUserName, "yell   s s : ss"));
 }
