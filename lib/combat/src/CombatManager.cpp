@@ -1,5 +1,6 @@
 #include "CombatManager.h"
 
+
 CombatManager::CombatManager(){}
 
 Combat& CombatManager::createCombat(const std::string& player1Name, const std::string& player2Name) {

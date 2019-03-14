@@ -7,14 +7,14 @@
 #include <string>
 #include <algorithm>
 
-const static unsigned int HEARTBEATS_PER_ROUND = 200;
+const static unsigned int HEARTBEATS_PER_ROUND = 10;
 
 class Combat{
 public:
     Combat();
     Combat(const std::string& player1Name, const std::string& player2Name);
     bool hasPlayer(const std::string& name) const;
-    unsigned int getRoundTime() const;
+    int getRoundTime() const;
     std::string getOpponent(const std::string& name) const;
     void queueCommand(const std::string& name, const std::string& command);
     void decrementRoundTime();
@@ -26,7 +26,7 @@ private:
     std::vector<std::string> combatants;
     std::vector<std::string> queuedActions;
 
-    unsigned int roundTime;
+    int roundTime;
 };
 
 #endif //ADVENTURE2019_COMBAT_H

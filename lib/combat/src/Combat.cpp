@@ -1,6 +1,8 @@
 #include "Combat.h"
+#include <iostream>
 
 Combat::Combat(){
+    this->roundTime = HEARTBEATS_PER_ROUND;
     combatants.push_back("");
     combatants.push_back("");
     queuedActions.push_back("");
@@ -8,6 +10,7 @@ Combat::Combat(){
 }
 
 Combat::Combat(const std::string& player1Name, const std::string& player2Name){
+    this->roundTime = HEARTBEATS_PER_ROUND;
     combatants.push_back(player1Name);
     combatants.push_back(player2Name);
     queuedActions.push_back("");
@@ -22,7 +25,7 @@ bool Combat::hasPlayer(const std::string& name) const{
     return result != combatants.end();
 }
 
-unsigned int Combat::getRoundTime() const {
+int Combat::getRoundTime() const {
     return this->roundTime;
 }
 
@@ -43,6 +46,7 @@ std::string Combat::getOpponent(const std::string& name) const{
 }
 
 void Combat::decrementRoundTime(){
+    std::cerr << "round time left: " << std::to_string(roundTime - 1) << "\n";
     this->roundTime --;
 }
 void Combat::resetRoundTime(){

@@ -14,7 +14,7 @@ void CommandCombat::executeInHeartbeat(const std::string& username, const std::v
         auto& challengedName = fullCommand.at(2);
         if(combatManager.createInvite(username, challengedName)){
             onlineUserManager.addMessageToUser(username, "Waiting for " + challengedName +" to accept challenge.\n");
-            onlineUserManager.addMessageToUser(username, "You were challenged for combat by " + username +".\n");
+            onlineUserManager.addMessageToUser(challengedName, "You were challenged to combat by " + username +".\n");
         }
     }else if(firstCommand == "join" || firstCommand == "accept"){
         if(combatManager.confirmInvite(username)){
