@@ -4,18 +4,12 @@
 std::string CommandHelp::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     //TODO: check user's role to print out appropriate text
     //test role
-    std::string userRole = "admin";
+    auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
+    auto userRole = onlineUserManager.getUserRole(username);
 
     std::stringstream answer;
 
     if(fullCommand.size() == 1) {
-        answer << printAccountCommands(userRole);
-        answer << printAvatarCommands(userRole);
-        answer << printCommunicationCommands(userRole);
-        answer << printWorldInteractionCommands(userRole);
-        answer << printInventoryCommands(userRole);
-        answer << printMinigameCommands(userRole);
-        answer << printCombatCommands(userRole);
         answer << printUtilityCommands(userRole);
     } else {
         if(fullCommand[1] == "account") {
@@ -32,16 +26,14 @@ std::string CommandHelp::executePromptReply(const std::string& connectionID, con
             answer << printMinigameCommands(userRole);
         } else if (fullCommand[1] == "combat") {
             answer << printCombatCommands(userRole);
-        } else if (fullCommand[1] == "utility") {
-            answer << printUtilityCommands(userRole);
         } else {
-            answer << "Command type not found. Please enter \"help utility\" to see the supported syntax.\n";
+            answer << "Command type not found. Please enter \"help\" to see the supported syntax.\n";
         }
     }
     return answer.str();
 }
 
-std::string CommandHelp::printAccountCommands(const std::string& userRole) {
+std::string CommandHelp::printAccountCommands(OnlineUserManager::USER_CODE userRole) {
     std::stringstream answer;
     answer << "Account\n";
     answer << "--------------------------------------------------\n";
@@ -52,9 +44,9 @@ std::string CommandHelp::printAccountCommands(const std::string& userRole) {
     return answer.str();
 }
 
-std::string CommandHelp::printAvatarCommands(const std::string& userRole) {
+std::string CommandHelp::printAvatarCommands(OnlineUserManager::USER_CODE userRole) {
     //needs enum in User
-    std::string admin = "admin";
+    auto admin = OnlineUserManager::USER_CODE::USER_ADMIN;
 
     std::stringstream answer;
     answer << "Avatar\n";
@@ -71,7 +63,7 @@ std::string CommandHelp::printAvatarCommands(const std::string& userRole) {
     return answer.str();
 }
 
-std::string CommandHelp::printCommunicationCommands(const std::string& userRole) {
+std::string CommandHelp::printCommunicationCommands(OnlineUserManager::USER_CODE userRole) {
     std::stringstream answer;
     answer << "Communication\n";
     answer << "--------------------------------------------------\n";
@@ -82,9 +74,9 @@ std::string CommandHelp::printCommunicationCommands(const std::string& userRole)
     return answer.str();
 }
 
-std::string CommandHelp::printWorldInteractionCommands(const std::string& userRole) {
+std::string CommandHelp::printWorldInteractionCommands(OnlineUserManager::USER_CODE userRole) {
     //needs enum in User
-    std::string admin = "admin";
+    auto admin = OnlineUserManager::USER_CODE::USER_ADMIN;
 
     std::stringstream answer;
     answer << "World Interaction\n";
@@ -102,7 +94,7 @@ std::string CommandHelp::printWorldInteractionCommands(const std::string& userRo
     return answer.str();
 }
 
-std::string CommandHelp::printInventoryCommands(const std::string& userRole) {
+std::string CommandHelp::printInventoryCommands(OnlineUserManager::USER_CODE userRole) {
     std::stringstream answer;
     answer << "Inventory\n";
     answer << "--------------------------------------------------\n";    
@@ -117,12 +109,11 @@ std::string CommandHelp::printInventoryCommands(const std::string& userRole) {
     answer << "put [container-name]\n";
     answer << "put [container-name] [container-index]  \n";
     answer << "move [direction]\n";
-    answer << "move [direction]\n";
     answer << "--------------------------------------------------\n\n"; 
     return answer.str();
 }
 
-std::string CommandHelp::printMinigameCommands(const std::string& userRole) {
+std::string CommandHelp::printMinigameCommands(OnlineUserManager::USER_CODE userRole) {
     std::stringstream answer;
     answer << "Minigame\n";
     answer << "--------------------------------------------------\n";    
@@ -134,7 +125,7 @@ std::string CommandHelp::printMinigameCommands(const std::string& userRole) {
     return answer.str();
 }
 
-std::string CommandHelp::printCombatCommands(const std::string& userRole) {
+std::string CommandHelp::printCombatCommands(OnlineUserManager::USER_CODE userRole) {
     std::stringstream answer;
     answer << "Combat\n";
     answer << "--------------------------------------------------\n";    
@@ -149,9 +140,9 @@ std::string CommandHelp::printCombatCommands(const std::string& userRole) {
     return answer.str();
 }
 
-std::string CommandHelp::printUtilityCommands(const std::string& userRole) {
+std::string CommandHelp::printUtilityCommands(OnlineUserManager::USER_CODE userRole) {
     std::stringstream answer;
-    answer << "Help\n";
+    answer << "Enter one of these to see more.\n";
     answer << "--------------------------------------------------\n";
     answer << "help Account\n";
     answer << "help Avatar\n";
@@ -160,7 +151,6 @@ std::string CommandHelp::printUtilityCommands(const std::string& userRole) {
     answer << "help Inventory\n";
     answer << "help Minigame\n";
     answer << "help Combat\n";
-    answer << "help Utility\n";
     answer << "--------------------------------------------------\n\n";
     return answer.str();
 }
@@ -170,6 +160,7 @@ std::vector<std::string> CommandHelp::reassembleCommand(std::string& fullCommand
 
     //Format: help
     boost::trim_if(fullCommand, boost::is_any_of(" \t"));
+    boost::to_lower(fullCommand);
 
     //split by " " and compress all long spaces
     boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
