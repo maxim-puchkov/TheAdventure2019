@@ -7,6 +7,7 @@
 #include "Character.h"
 #include "CharacterDB.h"
 #include "LocationCoordinates.h"
+#include "MiniGameLobby.h"
 
 namespace charactermanager{
 
@@ -16,6 +17,7 @@ private:
     std::vector<Character> computerControlledCharacters;
     Character nullCharacter{""};
     CharacterDB characterDB;
+    MiniGameLobby minigameLobby;
     LocationCoordinates nullLocation{-1, -1};
 
     const std::string SHORT_DESC = "shortdesc";
@@ -52,6 +54,8 @@ public:
     CHARACTER_CODE editCharacter(const std::string& username, const std::string& attribute, const std::string& value);
     CHARACTER_CODE isThisFirstTimeSetup(const std::string& username) const;
     void setCharacterIsDoneFirstTimeSetup(std::string& username);
+
+    MiniGameLobby& getMiniGameLobby();
 };
 
 }

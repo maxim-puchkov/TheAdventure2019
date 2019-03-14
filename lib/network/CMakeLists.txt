@@ -3,6 +3,8 @@ add_library(${libnetwork}
   src/Client.cpp
 )
 
+cmake_minimum_required(VERSION 3.12)
+
 find_package(Boost 1.68 COMPONENTS system REQUIRED)
 
 target_include_directories(${libnetwork}

@@ -8,4 +8,4 @@ add_subdirectory(${libworld})
 add_subdirectory(${libparsers})
 add_subdirectory(${libuserdb})
 add_subdirectory(${libcharacterdb})
-
+add_subdirectory(${libminigame})

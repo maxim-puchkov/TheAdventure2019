@@ -18,6 +18,7 @@ target_include_directories(${libcharacters}
 target_link_libraries(${libcharacters}
     ${libworld}
     ${libcharacterdb}
+    ${libminigame}
 )
 
 set_target_properties(${libcharacters}

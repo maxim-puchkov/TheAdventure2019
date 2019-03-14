@@ -1,3 +1,6 @@
+
+#include <CharacterManager.h>
+
 #include "CharacterManager.h"
 
 
@@ -109,8 +112,14 @@ CharacterManager::CHARACTER_CODE CharacterManager::isThisFirstTimeSetup(const st
 }
 
 void CharacterManager::setCharacterIsDoneFirstTimeSetup(std::string& username) {
-	auto found = onlineCharacters.find(username);
-	if (found == onlineCharacters.end()) {
-		found->second.setFirstTimeSetup();
-	}
+    auto found = onlineCharacters.find(username);
+    if (found == onlineCharacters.end()) {
+        found->second.setFirstTimeSetup();
+    }
 }
+
+MiniGameLobby& CharacterManager::getMiniGameLobby(){
+	return minigameLobby;
+}
+
+
