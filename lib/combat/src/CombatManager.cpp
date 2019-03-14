@@ -1,5 +1,7 @@
 #include "CombatManager.h"
 
+CombatManager::CombatManager(){}
+
 Combat& CombatManager::createCombat(const std::string& player1Name, const std::string& player2Name) {
     Combat newCombat{player1Name, player2Name};
     this->combatList.emplace_back(newCombat);
