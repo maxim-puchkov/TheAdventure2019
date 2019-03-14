@@ -73,6 +73,11 @@ void Character::setCurrentLocation(LocationCoordinates newLocation){
     this->currentLocation = newLocation;
 }
 
+void Character::damageCharacter(int amount){
+    Attributes damage{-amount, 0};
+    this->currentAttr = this->currentAttr + damage;
+}
+
 void Character::setShortdesc(const std::string& shortdesc) {
     this->shortdesc = shortdesc;
 }

@@ -19,6 +19,7 @@ target_link_libraries(${libcharacters}
     ${libworld}
     ${libcharacterdb}
     ${libminigame}
+    ${libcombat}
 )
 
 set_target_properties(${libcharacters}
