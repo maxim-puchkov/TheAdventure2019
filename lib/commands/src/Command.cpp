@@ -3,6 +3,13 @@
 
 //Default behavior: add command to action queue
 std::string Command::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
+	//check if the avatar is fully customized to play or not
+	auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
+	if (characterManager.isCharacterFullyCustomized(username) != CharacterManager::CHARACTER_CODE::CHARACTER_IS_CUSTOMIZED) {
+		return "Please customize your avatar first.\nEnter \"help Avatar\" for more information.\n"; 
+	}
+
+
 	bool success = onlineUserManager.onlineUserAddCommandToList(connectionID, fullCommand);
     if(!success) {
     	return "User is not online.\n";

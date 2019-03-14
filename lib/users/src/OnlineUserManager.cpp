@@ -43,7 +43,7 @@ User& OnlineUserManager::getUserByUsername(const std::string& userName){
     return nullUser;
 }
 
-
+//TODO: switch this to a type
 std::string OnlineUserManager::getConnectionID(const std::string& userName) {
 	for (auto &element : onlineUsers) {
         if(element.second.getUserName() == userName) {
@@ -166,6 +166,22 @@ std::vector<std::string> OnlineUserManager::unactiveUser(){
     }
     return unactiveUserIDs;
 }
+
+OnlineUserManager::USER_CODE OnlineUserManager::getUserRole(const std::string& username) {
+    auto& user = getUserByUsername(username);
+    if(user == nullUser) {
+        return OnlineUserManager::USER_CODE::USER_NOT_FOUND;
+    } else if (user.getRole() == User::USER_ROLE::ADMIN) {
+        return OnlineUserManager::USER_CODE::USER_ADMIN;
+    } else if (user.getRole() == User::USER_ROLE::NORMAL_USER) {
+        return OnlineUserManager::USER_CODE::USER_NORMAL_USER;
+    } else {
+        //error state
+        return OnlineUserManager::USER_CODE::INVALID_USERNAME;
+    }
+}
+
+
 
 // ******* Functions that Uses UserDB *******
 

@@ -20,6 +20,9 @@ void Character::createCharacter(const std::string &name) {
     
     // Creating a character
     this->name = name;
+    this->shortdesc = "";
+    this->longdesc = "";
+    this->description = "";
 }
 
 std::string Character::getName() {
@@ -42,13 +45,46 @@ Equipment Character::getEquipment() {
     return this->equipment;
 }
 
+std::string Character::getShortdesc() const {
+    return this->shortdesc;
+}
+
+std::string Character::getLongdesc() const {
+    return this->longdesc;
+}
+
+std::string Character::getDescription() const {
+    return this->description;
+}
+
 LocationCoordinates Character::getCurrentLocation() const {
     return this->currentLocation;
+}
+
+bool Character::getIsDoneFirstTimeSetup() const {
+    return this->isDoneFirstTimeSetup;
+}
+
+void Character::setFirstTimeSetup(const bool value) {
+    isDoneFirstTimeSetup = value;
 }
 
 void Character::setCurrentLocation(LocationCoordinates newLocation){
     this->currentLocation = newLocation;
 }
+
+void Character::setShortdesc(const std::string& shortdesc) {
+    this->shortdesc = shortdesc;
+}
+
+void Character::setLongdesc(const std::string& longdesc) {
+    this->longdesc = longdesc;
+}
+
+void Character::setDescription(const std::string& description) {
+    this->description = description;
+}
+
 
 bool Character::isInCombat() {
     return false;

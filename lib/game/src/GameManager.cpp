@@ -1,4 +1,5 @@
 #include "GameManager.h"
+#include <boost/algorithm/string.hpp>
 
 int heartBeatDuration = 50;
 

@@ -1,4 +1,5 @@
 #include "CommandCreateRoom.h"
+#include <boost/algorithm/string.hpp>
 
 void CommandCreateRoom::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	//TODO
