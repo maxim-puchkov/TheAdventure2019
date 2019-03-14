@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"parmtest":{"FirstTimeSetup":false,"description":"ds","longdesc":"ld","shortdesc":"s"},"test":{"FirstTimeSetup":false,"description":"d","longdesc":"l","shortdesc":"ss"},"test6":{"FirstTimeSetup":false,"description":"di","longdesc":"dd","shortdesc":"test"}}
+=======
+{"test":{"FirstTimeSetup":false,"description":"d","longdesc":"l","shortdesc":"ss"},"time1":{"FirstTimeSetup":false,"description":"","longdesc":"","shortdesc":""},"time2":null,"time3":null}
+>>>>>>> 30fbf86d9e2332fc6ec21d9daaf3bdade7e7b724
