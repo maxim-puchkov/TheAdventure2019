@@ -16,14 +16,14 @@ public:
 	virtual std::vector<std::string> reassembleCommand(std::string& fullCommand, bool& commandIsValid);
 
 private:
-	std::string printAccountCommands(const std::string& userRole);
-	std::string printAvatarCommands(const std::string& userRole);
-	std::string printCommunicationCommands(const std::string& userRole);
-	std::string printWorldInteractionCommands(const std::string& userRole);
-	std::string printInventoryCommands(const std::string& userRole);
-	std::string printMinigameCommands(const std::string& userRole);
-	std::string printCombatCommands(const std::string& userRole);
-	std::string printUtilityCommands(const std::string& userRole);
+	std::string printAccountCommands(OnlineUserManager::USER_CODE userRole);
+	std::string printAvatarCommands(OnlineUserManager::USER_CODE userRole);
+	std::string printCommunicationCommands(OnlineUserManager::USER_CODE userRole);
+	std::string printWorldInteractionCommands(OnlineUserManager::USER_CODE userRole);
+	std::string printInventoryCommands(OnlineUserManager::USER_CODE userRole);
+	std::string printMinigameCommands(OnlineUserManager::USER_CODE userRole);
+	std::string printCombatCommands(OnlineUserManager::USER_CODE userRole);
+	std::string printUtilityCommands(OnlineUserManager::USER_CODE userRole);
 };
 
 
