@@ -320,8 +320,6 @@ TEST(BoardTest, testBishop){
     EXPECT_EQ(bishop.requestUnit({2,0}),NONE);
 
 
-
-
 }
 
 TEST(BoardTest, testPromotionAndKillKing){
@@ -364,6 +362,43 @@ TEST(BoardTest, testPromotionAndKillKing){
 
 
 }
+
+
+
+TEST(MoveValidatorTest, testTurn){
+
+    std::string p1 = "playerOne";
+    std::string p2 = "playerTwo";
+
+    MoveValidator testGame;
+
+    //PLAYER 1 is red_LOWERCASE, PLAYER 2 is blue_UPPERCASE
+    testGame.initializeSide(p1,p2);
+
+    string source = "a7";
+    string target = "a6";
+    bool isValid = testGame.readChessMove(source, target ,p1 );
+    EXPECT_EQ(isValid,false);
+
+    //Execute the same move, but with the proper player executing it
+    isValid = testGame.readChessMove(source, target ,p2 );
+    EXPECT_EQ(isValid,true);
+
+    source = "a2";
+    target = "a4";
+    isValid = testGame.readChessMove(source, target ,p2 );
+    EXPECT_EQ(isValid,false);
+
+
+    isValid = testGame.readChessMove(source, target ,p1 );
+    EXPECT_EQ(isValid,true);
+
+
+
+
+
+}
+
 
 
 
