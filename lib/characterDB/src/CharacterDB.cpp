@@ -39,6 +39,7 @@ bool CharacterDB::updateCharacter(Character& character){
         characters_json[characterName]["shortdesc"] = character.getShortdesc();
         characters_json[characterName]["longdesc"] = character.getLongdesc();
         characters_json[characterName]["description"] = character.getDescription();
+        characters_json[characterName]["FirstTimeSetup"] = character.getIsDoneFirstTimeSetup();
 
         // UPDATE THE Character IN DB HERE
         cout << characters_json << "\n";
@@ -55,16 +56,18 @@ Character CharacterDB::getCharacter(const std::string& name){
     }
     else{
         cout<<"Character FOUND\n";
-        cout << characters_json ;
+        // cout << characters_json ;
         Character character{name};
         character.setLongdesc(characters_json[name]["longdesc"]);
         character.setShortdesc(characters_json[name]["shortdesc"]);
         character.setDescription(characters_json[name]["description"]);
+        character.setFirstTimeSetup();
 
         cout << character.getName() << " \n";
         cout << character.getShortdesc() << " \n";
         cout << character.getLongdesc() << " \n";
         cout << character.getDescription() << " \n";
+        cout << character.getIsDoneFirstTimeSetup() << " \n";
 
         return Character{name};
     }
