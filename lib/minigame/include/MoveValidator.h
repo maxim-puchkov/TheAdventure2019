@@ -17,7 +17,6 @@ struct ChessPlayer {
 };
 
 
-
 /**
  * Takes user input and sends it to board.
  */
@@ -29,12 +28,16 @@ class MoveValidator {
                 const std::string &player);
 
 
-        void initializeSide(std::string &playerOne, std::string &playerTwo);
+        void initializeSide(const std::string &playerOne, const std::string &playerTwo);
 
         bool isGameFinished() const;
         std::string gameOverMessage();
         std::string getBoardView();
         std::string helpMessage();
+        void setPlayerOne(const std::string &playerOne);
+        void setPlayerTwo(const std::string &playerTwo);
+
+
 
     private:
         Board gameBoard;

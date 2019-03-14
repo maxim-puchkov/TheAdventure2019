@@ -72,9 +72,7 @@ bool MoveValidator::processChessMove(const ChessCoordinate &startPos, const Ches
         return false;
     }
 
-
     return  gameBoard.movePiece(startPos, finishPos);
-
 }
 
 
@@ -124,7 +122,7 @@ std::string MoveValidator::gameOverMessage() {
 
 
 
-void MoveValidator::initializeSide(std::string &playerOne, std::string &playerTwo) {
+void MoveValidator::initializeSide(const std::string &playerOne, const std::string &playerTwo) {
 
     this->playerOne.playerName  = playerOne;
     this->playerOne.playerColor = RED_LOWERCASE;
@@ -133,6 +131,21 @@ void MoveValidator::initializeSide(std::string &playerOne, std::string &playerTw
     this->playerTwo.playerColor = BLUE_UPPERCASE;
 
 }
+
+void MoveValidator::setPlayerOne(const std::string &playerOne) {
+
+    this->playerOne.playerName  = playerOne;
+    this->playerOne.playerColor = RED_LOWERCASE;
+
+}
+
+void MoveValidator::setPlayerTwo(const std::string &playerTwo) {
+
+    this->playerTwo.playerName = playerTwo;
+    this->playerTwo.playerColor = BLUE_UPPERCASE;
+
+}
+
 
 //Checks to see if a red player doesn't attempt to move a piece that doesn't belong to them.
 bool MoveValidator::validatePlayer(const std::string &playerName, const Color &color) const {
@@ -179,7 +192,6 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo, co
     return processChessMove( startPos, finishPos );
 
 }
-
 
 
 /**
