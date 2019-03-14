@@ -5,7 +5,6 @@ using charactermanager::CharacterManager;
 
 LocationCoordinates CharacterManager::spawnCharacter(const std::string& username) {
 	Character character = characterDB.getCharacter(username);
-	character.setFirstTimeSetup();
 	onlineCharacters.insert(std::make_pair(username, character));
 	auto spawnLocation = LocationCoordinates{0, 0};
 	changeCharacterLocation(username, spawnLocation);
@@ -111,6 +110,6 @@ CharacterManager::CHARACTER_CODE CharacterManager::isThisFirstTimeSetup(const st
 void CharacterManager::setCharacterIsDoneFirstTimeSetup(std::string& username) {
 	auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {
-		found->second.setFirstTimeSetup();
+		found->second.setFirstTimeSetup(true);
 	}
 }
