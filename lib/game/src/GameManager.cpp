@@ -66,10 +66,10 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
     //kick inactive users
     if (heartBeatDuration == 0) {
         auto connectionIDs = onlineUserManager.unactiveUser();
-        if(connectionIDs.size() != 0) {
+        for(const auto& element : connectionIDs) {
             std::string fullCommand = "logout";
-            std::string logoutMessage = "You have been idle for too long.\n" + extractCommands(connectionIDs.front(), fullCommand);
-            map->insert(make_pair(connectionIDs.front(), logoutMessage));
+            std::string logoutMessage = "You have been idle for too long.\n" + extractCommands(element, fullCommand);
+            map->insert(make_pair(element, logoutMessage));
         }
         heartBeatDuration = 50;
     }

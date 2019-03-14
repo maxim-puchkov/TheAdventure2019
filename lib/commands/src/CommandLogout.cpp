@@ -1,9 +1,6 @@
 #include "CommandLogout.h"
 
 std::string CommandLogout::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
-    for(const auto& element : fullCommand) {
-        std::cout << element << "\n";
-    }
 	auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
     auto answer = onlineUserManager.logout(connectionID);
 	switch(answer) {

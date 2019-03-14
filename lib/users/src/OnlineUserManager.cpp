@@ -147,7 +147,10 @@ bool sortFunction(User i, User j) {
     return i.getTimeStamp() < j.getTimeStamp();
 }
 
+// User who unactive for more than 300000 millisecond will be kicked
 std::vector<std::string> OnlineUserManager::unactiveUser(){
+    long currentTime = currentTimeStamp();
+    long timeToKick = currentTime - 300000;
     std::vector<std::string> unactiveUserIDs;
     if(onlineUsers.size() != 0) {
         std::vector<User> listUsers;
@@ -155,8 +158,10 @@ std::vector<std::string> OnlineUserManager::unactiveUser(){
             listUsers.push_back(element.second);
         }
         std::sort(listUsers.begin(), listUsers.end(), sortFunction);
-        for(auto const& value: listUsers) {
-            unactiveUserIDs.push_back(getConnectionID(value.getUserName()));
+        for(auto& value: listUsers) {
+            if(value.getTimeStamp() < timeToKick) {
+                unactiveUserIDs.push_back(getConnectionID(value.getUserName()));
+            }
         }
     }
     return unactiveUserIDs;
