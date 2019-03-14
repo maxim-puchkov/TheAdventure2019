@@ -75,7 +75,7 @@ unsigned int MiniGameMatch::getCurrentPlayers() const{
 }
 
 std::string MiniGameMatch::display(){
-    return game.drawBoard();
+    return game.getBoardView();
 }
 
 /*MoveValidator& MiniGameMatch::getGame() {
