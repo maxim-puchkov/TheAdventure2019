@@ -110,6 +110,6 @@ CharacterManager::CHARACTER_CODE CharacterManager::isThisFirstTimeSetup(const st
 void CharacterManager::setCharacterIsDoneFirstTimeSetup(std::string& username) {
 	auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {
-		found->second.setFirstTimeSetup();
+		found->second.setFirstTimeSetup(true);
 	}
 }

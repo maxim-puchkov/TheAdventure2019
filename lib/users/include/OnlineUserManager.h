@@ -36,8 +36,7 @@ class OnlineUserManager{
     public:
         bool insertUser(const std::string &id, const User &user);      
         User removeUser(const std::string& id);
-        std::string removeUnactiveUser();
-        
+        long currentTimeStamp();
         std::string getConnectionID(const std::string& userName);
         std::string getUsernameFromConnectionID(const std::string& connectionID);
         
@@ -49,6 +48,7 @@ class OnlineUserManager{
         
         long getTimeStamp();
         bool updateUserTimeStamp(const std::string& id);
+        std::vector<std::string> unactiveUser();
         
         USER_CODE getUserRole(const std::string& username);
 
