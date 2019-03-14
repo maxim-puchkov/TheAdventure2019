@@ -75,8 +75,22 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
         heartBeatDuration = 50;
     }
     heartBeatDuration--;
-    
-    
+
+    //Combat round
+    auto& combatManager = characterManager.getCombatManager();
+    combatManager.roundTick();
+    auto combatCommands = combatManager.getCombatCommands();
+    for (auto& element : combatCommands){
+        auto& username = element.first;
+        auto& command = element.second;
+
+        auto found = tableOfCommands.find(command[0]);
+        if(found != tableOfCommands.end()) {
+            found->second->executeInHeartbeat(username, command);
+        }
+    }
+
+
     //process commands
     auto userCommands = onlineUserManager.getOnlineUserCommandList();
     for(auto& element : userCommands) {

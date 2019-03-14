@@ -51,6 +51,7 @@ target_link_libraries(${libcommands}
     ${libcharacter}
     ${Boost_LIBRARIES}
     ${libusers}
+        ${libcombat}
 )
 
 
