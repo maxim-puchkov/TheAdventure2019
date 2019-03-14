@@ -86,7 +86,7 @@ TEST(BoardTest, pawnDiagonal){
     move.readChessMove(moveFrom,moveTo);
 
     moveFrom = "b7";
-    moveFrom = "b5";
+    moveTo = "b5";
     move.readChessMove(moveFrom,moveTo);
 
     //See if red can kill blue diagonally.
@@ -94,8 +94,6 @@ TEST(BoardTest, pawnDiagonal){
     moveTo = "b5";
     bool isValid = move.readChessMove(moveFrom,moveTo);
     EXPECT_EQ(true,isValid);
-
-    //move.getBoardView();
 
     moveFrom = "a7";
     moveTo = "a6";
@@ -182,74 +180,57 @@ TEST(BoardTest, Rook){
     target = "a5";
     move.readChessMove(input,target);
 
-    input = "a8,a6";
+    input = "a8";
+    target = "a6";
     isValid = move.readChessMove(input,target);
     EXPECT_EQ(isValid,true);
 
-    input = "a6,h6";
+    input = "a6";
+    target = "h6";
     isValid = move.readChessMove(input,target);
     EXPECT_EQ(true,isValid);
 
 
-    input = "h6,h2";
+    input = "h6";
+    target = "h2";
     isValid = move.readChessMove(input,target);
     EXPECT_EQ(isValid,true);
 
     //Now attempt to have rook attack piece behind it.
-    input = "h2,f2";
+    input = "h2";
+    target = "f2";
     isValid = move.readChessMove(input,target);
 
     // move.getBoardView();
     EXPECT_EQ(false,isValid);
 
     //Now test if the red rook can "Illegaly go through the blue rook. If you want to see the board do move.getBoardView//
-    input = "h1,h4";
+    input = "h1";
+    target = "h4";
     isValid = move.readChessMove(input,target);
     EXPECT_EQ(false,isValid);
 
-    input = "h2,g2";
+    input = "h2";
+    target = "g2";
     isValid = move.readChessMove(input,target);
     EXPECT_EQ(true,isValid);
 
 
-    input = "h1,h2";
+    input = "h1";
+    target = "h2";
     isValid = move.readChessMove(input,target);
     EXPECT_EQ(true,isValid);
 
-    input = "g7,g6";
+    input = "g7";
+    target = "g6";
     isValid = move.readChessMove(input,target);
 
     //Attempt to go through blue pawn
-    input = "g2,g6";
+    input = "g2";
+    target = "g6";
     isValid = move.readChessMove(input,target);
     EXPECT_EQ(false,isValid);
 
-
-
-}
-
-TEST(BoardTest, badInput){
-    MoveValidator move;
-
-    string input;
-    bool isValid = move.readChessMove(input);
-    EXPECT_EQ(false,isValid);
-
-    input = "adfjsfa,asdfjl234aefaf;j,2";
-    isValid = move.readChessMove(input);
-    EXPECT_EQ(false,isValid);
-
-    input = "a-1,a10";
-    isValid = move.readChessMove(input);
-    EXPECT_EQ(false,isValid);
-
-    input = ",";
-    isValid = move.readChessMove(input);
-    EXPECT_EQ(false,isValid);
-
-    //input = nullptr; This test actually fails and I don't know how to check a string for nullptr
-    isValid = move.readChessMove(input);
-    EXPECT_EQ(false,isValid);
 
 }
 
@@ -257,57 +238,65 @@ TEST(BoardTest, knight){
     MoveValidator move;
     //TESTING ALL THE POSSIBLE MOVES OF THE KNIGHT
 
-    string input = "b1,c3";
-    bool isValid = move.readChessMove(input);
+    string input = "b1";
+    string target = "c3";
+    bool isValid = move.readChessMove(input,target);
     EXPECT_EQ(true,isValid);
 
-    input = "c3,b1";
-    isValid = move.readChessMove(input);
+    input = "c3";
+    target = "b1";
+    isValid = move.readChessMove(input,target);
     EXPECT_EQ(true,isValid);
 
-    input = "b1,a3";
-    isValid = move.readChessMove(input);
+    input = "b1";
+    target = "a3";
+    isValid = move.readChessMove(input,target);
     EXPECT_EQ(true,isValid);
 
-    input = "a3,b1";
-    isValid = move.readChessMove(input);
+    input = "a3";
+    target = "b1";
+    isValid = move.readChessMove(input,target);
     EXPECT_EQ(true,isValid);
 
     //Duplicate move
-    input = "b1,a3";
-    isValid = move.readChessMove(input);
+    input = "b1";
+    target = "a3";
+    isValid = move.readChessMove(input,target);
     EXPECT_EQ(true,isValid);
 
 
-    input = "a3,c4";
-    isValid = move.readChessMove(input);
+    input = "a3";
+    target = "c4";
+    isValid = move.readChessMove(input,target);
     EXPECT_EQ(true,isValid);
 
-    input = "c4,e3";
-    isValid = move.readChessMove(input);
+    input = "c4";
+    target = "e3";
+    isValid = move.readChessMove(input,target);
     EXPECT_EQ(true,isValid);
 
 
-    input = "e3,g4";
-    isValid = move.readChessMove(input);
+    input = "e3";
+    target = "g4";
+    isValid = move.readChessMove(input,target);
     EXPECT_EQ(isValid,true);
     //move.getBoardView();
 
-    input = "g4,e3";
-    isValid = move.readChessMove(input);
+    input = "g4";
+    target = "e3";
+    isValid = move.readChessMove(input,target);
     EXPECT_EQ(isValid,true);
 
-    input = "e3,c4";
-    isValid = move.readChessMove(input);
+    input = "e3";
+    target = "c4";
+    isValid = move.readChessMove(input,target);
     EXPECT_EQ(isValid,true);
 
 }
 
 
-
-
-
 TEST(BoardTest, testBishop){
+
 
     //Code should have been tested this way to begin with, but too lazy to rewrite all the methods above.
     Board bishop;
@@ -330,9 +319,6 @@ TEST(BoardTest, testBishop){
     bishop.movePiece({2,0},{6,4});
     EXPECT_EQ(bishop.requestUnit({2,0}),NONE);
 
-
-    bishop.movePiece({3,7},{2,6});
-    EXPECT_EQ(bishop.requestUnit({2,6}),BISHOP);
 
 
 
@@ -367,10 +353,8 @@ TEST(BoardTest, testPromotionAndKillKing){
 
     EXPECT_EQ(board.getLastPieceKilled().getPieceUnit(), QUEEN);
 
-    std::cout << board.getBoardView();
-    board.movePiece({0,3},{0,4});
 
-    std::cout << board.getBoardView();
+    board.movePiece({0,3},{0,4});
 
 
     EXPECT_EQ(board.getLastPieceKilled().getPieceUnit(),KING);
