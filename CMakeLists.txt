@@ -21,6 +21,7 @@ set(libusers "users")
 set(libworld "world")
 set(libparsers "parsers")
 set(libuserdb "userdb")
+set(libcharacterdb "characterDB")
 
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

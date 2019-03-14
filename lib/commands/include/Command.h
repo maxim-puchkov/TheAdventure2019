@@ -3,12 +3,12 @@
 
 #include <string>
 #include <vector>
-#include <boost/algorithm/string.hpp>
 
 #include "CharacterManager.h"
 #include "OnlineUserManager.h"
 #include "WorldManager.h"
 #include "LocationCoordinates.h"
+// #include <boost/algorithm/string.hpp>
 
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
