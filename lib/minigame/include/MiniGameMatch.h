@@ -20,7 +20,7 @@ public:
     bool hasPlayer(const std::string& playerName) const;
     bool hasSpectator(const std::string& playerName) const;
     bool isPlayersTurn(const std::string& playerName) const;
-    bool makePlayerMove(const std::string& playerName, std::string& move);
+    bool makePlayerMove(const std::string& playerName, std::string& moveFrom, std::string moveTo);
     bool addPlayer(const std::string& playerName);
     void removePlayer(const std::string& playerName);
     unsigned int getCurrentPlayers() const;

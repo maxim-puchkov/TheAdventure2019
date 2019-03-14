@@ -46,12 +46,12 @@ bool MiniGameMatch::isPlayersTurn(const std::string& playerName) const{
     return players.at(currentPlayerTurn) == playerName;
 }
 
-bool MiniGameMatch::makePlayerMove(const std::string& playerName, std::string& move){
+bool MiniGameMatch::makePlayerMove(const std::string& playerName, std::string& moveFrom, std::string moveTo){
     if(!isPlayersTurn(playerName)) return false;
 
     currentPlayerTurn = (currentPlayerTurn + 1) % players.size();
 
-    return game.readChessMove(move);
+    return game.readChessMove(moveFrom, moveTo);
 }
 
 bool MiniGameMatch::addPlayer(const std::string& playerName){

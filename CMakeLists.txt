@@ -12,7 +12,6 @@ set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
 #   will not need changes.
 # Or search for ${libNAME} to quickly find all
 #   dependencies on any library.
-set(libaccounts "accounts")
 set(libcharacters "characters")
 set(libcommands "commands")
 set(libgame "game")
@@ -22,11 +21,12 @@ set(libusers "users")
 set(libworld "world")
 set(libparsers "parsers")
 set(libuserdb "userdb")
-set(libtime "time")
+set(libcharacterdb "characterDB")
 set(libminigame "minigame")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-rtti")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-rtti")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 set(CMAKE_CXX_FLAGS_DEBUG
     "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -fsanitize=address,undefined -fno-omit-frame-pointer")
 set(CMAKE_CXX_FLAGS_RELEASE
@@ -63,4 +63,6 @@ set(CMAKE_TEMP_LIBRARY_PATH "${PROJECT_BINARY_DIR}/lib")
 
 add_subdirectory(lib)
 add_subdirectory(tools)
+add_subdirectory(test)
+
 

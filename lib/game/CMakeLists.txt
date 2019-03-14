@@ -12,14 +12,13 @@ target_include_directories(${libgame}
 )
 
 target_link_libraries(${libgame}
-    ${libaccounts}
     ${libcharacters}
     ${libworld}
     ${libusers}
     ${libcharacter}
     ${Boost_LIBRARIES}
     ${libusers}
-    ${libminigame}
+    ${libcommands}
 )
 
 set_target_properties(${libgame}

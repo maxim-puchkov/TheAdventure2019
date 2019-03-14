@@ -130,14 +130,18 @@ std::string MoveValidator::gameOverMessage() {
  * @param input - Takes in a chess move. First specify the location of a piece then specify the
  * end spot next. Example move "a2,b6"
  */
-bool MoveValidator::readChessMove(std::string &input) {
+bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo) {
 
     //HOW TO CHECK FOR NULLPTR? it fails the test i made
-
+/*
     boost::trim(input);
 
     std::vector<std::string> result;
     boost::split(result,input,boost::is_any_of(","));
+*/
+    std::vector<std::string> result;
+    result.push_back(moveFrom);
+    result.push_back(moveTo);
 
     if(result.size() > 2  || result.at(0).size() != 2 || result.at(1).size() != 2 ){
         return false;

@@ -33,5 +33,3 @@ set_target_properties(${libminigame}
 install(TARGETS ${libminigame}
         ARCHIVE DESTINATION lib
         )
-
-add_subdirectory(test)
