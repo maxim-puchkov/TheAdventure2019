@@ -41,6 +41,7 @@ std::vector<std::pair<std::string, std::vector<std::string>>> CombatManager::get
             auto player2Pair = std::make_pair(combat.getPlayer(1), tempVector2);
             commandList.push_back(player1Pair);
             commandList.push_back(player2Pair);
+            combat.clearCommands();
         }
     }
 

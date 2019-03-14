@@ -1,6 +1,3 @@
-
-#include <CharacterManager.h>
-
 #include "CharacterManager.h"
 
 
@@ -8,7 +5,6 @@ using charactermanager::CharacterManager;
 
 LocationCoordinates CharacterManager::spawnCharacter(const std::string& username) {
 	Character character = characterDB.getCharacter(username);
-	character.setFirstTimeSetup();
 	onlineCharacters.insert(std::make_pair(username, character));
 	auto spawnLocation = LocationCoordinates{0, 0};
 	changeCharacterLocation(username, spawnLocation);
@@ -33,15 +29,6 @@ std::string CharacterManager::getUsernameFromCharacter(const std::string& userna
 
 	return username;
 }
-
-/*std::string CharacterManager::getCharacterNameFromUser(const std::string& username) const{
-	auto found = onlineCharacters.find(username);
-	if (found != onlineCharacters.end()) {
-		return found->second.getName();
-	} else {
-		return "[Char name not found]";
-	}
-}*/
 
 
 LocationCoordinates CharacterManager::getCharacterLocation(const std::string& username) const {
@@ -121,10 +108,10 @@ CharacterManager::CHARACTER_CODE CharacterManager::isThisFirstTimeSetup(const st
 }
 
 void CharacterManager::setCharacterIsDoneFirstTimeSetup(std::string& username) {
-    auto found = onlineCharacters.find(username);
-    if (found == onlineCharacters.end()) {
-        found->second.setFirstTimeSetup();
-    }
+	auto found = onlineCharacters.find(username);
+	if (found == onlineCharacters.end()) {
+		found->second.setFirstTimeSetup(true);
+	}
 }
 
 MiniGameLobby& CharacterManager::getMiniGameLobby(){

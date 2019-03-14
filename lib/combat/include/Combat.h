@@ -17,6 +17,7 @@ public:
     int getRoundTime() const;
     std::string getOpponent(const std::string& name) const;
     void queueCommand(const std::string& name, const std::string& command);
+    void clearCommands();
     void decrementRoundTime();
     void resetRoundTime();
     std::string getPlayer(int playerNum) const;

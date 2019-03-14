@@ -53,7 +53,7 @@ public:
     void setShortdesc(const std::string& shortdesc);
     void setLongdesc(const std::string& longdesc);
     void setDescription(const std::string& description);
-    void setFirstTimeSetup();
+    void setFirstTimeSetup(const bool value);
     
     // States ...
     bool isInCombat();

@@ -36,6 +36,11 @@ void Combat::queueCommand(const std::string& name, const std::string& command){ 
     queuedActions.at(index) = command;
 }
 
+void Combat::clearCommands(){
+    queuedActions.at(0) = "";
+    queuedActions.at(1) = "";
+}
+
 //for now return first non-input combatant. currently supporting 2 people per combat
 std::string Combat::getOpponent(const std::string& name) const{
     for(auto& combatantName : combatants){

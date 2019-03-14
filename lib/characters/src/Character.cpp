@@ -65,8 +65,8 @@ bool Character::getIsDoneFirstTimeSetup() const {
     return this->isDoneFirstTimeSetup;
 }
 
-void Character::setFirstTimeSetup() {
-    isDoneFirstTimeSetup = true;
+void Character::setFirstTimeSetup(const bool value) {
+    isDoneFirstTimeSetup = value;
 }
 
 void Character::setCurrentLocation(LocationCoordinates newLocation){

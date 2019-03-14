@@ -42,6 +42,7 @@ std::string GameManager::extractCommands(const std::string& connectionID, std::s
     	bool commandIsValid;
     	auto processedCommand = found->second->reassembleCommand(fullCommand, commandIsValid);
     	if(commandIsValid) {
+            onlineUserManager.updateUserTimeStamp(connectionID);
     		return found->second->executePromptReply(connectionID, processedCommand);
     	}
     	return "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
@@ -59,27 +60,22 @@ std::string GameManager::extractKeyword(std::string& fullCommand) {
     return commandParts[0];
 }
 
+
 std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heartbeat() {
     auto map = std::make_unique<std::unordered_map<std::string, std::string>>();
-/*
+
     //kick inactive users
-    std::cout << "TIME TO KICK: " << heartBeatDuration <<"\n";
-    
     if (heartBeatDuration == 0) {
-        std::string connectionID = onlineUserManager.removeUnactiveUser();
-        
-        auto found = tableOfCommands.find("logout");
-        std::vector<std::string> fullCommand;
-        fullCommand.push_back("logout");
-        std::string logoutMessage = "You have been idle for too long.\n" + found->second->executePromptReply(connectionID, fullCommand);
-        map->insert(make_pair(connectionID, logoutMessage));
-        //commandLogout(connectionID, vecForTest);
-        
+        auto connectionIDs = onlineUserManager.unactiveUser();
+        for(const auto& element : connectionIDs) {
+            std::string fullCommand = "logout";
+            std::string logoutMessage = "You have been idle for too long.\n" + extractCommands(element, fullCommand);
+            map->insert(make_pair(element, logoutMessage));
+        }
         heartBeatDuration = 50;
-    
     }
     heartBeatDuration--;
-*/
+
     //Combat round
     auto& combatManager = characterManager.getCombatManager();
     combatManager.roundTick();
@@ -94,7 +90,7 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
         }
     }
 
-    
+
     //process commands
     auto userCommands = onlineUserManager.getOnlineUserCommandList();
     for(auto& element : userCommands) {
