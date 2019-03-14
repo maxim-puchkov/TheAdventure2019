@@ -8,6 +8,7 @@
 
 #include "Collection.h"
 
+
 template<typename T, int capacity>
 Collection<T, capacity>::Collection()
 { }

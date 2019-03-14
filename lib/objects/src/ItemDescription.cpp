@@ -8,8 +8,9 @@
 
 #include "ItemDescription.h"
 
+
 ItemDescription::ItemDescription()
-: shortdesc(""), longdesc({""})
+: shortdesc(NO_DESCRIPTION), longdesc({NO_DESCRIPTION})
 { }
 
 
@@ -19,6 +20,12 @@ ItemDescription::ItemDescription(const string &shortdesc, const vector<string> &
 
 
 // ItemDescription::ItemDescription(objects::Text description);
+
+
+void ItemDescription::clear() {
+    this->shortdesc.empty();
+    this->longdesc.empty();
+}
 
 
 string ItemDescription::getShort() const {

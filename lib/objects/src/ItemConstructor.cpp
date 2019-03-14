@@ -8,11 +8,46 @@
 
 #include "ItemConstructor.h"
 
+
 ItemConstructor::ItemConstructor()
+: ids(identity::UUID())
+{ }
+
+
+ItemConstructor::~ItemConstructor()
 { }
 
 
 Item ItemConstructor::create() {
-    ObjectId id = uniqueId();
-    return Item(id, keywords, description, extras);
+    ObjectID id = this->nextUUID();
+    return Item(id);
+    
+    // return Item(id, keywords, description, extras);
+}
+
+
+void ItemConstructor::reset() {
+    this->clearAll();
+}
+
+
+void ItemConstructor::setKeywords(const Keywords &keywords) {
+    this->keywords = keywords;
+}
+
+
+void ItemConstructor::setDescription(const Text &description) {
+    //this->description = ItemDescription(description, LINE_WIDTH, SHORT_DESCRIPTION_WIDTH);
+}
+
+
+void ItemConstructor::clearAll() {
+    this->keywords.clear();
+    this->description.clear();
+    this->extras.clear();
+}
+
+
+ObjectID ItemConstructor::nextUUID() {
+    return this->ids.generate();
 }

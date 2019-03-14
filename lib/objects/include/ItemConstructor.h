@@ -15,12 +15,15 @@
 #include "Item.h"
 #include "ItemDescription.h"
 
+
 using std::string;
 using std::vector;
-using objects::ObjectId;
-using objects::Identifiers;
+
+using objects::ObjectID;
+using objects::Keywords;
 using objects::Text;
 using objects::Association;
+
 
 const unsigned int LINE_WIDTH = 80;
 const unsigned int SHORT_DESCRIPTION_WIDTH = 20;
@@ -38,21 +41,40 @@ public:
     
     ItemConstructor();
     
+    ~ItemConstructor() override;
+    
+    
+    
+    /// Create an item with provided input
     Item create();
     
-    void setIdentifiers(Identifiers identifiers) override {
-        this->keywords = identifiers;
-    }
+    /// Reset current item construction
+    void reset() override;
     
-    void setDescription(Text description) override {
-        //this->description = ItemDescription(description, LINE_WIDTH, SHORT_DESCRIPTION_WIDTH);
-    }
+    /// Set item's identifying keywords
+    void setKeywords(const Keywords &keywords) override;
+    
+    /// Set item's description text
+    void setDescription(const Text &description) override;
+    
     
 private:
     
-    Identifiers keywords;
+    /// Clear all data members and reset to default value
+    void clearAll();
+    
+    
+    /// Generate next object identifier
+    ObjectID nextUUID();
+    
+    
+    // IC Data members
+    Keywords keywords;
     ItemDescription description;
     Extras extras; // additional actions of an item
+    
+    
+    identity::UUID ids;
     
 };
 

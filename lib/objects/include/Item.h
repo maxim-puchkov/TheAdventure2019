@@ -15,38 +15,51 @@
 #include "Object.h"
 #include "ItemDescription.h"
 
+
 using std::string;
 
-using objects::ObjectId;
-using objects::Identifiers;
+using objects::ObjectID;
+using objects::Keywords;
 using objects::Extras;
 
 
+
 /**
- @class Item
+ @class
+    Item
  
  @description
-    ...
+    <No description yet>
  */
 class Item {
 public:
     
-    Item(ObjectId id,
-         const Identifiers &keywords,
+    Item(ObjectID id) { /* debug */ }
+    
+    
+    
+    /// Default item constructor with an object ID, identifying keywords,
+    ///     item description, and extra actions.
+    Item(ObjectID id,
+         const Keywords &keywords,
          const ItemDescription &description,
          const Extras &extras); /* undefined */
     
-    ObjectId getId() const;
+    /// Retrieve object ID
+    ObjectID getID() const;
     
 private:
     
-    ObjectId id;
+    ObjectID id;
+    
     ItemDescription description;
+    
     Extras extras;
     
 };
 
 
+/// Item's hashing function
 template<>
 struct std::hash<Item> {
     std::size_t operator()(const Item &item) const;
@@ -75,7 +88,7 @@ struct std::hash<Item> {
     /*
     virtual string getShortDescription() const;
     virtual string getLongDescription() const;
-    unsigned long getId() const;
+    unsigned long getID() const;
     void setLongDescription(string &&longDescription);
     */
     /*

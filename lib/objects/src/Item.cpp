@@ -8,13 +8,13 @@
 
 #include "Item.h"
 
-ObjectId Item::getId() const {
+ObjectID Item::getID() const {
     return this->id;
 }
 
 
 std::size_t std::hash<Item>::operator()(const Item &item) const {
-    return std::hash<unsigned long>{}(item.getId());
+    return std::hash<unsigned long>{}(item.getID());
 }
 
 
@@ -85,7 +85,7 @@ Item::~Item()
 { }
 
 
-unsigned long Item::getId() const {
+unsigned long Item::getID() const {
     return this->id;
 }
 
@@ -123,6 +123,6 @@ bool Item::operator==(const Item &other) const {
 
 
 size_t std::hash<Item>::operator()(const Item &item) const {
-    return std::hash<unsigned long>{}(item.getId());
+    return std::hash<unsigned long>{}(item.getID());
 }
 */

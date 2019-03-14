@@ -8,12 +8,6 @@
 
 #include "Object.h"
 
-namespace objects {
-    
-static unsigned int lastId = 0;
 
-unsigned long Object::uniqueId() {
-    return ++lastId;
-}
-
-}
+objects::Object::~Object()
+{ }

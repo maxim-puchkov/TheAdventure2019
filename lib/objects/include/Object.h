@@ -11,50 +11,66 @@
 
 #include <vector>
 #include <string>
+#include <stdint.h>
+#include "UUID.h"
+
 
 using std::string;
 using std::vector;
 
 
+
 namespace objects {
 
-struct Association;
 class Object;
 
-using Identifier = string;
-using Identifiers = vector<Identifier>;
+    
+using ObjectID = identity::uuid_t;
+using Keyword = string;
+using Keywords = vector<Keyword>;
 using Text = string;
-using ObjectId = unsigned long;
+    
+    
+/* --> */
+struct Association;
+struct ExtrasBinding;
+    
 using Extras = vector<objects::Association>;
 
-
+struct ExtrasBinding {
+    Keyword key;
     
-    
-    
+};
     
 struct Association {
     string key;
     string *values;
 };
+/* <-- */
   
 
 /**
- @class Object
+ @class
+    Object Interface
  
  @description
-    In-game object with a unique object id, identifying names, and
-    description text. Ensures that an object has exactly one object id.
+    In-game object interface with a unique object id, identifying keywords, and
+    description text.
  */
 class Object {
 public:
     
-    virtual void setIdentifiers(Identifiers identifiers) = 0;
+    /// Virtual destructor
+    virtual ~Object() = 0;
     
-    virtual void setDescription(Text description) = 0;
+    /// Reset current object creation
+    virtual void reset() = 0;
     
-protected:
+    /// Set object's identifying keywords
+    virtual void setKeywords(const Keywords &keywords) = 0;
     
-    ObjectId uniqueId();
+    /// Set object's description text
+    virtual void setDescription(const Text &description) = 0;
     
 };
     

@@ -9,7 +9,14 @@
 #ifndef ItemDescription_h
 #define ItemDescription_h
 
+#include <string>
+#include <vector>
 #include "Object.h"
+
+using std::string;
+using std::vector;
+
+static string NO_DESCRIPTION = "";
 
 
 /**
@@ -24,15 +31,29 @@ class ItemDescription {
 public:
     
     ItemDescription();
-    ItemDescription(const string &shortdesc, const vector<string> &longdesc);
-    ItemDescription(objects::Text description, int shortdescWidth, int lineWidth); /* undefined */
     
+    
+    ItemDescription(const string &shortdesc,
+                    const vector<string> &longdesc);
+    
+    
+    ItemDescription(objects::Text description,
+                    int shortdescWidth,
+                    int lineWidth); /* undefined */
+    
+    /// Clear all text
+    void clear();
+    
+    /// Retrieve short description
     string getShort() const;
+    
+    /// Retrieve long description
     vector<string> getLong() const;
     
 private:
     
     string shortdesc;
+    
     vector<string> longdesc;
     
 };
