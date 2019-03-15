@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{":sssss":null,"a":{"password":"s"},"parm":{"password":"test"},"parm1":{"password":"test"},"parm2":{"password":"test"},"test":{"password":"pwd"},"test1":{"password":"test"},"testusername":{"password":"testuserpassword"}}
-=======
-{"parm":{"password":"test"},"parm1":{"password":"test"},"parm2":{"password":"test"},"test":{"password":"pwd"},"test1":{"password":"test"},"time1":{"password":"123"},"time2":{"password":"123"},"time3":{"password":"123"}}
->>>>>>> origin
+{"testusername":{"password":"testuserpassword"},"testusername19238021":{"password":"testuserpassword"}}
