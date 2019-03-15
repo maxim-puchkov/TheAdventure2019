@@ -30,18 +30,12 @@ MiniGameMatch::MiniGameMatch(const std::string& player1Name, const std::string& 
 }
 
 bool MiniGameMatch::hasPlayer(const std::string& playerName) const{
-    if(players.empty()) return false;
-
     auto result = std::find(players.begin(), players.end(), playerName);
-
     return result != players.end();
 }
 
 bool MiniGameMatch::hasSpectator(const std::string& spectatorName) const{
-    if(spectators.empty()) return false;
-
     auto result = std::find(spectators.begin(), spectators.end(), spectatorName);
-
     return result != spectators.end();
 }
 
@@ -53,7 +47,6 @@ bool MiniGameMatch::makePlayerMove(const std::string& playerName, std::string& m
     if(!isPlayersTurn(playerName)) return false;
 
     currentPlayerTurn = (currentPlayerTurn + 1) % players.size();
-
     return game.readChessMove(moveFrom, moveTo, playerName);
 
 }
@@ -82,11 +75,10 @@ std::string MiniGameMatch::display(){
     return game.getBoardView();
 }
 
-
-/*MoveValidator& MiniGameMatch::getGame() {
+/*
+MoveValidator& MiniGameMatch::getGame() {
     return this->game;
-}*/
-
+} */
 
 std::string MiniGameMatch::getAdminName() const {
     return this->adminName;
