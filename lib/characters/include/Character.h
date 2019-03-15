@@ -49,6 +49,7 @@ public:
     
     // Set
     void setCurrentLocation(LocationCoordinates newLocation);
+    void damageCharacter(int amount);
     void setShortdesc(const std::string& shortdesc);
     void setLongdesc(const std::string& longdesc);
     void setDescription(const std::string& description);

@@ -113,3 +113,42 @@ void CharacterManager::setCharacterIsDoneFirstTimeSetup(std::string& username) {
 		found->second.setFirstTimeSetup(true);
 	}
 }
+
+MiniGameLobby& CharacterManager::getMiniGameLobby(){
+	return minigameLobby;
+}
+
+CombatManager& CharacterManager::getCombatManager(){
+	return combatManager;
+}
+
+CharacterManager::CHARACTER_CODE CharacterManager::damageCharacter(const std::string& username, int amount){
+	auto found = onlineCharacters.find(username);
+	if (found == onlineCharacters.end()) {
+		return CharacterManager::CHARACTER_CODE::CHARACTER_NOT_FOUND;
+	}
+
+	found->second.damageCharacter(amount);
+
+	return CharacterManager::CHARACTER_CODE::CHARACTER_UPDATED;
+}
+
+int CharacterManager::getCharacterAttack(const std::string& username){
+	auto found = onlineCharacters.find(username);
+	if (found == onlineCharacters.end()) {
+		return -1;
+	}
+
+	return found->second.getAttributes().getDamage();
+}
+
+int CharacterManager::getCharacterHealth(const std::string& username){
+	auto found = onlineCharacters.find(username);
+	if (found == onlineCharacters.end()) {
+		return -1;
+	}
+
+	return found->second.getAttributes().getHealth();
+}
+
+
