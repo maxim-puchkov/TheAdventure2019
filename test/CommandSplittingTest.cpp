@@ -19,14 +19,30 @@ struct CommandSplittingTest : testing::Test {
 // SAY
 TEST_F(CommandSplittingTest, SayCommandSplitsCorrectly) {
     CommandSay testCommand(c, u, w);
+    
     commandToPut = "say: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     EXPECT_EQ("say", testVector.at(0));
     EXPECT_EQ("hello", testVector.at(1));
 }
 
+TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyCase) {
+    CommandSay testCommand(c, u, w);
+
+    commandToPut = "say: say";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("say", testVector.at(0));
+    EXPECT_EQ("say", testVector.at(1));
+
+    commandToPut = "say: helpsay";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("say", testVector.at(0));
+    EXPECT_EQ("helpsay", testVector.at(1));
+}
+
 TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyWithDifferentSpaces) {
     CommandSay testCommand(c, u, w);
+
     commandToPut = "say           :                     hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     EXPECT_EQ("say", testVector.at(0));
@@ -40,6 +56,7 @@ TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyWithDifferentSpaces) {
 
 TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyNotCaseSensitive) {
     CommandSay testCommand(c, u, w);
+
     commandToPut = "SAy: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     boost::to_lower(testVector.at(0));
@@ -65,6 +82,7 @@ TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyNotCaseSensitive) {
 // TELL
 TEST_F(CommandSplittingTest, TellCommandSplitsCorrectly) {
     CommandTell testCommand(c, u, w);
+
     commandToPut = "tell user: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     EXPECT_EQ("tell", testVector.at(0));
@@ -72,8 +90,25 @@ TEST_F(CommandSplittingTest, TellCommandSplitsCorrectly) {
     EXPECT_EQ("hello", testVector.at(2));
 }
 
+TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyCase) {
+    CommandTell testCommand(c, u, w);
+
+    commandToPut = "tell user: tell";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("tell", testVector.at(0));
+    EXPECT_EQ("user", testVector.at(1));
+    EXPECT_EQ("tell", testVector.at(2));
+
+    commandToPut = "tell user: helptell";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("tell", testVector.at(0));
+    EXPECT_EQ("user", testVector.at(1));
+    EXPECT_EQ("helptell", testVector.at(2));
+}
+
 TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyWithDifferentSpaces) {
     CommandTell testCommand(c, u, w);
+
     commandToPut = "tell       user    :                     hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     EXPECT_EQ("tell", testVector.at(0));
@@ -87,6 +122,7 @@ TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyWithDifferentSpaces) {
 
 TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyNotCaseSensitive) {
     CommandTell testCommand(c, u, w);
+
     commandToPut = "TEll user: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     boost::to_lower(testVector.at(0));
@@ -116,24 +152,25 @@ TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyNotCaseSensitive) {
 // CAST
 TEST_F(CommandSplittingTest, CastCommandSplitsCorrectly) {
     CommandCast testCommand(c, u, w);
+
     commandToPut = "cast ligma";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
-
     EXPECT_EQ("cast", testVector.at(0));
     EXPECT_EQ("ligma", testVector.at(1));
 }
 
 TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyWithSpace) {
     CommandCast testCommand(c, u, w);
+    
     commandToPut = "cast               ligma";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
-
     EXPECT_EQ("cast", testVector.at(0));
     EXPECT_EQ("ligma", testVector.at(1));
 }
 
 TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyNotCaseSensitive) {
     CommandCast testCommand(c, u, w);
+
     commandToPut = "caSt liGma";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     boost::to_lower(testVector.at(0));
@@ -152,24 +189,25 @@ TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyNotCaseSensitive) {
 // CREATE-AVATAR
 TEST_F(CommandSplittingTest, CreateAvatarCommandSplitsCorrectly) {
     CommandCreateAva testCommand(c, u, w);
+
     commandToPut = "create-avatar user";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
-
     EXPECT_EQ("create-avatar", testVector.at(0));
     EXPECT_EQ("user", testVector.at(1));
 }
 
 TEST_F(CommandSplittingTest, CreateAvatarCommandSplitsCorrectlyWithSpaces) {
     CommandCreateAva testCommand(c, u, w);
+
     commandToPut = "create-avatar                   user";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
-
     EXPECT_EQ("create-avatar", testVector.at(0));
     EXPECT_EQ("user", testVector.at(1));
 }
 
 TEST_F(CommandSplittingTest, CreateAvatarCommandSplitsCorrectlyNotCaseSensitive) {
     CommandCreateAva testCommand(c, u, w);
+
     commandToPut = "crEAte-aVaTar user";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     boost::to_lower(testVector.at(0));
@@ -186,15 +224,30 @@ TEST_F(CommandSplittingTest, CreateAvatarCommandSplitsCorrectlyNotCaseSensitive)
 // YELL
 TEST_F(CommandSplittingTest, YellCommandSplitsCorrectly) {
     CommandYell testCommand(c, u, w);
+
     commandToPut = "yell: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
-
     EXPECT_EQ("yell", testVector.at(0));
     EXPECT_EQ("hello", testVector.at(1));
 }
 
+TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyCase) {
+    CommandYell testCommand(c, u, w);
+
+    commandToPut = "yell: yell";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("yell", testVector.at(0));
+    EXPECT_EQ("yell", testVector.at(1));
+
+    commandToPut = "yell: helpyell";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("yell", testVector.at(0));
+    EXPECT_EQ("helpyell", testVector.at(1));
+}
+
 TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyWithDifferentSpaces) {
     CommandYell testCommand(c, u, w);
+
     commandToPut = "yell           :                     hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     EXPECT_EQ("yell", testVector.at(0));
@@ -208,6 +261,7 @@ TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyWithDifferentSpaces) {
 
 TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyNotCaseSensitive) {
     CommandYell testCommand(c, u, w);
+
     commandToPut = "Yell: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     boost::to_lower(testVector.at(0));
@@ -233,6 +287,7 @@ TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyNotCaseSensitive) {
 //HELP
 TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectly) {
     CommandHelp testCommand(c, u, w);
+
     commandToPut = "help";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     EXPECT_EQ("help", testVector.at(0));
@@ -244,8 +299,19 @@ TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectly) {
     EXPECT_EQ("account", testVector.at(1));
 }
 
+TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectlyCase) {
+    CommandHelp testCommand(c, u, w);
+
+    commandToPut = "help help";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("help", testVector.at(0));
+    EXPECT_EQ("help", testVector.at(1));
+}
+
+
 TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectlyWithSpaces) {
     CommandHelp testCommand(c, u, w);
+
     commandToPut = "help                    account";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     EXPECT_EQ("help", testVector.at(0));
@@ -254,6 +320,7 @@ TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectlyWithSpaces) {
 
 TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectlyNotCaseSensitive) {
     CommandHelp testCommand(c, u, w);
+
     commandToPut = "hELP";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     boost::to_lower(testVector.at(0));
