@@ -254,9 +254,15 @@ Piece& Board::requestPiece(const ChessCoordinate &position) {
 
 
 const PieceUnit Board::requestUnit(const ChessCoordinate &position) const {
-    Piece a = boardView.at(position.row).at(position.col);
+    const Piece &a = boardView.at(position.row).at(position.col);
     return a.getPieceUnit();
 }
+
+const Color Board::requestColor(const ChessCoordinate &position) const {
+    const Piece &tmp = boardView.at(position.row).at(position.col);
+    return tmp.getColor();
+}
+
 
 //Constructor
 Board::Board() {
