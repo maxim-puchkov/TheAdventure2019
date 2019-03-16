@@ -13,8 +13,11 @@ MiniGameMatch::MiniGameMatch(const std::string& userName) {
     this->adminName = userName;
     this->players.push_back(userName);
     this->currentPlayerTurn = 0;
-    //MoveValidator newGame;
-    //this->game = newGame;
+
+    MoveValidator newGame;
+    this->game = newGame;
+    newGame.setPlayerOne(userName);
+
 }
 
 MiniGameMatch::MiniGameMatch(const std::string& player1Name, const std::string& player2Name) {
@@ -75,10 +78,10 @@ std::string MiniGameMatch::display(){
     return game.getBoardView();
 }
 
-/*
+
 MoveValidator& MiniGameMatch::getGame() {
     return this->game;
-} */
+}
 
 std::string MiniGameMatch::getAdminName() const {
     return this->adminName;
