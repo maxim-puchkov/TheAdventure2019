@@ -9,5 +9,4 @@
 #include "Object.h"
 
 
-objects::Object::~Object()
-{ }
+

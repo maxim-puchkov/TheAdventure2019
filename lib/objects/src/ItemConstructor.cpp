@@ -30,8 +30,7 @@ void ItemConstructor::reset() {
 
 
 void ItemConstructor::setKeywords(const std::set<Keyword> &keywords) {
-    // this->keywords = keywords;
-    
+    this->keywords = keywords;
 }
 
 

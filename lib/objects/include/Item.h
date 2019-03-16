@@ -40,6 +40,8 @@ public:
          const Extras &extras);
     
     
+    ~Item();
+    
     /// Retrieve object ID
     ObjectID getID() const override;
     
@@ -65,7 +67,9 @@ public:
     
 private:
     
-    string display_keywords() const;
+    //string display_keywords() const;
+    
+    string allKeywords() const;
     
     ObjectID id;
     

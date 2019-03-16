@@ -15,10 +15,11 @@ Item::Item(ObjectID id,
            const ItemDescription &description,
            const Extras &extras)
 : id(id), keywords(keywords), description(description), extras(extras)
-{
-   // std::set<Keyword> keywords = (keywords)
-    
-}
+{ }
+
+
+Item::~Item()
+{ }
 
 
 ObjectID Item::getID() const {
@@ -27,13 +28,12 @@ ObjectID Item::getID() const {
 
 
 string Item::display() const {
-    //return this->keywords[0];
-    return "";
+    return *this->keywords.cbegin();
 }
 
 
 string Item::display_long() const {
-    return "";
+    return this->allKeywords();
 }
 
 
@@ -48,7 +48,16 @@ bool Item::examine(const Keyword &keyword) const {
 }
 
 
-string Item::display_keywords() const {
+string Item::allKeywords() const {
+    std::ostringstream oss{""};
+    const char *delim = ", ";
+    for (auto& k : this->keywords) {
+        oss << k << delim;
+    }
+    return oss.str();
+}
+
+//string Item::display_keywords() const {
     // output = "";
 //    const char *SEPARATOR = ", ";
 //    for (auto &k : this->keywords) {
@@ -66,8 +75,8 @@ string Item::display_keywords() const {
     
     //std::{istream_iterator<string>{ss},          istream_iterator<string>{}};
     
-    return "";
-}
+//    //std::{istream_iterator<string>{ss},  
+//        istream_iterator<string>{}};
 
 
 std::size_t std::hash<Item>::operator()(const Item &item) const {

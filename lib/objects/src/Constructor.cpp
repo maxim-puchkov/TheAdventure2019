@@ -8,3 +8,4 @@
 
 #include "Constructor.h"
 
+bool __t = true;

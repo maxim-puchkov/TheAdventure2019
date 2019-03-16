@@ -42,6 +42,9 @@ public:
     /// Set object's description text
     virtual void setDescription(const Text &description) = 0;
     
+private:
+    bool __t;
+    
 };
     
 
