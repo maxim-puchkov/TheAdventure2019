@@ -7,38 +7,7 @@
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
 
-struct CommandsTest : testing::Test {
-    GameManager testGameManager{};
-    std::string testUserName = "testUserName19238021";
-    std::string testUserPassword = "testUserPassword";
-    //std::string testUserName = "a";
-    //std::string testUserPassword = "s";
-    std::vector<std::string> listOfCommands {
-                                        "login",
-                                        "logout",
-                                        "create-account",
-                                        "help",
-                                        "say",
-                                        "tell",
-                                        "yell",
-                                        "look",
-                                        "examine",
-                                        "move",
-                                        "create-avatar",
-                                        "edit-avatar",
-                                        "create-room",
-                                        "edit-room",
-                                        "use",
-                                        "equip",
-                                        "pickup",
-                                        "drop",
-                                        "put",
-                                        "minigame",
-                                        "combat",
-                                        "attack",
-                                        "flee",
-                                        "cast"
-                                        };
+struct CommandSplittingTest : testing::Test {
     OnlineUserManager u;
     CharacterManager c;
     WorldManager w;
@@ -55,37 +24,8 @@ public:
     MOCK_METHOD2(executeInHeartbeat, void(const std::string& username, const std::vector<std::string>& fullCommand));
 };
 
-// TODO: Test does not work correctly. EXPECT_CALL cannot detect if function was called
-/*
-TEST_F(CommandsTest, SayCommandWorks) {
-    OnlineUserManager u;
-    CharacterManager c;
-    WorldManager w;
-    MockCommandSay mockCommandSay(c, u, w);
-    std::string commandToPut = "say: hello";
-    bool isCommandValid = true;
-    testGameManager.extractCommands(
-        testUserName,
-        "create-account " + testUserName + " " + testUserPassword
-    );
-    testGameManager.extractCommands(
-        testUserName,
-        "login " + testUserName + " " + testUserPassword
-    );
-    EXPECT_CALL(mockCommandSay, reassembleCommand(commandToPut, isCommandValid)).Times(0);
-    testGameManager.extractCommands(testUserName, commandToPut);
-}
-*/
-/*
-TEST_F(CommandsTest, AttackCommandSplitsCorrectly) {
-    CommandSay testCommand(c, u, w);
-    commandToPut = "attack";
-    testVector = testCommand.reassembleCommand(commandToPut, isValid);
-
-    EXPECT_EQ("attack", testVector.at(0));
-}
-*/
-TEST_F(CommandsTest, SayCommandSplitsCorrectly) {
+// SAY
+TEST_F(CommandSplittingTest, SayCommandSplitsCorrectly) {
     CommandSay testCommand(c, u, w);
     commandToPut = "say: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -93,7 +33,7 @@ TEST_F(CommandsTest, SayCommandSplitsCorrectly) {
     EXPECT_EQ("hello", testVector.at(1));
 }
 
-TEST_F(CommandsTest, SayCommandSplitsCorrectlyWithDifferentSpaces) {
+TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyWithDifferentSpaces) {
     CommandSay testCommand(c, u, w);
     commandToPut = "say           :                     hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -106,7 +46,7 @@ TEST_F(CommandsTest, SayCommandSplitsCorrectlyWithDifferentSpaces) {
     EXPECT_EQ("hello", testVector.at(1));
 }
 
-TEST_F(CommandsTest, SayCommandSplitsCorrectlyNotCaseSensitive) {
+TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyNotCaseSensitive) {
     CommandSay testCommand(c, u, w);
     commandToPut = "SAy: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -130,18 +70,18 @@ TEST_F(CommandsTest, SayCommandSplitsCorrectlyNotCaseSensitive) {
     EXPECT_EQ("hello", testVector.at(1));
 }
 
-TEST_F(CommandsTest, TellCommandSplitsCorrectly) {
-    CommandSay testCommand(c, u, w);
+// TELL
+TEST_F(CommandSplittingTest, TellCommandSplitsCorrectly) {
+    CommandTell testCommand(c, u, w);
     commandToPut = "tell user: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     EXPECT_EQ("tell", testVector.at(0));
     EXPECT_EQ("user", testVector.at(1));
-    // TODO: LOOK AT THIS 
-    // EXPECT_EQ("hello", testVector.at(2));
+    EXPECT_EQ("hello", testVector.at(2));
 }
 
-TEST_F(CommandsTest, TellCommandSplitsCorrectlyWithDifferentSpaces) {
-    CommandSay testCommand(c, u, w);
+TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyWithDifferentSpaces) {
+    CommandTell testCommand(c, u, w);
     commandToPut = "tell       user    :                     hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     EXPECT_EQ("tell", testVector.at(0));
@@ -153,14 +93,15 @@ TEST_F(CommandsTest, TellCommandSplitsCorrectlyWithDifferentSpaces) {
     EXPECT_EQ("user", testVector.at(1));
 }
 
-TEST_F(CommandsTest, TellCommandSplitsCorrectlyNotCaseSensitive) {
-    CommandSay testCommand(c, u, w);
+TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyNotCaseSensitive) {
+    CommandTell testCommand(c, u, w);
     commandToPut = "TEll user: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     boost::to_lower(testVector.at(0));
     boost::to_lower(testVector.at(1));
     EXPECT_EQ("tell", testVector.at(0));
     EXPECT_EQ("user", testVector.at(1));
+    EXPECT_EQ("hello", testVector.at(2));
 
     commandToPut = "tELL user: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -168,6 +109,7 @@ TEST_F(CommandsTest, TellCommandSplitsCorrectlyNotCaseSensitive) {
     boost::to_lower(testVector.at(1));
     EXPECT_EQ("tell", testVector.at(0));
     EXPECT_EQ("user", testVector.at(1));
+    EXPECT_EQ("hello", testVector.at(2));
 
     commandToPut = "TELL USER: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -175,11 +117,13 @@ TEST_F(CommandsTest, TellCommandSplitsCorrectlyNotCaseSensitive) {
     boost::to_lower(testVector.at(1));
     EXPECT_EQ("tell", testVector.at(0));
     EXPECT_EQ("user", testVector.at(1));
+    EXPECT_EQ("hello", testVector.at(2));
 }
 
-/*
-TEST_F(CommandsTest, CastCommandSplitsCorrectly) {
-    CommandSay testCommand(c, u, w);
+
+// CAST
+TEST_F(CommandSplittingTest, CastCommandSplitsCorrectly) {
+    CommandCast testCommand(c, u, w);
     commandToPut = "cast ligma";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
 
@@ -187,17 +131,69 @@ TEST_F(CommandsTest, CastCommandSplitsCorrectly) {
     EXPECT_EQ("ligma", testVector.at(1));
 }
 
-TEST_F(CommandsTest, CreateAvatarCommandSplitsCorrectly) {
-    CommandSay testCommand(c, u, w);
+TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyWithSpace) {
+    CommandCast testCommand(c, u, w);
+    commandToPut = "cast               ligma";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+
+    EXPECT_EQ("cast", testVector.at(0));
+    EXPECT_EQ("ligma", testVector.at(1));
+}
+
+TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyNotCaseSensitive) {
+    CommandCast testCommand(c, u, w);
+    commandToPut = "caSt liGma";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    boost::to_lower(testVector.at(0));
+    boost::to_lower(testVector.at(1));
+    EXPECT_EQ("cast", testVector.at(0));
+    EXPECT_EQ("ligma", testVector.at(1));
+
+    commandToPut = "CAST LIGMA";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    boost::to_lower(testVector.at(0));
+    boost::to_lower(testVector.at(1));
+    EXPECT_EQ("cast", testVector.at(0));
+    EXPECT_EQ("ligma", testVector.at(1));
+}
+
+// CREATE-AVATAR
+TEST_F(CommandSplittingTest, CreateAvatarCommandSplitsCorrectly) {
+    CommandCreateAva testCommand(c, u, w);
     commandToPut = "create-avatar user";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
 
     EXPECT_EQ("create-avatar", testVector.at(0));
     EXPECT_EQ("user", testVector.at(1));
 }
-*/
-TEST_F(CommandsTest, YellCommandSplitsCorrectly) {
-    CommandSay testCommand(c, u, w);
+
+TEST_F(CommandSplittingTest, CreateAvatarCommandSplitsCorrectlyWithSpaces) {
+    CommandCreateAva testCommand(c, u, w);
+    commandToPut = "create-avatar                   user";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+
+    EXPECT_EQ("create-avatar", testVector.at(0));
+    EXPECT_EQ("user", testVector.at(1));
+}
+
+TEST_F(CommandSplittingTest, CreateAvatarCommandSplitsCorrectlyNotCaseSensitive) {
+    CommandCreateAva testCommand(c, u, w);
+    commandToPut = "crEAte-aVaTar user";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    boost::to_lower(testVector.at(0));
+    EXPECT_EQ("create-avatar", testVector.at(0));
+    EXPECT_EQ("user", testVector.at(1));
+
+    commandToPut = "CREATE-AVATAR user";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    boost::to_lower(testVector.at(0));
+    EXPECT_EQ("create-avatar", testVector.at(0));
+    EXPECT_EQ("user", testVector.at(1));
+}
+
+// YELL
+TEST_F(CommandSplittingTest, YellCommandSplitsCorrectly) {
+    CommandYell testCommand(c, u, w);
     commandToPut = "yell: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
 
@@ -205,8 +201,8 @@ TEST_F(CommandsTest, YellCommandSplitsCorrectly) {
     EXPECT_EQ("hello", testVector.at(1));
 }
 
-TEST_F(CommandsTest, YellCommandSplitsCorrectlyWithDifferentSpaces) {
-    CommandSay testCommand(c, u, w);
+TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyWithDifferentSpaces) {
+    CommandYell testCommand(c, u, w);
     commandToPut = "yell           :                     hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     EXPECT_EQ("yell", testVector.at(0));
@@ -218,8 +214,8 @@ TEST_F(CommandsTest, YellCommandSplitsCorrectlyWithDifferentSpaces) {
     EXPECT_EQ("hello", testVector.at(1));
 }
 
-TEST_F(CommandsTest, YellCommandSplitsCorrectlyNotCaseSensitive) {
-    CommandSay testCommand(c, u, w);
+TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyNotCaseSensitive) {
+    CommandYell testCommand(c, u, w);
     commandToPut = "Yell: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     boost::to_lower(testVector.at(0));
@@ -242,12 +238,46 @@ TEST_F(CommandsTest, YellCommandSplitsCorrectlyNotCaseSensitive) {
     EXPECT_EQ("hello", testVector.at(1));
 }
 
-/*
-TEST_F(CommandsTest, HelpCommandSplitsCorrectly) {
-    CommandSay testCommand(c, u, w);
+//HELP
+TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectly) {
+    CommandHelp testCommand(c, u, w);
     commandToPut = "help";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
-
     EXPECT_EQ("help", testVector.at(0));
+    EXPECT_EQ(1, testVector.size());
+
+    commandToPut = "help account";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("help", testVector.at(0));
+    EXPECT_EQ("account", testVector.at(1));
 }
-*/
+
+TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectlyWithSpaces) {
+    CommandHelp testCommand(c, u, w);
+    commandToPut = "help                    account";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("help", testVector.at(0));
+    EXPECT_EQ("account", testVector.at(1));
+}
+
+TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectlyNotCaseSensitive) {
+    CommandHelp testCommand(c, u, w);
+    commandToPut = "hELP";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    boost::to_lower(testVector.at(0));
+    EXPECT_EQ("help", testVector.at(0));
+    EXPECT_EQ(1, testVector.size());
+
+    commandToPut = "HELP";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    boost::to_lower(testVector.at(0));
+    EXPECT_EQ("help", testVector.at(0));
+    EXPECT_EQ(1, testVector.size());
+
+    commandToPut = "heLp aCcOunt";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    boost::to_lower(testVector.at(0));
+    boost::to_lower(testVector.at(1));
+    EXPECT_EQ("help", testVector.at(0));
+    EXPECT_EQ("account", testVector.at(1));
+}
