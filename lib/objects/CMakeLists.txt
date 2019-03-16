@@ -1,7 +1,9 @@
 add_library(${libobjects}
-# src/Item.cpp
-# src/Collection.cpp
-    src/Object.cpp
+	src/Collection.cpp
+	src/Constructor.cpp
+	src/Item.cpp
+	src/ItemConstructor.cpp
+	src/Object.cpp
 )
 
 target_include_directories(${libobjects}
