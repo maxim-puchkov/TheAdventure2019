@@ -13,7 +13,11 @@
 #include <unordered_set>
 #include "Object.h"
 
+using objects::Object;
 
+
+
+template<typename T>
 class Collection : public Object {
 public:
     
@@ -24,7 +28,7 @@ public:
 private:
     
     
-    std::unordered_set<
+    std::unordered_set<T> items;
     
 };
 
