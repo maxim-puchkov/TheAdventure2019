@@ -268,7 +268,6 @@ Board::Board() {
     boardView.reserve(8);
     initializeGame(boardView);
     lastPieceKilled = Piece{NONE,COLORLESS};
-
 }
 
 
