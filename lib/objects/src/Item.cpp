@@ -6,15 +6,19 @@
 //  Copyright © 2019 maximpuchkov. All rights reserved.
 //
 
+#include <set>
 #include "Item.h"
 
 
 Item::Item(ObjectID id,
-           const Keywords &keywords,
+           const std::set<Keyword> &keywords,
            const ItemDescription &description,
            const Extras &extras)
 : id(id), keywords(keywords), description(description), extras(extras)
-{ }
+{
+   // std::set<Keyword> keywords = (keywords)
+    
+}
 
 
 ObjectID Item::getID() const {
@@ -22,23 +26,48 @@ ObjectID Item::getID() const {
 }
 
 
+string Item::display() const {
+    //return this->keywords[0];
+    return "";
+}
+
+
+string Item::display_long() const {
+    return "";
+}
+
+
+
 bool Item::hasKeyword(const Keyword &keyword) const {
-    
-    
-    
-    return false;
+    return this->keywords.find(keyword) != this->keywords.end();
 }
 
 
 bool Item::examine(const Keyword &keyword) const {
-    
     return true;
 }
 
 
-
-
-
+string Item::display_keywords() const {
+    // output = "";
+//    const char *SEPARATOR = ", ";
+//    for (auto &k : this->keywords) {
+//        output
+//    }
+    
+    // Keywords: [set, s, e, KEY, set]
+    
+//    stringstream ss(input); 
+//return {istream_iterator<string>{ss},  
+//        istream_iterator<string>{}};
+//    std::ostringstream oss(this->keywords);
+//
+//    std::stringstream x("");
+    
+    //std::{istream_iterator<string>{ss},          istream_iterator<string>{}};
+    
+    return "";
+}
 
 
 std::size_t std::hash<Item>::operator()(const Item &item) const {

@@ -21,11 +21,9 @@ using uuid_t = u_int64_t;
 
 
 /**
- @struct
-    UUID
+ @struct UUID
  
- @description
-    Generates universally unique identifiers
+ @brief  Generates universally unique identifiers
  */
 class UUID {
 public:

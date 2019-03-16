@@ -20,8 +20,6 @@ ItemConstructor::~ItemConstructor()
 
 Item ItemConstructor::create() {
     ObjectID id = this->nextUUID();
-    // return Item(id);
-    
     return Item(id, keywords, description, extras);
 }
 
@@ -31,8 +29,9 @@ void ItemConstructor::reset() {
 }
 
 
-void ItemConstructor::setKeywords(const Keywords &keywords) {
-    this->keywords = keywords;
+void ItemConstructor::setKeywords(const std::set<Keyword> &keywords) {
+    // this->keywords = keywords;
+    
 }
 
 

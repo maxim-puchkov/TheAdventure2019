@@ -50,7 +50,7 @@ public:
     void reset() override;
     
     /// - parameter keywords: Item's unique keywords
-    void setKeywords(const Keywords &keywords) override;
+    void setKeywords(const std::set<Keyword> &keywords) override;
     
     /// Set item's description text
     void setDescription(const Text &description) override;
@@ -70,7 +70,7 @@ private:
     
     
     // IC Data members
-    Keywords keywords;
+    std::set<Keyword> keywords;
     ItemDescription description;
     Extras extras; // additional actions of an item
     

@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <string>
+#include <set>
 #include <stdint.h>
 #include "Object.h"
 
@@ -36,7 +37,7 @@ public:
     virtual void reset() = 0;
     
     /// Set object's identifying keywords
-    virtual void setKeywords(const Keywords &keywords) = 0;
+    virtual void setKeywords(const std::set<Keyword> &keywords) = 0;
     
     /// Set object's description text
     virtual void setDescription(const Text &description) = 0;

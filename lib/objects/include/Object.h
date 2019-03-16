@@ -18,18 +18,16 @@
 //  Created by admin (Maxim Puchkov).
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
-//
-//  1. https://csil-git1.cs.surrey.sfu.ca/mpuchkov
-//  2. https://itunes.apple.com/us/developer/maxim-puchkov/id1084095397
-//
 
 #ifndef Object_h
 #define Object_h
 
 
+#include <map>
 #include <string>
 #include <vector>
 #include <iostream>
+#include <sstream>
 #include "UUID.h"
 
 
@@ -42,7 +40,6 @@ namespace objects {
 inline namespace typenames {
 using ObjectID = identity::uuid_t;
 using Keyword = string;
-using Keywords = vector<Keyword>;
 using Text = string;
 using ExtrasBinding = std::pair<string, string>;
 using Extras = vector<ExtrasBinding>;
@@ -53,12 +50,16 @@ using Extras = vector<ExtrasBinding>;
 class Object {
 public:
     
-    Object() { std::cout << "Object\n"; }
+    // Object() { std::cout << "Object\n"; }
     
     virtual ObjectID getID() const = 0;
     
     virtual bool examine(const Keyword &keyword) const = 0;
     
+    virtual string display() const = 0;
+    
+    virtual string display_long() const = 0;
+        
     // virtual Keywords
     
 };

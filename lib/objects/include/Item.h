@@ -9,6 +9,8 @@
 #ifndef Item_h
 #define Item_h
 
+#include <set>
+#include <unordered_set>
 #include <string>
 #include <functional>
 #include <iostream>
@@ -33,7 +35,7 @@ public:
     /// Default item constructor with an object ID, identifying keywords,
     ///     item description, and extra actions.
     Item(ObjectID id,
-         const Keywords &keywords,
+         const std::set<Keyword> &keywords,
          const ItemDescription &description,
          const Extras &extras);
     
@@ -41,23 +43,40 @@ public:
     /// Retrieve object ID
     ObjectID getID() const override;
     
-    bool hasKeyword(const Keyword &keyword) const;
     
+    /// Display item's first keyword
+    string display() const override;
+    
+    
+    /// Display item's long description, list of keywords,
+    /// and extra actions.
+    string display_long() const override;
+    
+    
+    /// Examine an Extra attribute of an item
     bool examine(const Keyword &keyword) const override;
     
     
+    bool hasKeyword(const Keyword &keyword) const;
     
+    
+    // Keyword at(unsigned int index) const;
     
     
 private:
     
+    string display_keywords() const;
+    
     ObjectID id;
     
-    Keywords keywords;
+    std::set<Keyword> keywords;
+    
+    // std::multimap<unsigned int, Keyword> extraActions;
     
     ItemDescription description;
     
     Extras extras;
+    
     
 };
 
