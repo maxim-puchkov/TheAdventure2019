@@ -136,7 +136,8 @@ TEST_F(CommandsTest, TellCommandSplitsCorrectly) {
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     EXPECT_EQ("tell", testVector.at(0));
     EXPECT_EQ("user", testVector.at(1));
-    //EXPECT_EQ("hello", testVector.at(2));
+    // TODO: LOOK AT THIS 
+    // EXPECT_EQ("hello", testVector.at(2));
 }
 
 TEST_F(CommandsTest, TellCommandSplitsCorrectlyWithDifferentSpaces) {
@@ -200,6 +201,43 @@ TEST_F(CommandsTest, YellCommandSplitsCorrectly) {
     commandToPut = "yell: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
 
+    EXPECT_EQ("yell", testVector.at(0));
+    EXPECT_EQ("hello", testVector.at(1));
+}
+
+TEST_F(CommandsTest, YellCommandSplitsCorrectlyWithDifferentSpaces) {
+    CommandSay testCommand(c, u, w);
+    commandToPut = "yell           :                     hello";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("yell", testVector.at(0));
+    EXPECT_EQ("hello", testVector.at(1));
+
+    commandToPut = "yell:hello";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("yell", testVector.at(0));
+    EXPECT_EQ("hello", testVector.at(1));
+}
+
+TEST_F(CommandsTest, YellCommandSplitsCorrectlyNotCaseSensitive) {
+    CommandSay testCommand(c, u, w);
+    commandToPut = "Yell: hello";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    boost::to_lower(testVector.at(0));
+    boost::to_lower(testVector.at(1));
+    EXPECT_EQ("yell", testVector.at(0));
+    EXPECT_EQ("hello", testVector.at(1));
+
+    commandToPut = "yELL: hello";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    boost::to_lower(testVector.at(0));
+    boost::to_lower(testVector.at(1));
+    EXPECT_EQ("yell", testVector.at(0));
+    EXPECT_EQ("hello", testVector.at(1));
+
+    commandToPut = "YELL: hello";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    boost::to_lower(testVector.at(0));
+    boost::to_lower(testVector.at(1));
     EXPECT_EQ("yell", testVector.at(0));
     EXPECT_EQ("hello", testVector.at(1));
 }
