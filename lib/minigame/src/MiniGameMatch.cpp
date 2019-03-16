@@ -13,12 +13,8 @@ MiniGameMatch::MiniGameMatch(const std::string& userName) {
     this->adminName = userName;
     this->players.push_back(userName);
     this->currentPlayerTurn = 0;
-
-
-    MoveValidator newGame;
-    this->game = newGame;
-    newGame.setPlayerOne(userName);
-
+    //MoveValidator newGame;
+    //this->game = newGame;
 }
 
 MiniGameMatch::MiniGameMatch(const std::string& player1Name, const std::string& player2Name) {
@@ -26,20 +22,23 @@ MiniGameMatch::MiniGameMatch(const std::string& player1Name, const std::string& 
     this->players.push_back(player1Name);
     this->players.push_back(player2Name);
     this->currentPlayerTurn = 0;
-    MoveValidator newGame;
-    newGame.setPlayerOne(player1Name);
-    newGame.setPlayerTwo(player2Name);
-    this->game = newGame;
+    //MoveValidator newGame;
+    //this->game = newGame;
 }
 
-
 bool MiniGameMatch::hasPlayer(const std::string& playerName) const{
+    if(players.empty()) return false;
+
     auto result = std::find(players.begin(), players.end(), playerName);
+
     return result != players.end();
 }
 
 bool MiniGameMatch::hasSpectator(const std::string& spectatorName) const{
+    if(spectators.empty()) return false;
+
     auto result = std::find(spectators.begin(), spectators.end(), spectatorName);
+
     return result != spectators.end();
 }
 
@@ -48,22 +47,20 @@ bool MiniGameMatch::isPlayersTurn(const std::string& playerName) const{
 }
 
 bool MiniGameMatch::makePlayerMove(const std::string& playerName, std::string& moveFrom, std::string moveTo){
-
-    if(!isPlayersTurn(playerName)) {
-        return false;
-    }
+    if(!isPlayersTurn(playerName)) return false;
 
     currentPlayerTurn = (currentPlayerTurn + 1) % players.size();
-    return game.readChessMove(moveFrom, moveTo, playerName);
 
+    return game.readChessMove(moveFrom, moveTo);
 }
 
 bool MiniGameMatch::addPlayer(const std::string& playerName){
     int maxPlayers = 2; //get this from Game.getMaxPlayers()
-    if(players.size() >= maxPlayers) {
-        return false;
-    }
+
+    if(players.size() >= maxPlayers) return false;
+
     players.push_back(playerName);
+
     return true;
 }
 
@@ -73,25 +70,19 @@ void MiniGameMatch::removePlayer(const std::string& playerName){
                          players.end());
 }
 
-
-unsigned long MiniGameMatch::getCurrentPlayers() const{
+unsigned int MiniGameMatch::getCurrentPlayers() const{
     return players.size();
 }
 
 std::string MiniGameMatch::display(){
-    return game.getBoardView();
+    return game.drawBoard();
 }
 
 /*MoveValidator& MiniGameMatch::getGame() {
     return this->game;
 }*/
 
-
-MoveValidator& MiniGameMatch::getGame() {
-    return this->game;
-}
-
-std::string MiniGameMatch::getAdminName() const {
+std::string MiniGameMatch::getAdminName() const{
     return this->adminName;
 }
 
