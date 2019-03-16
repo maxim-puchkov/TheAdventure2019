@@ -12,7 +12,6 @@
 #include <vector>
 #include <string>
 #include "Constructor.h"
-#include "UUID.h"
 #include "Object.h"
 #include "Item.h"
 #include "ItemDescription.h"

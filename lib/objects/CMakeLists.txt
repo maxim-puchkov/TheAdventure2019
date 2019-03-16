@@ -15,7 +15,8 @@ target_include_directories(${libobjects}
 )
 
 target_link_libraries(${libobjects}
-    ${libworld}
+	${libworld}
+	${libauth}
 )
 
 set_target_properties(${libobjects}

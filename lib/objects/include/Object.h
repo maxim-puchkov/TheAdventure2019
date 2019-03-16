@@ -30,7 +30,8 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
-#include "UUID.h"
+#include <cstdint>
+#include "Auth.h"
 
 
 using std::string;
@@ -39,11 +40,13 @@ using std::vector;
 
 namespace objects {
 
-
+    inline namespace identity {
+        using ObjectID = u_int64_t;
+    }
+    
 
 
 inline namespace typenames {
-using ObjectID = identity::uuid_t;
 using Keyword = string;
 using Keywords = std::set<Keyword>;
 using Text = string;
