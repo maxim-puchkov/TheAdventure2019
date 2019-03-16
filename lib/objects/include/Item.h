@@ -41,7 +41,7 @@ class Item;
 class Item : public Object {
 public:
     
-    Item() { }
+    // Item() { }
     
     /// Default item constructor with an object ID, identifying keywords,
     ///     item description, and extra actions.
@@ -70,6 +70,28 @@ public:
     std::ostream& operator<<(std::ostream &os) const {
         os << &keywords << "Done";
         return os;
+    }
+    
+    Item& operator=(const Item &other) {
+        this->keywords = other.keywords;
+        this->description = other.description;
+        this->extras = other.extras;
+        return *this;
+    }
+    
+    
+    Item& operator=(Item &other) {
+        this->keywords = other.keywords;
+        this->description = other.description;
+        this->extras = other.extras;
+        return *this;
+    }
+    
+    Item& operator=(Item &&other) {
+        this->keywords = std::move(other.keywords);
+        this->description = std::move(other.description);
+        this->extras = std::move(other.extras);
+        return *this;
     }
     
     // Keyword at(unsigned int index) const;

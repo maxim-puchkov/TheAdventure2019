@@ -53,5 +53,7 @@ private:
 };
 
 
-}
+
+} /* namespace identity */
+
 #endif /* UUID_h */

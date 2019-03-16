@@ -66,6 +66,7 @@ public:
     virtual string brief() const = 0;
     
 };
+    
 
 
 
