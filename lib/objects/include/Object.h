@@ -19,10 +19,12 @@
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
 
+
 #ifndef Object_h
 #define Object_h
 
 
+#include <set>
 #include <map>
 #include <string>
 #include <vector>
@@ -40,17 +42,17 @@ namespace objects {
 inline namespace typenames {
 using ObjectID = identity::uuid_t;
 using Keyword = string;
+using Keywords = std::set<Keyword>;
 using Text = string;
 using ExtrasBinding = std::pair<string, string>;
 using Extras = vector<ExtrasBinding>;
-}
+} /* namespace typenames */
 
 
+    
 
 class Object {
 public:
-    
-    // Object() { std::cout << "Object\n"; }
     
     virtual ObjectID getID() const = 0;
     
@@ -58,9 +60,7 @@ public:
     
     virtual string display() const = 0;
     
-    virtual string display_long() const = 0;
-        
-    // virtual Keywords
+    virtual string brief() const = 0;
     
 };
     

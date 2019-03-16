@@ -15,11 +15,10 @@ Item::Item(ObjectID id,
            const ItemDescription &description,
            const Extras &extras)
 : id(id), keywords(keywords), description(description), extras(extras)
-{ }
-
-
-Item::~Item()
-{ }
+{
+   // std::set<Keyword> keywords = (keywords)
+    
+}
 
 
 ObjectID Item::getID() const {
@@ -27,56 +26,37 @@ ObjectID Item::getID() const {
 }
 
 
-string Item::display() const {
+string Item::brief() const {
+    //return this->keywords.first();
     return *this->keywords.cbegin();
 }
 
 
-string Item::display_long() const {
+string Item::display() const {
+    
     return this->allKeywords();
 }
 
 
 
-bool Item::hasKeyword(const Keyword &keyword) const {
-    return this->keywords.find(keyword) != this->keywords.end();
-}
-
-
 bool Item::examine(const Keyword &keyword) const {
+    
     return true;
 }
 
 
 string Item::allKeywords() const {
-    std::ostringstream oss{""};
-    const char *delim = ", ";
-    for (auto& k : this->keywords) {
-        oss << k << delim;
+    const string delim = ", ";
+    return this->allKeywords(delim);
+}
+
+string Item::allKeywords(const string &delimeter) const {
+    std::ostringstream oss;
+    for (auto &k : this->keywords) {
+        oss << k << delimeter;
     }
     return oss.str();
 }
-
-//string Item::display_keywords() const {
-    // output = "";
-//    const char *SEPARATOR = ", ";
-//    for (auto &k : this->keywords) {
-//        output
-//    }
-    
-    // Keywords: [set, s, e, KEY, set]
-    
-//    stringstream ss(input); 
-//return {istream_iterator<string>{ss},  
-//        istream_iterator<string>{}};
-//    std::ostringstream oss(this->keywords);
-//
-//    std::stringstream x("");
-    
-    //std::{istream_iterator<string>{ss},          istream_iterator<string>{}};
-    
-//    //std::{istream_iterator<string>{ss},  
-//        istream_iterator<string>{}};
 
 
 std::size_t std::hash<Item>::operator()(const Item &item) const {
@@ -112,83 +92,3 @@ std::size_t std::hash<Item>::operator()(const Item &item) const {
     ]
 }
  */
-
-
-
-/*
- 
-#include <iostream>
- 
- 
-Item::Item() { }
-
-
-Item::Item(const string &shortDescription)
-: shortDescription(shortDescription), longDescription(shortDescription) { }
-
-
-Item::Item(const string &shortDescription, const string &longDescription)
-: shortDescription(shortDescription), longDescription(shortDescription) {
-    //Item();
-}
-
-
-Item::Item(const Item &other)
-: shortDescription(std::move(other.shortDescription)),
-longDescription(std::move(other.longDescription)) {
-    this->id = other.id;
-}
-
-
-Item::Item(Item &&other)
-: shortDescription(std::move(other.shortDescription)),
-longDescription(std::move(other.longDescription)) {
-    this->id = other.id;
-}
-
-
-Item::~Item()
-{ }
-
-
-unsigned long Item::getID() const {
-    return this->id;
-}
-
-
-string Item::getShortDescription() const {
-    return this->shortDescription;
-}
-
-
-string Item::getLongDescription() const {
-    return this->longDescription;
-}
-
-
-void Item::setLongDescription(string &&longDescription) {
-    this->longDescription = std::move(longDescription);
-}
-
-
-Item& Item::operator=(Item &&other) noexcept {
-    this->id = std::move(other.id);
-    this->shortDescription = std::move(other.shortDescription);
-    return *this;
-}
-
-
-bool Item::operator==(Item &other) const {
-    return this->id == other.id;
-}
-
-
-bool Item::operator==(const Item &other) const {
-    return this->id == other.id;
-}
-
-
-size_t std::hash<Item>::operator()(const Item &item) const {
-    return std::hash<unsigned long>{}(item.getID());
-}
-*/

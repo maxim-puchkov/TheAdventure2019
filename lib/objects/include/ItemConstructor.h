@@ -12,6 +12,7 @@
 #include <vector>
 #include <string>
 #include "Constructor.h"
+#include "UUID.h"
 #include "Object.h"
 #include "Item.h"
 #include "ItemDescription.h"
@@ -50,7 +51,7 @@ public:
     void reset() override;
     
     /// - parameter keywords: Item's unique keywords
-    void setKeywords(const std::set<Keyword> &keywords) override;
+    void setKeywords(const Keywords &keywords) override;
     
     /// Set item's description text
     void setDescription(const Text &description) override;
@@ -70,7 +71,7 @@ private:
     
     
     // IC Data members
-    std::set<Keyword> keywords;
+    Keywords keywords;
     ItemDescription description;
     Extras extras; // additional actions of an item
     

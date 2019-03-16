@@ -29,7 +29,7 @@ void ItemConstructor::reset() {
 }
 
 
-void ItemConstructor::setKeywords(const std::set<Keyword> &keywords) {
+void ItemConstructor::setKeywords(const Keywords &keywords) {
     this->keywords = keywords;
 }
 
@@ -49,3 +49,5 @@ void ItemConstructor::clearAll() {
 ObjectID ItemConstructor::nextUUID() {
     return this->unique_identifiers.generate();
 }
+
+

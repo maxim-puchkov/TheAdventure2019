@@ -12,6 +12,9 @@
 #include <set>
 #include <unordered_set>
 #include <string>
+#include <sstream>
+#include <ostream>
+#include <iostream>
 #include <functional>
 #include <iostream>
 #include "Constructor.h"
@@ -19,8 +22,14 @@
 
 
 using std::string;
-
+using std::vector;
 using objects::Object;
+
+
+class Item;
+
+
+
 
 
 
@@ -32,48 +41,50 @@ using objects::Object;
 class Item : public Object {
 public:
     
+    Item() { }
+    
     /// Default item constructor with an object ID, identifying keywords,
     ///     item description, and extra actions.
     Item(ObjectID id,
-         const std::set<Keyword> &keywords,
+         const Keywords &keywords,
          const ItemDescription &description,
          const Extras &extras);
     
-    
-    ~Item();
     
     /// Retrieve object ID
     ObjectID getID() const override;
     
     
     /// Display item's first keyword
+    string brief() const override;
+    
+    
+   
     string display() const override;
     
     
-    /// Display item's long description, list of keywords,
-    /// and extra actions.
-    string display_long() const override;
     
     
     /// Examine an Extra attribute of an item
     bool examine(const Keyword &keyword) const override;
     
     
-    bool hasKeyword(const Keyword &keyword) const;
-    
+    std::ostream& operator<<(std::ostream &os) const {
+        os << &keywords << "Done";
+        return os;
+    }
     
     // Keyword at(unsigned int index) const;
     
     
 private:
     
-    //string display_keywords() const;
-    
     string allKeywords() const;
+    string allKeywords(const string &delimeter) const;
     
     ObjectID id;
     
-    std::set<Keyword> keywords;
+    Keywords keywords;
     
     // std::multimap<unsigned int, Keyword> extraActions;
     
