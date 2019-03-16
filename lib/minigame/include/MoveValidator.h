@@ -10,7 +10,6 @@
 #include "Board.h"
 
 
-
 struct ChessPlayer {
     std::string playerName;
     Color playerColor;

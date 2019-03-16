@@ -23,9 +23,8 @@ MiniGameMatch::MiniGameMatch(const std::string& player1Name, const std::string& 
     this->players.push_back(player2Name);
     this->currentPlayerTurn = 0;
     MoveValidator newGame;
-    newGame.setPlayerTwo(player1Name);
+    newGame.setPlayerOne(player1Name);
     newGame.setPlayerTwo(player2Name);
-
     this->game = newGame;
 }
 
@@ -44,7 +43,9 @@ bool MiniGameMatch::isPlayersTurn(const std::string& playerName) const{
 }
 
 bool MiniGameMatch::makePlayerMove(const std::string& playerName, std::string& moveFrom, std::string moveTo){
-    if(!isPlayersTurn(playerName)) return false;
+    if(!isPlayersTurn(playerName)) {
+        return false;
+    }
 
     currentPlayerTurn = (currentPlayerTurn + 1) % players.size();
     return game.readChessMove(moveFrom, moveTo, playerName);
@@ -53,11 +54,10 @@ bool MiniGameMatch::makePlayerMove(const std::string& playerName, std::string& m
 
 bool MiniGameMatch::addPlayer(const std::string& playerName){
     int maxPlayers = 2; //get this from Game.getMaxPlayers()
-
-    if(players.size() >= maxPlayers) return false;
-
+    if(players.size() >= maxPlayers) {
+        return false;
+    }
     players.push_back(playerName);
-
     return true;
 }
 

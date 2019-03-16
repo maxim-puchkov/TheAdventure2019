@@ -30,7 +30,8 @@ struct ChessCoordinate {
         return ( row == a.row  && col == a.col );
     }
 
-};
+}
+
 
 class Piece {
     private:

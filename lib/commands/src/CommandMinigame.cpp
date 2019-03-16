@@ -111,6 +111,7 @@ std::vector<std::string> CommandMinigame::reassembleCommand(std::string& fullCom
     return processedCommand;
 }
 
+
 std::vector<std::string> CommandMinigame::reassembleMinigameMove(std::vector<std::string>& splitByComma, bool& commandIsValid) {
     //Format: minigame move [location-of-piece-to-be-moved],[new-location]
     std::vector<std::string> leftSide, rightSide, processedCommand;
