@@ -9,39 +9,39 @@
 #include "Collection.h"
 
 
-template<typename T, int capacity>
-Collection<T, capacity>::Collection()
-{ }
-
-
-template<typename T, int capacity>
-bool Collection<T, capacity>::add(T object) {
-    return (this->items.insert(object).second);
-}
-
-
-template<typename T, int capacity>
-bool Collection<T, capacity>::remove(T object) {
-    return (this->items.erase(object) == 1);
-}
-
-
-template<typename T, int capacity>
-int Collection<T, capacity>::sizeCapacity() {
-    return capacity;
-}
-
-
-template<typename T, int capacity>
-unsigned int Collection<T, capacity>::size() {
-    return items.size();
-}
-
-
-template<typename T, int capacity>
-bool Collection<T, capacity>::isFull() {
-    return (items.size() == capacity);
-}
+//template<typename T, int capacity>
+//Collection<T, capacity>::Collection()
+//{ }
+//
+//
+//template<typename T, int capacity>
+//bool Collection<T, capacity>::add(T object) {
+//    return (this->items.insert(object).second);
+//}
+//
+//
+//template<typename T, int capacity>
+//bool Collection<T, capacity>::remove(T object) {
+//    return (this->items.erase(object) == 1);
+//}
+//
+//
+//template<typename T, int capacity>
+//int Collection<T, capacity>::sizeCapacity() {
+//    return capacity;
+//}
+//
+//
+//template<typename T, int capacity>
+//unsigned int Collection<T, capacity>::size() {
+//    return items.size();
+//}
+//
+//
+//template<typename T, int capacity>
+//bool Collection<T, capacity>::isFull() {
+//    return (items.size() == capacity);
+//}
 
 
 

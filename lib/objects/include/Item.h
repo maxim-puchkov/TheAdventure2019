@@ -59,10 +59,8 @@ public:
     string brief() const override;
     
     
-   
-    string display() const override;
     
-    
+    string details() const override;
     
     
     /// Examine an Extra attribute of an item

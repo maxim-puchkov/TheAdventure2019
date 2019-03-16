@@ -32,7 +32,7 @@ string Item::brief() const {
 }
 
 
-string Item::display() const {
+string Item::details() const {
     
     return this->allKeywords();
 }

@@ -11,37 +11,54 @@
 
 #include <string>
 #include <unordered_set>
-#include "Item.h"
-
-using std::unordered_set;
-using std::string;
+#include "Object.h"
 
 
-template<typename T, int capacity>
-class Collection : public Item {
+class Collection : public Object {
 public:
     
-    Collection();
+    Collection() { }
     
     
-    bool add(T object);
-    bool remove(T object);
-    
-    
-    T find(T object); /* undefined */
-    void display(); /* undefined */
-    
-    
-    int sizeCapacity();
-    unsigned int size();
-    bool isFull();
     
 private:
     
-    unordered_set<T> items;
-
+    
+    std::unordered_set<
+    
 };
 
+
+//
+//using std::unordered_set;
+//using std::string;
+//
+//
+//template<typename T, int capacity>
+//class Collection : public objects::Object {
+//public:
+//    
+//    Collection();
+//    
+//    
+//    bool add(T object);
+//    bool remove(T object);
+//    
+//    
+//    T find(T object); /* undefined */
+//    void display(); /* undefined */
+//    
+//    
+//    int sizeCapacity();
+//    unsigned int size();
+//    bool isFull();
+//    
+//private:
+//    
+//    unordered_set<T> items;
+//
+//};
+//
 
 
 

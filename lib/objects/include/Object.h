@@ -38,7 +38,10 @@ using std::vector;
 
 
 namespace objects {
-    
+
+
+
+
 inline namespace typenames {
 using ObjectID = identity::uuid_t;
 using Keyword = string;
@@ -58,13 +61,15 @@ public:
     
     virtual bool examine(const Keyword &keyword) const = 0;
     
-    virtual string display() const = 0;
+    virtual string details() const = 0;
     
     virtual string brief() const = 0;
     
 };
-    
-}
+
+
+
+} /* namespace objects */
 
 
 
