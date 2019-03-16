@@ -53,7 +53,6 @@ int MoveValidator::convertChessRowToInt(char input){
  *
  * @return A string that you can use to draw the board
  */
-
 std::string MoveValidator::getBoardView(){
     return gameBoard.getBoardView();
 }
@@ -74,7 +73,6 @@ bool MoveValidator::processChessMove(const ChessCoordinate &startPos, const Ches
     }
 
     return  gameBoard.movePiece(startPos, finishPos);
-
 }
 
 
@@ -94,6 +92,7 @@ std::string MoveValidator::helpMessage(){
 
     return msg;
 }
+
 
 
 bool MoveValidator::isGameFinished() const {
@@ -120,8 +119,6 @@ std::string MoveValidator::gameOverMessage() {
     }
     return stream;
 }
-
-
 
 
 
@@ -173,6 +170,13 @@ bool MoveValidator::validatePlayer(const std::string &playerName, const Color &c
 bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo, const std::string &player) {
 
     std::vector<std::string> result;
+    result.push_back(moveFrom);
+    result.push_back(moveTo);
+
+    if(result.size() > 2  || result.at(0).size() != 2 || result.at(1).size() != 2 ){
+        return false;
+    }
+
     int sCol =  convertCharColToInt(result.at(0).at(0));
     int sRow = convertChessRowToInt(result.at(0).at(1));
     ChessCoordinate startPos{sRow,sCol};
@@ -181,7 +185,6 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo, co
     int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
     ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
 
-
     const Color &pieceColor = gameBoard.requestColor(startPos);
     if( !validatePlayer(player,pieceColor) ) {
         return false ;
@@ -189,7 +192,6 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo, co
     return processChessMove( startPos, finishPos );
 
 }
-
 
 
 /**
@@ -215,6 +217,13 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo) {
     int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
     ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
 
+
     return processChessMove( startPos, finishPos );
 }
+
+
+
+
+
+
 

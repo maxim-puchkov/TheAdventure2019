@@ -14,7 +14,6 @@ MiniGameMatch::MiniGameMatch(const std::string& userName) {
     this->players.push_back(userName);
     this->currentPlayerTurn = 0;
 
-
     MoveValidator newGame;
     this->game = newGame;
     newGame.setPlayerOne(userName);
@@ -32,7 +31,6 @@ MiniGameMatch::MiniGameMatch(const std::string& player1Name, const std::string& 
     this->game = newGame;
 }
 
-
 bool MiniGameMatch::hasPlayer(const std::string& playerName) const{
     auto result = std::find(players.begin(), players.end(), playerName);
     return result != players.end();
@@ -48,7 +46,6 @@ bool MiniGameMatch::isPlayersTurn(const std::string& playerName) const{
 }
 
 bool MiniGameMatch::makePlayerMove(const std::string& playerName, std::string& moveFrom, std::string moveTo){
-
     if(!isPlayersTurn(playerName)) {
         return false;
     }
@@ -73,7 +70,6 @@ void MiniGameMatch::removePlayer(const std::string& playerName){
                          players.end());
 }
 
-
 unsigned long MiniGameMatch::getCurrentPlayers() const{
     return players.size();
 }
@@ -81,10 +77,6 @@ unsigned long MiniGameMatch::getCurrentPlayers() const{
 std::string MiniGameMatch::display(){
     return game.getBoardView();
 }
-
-/*MoveValidator& MiniGameMatch::getGame() {
-    return this->game;
-}*/
 
 
 MoveValidator& MiniGameMatch::getGame() {
