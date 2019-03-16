@@ -8,10 +8,7 @@
 #include "CharacterDB.h"
 #include "LocationCoordinates.h"
 #include "MiniGameLobby.h"
-<<<<<<< HEAD
 #include "CombatManager.h"
-=======
->>>>>>> minigame-implementation
 
 namespace charactermanager{
 
@@ -22,10 +19,7 @@ private:
     Character nullCharacter{""};
     CharacterDB characterDB;
     MiniGameLobby minigameLobby;
-<<<<<<< HEAD
     CombatManager combatManager;
-=======
->>>>>>> minigame-implementation
     LocationCoordinates nullLocation{-1, -1};
 
     const std::string SHORT_DESC = "shortdesc";
@@ -64,7 +58,6 @@ public:
     CHARACTER_CODE isThisFirstTimeSetup(const std::string& username) const;
     void setCharacterIsDoneFirstTimeSetup(std::string& username);
 
-<<<<<<< HEAD
     //MiniGame commands
     MiniGameLobby& getMiniGameLobby();
     //Combat commands
@@ -73,9 +66,6 @@ public:
     int getCharacterAttack(const std::string& username);
     int getCharacterHealth(const std::string& username);
 
-=======
-    MiniGameLobby& getMiniGameLobby();
->>>>>>> minigame-implementation
 };
 
 }

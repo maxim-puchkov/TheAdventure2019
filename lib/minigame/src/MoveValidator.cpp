@@ -53,8 +53,7 @@ int MoveValidator::convertChessRowToInt(char input){
  *
  * @return A string that you can use to draw the board
  */
-
-std::string MoveValidator::getBoardView(){
+std::string MoveValidator::drawBoard(){
     return gameBoard.getBoardView();
 }
 
@@ -66,6 +65,7 @@ std::string MoveValidator::getBoardView(){
 bool MoveValidator::processChessMove(const ChessCoordinate &startPos, const ChessCoordinate &finishPos) {
 
     if(startPos.col <= -1 || startPos.row <= -1 || finishPos.col <= -1 || finishPos.row <= -1){
+        std::cout << "Output outside of the chess board!\n";
         return false;
     }
 
@@ -76,6 +76,8 @@ bool MoveValidator::processChessMove(const ChessCoordinate &startPos, const Ches
     return  gameBoard.movePiece(startPos, finishPos);
 
 }
+
+
 
 
 
@@ -114,9 +116,9 @@ std::string MoveValidator::gameOverMessage() {
         stream = "King isn't dead!, try calling isGameFinished first";
     }
     else if( piece.getColor() == RED_LOWERCASE ){
-        stream = "team lowerCase has won the game ";
+        stream = "team lower case has won the game ";
     } else {
-        stream = "team upperCase has won the game ";
+        stream = "team upper case has won the game ";
     }
     return stream;
 }
@@ -124,81 +126,19 @@ std::string MoveValidator::gameOverMessage() {
 
 
 
-
-void MoveValidator::initializeSide(const std::string &playerOne, const std::string &playerTwo) {
-
-    this->playerOne.playerName  = playerOne;
-    this->playerOne.playerColor = RED_LOWERCASE;
-
-    this->playerTwo.playerName  = playerTwo;
-    this->playerTwo.playerColor = BLUE_UPPERCASE;
-
-}
-
-void MoveValidator::setPlayerOne(const std::string &playerOne) {
-
-    this->playerOne.playerName  = playerOne;
-    this->playerOne.playerColor = RED_LOWERCASE;
-
-}
-
-void MoveValidator::setPlayerTwo(const std::string &playerTwo) {
-
-    this->playerTwo.playerName = playerTwo;
-    this->playerTwo.playerColor = BLUE_UPPERCASE;
-
-}
-
-
-//Checks to see if a red player doesn't attempt to move a piece that doesn't belong to them.
-bool MoveValidator::validatePlayer(const std::string &playerName, const Color &color) const {
-
-    if(playerOne.playerName == playerName){
-        return (playerOne.playerColor == color);
-    }
-    if(playerTwo.playerName == playerName){
-        return (playerTwo.playerColor == color);
-    }
-
-    static_assert(-1 && "No playerId matches the one assigned to this game???? you shouldn't see this message");
-    return false;
-}
-
-
 /**
  * @param input - Takes in a chess move. First specify the location of a piece then specify the
- * end spot next.
- *
- */
-bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo, const std::string &player) {
-
-    std::vector<std::string> result;
-    int sCol =  convertCharColToInt(result.at(0).at(0));
-    int sRow = convertChessRowToInt(result.at(0).at(1));
-    ChessCoordinate startPos{sRow,sCol};
-
-    int finishPositionColumn = convertCharColToInt(result.at(1).at(0));
-    int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
-    ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
-
-
-    const Color &pieceColor = gameBoard.requestColor(startPos);
-    if( !validatePlayer(player,pieceColor) ) {
-        return false ;
-    }
-    return processChessMove( startPos, finishPos );
-
-}
-
-
-
-/**
- * Move's piece regardless of color, left here for test class.
- * @param moveFrom - ChessCoordinate you are from
- * @param moveTo   - ChessCoordinate you are moving to.
+ * end spot next. Example move "a2,b6"
  */
 bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo) {
 
+    //HOW TO CHECK FOR NULLPTR? it fails the test i made
+/*
+    boost::trim(input);
+
+    std::vector<std::string> result;
+    boost::split(result,input,boost::is_any_of(","));
+*/
     std::vector<std::string> result;
     result.push_back(moveFrom);
     result.push_back(moveTo);
@@ -207,6 +147,7 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo) {
         return false;
     }
 
+
     int sCol =  convertCharColToInt(result.at(0).at(0));
     int sRow = convertChessRowToInt(result.at(0).at(1));
     ChessCoordinate startPos{sRow,sCol};
@@ -215,6 +156,9 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo) {
     int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
     ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
 
+
+
     return processChessMove( startPos, finishPos );
 }
+
 

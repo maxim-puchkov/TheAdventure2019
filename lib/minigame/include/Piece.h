@@ -32,7 +32,6 @@ struct ChessCoordinate {
 
 };
 
-
 class Piece {
     private:
         PieceUnit pieceId;

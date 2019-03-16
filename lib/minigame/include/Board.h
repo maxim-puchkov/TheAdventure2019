@@ -17,14 +17,14 @@ using std::vector;
 class Board {
 public:
     Board();
-    std::string getBoardView() const;
-    const Piece getLastPieceKilled() const;
+    std::string getBoardView() const; // SHOULD BE SPERATED INTO ANOTHER CLASS BUT LEAVE HERE FOR NOW THIS IS THE MODEL! Maybe mvc isn't what we want.
 
     Piece& requestPiece(const ChessCoordinate &position);
     const PieceUnit requestUnit(const ChessCoordinate &position) const;
-    const Color requestColor(const ChessCoordinate &position) const;
 
     bool movePiece(const ChessCoordinate &start, const ChessCoordinate &finish);
+
+    const Piece getLastPieceKilled() const;
 
 
 private:
