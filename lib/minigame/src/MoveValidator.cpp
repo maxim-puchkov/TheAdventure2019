@@ -185,8 +185,8 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo, co
     int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
     ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
 
-    const Color &pieceColor = gameBoard.requestColor(startPos);
-    if( !validatePlayer(player,pieceColor) ) {
+    const Color &pieceColor = gameBoard.requestPiece(startPos).getColor();
+    if( !validatePlayer(player, pieceColor) ) {
         return false ;
     }
     return processChessMove( startPos, finishPos );
