@@ -7,6 +7,7 @@
 #include <iostream>
 #include <assert.h>
 #include <algorithm>
+#include "termcolor.hpp"
 
 
 //getters and setters
@@ -79,6 +80,7 @@ void Board::drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const
                 break;
             case BLUE_UPPERCASE:
                 stream << search->second;
+                stream << termcolor::reset;
                 break;
             default:
                 stream << search->second ;
@@ -155,10 +157,10 @@ bool Board::checkDiagonalPath(const ChessCoordinate &start, const ChessCoordinat
     return true;
 }
 
-
 /**
  * A method that checks to see w/e the distance between 2 path's is clear.
  * You can only do vertical, horizontal, or diagonal only lines.
+ *
  * Ex. (2,4) to (3,4) // (3,5) to (3,7) // or (3,3) to (5,5)
  *
  * @param start - Starting coordinate
@@ -250,6 +252,7 @@ Piece& Board::requestPiece(const ChessCoordinate &position) {
     return boardView.at( position.row ).at( position.col );
 }
 
+
 const PieceUnit Board::requestUnit(const ChessCoordinate &position) const {
     const Piece &a = boardView.at(position.row).at(position.col);
     return a.getPieceUnit();
@@ -266,6 +269,7 @@ Board::Board() {
     boardView.reserve(8);
     initializeGame(boardView);
     lastPieceKilled = Piece{NONE,COLORLESS};
+
 }
 
 

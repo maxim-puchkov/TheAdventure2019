@@ -23,6 +23,7 @@ public:
     bool makePlayerMove(const std::string& playerName, std::string& moveFrom, std::string moveTo);
     bool addPlayer(const std::string& playerName);
     void removePlayer(const std::string& playerName);
+
     unsigned long getCurrentPlayers() const;
     MoveValidator& getGame();
 

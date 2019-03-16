@@ -365,7 +365,6 @@ TEST(BoardTest, testPromotionAndKillKing){
 
 
 
-/*
 TEST(MoveValidatorTest, testTurn){
 
     std::string p1 = "playerOne";
@@ -395,7 +394,10 @@ TEST(MoveValidatorTest, testTurn){
     EXPECT_EQ(isValid,true);
 
 
-} */
+
+
+
+}
 
 
 
