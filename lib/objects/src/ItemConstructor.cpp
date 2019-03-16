@@ -10,7 +10,7 @@
 
 
 ItemConstructor::ItemConstructor()
-: ids(identity::UUID())
+: unique_identifiers(identity::UUID())
 { }
 
 
@@ -20,9 +20,9 @@ ItemConstructor::~ItemConstructor()
 
 Item ItemConstructor::create() {
     ObjectID id = this->nextUUID();
-    return Item(id);
+    // return Item(id);
     
-    // return Item(id, keywords, description, extras);
+    return Item(id, keywords, description, extras);
 }
 
 
@@ -49,5 +49,5 @@ void ItemConstructor::clearAll() {
 
 
 ObjectID ItemConstructor::nextUUID() {
-    return this->ids.generate();
+    return this->unique_identifiers.generate();
 }

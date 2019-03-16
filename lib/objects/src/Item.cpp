@@ -8,9 +8,37 @@
 
 #include "Item.h"
 
+
+Item::Item(ObjectID id,
+           const Keywords &keywords,
+           const ItemDescription &description,
+           const Extras &extras)
+: id(id), keywords(keywords), description(description), extras(extras)
+{ }
+
+
 ObjectID Item::getID() const {
     return this->id;
 }
+
+
+bool Item::hasKeyword(const Keyword &keyword) const {
+    
+    
+    
+    return false;
+}
+
+
+bool Item::examine(const Keyword &keyword) const {
+    
+    return true;
+}
+
+
+
+
+
 
 
 std::size_t std::hash<Item>::operator()(const Item &item) const {

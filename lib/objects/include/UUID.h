@@ -1,6 +1,6 @@
 //
 //  UUID.h
-//  Objects
+//  Constructors
 //
 //  Created by admin on 2019-03-14.
 //  Copyright © 2019 maximpuchkov. All rights reserved.

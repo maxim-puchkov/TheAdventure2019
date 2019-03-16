@@ -12,45 +12,48 @@
 #include <string>
 #include <functional>
 #include <iostream>
-#include "Object.h"
+#include "Constructor.h"
 #include "ItemDescription.h"
 
 
 using std::string;
 
-using objects::ObjectID;
-using objects::Keywords;
-using objects::Extras;
+using objects::Object;
 
 
 
 /**
- @class
-    Item
+ @class Item
  
- @description
-    <No description yet>
+ @brief ...
  */
-class Item {
+class Item : public Object {
 public:
-    
-    Item(ObjectID id) { /* debug */ }
-    
-    
     
     /// Default item constructor with an object ID, identifying keywords,
     ///     item description, and extra actions.
     Item(ObjectID id,
          const Keywords &keywords,
          const ItemDescription &description,
-         const Extras &extras); /* undefined */
+         const Extras &extras);
+    
     
     /// Retrieve object ID
-    ObjectID getID() const;
+    ObjectID getID() const override;
+    
+    bool hasKeyword(const Keyword &keyword) const;
+    
+    bool examine(const Keyword &keyword) const override;
+    
+    
+    
+    
     
 private:
     
     ObjectID id;
+    
+    Keywords keywords;
     
     ItemDescription description;
     

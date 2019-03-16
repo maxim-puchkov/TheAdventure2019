@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <string>
+#include "Constructor.h"
 #include "Object.h"
 #include "Item.h"
 #include "ItemDescription.h"
@@ -18,30 +19,27 @@
 
 using std::string;
 using std::vector;
+using namespace objects::typenames;
 
-using objects::ObjectID;
-using objects::Keywords;
-using objects::Text;
-using objects::Association;
 
 
 const unsigned int LINE_WIDTH = 80;
 const unsigned int SHORT_DESCRIPTION_WIDTH = 20;
 
 
+
 /**
- @class
-    ItemConstructor
+ @class ItemConstructor
  
- @description
-    Constructs items with keywords and short/long descriptions.
+ @brief Constructs items with keywords, descriptions,
+        and extra commands
  */
-class ItemConstructor : public objects::Object {
+class ItemConstructor : public Constructor {
 public:
     
     ItemConstructor();
     
-    ~ItemConstructor() override;
+    ~ItemConstructor();
     
     
     
@@ -51,11 +49,14 @@ public:
     /// Reset current item construction
     void reset() override;
     
-    /// Set item's identifying keywords
+    /// - parameter keywords: Item's unique keywords
     void setKeywords(const Keywords &keywords) override;
     
     /// Set item's description text
     void setDescription(const Text &description) override;
+    
+    /// Set collection of interactable commands
+    void setExtras(const Extras &extras);
     
     
 private:
@@ -74,7 +75,7 @@ private:
     Extras extras; // additional actions of an item
     
     
-    identity::UUID ids;
+    identity::UUID unique_identifiers;
     
 };
 

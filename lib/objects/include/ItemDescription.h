@@ -11,7 +11,7 @@
 
 #include <string>
 #include <vector>
-#include "Object.h"
+#include "Constructor.h"
 
 using std::string;
 using std::vector;
@@ -22,10 +22,9 @@ static string NO_DESCRIPTION = "";
 /**
  @class ItemDescription
  
- @description
-    Short and long descriptions of an item.
-    If description is a long text, it will be broken down into multiple lines
-        depending on the line width.
+ @brief Short and long descriptions of an item. If description
+        is a long text, it will be broken down into multiple
+        lines depending on the line width.
  */
 class ItemDescription {
 public:
@@ -37,7 +36,7 @@ public:
                     const vector<string> &longdesc);
     
     
-    ItemDescription(objects::Text description,
+    ItemDescription(Text description,
                     int shortdescWidth,
                     int lineWidth); /* undefined */
     

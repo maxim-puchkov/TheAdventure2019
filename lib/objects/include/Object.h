@@ -1,17 +1,35 @@
 //
 //  Object.h
-//  adventure2019
+//  Objects
+//  com.maximpuchkov.Objects.Objects.Object
 //
-//  Created by admin on 2019-03-05.
-//  Copyright © 2019 maximpuchkov. All rights reserved.
+//  Package:             Objects
+//  Project:             Objects
+//  Workspace:           Objects
+//  Organization:        maximpuchkov
+//  Prefix:              com
+//
+//  Author:              Maxim Puchkov (mpuchkov@sfu.ca)
+//  Full username:       admin
+//  Created on:          2019-03-15 at 4:07 PM
+//  System:              macOS 10.13
+//  Tools:               Xcode v.10.1 (10B61); Swift 4.0
+//
+//  Created by admin (Maxim Puchkov).
+//  Copyright © 2019 Maxim Puchkov. All rights reserved.
+//
+//
+//  1. https://csil-git1.cs.surrey.sfu.ca/mpuchkov
+//  2. https://itunes.apple.com/us/developer/maxim-puchkov/id1084095397
 //
 
 #ifndef Object_h
 #define Object_h
 
-#include <vector>
+
 #include <string>
-#include <stdint.h>
+#include <vector>
+#include <iostream>
 #include "UUID.h"
 
 
@@ -19,64 +37,36 @@ using std::string;
 using std::vector;
 
 
-
 namespace objects {
-
-class Object;
-
     
+inline namespace typenames {
 using ObjectID = identity::uuid_t;
 using Keyword = string;
 using Keywords = vector<Keyword>;
 using Text = string;
-    
-    
-/* --> */
-struct Association;
-struct ExtrasBinding;
-    
-using Extras = vector<objects::Association>;
+using ExtrasBinding = std::pair<string, string>;
+using Extras = vector<ExtrasBinding>;
+}
 
-struct ExtrasBinding {
-    Keyword key;
-    
-};
-    
-struct Association {
-    string key;
-    string *values;
-};
-/* <-- */
-  
 
-/**
- @class
-    Object Interface
- 
- @description
-    In-game object interface with a unique object id, identifying keywords, and
-    description text.
- */
+
 class Object {
 public:
     
-    /// Virtual destructor
-    virtual ~Object() = 0;
+    Object() { std::cout << "Object\n"; }
     
-    /// Reset current object creation
-    virtual void reset() = 0;
+    virtual ObjectID getID() const = 0;
     
-    /// Set object's identifying keywords
-    virtual void setKeywords(const Keywords &keywords) = 0;
+    virtual bool examine(const Keyword &keyword) const = 0;
     
-    /// Set object's description text
-    virtual void setDescription(const Text &description) = 0;
+    // virtual Keywords
     
 };
     
-
-
-
 }
+
+
+
+
 
 #endif /* Object_h */
