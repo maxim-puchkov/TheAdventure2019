@@ -1,8 +1,3 @@
-
-
-
-
-
 add_subdirectory(lib)
 
 add_executable(runAllTests
@@ -14,10 +9,6 @@ target_link_libraries(runAllTests
 	gmock
 	test
 	gtest_main
-	
-
-	
-	ItemConstructorTests.cpp
 )
 
 set_target_properties(runAllTests
