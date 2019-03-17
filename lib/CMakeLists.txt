@@ -1,4 +1,6 @@
+add_subdirectory(${libauth})
 add_subdirectory(${libcharacters})
+add_subdirectory(${libcharacterdb})
 add_subdirectory(${libcommands})
 add_subdirectory(${libgame})
 add_subdirectory(${libnetwork})
@@ -7,5 +9,3 @@ add_subdirectory(${libusers})
 add_subdirectory(${libworld})
 add_subdirectory(${libparsers})
 add_subdirectory(${libuserdb})
-add_subdirectory(${libcharacterdb})
-

@@ -1,9 +1,9 @@
 //
-//  Auth.h
-//  adventure2019
-//  com.maximpuchkov.Faworki.adventure2019.Auth
+//  Authentication.h
+//  Authentication
+//  com.maximpuchkov.Faworki.adventure2019.Authentication
 //
-//  Package:             adventure2019
+//  Package:             Authentication
 //  Project:             adventure2019
 //  Workspace:           Faworki
 //  Organization:        maximpuchkov
@@ -11,28 +11,16 @@
 //
 //  Author:              Maxim Puchkov (mpuchkov@sfu.ca)
 //  Full username:       admin
-//  Created on:          2019-03-16 at 3:37 PM
+//  Created on:          2019-03-16 at 4:37 PM
 //  System:              macOS 10.13
 //  Tools:               Xcode v.10.1 (10B61); Swift 4.0
 //
 //  Created by admin (Maxim Puchkov).
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
-//
-//  1. https://csil-git1.cs.surrey.sfu.ca/mpuchkov
-//  2. https://itunes.apple.com/us/developer/maxim-puchkov/id1084095397
-//
 
-#ifndef Auth_h
-#define Auth_h
-
-class Auth {
-public:
-    
-    
-    
-private:
-};
+#ifndef Authentication_h
+#define Authentication_h
 
 
-#endif /* Auth_h */
+#endif /* Authentication_h */

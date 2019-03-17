@@ -12,7 +12,7 @@ target_include_directories(${libauth}
 
 target_link_libraries(${libauth}
 
-}
+)
 
 set_target_properties(${libauth}
                       PROPERTIES
