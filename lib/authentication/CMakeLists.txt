@@ -1,5 +1,5 @@
 add_library(${libauth}
-
+	src/UUID.cpp
 )
 
 target_include_directories(${libauth}
