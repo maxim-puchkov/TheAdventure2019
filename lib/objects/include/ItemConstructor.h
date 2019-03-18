@@ -14,13 +14,11 @@
 #include "Constructor.h"
 #include "Object.h"
 #include "Item.h"
-#include "ItemDescription.h"
-
+#include "Description.h"
+#include "KeywordSet.h"
 
 using std::string;
 using std::vector;
-using namespace objects::typenames;
-
 
 
 const unsigned int LINE_WIDTH = 80;
@@ -28,8 +26,10 @@ const unsigned int SHORT_DESCRIPTION_WIDTH = 20;
 
 
 
+namespace objects {
+
 /**
- @class ItemConstructor
+ @class ItemConstructor (IC)
  
  @brief Constructs items with keywords, descriptions,
         and extra commands
@@ -43,21 +43,20 @@ public:
     
     
     
-    /// Create an item with provided input
+    /// Create an item with current settings
     Item create();
     
-    /// Reset current item construction
+    /// Reset current item settings
     void reset() override;
     
     /// - parameter keywords: Item's unique keywords
-    void setKeywords(const Keywords &keywords) override;
+    void setKeywords(const KeywordSet &keywords) override;
     
     /// Set item's description text
-    void setDescription(const Text &description) override;
+    void setDescription(const Description &description) override;
     
     /// Set collection of interactable commands
     void setExtras(const Extras &extras);
-    
     
 private:
     
@@ -65,18 +64,14 @@ private:
     void clearAll();
     
     
-    /// Generate next object identifier
-    ObjectID nextUUID();
-    
-    
-    // IC Data members
-    Keywords keywords;
-    ItemDescription description;
+    // Item Constructor Data members
+    Identifier id;
+    KeywordSet keywords;
+    Description description;
     Extras extras; // additional actions of an item
     
-    
-    identity::UUID unique_identifiers;
-    
 };
+
+}
 
 #endif /* ItemConstructor_h */

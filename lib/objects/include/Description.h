@@ -1,44 +1,47 @@
 //
-//  ItemDescription.h
+//  Description.h
 //  adventure2019
 //
 //  Created by admin on 2019-03-05.
 //  Copyright © 2019 maximpuchkov. All rights reserved.
 //
 
-#ifndef ItemDescription_h
-#define ItemDescription_h
+#ifndef Description_h
+#define Description_h
 
 #include <string>
 #include <vector>
-#include "Constructor.h"
 
 using std::string;
 using std::vector;
 
-static string NO_DESCRIPTION = "";
+static string EMPTY = "";
+
+
+
+namespace objects {
+namespace data {
+
 
 
 /**
- @class ItemDescription
+ @class Description
  
  @brief Short and long descriptions of an item. If description
         is a long text, it will be broken down into multiple
         lines depending on the line width.
  */
-class ItemDescription {
+class Description {
 public:
     
-    ItemDescription();
+    Description();
     
+    Description(const string &shortdesc,
+                const vector<string> &longdesc);
     
-    ItemDescription(const string &shortdesc,
-                    const vector<string> &longdesc);
-    
-    
-    ItemDescription(Text description,
-                    int shortdescWidth,
-                    int lineWidth); /* undefined */
+    Description(string description,
+                int shortdescWidth,
+                int lineWidth); /* undefined */
     
     /// Clear all text
     void clear();
@@ -57,5 +60,9 @@ private:
     
 };
 
+} /* namespace data */
 
-#endif /* ItemDescription_h */
+
+} /* namespace objects */
+
+#endif /* Description_h */

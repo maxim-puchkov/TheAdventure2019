@@ -9,26 +9,25 @@
 #ifndef Item_h
 #define Item_h
 
-#include <set>
-#include <unordered_set>
 #include <string>
-#include <sstream>
-#include <ostream>
-#include <iostream>
+#include <vector>
 #include <functional>
-#include <iostream>
+#include <cstdint>
+#include <sstream>
+#include <unordered_set>
+
+#include "Identifier.h"
 #include "Constructor.h"
-#include "ItemDescription.h"
+#include "Description.h"
+#include "Object.h"
 
 
 using std::string;
 using std::vector;
-using objects::Object;
 
 
-class Item;
 
-
+namespace objects {
 
 
 
@@ -41,126 +40,65 @@ class Item;
 class Item : public Object {
 public:
     
-    // Item() { }
-    
     /// Default item constructor with an object ID, identifying keywords,
     ///     item description, and extra actions.
-    Item(ObjectID id,
-         const Keywords &keywords,
-         const ItemDescription &description,
+    Item(Identifier id,
+         const KeywordSet &keywords,
+         const Description &description,
          const Extras &extras);
     
     
     /// Retrieve object ID
-    ObjectID getID() const override;
+    Identifier id() const override;
+    
+    
+    /// Retrieve object's reference to keywords
+    // KeywordSet& keywords() override;
     
     
     /// Display item's first keyword
     string brief() const override;
     
     
-    
+    /// Display detailed info
     string details() const override;
     
     
     /// Examine an Extra attribute of an item
-    bool examine(const Keyword &keyword) const override;
+    bool examine(const Key &keyword) const override;
     
     
-    std::ostream& operator<<(std::ostream &os) const {
-        os << &keywords << "Done";
-        return os;
-    }
-    
-    Item& operator=(const Item &other) {
-        this->keywords = other.keywords;
-        this->description = other.description;
-        this->extras = other.extras;
-        return *this;
-    }
-    
-    
-    Item& operator=(Item &other) {
-        this->keywords = other.keywords;
-        this->description = other.description;
-        this->extras = other.extras;
-        return *this;
-    }
-    
-    Item& operator=(Item &&other) {
-        this->keywords = std::move(other.keywords);
-        this->description = std::move(other.description);
-        this->extras = std::move(other.extras);
-        return *this;
-    }
-    
-    // Keyword at(unsigned int index) const;
-    
-    
+//
+//    Item& operator=(const Item &other) {
+//        this->keywords = other.keywords;
+//        this->description = other.description;
+//        this->extras = other.extras;
+//        return *this;
+//    }
+//
+//
+//    Item& operator=(Item &other) {
+//        this->keywords = other.keywords;
+//        this->description = other.description;
+//        this->extras = other.extras;
+//        return *this;
+//    }
+
+
 private:
     
-    string allKeywords() const;
-    string allKeywords(const string &delimeter) const;
+    Identifier itemID;
     
-    ObjectID id;
+    KeywordSet keywords;
     
-    Keywords keywords;
-    
-    // std::multimap<unsigned int, Keyword> extraActions;
-    
-    ItemDescription description;
+    Description description;
     
     Extras extras;
     
-    
-};
-
-
-/// Item's hashing function
-template<>
-struct std::hash<Item> {
-    std::size_t operator()(const Item &item) const;
 };
 
 
 
-
-
-
-
-/**
- *  @class Item
- *
- *  @brief Any in-game item
- */
-
-    /*
-    Item();
-    Item(const string &shortDescription);
-    Item(const string &shortDescription, const string &longDescription);
-    Item(const Item &item);
-    Item(Item &&other);
-    virtual ~Item();
-    */
-    /*
-    virtual string getShortDescription() const;
-    virtual string getLongDescription() const;
-    unsigned long getID() const;
-    void setLongDescription(string &&longDescription);
-    */
-    /*
-    virtual Item& operator=(Item &&other) noexcept;
-    */
-    /*
-    bool operator==(Item &other) const;
-    bool operator==(const Item &other) const;
-    */
-
-/*
-template<>
-struct std::hash<Item> {
-    size_t operator()(const Item &item) const;
-};
-*/
+}
 
 #endif /* Item_h */

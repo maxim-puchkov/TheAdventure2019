@@ -10,15 +10,19 @@
 #define Collection_h
 
 #include <string>
+#include <vector>
 #include <unordered_set>
-#include "Object.h"
 
+#include "Identifier.h"
+#include "Constructor.h"
+#include "Object.h"
 
 using std::string;
 using std::vector;
-using objects::Object;
 
 
+
+namespace objects {
 
 template<typename T>
 class Collection : public Object {
@@ -26,22 +30,24 @@ public:
     
     Collection() { }
     
-    ObjectID getID() const override;
+    Identifier id() const override;
     
-    bool examine(const Keyword &keyword) const override;
+    // KeywordSet& keywords() override;
     
-    string details() const override;
+    
+    bool examine(const string &keyword) const override;
     
     string brief() const override;
     
+    string details() const override;
+    
     
 private:
-    
     
     std::unordered_set<T> items;
     
 };
 
-
+}
 
 #endif /* Collection_h */

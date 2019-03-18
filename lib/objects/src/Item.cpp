@@ -9,59 +9,56 @@
 #include <set>
 #include "Item.h"
 
+using namespace objects;
 
-Item::Item(ObjectID id,
-           const std::set<Keyword> &keywords,
-           const ItemDescription &description,
+
+Item::Item(Identifier id,
+           const KeywordSet &keywords,
+           const Description &description,
            const Extras &extras)
-: id(id), keywords(keywords), description(description), extras(extras)
-{
-   // std::set<Keyword> keywords = (keywords)
-    
+: itemID(id), keywords(keywords), description(description), extras(extras)
+{ }
+
+
+
+//Item::Item(Identifier id, Item &other)
+//: id(id), keywords(other.keywords), description(other.description), extras(other.extras)
+//{ }
+//
+//
+//Item::Item(Identifier id, const Item &other)
+//: id(id), keywords(other.keywords), description(other.description), extras(other.extras)
+//{ }
+
+Identifier Item::id() const {
+    return this->itemID;
 }
 
 
-ObjectID Item::getID() const {
-    return this->id;
-}
+//KeywordSet& Item::keywords() {
+//    return this->keywords();
+//}
 
 
 string Item::brief() const {
-    //return this->keywords.first();
-    return *this->keywords.cbegin();
+    return this->keywords.first();
 }
 
 
 string Item::details() const {
-    
-    return this->allKeywords();
+    return this->keywords.asString();
 }
 
 
-
-bool Item::examine(const Keyword &keyword) const {
+bool Item::examine(const Key &keyword) const {
     
     return true;
 }
 
 
-string Item::allKeywords() const {
-    const string delim = ", ";
-    return this->allKeywords(delim);
-}
-
-string Item::allKeywords(const string &delimeter) const {
-    std::ostringstream oss;
-    for (auto &k : this->keywords) {
-        oss << k << delimeter;
-    }
-    return oss.str();
-}
-
-
-std::size_t std::hash<Item>::operator()(const Item &item) const {
-    return std::hash<unsigned long>{}(item.getID());
-}
+//std::size_t std::hash<Item>::operator()(const Item &item) const {
+//    return std::hash<unsigned long>{}(item.getID());
+//}
 
 
 /*

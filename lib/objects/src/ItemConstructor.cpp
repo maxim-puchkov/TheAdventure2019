@@ -10,7 +10,6 @@
 
 
 ItemConstructor::ItemConstructor()
-: unique_identifiers(identity::UUID())
 { }
 
 
@@ -19,7 +18,6 @@ ItemConstructor::~ItemConstructor()
 
 
 Item ItemConstructor::create() {
-    ObjectID id = this->nextUUID();
     return Item(id, keywords, description, extras);
 }
 
@@ -29,13 +27,13 @@ void ItemConstructor::reset() {
 }
 
 
-void ItemConstructor::setKeywords(const Keywords &keywords) {
+void ItemConstructor::setKeywords(const KeywordSet &keywords) {
     this->keywords = keywords;
 }
 
 
-void ItemConstructor::setDescription(const Text &description) {
-    //this->description = ItemDescription(description, LINE_WIDTH, SHORT_DESCRIPTION_WIDTH);
+void ItemConstructor::setDescription(const Description &description) {
+    //this->description = Description(description, LINE_WIDTH, SHORT_DESCRIPTION_WIDTH);
 }
 
 
@@ -46,8 +44,8 @@ void ItemConstructor::clearAll() {
 }
 
 
-ObjectID ItemConstructor::nextUUID() {
-    return this->unique_identifiers.generate();
-}
+//Identifier ItemConstructor::nextIdentifier() {
+//    return this->unique_identifiers.generate();
+//}
 
 

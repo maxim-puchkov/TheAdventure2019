@@ -2,7 +2,6 @@ add_subdirectory(lib)
 
 add_executable(runAllTests
 	tests.cpp
-	ItemConstructorTests.cpp
 )
 
 target_link_libraries(runAllTests

@@ -11,14 +11,16 @@
 
 #include <vector>
 #include <string>
-#include <set>
-#include <stdint.h>
+
+#include "ObjectDataType.h"
 #include "Object.h"
 
 
 using std::string;
 using std::vector;
-using namespace objects::typenames;
+
+using namespace objects;
+
 
 
 
@@ -37,15 +39,11 @@ public:
     virtual void reset() = 0;
     
     /// Set object's identifying keywords
-    virtual void setKeywords(const Keywords &keywords) = 0;
+    virtual void setKeywords(const KeywordSet &keywords) = 0;
     
     /// Set object's description text
-    virtual void setDescription(const Text &description) = 0;
+    virtual void setDescription(const Description &description) = 0;
     
 };
-    
-
-
-
 
 #endif /* Constructor_h */

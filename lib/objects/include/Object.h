@@ -23,59 +23,44 @@
 #ifndef Object_h
 #define Object_h
 
-
-#include <set>
-#include <map>
 #include <string>
 #include <vector>
-#include <iostream>
-#include <sstream>
+#include <functional>
 #include <cstdint>
-#include "Auth.h"
+#include <sstream>
+#include <unordered_set>
 
+#include "ObjectDataType.h"
 
-using std::string;
-using std::vector;
-
+#include "Identifier.h"
+#include "KeywordSet.h"
+#include "Description.h"
 
 namespace objects {
-
-    inline namespace identity {
-        using ObjectID = u_int64_t;
-    }
-    
+using namespace data;
 
 
-inline namespace typenames {
-using Keyword = string;
-using Keywords = std::set<Keyword>;
-using Text = string;
-using ExtrasBinding = std::pair<string, string>;
-using Extras = vector<ExtrasBinding>;
-} /* namespace typenames */
 
-
-    
-
+/**
+    @class Object
+ 
+    @brief Instance within a game that can be
+           uniquely identified and interacted with
+ */
 class Object {
 public:
     
-    virtual ObjectID getID() const = 0;
+    virtual Identifier id() const = 0;
     
-    virtual bool examine(const Keyword &keyword) const = 0;
-    
-    virtual string details() const = 0;
-    
-    virtual string brief() const = 0;
+    virtual bool examine(const Key &keyword) const = 0;
+    virtual Text details() const = 0;
+    virtual Key brief() const = 0;
     
 };
-    
 
 
 
 } /* namespace objects */
-
-
 
 
 
