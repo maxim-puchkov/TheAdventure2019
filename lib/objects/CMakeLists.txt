@@ -1,8 +1,10 @@
 add_library(${libobjects}
+    src/KeywordSet.cpp
 	src/Collection.cpp
 	src/Constructor.cpp
 	src/Item.cpp
 	src/ItemConstructor.cpp
+    src/Description.cpp
 	src/Object.cpp
 )
 

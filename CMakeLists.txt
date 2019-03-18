@@ -12,7 +12,7 @@ set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
 #   will not need changes.
 # Or search for ${libNAME} to quickly find all
 #   dependencies on any library.
-set(libauth "authentication")
+set(libauthentication "authentication")
 set(libcharacters "characters")
 set(libcommands "commands")
 set(libgame "game")
@@ -34,11 +34,8 @@ set(CMAKE_CXX_FLAGS_RELEASE
     "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra  -Wstrict-aliasing -pedantic -Werror -Wunreachable-code -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option")
 
 
-# cmake -DCMAKE_BUILD_TYPE=RELEASE ../adventure2019
-message("")
-message("Building " ${CMAKE_BUILD_TYPE} ". Try RELEASE when pushing important code... ")
-message("   cmake -DCMAKE_BUILD_TYPE=RELEASE ../adventure2019")
-message("")
+# cmake -DCMAKE_BUILD_TYPE=RELEASE ../adventure2019/
+# message(${CMAKE_BUILD_TYPE})
 
 
 
