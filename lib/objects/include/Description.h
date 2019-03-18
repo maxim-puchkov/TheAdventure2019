@@ -19,9 +19,8 @@ static string EMPTY = "";
 
 
 
-namespace objects {
-namespace data {
 
+namespace objects::data::structures {
 
 
 /**
@@ -60,9 +59,8 @@ private:
     
 };
 
-} /* namespace data */
 
 
-} /* namespace objects */
+} /* namespace objects::data::structures */
 
 #endif /* Description_h */

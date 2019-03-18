@@ -17,21 +17,27 @@
 
 
 namespace objects {
+
 namespace data {
-inline namespace typenames {
-    using Identifier = u_int64_t;
-    using Key = std::string;
-    using Text = std::string;
-    using Set = std::unordered_set<Key>;
-    using ExtrasBinding = std::pair<std::string, std::string>;
-    using Extras = std::vector<ExtrasBinding>;
-} /* namespace typenames */
     
-    struct KeywordSet;
-    struct Description;
-    
+    inline namespace typenames {
+        using Identifier = u_int64_t;
+        using Key = std::string;
+        using Text = std::string;
+        using Set = std::unordered_set<Key>;
+        using ExtrasBinding = std::pair<std::string, std::string>;
+        using Extras = std::vector<ExtrasBinding>;
+    } /* namespace typenames */
+
+
+    inline namespace structures {
+        class KeywordSet;
+        class Description;
+        class CustomActions;
+    } /* namespace structures */
     
 } /* namespace data */
+
 } /* namespace objects */
 
 #endif /* ObjectDataType_h */

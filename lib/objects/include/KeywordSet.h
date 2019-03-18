@@ -31,8 +31,7 @@
 
 
 
-namespace objects {
-namespace data {
+namespace objects::data::structures {
     
 class KeywordSet {
 public:
@@ -60,7 +59,8 @@ private:
     
 };
 
-}
+
+
 } /* namespace objects */
 
 #endif /* KeywordSet_h */
