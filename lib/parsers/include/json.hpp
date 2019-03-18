@@ -19569,7 +19569,7 @@ class basic_json
     array           | 0x04             | array
     binary          | 0x05             | still unsupported
     undefined       | 0x06             | still unsupported
-    ObjectId        | 0x07             | still unsupported
+    Identifier        | 0x07             | still unsupported
     boolean         | 0x08             | boolean
     UTC Date-Time   | 0x09             | still unsupported
     null            | 0x0A             | null

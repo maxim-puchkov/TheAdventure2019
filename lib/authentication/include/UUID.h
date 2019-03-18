@@ -1,59 +1,59 @@
 //
-//  UUID.h
-//  Constructors
+//  Identifier.h
+//  adventure2019
+//  com.maximpuchkov.Faworki.adventure2019.Identifier
 //
-//  Created by admin on 2019-03-14.
-//  Copyright © 2019 maximpuchkov. All rights reserved.
+//  Package:             adventure2019
+//  Project:             adventure2019
+//  Workspace:           Faworki
+//  Organization:        maximpuchkov
+//  Prefix:              com
+//
+//  Author:              Maxim Puchkov (mpuchkov@sfu.ca)
+//  Full username:       admin
+//  Created on:          2019-03-17 at 12:03 PM
+//  System:              macOS 10.13
+//  Tools:               Xcode v.10.1 (10B61); Swift 4.0
+//
+//  Created by admin (Maxim Puchkov).
+//  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
 
-#ifndef UUID_h
-#define UUID_h
+#ifndef Identifier_h
+#define Identifier_h
 
 #include <stdint.h>
 
 
-
-
 namespace identity {
-
-using uuid_t = u_int64_t;
+    using id_t = u_int64_t;
+}
 
 
 
 /**
- @struct UUID
+ @class Identifier
  
- @brief  Generates universally unique identifiers
+ @brief All identifiers are unique
  */
+template<typename T>
 class UUID {
 public:
     
-    /// Default non-parameterized constructor
-    UUID();
     
     
-    /// Overwrite the initial identifier value
-    UUID(uuid_t init);
-    
-    
-    /// Generate universally unique identifier
-    uuid_t generate();
-    
-    
-    /// Reset identifiers to initial value
-    void reset();
-    
+    /// Generate unique identifier
+    T generate();
     
 private:
     
-    const uuid_t INIT;
+    T initial;
     
-    uuid_t previousID;
+    T current;
     
 };
 
 
 
-} /* namespace identity */
 
-#endif /* UUID_h */
+#endif /* Identifier_h */
