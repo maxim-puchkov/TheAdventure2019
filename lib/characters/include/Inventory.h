@@ -12,8 +12,8 @@
 #include <iostream>
 #include <string>
 #include <unordered_set>
-#include "Item.h"
-#include "Collection.h"
+// #include "Item.h"
+// #include "Collection.h"
 
 
 using std::unordered_set;
@@ -31,9 +31,9 @@ public:
     
     ~Inventory();
     
-    void add(Item *item);
+    void add(void *item);
     
-    Item remove(Item *item);
+    void remove(void *item);
     
     void display() const;
     
@@ -41,7 +41,7 @@ private:
     
     //Collection items = Collection("description");
     
-    unordered_set<Item *> items;
+    unordered_set<void *> items;
     
 };
 

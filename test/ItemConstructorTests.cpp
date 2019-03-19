@@ -22,56 +22,81 @@ namespace objects {
     class ItemConstructorTests : public testing::Test {
     protected:
         
-        void SetUp() {
-            itc = ItemConstructor();
+        void SetUp() override {
+            items = ItemConstructor();
         }
         
-        void TearDown() { }
+        void TearDown() override { }
         
         
         /* * *         Variables        * * */
         
-        ItemConstructor itc;
+        ItemConstructor constructor;
         
         
-        vector<string> firsr_keys{"First Item", "Will have ID = 1"};
-        
-        
-        string second_key1 = "1. Key .1",
-               second_key2 = "2. Two .2",
-               second_err  = "not a keyword";
-        vector<string> second_keys{second_key1, second_key2};
-
-        
-        string no_desc = "no description";
     };
     
+    
+    
+    
+    Test_F(ItemConstructorTests, Construction) {
+        
+        // Variable input
+        vector<string> keys{"sword", "rare"};
+        string description = "item will retain this input";
+        // ...
+        
+        // Create a rare sword
+        constuctor.setKeywords(keys);
+        constructor.setDescription(description);
+        Item sword = constructor.create();
+        
+        EXPECT_NE(0, item.id());
+        //EXPECT_EQ(keys, item.keywords);
+        EXPECT_EQ(keys[0], item.first());
+        
+    }
+    
 
-    TEST_F(ItemConstructorTests, itemCreated) {
+    TEST_F(ItemConstructorTests, Authention) {
+        
+        // Item's keywords and description
+        vector<string> keys{"Unique item", "First item's id ID = 1"};
+        string description = "1";
+        
+        // Create first item
+        constructor.setKeywords(keys);
+        constructor.setDescription(description);
+        Item item = constructor.create();
+        
+        EXPECT_EQ(1, item.id());
+        
+    }
+    
+    
+    TEST_F(ItemConstructorTests, KeywordMatching) {
+        
+        // Variable input
+        string key1 = "1. A keyword",
+        string key2 = "2. Also a keyword,
+        vector<string> keys{second_key1, second_key2};
+        err  = "Not a keyword";
+        string description = "Testing items";
         
         // Create an item
-        itc.setKeywords(firsr_keys);
-        itc.setDescription(no_desc);
-        Item item = itc.create();
+        constructor.setKeywords(keys);
+        constructor.setDescription(description);
+        Item item = constructor.create();
         
-        EXPECT_EQ(1, item.getID());
+        //
+        EXPECT_EQ(true, item.hasKeyword(key1));
+        EXPECT_EQ(true, item.hasKeyword(key2));
+        EXPECT_EQ(false, item.hasKeyword(err));
+        
         
     }
     
     
-    TEST_F(ItemConstructorTests, evaluateAllKeywords) {
-        
-        // Create a second item
-        itc.setKeywords(second_keys);
-        itc.setDescription(no_desc);
-        Item item = itc.create();
-        
-        EXPECT_EQ(true, item.hasKeyword(second_key1));
-        EXPECT_EQ(true, item.hasKeyword(second_key2));
-        EXPECT_EQ(false, item.hasKeyword(second_err));
-        
-        
-    }
     
     
     

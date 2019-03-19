@@ -9,8 +9,8 @@
 #ifndef Constructor_h
 #define Constructor_h
 
-#include <vector>
 #include <string>
+#include <vector>
 
 #include "ObjectDataType.h"
 #include "Object.h"

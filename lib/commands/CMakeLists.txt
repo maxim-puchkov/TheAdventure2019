@@ -1,8 +1,4 @@
 add_library(${libcommands}
-<<<<<<< HEAD:lib/.archives/commands/CMakeLists.txt
-    src/CommandDefinitions.cpp
-=======
-    src/Parser.cpp
     src/Command.cpp
     src/CommandLogin.cpp
     src/CommandLogout.cpp
@@ -28,7 +24,6 @@ add_library(${libcommands}
     src/CommandAttack.cpp
     src/CommandFlee.cpp
     src/CommandCast.cpp
->>>>>>> obj:lib/commands/CMakeLists.txt
 )
 
 target_include_directories(${libcommands}
@@ -49,17 +44,12 @@ set_target_properties(${libcommands}
 target_link_libraries(${libcommands}
     ${libtypes}
     ${libaccounts}
-<<<<<<< HEAD:lib/.archives/commands/CMakeLists.txt
-    ${libusers}
-    ${libworld}
-=======
     ${libcharacters}
     ${libworld}
     ${libusers}
     ${libcharacter}
     ${Boost_LIBRARIES}
     ${libusers}
->>>>>>> obj:lib/commands/CMakeLists.txt
 )
 
 

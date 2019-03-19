@@ -31,22 +31,22 @@ Inventory::~Inventory()
 { }
 
 
-void Inventory::add(Item *item) {
+void Inventory::add(void *item) {
     this->items.insert(item);
 }
 
 
-Item Inventory::remove(Item *item) {
-    if (this->items.erase(item) == 1) {
-        return *item;
-    }
-    throw std::invalid_argument("Item is not in the inventory");
+void Inventory::remove(void *item) {
+//    if (this->items.erase(item) == 1) {
+//        return *item;
+//    }
+//    throw std::invalid_argument("Item is not in the inventory");
 }
 
 
 void Inventory::display() const {
-    for (auto item : this->items) {
-        std::cout << "<id " << item->getId() << "> ";
-        std::cout << item->getShortDescription() << std::endl;
-    }
+//    for (auto item : this->items) {
+//        std::cout << "<id " << item->getId() << "> ";
+//        std::cout << item->getShortDescription() << std::endl;
+//    }
 }
