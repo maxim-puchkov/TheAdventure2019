@@ -20,6 +20,7 @@ target_link_libraries(${libgame}
     ${Boost_LIBRARIES}
     ${libusers}
     ${libminigame}
+    ${libcommands}
 )
 
 set_target_properties(${libgame}

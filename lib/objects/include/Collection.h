@@ -10,75 +10,48 @@
 #define Collection_h
 
 #include <string>
-#include <functional>
 #include <unordered_set>
+#include <functional>
 #include <sstream>
 #include <iostream>
 #include "Item.h"
 
-using std::unordered_set;
+#include "Identifier.h"
+#include "Constructor.h"
+#include "Object.h"
+
 using std::string;
 
-const unsigned int NO_LIMIT = 0;
 
 
-/**
- *  @class Collection
- *
- *  @brief Collection of items.
- *
- *  Collection of items (bag, chest) is also an item.
- */
-class Collection : public Item {
+namespace objects {
+
+
+template<typename T>
+class Collection : public Object {
 public:
     
-    Collection(const string &description);
+    Collection() { }
     
-    Collection(Collection &&c);
+    Identifier id() const override;
     
-    ~Collection();
-    
-    
+    // KeywordSet& keywords() override;
     
     
+    bool examine(const string &keyword) const override;
     
-    /* Retrieve */
+    string brief() const override;
     
-    unordered_set<Item> getItems() const;
+    string details() const override;
     
-    string getShortDescription() const override;
-    
-    string getLongDescription() const override;
-    
-    
-    
-    
-    
-    
-    /* Modify */
-    
-    void setLimit(unsigned int limit);
-    
-    bool add(Item &&item);
-    
-    bool remove(Item &&item);
-    
-    Collection& operator=(Collection &&c) noexcept;
     
 private:
     
-    string shortDescription;
-    
-    string longDescription;
-    
-    unordered_set<Item> items;
-    
-    unsigned int limit = NO_LIMIT;
-    
-    bool isLimited();
-    
-    bool isFull();
+    std::unordered_set<T> items;
     
 };
+
+
+}
 
 #endif /* Collection_h */

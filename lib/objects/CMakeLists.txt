@@ -1,6 +1,12 @@
 add_library(${libobjects}
-    src/Item.cpp
-    src/Collection.cpp
+	src/Object.cpp
+	src/KeywordSet.cpp
+	src/Collection.cpp
+	src/Constructor.cpp
+	src/ItemConstructor.cpp
+	src/Item.cpp
+	src/Description.cpp
+	src/Collection.cpp
 )
 
 target_include_directories(${libobjects}
@@ -12,7 +18,8 @@ target_include_directories(${libobjects}
 )
 
 target_link_libraries(${libobjects}
-    ${libworld}
+	${libworld}
+	${libauthentication}
 )
 
 set_target_properties(${libobjects}

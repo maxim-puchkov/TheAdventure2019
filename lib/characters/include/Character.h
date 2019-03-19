@@ -8,21 +8,14 @@
 #ifndef Character_h
 #define Character_h
 
-
 #include <string>
-#include <utility>
-
-
+#include <utility> //std::move
 #include "Attributes.h"
 #include "Inventory.h"
 #include "Equipment.h"
-#include "LocationCoordinates.h"      /* Should belong to character's
-                                         library if needed */
+#include "LocationCoordinates.h"
 
-using std::string;
-
-
-const string DEF_CHAR_NAME = "New Character";
+const std::string DEF_CHAR_NAME = "DEF_CHAR_NAME";
 const int DEF_CHAR_HEALTH = 100;
 const int DEF_CHAR_DAMAGE = 10;
 
@@ -30,107 +23,62 @@ const int DEF_CHAR_DAMAGE = 10;
 /**
  *  @class Character
  *
- *  @brief Base class for characters controlled by users or NPC.
+ *  @brief class for both characters controlled by users and NPC via action control modes.
  *
  *  Handles character's attributes, inventory, and equipment.
  */
 class Character {
 public:
     
-    Character(const string &name);
+    Character(const std::string &name);
     
-    virtual ~Character();
+    //TODO: create control mode interface for combat
     
-    
-    
-    
-    
-    
-    
-    /* Get character's properties */
-    
-    virtual std::string getName() const;
-    
-    Inventory getInventory() const;
-    
-    Equipment getEquipment() const;
-    
-    unsigned int getCurrentAreaId() const;
-    
-    unsigned int getCurrentRoomId() const;
-    
-    
-    
-    
-    
-    /* Set */
-    
-    void setCurrentArea(unsigned int areaId);
-    
-    void setCurrentRoom(unsigned int roomId);
-    
-    
-    
-    
-    
-    /* Check character's state */
-    
-    virtual bool isInCombat();
-    
-    virtual bool isAlive();
-    
-    
-    
-    
-    
-    /* Custom members */
-    
-    virtual bool operator==(const Character &other);
-    
-    virtual bool operator!=(const Character &other);
-    
-    
-    
-    
-    
-    /* Deprecated */
-    
-    void createCharacter(string &&name); /* undefined */
-    
+    // Get
+    std::string getName();
+    Attributes getAttributes();
+    Attributes getBaseAttributes();
+    Inventory getInventory();
+    Equipment getEquipment();
     LocationCoordinates getCurrentLocation() const;
+
+    std::string getShortdesc() const;
+    std::string getLongdesc() const;
+    std::string getDescription() const;
+    bool getIsDoneFirstTimeSetup() const;
     
+    // Set
     void setCurrentLocation(LocationCoordinates newLocation);
+    void setShortdesc(const std::string& shortdesc);
+    void setLongdesc(const std::string& longdesc);
+    void setDescription(const std::string& description);
+    void setFirstTimeSetup(const bool value);
     
-    LocationCoordinates currentLocation;
+    // States ...
+    bool isInCombat();
+    bool isAlive();
     
-    Attributes getAttributes() const;
-    
-    Attributes getBaseAttributes() const;
-    
-    Attributes baseAttr;
-    
-    Attributes currentAttr;
-    
-    
-    
-    
-    
-    /* Protected */
-    
-protected:
-    
-    string name;
-    
-    Equipment equipment;
-    
-    Inventory inventory = Inventory();
-    
-    unsigned int areaId;
-    
-    unsigned int roomId;
+    // Compare characters' usernames
+    bool operator==(const Character &other);
+    bool operator!=(const Character &other);
     
 private:
+    std::string name;
+    Attributes baseAttr;
+    Attributes currentAttr;
+    Equipment equipment;
+    Inventory inventory;
+    LocationCoordinates currentLocation;
     
+    //basic stuff to allow user edit
+    std::string shortdesc;
+    std::string longdesc;
+    std::string description;
+
+    //first time set up flag
+    bool isDoneFirstTimeSetup = false;
+
+    void createCharacter(const std::string &name);
 };
 
 #endif /* Character_h */

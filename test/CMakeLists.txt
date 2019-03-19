@@ -13,5 +13,6 @@ target_link_libraries(runAllTests
   ${libminigame}
  )
 
-add_test(NAME AllTests COMMAND runAllTests)
+# set_target_properties( runAllTests PROPERTIES LINK_FLAGS "${CXX_COVERAGE_FLAGS}" )
 
+add_test(NAME AllTests COMMAND runAllTests)

@@ -8,7 +8,7 @@
         * [Add][issues/new]
     * [Milestones][milestones]
 * Branches
-    * [_Master_](#master)
+    * [_Master_](#master) 
     * [_Libraries_](#libraries)
     * [Graph][graph]
 * Details
@@ -28,11 +28,15 @@
 
 
 &nbsp;
-# _Master_
-* [Update this branch][merge/new]
+# _Master_ 
+
+### Pipeline
+
+[![master-status]][commits/master] [![master-cover]][commits/master]
+
+### Contribute
+* [Update master branch][merge/new]
 * [Contribution guide](CONTRIBUTING.md)
-
-
 
 
 
@@ -40,6 +44,10 @@
 
 &nbsp;
 #  _Libraries_ 
+
+### Pipeline
+
+[![lib-status]][commits/libraries] [![lib-cover]][commits/libraries]
 
 ### Be up to date
 
@@ -351,3 +359,12 @@ chat on the server via web sockets in browsers that support web sockets.
 [graph]: /../network/master
 [labels]: /../labels/
 [markdown]: https://csil-git1.cs.surrey.sfu.ca/help/user/markdown.md
+
+
+[commits/libraries]: /../commits/libraries
+[lib-status]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/badges/master/pipeline.svg
+[lib-cover]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/badges/libraries/coverage.svg
+
+[commits/master]: /../commits/master
+[master-status]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/badges/master/pipeline.svg
+[master-cover]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/badges/master/coverage.svg

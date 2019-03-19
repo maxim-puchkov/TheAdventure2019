@@ -95,10 +95,10 @@ const std::vector<std::string> WorldManager::getUserNamesInRange (LocationCoordi
             nameList.reserve(nameList.size() + nextNameList.size());
             nameList.insert(nameList.end(), nextNameList.begin(), nextNameList.end());
         }
+
         return nameList;
 
     } catch(const std::domain_error& e){
-
         return std::vector<std::string>{};
     }
 }
@@ -112,7 +112,7 @@ LocationCoordinates WorldManager::move(const std::string& characterName, Locatio
 
         roomOfInterest.removeCharacter(characterName);
         newRoom.addCharacter(characterName);
-
+        
         return newLocation;
     } catch(const std::domain_error& e){
         return location;

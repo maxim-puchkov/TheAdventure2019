@@ -10,70 +10,94 @@
 #define Item_h
 
 #include <string>
+#include <vector>
 #include <functional>
-#include <iostream>
+#include <cstdint>
+#include <sstream>
+#include <unordered_set>
+
+#include "Identifier.h"
+#include "Constructor.h"
+#include "Description.h"
+#include "Object.h"
+
 
 using std::string;
-using std::size_t;
+using std::vector;
+
+
+
+namespace objects {
+
+
 
 
 /**
- *  @class Item
- *
- *  @brief Any in-game item
+ @class Item
+ 
+ @brief ...
  */
-class Item {
+class Item : public Object {
 public:
     
-    Item();
-    
-    Item(const string &shortDescription);
-    
-    Item(const string &shortDescription, const string &longDescription);
-    
-    Item(const Item &item);
-    
-    Item(Item &&other);
-    
-    virtual ~Item();
+    /// Default item constructor with an object ID, identifying keywords,
+    ///     item description, and extra actions.
+    Item(Identifier id,
+         const KeywordSet &keywords,
+         const Description &description,
+         const Extras &extras);
     
     
+    /// Retrieve object ID
+    Identifier id() const override;
     
     
-    
-    virtual string getShortDescription() const;
-    
-    virtual string getLongDescription() const;
-    
-    unsigned long getId() const;
-    
-    void setLongDescription(string &&longDescription);
+    /// Retrieve object's reference to keywords
+    // KeywordSet& keywords() override;
     
     
+    /// Display item's first keyword
+    string brief() const override;
     
     
+    /// Display detailed info
+    string details() const override;
     
-    virtual Item& operator=(Item &&other) noexcept;
     
-    bool operator==(Item &other) const;
+    /// Examine an Extra attribute of an item
+    bool examine(const Key &keyword) const override;
     
-    bool operator==(const Item &other) const;
     
+//
+//    Item& operator=(const Item &other) {
+//        this->keywords = other.keywords;
+//        this->description = other.description;
+//        this->extras = other.extras;
+//        return *this;
+//    }
+//
+//
+//    Item& operator=(Item &other) {
+//        this->keywords = other.keywords;
+//        this->description = other.description;
+//        this->extras = other.extras;
+//        return *this;
+//    }
+
+
 private:
     
-    string shortDescription;
+    Identifier itemID;
     
-    string longDescription;
+    KeywordSet keywords;
     
-    unsigned long id;
+    Description description;
+    
+    Extras extras;
     
 };
 
 
-template<>
-struct std::hash<Item> {
-    size_t operator()(const Item &item) const;
-};
-
+}
 
 #endif /* Item_h */

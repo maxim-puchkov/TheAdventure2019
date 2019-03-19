@@ -10,6 +10,8 @@ User::User(const string &name, const string &password) {
     this->password = password;
     this->timeStamp = 0;
     
+    //TODO: change this
+    this->role = USER_ROLE::ADMIN;
     //this->test();
 }
 
@@ -67,4 +69,8 @@ bool User::operator==(const User &other) {
 
 bool User::operator!=(const User &other) {
     return this->name.compare(other.name) != 0;
+}
+
+User::USER_ROLE User::getRole() const {
+    return role;
 }
