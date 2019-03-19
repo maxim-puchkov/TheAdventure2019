@@ -35,6 +35,10 @@ public:
     
     Description();
     
+    Description(const string &desc)
+    : shortdesc(desc)
+    { }
+    
     Description(const string &shortdesc,
                 const vector<string> &longdesc);
     

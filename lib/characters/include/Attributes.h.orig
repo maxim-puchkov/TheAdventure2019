@@ -30,11 +30,15 @@ public:
     
     int getHealth() const;
     
+<<<<<<< HEAD
     int getDamage() const;
+=======
+    int getDamage();
 
     void setHealth(const int &value);
 
     void setDamage(const int &value);
+>>>>>>> master_ref
     
     Attributes operator+(const Attributes &other) const;
     

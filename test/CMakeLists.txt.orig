@@ -3,14 +3,22 @@ add_subdirectory(lib)
 add_executable(runAllTests
   # Add all new test files to the list here.
   # Place each file name on a separate line.
+<<<<<<< HEAD
+    testBoard.cpp
+=======
   TestRunner.cpp # Contains main that will run tests
   
+>>>>>>> master_ref
 )
 
 target_link_libraries(runAllTests
   gmock
   gtest
   gtest_main
+<<<<<<< HEAD
+  ${libminigame}
+ )
+=======
   characters
   commands
   game
@@ -21,10 +29,8 @@ target_link_libraries(runAllTests
   parsers
   userdb
 )
+>>>>>>> master_ref
 
-set_target_properties(runAllTests
-  PROPERTIES
-  LINK_FLAGS "${CXX_COVERAGE_FLAGS}"
-)
+# set_target_properties( runAllTests PROPERTIES LINK_FLAGS "${CXX_COVERAGE_FLAGS}" )
 
 add_test(NAME AllTests COMMAND runAllTests)

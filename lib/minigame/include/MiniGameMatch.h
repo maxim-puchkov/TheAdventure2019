@@ -26,7 +26,8 @@ public:
     unsigned long getCurrentPlayers() const;
     MoveValidator& getGame();
 
-    void display();
+    
+    std::string display();
 
     std::string getAdminName() const;
     std::vector<std::string>& getPlayers();

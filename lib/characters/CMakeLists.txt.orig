@@ -1,8 +1,19 @@
 add_library(${libcharacters}
+<<<<<<< HEAD
     src/Character.cpp
     src/CharacterManager.cpp
+    src/NPC.cpp
+    src/Avatar.cpp
     src/Attributes.cpp
     src/Inventory.cpp
+=======
+     src/Character.cpp
+    #src/Avatar.cpp
+    #src/PlayerControlledCharacter.cpp
+    #src/NonPlayerControlledCharacter.cpp
+    src/Attributes.cpp
+    src/CharacterManager.cpp
+>>>>>>> master_ref
 )
 
 target_include_directories(${libcharacters}

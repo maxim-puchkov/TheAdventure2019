@@ -1,6 +1,5 @@
 add_library(${libtypes}
     src/Environment.cpp
-    src/TokenizedString.cpp
 )
 
 target_include_directories(${libtypes}

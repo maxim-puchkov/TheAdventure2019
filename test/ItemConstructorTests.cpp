@@ -23,7 +23,7 @@ namespace objects {
     protected:
         
         void SetUp() override {
-            items = ItemConstructor();
+            constructor = ItemConstructor();
         }
         
         void TearDown() override { }
@@ -39,7 +39,7 @@ namespace objects {
     
     
     
-    Test_F(ItemConstructorTests, Construction) {
+    TEST_F(ItemConstructorTests, Construction) {
         
         // Variable input
         vector<string> keys{"sword", "rare"};
@@ -47,13 +47,13 @@ namespace objects {
         // ...
         
         // Create a rare sword
-        constuctor.setKeywords(keys);
+        constructor.setKeywords(keys);
         constructor.setDescription(description);
         Item sword = constructor.create();
         
-        EXPECT_NE(0, item.id());
+        EXPECT_NE(0, sword.id());
         //EXPECT_EQ(keys, item.keywords);
-        EXPECT_EQ(keys[0], item.first());
+        EXPECT_EQ(keys[0], sword.keywords.first());
         
     }
     
@@ -77,10 +77,10 @@ namespace objects {
     TEST_F(ItemConstructorTests, KeywordMatching) {
         
         // Variable input
-        string key1 = "1. A keyword",
-        string key2 = "2. Also a keyword,
-        vector<string> keys{second_key1, second_key2};
-        err  = "Not a keyword";
+        string key1 = "1. A keyword";
+        string key2 = "2. Also a keyword";
+        vector<string> keys{key1, key2};
+        string err  = "Not a keyword";
         string description = "Testing items";
         
         // Create an item
@@ -93,11 +93,28 @@ namespace objects {
         EXPECT_EQ(true, item.hasKeyword(key2));
         EXPECT_EQ(false, item.hasKeyword(err));
         
+    }
+    
+    /*
+    TEST_F(ItemConstructorTests, KeywordType) {
+        
+        string skey = "string key";
+        char *ckey = "char* key";
+        string description = "Testing item types";
+
+        
+        // Create an item
+        constructor.setKeywords(keys);
+        constructor.setDescription(description);
+        Item item = constructor.create();
+        
+        
+        EXPECT_EQ(true, item.hasKeyword(skey));
+        EXPECT_EQ(true, item.hasKeyword(ckey));
         
     }
     
-    
-    
+    */
     
     
 

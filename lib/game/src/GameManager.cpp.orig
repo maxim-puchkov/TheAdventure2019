@@ -112,4 +112,8 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
 	}
 
     return std::move(map);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master_ref

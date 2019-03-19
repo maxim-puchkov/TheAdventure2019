@@ -1,0 +1,10 @@
+#ignore these files
+.vscode
+.idea/
+.DS_Store
+cmake-build-debug/
+<<<<<<< HEAD
+xcuserdata/
+=======
+data/db/
+>>>>>>> master_ref

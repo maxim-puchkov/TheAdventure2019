@@ -26,9 +26,7 @@ set(libworld "world")
 set(libparsers "parsers")
 set(libuserdb "userdb")
 set(libobjects "objects")
-set(libtypes "types")
 set(libminigame "minigame")
-set(libcombat "combat")
 
 
 

@@ -39,6 +39,7 @@ public:
     KeywordSet();
     
     bool contains(const Key &key) const;
+    //void insert()
     void clear();
     unsigned int size() const;
     

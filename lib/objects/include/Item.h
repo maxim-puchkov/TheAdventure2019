@@ -64,6 +64,10 @@ public:
     string details() const override;
     
     
+    bool hasKeyword(const Key &keyword) const {
+        return this->keywords.contains(keyword);
+    }
+    
     /// Examine an Extra attribute of an item
     bool examine(const Key &keyword) const override;
     
@@ -83,13 +87,15 @@ public:
 //        this->extras = other.extras;
 //        return *this;
 //    }
+    
+    KeywordSet keywords;
 
 
 private:
     
     Identifier itemID;
     
-    KeywordSet keywords;
+    
     
     Description description;
     

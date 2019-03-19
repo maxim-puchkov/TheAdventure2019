@@ -52,8 +52,16 @@ public:
     /// - parameter keywords: Item's unique keywords
     void setKeywords(const KeywordSet &keywords) override;
     
+    void setKeywords(const vector<string> &vs) {
+        return;
+    }
+    
     /// Set item's description text
     void setDescription(const Description &description) override;
+    
+    void setDescription(const string &text) {
+        this->setDescription(Description(text));
+    }
     
     /// Set collection of interactable commands
     void setExtras(const Extras &extras);
