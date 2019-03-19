@@ -31,8 +31,12 @@ public:
     int getHealth() const;
     
     int getDamage() const;
+
+    void setHealth(const int &value);
+
+    void setDamage(const int &value);
     
-    Attributes operator+(const Attributes &other) const;
+    Attributes operator+(const Attributes &other);
     
 private:
     

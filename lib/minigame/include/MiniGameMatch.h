@@ -15,16 +15,22 @@ class MiniGameMatch {
 public:
     MiniGameMatch();
     MiniGameMatch(const std::string& userName);
+    MiniGameMatch(const std::string& player1Name, const std::string& player2Name);
 
     bool hasPlayer(const std::string& playerName) const;
     bool hasSpectator(const std::string& playerName) const;
-    bool makePlayerMove(const std::string& playerName, std::string& move);
+    bool isPlayersTurn(const std::string& playerName) const;
+    bool makePlayerMove(const std::string& playerName, std::string& moveFrom, std::string moveTo);
+    bool addPlayer(const std::string& playerName);
+    void removePlayer(const std::string& playerName);
+    unsigned long getCurrentPlayers() const;
+    MoveValidator& getGame();
 
     void display();
 
-    std::string getAdminName() ;
-
-    MoveValidator& getGame() ;
+    std::string getAdminName() const;
+    std::vector<std::string>& getPlayers();
+    std::vector<std::string>& getSpectators();
 
 private:
     std::vector<std::string> players;
@@ -32,6 +38,7 @@ private:
 
     MoveValidator game;
     std::string adminName;
+    unsigned int currentPlayerTurn;
 
 };
 

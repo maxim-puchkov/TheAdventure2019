@@ -7,6 +7,8 @@
 #include "Character.h"
 #include "CharacterDB.h"
 #include "LocationCoordinates.h"
+#include "MiniGameLobby.h"
+#include "CombatManager.h"
 
 namespace charactermanager{
 
@@ -16,6 +18,8 @@ private:
     std::vector<Character> computerControlledCharacters;
     Character nullCharacter{""};
     CharacterDB characterDB;
+    MiniGameLobby minigameLobby;
+    CombatManager combatManager;
     LocationCoordinates nullLocation{-1, -1};
 
     const std::string SHORT_DESC = "shortdesc";
@@ -41,6 +45,7 @@ public:
     void kickCharacter(const std::string& username);
     
     std::string getUsernameFromCharacter(const std::string& username) const; //for now character name and user name are the same
+    //std::string getCharacterNameFromUser(const std::string& username) const;
     
     LocationCoordinates getCharacterLocation(const std::string& username) const;
     void changeCharacterLocation(const std::string& username, LocationCoordinates newLocation);
@@ -52,6 +57,15 @@ public:
     CHARACTER_CODE editCharacter(const std::string& username, const std::string& attribute, const std::string& value);
     CHARACTER_CODE isThisFirstTimeSetup(const std::string& username) const;
     void setCharacterIsDoneFirstTimeSetup(std::string& username);
+
+    //MiniGame commands
+    MiniGameLobby& getMiniGameLobby();
+    //Combat commands
+    CombatManager& getCombatManager();
+    CHARACTER_CODE damageCharacter(const std::string& username, int amount);
+    int getCharacterAttack(const std::string& username);
+    int getCharacterHealth(const std::string& username);
+
 };
 
 }

@@ -73,6 +73,11 @@ void Character::setCurrentLocation(LocationCoordinates newLocation){
     this->currentLocation = newLocation;
 }
 
+void Character::damageCharacter(int amount){
+    Attributes damage{-amount, 0};
+    this->currentAttr = this->currentAttr + damage;
+}
+
 void Character::setShortdesc(const std::string& shortdesc) {
     this->shortdesc = shortdesc;
 }
@@ -92,7 +97,7 @@ bool Character::isInCombat() {
 
 bool Character::isAlive() {
     Attributes attr = this->getAttributes();
-    return attr.getHealth() <= 0;
+    return attr.getHealth() > 0;
 }
 
 bool Character::operator==(const Character &other) {
@@ -101,4 +106,8 @@ bool Character::operator==(const Character &other) {
 
 bool Character::operator!=(const Character &other) {
     return this->name.compare(other.name) != 0;
+}
+
+void Character::characterTakeDamage(const int &damage) {
+    currentAttr.setHealth(currentAttr.getHealth() - damage);
 }

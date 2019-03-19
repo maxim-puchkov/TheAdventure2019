@@ -7,10 +7,8 @@
 #include <iostream>
 
 
-
 /**
  * Converts a column to a integer Ex. the move a2 will convert the 'a' into a 0
- *
  */
 int MoveValidator::convertCharColToInt(char input){
 
@@ -51,14 +49,22 @@ int MoveValidator::convertChessRowToInt(char input){
     return result - 1;
 }
 
+<<<<<<< HEAD
 
 //No color
 void MoveValidator::drawBoard() {
     std::string rst = gameBoard.drawBoard();
     std::cout << rst << "\n";
 
+=======
+/**
+ *
+ * @return A string that you can use to draw the board
+ */
+std::string MoveValidator::getBoardView(){
+    return gameBoard.getBoardView();
+>>>>>>> master_ref
 }
-
 
 /**
  * Checks to see if the input is valid.
@@ -68,7 +74,6 @@ void MoveValidator::drawBoard() {
 bool MoveValidator::processChessMove(const ChessCoordinate &startPos, const ChessCoordinate &finishPos) {
 
     if(startPos.col <= -1 || startPos.row <= -1 || finishPos.col <= -1 || finishPos.row <= -1){
-        std::cout << "Output outside of the chess board!\n";
         return false;
     }
 
@@ -76,32 +81,142 @@ bool MoveValidator::processChessMove(const ChessCoordinate &startPos, const Ches
         return false;
     }
 
-
-
     return  gameBoard.movePiece(startPos, finishPos);
+}
 
+
+
+/**
+ * @return A message on how to play the game
+ */
+std::string MoveValidator::helpMessage(){
+
+    std::string msg = "Welcome to chess2019!. Some of the rules are modified from standard chess\n"
+                      "such as checks/checkmates aren't declared, game ends when king is terminated, \n"
+                      "you cannot execute the En passant maneuver, when you reach the end of the board \n"
+                      "with a pawn your piece is promoted to a queen automatically. To input a move enter\n"
+                      "the source coordinate followed by a , followed by another coordinate \n"
+                      "EX. a2,a4  is move piece at column A, row 2 to column A row 4.\n"
+                      "Coordinates are printed on board for reference.  ";
+
+    return msg;
+}
+
+
+
+bool MoveValidator::isGameFinished() const {
+    const Piece &a = gameBoard.getLastPieceKilled();
+    if(a.getPieceUnit() == KING){
+        return true;
+    }
+    return false;
+}
+
+//Should be called after isGameFinished.
+std::string MoveValidator::gameOverMessage() {
+
+    std::string stream = "";
+    const Piece &piece = gameBoard.getLastPieceKilled();
+
+    if(piece.getPieceUnit() != KING){
+        stream = "King isn't dead!, try calling isGameFinished first";
+    }
+    else if( piece.getColor() == RED_LOWERCASE ){
+        stream = "team lowerCase has won the game ";
+    } else {
+        stream = "team upperCase has won the game ";
+    }
+    return stream;
+}
+
+
+
+void MoveValidator::initializeSide(const std::string &playerOne, const std::string &playerTwo) {
+
+    this->playerOne.playerName  = playerOne;
+    this->playerOne.playerColor = RED_LOWERCASE;
+
+    this->playerTwo.playerName  = playerTwo;
+    this->playerTwo.playerColor = BLUE_UPPERCASE;
+
+}
+
+void MoveValidator::setPlayerOne(const std::string &playerOne) {
+
+    this->playerOne.playerName  = playerOne;
+    this->playerOne.playerColor = RED_LOWERCASE;
+
+}
+
+void MoveValidator::setPlayerTwo(const std::string &playerTwo) {
+
+    this->playerTwo.playerName = playerTwo;
+    this->playerTwo.playerColor = BLUE_UPPERCASE;
+
+}
+
+
+//Checks to see if a red player doesn't attempt to move a piece that doesn't belong to them.
+bool MoveValidator::validatePlayer(const std::string &playerName, const Color &color) const {
+
+    if(playerOne.playerName == playerName){
+        return (playerOne.playerColor == color);
+    }
+    if(playerTwo.playerName == playerName){
+        return (playerTwo.playerColor == color);
+    }
+
+    static_assert(-1 && "No playerId matches the one assigned to this game???? you shouldn't see this message");
+    return false;
 }
 
 
 /**
  * @param input - Takes in a chess move. First specify the location of a piece then specify the
- * end spot next. Example move "a2,b6"
+ * end spot next.
+ *
  */
-bool MoveValidator::readChessMove(std::string &input) {
-
-    //HOW TO CHECK FOR NULLPTR? it fails the test i made
-
-    boost::trim(input);
+bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo, const std::string &player) {
 
     std::vector<std::string> result;
-    boost::split(result,input,boost::is_any_of(","));
+    result.push_back(moveFrom);
+    result.push_back(moveTo);
 
     if(result.size() > 2  || result.at(0).size() != 2 || result.at(1).size() != 2 ){
-        //print out error message
-        std::cout << "Invalid input !!!! \n";
         return false;
     }
 
+    int sCol =  convertCharColToInt(result.at(0).at(0));
+    int sRow = convertChessRowToInt(result.at(0).at(1));
+    ChessCoordinate startPos{sRow,sCol};
+
+    int finishPositionColumn = convertCharColToInt(result.at(1).at(0));
+    int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
+    ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
+
+    const Color &pieceColor = gameBoard.requestPiece(startPos).getColor();
+    if( !validatePlayer(player, pieceColor) ) {
+        return false ;
+    }
+    return processChessMove( startPos, finishPos );
+
+}
+
+
+/**
+ * Move's piece regardless of color, left here for test class.
+ * @param moveFrom - ChessCoordinate you are from
+ * @param moveTo   - ChessCoordinate you are moving to.
+ */
+bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo) {
+
+    std::vector<std::string> result;
+    result.push_back(moveFrom);
+    result.push_back(moveTo);
+
+    if(result.size() > 2  || result.at(0).size() != 2 || result.at(1).size() != 2 ){
+        return false;
+    }
 
     int sCol =  convertCharColToInt(result.at(0).at(0));
     int sRow = convertChessRowToInt(result.at(0).at(1));
@@ -114,5 +229,10 @@ bool MoveValidator::readChessMove(std::string &input) {
 
     return processChessMove( startPos, finishPos );
 }
+
+
+
+
+
 
 

@@ -2,7 +2,31 @@
 #include <boost/algorithm/string.hpp>
 
 void CommandCombat::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
-    //fill this
+    auto& combatManager = characterManager.getCombatManager();
+    auto& currentCombat = combatManager.getCombatWithPlayer(username);
+    if(currentCombat.hasPlayer(username)){
+        onlineUserManager.addMessageToUser(username, "One of you are already in a combat!\n");
+    }
+
+    auto& firstCommand = fullCommand.at(1);
+
+    if(firstCommand == "challenge"){
+        auto& challengedName = fullCommand.at(2);
+        if(combatManager.createInvite(username, challengedName)){
+            onlineUserManager.addMessageToUser(username, "Waiting for " + challengedName +" to accept challenge.\n");
+            onlineUserManager.addMessageToUser(challengedName, "You were challenged to combat by " + username +".\n");
+        }
+    }else if(firstCommand == "join" || firstCommand == "accept"){
+        if(combatManager.confirmInvite(username)){
+            combatManager.removeInvite(username);
+            currentCombat = combatManager.getCombatWithPlayer(username);
+            auto opponentName = currentCombat.getOpponent(username);
+            onlineUserManager.addMessageToUser(username, "joined combat with " + opponentName + ".\n");
+            onlineUserManager.addMessageToUser(opponentName, username + " accepted your challenge.\n");
+        } else {
+            onlineUserManager.addMessageToUser(username, "You have not been challenged to combat.\n");
+        }
+    }
 }
 
 std::vector<std::string> CommandCombat::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
