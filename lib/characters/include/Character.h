@@ -23,52 +23,66 @@ const int DEF_CHAR_DAMAGE = 10;
 /**
  *  @class Character
  *
- *  @brief Base class for characters controlled by users or NPC.
+ *  @brief class for both characters controlled by users and NPC via action control modes.
  *
  *  Handles character's attributes, inventory, and equipment.
  */
 class Character {
 public:
     
-    virtual ~Character();
+    Character(const std::string &name);
     
-    virtual void createCharacter(const std::string &name);
+    //TODO: create control mode interface for combat
     
     // Get
-    virtual std::string getName();
+    std::string getName();
     Attributes getAttributes();
     Attributes getBaseAttributes();
     Inventory getInventory();
     Equipment getEquipment();
     LocationCoordinates getCurrentLocation() const;
+
+    std::string getShortdesc() const;
+    std::string getLongdesc() const;
+    std::string getDescription() const;
+    bool getIsDoneFirstTimeSetup() const;
     
     // Set
     void setCurrentLocation(LocationCoordinates newLocation);
-    
+    void damageCharacter(int amount);
+    void setShortdesc(const std::string& shortdesc);
+    void setLongdesc(const std::string& longdesc);
+    void setDescription(const std::string& description);
+    void setFirstTimeSetup(const bool value);
     
     // States ...
-    virtual bool isInCombat();
-    virtual bool isAlive();
-    
+    bool isInCombat();
+    bool isAlive();
     
     // Compare characters' usernames
-    virtual bool operator==(const Character &other);
-    virtual bool operator!=(const Character &other);
-    
-protected:
-    
-    std::string name;
-    
-    Attributes baseAttr;
-    
-    Attributes currentAttr;
-    
-    Equipment equipment;
-    
-    Inventory inventory;
+    bool operator==(const Character &other);
+    bool operator!=(const Character &other);
 
+    // Combat WIP
+    void characterTakeDamage(const int &damage);
+    
+private:
+    std::string name;
+    Attributes baseAttr;
+    Attributes currentAttr;
+    Equipment equipment;
+    Inventory inventory;
     LocationCoordinates currentLocation;
     
+    //basic stuff to allow user edit
+    std::string shortdesc;
+    std::string longdesc;
+    std::string description;
+
+    //first time set up flag
+    bool isDoneFirstTimeSetup = false;
+
+    void createCharacter(const std::string &name);
 };
 
 #endif /* Character_h */

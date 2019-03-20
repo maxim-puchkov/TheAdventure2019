@@ -43,7 +43,7 @@ User& OnlineUserManager::getUserByUsername(const std::string& userName){
     return nullUser;
 }
 
-
+//TODO: switch this to a type
 std::string OnlineUserManager::getConnectionID(const std::string& userName) {
 	for (auto &element : onlineUsers) {
         if(element.second.getUserName() == userName) {
@@ -58,18 +58,17 @@ std::string OnlineUserManager::getUsernameFromConnectionID(const std::string& co
 	return user.getUserName();
 }
 
-long OnlineUserManager::getTimeStamp(){
+long OnlineUserManager::currentTimeStamp(){
     auto now = std::chrono::system_clock::now();
     auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
     auto epoch = now_ms.time_since_epoch();
     auto value = std::chrono::duration_cast<std::chrono::milliseconds>(epoch);
     long timeStamp = value.count();
-    std::cout << "TIME: " << timeStamp << "\n";
     return timeStamp;
 }
 
 bool OnlineUserManager::updateUserTimeStamp(const std::string& id) {
-    long timeStamp = getTimeStamp();
+    long timeStamp = currentTimeStamp();
     auto &user = getUserById(id);
     if(user.getUserName() != "") {
         user.setTimeStamp(timeStamp);
@@ -144,28 +143,43 @@ std::vector<std::pair<std::string, std::vector<std::string>>> OnlineUserManager:
     return std::move(commandList);
 }
 
-std::string OnlineUserManager::removeUnactiveUser(){
-    if(onlineUsers.size() != 0) {
-        auto user = onlineUsers.begin()->second;
-        auto connectionID = onlineUsers.begin()->first;
-        auto timeStamp = user.getTimeStamp();
-        for (auto &element : onlineUsers) {
-            if(element.second.getTimeStamp() < timeStamp) {
-                user = element.second;
-                connectionID = element.first;
-                timeStamp = user.getTimeStamp();
-            }
-        }
-        std::cout << "Username: " << user.getUserName();
-        std::cout << "\n";
-        std::cout << "Timestamp: " << user.getTimeStamp();
-        std::cout << "\n";
-        return connectionID;
-    }
-    return "";
+bool sortFunction(User i, User j) {
+    return i.getTimeStamp() < j.getTimeStamp();
 }
 
+// User who unactive for more than 300000 millisecond will be kicked
+std::vector<std::string> OnlineUserManager::unactiveUser(){
+    long currentTime = currentTimeStamp();
+    long timeToKick = currentTime - 300000;
+    std::vector<std::string> unactiveUserIDs;
+    if(onlineUsers.size() != 0) {
+        std::vector<User> listUsers;
+        for (auto &element : onlineUsers) {
+            listUsers.push_back(element.second);
+        }
+        std::sort(listUsers.begin(), listUsers.end(), sortFunction);
+        for(auto& value: listUsers) {
+            if(value.getTimeStamp() < timeToKick) {
+                unactiveUserIDs.push_back(getConnectionID(value.getUserName()));
+            }
+        }
+    }
+    return unactiveUserIDs;
+}
 
+OnlineUserManager::USER_CODE OnlineUserManager::getUserRole(const std::string& username) {
+    auto& user = getUserByUsername(username);
+    if(user == nullUser) {
+        return OnlineUserManager::USER_CODE::USER_NOT_FOUND;
+    } else if (user.getRole() == User::USER_ROLE::ADMIN) {
+        return OnlineUserManager::USER_CODE::USER_ADMIN;
+    } else if (user.getRole() == User::USER_ROLE::NORMAL_USER) {
+        return OnlineUserManager::USER_CODE::USER_NORMAL_USER;
+    } else {
+        //error state
+        return OnlineUserManager::USER_CODE::INVALID_USERNAME;
+    }
+}
 
 
 
@@ -174,11 +188,14 @@ std::string OnlineUserManager::removeUnactiveUser(){
 OnlineUserManager::USER_CODE OnlineUserManager::login(const std::string& id, const std::string& userName, const std::string& pwd){
     auto user = userDB.getUser(userName,pwd);
     if(user.getUserName() != ""){
-        if(!insertUser(id, user)){
+        auto search = onlineUsers.find(id);
+        if (search != onlineUsers.end()) {
             return OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN;
+        }else{
+            user.setTimeStamp(currentTimeStamp());
+            insertUser(id, user);
+            return OnlineUserManager::USER_CODE::USER_LOGGED_IN;
         }
-        onlineUsers.insert(std::make_pair(id, user));
-        return OnlineUserManager::USER_CODE::USER_LOGGED_IN;
     }
     else{
         return OnlineUserManager::USER_CODE::USER_NOT_FOUND;
