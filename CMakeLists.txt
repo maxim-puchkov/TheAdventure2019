@@ -16,6 +16,7 @@ set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
 #   dependencies on any library.
 
 set(libauthentication "authentication")
+set(libbuilder "builder")
 set(libcharacters "characters")
 set(libcharacterdb "characterDB")
 set(libcommands "commands") 

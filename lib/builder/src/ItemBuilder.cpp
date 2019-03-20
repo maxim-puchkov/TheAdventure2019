@@ -1,50 +1,50 @@
 //
-//  ItemConstructor.cpp
+//  ItemBuilder.cpp
 //  adventure2019
 //
 //  Created by admin on 2019-03-05.
 //  Copyright © 2019 maximpuchkov. All rights reserved.
 //
 
-#include "ItemConstructor.h"
+#include "ItemBuilder.h"
 
 
-ItemConstructor::ItemConstructor()
+ItemBuilder::ItemBuilder()
 { }
 
 
-ItemConstructor::~ItemConstructor()
+ItemBuilder::~ItemBuilder()
 { }
 
 
-Item ItemConstructor::create() {
+Item ItemBuilder::create() {
     return Item(id, keywords, description, extras);
 }
 
 
-void ItemConstructor::reset() {
+void ItemBuilder::reset() {
     this->clearAll();
 }
 
 
-void ItemConstructor::setKeywords(const KeywordSet &keywords) {
+void ItemBuilder::setKeywords(const KeywordSet &keywords) {
     this->keywords = keywords;
 }
 
 
-void ItemConstructor::setDescription(const Description &description) {
+void ItemBuilder::setDescription(const Description &description) {
     //this->description = Description(description, LINE_WIDTH, SHORT_DESCRIPTION_WIDTH);
 }
 
 
-void ItemConstructor::clearAll() {
+void ItemBuilder::clearAll() {
     this->keywords.clear();
     this->description.clear();
     this->extras.clear();
 }
 
 
-//Identifier ItemConstructor::nextIdentifier() {
+//Identifier ItemBuilder::nextIdentifier() {
 //    return this->unique_identifiers.generate();
 //}
 

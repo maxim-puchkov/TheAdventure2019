@@ -1,4 +1,5 @@
 add_subdirectory(${libauthentication})
+add_subdirectory(${libbuilder})
 add_subdirectory(${libcharacters})
 add_subdirectory(${libcharacterdb})
 add_subdirectory(${libcommands})

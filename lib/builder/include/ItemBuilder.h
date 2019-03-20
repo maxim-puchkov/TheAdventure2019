@@ -1,17 +1,17 @@
 //
-//  ItemConstructor.h
+//  ItemBuilder.h
 //  adventure2019
 //
 //  Created by admin on 2019-03-05.
 //  Copyright © 2019 maximpuchkov. All rights reserved.
 //
 
-#ifndef ItemConstructor_h
-#define ItemConstructor_h
+#ifndef ItemBuilder_h
+#define ItemBuilder_h
 
 #include <vector>
 #include <string>
-#include "Constructor.h"
+#include "Builder.h"
 #include "Object.h"
 #include "Item.h"
 #include "Description.h"
@@ -29,17 +29,17 @@ const unsigned int SHORT_DESCRIPTION_WIDTH = 20;
 namespace objects {
 
 /**
- @class ItemConstructor (IC)
+ @class ItemBuilder (IC)
  
  @brief Constructs items with keywords, descriptions,
         and extra commands
  */
-class ItemConstructor : public Constructor {
+class ItemBuilder : public Constructor {
 public:
     
-    ItemConstructor();
+    ItemBuilder();
     
-    ~ItemConstructor();
+    ~ItemBuilder();
     
     
     
@@ -84,4 +84,4 @@ private:
 
 }
 
-#endif /* ItemConstructor_h */
+#endif /* ItemBuilder_h */

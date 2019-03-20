@@ -1,5 +1,5 @@
 //
-//  ItemConstructorTests.cpp
+//  ItemBuilderTests.cpp
 //  
 //
 //  Created by admin on 2019-03-16.
@@ -8,21 +8,21 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "ItemConstructor.h"
+#include "ItemBuilder.h"
 
 
 
 namespace objects {
 
 
-/// ItemConstructorTests Fixture
-class ItemConstructorTests : public testing::Test {
+/// ItemBuilderTests Fixture
+class ItemBuilderTests : public testing::Test {
 protected:
     
     void SetUp() override {
         
         // Initial set up before each test...
-        constructor = ItemConstructor();
+        constructor = ItemBuilder();
         
     }
     
@@ -36,7 +36,7 @@ protected:
     
     /* * *         Variables        * * */
     
-    ItemConstructor constructor;
+    ItemBuilder constructor;
     
 };
 
@@ -50,7 +50,7 @@ protected:
 
 /* Fixture Tests */
     
-TEST_F(ItemConstructorTests, Construction) {
+TEST_F(ItemBuilderTests, Construction) {
     
     // Variable input
     vector<string> keys{"sword", "rare"};
@@ -72,7 +72,7 @@ TEST_F(ItemConstructorTests, Construction) {
 }
 
 
-TEST_F(ItemConstructorTests, Authention) {
+TEST_F(ItemBuilderTests, Authention) {
     
     // Item's keywords and description
     vector<string> keys{"Unique item", "First item's id ID = 1"};
@@ -88,7 +88,7 @@ TEST_F(ItemConstructorTests, Authention) {
 }
 
 
-TEST_F(ItemConstructorTests, KeywordMatching) {
+TEST_F(ItemBuilderTests, KeywordMatching) {
     
     // Variable input
     vector<string> keys{"1. A keyword", "2. Also a keyword"};
@@ -108,7 +108,7 @@ TEST_F(ItemConstructorTests, KeywordMatching) {
 }
 
 /*
-TEST_F(ItemConstructorTests, KeywordType) {
+TEST_F(ItemBuilderTests, KeywordType) {
  
     string skey = "string key";
     char *ckey = "char* key";
