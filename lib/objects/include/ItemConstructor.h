@@ -52,13 +52,14 @@ public:
     /// - parameter keywords: Item's unique keywords
     void setKeywords(const KeywordSet &keywords) override;
     
-    void setKeywords(const vector<string> &vs) {
-        return;
+    /** @ignore */
+    void setKeywords(const vector<Key> &vs) {
+        KeywordSet keyw(vs);
+        this->setKeywords(keyw);
     }
     
     /// Set item's description text
     void setDescription(const Description &description) override;
-    
     void setDescription(const string &text) {
         this->setDescription(Description(text));
     }
@@ -70,6 +71,7 @@ private:
     
     /// Clear all data members and reset to default value
     void clearAll();
+    
     
     
     // Item Constructor Data members
