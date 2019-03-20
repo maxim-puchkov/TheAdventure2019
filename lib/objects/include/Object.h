@@ -34,10 +34,9 @@
 #include "KeywordSet.h"
 #include "Description.h"
 
+
 namespace objects {
 using namespace data;
-
-
 
 /**
     @class Object
@@ -56,10 +55,7 @@ public:
     
 };
 
-
-
 } /* namespace objects */
-
 
 
 #endif /* Object_h */
