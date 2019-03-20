@@ -20,12 +20,17 @@
 //
 
 #include "KeywordSet.h"
-
 using namespace objects::data;
+
 
 KeywordSet::KeywordSet() {
     this->set = std::unordered_set<Key>();
     
+}
+
+//template<template<typename> class Container>
+KeywordSet::KeywordSet(const std::vector<Key> &container) {
+    this->set = std::unordered_set<Key>(std::make_move_iterator(container.cbegin()), std::make_move_iterator(container.cend()));
 }
 
 

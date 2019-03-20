@@ -32,11 +32,14 @@
 
 
 namespace objects::data::structures {
-    
+
+
 class KeywordSet {
 public:
     
     KeywordSet();
+    //template<template<typename> class Container>
+    KeywordSet(const std::vector<Key> &container);
     
     bool contains(const Key &key) const;
     //void insert()
@@ -52,6 +55,8 @@ public:
     
     KeywordSet& operator=(KeywordSet &);
     KeywordSet& operator=(const KeywordSet &);
+    bool operator==(KeywordSet &ks) const { return this->set == ks.set; };
+    bool operator==(const KeywordSet &ks) const { return this->set == ks.set; };
     
 private:
     
@@ -61,7 +66,8 @@ private:
 };
 
 
-
 } /* namespace objects */
+
+
 
 #endif /* KeywordSet_h */
