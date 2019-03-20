@@ -16,7 +16,6 @@
 #include <iostream>
 #include "Item.h"
 
-#include "Identifier.h"
 #include "Constructor.h"
 #include "Object.h"
 
@@ -27,6 +26,13 @@ using std::string;
 namespace objects {
 
 
+/**
+ @class Collection
+ @brief Object that may contain other objects
+ 
+ @discussion WIP
+ @ignore
+ */
 template<typename T>
 class Collection : public Object {
 public:
@@ -52,6 +58,6 @@ private:
 };
 
 
-}
+} /* namespace objects */
 
 #endif /* Collection_h */
