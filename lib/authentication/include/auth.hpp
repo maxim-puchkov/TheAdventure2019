@@ -1,5 +1,5 @@
 //
-//  Auth.h
+//  auth.hpp
 //  adventure2019: Authentication
 //  com.maximpuchkov.Faworki.adventure2019.Auth
 //
@@ -15,10 +15,17 @@
 #include "Identity.h"
 
 
+/**
+ @namespace auth
+ 
+ @brief Library scope declaration
+ */
 namespace auth {
 
-/// Default id type
-using IdentifierTypename = uint64_t;
+/// Unsigned integer number
+inline namespace defaults {
+    using IdentifierTypename = uint64_t;
+}
 
 
 
@@ -29,8 +36,7 @@ class Authentication;
 template<typename T = IdentifierTypename>
 class Identity;
     
-
 }
 
 
-#endif /* Auth_h */
+#endif /* auth_hpp */
