@@ -9,17 +9,17 @@
 //
 
 #include "Identity.h"
-using namespace auth::identity;
-
-
-template<typename IdentifierType>
-template<class Instance>
-void Identity<IdentifierType>::identify(Instance &&instance) {
-    // Validate instance does not have an id
-    
-    // If instance does not have an identifier
-    //   generate new id and assign it
-    
-    // Else, do nothing
-}
+//using namespace auth::identity;
+//
+//
+//template<typename IdentifierTypename>
+//template<class Instance>
+//void Identity<IdentifierTypename>::identify(Instance &&instance) {
+//    // Validate instance does not have an id
+//    
+//    // If instance does not have an identifier
+//    //   generate new id and assign it
+//    
+//    // Else, do nothing
+//}
 

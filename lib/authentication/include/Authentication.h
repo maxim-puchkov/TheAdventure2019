@@ -22,29 +22,23 @@
 #ifndef Authentication_h
 #define Authentication_h
 
-
-#include <stdint.h>
-
-#include "Auth.h"
+#include "auth.hpp"
 #include "Identity.h"
-
 
 
 namespace auth {
     
-    inline namespace config {
-        using IdentifierType = u_int64_t;
-    }
-    
+    /*
     class Authentication {
     public:
-        IdentifierType newIdentifier() const;
+        IdentifierTypename newIdentifier() const;
     private:
     };
     
     namespace identity {
-        Identity<config::IdentifierType> identifiers();
+        Identity<IdentifierTypename> identifiers();
     }
+    */
     
 }
 

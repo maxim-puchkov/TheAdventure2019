@@ -11,34 +11,31 @@
 #ifndef Identity_h
 #define Identity_h
 
-#include "Auth.h"
-using namespace auth;
-
-
-
-namespace auth::identity {
+#include "auth.hpp"
 
 
 /**
- @class Identity
- 
- @brief < ... >
+    @class Identity
+
+    @brief < ... >
  */
-template<typename IdentifierType> // = config::IdentifierType>
+template<typename Identifier>
 class Identity {
 public:
     
-    /// Identify any instance by a unique identificator number
-    template<class Instance>
-    void identify(Instance &&instance);
+    /// Initial identifier
+    const Identifier initial;
+    
+    
+    /// Identify any type by a assigning a unique identifier
+    template<typename T>
+    void identify(T &&t);
     
 private:
     
-    const IdentifierType initial;
-    IdentifierType current;
+    Identifier current;
+    
 };
-    
-    
-}
+
 
 #endif /* Identity_h */
