@@ -16,7 +16,6 @@
 #include <sstream>
 #include <unordered_set>
 
-#include "Identifier.h"
 #include "Constructor.h"
 #include "Description.h"
 #include "Object.h"

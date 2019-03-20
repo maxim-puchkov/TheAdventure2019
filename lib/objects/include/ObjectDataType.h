@@ -21,7 +21,7 @@ namespace objects {
 namespace data {
     
     inline namespace typenames {
-        using Identifier = u_int64_t;
+        using Identifier = uint64_t;
         using Key = std::string;
         using Text = std::string;
         using Set = std::unordered_set<Key>;
@@ -39,5 +39,6 @@ namespace data {
 } /* namespace data */
 
 } /* namespace objects */
+
 
 #endif /* ObjectDataType_h */
