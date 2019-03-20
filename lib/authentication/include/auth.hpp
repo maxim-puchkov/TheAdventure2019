@@ -11,20 +11,25 @@
 #ifndef Auth_h
 #define Auth_h
 
+#include <stdint.h>
+#include "Identity.h"
+
 
 namespace auth {
+
+/// Default id type
+using IdentifierTypename = uint64_t;
+
+
+
+///
+class Authentication;
+
+///
+template<typename T = IdentifierTypename>
+class Identity;
     
-    inline namespace config { }
-    
-    ///
-    class Authentication;
-    
-    /// u long long
-    class Identity;
-    
-    
-    
-    
+
 }
 
 
