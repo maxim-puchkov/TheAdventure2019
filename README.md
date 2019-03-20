@@ -362,7 +362,7 @@ chat on the server via web sockets in browsers that support web sockets.
 
 
 [commits/libraries]: /../commits/libraries
-[lib-status]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/badges/master/pipeline.svg
+[lib-status]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/badges/libraries/pipeline.svg
 [lib-cover]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/badges/libraries/coverage.svg
 
 [commits/master]: /../commits/master
