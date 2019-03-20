@@ -21,24 +21,9 @@ Item::Item(Identifier id,
 { }
 
 
-
-//Item::Item(Identifier id, Item &other)
-//: id(id), keywords(other.keywords), description(other.description), extras(other.extras)
-//{ }
-//
-//
-//Item::Item(Identifier id, const Item &other)
-//: id(id), keywords(other.keywords), description(other.description), extras(other.extras)
-//{ }
-
 Identifier Item::id() const {
     return this->itemID;
 }
-
-
-//KeywordSet& Item::keywords() {
-//    return this->keywords();
-//}
 
 
 string Item::brief() const {
@@ -51,9 +36,16 @@ string Item::details() const {
 }
 
 
+bool Item::hasKeyword(const Key &keyword) const {
+    return this->keywords.contains(keyword);
+}
+
+
 bool Item::examine(const Key &keyword) const {
     
+    // .....
     return true;
+    
 }
 
 

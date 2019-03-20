@@ -51,8 +51,8 @@ public:
     Identifier id() const override;
     
     
-    /// Retrieve object's reference to keywords
-    // KeywordSet& keywords() override;
+    /// Set of keywords describing this item
+    KeywordSet keywords;
     
     
     /// Display item's first keyword
@@ -63,42 +63,25 @@ public:
     string details() const override;
     
     
-    bool hasKeyword(const Key &keyword) const {
-        return this->keywords.contains(keyword);
-    }
-    
     /// Examine an Extra attribute of an item
     bool examine(const Key &keyword) const override;
     
     
-//
-//    Item& operator=(const Item &other) {
-//        this->keywords = other.keywords;
-//        this->description = other.description;
-//        this->extras = other.extras;
-//        return *this;
-//    }
-//
-//
-//    Item& operator=(Item &other) {
-//        this->keywords = other.keywords;
-//        this->description = other.description;
-//        this->extras = other.extras;
-//        return *this;
-//    }
+    /// Assignment
+    Item& operator=(const Item &other); /* undefined */
+    Item& operator=(Item &other); /* undefined */
     
-    KeywordSet keywords;
-
+    
+    // #rename
+    bool hasKeyword(const Key &keyword) const;
 
 private:
     
     Identifier itemID;
     
-    
-    
     Description description;
     
-    Extras extras;
+    Extras extras; /* undefined */
     
 };
 
