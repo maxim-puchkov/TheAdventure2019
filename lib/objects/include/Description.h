@@ -24,13 +24,13 @@ namespace objects::data::structures {
 
 
 /**
- @class Description
+ @struct Description
  
  @brief Short and long descriptions of an item. If description
         is a long text, it will be broken down into multiple
         lines depending on the line width.
  */
-class Description {
+struct Description {
 public:
     
     Description();

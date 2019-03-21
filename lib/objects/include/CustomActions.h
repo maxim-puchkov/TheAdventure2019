@@ -16,13 +16,15 @@
 
 
 /**
-    @class CustomActions
+ @class CustomActions
  
-    @brief Defines action reference, for any
+ @brief Defines action reference, for any
            custom action key or its alias
+ 
+ @ignore
  */
 template<typename KeyType, typename RefType>
-class CustomActions {
+struct CustomActions {
 public:
     
     CustomActions()

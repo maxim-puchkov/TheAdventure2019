@@ -34,7 +34,7 @@
 namespace objects::data::structures {
 
 
-class KeywordSet {
+struct KeywordSet {
 public:
     
     KeywordSet();

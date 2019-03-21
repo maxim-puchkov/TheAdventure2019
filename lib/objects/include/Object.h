@@ -47,10 +47,22 @@ using namespace data;
 class Object {
 public:
     
+    virtual ~Object()
+    { }
+    
+    /// Retrieve object ID
     virtual Identifier id() const = 0;
     
+    
+    /// Examine an Extra attribute of an item
     virtual bool examine(const Key &keyword) const = 0;
+    
+    
+    /// Display detailed info
     virtual Text details() const = 0;
+    
+    
+    /// Display item's first keyword
     virtual Key brief() const = 0;
     
 };

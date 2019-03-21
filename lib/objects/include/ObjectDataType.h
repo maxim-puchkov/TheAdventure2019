@@ -31,9 +31,9 @@ namespace data {
 
 
     inline namespace structures {
-        class KeywordSet;
-        class Description;
-        class CustomActions;
+        struct KeywordSet;
+        struct Description;
+        struct CustomActions;
     } /* namespace structures */
     
 } /* namespace data */
