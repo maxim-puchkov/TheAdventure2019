@@ -1,25 +1,30 @@
-# Documentation update
+# Documentation
 
 No description.
 <!-- Write a description here -->
-
 
 
 <!-- If a document is changed -->
 <!-- * [ ] {+++}New Something -->
 <!-- * [ ] {---}Deleted Something -->
 
-### Documentation
+
+
+
+### Team
 
 <!-- Add editors here -->
-Ediitor: <!-- @editor -->
+Editor: <!-- @editor -->
 
 <!-- Mention anyone here -->
 <!-- Notify: <!-- @anyone --> -->
 
-
 <!-- See the Feature Change Documentation Workflow https://docs.gitlab.com/ee/development/documentation/feature-change-workflow.html
 Add all known Documentation Requirements here, per https://docs.gitlab.com/ee/development/documentation/feature-change-workflow.html#documentation-requirements -->
+
+
+
+
 
 ### Further details
 
@@ -30,4 +35,5 @@ Add all known Documentation Requirements here, per https://docs.gitlab.com/ee/de
 <!-- /assign @editor -->
 
 <!-- Add labels here -->
+
 /label ~documentation
