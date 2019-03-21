@@ -5,6 +5,7 @@ add_executable(runAllTests
   # Place each file name on a separate line.
   tests.cpp
   Dummy.cpp # This file is a placeholder and tests nothing.
+  testChessBoard.cpp
 )
 
 target_link_libraries(runAllTests
