@@ -27,8 +27,7 @@ using std::vector;
 
 
 namespace objects {
-
-
+    namespace data {
 
 
 /**
@@ -85,7 +84,7 @@ private:
     
 };
 
-
+    }
 }
 
 #endif /* Item_h */

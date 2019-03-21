@@ -34,7 +34,7 @@ namespace objects {
  @brief Constructs items with keywords, descriptions,
         and extra commands
  */
-class ItemBuilder : public Constructor {
+class ItemBuilder : public Builder {
 public:
     
     ItemBuilder();

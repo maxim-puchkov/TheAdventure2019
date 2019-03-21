@@ -1,25 +1,25 @@
 //
-//  Constructor.h
+//  Builder.h
 //  adventure2019
 //
 //  Created by admin on 2019-03-05.
 //  Copyright © 2019 maximpuchkov. All rights reserved.
 //
 
-#ifndef Constructor_h
-#define Constructor_h
+#ifndef Builder_h
+#define Builder_h
 
-#include <string>
-#include <vector>
+// #include <string>
+// #include <vector>
 
-#include "ObjectDataType.h"
-#include "Object.h"
+// #include "ObjectDataType.h"
+// #include "Object.h"
 
 
-using std::string;
-using std::vector;
+// using std::string;
+// using std::vector;
 
-using namespace objects;
+// using namespace objects;
 
 
 
@@ -27,12 +27,12 @@ using namespace objects;
 
 
 /**
- @class Constructor Interface
+ @class Builder Interface
  
  @brief In-game object interface with a unique object id,
         identifying keywords, and description text.
  */
-class Constructor {
+class Builder {
 public:
     
     /// Reset current object creation
@@ -44,6 +44,13 @@ public:
     /// Set object's description text
     virtual void setDescription(const Description &description) = 0;
     
+    
+    // template<typename KeywordSet>
+    // virtual void setKeywords(const KeywordSet &keywords) = 0;
+    
+    // template<typename Description>
+    // virtual void setDescription(const Description &description) = 0;
+    
 };
 
-#endif /* Constructor_h */
+#endif /* Builder_h */
