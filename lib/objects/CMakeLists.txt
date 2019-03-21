@@ -15,7 +15,6 @@ target_include_directories(${libobjects}
 )
 
 target_link_libraries(${libobjects}
-	${libbuilder}
 	${libauthentication}
 )
 
