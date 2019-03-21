@@ -16,10 +16,7 @@
 #include <sstream>
 #include <unordered_set>
 
-#include "Builder.h"
-#include "Description.h"
 #include "Object.h"
-
 
 using std::string;
 using std::vector;
@@ -27,7 +24,8 @@ using std::vector;
 
 
 namespace objects {
-    namespace data {
+using structures::KeywordSet;
+using structures::Description;
 
 
 /**
@@ -40,11 +38,27 @@ public:
     
     /// Default item constructor with an object ID, identifying keywords,
     ///     item description, and extra actions.
-    Item(Identifier id,
-         const KeywordSet &keywords,
-         const Description &description,
-         const Extras &extras);
+//    Item(Identifier id,
+//         const KeywordSet &keywords,
+//         const Description &description,
+//         const Extras &extras);
     
+    
+    
+    /*  *  *  *  *  *  *  *  */
+    Item()
+    { }
+    
+    Item(const KeywordSet &keywords, const Description &description)
+    : keywords(keywords), description(description)
+    { }
+    /*  *  *  *  *  *  *  *  */
+    
+    
+    
+    ~Item() override {
+        
+    }
     
     /// Retrieve object ID
     Identifier id() const override;
@@ -84,7 +98,6 @@ private:
     
 };
 
-    }
 }
 
 #endif /* Item_h */

@@ -13,16 +13,17 @@
 using namespace objects;
 
 
-Item::Item(Identifier id,
-           const KeywordSet &keywords,
-           const Description &description,
-           const Extras &extras)
-: itemID(id), keywords(keywords), description(description), extras(extras)
-{ }
+//Item::Item(Identifier id,
+//           const KeywordSet &keywords,
+//           const Description &description,
+//           const Extras &extras)
+//: itemID(id), keywords(keywords), description(description), extras(extras)
+//{ }
 
 
 Identifier Item::id() const {
-    return this->itemID;
+    // return this->itemID;
+    throw 2;
 }
 
 

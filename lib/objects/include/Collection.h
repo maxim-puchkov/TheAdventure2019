@@ -14,9 +14,7 @@
 #include <functional>
 #include <sstream>
 #include <iostream>
-#include "Item.h"
 
-#include "Builder.h"
 #include "Object.h"
 
 using std::string;
@@ -24,6 +22,8 @@ using std::string;
 
 
 namespace objects {
+using structures::KeywordSet;
+using structures::Description;
 
 
 /**
@@ -33,29 +33,29 @@ namespace objects {
  @discussion WIP
  @ignore
  */
-template<typename T>
-class Collection : public Object {
-public:
-    
-    Collection() { }
-    
-    Identifier id() const override;
-    
-    // KeywordSet& keywords() override;
-    
-    
-    bool examine(const string &keyword) const override;
-    
-    string brief() const override;
-    
-    string details() const override;
-    
-    
-private:
-    
-    std::unordered_set<T> items;
-    
-};
+//template<typename T>
+////class Collection : public Object {
+//public:
+//    
+//    Collection() { }
+//    
+//    Identifier id() const override;
+//    
+//    // KeywordSet& keywords() override;
+//    
+//    
+//    bool examine(const string &keyword) const override;
+//    
+//    string brief() const override;
+//    
+//    string details() const override;
+//    
+//    
+//private:
+//    
+//    std::unordered_set<T> items;
+//    
+//};
 
 
 } /* namespace objects */
