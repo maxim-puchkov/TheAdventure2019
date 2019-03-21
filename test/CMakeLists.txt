@@ -8,6 +8,7 @@ add_executable(runAllTests
 )
 
 target_link_libraries(runAllTests
+  ${libminigame}
   gmock
   gtest
   gtest_main
