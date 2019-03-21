@@ -7,6 +7,8 @@
 //
 
 #include "ItemBuilder.h"
+using namespace objects;
+
 
 
 ItemBuilder::ItemBuilder()
@@ -18,7 +20,10 @@ ItemBuilder::~ItemBuilder()
 
 
 Item ItemBuilder::create() {
-    return Item(id, keywords, description, extras);
+    //return Item(id, keywords, description, extras);
+    //return Item(keywords, description);
+    //return Item();
+    throw 1;
 }
 
 
@@ -47,5 +52,3 @@ void ItemBuilder::clearAll() {
 //Identifier ItemBuilder::nextIdentifier() {
 //    return this->unique_identifiers.generate();
 //}
-
-

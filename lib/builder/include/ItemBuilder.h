@@ -11,11 +11,12 @@
 
 #include <vector>
 #include <string>
+
 #include "Builder.h"
-#include "Object.h"
 #include "Item.h"
-#include "Description.h"
-#include "KeywordSet.h"
+
+// #include "Description.h"
+// #include "KeywordSet.h"
 
 using std::string;
 using std::vector;
@@ -28,8 +29,9 @@ const unsigned int SHORT_DESCRIPTION_WIDTH = 20;
 
 namespace objects {
 
+
 /**
- @class ItemBuilder (IC)
+ @class ItemBuilder (IB)
  
  @brief Constructs items with keywords, descriptions,
         and extra commands
@@ -39,7 +41,7 @@ public:
     
     ItemBuilder();
     
-    ~ItemBuilder();
+    ~ItemBuilder() override;
     
     
     
@@ -82,6 +84,7 @@ private:
     
 };
 
-}
+
+} /* namespace objects */
 
 #endif /* ItemBuilder_h */

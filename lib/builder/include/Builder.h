@@ -9,20 +9,10 @@
 #ifndef Builder_h
 #define Builder_h
 
-// #include <string>
-// #include <vector>
+#include "ObjectDataType.h"
+#include "Object.h"
 
-// #include "ObjectDataType.h"
-// #include "Object.h"
-
-
-// using std::string;
-// using std::vector;
-
-// using namespace objects;
-
-
-
+using namespace objects::data;
 
 
 
@@ -34,6 +24,9 @@
  */
 class Builder {
 public:
+    
+    virtual ~Builder()
+    { }
     
     /// Reset current object creation
     virtual void reset() = 0;
