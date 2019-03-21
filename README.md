@@ -3,19 +3,18 @@
 ### Quick Links
 * Iteration
     * [Boards][boards] ~important
-    * [Issues][issues]
+    * [Issues][issues] 
         * [Add][issues/new]
     * [Milestones][milestones]
+    * [Labels][labels]
+* [Wiki pages][wiki] ~wiki
 * Branches
     * [_Master_](#master) 
     * [_Libraries_](#libraries)
     * [Graph][graph]
 * Details
     * [Build & Run code](#run-chat-server-and-chat-client)
-    * [Compiler warnings](#warnings)
     * [Progress checklist][progress]
-* More
-    * [Labels][labels]
     * [Markdown][markdown]
 
 > _Feb 16 - Mar 15_
@@ -151,7 +150,7 @@ chat on the server via web sockets in browsers that support web sockets.
 
 <br /><br />
 
-# Warnings
+## Warnings
 
 Warnings are removed from __README__.
 
@@ -165,7 +164,7 @@ Warnings are removed from __README__.
 
 <br />
 
-# Progress
+## Progress
 
 Progress is removed from __README.md__.
 
@@ -180,8 +179,7 @@ Progress is removed from __README.md__.
 
 
 
-<!-- Resources -->
-
+<!-- Links -->
 [issues]: /../issues/
 [issues/new]: /../issues/new/
 [boards]: /../boards/
@@ -192,7 +190,7 @@ Progress is removed from __README.md__.
 [markdown]: https://csil-git1.cs.surrey.sfu.ca/help/user/markdown.md
 
 [network]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/tree/master/lib/network
-[network/index]: [network]/index.md
+[network/index]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/tree/master/lib/network/index.md
 
 [commits/master]: /../commits/master
 [master-status]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/badges/master/pipeline.svg
@@ -202,4 +200,5 @@ Progress is removed from __README.md__.
 [lib-status]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/badges/libraries/pipeline.svg
 [lib-cover]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/badges/libraries/coverage.svg
 
+[wiki]: /../wikis/
 [progress]: /../wikis/progress/
