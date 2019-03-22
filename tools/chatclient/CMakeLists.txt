@@ -19,7 +19,6 @@ target_include_directories(chatclient
 )
 
 target_link_libraries(chatclient
-    ${libscripts}
     ${libnetwork}
     ${CURSES_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}

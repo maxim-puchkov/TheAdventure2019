@@ -1,4 +1,4 @@
-add_library(${libauthentication}
+add_library(${libauthentication} SHARED
 	src/Authentication.cpp
     src/Identity.cpp
 )
@@ -16,11 +16,11 @@ target_link_libraries(${libauthentication}
 )
 
 set_target_properties(${libauthentication}
-                      PROPERTIES
-                      LINKER_LANGUAGE CXX
-                      CXX_STANDARD 17
+    PROPERTIES
+    LINKER_LANGUAGE CXX
+    CXX_STANDARD 17
 )
 
 install(TARGETS ${libauthentication}
-    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
 )

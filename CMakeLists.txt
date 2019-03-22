@@ -10,23 +10,21 @@ set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
 
 
 
-# Declare new libraries here. Other CMakeLists
-#   will not need changes.
-# Or search for ${libNAME} to quickly find all
-#   dependencies on any library.
+# Declare new libraries here
 
 set(libauthentication "authentication")
-set(libbuilder "builder")
+set(libbuilder "Builder")
 set(libcharacters "characters")
 set(libcharacterdb "characterDB")
 set(libcommands "commands") 
 set(libgame "game")
+set(libitem "Item")
 set(libnetwork "network")
 set(libusers "users")
 set(libworld "world")
 set(libparsers "parsers")
 set(libuserdb "userdb")
-set(libobjects "objects")
+set(libobject "Object")
 set(libtypes "types")
 set(libminigame "minigame")
 set(libcombat "combat")

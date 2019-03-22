@@ -1,12 +1,11 @@
-add_library(${libobjects}
+add_library(${libobject} SHARED
 	src/Object.cpp
 	src/KeywordSet.cpp
-	src/Collection.cpp
 	src/Description.cpp
-	src/Collection.cpp
+    src/Actions.cpp
 )
 
-target_include_directories(${libobjects}
+target_include_directories(${libobject}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -14,16 +13,16 @@ target_include_directories(${libobjects}
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(${libobjects}
+target_link_libraries(${libobject}
 	${libauthentication}
 )
 
-set_target_properties(${libobjects}
+set_target_properties(${libobject}
     PROPERTIES
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
 )
 
-install(TARGETS ${libobjects}
-    ARCHIVE DESTINATION lib
+install(TARGETS ${libobject}
+    LIBRARY DESTINATION lib
 )

@@ -1,8 +1,10 @@
-add_library(${libbuilder} SHARED
-    src/Builder.cpp
+add_library(${libitem} SHARED
+    src/Item.cpp
+    src/ItemBuilder.cpp
+#    src/Collection.cpp
 )
 
-target_include_directories(${libbuilder}
+target_include_directories(${libitem}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -10,16 +12,17 @@ target_include_directories(${libbuilder}
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(${libbuilder}
+target_link_libraries(${libitem}
+    ${libbuilder}
     ${libobject}
 )
 
-set_target_properties(${libbuilder}
+set_target_properties(${libitem}
     PROPERTIES
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
 )
 
-install(TARGETS ${libbuilder}
+install(TARGETS ${libitem}
     LIBRARY DESTINATION lib
 )
