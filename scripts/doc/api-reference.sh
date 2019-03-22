@@ -8,6 +8,9 @@
 
 
 # Creates API table of contents in 'doc/' folder
+
+# headerdoc2html -o ${HTML_OUTPUT_PATH} $(find -E . -regex '.*(lib|data)\/.*\.h')
+
 HTML_OUTPUT_PATH=doc/.HeaderDoc/
-headerdoc2html -o ${HTML_OUTPUT_PATH} $(find -E . -regex '.*(lib|data)\/.*\.h')
+bin/headerdoc2html -o ${HTML_OUTPUT_PATH} $(find -E lib -regex '.*\.h')
 gatherheaderdoc ./doc
