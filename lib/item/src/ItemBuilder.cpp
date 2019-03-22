@@ -22,11 +22,10 @@ ItemBuilder::ItemBuilder()
 
 Item ItemBuilder::create() {
     //return Item(id, keywords, description, extras);
-    //return new Item(keywords, description);
-    //return Item();
     
-    return Item(3);
-    throw 1;
+    Item item(id, keywords, description, extras);
+    // ...
+    return item;
 }
 
 

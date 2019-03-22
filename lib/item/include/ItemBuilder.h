@@ -40,20 +40,12 @@ const unsigned int SHORT_DESCRIPTION_WIDTH = 20;
 class ItemBuilder : public Builder {
 public:
     
-    bool ready = false;
-    
     ItemBuilder();
 
     //~ItemBuilder() override;
 
-
-
     /// Create an item with current settings
     Item create();
-    
-    Item *dcreate() {
-        return new Item(4);
-    }
 
     /// Reset current item settings
     void reset() override;
@@ -75,6 +67,9 @@ public:
 
     /// Set collection of interactable commands
     void setExtras(const Extras &extras);
+    
+    
+    bool ready = false;
 
 private:
 

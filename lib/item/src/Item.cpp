@@ -47,9 +47,26 @@ bool Item::examine(const Key &keyword) const {
 }
 
 
-//std::size_t std::hash<Item>::operator()(const Item &item) const {
-//    return std::hash<unsigned long>{}(item.getID());
-//}
+
+Item& Item::operator=(const Item &other) {
+    this->itemID = other.id();
+    this->keywords = other.keywords;
+    this->description = other.description;
+    this->extras = other.extras;
+    return *this;
+}
+
+Item& Item::operator=(Item &other) {
+    this->itemID = other.id();
+    this->keywords = other.keywords;
+    this->description = other.description;
+    this->extras = other.extras;
+    return *this;
+}
+
+std::size_t std::hash<Item>::operator()(const Item &item) const {
+    return std::hash<unsigned long>{}(item.id());
+}
 
 
 /*

@@ -9,13 +9,6 @@
 #ifndef Item_h
 #define Item_h
 
-#include <string>
-#include <vector>
-#include <functional>
-#include <cstdint>
-#include <sstream>
-#include <unordered_set>
-
 #include "Object.h"
 
 
@@ -35,28 +28,21 @@ inline namespace items {
 class Item : public Object {
 public:
     
+    Item() { }
+    
     /// Default item constructor with an object ID, identifying keywords,
     ///     item description, and extra actions.
     Item(Identifier id,
          const KeywordSet &keywords,
          const Description &description,
          const Extras &extras);
-    
-    
-    /*  *  *  *  *  *  *  *  */
-    Item() { }
-    
-    Item(int i)
-    { /* print(i); */ }
-    
-    Item(const KeywordSet &keywords, const Description &description)
-    : keywords(keywords), description(description)
-    { /* throw 4; */ }
+
+    //Item(const KeywordSet &keywords, const Description &description)
+    //: keywords(keywords), description(description)
+    //{ /* throw 4; */ }
     
     ~Item() { }
-    /*  *  *  *  *  *  *  *  */
-    
-    
+
     
     /// Retrieve object ID
     Identifier id() const override;
@@ -103,6 +89,15 @@ private:
 
 
 } /* namespace items */
+    
 } /* namespace objects */
+
+
+using objects::items::Item;
+
+template<>
+struct std::hash<Item> {
+    std::size_t operator()(const Item &item) const;
+};
 
 #endif /* Item_h */
