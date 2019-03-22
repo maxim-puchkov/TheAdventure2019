@@ -64,6 +64,10 @@ public:
     /// Display item's first keyword
     virtual Key brief() const = 0;
     
+    
+    /// @ignore
+    virtual Extras actions() const = 0;
+    
 };
 
 } /* namespace objects */

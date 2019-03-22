@@ -16,7 +16,7 @@ namespace objects {
         using Identifier = uint64_t;
         using Key = std::string;
         using Text = std::string;
-        using Set = std::unordered_set<Key>;
+        using Set = std::set<Key>;
         
         // temp
         using ExtrasBinding = std::pair<std::string, std::string>;
