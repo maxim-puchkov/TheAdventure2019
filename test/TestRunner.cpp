@@ -5,9 +5,10 @@
 #include "CommandSplittingTest.cpp"
 #include "CommandTest.cpp"
 
+
+
+#include "ItemTests.cpp"
 #include "ItemBuilderTests.cpp"
-
-
 
 
 
