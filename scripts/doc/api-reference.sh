@@ -13,4 +13,4 @@
 
 HTML_OUTPUT_PATH=doc/.HeaderDoc/
 bin/headerdoc2html -o ${HTML_OUTPUT_PATH} $(find -E lib -regex '.*\.h')
-gatherheaderdoc ./doc
+gatherheaderdoc ./doc api-reference.html
