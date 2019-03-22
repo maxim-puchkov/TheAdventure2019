@@ -1,5 +1,4 @@
 # Faworki
-
 ### Quick Links
 * Iteration
     * [Boards][boards] ~important
@@ -8,6 +7,8 @@
     * [Milestones][milestones]
     * [Labels][labels]
 * [Wiki pages][wiki] ~wiki
+    * [Pipeline Status][status]
+    * [Progress][progress]
 * Branches
     * [_Master_](#master) 
     * [_Libraries_](#libraries)
@@ -29,10 +30,11 @@
 <br />
 
 # _Master_ 
-
 ### Pipeline
-
 [![master-status]][commits/master] [![master-cover]][commits/master]
+
+> _Available on [Wiki pages][status]_
+
 
 ### Contribute
 * [Update master branch][merge/new]
@@ -45,13 +47,13 @@
 <br />
 
 #  _Libraries_ 
-
 ### Pipeline
-
 [![lib-status]][commits/libraries] [![lib-cover]][commits/libraries]
 
-### Be up to date
+> _Available on [Wiki pages][status]_
 
+
+### Be up to date
 * Clone _libraries_ branch
 
         git clone -b libraries https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019.git
@@ -71,7 +73,6 @@
 <br /><br />
 
 # Run chat server and chat client
-
 ## Building with CMake
 
 1. Clone the repository.
@@ -103,7 +104,6 @@ the cmake invocation and running `ninja` instead of `make`.
 
 
 ### Dependencies
-
 This project requires:
 
 1. C++17 or newer
@@ -151,7 +151,6 @@ chat on the server via web sockets in browsers that support web sockets.
 <br /><br />
 
 ## Warnings
-
 Warnings are removed from __README__.
 
 > _See_ ~issue #17
@@ -165,7 +164,6 @@ Warnings are removed from __README__.
 <br />
 
 ## Progress
-
 Progress is removed from __README.md__.
 
 > _See [project wiki][progress]_ ~wiki
@@ -201,4 +199,5 @@ Progress is removed from __README.md__.
 [lib-cover]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/badges/libraries/coverage.svg
 
 [wiki]: /../wikis/
-[progress]: /../wikis/progress/
+[progress]: /../wikis/Progress/
+[status]: /../wikis/CurrentStatus/
