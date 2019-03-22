@@ -6,33 +6,30 @@
 //  Copyright © 2019 maximpuchkov. All rights reserved.
 //
 
-
-#include <set>
 #include "Item.h"
-
 using namespace objects;
 
 
-//Item::Item(Identifier id,
-//           const KeywordSet &keywords,
-//           const Description &description,
-//           const Extras &extras)
-//: itemID(id), keywords(keywords), description(description), extras(extras)
-//{ }
+Item::Item(Identifier id,
+           const KeywordSet &keywords,
+           const Description &description,
+           const Extras &extras)
+: itemID(id), keywords(keywords), description(description), extras(extras)
+{ }
 
+// Item::Item() { }
+// Item::~Item() { }
 
 Identifier Item::id() const {
-    // return this->itemID;
-    throw 2;
+    return this->itemID;
 }
 
-
-string Item::brief() const {
+Key Item::brief() const {
     return this->keywords.first();
 }
 
 
-string Item::details() const {
+Text Item::details() const {
     return this->keywords.asString();
 }
 

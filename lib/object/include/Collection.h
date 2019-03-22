@@ -12,18 +12,14 @@
 #include <string>
 #include <unordered_set>
 #include <functional>
-#include <sstream>
-#include <iostream>
 
 #include "Object.h"
 
-using std::string;
 
 
-
-namespace objects {
-using structures::KeywordSet;
-using structures::Description;
+//namespace objects {
+using objects::KeywordSet;
+using objects::Description;
 
 
 /**
@@ -58,6 +54,6 @@ using structures::Description;
 //};
 
 
-} /* namespace objects */
+//} /* namespace objects */
 
 #endif /* Collection_h */

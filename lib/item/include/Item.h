@@ -18,14 +18,13 @@
 
 #include "Object.h"
 
+
+// temp
 using std::string;
 using std::vector;
 
-
-
 namespace objects {
-using structures::KeywordSet;
-using structures::Description;
+inline namespace items {
 
 
 /**
@@ -38,27 +37,26 @@ public:
     
     /// Default item constructor with an object ID, identifying keywords,
     ///     item description, and extra actions.
-//    Item(Identifier id,
-//         const KeywordSet &keywords,
-//         const Description &description,
-//         const Extras &extras);
-    
+    Item(Identifier id,
+         const KeywordSet &keywords,
+         const Description &description,
+         const Extras &extras);
     
     
     /*  *  *  *  *  *  *  *  */
-    Item()
-    { }
+    Item() { }
+    
+    Item(int i)
+    { /* print(i); */ }
     
     Item(const KeywordSet &keywords, const Description &description)
     : keywords(keywords), description(description)
-    { }
+    { /* throw 4; */ }
+    
+    ~Item() { }
     /*  *  *  *  *  *  *  *  */
     
     
-    
-    ~Item() override {
-        
-    }
     
     /// Retrieve object ID
     Identifier id() const override;
@@ -69,11 +67,11 @@ public:
     
     
     /// Display item's first keyword
-    string brief() const override;
+    Key brief() const override;
     
     
     /// Display detailed info
-    string details() const override;
+    Text details() const override;
     
     
     /// Examine an Extra attribute of an item
@@ -90,14 +88,16 @@ public:
 
 private:
     
-    Identifier itemID;
+    Identifier itemID = 10000;
     
-    Description description;
+    Description description = Description("10000");
     
     Extras extras; /* undefined */
     
 };
 
-}
+
+} /* namespace items */
+} /* namespace objects */
 
 #endif /* Item_h */
