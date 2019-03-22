@@ -12,23 +12,26 @@ using namespace objects;
 
 
 ItemBuilder::ItemBuilder()
+: ready(true)
 { }
 
 
-ItemBuilder::~ItemBuilder()
-{ }
+//ItemBuilder::~ItemBuilder()
+//{ }
 
 
 Item ItemBuilder::create() {
     //return Item(id, keywords, description, extras);
-    //return Item(keywords, description);
+    //return new Item(keywords, description);
     //return Item();
+    
+    return Item(3);
     throw 1;
 }
 
 
 void ItemBuilder::reset() {
-    this->clearAll();
+     this->clearAll();
 }
 
 

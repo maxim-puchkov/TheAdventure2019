@@ -14,6 +14,9 @@
 
 #include "Builder.h"
 #include "Item.h"
+using namespace objects;
+
+//#include "ObjectLibrary.pch"
 
 // #include "Description.h"
 // #include "KeywordSet.h"
@@ -27,8 +30,6 @@ const unsigned int SHORT_DESCRIPTION_WIDTH = 20;
 
 
 
-namespace objects {
-
 
 /**
  @class ItemBuilder (IB)
@@ -39,43 +40,49 @@ namespace objects {
 class ItemBuilder : public Builder {
 public:
     
+    bool ready = false;
+    
     ItemBuilder();
-    
-    ~ItemBuilder() override;
-    
-    
-    
+
+    //~ItemBuilder() override;
+
+
+
     /// Create an item with current settings
     Item create();
     
+    Item *dcreate() {
+        return new Item(4);
+    }
+
     /// Reset current item settings
     void reset() override;
-    
+
     /// - parameter keywords: Item's unique keywords
     void setKeywords(const KeywordSet &keywords) override;
-    
+
     /** @ignore */
     void setKeywords(const vector<Key> &vs) {
         KeywordSet keyw(vs);
         this->setKeywords(keyw);
     }
-    
+
     /// Set item's description text
     void setDescription(const Description &description) override;
     void setDescription(const string &text) {
         this->setDescription(Description(text));
     }
-    
+
     /// Set collection of interactable commands
     void setExtras(const Extras &extras);
-    
+
 private:
-    
+
     /// Clear all data members and reset to default value
     void clearAll();
-    
-    
-    
+
+
+
     // Item Constructor Data members
     Identifier id;
     KeywordSet keywords;
@@ -84,7 +91,5 @@ private:
     
 };
 
-
-} /* namespace objects */
 
 #endif /* ItemBuilder_h */
