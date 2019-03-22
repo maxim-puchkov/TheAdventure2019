@@ -13,11 +13,9 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-
-
-
 #include "Collection.h"
 namespace objects {
+
 
 using Keywords = KeywordSet;
 using S = std::string;
@@ -57,6 +55,17 @@ protected:
         Description item_desc("Item to add/remove from collections");
         Extras item_ex = extras_1;
         test_item = Item(0, item_keys, item_desc, item_ex);
+        
+        collection10 = Collection(container, 10);
+        Description vec10_desc("10 different items");
+        for (unsigned int count = 0; count < 10; count++) {
+            Keywords k({"vec10 item #" + std::to_string(count)});
+            Item item = Item(count, keywords, vec10_desc, extras_1);
+            vec10_items.push_back(item);
+            collection10.insert(item);
+        }
+        
+        
     }
     
     void TearDown() override {
@@ -68,11 +77,14 @@ protected:
     
     
     /* * *         Variables        * * */
+    Collection empty_collection;    // no items
+    Collection collection10;        // 10 items
+    
+    Item test_item;
+    
     Extras extras_1;
     Extras extras_2;
-    
-    Collection empty_collection;
-    Item test_item;
+    vector<Item> vec10_items;
     
 };
 
@@ -126,23 +138,26 @@ TEST_F(CollectionTests, Size) {
 }
 
 
-/// Testing collection adding
-TEST_F(CollectionTests, Add) {
+/// Testing collection insert
+TEST_F(CollectionTests, Insert) {
     Collection col = empty_collection;
-    for (int items_1_to_10 = 1; items_1_to_10 <= 10; items_1_to_10++) {
-        col.add(test_item);
-        EXPECT_EQ(items_1_to_10, col.size());
+    EXPECT_EQ(0, col.size());
+    for (int count = 1; count <= vec10_items.size(); count++) {
+        col.insert(vec10_items[count - 1]);
+        EXPECT_EQ(count, col.size());
     }
 }
 
 
-/// Testing collection adding
-TEST_F(CollectionTests, Remove) {
-    Collection col = empty_collection;
-    col.add(test_item);
-    
-    // col.remove(test_item);
-    //
-}
+///// Testing collection erase
+//TEST_F(CollectionTests, Erase) {
+//    Collection col = collection10;
+//    // EXPECT_EQ(10, col.size());
+//    for (int count = vec10_items.size() + 1; count > 1; count--) {
+//        col.erase(vec10_items[count - 1]);
+//        EXPECT_EQ(count, col.size());
+//    }
+//}
+
 
 } /* namespace objects */

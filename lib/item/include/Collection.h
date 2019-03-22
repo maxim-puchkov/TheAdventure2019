@@ -110,16 +110,16 @@ public:
     // template<typename ...T> v
     //void print(T &&...ts) { (std::cout << ... << ts) << std::endl; }
     //template<typename N = T, typename >
-    bool add(const Item &item) {
+    bool insert(const Item &item) {
         return this->set.insert(item.id()).second;
         // return this->set.insert(t).second;
     }
     
-    bool erase(T t) {
-        // bool valid = (this->set.find(t) != this->set.cend());
-        // this->set.erase(t);
-        // return valid;
-        return false;
+    bool erase(const Item &item) {
+        bool valid = (this->set.find(item.id()) != this->set.cend());
+        this->set.erase(item.id());
+        return valid;
+        // return false;
     }
     
     size_t size() {
