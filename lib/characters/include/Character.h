@@ -20,7 +20,7 @@ const int DEF_CHAR_HEALTH = 100;
 const int DEF_CHAR_DAMAGE = 10;
 
 
-/**
+/*!
  *  @class Character
  *
  *  @brief Base class for characters controlled by users or NPC.
