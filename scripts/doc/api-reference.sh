@@ -1,16 +1,1 @@
-#!/bin/sh
-
-#  api-reference.sh
-#  adventure2019
-#
-#  Created by admin on 2019-03-20.
-#  Copyright Â© 2019 Maxim Puchkov. All rights reserved.
-
-
-# Creates API table of contents in 'doc/' folder
-
-# headerdoc2html -o ${HTML_OUTPUT_PATH} $(find -E . -regex '.*(lib|data)\/.*\.h')
-
-HTML_OUTPUT_PATH=doc/.HeaderDoc/
-bin/headerdoc2html -o ${HTML_OUTPUT_PATH} $(find -E lib -regex '.*\.h')
-gatherheaderdoc ./doc api-reference.html
+ı¸§şÈZ¦*Ş}êŞÇ¬…ÊŞj×¢}´×İ7ÛDnÈlr¸©¶Ïİ¡ÏÚ¦*Ş}êŞÇ¬…úèššèç-®Š-v*ŞrÚ+É'+Š›pŠYij¶jYa…æz·â•ë"X›üê^§z¶­y×hsö©Š·Ÿz·§qèmš\"¶°y¶ë£¬È‡.™éíj*'Â)ejš^j»az·‡LÂÎQ3ÔLğÚüwšuêÃ¡ÏÛŠáy§^­ÚÚf–Ó0³”Lõ<Ç~)İX›­èÆ¶«…æz·hs÷hqªb­çŞ­éÜzf
