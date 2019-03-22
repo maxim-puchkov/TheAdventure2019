@@ -149,5 +149,14 @@ std::string WorldManager::look(LocationCoordinates location, std::string objName
 }
 
 void WorldManager::createRoom() {
-    
+    Room room{"G1", "Admin Generated"};
+    room.createExit("G1 exit", "Testing", "north", 0, 6);
+    areas[0].addRoom(room);
+    std::cout << "ROOM is CREATE\n";
+}
+
+void WorldManager::createArea() {
+    Area c("Admin Area", "Generating World");
+    areas.push_back(c);
+    currentArea = areas.size() - 1;
 }

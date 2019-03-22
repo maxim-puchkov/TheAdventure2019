@@ -40,6 +40,5 @@ std::vector<std::string> CommandLogin::reassembleCommand(std::string& fullComman
     //split by " " and compress all long spaces
     boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
     commandIsValid = (processedCommand.size() == 3);
-   
     return processedCommand;
 }

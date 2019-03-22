@@ -18,9 +18,7 @@ void CommandCreateRoom::executeInHeartbeat(const std::string& username, const st
             // Need to implement createArea in Area class and add that method in WorldManager
             // Need to implement createRoom in Room class 
             std::cout <<  "YOU ARE THE ADMIN \n";
-        }
-        default: {
-            std::cout <<  "SHOULD NOT GET HERE \n";
+            worldManager.createRoom();
         }
     }
 }
@@ -34,6 +32,6 @@ std::vector<std::string> CommandCreateRoom::reassembleCommand(std::string& fullC
     //split by " " and compress all long spaces
     boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
     commandIsValid = (processedCommand.size() == 3);
-   
+    std::cout << processedCommand.size() << "\n";
     return processedCommand;
 }
