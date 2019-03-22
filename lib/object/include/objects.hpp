@@ -12,20 +12,20 @@
 
 namespace objects {
     
-    inline namespace typenames {
-        using Identifier = uint64_t;
-        using Key = std::string;
-        using Text = std::string;
-        using Set = std::set<Key>;
-        
-        // temp
-        using ExtrasBinding = std::pair<std::string, std::string>;
-        using Extras = std::vector<ExtrasBinding>;
-    } /* namespace typenames */
+inline namespace typenames {
+    using Identifier = uint64_t;
+    using Key = std::string;
+    using Text = std::string;
+    using Set = std::set<Key>;
+    
+    // temp
+    using ExtrasBinding = std::pair<std::string, std::string>;
+    using Extras = std::vector<ExtrasBinding>;
+} /* namespace typenames */
 
-    struct KeywordSet;
-    struct Description;
-    struct CustomActions;
+struct KeywordSet;
+struct Description;
+struct CustomActions;
 
 } /* namespace objects */
 
