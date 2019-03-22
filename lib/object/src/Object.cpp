@@ -8,5 +8,7 @@
 
 #include "Object.h"
 
-
+//objects::Object::~Object() {
+//    print("Object destroyed.");
+//}
 

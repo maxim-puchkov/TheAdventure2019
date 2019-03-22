@@ -1,0 +1,23 @@
+//
+//  ObjectLibrary.pch
+//  adventure2019: adventure2019
+//  com.maximpuchkov.Faworki.adventure2019.ObjectLibrary
+//
+//  Created by mpuchkov on 2019-03-21. macOS 10.13, Xcode 10.1.
+//  Copyright © 2019 Maxim Puchkov. All rights reserved.
+//
+
+#ifndef ObjectLibrary_pch
+#define ObjectLibrary_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#include <string>
+#include <vector>
+#include <functional>
+#include <cstdint>
+#include <sstream>
+#include <unordered_set>
+
+#endif /* ObjectLibrary_pch */

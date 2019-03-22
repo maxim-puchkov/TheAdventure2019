@@ -23,20 +23,19 @@
 #ifndef Object_h
 #define Object_h
 
-#include <string>
-#include <vector>
-#include <functional>
-#include <cstdint>
-#include <sstream>
-#include <unordered_set>
+#include "ObjectLibrary.pch"
+#include "objects.hpp"
 
-#include "ObjectDataType.h"
 #include "KeywordSet.h"
 #include "Description.h"
 
 
+// #include <iostream>
+// template<typename ...T> void print(T &&...ts) { (std::cout << ... << ts) << std::endl; }
+
+
+
 namespace objects {
-using namespace data;
 
 /**
     @class Object
@@ -47,8 +46,8 @@ using namespace data;
 class Object {
 public:
     
-    virtual ~Object()
-    { }
+    Object() {}
+    ~Object() {}
     
     /// Retrieve object ID
     virtual Identifier id() const = 0;
