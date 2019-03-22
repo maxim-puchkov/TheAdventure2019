@@ -5,6 +5,17 @@ void CommandCreateRoom::executeInHeartbeat(const std::string& username, const st
 	//TODO
     //if (role == admin) then allow to edit
     //else notify no permissions
+    auto role = onlineUserManager.getUserRole(username);
+    switch(role) {
+        case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND:
+            return "Please log in again.\n";
+        case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER:
+            //don't let normal user know that this syntax exists
+            return "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+        case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN:
+            // Need to implement createArea in Area class and add that method in WorldManager
+            // Need to implement createRoom in Room class 
+            return "YOU ARE THE ADMIN \n";
 }
 
 std::vector<std::string> CommandCreateRoom::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {

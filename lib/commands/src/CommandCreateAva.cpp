@@ -14,11 +14,16 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
                 return "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
             case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN:
                 //TODO: fill this
-
-
-
-
-            
+                auto answer = characterManager.createCharacter(username);
+                switch(answer){
+                    case charactermanager::CharacterManager::CHARACTER_CODE::CHARACTER_CREATED:{
+                        characterManager.spawnCharacter(username);
+                        return "Avatar created.\nPlease enter \"edit-avatar shortdesc: [value]\" to customize your character.\n";
+                    }
+                    default:
+                        //error
+                        return "SHOULD NOT GET HERE";
+                }
                 return "test answer";
             default:
                 //swallow, log error state
