@@ -7,7 +7,7 @@
 //
 
 #include "Description.h"
-using objects::data::structures::Description;
+using objects::Description;
 
 
 Description::Description()
