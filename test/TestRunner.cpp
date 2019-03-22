@@ -8,6 +8,7 @@
 
 #include "KeywordsTests.cpp"
 #include "ItemTests.cpp"
+#include "CollectionTests.cpp"
 #include "ItemBuilderTests.cpp"
 
 
