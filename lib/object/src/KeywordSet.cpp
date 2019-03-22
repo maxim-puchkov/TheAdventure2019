@@ -20,7 +20,7 @@
 //
 
 #include "KeywordSet.h"
-using namespace objects::data;
+using namespace objects;
 
 
 KeywordSet::KeywordSet() {
@@ -34,19 +34,28 @@ KeywordSet::KeywordSet(const std::vector<Key> &container) {
 }
 
 
-void KeywordSet::clear()
-{ }
 
+void KeywordSet::clear() {
+    this->set.clear();
+}
 
 bool KeywordSet::contains(const Key &key) const {
-    return true;
+    return this->set.find(key) != this->set.cend();
 }
+
+bool KeywordSet::empty() const {
+    return this->set.empty();
+}
+
+size_t KeywordSet::size() const {
+    return this->set.size();
+}
+
 
 
 Key KeywordSet::first() const {
     return *this->set.cbegin();
 }
-
 
 Key KeywordSet::last() const {
     return *this->set.cend();
@@ -56,16 +65,26 @@ Text KeywordSet::asString() const {
     return this->asString(SET_DELIMETER);
 }
 
-
 Text KeywordSet::asString(const Text &delimeter) const {
-    std::ostringstream oss;
+    if (this->empty()) {
+        const Text EmptyText = "";
+        return EmptyText;
+    }
     
-    for (auto &key : this->set) {
-        oss << key << delimeter;
+    
+    auto iterator = this->set.cbegin();
+    std::ostringstream oss;
+    oss << *iterator;
+    iterator++;
+    
+    while (iterator != this->set.cend()) {
+        oss << delimeter << *iterator;
+        iterator++;
     }
     
     return oss.str();
 }
+
 
 
 KeywordSet& KeywordSet::operator=(KeywordSet &other) {

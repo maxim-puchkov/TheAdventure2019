@@ -28,10 +28,7 @@
 #include <sstream>
 
 #include "Object.h"
-
-
-
-namespace objects::data::structures {
+namespace objects {
 
 
 struct KeywordSet {
@@ -42,15 +39,16 @@ public:
     KeywordSet(const std::vector<Key> &container);
     
     bool contains(const Key &key) const;
+    bool empty() const;
     //void insert()
     void clear();
-    unsigned int size() const;
+    size_t size() const;
     
-    Text asString() const;
-    Text asString(const Text &delimeter) const;
     
     Key first() const;
     Key last() const;
+    Text asString() const;
+    Text asString(const Text &delimeter) const;
     
     
     KeywordSet& operator=(KeywordSet &);
@@ -66,8 +64,6 @@ private:
 };
 
 
-} /* namespace objects */
-
-
+}
 
 #endif /* KeywordSet_h */
