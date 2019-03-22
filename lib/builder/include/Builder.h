@@ -9,24 +9,20 @@
 #ifndef Builder_h
 #define Builder_h
 
-#include "ObjectDataType.h"
 #include "Object.h"
-
-using namespace objects::data;
-
+using namespace objects;
 
 
-/**
+/*!
  @class Builder Interface
  
- @brief In-game object interface with a unique object id,
-        identifying keywords, and description text.
+ @brief Interface for building describable and interactable objects
  */
 class Builder {
 public:
     
-    virtual ~Builder()
-    { }
+//    virtual ~Builder()
+//    { }
     
     /// Reset current object creation
     virtual void reset() = 0;
