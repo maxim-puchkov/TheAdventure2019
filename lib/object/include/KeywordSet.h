@@ -22,11 +22,6 @@
 #ifndef KeywordSet_h
 #define KeywordSet_h
 
-#include <string>
-#include <vector>
-#include <unordered_set>
-#include <sstream>
-
 #include "Object.h"
 namespace objects {
 
@@ -34,27 +29,39 @@ namespace objects {
 struct KeywordSet {
 public:
     
+    /* Constructors */
     KeywordSet();
-    //template<template<typename> class Container>
     KeywordSet(const std::vector<Key> &container);
+
     
-    bool contains(const Key &key) const;
-    bool empty() const;
-    //void insert()
-    void clear();
-    size_t size() const;
-    
-    
+    /* Keywords */
+    Set all() const;
     Key first() const;
     Key last() const;
     Text asString() const;
     Text asString(const Text &delimeter) const;
     
     
+    /* Set functions */
+    void insert(); /* undefined */
+    void erase(); /* undefined */
+    bool contains(const Key &key) const;
+    bool empty() const;
+    void clear();
+    size_t size() const;
+    
+    
+    /* Operators */
     KeywordSet& operator=(KeywordSet &);
     KeywordSet& operator=(const KeywordSet &);
-    bool operator==(KeywordSet &ks) const { return this->set == ks.set; };
-    bool operator==(const KeywordSet &ks) const { return this->set == ks.set; };
+    bool operator==(KeywordSet &ks) const;
+    bool operator==(const KeywordSet &ks) const;
+    bool operator!=(KeywordSet &ks) const;
+    bool operator!=(const KeywordSet &ks) const;
+    
+    
+    /* Convert */
+    std::vector<Key> toVector() const;
     
 private:
     

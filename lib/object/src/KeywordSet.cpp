@@ -23,17 +23,20 @@
 using namespace objects;
 
 
-KeywordSet::KeywordSet() {
-    this->set = std::unordered_set<Key>();
-    
-}
+/* Constructors */
 
-//template<template<typename> class Container>
-KeywordSet::KeywordSet(const std::vector<Key> &container) {
-    this->set = std::unordered_set<Key>(std::make_move_iterator(container.cbegin()), std::make_move_iterator(container.cend()));
-}
+KeywordSet::KeywordSet()
+: set({})
+{}
+
+KeywordSet::KeywordSet(const std::vector<Key> &container)
+: set(std::make_move_iterator(container.cbegin()), std::make_move_iterator(container.cend()))
+{ }
 
 
+
+
+/* Set functions */
 
 void KeywordSet::clear() {
     this->set.clear();
@@ -53,12 +56,19 @@ size_t KeywordSet::size() const {
 
 
 
+
+/* Keywords */
+
+Set KeywordSet::all() const {
+    return this->set;
+}
+
 Key KeywordSet::first() const {
     return *this->set.cbegin();
 }
 
 Key KeywordSet::last() const {
-    return *this->set.cend();
+    return *this->set.crbegin();
 }
 
 Text KeywordSet::asString() const {
@@ -87,6 +97,9 @@ Text KeywordSet::asString(const Text &delimeter) const {
 
 
 
+
+/* Operators */
+
 KeywordSet& KeywordSet::operator=(KeywordSet &other) {
     this->set = other.set;
     return *this;
@@ -96,4 +109,29 @@ KeywordSet& KeywordSet::operator=(KeywordSet &other) {
 KeywordSet& KeywordSet::operator=(const KeywordSet &other) {
     this->set = other.set;
     return *this;
+}
+
+bool KeywordSet::operator==(KeywordSet &ks) const {
+    return this->set == ks.set;
+};
+
+bool KeywordSet::operator==(const KeywordSet &ks) const {
+    return this->set == ks.set;
+};
+
+bool KeywordSet::operator!=(KeywordSet &ks) const {
+    return this->set != ks.set;
+};
+
+bool KeywordSet::operator!=(const KeywordSet &ks) const {
+    return this->set != ks.set;
+};
+
+
+
+
+/* Convert */
+
+std::vector<Key> KeywordSet::toVector() const {
+    return {this->set.cbegin(), this->set.cend()};
 }
