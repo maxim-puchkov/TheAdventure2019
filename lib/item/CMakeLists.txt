@@ -1,7 +1,7 @@
 add_library(${libitem} SHARED
     src/Item.cpp
     src/ItemBuilder.cpp
-#    src/Collection.cpp
+    src/Collection.cpp
 )
 
 target_include_directories(${libitem}
