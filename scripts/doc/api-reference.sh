@@ -1,1 +1,12 @@
-ý¸§þÈZ¦*Þ}êÞÇ¬…ÊÞj×¢}´×Ý7ÛDnžÈlr¸©¶ÏÝ¡ÏÚ¦*Þ}êÞÇ¬…úèššèç-®Š-v*ÞrÚ+É'+Š›pŠYij¶žjYa…æz·â•ë"žX›üê^ž§z¶­y×hsö©Š·Ÿz·§qèmš\"¶°y¶ë£¬È‡.™éíj*'Â)ejš^j»az·‡LÂÎQ3ÔLðÚüwšuêÃ¡ÏÛŠáy§^­ÚÚf–Ó0³”Lõ<Ç~)ÝX›­èÆ¶«…æz·hs÷hqªb­çÞ­éÜzf
+#!/bin/sh
+
+#  api-reference.sh created on 2019-03-20.
+#  Generates 'doc/api-refence.html' from all .h headers in 'lib/' folder.
+
+
+#  Generate HTML files
+HTML_OUTPUT_PATH=doc/.HeaderDoc/
+bin/headerdoc2html -o ${HTML_OUTPUT_PATH} $(find -E lib -regex '.*\.h')
+
+#  Generate main Table of Contents
+bin/gatherheaderdoc ./doc api-reference.htm
