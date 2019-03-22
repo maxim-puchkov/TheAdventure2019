@@ -89,7 +89,9 @@ TEST_F(ItemTests, Instantiation) {
     
     EXPECT_EQ(id, item.id());
     EXPECT_EQ(keywords, item.keywords);
-    EXPECT_EQ(keyword1, item.brief());
-}
+    EXPECT_EQ(extras, item.actions());
     
 }
+
+
+} /* namespace objects */

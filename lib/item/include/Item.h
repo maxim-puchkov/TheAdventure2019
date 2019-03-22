@@ -74,6 +74,11 @@ public:
     Text details() const override;
     
     
+    Extras actions() const override {
+        return extras;
+    }
+    
+    
     /// Examine an Extra attribute of an item
     bool examine(const Key &keyword) const override;
     
@@ -88,9 +93,9 @@ public:
 
 private:
     
-    Identifier itemID = 10000;
+    Identifier itemID;
     
-    Description description = Description("10000");
+    Description description;
     
     Extras extras; /* undefined */
     
