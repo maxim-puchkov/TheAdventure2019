@@ -9,6 +9,9 @@
 * [Wiki pages][wiki] ~wiki
     * [Pipeline Status][status]
     * [Progress][progress]
+    * [HeaderDoc][hdoc]
+* Documentation
+    * [API Reference][api-ref]
 * Branches
     * [_Master_](#master) 
     * [_Libraries_](#libraries)
@@ -185,6 +188,8 @@ Progress is removed from __README.md__.
 [merge/new]: /../merge_requests/new/
 [graph]: /../network/master
 [labels]: /../labels/
+
+[api-ref]: /../doc/api-reference.html
 [markdown]: https://csil-git1.cs.surrey.sfu.ca/help/user/markdown.md
 
 [network]: https://csil-git1.cs.surrey.sfu.ca/373-19-1-faworki/adventure2019/tree/master/lib/network
@@ -201,3 +206,4 @@ Progress is removed from __README.md__.
 [wiki]: /../wikis/
 [progress]: /../wikis/Progress/
 [status]: /../wikis/CurrentStatus/
+[hdoc]: /../wikis/HeaderDoc/

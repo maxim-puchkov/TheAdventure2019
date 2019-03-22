@@ -48,7 +48,7 @@ _{-No related issues.-}_
 <!--  Review and accept merge request  -->
 
 - [ ] Commit successfully passes all  __build__, __analyze__, and __test__ stages.
-- [ ] Review new references in master API Reference [masterTOC][hdoc-toc] if any were added.
+- [ ] Review new references in master [API Reference Table of Contents][hdoc-toc], if any were added.
 - [ ] Team review
 - [ ] Review by assigned maintainer to confirm __accuracy__, __clarity__, and __completeness__.
     * This can be skipped for requests without substantive content changes.
@@ -99,4 +99,4 @@ _Major update_
 [issues/new]: /../issues/new/
 [team]: /../project_members/
 [hdoc]: /../wikis/HeaderDoc/
-[hdoc-toc]: /../doc/masterTOC.html
+[hdoc-toc]: /../doc/api-reference.html
