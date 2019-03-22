@@ -147,3 +147,7 @@ std::string WorldManager::look(LocationCoordinates location, std::string objName
         return "You've become terribly lost...";
     }
 }
+
+void WorldManager::createRoom() {
+    
+}
