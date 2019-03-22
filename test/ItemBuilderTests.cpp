@@ -20,17 +20,13 @@ class ItemBuilderTests : public testing::Test {
 protected:
     
     void SetUp() override {
-        
         // Initial set up before each test...
         constructor = ItemBuilder();
         initialized = true;
-        
     }
     
     void TearDown() override {
-        
         // Test ends...
-        
     }
     
     
@@ -57,26 +53,26 @@ TEST_F(ItemBuilderTests, TestInitialization) {
 }
 
 
-//TEST_F(ItemBuilderTests, Construction) {
-//
-//    // Variable input
-//    vector<string> keys{"sword", "rare"};
-//    string description = "Testing Construction";
-//    // ...
-//
-//    // Create a rare sword
-//    KeywordSet keywords(keys);
-//    constructor.setKeywords(keywords);
-//    constructor.setDescription(description);
-//    Item sword = constructor.create();
-//
-//
-//    EXPECT_TRUE(sword.id() > 0);
-//    EXPECT_TRUE(keywords == sword.keywords);
-//
-////    EXPECT_EQ(keys[0], sword.keywords.first());
-//
-//}
+TEST_F(ItemBuilderTests, Construction) {
+
+    // Variable input
+    vector<string> keys{"sword", "rare"};
+    string description = "Testing Construction";
+    // ...
+
+    // Create a rare sword
+    KeywordSet keywords(keys);
+    constructor.setKeywords(keywords);
+    constructor.setDescription(description);
+    Item sword = constructor.create();
+    // Item *x = constructor.dcreate();
+
+
+    EXPECT_TRUE(sword.id() > 0);
+    // EXPECT_TRUE(keywords == sword.keywords);
+    // EXPECT_EQ(keys[0], sword.keywords.first());
+
+}
 
 
 //TEST_F(ItemBuilderTests, Authentication) {
