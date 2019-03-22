@@ -6,7 +6,7 @@
 #include "CommandTest.cpp"
 
 
-
+#include "KeywordsTests.cpp"
 #include "ItemTests.cpp"
 #include "ItemBuilderTests.cpp"
 
