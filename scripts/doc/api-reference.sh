@@ -9,4 +9,4 @@ HTML_OUTPUT_PATH=doc/.HeaderDoc/
 bin/headerdoc2html -o ${HTML_OUTPUT_PATH} $(find -E lib -regex '.*\.h')
 
 #  Generate main Table of Contents
-bin/gatherheaderdoc ./doc api-reference.htm
+bin/gatherheaderdoc ./doc api-reference.html
