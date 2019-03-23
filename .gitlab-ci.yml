@@ -4,6 +4,7 @@ stages:
   - build
   - analyze
   - test
+  - document
 
 build:
   stage: build
@@ -38,3 +39,11 @@ analyze:
     paths:
       - build/cppcheck-results.txt
       - build/clang-tidy-results.txt
+
+document:
+  stage: document
+  script:
+    - sh scripts/doc/api-reference.sh
+  only:
+    refs:
+      - doc
