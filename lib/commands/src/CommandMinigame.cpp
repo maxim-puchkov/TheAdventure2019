@@ -22,7 +22,9 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         auto moveFrom = fullCommand.at(2);
         auto moveTo = fullCommand.at(3);
         if (!playerMatch.makePlayerMove(username, moveFrom, moveTo)) {
-            onlineUserManager.addMessageToUser(username, "Invalid move or not your turn.\n");
+            std::string msg = "Invalid move or not your turn, is currently " +
+                    playerMatch.getCurrentPlayerTurn() + " turn\n " ;
+            onlineUserManager.addMessageToUser(username,  std::move(msg) );
         }
 
     } else if (firstCommand == "challenge" || firstCommand == "invite") {
@@ -70,7 +72,7 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         return;
     }
 
-    
+
     for (const std::string &player : playerMatch.getPlayers()) {
         onlineUserManager.addMessageToUser(player, playerMatch.display() + "\n");
     }
