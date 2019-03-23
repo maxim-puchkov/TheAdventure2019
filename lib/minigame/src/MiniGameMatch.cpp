@@ -78,7 +78,6 @@ std::string MiniGameMatch::display(){
     return game.getBoardView();
 }
 
-
 MoveValidator& MiniGameMatch::getGame() {
     return this->game;
 }
