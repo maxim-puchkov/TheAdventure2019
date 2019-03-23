@@ -34,7 +34,7 @@ public:
     std::string look(LocationCoordinates location) ;
     std::string look(LocationCoordinates location, std::string objName) ;
     void createArea();
-    void createRoom();
+    void createRoom(const LocationCoordinates & location, const std::string& direction, const std::string& name);
 };
 
 

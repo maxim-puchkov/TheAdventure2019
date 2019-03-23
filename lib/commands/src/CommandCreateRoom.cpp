@@ -17,8 +17,8 @@ void CommandCreateRoom::executeInHeartbeat(const std::string& username, const st
         case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
             // Need to implement createArea in Area class and add that method in WorldManager
             // Need to implement createRoom in Room class 
-            std::cout <<  "YOU ARE THE ADMIN \n";
-            worldManager.createRoom();
+            auto location = characterManager.getCharacterLocation(username);
+            worldManager.createRoom(location, fullCommand[1], fullCommand[2]);
         }
     }
 }

@@ -5,6 +5,9 @@ void CommandEditRoom::executeInHeartbeat(const std::string& username, const std:
     //TODO
     //if (role == admin) then allow to edit
     //else notify no permissions
+    for(auto element : fullCommand) {
+        std::cout << element << "\n";
+    }
     auto role = onlineUserManager.getUserRole(username);
     switch(role) {
         case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
@@ -18,8 +21,11 @@ void CommandEditRoom::executeInHeartbeat(const std::string& username, const std:
             // Need to implement createArea in Area class and add that method in WorldManager
             // Need to implement createRoom in Room class 
             std::cout <<  "YOU ARE THE ADMIN \n";
-            // std::cout << "Area: " << location.area << "\n";
-            // std::cout << "Room: " << location.room << "\n";
+            auto location = characterManager.getCharacterLocation(username);
+            std::cout << "Area: " << location.area << "\n";
+            std::cout << "Room: " << location.room << "\n";
+            auto& room = worldManager.findRoomByLocation(location);
+            auto editSuccess = room.createExit("admin test", "goes to test", "north", 0, 6);
         }
         default: {return;}
     }
