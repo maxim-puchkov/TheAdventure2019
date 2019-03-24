@@ -422,7 +422,7 @@ TEST(MoveValidatorTest, reversePrint){
     target = "g4";
     isValid = testGame.readChessMove(source, target );
  //   std::cout << testGame.getBoardView() ;
- //   std::cout << testGame.getReverseBoardView();
+//    std::cout << testGame.getReverseBoardView();
 
 
 

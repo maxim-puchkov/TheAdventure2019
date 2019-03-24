@@ -37,7 +37,8 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
 
         auto &challengedName = fullCommand.at(2);
         miniGameLobby.createInvite(username, challengedName);
-        onlineUserManager.addMessageToUser(challengedName, username + " has challenged you to a game\n");
+        onlineUserManager.addMessageToUser(challengedName, username + " has challenged you to a game, type 'minigame accept'"
+                                                                      " to accept challenge\n");
 
         onlineUserManager.addMessageToUser(username, "awaiting response from " + challengedName + "\n");
 
@@ -82,22 +83,14 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
     vector<string> &players = playerMatch.getPlayers();
 
     if (players.size() == 2) {
-        onlineUserManager.addMessageToUser(players.at(0), playerMatch.display() + "\n" );
-        onlineUserManager.addMessageToUser(players.at(1), playerMatch.reverseDisplay() + "\n" );
+        onlineUserManager.addMessageToUser(players.at(0), playerMatch.reverseDisplay() + "\n" );
+        onlineUserManager.addMessageToUser(players.at(1), playerMatch.display() + "\n" );
     }
 
-/*
-    for (const std::string &player : playerMatch.getPlayers()) {
-        onlineUserManager.addMessageToUser(player, playerMatch.display() + "\n");
-    }
-*/
 
     for(const std::string &spectator : playerMatch.getSpectators()){
         onlineUserManager.addMessageToUser(spectator, playerMatch.display() + "\n");
     }
-
-
-
 
 }
 
