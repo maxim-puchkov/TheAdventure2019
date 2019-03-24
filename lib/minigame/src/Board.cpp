@@ -66,7 +66,7 @@ void Board::initializeGame(vector<vector<Piece>> &boardView) {
 }
 
 
-void Board::drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const {
+void Board::drawRow(const vector<Piece> &listPieceId, std::stringstream &stream) const {
     for(Piece iter: listPieceId){
         auto search = PieceLookUp.find( iter.getPieceUnit() );
 
@@ -85,6 +85,28 @@ void Board::drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const
 
     }
     stream << '\n';
+}
+
+void Board::drawRowReverse(const vector<Piece> &listPieceId, std::stringstream &stream) const {
+
+    for(int i = 7; i >= 0 ; i--){
+        auto iter = listPieceId.at(i);
+        auto search = PieceLookUp.find(iter.getPieceUnit());
+        //Since printing out color doesn't work, we will make 1 side lower case
+        switch(iter.getColor())
+        {
+            case RED_LOWERCASE:
+                stream  << (char)tolower(search->second);
+                break;
+            case BLUE_UPPERCASE:
+                stream << search->second;
+                break;
+            default:
+                stream << search->second ;
+        }
+    }
+    stream << '\n';
+
 }
 
 /**
@@ -197,22 +219,41 @@ void Board::promotePawnToQueen(Piece &source, const ChessCoordinate &target){
 /////END PRIVATE //////
 
 // BEGIN PUBLIC METHODS ///
-std::string Board::getBoardView() const {
+const std::string Board::getBoardView() const {
 
     std::stringstream stream;
 
     stream << "   abcdefgh\n___________\n";
 
     int num = 1;
-    for(vector<Piece> row : boardView){
+    for(const vector<Piece> row : boardView){
         stream << num << "| ";
         drawRow(row,stream);
         num++;
     }
     stream << "___________\n";
 
-    return stream.str();
+    return std::move(stream.str());
 }
+
+
+const std::string Board::getReverseBoardView() const {
+    std::stringstream stream;
+
+    stream << "   hgfedcba\n___________\n";
+
+    int num = 8;
+    for(num ; num > 0 ; num--){
+        stream << num << "| ";
+        const vector<Piece> &row = boardView.at(num - 1);
+        drawRowReverse(row,stream);
+    }
+
+    return std::move(stream.str());
+
+}
+
+
 
 bool Board::movePiece(const ChessCoordinate &start, const ChessCoordinate &finish) {
 

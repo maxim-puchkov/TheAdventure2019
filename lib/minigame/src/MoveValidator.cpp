@@ -53,9 +53,14 @@ int MoveValidator::convertChessRowToInt(char input){
  *
  * @return A string that you can use to draw the board
  */
-std::string MoveValidator::getBoardView(){
-    return gameBoard.getBoardView();
+const std::string MoveValidator::getBoardView() const {
+    return  gameBoard.getBoardView();
 }
+
+const std::string MoveValidator::getReverseBoardView() const{
+    return gameBoard.getReverseBoardView();
+}
+
 
 /**
  * Checks to see if the input is valid.

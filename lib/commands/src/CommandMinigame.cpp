@@ -2,6 +2,12 @@
 #include <boost/algorithm/string.hpp>
 #include <iostream>
 
+
+
+
+
+
+
 void CommandMinigame::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
     auto &miniGameLobby = characterManager.getMiniGameLobby();
     auto &playerMatch = miniGameLobby.getMatchWithPlayer(username);
@@ -23,8 +29,8 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         auto moveTo = fullCommand.at(3);
         if (!playerMatch.makePlayerMove(username, moveFrom, moveTo)) {
             std::string msg = "Invalid move or not your turn, is currently " +
-                    playerMatch.getCurrentPlayerTurn() + " turn\n " ;
-            onlineUserManager.addMessageToUser(username,  std::move(msg) );
+                              playerMatch.getCurrentPlayerTurn() + "'s turn\n ";
+            onlineUserManager.addMessageToUser(username, std::move(msg));
         }
 
     } else if (firstCommand == "challenge" || firstCommand == "invite") {
@@ -73,13 +79,23 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
     }
 
 
+    vector<string> &players = playerMatch.getPlayers();
+
+    if (players.size() == 2) {
+        onlineUserManager.addMessageToUser(players.at(0), playerMatch.display() + "\n" );
+        onlineUserManager.addMessageToUser(players.at(1), playerMatch.reverseDisplay() + "\n" );
+    }
+
+/*
     for (const std::string &player : playerMatch.getPlayers()) {
         onlineUserManager.addMessageToUser(player, playerMatch.display() + "\n");
     }
+*/
 
     for(const std::string &spectator : playerMatch.getSpectators()){
         onlineUserManager.addMessageToUser(spectator, playerMatch.display() + "\n");
     }
+
 
 
 

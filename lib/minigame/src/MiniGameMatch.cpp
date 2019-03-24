@@ -77,8 +77,13 @@ unsigned long MiniGameMatch::getCurrentPlayers() const{
     return players.size();
 }
 
-std::string MiniGameMatch::display(){
+const std::string MiniGameMatch::display() const {
     return game.getBoardView();
+}
+
+//A "reversed" display for player 2.
+const std::string MiniGameMatch::reverseDisplay() const {
+    return game.getReverseBoardView();
 }
 
 MoveValidator& MiniGameMatch::getGame() {

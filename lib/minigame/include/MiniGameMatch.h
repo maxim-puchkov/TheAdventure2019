@@ -28,13 +28,10 @@ public:
     const std::string& getCurrentPlayerTurn() const;
 
 
-
-
-
-
     MoveValidator& getGame();
 
-    std::string display();
+    const std::string display() const;
+    const std::string reverseDisplay() const;
 
     std::string getAdminName() const;
     std::vector<std::string>& getPlayers();
