@@ -30,11 +30,11 @@ class MoveValidator {
         void initializeSide(const std::string &playerOne, const std::string &playerTwo);
 
         bool isGameFinished() const;
-        std::string gameOverMessage();
+        std::string gameOverMessage() const;
         const std::string getBoardView() const;
         const std::string getReverseBoardView() const;
 
-        std::string helpMessage();
+        std::string helpMessage() const;
         void setPlayerOne(const std::string &playerOne);
         void setPlayerTwo(const std::string &playerTwo);
 
