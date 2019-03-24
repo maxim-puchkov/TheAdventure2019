@@ -22,6 +22,7 @@ public:
     Piece& requestPiece(const ChessCoordinate &position);
     const PieceUnit requestUnit(const ChessCoordinate &position) const;
 
+
     bool movePiece(const ChessCoordinate &start, const ChessCoordinate &finish);
 
     const Piece getLastPieceKilled() const;

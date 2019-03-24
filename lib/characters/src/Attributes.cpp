@@ -23,6 +23,14 @@ int Attributes::getDamage() {
     return this->damage;
 }
 
+void Attributes::setHealth(const int &value) {
+    this->health = value;
+}
+
+void Attributes::setDamage(const int &value) {
+    this->damage = value;
+}
+
 Attributes Attributes::operator+(const Attributes &other) {
     int h = this->health + other.health;
     int d = this->damage + other.damage;

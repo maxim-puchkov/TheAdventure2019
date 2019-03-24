@@ -31,6 +31,10 @@ public:
     int getHealth();
     
     int getDamage();
+
+    void setHealth(const int &value);
+
+    void setDamage(const int &value);
     
     Attributes operator+(const Attributes &other);
     

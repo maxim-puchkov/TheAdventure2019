@@ -1,6 +1,9 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-
+#include "AttributesTest.cpp"
+#include "CharacterTest.cpp"
+#include "CommandSplittingTest.cpp"
+#include "CommandTest.cpp"
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);

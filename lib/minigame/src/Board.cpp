@@ -252,7 +252,6 @@ Piece& Board::requestPiece(const ChessCoordinate &position) {
     return boardView.at( position.row ).at( position.col );
 }
 
-
 const PieceUnit Board::requestUnit(const ChessCoordinate &position) const {
     Piece a = boardView.at(position.row).at(position.col);
     return a.getPieceUnit();
@@ -263,7 +262,6 @@ Board::Board() {
     boardView.reserve(8);
     initializeGame(boardView);
     lastPieceKilled = Piece{NONE,COLORLESS};
-
 }
 
 
