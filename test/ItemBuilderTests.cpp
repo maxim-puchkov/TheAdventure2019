@@ -57,20 +57,23 @@ TEST_F(ItemBuilderTests, Construction) {
 
     // Variable input
     vector<string> keys{"sword", "rare"};
-    string description = "Testing Construction";
-    // ...
+    Text description = "Testing Construction";
+    vector<pair<string, string>> actions{{"action", "examining action"}};
 
-    // Create a rare sword
-    KeywordSet keywords(keys);
-    constructor.setKeywords(keywords);
+    
+    // Create a rare sword with one action
+    constructor.setKeywords(keys);
     constructor.setDescription(description);
+    constructor.setActions(actions);
     Item sword = constructor.create();
-    // Item *x = constructor.dcreate();
-
+    
+    
+    Actions a(actions);
 
     EXPECT_TRUE(sword.id() > 0);
     // EXPECT_TRUE(keywords == sword.keywords);
-    // EXPECT_EQ(keys[0], sword.keywords.first());
+    // EXPECT_TRUE(description == sword.description.full());
+    // EXPECT_TRUE(a == sword.actions);
 
 }
 
