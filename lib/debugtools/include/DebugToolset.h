@@ -21,19 +21,19 @@ inline namespace colors {
 }
 
 
-static std::string PrefixMessage = "\tDebug: ";
+static std::string PrefixMessage = "Debug";
 
-static void highlight() {
+static inline void highlight() {
     std::cout << RED;
 }
 
-static void reset() {
+static inline void reset() {
     std::cout << RESET;
 }
 
 template<typename ...T>
 static void print(T &&...ts) {
-    std::cout << debug::PrefixMessage;
+    std::cout << '\t' << debug::PrefixMessage << ": ";
     highlight();
     (std::cout << ... << ts) << '\n';
     reset();
