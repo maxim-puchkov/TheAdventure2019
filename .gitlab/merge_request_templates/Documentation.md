@@ -1,20 +1,20 @@
 <!-- Documentation template markdown document -->
-
+# Merge Request: Documentation
 
 
 ## What does this MR do?
 <!-- Briefly describe what this MR is about. -->
 
-_Adds additional documentation._ 
+Adds project documentation.
 
-
+_No additional details._
 
 
 
 ## Related issues
 <!-- Link related issues below. Insert the issue link or reference after the word "Closes" if merging this should automatically close it. -->
 
-
+_No related issues._
 
 
 
@@ -23,7 +23,7 @@ _Adds additional documentation._
 
 - [ ] Follow the [Documentation Guidelines](https://docs.gitlab.com/ee/development/documentation/) and [Style Guide](https://docs.gitlab.com/ee/development/documentation/styleguide.html).
 - [ ] Link docs to and from the higher-level index page, plus other related docs where helpful.
-- [ ] Apply the ~Documentation label.
+- [ ] Apply the ~documentation label.
 
 
 
@@ -51,4 +51,4 @@ _Adds additional documentation._
 
 ---
 
-/label ~Documentation
+/label ~documentation
