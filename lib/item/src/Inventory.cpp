@@ -58,7 +58,7 @@ size_t Inventory::size() const {
 
 
 void Inventory::display() const {
-    debug::PrefixMessage = "\tInventory: ";
+    debug::PrefixMessage = "Inventory";
     for (const auto &itemID : this->items) {
         debug::print(itemID);
     }

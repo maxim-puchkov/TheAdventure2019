@@ -19,7 +19,7 @@ using namespace objects;
 
 ItemBuilder::ItemBuilder()
 : ready(true), keywords(Keywords()), description(Description()), actions(Actions()) {
-    debug::PrefixMessage = "\tItemBuilder: ";
+    debug::PrefixMessage = "ItemBuilder";
 }
 
 
@@ -51,9 +51,11 @@ void ItemBuilder::setKeywords(const vector<string> &keywords) {
     this->keywords = Keywords(keywords);
 }
 
+
 void ItemBuilder::setDescription(const string &text) {
     this->description = Description(text);
 }
+
 
 void ItemBuilder::setActions(const vector<pair<string, string>> &actions) {
     this->actions = Actions(actions);
