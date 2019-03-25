@@ -31,6 +31,7 @@ TEST_F(CommandSplittingTest, SayCommandSplitsCorrectly) {
     EXPECT_EQ("", testVector.at(1));
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandSplittingTest, DISABLED_SayCommandSplitsCorrectlyOwnCommand) {
     CommandSay testCommand(c, u, w);
 
@@ -45,6 +46,7 @@ TEST_F(CommandSplittingTest, DISABLED_SayCommandSplitsCorrectlyOwnCommand) {
     EXPECT_EQ("helpsay:", testVector.at(1));
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandSplittingTest, DISABLED_SayCommandSplitsCorrectlyOtherCommand) {
     CommandSay testCommand(c, u, w);
 
@@ -120,6 +122,7 @@ TEST_F(CommandSplittingTest, TellCommandSplitsCorrectly) {
     EXPECT_EQ("", testVector.at(2));
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandSplittingTest, DISABLED_TellCommandSplitsCorrectlyOwnCommand) {
     CommandTell testCommand(c, u, w);
 
@@ -136,6 +139,7 @@ TEST_F(CommandSplittingTest, DISABLED_TellCommandSplitsCorrectlyOwnCommand) {
     EXPECT_EQ("helptell:", testVector.at(2));
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandSplittingTest, DISABLED_TellCommandSplitsCorrectlyOtherCommand) {
     CommandTell testCommand(c, u, w);
 
@@ -308,6 +312,7 @@ TEST_F(CommandSplittingTest, YellCommandSplitsCorrectly) {
     EXPECT_EQ("", testVector.at(1));
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandSplittingTest, DISABLED_YellCommandSplitsCorrectlyOwnCommand) {
     CommandYell testCommand(c, u, w);
 
@@ -322,6 +327,7 @@ TEST_F(CommandSplittingTest, DISABLED_YellCommandSplitsCorrectlyOwnCommand) {
     EXPECT_EQ("helpyell:", testVector.at(1));
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandSplittingTest, DISABLED_YellCommandSplitsCorrectlyOtherCommand) {
     CommandYell testCommand(c, u, w);
 

@@ -29,6 +29,7 @@ TEST_F(CommandValidTest, SayCommandIsValid) {
     EXPECT_TRUE(isValid);
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandValidTest, DISABLED_SayCommandIsNotValid) {
     CommandSay testCommand(c, u, w);
     
@@ -45,6 +46,7 @@ TEST_F(CommandValidTest, DISABLED_SayCommandIsNotValid) {
     EXPECT_FALSE(isValid);
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandValidTest, DISABLED_SayCommandIsValidOwnCommand) {
     CommandSay testCommand(c, u, w);
 
@@ -61,6 +63,7 @@ TEST_F(CommandValidTest, DISABLED_SayCommandIsValidOwnCommand) {
     EXPECT_TRUE(isValid);
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandValidTest, DISABLED_SayCommandIsValidOtherCommand) {
     CommandSay testCommand(c, u, w);
 
@@ -118,6 +121,7 @@ TEST_F(CommandValidTest, TellCommandIsValid) {
     EXPECT_TRUE(isValid);
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandValidTest, DISABLED_TellCommandIsNotValid) {
     CommandTell testCommand(c, u, w);
 
@@ -134,6 +138,7 @@ TEST_F(CommandValidTest, DISABLED_TellCommandIsNotValid) {
     EXPECT_FALSE(isValid);
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandValidTest, DISABLED_TellCommandIsValidOwnCommand) {
     CommandTell testCommand(c, u, w);
 
@@ -146,6 +151,7 @@ TEST_F(CommandValidTest, DISABLED_TellCommandIsValidOwnCommand) {
     EXPECT_TRUE(isValid);
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandValidTest, DISABLED_TellCommandIsValidOtherCommand) {
     CommandTell testCommand(c, u, w);
 
@@ -200,6 +206,7 @@ TEST_F(CommandValidTest, CastCommandIsValid) {
     EXPECT_TRUE(isValid);
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandValidTest, DISABLED_CastCommandIsNotValid) {
     CommandCast testCommand(c, u, w);
 
@@ -253,6 +260,7 @@ TEST_F(CommandValidTest, CreateAvatarCommandIsValid) {
     EXPECT_TRUE(isValid);
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandValidTest, DISABLED_CreateAvatarCommandIsNotValid) {
     CommandCreateAva testCommand(c, u, w);
 
@@ -290,6 +298,7 @@ TEST_F(CommandValidTest, YellCommandIsValid) {
     EXPECT_TRUE(isValid);
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandValidTest, DISABLED_YellCommandIsNotValid) {
     CommandYell testCommand(c, u, w);
 
@@ -306,6 +315,7 @@ TEST_F(CommandValidTest, DISABLED_YellCommandIsNotValid) {
     EXPECT_FALSE(isValid);
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandValidTest, DISABLED_YellCommandIsValidOwnCommand) {
     CommandYell testCommand(c, u, w);
 
@@ -322,6 +332,7 @@ TEST_F(CommandValidTest, DISABLED_YellCommandIsValidOwnCommand) {
     EXPECT_TRUE(isValid);
 }
 
+// TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandValidTest, DISABLED_YellCommandIsValidOtherCommand) {
     CommandYell testCommand(c, u, w);
 
