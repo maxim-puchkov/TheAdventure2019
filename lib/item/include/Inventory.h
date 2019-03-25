@@ -24,9 +24,19 @@ using objects::Collection;
 class Inventory {
 public:
     
+    /* Constructors */
+    
     Inventory();
     
+    Inventory(unsigned int capacity);
+    
     ~Inventory();
+    
+    
+    
+    
+    
+    /* */
     
     void add(Identifier id);
     
@@ -41,6 +51,8 @@ private:
     //Collection items = Collection("description");
     
     //unordered_set<void *> items;
+    
+    unsigned int capacity;
     
     Collection items;
     

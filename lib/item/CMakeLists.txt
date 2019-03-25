@@ -2,6 +2,7 @@ add_library(${libitem}
     src/Item.cpp
     src/ItemBuilder.cpp
     src/Collection.cpp
+    src/Inventory.cpp
 )
 
 target_include_directories(${libitem}

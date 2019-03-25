@@ -2,7 +2,6 @@ add_library(${libcharacters}
     src/Character.cpp
     src/CharacterManager.cpp
     src/Attributes.cpp
-    src/Inventory.cpp
 )
 
 target_include_directories(${libcharacters}

@@ -8,18 +8,37 @@
 
 #include "Inventory.h"
 
-
-Inventory::Inventory() {
-
+inline namespace defaults {
+    const unsigned int CAPACITY = 20;
 }
+
+
+
+
+
+/* */
+
+Inventory::Inventory()
+: capacity(CAPACITY)
+{ }
+
+
+Inventory::Inventory(unsigned int capacity)
+: capacity(capacity)
+{ }
 
 
 Inventory::~Inventory()
 { }
 
 
-void Inventory::add(Identifier id) {
 
+
+
+/* */
+
+void Inventory::add(Identifier id) {
+    
 }
 
 
