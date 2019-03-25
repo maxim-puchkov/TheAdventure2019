@@ -22,7 +22,8 @@
 #ifndef KeywordSet_h
 #define KeywordSet_h
 
-#include "Object.h"
+#include "objects.hpp"
+
 namespace objects {
 
 

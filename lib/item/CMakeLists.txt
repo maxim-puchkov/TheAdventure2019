@@ -1,4 +1,4 @@
-add_library(${libitem} SHARED
+add_library(${libitem}
     src/Item.cpp
     src/ItemBuilder.cpp
     src/Collection.cpp
@@ -25,5 +25,5 @@ set_target_properties(${libitem}
 )
 
 install(TARGETS ${libitem}
-    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
 )

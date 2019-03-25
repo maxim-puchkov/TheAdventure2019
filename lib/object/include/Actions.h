@@ -10,7 +10,10 @@
 #ifndef Actions_h
 #define Actions_h
 
-#include "Object.h"
+#include "objects.hpp"
+#include "Description.h"
+
+// using objects::KeywordSet;
 
 namespace objects {
 
@@ -36,10 +39,7 @@ public:
     
 private:
     
-    
-    
     Environment<Key, Description> env;
-    
     
 };
 
