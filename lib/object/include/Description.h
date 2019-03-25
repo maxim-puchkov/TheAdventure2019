@@ -10,6 +10,7 @@
 #define Description_h
 
 #include "Object.h"
+#include <iterator>
 #include <sstream>
 
 
@@ -62,7 +63,7 @@ public:
         
         
         std::stringstream line("");
-        unsigned short lineLength;
+        unsigned short lineLength = 0;
         
         
         for (auto &word : words) {
@@ -72,6 +73,7 @@ public:
             if (lineLength + wordLength > this->width) {
                 lines.push_back(line.str());
                 line.clear();
+                lineLength = 0;
             }
             
             line << word;

@@ -86,7 +86,5 @@ bool Description::operator==(const Description &other) const {
 
 vector<string> Description::textWords() const {
     std::stringstream ss(this->source);
-    std::istream_iterator<string> begin{ss};
-    std::istream_iterator<string> end{};
-    return {begin, end};
+    return {std::istream_iterator<string>{ss}, std::istream_iterator<string>{}};
 }

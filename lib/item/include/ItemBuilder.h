@@ -58,7 +58,6 @@ public:
         this->description = Description(text);
     }
     
-
     /// Set item's interactable actions
     void setActions(const vector<pair<string, string>> &actions) override {
         this->actions = Actions(actions);
@@ -67,7 +66,6 @@ public:
     // ~ItemBuilder() override;
     // void setKeywords(const KeywordSet &keywords) override;
     // void setDescription(const Description &description) override;
-
     // void setActions(const Actions &actions) override;
     
     
@@ -79,15 +77,11 @@ private:
     /// Clear all data members and reset to default value
     void clearAll();
 
-
-
     // Item Constructor Data members
     Identifier id;
     KeywordSet keywords;
     Description description;
     Actions actions;
-    
-    // Extras extras; // additional actions of an item
     
 };
 

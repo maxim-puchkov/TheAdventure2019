@@ -14,7 +14,7 @@ using namespace objects;
 
 
 ItemBuilder::ItemBuilder()
-: ready(true) {
+: ready(true), keywords(KeywordSet()), description(Description()), actions(Actions()) {
     
 }
 

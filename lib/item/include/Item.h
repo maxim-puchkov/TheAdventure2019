@@ -33,17 +33,12 @@ public:
          const KeywordSet &keywords,
          const Description &description,
          const Actions &actions);
-
-    //Item(const KeywordSet &keywords, const Description &description)
-    //: keywords(keywords), description(description)
-    //{ /* throw 4; */ }
     
-    ~Item() { }
+    ~Item()
+    { }
 
     
-    /// Retrieve object ID
-    Identifier id() const override;
-    
+
     
     /// Set of keywords describing this item
     KeywordSet keywords;
@@ -53,22 +48,17 @@ public:
     Actions actions;
     
     
+    /// Retrieve object ID
+    Identifier id() const override;
+    
     /// Display item's first keyword
     Key brief() const override;
-    
     
     /// Display detailed info
     Text display() const override;
     
-    
-//    Actions allActions() const override {
-//        return this->actions;
-//    }
-    
-    
     /// Examine an Extra attribute of an item
     Text examine(const Key &keyword) const override;
-    
     
     /// Assignment
     Item& operator=(const Item &other); /* undefined */
