@@ -33,7 +33,7 @@ inline namespace typenames {
 
 // Forward struct declarations
 inline namespace structures {
-    struct KeywordSet;
+    struct Keywords;
     struct Description;
     struct Actions;
 }

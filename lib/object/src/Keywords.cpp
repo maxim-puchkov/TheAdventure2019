@@ -1,7 +1,7 @@
 //
-//  KeywordSet.cpp
+//  Keywords.cpp
 //  objects
-//  com.maximpuchkov.Faworki.adventure2019.KeywordSet
+//  com.maximpuchkov.Faworki.adventure2019.Keywords
 //
 //  Package:             adventure2019
 //  Project:             adventure2019
@@ -19,76 +19,95 @@
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
 
-#include "KeywordSet.h"
+#include "Keywords.h"
 using namespace objects;
+
+inline namespace defaults {
+    const Text SET_DELIMITER = ", ";
+}
+
+
+
 
 
 /* Constructors */
 
-KeywordSet::KeywordSet()
+Keywords::Keywords()
 : set({})
 {}
 
-KeywordSet::KeywordSet(const std::vector<Key> &container)
+
+Keywords::Keywords(const std::vector<Key> &container)
 : set(std::make_move_iterator(container.cbegin()), std::make_move_iterator(container.cend()))
 { }
 
 
 
 
+
 /* Set functions */
 
-void KeywordSet::clear() {
+void Keywords::clear() {
     this->set.clear();
 }
 
-bool KeywordSet::contains(const Key &key) const {
+
+bool Keywords::contains(const Key &key) const {
     return this->set.find(key) != this->set.cend();
 }
 
-bool KeywordSet::empty() const {
+
+bool Keywords::empty() const {
     return this->set.empty();
 }
 
-size_t KeywordSet::size() const {
+
+size_t Keywords::size() const {
     return this->set.size();
 }
 
 
 
 
+
 /* Keywords */
 
-Set KeywordSet::all() const {
+Set Keywords::all() const {
     return this->set;
 }
 
-Key KeywordSet::first() const {
+
+Key Keywords::first() const {
     return *this->set.cbegin();
 }
 
-Key KeywordSet::last() const {
+
+Key Keywords::last() const {
     return *this->set.crbegin();
 }
 
-Text KeywordSet::asString() const {
-    return this->asString(SET_DELIMETER);
+
+Text Keywords::asString() const {
+    return this->asString(SET_DELIMITER);
 }
 
-Text KeywordSet::asString(const Text &delimeter) const {
+
+Text Keywords::asString(const Text &delimiter) const {
+    // If set is empty, return empty string
     if (this->empty()) {
         const Text EmptyText = "";
         return EmptyText;
     }
     
-    
+    // Start from the first keyword
     auto iterator = this->set.cbegin();
     std::ostringstream oss;
     oss << *iterator;
     iterator++;
     
+    // Add delimiter and next keyword until the end
     while (iterator != this->set.cend()) {
-        oss << delimeter << *iterator;
+        oss << delimiter << *iterator;
         iterator++;
     }
     
@@ -98,40 +117,47 @@ Text KeywordSet::asString(const Text &delimeter) const {
 
 
 
-/* Operators */
-
-KeywordSet& KeywordSet::operator=(KeywordSet &other) {
-    this->set = other.set;
-    return *this;
-}
-
-
-KeywordSet& KeywordSet::operator=(const KeywordSet &other) {
-    this->set = other.set;
-    return *this;
-}
-
-bool KeywordSet::operator==(KeywordSet &ks) const {
-    return this->set == ks.set;
-};
-
-bool KeywordSet::operator==(const KeywordSet &ks) const {
-    return this->set == ks.set;
-};
-
-bool KeywordSet::operator!=(KeywordSet &ks) const {
-    return this->set != ks.set;
-};
-
-bool KeywordSet::operator!=(const KeywordSet &ks) const {
-    return this->set != ks.set;
-};
-
-
-
 
 /* Convert */
 
-std::vector<Key> KeywordSet::toVector() const {
+std::vector<Key> Keywords::toVector() const {
     return {this->set.cbegin(), this->set.cend()};
+}
+
+
+
+
+
+
+/* Operators */
+
+// Assignment
+Keywords& Keywords::operator=(Keywords &other) {
+    this->set = other.set;
+    return *this;
+}
+
+Keywords& Keywords::operator=(const Keywords &other) {
+    this->set = other.set;
+    return *this;
+}
+
+
+// Equality
+bool Keywords::operator==(Keywords &other) const {
+    return (this->set == other.set);
+}
+
+bool Keywords::operator==(const Keywords &other) const {
+    return (this->set == other.set);
+}
+
+
+// Inequality
+bool Keywords::operator!=(Keywords &other) const {
+    return (this->set != other.set);
+}
+
+bool Keywords::operator!=(const Keywords &other) const {
+    return (this->set != other.set);
 }
