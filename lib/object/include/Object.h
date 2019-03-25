@@ -23,19 +23,14 @@
 #ifndef Object_h
 #define Object_h
 
-#include "ObjectLibrary.pch"
 #include "objects.hpp"
 
 #include "KeywordSet.h"
 #include "Description.h"
-
-
-// #include <iostream>
-// template<typename ...T> void print(T &&...ts) { (std::cout << ... << ts) << std::endl; }
-
-
+#include "Actions.h"
 
 namespace objects {
+
 
 /**
     @class Object
@@ -46,31 +41,31 @@ namespace objects {
 class Object {
 public:
     
-    Object() {}
-    ~Object() {}
+    // Object() { }
+    ~Object();
     
     /// Retrieve object ID
     virtual Identifier id() const = 0;
     
     
-    /// Examine an Extra attribute of an item
-    virtual bool examine(const Key &keyword) const = 0;
-    
-    
-    /// Display detailed info
-    virtual Text details() const = 0;
-    
-    
-    /// Display item's first keyword
+    /// Display item's short description
     virtual Key brief() const = 0;
     
     
-    /// @ignore
-    virtual Extras actions() const = 0;
+    /// Represent this object as formatted text
+    virtual Text display() const = 0;
+    
+    
+    /// Examine an action to see its description
+    virtual Text examine(const Key &keyword) const = 0;
+    
+    
+    /// All available actions
+    // virtual Actions allActions() const = 0;
     
 };
 
-} /* namespace objects */
 
+} /* namespace objects */
 
 #endif /* Object_h */

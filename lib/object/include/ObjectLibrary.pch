@@ -19,5 +19,6 @@
 #include <cstdint>
 #include <sstream>
 #include <set>
+#include "Environment.h"
 
 #endif /* ObjectLibrary_pch */

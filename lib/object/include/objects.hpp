@@ -10,22 +10,30 @@
 #ifndef objects_hpp
 #define objects_hpp
 
+#include "ObjectLibrary.pch"
+#include "DebugToolset.h"
+
+using std::string;
+using std::vector;
+using std::pair;
+
+
 namespace objects {
-    
+
 inline namespace typenames {
     using Identifier = uint64_t;
-    using Key = std::string;
-    using Text = std::string;
+    using Key = string;
+    using Text = string;
     using Set = std::set<Key>;
     
     // temp
-    using ExtrasBinding = std::pair<std::string, std::string>;
-    using Extras = std::vector<ExtrasBinding>;
+    using ExtrasBinding = pair<string, string>;
+    using Extras = vector<ExtrasBinding>;
 } /* namespace typenames */
 
 struct KeywordSet;
 struct Description;
-struct CustomActions;
+struct Actions;
 
 } /* namespace objects */
 
