@@ -9,15 +9,12 @@
 #ifndef Inventory_h
 #define Inventory_h
 
-#include <iostream>
-#include <string>
-#include <unordered_set>
-// #include "Item.h"
-// #include "Collection.h"
+#include "Collection.h"
 
+using objects::Identifier;
+using objects::Item;
+using objects::Collection;
 
-using std::unordered_set;
-using std::string;
 
 /**
  *  @class Inventory
@@ -31,9 +28,11 @@ public:
     
     ~Inventory();
     
-    void add(void *item);
+    void add(Identifier id);
     
-    void remove(void *item);
+    void remove(Identifier id);
+    
+    bool contains(Identifier id); /* undefined */
     
     void display() const;
     
@@ -41,7 +40,9 @@ private:
     
     //Collection items = Collection("description");
     
-    unordered_set<void *> items;
+    //unordered_set<void *> items;
+    
+    Collection items;
     
 };
 
