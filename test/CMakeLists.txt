@@ -15,7 +15,6 @@ target_link_libraries(runAllTests
   commands
   game
   network
-  types
   users
   world
   parsers

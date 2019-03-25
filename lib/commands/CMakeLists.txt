@@ -1,4 +1,4 @@
-add_library(${libcommands}
+add_library(${libcommands} SHARED
     src/Command.cpp
     src/CommandLogin.cpp
     src/CommandLogout.cpp
@@ -55,5 +55,5 @@ target_link_libraries(${libcommands}
 
 
 install(TARGETS ${libcommands}
-  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
 )
