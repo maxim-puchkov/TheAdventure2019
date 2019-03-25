@@ -89,23 +89,27 @@ public:
     /// Set of keywords describing this item
     KeywordSet keywords;
     
+    Description description;
+    
+    Actions actions;
+    
     
     /// Display item's first keyword
     Key brief() const override;
     
     
     /// Display detailed info
-    Text details() const override;
+    Text display() const override;
     
     
-    Extras actions() const override {
-        return extras;
-    }
+//    Actions allActions() const override {
+//        return this->actions;
+//    }
     
     bool hasKeyword(const Key &keyword) const;
     
     /// Examine an Extra attribute of an item
-    bool examine(const Key &keyword) const override;
+    Text examine(const Key &keyword) const override;
     
     // template<typename ...T> v
     //void print(T &&...ts) { (std::cout << ... << ts) << std::endl; }
@@ -139,9 +143,7 @@ private:
     
     
     
-    Description description;
-    
-    Extras extras; /* undefined */
+
     
 };
 

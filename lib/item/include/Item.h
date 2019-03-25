@@ -12,10 +12,6 @@
 #include "Object.h"
 
 
-// temp
-using std::string;
-using std::vector;
-
 namespace objects {
 inline namespace items {
 
@@ -28,14 +24,15 @@ inline namespace items {
 class Item : public Object {
 public:
     
-    Item() { }
+    Item()
+    { }
     
     /// Default item constructor with an object ID, identifying keywords,
     ///     item description, and extra actions.
     Item(Identifier id,
          const KeywordSet &keywords,
          const Description &description,
-         const Extras &extras);
+         const Actions &actions);
 
     //Item(const KeywordSet &keywords, const Description &description)
     //: keywords(keywords), description(description)
@@ -51,22 +48,26 @@ public:
     /// Set of keywords describing this item
     KeywordSet keywords;
     
+    Description description;
+    
+    Actions actions;
+    
     
     /// Display item's first keyword
     Key brief() const override;
     
     
     /// Display detailed info
-    Text details() const override;
+    Text display() const override;
     
     
-    Extras actions() const override {
-        return extras;
-    }
+//    Actions allActions() const override {
+//        return this->actions;
+//    }
     
     
     /// Examine an Extra attribute of an item
-    bool examine(const Key &keyword) const override;
+    Text examine(const Key &keyword) const override;
     
     
     /// Assignment
@@ -80,10 +81,6 @@ public:
 private:
     
     Identifier itemID;
-    
-    Description description;
-    
-    Extras extras; /* undefined */
     
 };
 

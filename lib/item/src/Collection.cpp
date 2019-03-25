@@ -21,7 +21,7 @@ Key Collection::brief() const {
 }
 
 
-Text Collection::details() const {
+Text Collection::display() const {
     return this->keywords.asString();
 }
 
@@ -31,9 +31,9 @@ bool Collection::hasKeyword(const Key &keyword) const {
 }
 
 
-bool Collection::examine(const Key &keyword) const {
+Text Collection::examine(const Key &keyword) const {
     
     // .....
-    return true;
+    return "callee: Collection::examine(const Key&)";
     
 }
