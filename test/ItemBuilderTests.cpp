@@ -66,10 +66,10 @@ TEST_F(ItemBuilderTests, Construction) {
     constructor.setDescription(description);
     constructor.setActions(actions);
     Item sword = constructor.create();
-    
+
     
     Actions a(actions);
-
+    
     EXPECT_TRUE(sword.id() > 0);
     // EXPECT_TRUE(keywords == sword.keywords);
     // EXPECT_TRUE(description == sword.description.full());

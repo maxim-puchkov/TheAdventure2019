@@ -44,6 +44,8 @@ public:
     
     
     
+    
+    
     /* Mutable Structures */
     
     /// Set of keywords describing this item
@@ -54,6 +56,7 @@ public:
     
     /// Interactable actions
     Actions actions;
+    
     
     
     
@@ -84,7 +87,6 @@ public:
     
     size_t size();
 
-    
 private:
     
     Identifier collectionID;

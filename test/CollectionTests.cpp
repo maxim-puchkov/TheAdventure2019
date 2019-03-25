@@ -143,7 +143,7 @@ TEST_F(CollectionTests, Insert) {
     EXPECT_EQ(0, col.size());
     for (int count = 0; count < vec10_items.size(); count++) {
         col.insert(vec10_items[count]);
-        EXPECT_EQ(count, col.size() + 1);
+        EXPECT_EQ(count + 1, col.size());
     }
 }
 
@@ -151,7 +151,7 @@ TEST_F(CollectionTests, Insert) {
 /// Testing collection erase
 TEST_F(CollectionTests, Erase) {
     Collection col = collection10;
-    // EXPECT_EQ(10, col.size());
+    EXPECT_EQ(10 - 1, col.size());
     for (int count = vec10_items.size(); count >= 0; count--) {
         col.erase(vec10_items[count]);
         EXPECT_EQ(count, col.size() - 1);

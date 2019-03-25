@@ -55,14 +55,21 @@ void Description::reformat() {
     
     debug::print("Source:", source);
     
-    auto words = this->textWords();
-    //debug::print("Words:", words);
     
-    auto longdesc = this->breakLines(words);
+    debug::print("All words -> ");
+    auto words = this->textWords();
     for (auto &line : longdesc) {
         debug::print("Line: ", line);
     }
-    //debug::print("Lines:", longdesc);
+    debug::print("<- All words end");
+    
+    
+    debug::print("All lines ->");
+    auto longdesc = this->partition(words);
+    for (auto &line : longdesc) {
+        debug::print("Line: ", line);
+    }
+    debug::print("<- All lines end");
     
 }
 
@@ -113,12 +120,32 @@ bool Description::operator==(const Description &other) const {
 
 /* Private */
 
-vector<Text> Description::breakLines(const vector<Text> &words) const {
+vector<string> Description::textWords() const {
+    std::stringstream ss(this->source);
+    return {std::istream_iterator<string>{ss}, std::istream_iterator<string>{}};
+}
+
+
+Text Description::toString(vector<string> &&words) const {
+    std::stringstream line(words[0]);
+    const char WS = ' ';
+    const unsigned long SIZE = words.size();
+    
+    for (unsigned long i = 1; i < SIZE; i++) {
+        line << WS << words[i];
+    }
+    
+    return line.str();
+}
+
+
+vector<Text> Description::partition(const vector<Text> &words) const {
     
     vector<Text> lines;
     
     
-    std::stringstream line("");
+    //std::stringstream line("");
+    vector<string> line;
     unsigned short lineLength = 0;
     
     
@@ -128,21 +155,18 @@ vector<Text> Description::breakLines(const vector<Text> &words) const {
         
         // Go to next line if cannot fit
         if ((lineLength + wordLength) > this->width) {
-            lines.push_back(line.str());
+            //lines.push_back(line.str());
+            Text fullLine = this->toString(std::move(line));
             line.clear();
             lineLength = 0;
+            
+            lines.push_back(fullLine);
         }
         
-        line << word;
-        lineLength += wordLength;
+        line.push_back(word);
+        lineLength += (wordLength + 1);
     }
     
     return lines;
     
-}
-
-
-vector<string> Description::textWords() const {
-    std::stringstream ss(this->source);
-    return {std::istream_iterator<string>{ss}, std::istream_iterator<string>{}};
 }

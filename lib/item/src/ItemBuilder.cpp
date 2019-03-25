@@ -19,7 +19,7 @@ using namespace objects;
 
 ItemBuilder::ItemBuilder()
 : ready(true), keywords(Keywords()), description(Description()), actions(Actions()) {
-    
+    debug::PrefixMessage = "\tItemBuilder: ";
 }
 
 
@@ -31,6 +31,8 @@ ItemBuilder::ItemBuilder()
 Item ItemBuilder::create() {
     Item item(id, keywords, description, actions);
     this->reset();
+    
+    debug::print("Created item with id = ", id);
     return item;
 }
 

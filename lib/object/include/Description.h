@@ -91,18 +91,24 @@ private:
     
 
     
+    
+    
     /*!
      @function textWords
      @return Vector of individual source text words without whitespaces.
      */
     vector<string> textWords() const;
     
+    
+    Text toString(vector<string> &&words) const;
+    
+    
     /*!
      @function breakLines
      @param words Partitioned words of full text input
      @return Lines of words with specified width
      */
-    vector<Text> breakLines(const vector<Text> &words) const;
+    vector<Text> partition(const vector<Text> &words) const;
     
     
 };
