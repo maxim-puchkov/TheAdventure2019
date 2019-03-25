@@ -14,19 +14,10 @@
 
 #include "Builder.h"
 #include "Item.h"
+
 using namespace objects;
 
-//#include "ObjectLibrary.pch"
 
-// #include "Description.h"
-// #include "KeywordSet.h"
-
-using std::string;
-using std::vector;
-
-
-const unsigned int LINE_WIDTH = 80;
-const unsigned int SHORT_DESCRIPTION_WIDTH = 20;
 
 
 
@@ -40,36 +31,40 @@ const unsigned int SHORT_DESCRIPTION_WIDTH = 20;
 class ItemBuilder : public Builder {
 public:
     
+    /* Constructors */
+    
     ItemBuilder();
 
+    
+    
+    
+    
+    
+    /* Create / Reset */
+    
     /// Create an item with current settings
     Item create();
 
     /// Reset current item settings
     void reset() override;
+    
+    
+    
+    
+    
+    /* Set item's properties */
 
     /// Set item's unique keywords
-    void setKeywords(const vector<string> &keywords) override {
-        this->keywords = KeywordSet(keywords);
-    }
+    void setKeywords(const vector<string> &keywords) override;
 
     /// Set item's description text
-    void setDescription(const string &text) override {
-        this->description = Description(text);
-    }
+    void setDescription(const string &text) override;
     
     /// Set item's interactable actions
-    void setActions(const vector<pair<string, string>> &actions) override {
-        this->actions = Actions(actions);
-    }
-    
-    // ~ItemBuilder() override;
-    // void setKeywords(const KeywordSet &keywords) override;
-    // void setDescription(const Description &description) override;
-    // void setActions(const Actions &actions) override;
+    void setActions(const vector<pair<string, string>> &actions) override;
     
     
-    
+    // temp
     bool ready = false;
 
 private:
@@ -77,9 +72,11 @@ private:
     /// Clear all data members and reset to default value
     void clearAll();
 
-    // Item Constructor Data members
+    
+    
+    /* Item Constructor Data members */
     Identifier id;
-    KeywordSet keywords;
+    Keywords keywords;
     Description description;
     Actions actions;
     

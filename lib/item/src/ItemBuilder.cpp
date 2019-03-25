@@ -7,27 +7,30 @@
 //
 
 #include "ItemBuilder.h"
-using namespace objects;
-
 #include "DebugToolset.h"
 
+using namespace objects;
 
+
+
+
+
+/* Constructors */
 
 ItemBuilder::ItemBuilder()
-: ready(true), keywords(KeywordSet()), description(Description()), actions(Actions()) {
+: ready(true), keywords(Keywords()), description(Description()), actions(Actions()) {
     
 }
 
 
-//ItemBuilder::~ItemBuilder()
-//{ }
 
+
+
+/* Create / Reset */
 
 Item ItemBuilder::create() {
-    //return Item(id, keywords, description, extras);
-    
     Item item(id, keywords, description, actions);
-    // ...
+    this->reset();
     return item;
 }
 
@@ -37,23 +40,37 @@ void ItemBuilder::reset() {
 }
 
 
-//void ItemBuilder::setKeywords(const KeywordSet &keywords) {
-//    this->keywords = keywords;
-//}
 
 
-//void ItemBuilder::setDescription(const Description &description) {
-//    //this->description = Description(description, LINE_WIDTH, SHORT_DESCRIPTION_WIDTH);
-//}
 
+/* Set Properties */
+
+void ItemBuilder::setKeywords(const vector<string> &keywords) {
+    this->keywords = Keywords(keywords);
+}
+
+void ItemBuilder::setDescription(const string &text) {
+    this->description = Description(text);
+}
+
+void ItemBuilder::setActions(const vector<pair<string, string>> &actions) {
+    this->actions = Actions(actions);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* * *   Private   * * */
 
 void ItemBuilder::clearAll() {
     this->keywords.clear();
     this->description.clear();
     this->actions.clear();
 }
-
-
-//Identifier ItemBuilder::nextIdentifier() {
-//    return this->unique_identifiers.generate();
-//}

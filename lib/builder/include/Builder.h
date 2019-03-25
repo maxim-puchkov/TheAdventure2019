@@ -32,11 +32,9 @@ public:
     virtual void reset() = 0;
     
     /// Set object's identifying keywords
-    // virtual void setKeywords(const KeywordSet &keywords) = 0;
     virtual void setKeywords(const vector<string> &keywords) = 0;
     
     /// Set object's description text
-    // virtual void setDescription(const Description &description) = 0;
     virtual void setDescription(const string &description) = 0;
     
     
