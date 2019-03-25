@@ -20,20 +20,24 @@ using std::pair;
 
 namespace objects {
 
+
+// Type aliases
 inline namespace typenames {
     using Identifier = uint64_t;
     using Key = string;
     using Text = string;
     using Set = std::set<Key>;
-    
-    // temp
-    using ExtrasBinding = pair<string, string>;
-    using Extras = vector<ExtrasBinding>;
 } /* namespace typenames */
 
-struct KeywordSet;
-struct Description;
-struct Actions;
+
+
+// Forward struct declarations
+inline namespace structures {
+    struct KeywordSet;
+    struct Description;
+    struct Actions;
+}
+
 
 } /* namespace objects */
 

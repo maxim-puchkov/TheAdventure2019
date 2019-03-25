@@ -9,6 +9,11 @@
 #include "Object.h"
 
 
+objects::Object::Object() {
+    debug::PrefixMessage = "\tObject:";
+    debug::print("Object created.");
+}
+
 objects::Object::~Object() {
     debug::print("Object destroyed.");
 }

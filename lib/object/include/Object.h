@@ -1,24 +1,11 @@
 //
 //  Object.h
-//  Objects
-//  com.maximpuchkov.Objects.Objects.Object
+//  adventure2019: Object
+//  com.maximpuchkov.Faworki.adventure2019.Object
 //
-//  Package:             Objects
-//  Project:             Objects
-//  Workspace:           Objects
-//  Organization:        maximpuchkov
-//  Prefix:              com
-//
-//  Author:              Maxim Puchkov (mpuchkov@sfu.ca)
-//  Full username:       admin
-//  Created on:          2019-03-15 at 4:07 PM
-//  System:              macOS 10.13
-//  Tools:               Xcode v.10.1 (10B61); Swift 4.0
-//
-//  Created by admin (Maxim Puchkov).
+//  Created by mpuchkov on 2019-03-15 at 4:07 PM. macOS 10.13, Xcode 10.1.
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
-
 
 #ifndef Object_h
 #define Object_h
@@ -41,7 +28,8 @@ namespace objects {
 class Object {
 public:
     
-    // Object() { }
+    Object();
+    
     ~Object();
     
     /// Retrieve object ID
@@ -58,10 +46,6 @@ public:
     
     /// Examine an action to see its description
     virtual Text examine(const Key &keyword) const = 0;
-    
-    
-    /// All available actions
-    // virtual Actions allActions() const = 0;
     
 };
 
