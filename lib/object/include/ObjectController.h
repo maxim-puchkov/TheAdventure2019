@@ -11,38 +11,28 @@
 #ifndef ObjectController_h
 #define ObjectController_h
 
-
-#include <string>
-#include <vector>
-
 #include "objects.hpp"
-
-#include "Environment.h"
-#include "Builder.h"
 #include "Object.h"
 
-using std::string;
-using std::vector;
-
-
 namespace objects {
-namespace controllers {
     
-
 
 class ObjectController {
 public:
     
     ObjectController();
     
+    // virtual Builder *builder() const = 0;
+    
+    virtual vector<Object *> objects() const = 0;
+    
 private:
     
-    Environment<typename, Constructor> constructors;
+    // Environment<typename, Constructor> constructors;
     
 };
     
 
-}
-}
+} /* namespace objects */
 
 #endif /* ObjectController_h */

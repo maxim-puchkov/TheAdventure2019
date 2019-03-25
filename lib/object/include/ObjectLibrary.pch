@@ -21,7 +21,5 @@
 #include <set>
 #include <vector>
 
-#include "Environment.h"
-
 
 #endif /* ObjectLibrary_pch */

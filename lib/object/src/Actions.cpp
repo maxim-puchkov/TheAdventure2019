@@ -11,9 +11,11 @@
 
 using namespace objects;
 
+
 Actions::Actions()
 : env(Environment<Key, Description>{})
 { }
+
 
 Actions::Actions(const vector<pair<string, string>> &actions)
 : env(Environment<Key, Description>{}) {
@@ -28,13 +30,19 @@ Actions::Actions(const vector<pair<string, string>> &actions)
     }
 }
 
+
+
+
+
+/* Environment functions */
+
 void Actions::clear() {
     this->env.clear();
 }
 
 
 
-
+/* Operators */
 
 Actions& Actions::operator=(Actions &other) {
     this->env = other.env;
@@ -45,6 +53,7 @@ Actions& Actions::operator=(const Actions &other) {
     this->env = other.env;
     return *this;
 }
+
 
 bool Actions::operator==(Actions &other) const {
     return (this->env == other.env);

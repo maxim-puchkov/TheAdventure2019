@@ -12,6 +12,8 @@
 
 #include "ObjectLibrary.pch"
 #include "DebugToolset.h"
+#include "UIText.h"
+#include "Environment.h"
 
 using std::string;
 using std::vector;
@@ -27,6 +29,7 @@ inline namespace typenames {
     using Key = string;
     using Text = string;
     using Set = std::set<Key>;
+    using Lines = vector<Text>;
 } /* namespace typenames */
 
 

@@ -12,7 +12,7 @@
 #include "objects.hpp"
 
 namespace objects {
-    
+
 inline namespace structures {
 
 
@@ -47,7 +47,7 @@ public:
     void setWidth(uint16_t width);
     
     /// Formats description according to line width
-    void reformat();
+    // void reformat();
     
     /// Clear all text
     void clear();
@@ -64,6 +64,9 @@ public:
     /// Retrieve long description
     Text full() const;
     
+    /// Retrieve total line count of long description
+    size_t lineCount() const;
+    
     
     
     
@@ -73,9 +76,14 @@ public:
     bool operator==(Description &other) const;
     bool operator==(const Description &other) const;
     
+    Text operator[](size_t index);
+    Text operator[](size_t index) const;
+    
 private:
     
-    /// First 2-3 words of full description
+    void init();
+    
+    /// First line of long description
     Text shortdesc;
     
     /// Full description broken down into lines of
@@ -83,37 +91,10 @@ private:
     vector<Text> longdesc;
     
     /// Source string is saved to allow reformatting
-    Text source;
+    UIText source;
     
     /// Width of one line
     uint16_t width;
-    
-
-    
-    
-    
-    /*!
-     @function textWords
-     @return Vector of individual source text words without whitespaces.
-     */
-    vector<string> textWords() const;
-    
-    
-    /*!
-     @function toString
-     @param words Vector of words
-     @return Line of text
-     */
-    Text toString(vector<string> &&words) const;
-    
-    
-    /*!
-     @function breakLines
-     @param words Partitioned words of full text input
-     @return Lines of words with specified width
-     */
-    vector<Text> partition(const vector<Text> &words) const;
-    
     
 };
 
