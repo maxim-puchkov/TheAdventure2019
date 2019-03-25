@@ -10,23 +10,38 @@
 #ifndef Actions_h
 #define Actions_h
 
-#include <map>
+#include "Object.h"
 
-/*
+namespace objects {
+
+
+/*!
  @class Actions
- @brief Defines action reference, for any
-           custom action key or its alias
+ 
+ @brief Collection of action keywords and associated examinable descriptions
  */
-template<typename KeyType, typename RefType>
-struct CustomActions {
+struct Actions {
 public:
-    CustomActions()
-    : map({})
-    { }
+    
+    Actions();
+    
+    Actions(const vector<pair<string, string>> &actions);
+    
+    void clear();
+    
+    // Actions(Environment<string, string> e);
+    
+    
 private:
-    std::map<KeyType, RefType> map;
-    KeyType key;
-    RefType reference;
+    
+    
+    
+    Environment<Key, Description> env;
+    
+    
 };
+
+
+} /* namepsace objects */
 
 #endif /* Actions_h */

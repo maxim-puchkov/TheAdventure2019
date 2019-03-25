@@ -7,4 +7,23 @@
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
 
-#include <stdio.h>
+#include "Actions.h"
+
+using namespace objects;
+
+Actions::Actions()
+: env(Environment<Key, Description>{})
+{ }
+
+Actions::Actions(const vector<pair<string, string>> &actions) {
+    for (auto &pair : actions) {
+        Key keyword = pair.first;
+        Description description = Description(pair.second);
+        
+        
+    }
+}
+
+void Actions::clear() {
+    this->env.clear();
+}
