@@ -6,23 +6,31 @@
         * [Add][issues/new]
     * [Milestones][milestones]
     * [Labels][labels]
-* [Wiki pages][wiki] ~wiki
-    * [Pipeline Status][status]
-    * [Progress][progress]
-    * [HeaderDoc][hdoc]
+* [Wiki pages][wiki]
+    * [Pipeline Status][status] ~wiki
+    * [Progress][progress] ~wiki
+    * [HeaderDoc][hdoc] ~wiki ~Upcoming
 * Documentation
-    * [API Reference][api-ref]
+    * [API Reference][api-ref] ~Upcoming
 * Branches
     * [_Master_](#master) 
     * [_Libraries_](#libraries)
     * [Graph][graph]
 * Details
     * [Build & Run code](#run-chat-server-and-chat-client)
-    * [Progress checklist][progress]
+      * [Command line](#command-line)
+      * [Server](#server) ~Upcoming
+    * [Releases](/) ~Upcoming
     * [Markdown][markdown]
 
-> _Feb 16 - Mar 15_
 
+>>>
+_Iteration 1: Jan 15 - Feb 15_
+
+_Iteration 2: Feb 16 - Mar 15_
+
+_**Iteration 3:** Mar 16 - Apr 16_
+>>>
 
 
 
@@ -36,7 +44,7 @@
 ### Pipeline
 [![master-status]][commits/master] [![master-cover]][commits/master]
 
-> _Available on [Wiki pages][status]_
+> _Available on [Wiki pages][status] ~wiki_
 
 
 ### Contribute
@@ -53,7 +61,7 @@
 ### Pipeline
 [![lib-status]][commits/libraries] [![lib-cover]][commits/libraries]
 
-> _Available on [Wiki pages][status]_
+> _Available on [Wiki pages][status] ~wiki_
 
 
 ### Be up to date
@@ -120,6 +128,7 @@ This project requires:
 
 
 ## Running
+### Command line
 
 First run the chat server on an unused port of the server machine. The server
 also takes an HTML file that it will server to standard http requests for
@@ -145,6 +154,9 @@ specified web page above. By clicking `Connect`, the page gains access to
 chat on the server via web sockets in browsers that support web sockets.
 
 
+### Server 
+
+> ~Upcoming 
 
 
 
@@ -154,7 +166,7 @@ chat on the server via web sockets in browsers that support web sockets.
 <br /><br />
 
 ## Warnings
-Warnings are removed from __README__.
+Warnings have been removed from __README__.
 
 > _See_ ~issue #17
 
@@ -167,7 +179,7 @@ Warnings are removed from __README__.
 <br />
 
 ## Progress
-Progress is removed from __README.md__.
+Progress has been removed from __README.md__.
 
 > _See [project wiki][progress]_ ~wiki
 
