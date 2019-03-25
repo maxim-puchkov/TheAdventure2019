@@ -11,6 +11,11 @@
 #include "Builder.h"
 
 
+Builder::Builder() {
+    debug::PrefixMessage = "Builder";
+    debug::print("Builder created.");
+}
+
 Builder::~Builder() {
-    
+    debug::print("Builder destroyed.");
 }
