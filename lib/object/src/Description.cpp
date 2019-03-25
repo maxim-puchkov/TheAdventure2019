@@ -18,7 +18,7 @@ inline namespace defaults {
 
 
 
-// Constructors
+/* Constructors */
 
 Description::Description()
 : shortdesc(EMPTY), longdesc({EMPTY}), width(LINE_WIDTH)
@@ -28,29 +28,25 @@ Description::Description()
 Description::Description(const Text &source)
 : source(source), width(LINE_WIDTH) {
     this->reformat();
-    
-    
-    //this->reformat(source, lineWidth);
 }
 
 
 Description::Description(const Text &source, uint16_t lineWidth)
 : source(source), width(lineWidth) {
     this->reformat();
-    //this->reformat(source, lineWidth);
 }
 
 
 
 
 
-//
+/* Description properties */
 
 void Description::setWidth(uint16_t width) {
     this->width = width;
 }
 
-/// Formats description according to line width
+
 void Description::reformat() {
     
     debug::print("Source:", source);
@@ -73,6 +69,7 @@ void Description::reformat() {
     
 }
 
+
 void Description::clear() {
     this->shortdesc.empty();
     this->longdesc.empty();
@@ -83,7 +80,7 @@ void Description::clear() {
 
 
 
-//
+/* Retrieval */
 
 Text Description::brief() const {
     return this->shortdesc;
@@ -98,6 +95,12 @@ Text Description::full() const {
     return ss.str();
 }
 
+
+
+
+
+
+/* Operators */
 
 bool Description::operator==(Description &other) const {
     return (this->source == other.source);
@@ -154,12 +157,21 @@ vector<Text> Description::partition(const vector<Text> &words) const {
         
         // Go to next line if cannot fit
         if ((lineLength + wordLength) > this->width) {
-            //lines.push_back(line.str());
+
+
+            if (line.empty()) {
+                break;
+            }
+            
             Text fullLine = this->toString(std::move(line));
+            debug::print("Full line: ", fullLine);
+            
             line.clear();
             lineLength = 0;
             
             lines.push_back(fullLine);
+            
+            
         }
         
         line.push_back(word);

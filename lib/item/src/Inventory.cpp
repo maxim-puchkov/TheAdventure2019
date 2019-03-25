@@ -38,15 +38,28 @@ Inventory::~Inventory()
 /* */
 
 void Inventory::add(Identifier id) {
-    
+    this->items.insert(id);
 }
 
 
 void Inventory::remove(Identifier id) {
+    this->items.erase(id);
+}
 
+
+bool Inventory::contains(Identifier id) const {
+    return this->items.contains(id);
+}
+
+
+size_t Inventory::size() const {
+    return this->items.size();
 }
 
 
 void Inventory::display() const {
-
+    debug::PrefixMessage = "\tInventory: ";
+    for (const auto &itemID : this->items) {
+        debug::print(itemID);
+    }
 }

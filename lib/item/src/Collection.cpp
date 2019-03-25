@@ -48,7 +48,21 @@ Key Collection::brief() const {
 
 
 Text Collection::display() const {
-    return this->keywords.asString();
+    std::stringstream ss(this->keywords.first());
+    const char NL = '\n';
+    const char TAB = '\t';
+    
+    
+    ss << NL;
+    for (auto &itemID : this->set) {
+        ss << TAB << itemID << NL;
+    }
+    
+    ss << "Total size: " << this->size();
+    
+    
+    return ss.str();
+    
 }
 
 
@@ -70,6 +84,10 @@ bool Collection::insert(const Item &item) {
     return this->set.insert(item.id()).second;
 }
 
+bool Collection::insert(Identifier id) {
+    return this->set.insert(id).second;
+}
+
 
 bool Collection::erase(const Item &item) {
     bool valid = (this->set.find(item.id()) != this->set.cend());
@@ -77,7 +95,32 @@ bool Collection::erase(const Item &item) {
     return valid;
 }
 
+bool Collection::erase(Identifier id) {
+    bool valid = (this->set.find(id) != this->set.cend());
+    this->set.erase(id);
+    return valid;
+}
 
-size_t Collection::size() {
+
+bool Collection::contains(Identifier id) const {
+    return (this->set.find(id) != this->set.cend());
+}
+
+
+size_t Collection::size() const {
     return this->set.size();
+}
+
+
+
+
+
+/* */
+
+std::set<Identifier>::const_iterator Collection::begin() const {
+    return this->set.cbegin();
+}
+
+std::set<Identifier>::const_iterator Collection::end() const {
+    return this->set.cend();
 }

@@ -26,21 +26,22 @@ inline namespace structures {
 struct Description {
 public:
     
-    // Constructors
+    /* Constructors */
     
     /// Empty description
     Description();
     
+    /// Default constructor
     Description(const Text &source);
     
-    /// Break up description text into multiple lines.
+    /// Description with specified line width
     Description(const Text &source, uint16_t lineWidth);
     
     
     
     
     
-    // Mutators
+    /* Description properties */
     
     /// Set description line width
     void setWidth(uint16_t width);
@@ -55,23 +56,21 @@ public:
     
     
     
-    //
+    /* Retrieval */
     
     /// Retrieve short description
     Text brief() const;
     
     /// Retrieve long description
-    //vector<Text> full() const;
     Text full() const;
     
     
     
     
     
-    // Operators
+    /* Operators */
     
     bool operator==(Description &other) const;
-    
     bool operator==(const Description &other) const;
     
 private:
@@ -100,6 +99,11 @@ private:
     vector<string> textWords() const;
     
     
+    /*!
+     @function toString
+     @param words Vector of words
+     @return Line of text
+     */
     Text toString(vector<string> &&words) const;
     
     

@@ -82,10 +82,23 @@ public:
     /* Set operations */
     
     bool insert(const Item &item);
+    bool insert(Identifier id);
     
     bool erase(const Item &item);
+    bool erase(Identifier id);
     
-    size_t size();
+    bool contains(Identifier id) const;
+    
+    size_t size() const;
+    
+    
+    
+    
+    
+    /* */
+    
+    std::set<Identifier>::const_iterator begin() const;
+    std::set<Identifier>::const_iterator end() const;
 
 private:
     

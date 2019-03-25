@@ -42,7 +42,9 @@ public:
     
     void remove(Identifier id);
     
-    bool contains(Identifier id); /* undefined */
+    bool contains(Identifier id) const;
+    
+    size_t size() const;
     
     void display() const;
     

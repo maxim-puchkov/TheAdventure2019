@@ -10,7 +10,7 @@
 
 
 objects::Object::Object() {
-    debug::PrefixMessage = "\tObject:";
+    debug::PrefixMessage = "\tObject: ";
     debug::print("Object created.");
 }
 
