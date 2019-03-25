@@ -66,6 +66,8 @@ public:
     
     void validate(const K &k) const noexcept(false);
     
+    void clear() noexcept;
+    
     typename unordered_map<K, V>::const_iterator find(const K &k) const noexcept(false);
     
     typename unordered_map<K, V>::size_type size() const;
@@ -85,6 +87,18 @@ public:
     typename unordered_map<K, V>::const_iterator begin() const;
     
     typename unordered_map<K, V>::const_iterator end() const;
+    
+    
+    
+    /* Operators */
+    
+    Environment<K, V>& operator=(Environment<K, V> &other);
+    
+    Environment<K, V>& operator=(const Environment<K, V> &other);
+    
+    bool operator==(Environment<K, V> &other);
+    
+    bool operator==(const Environment<K, V> &other);
     
 private:
     

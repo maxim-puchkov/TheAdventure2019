@@ -16,22 +16,27 @@
 using std::string;
 using std::unordered_map;
 
+
 template<class K, class V>
-Environment<K, V>::Environment() { }
+Environment<K, V>::Environment()
+{ }
 
 
 template<class K, class V>
 Environment<K, V>::Environment(const Environment &other)
-: map(std::move(other.map)) { }
+: map(std::move(other.map))
+{ }
 
 
 template<class K, class V>
 Environment<K, V>::Environment(Environment &&other)
-: map(std::move(other.map)) { }
+: map(std::move(other.map))
+{ }
 
 
 template<class K, class V>
-Environment<K, V>::~Environment() { }
+Environment<K, V>::~Environment()
+{ }
 
 
 template<class K, class V>
@@ -88,6 +93,12 @@ void Environment<K, V>::validate(const K &k) const noexcept(false) {
 
 
 template<class K, class V>
+void Environment<K, V>::clear() noexcept {
+    this->map.clear();
+}
+
+
+template<class K, class V>
 typename unordered_map<K, V>::const_iterator Environment<K, V>::find(const K &k) const noexcept(false) {
     auto it = this->map.find(k);
     if (it == this->map.end()) {
@@ -136,6 +147,32 @@ typename unordered_map<K, V>::const_iterator Environment<K, V>::begin() const {
 template<class K, class V>
 typename unordered_map<K, V>::const_iterator Environment<K, V>::end() const {
     return this->map.cend();
+}
+
+
+template<class K, class V>
+Environment<K, V>& Environment<K, V>::operator=(Environment<K, V> &other) {
+    this->map = other.map;
+    return *this;
+}
+
+
+template<class K, class V>
+Environment<K, V>& Environment<K, V>::operator=(const Environment<K, V> &other) {
+    this->map = other.map;
+    return *this;
+}
+
+
+template<class K, class V>
+bool Environment<K, V>::operator==(Environment<K, V> &other) {
+    return (this->map == other.map);
+}
+
+
+template<class K, class V>
+bool Environment<K, V>::operator==(const Environment<K, V> &other) {
+    return (this->map == other.map);
 }
 
 #endif /* Environment_cpp */
