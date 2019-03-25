@@ -13,9 +13,9 @@
 #include "objects.hpp"
 #include "Description.h"
 
-// using objects::KeywordSet;
-
 namespace objects {
+    
+inline namespace structures {
 
 
 /*!
@@ -34,6 +34,10 @@ public:
     
     // Actions(Environment<string, string> e);
     
+
+    Actions& operator=(Actions &other);
+    Actions& operator=(const Actions &other);
+    
     bool operator==(Actions &other) const;
     bool operator==(const Actions &other) const;
     
@@ -43,6 +47,8 @@ private:
     
 };
 
+
+} /* namespace structures */
 
 } /* namepsace objects */
 

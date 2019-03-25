@@ -17,10 +17,13 @@ Actions::Actions()
 
 Actions::Actions(const vector<pair<string, string>> &actions)
 : env(Environment<Key, Description>{}) {
+    debug::print(actions.size());
     for (auto &pair : actions) {
         Key keyword = pair.first;
         Description description = Description(pair.second);
         
+        debug::print(keyword);
+        debug::print(pair.second);
         this->env.bind(keyword, description);
     }
 }
@@ -29,6 +32,19 @@ void Actions::clear() {
     this->env.clear();
 }
 
+
+
+
+
+Actions& Actions::operator=(Actions &other) {
+    this->env = other.env;
+    return *this;
+}
+
+Actions& Actions::operator=(const Actions &other) {
+    this->env = other.env;
+    return *this;
+}
 
 bool Actions::operator==(Actions &other) const {
     return (this->env == other.env);
