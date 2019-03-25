@@ -106,9 +106,9 @@ TEST_F(ItemBuilderTests, Construction) {
 //     Item item = constructor.create();
 //
 //
-//     EXPECT_TRUE(item.hasKeyword(keys[0]));
-//     EXPECT_TRUE(item.hasKeyword(keys[1]));
-//     EXPECT_FALSE(item.hasKeyword("Not a keyword"));
+//     EXPECT_TRUE(item.keywords.contains(keys[0]));
+//     EXPECT_TRUE(item.keywords.contains(keys[1]));
+//     EXPECT_FALSE(item.keywords.contains("Not a keyword"));
 //
 //}
 
@@ -126,8 +126,8 @@ TEST_F(ItemBuilderTests, KeywordType) {
     Item item = constructor.create();
  
  
-    EXPECT_EQ(true, item.hasKeyword(skey));
-    EXPECT_EQ(true, item.hasKeyword(ckey));
+    EXPECT_EQ(true, item.keywords.contains(skey));
+    EXPECT_EQ(true, item.keywords.contains(ckey));
  
 }
 

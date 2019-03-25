@@ -18,7 +18,7 @@
 
 
 namespace objects {
-using objects::KeywordSet;
+using objects::Keywords;
 using objects::Description;
 
 
@@ -47,7 +47,7 @@ public:
     /* Mutable Structures */
     
     /// Set of keywords describing this item
-    KeywordSet keywords;
+    Keywords keywords;
     
     /// Formatted description text
     Description description;

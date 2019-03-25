@@ -31,7 +31,7 @@ public:
     /// Default item constructor with an object ID, identifying keywords,
     ///     item description, and extra actions.
     Item(Identifier id,
-         const KeywordSet &keywords,
+         const Keywords &keywords,
          const Description &description,
          const Actions &actions);
     
@@ -42,7 +42,7 @@ public:
     /* Mutable Structures */
     
     /// Set of keywords describing this item
-    KeywordSet keywords;
+    Keywords keywords;
     
     /// Formatted description text
     Description description;

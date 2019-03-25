@@ -27,13 +27,9 @@ protected:
         // Initial set up before each test...
         initialized = true;
         
-        S f  = "first",  s = "second";
-        P p1 = P(f, s), p2 = P(s, f);
-        VP vp1{p1, p2, p1, p2};
-        VP vp2{p2, p1, p2, p1};
-        
-        extras_1 = vp1;
-        extras_2 = vp2;
+        string actionKey = "action";
+        string actionDesc = "A description";
+        action = {{actionKey, actionDesc}};
     }
     
     void TearDown() override {
@@ -46,8 +42,10 @@ protected:
     
     /* * *         Variables        * * */
     bool initialized;
-    Extras extras_1;
-    Extras extras_2;
+    // Extras extras_1;
+    // Extras extras_2;
+    
+    vector<std::pair<string, string>> action;
     
 };
 
@@ -76,13 +74,13 @@ TEST_F(ItemTests, Instantiation) {
     // Keywords
     string keyword1 = "Item";
     string keyword2 = "Second keyword";
-    KeywordSet keywords({keyword1, keyword2});
+    Keywords keywords({keyword1, keyword2});
     
     // Item description
     Description description("Item tests");
     
     // Extra actions
-    Actions actions(extras_1);
+    Actions actions(action);
     
     Item item = Item(id, keywords, description, actions);
     

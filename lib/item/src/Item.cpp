@@ -20,7 +20,7 @@ Item::Item()
 
 
 Item::Item(Identifier id,
-           const KeywordSet &keywords,
+           const Keywords &keywords,
            const Description &description,
            const Actions &actions)
 : itemID(id), keywords(keywords), description(description), actions(actions)
