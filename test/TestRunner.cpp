@@ -7,10 +7,11 @@
 
 
 #include "KeywordsTests.cpp"
+#include "DescriptionTests.cpp"
 #include "ItemTests.cpp"
 #include "CollectionTests.cpp"
 #include "ItemBuilderTests.cpp"
-
+#include "InventoryTests.cpp"
 
 
 int main(int argc, char** argv) {
