@@ -15,12 +15,13 @@ Actions::Actions()
 : env(Environment<Key, Description>{})
 { }
 
-Actions::Actions(const vector<pair<string, string>> &actions) {
+Actions::Actions(const vector<pair<string, string>> &actions)
+: env(Environment<Key, Description>{}) {
     for (auto &pair : actions) {
         Key keyword = pair.first;
         Description description = Description(pair.second);
         
-        
+        this->env.bind(keyword, description);
     }
 }
 
