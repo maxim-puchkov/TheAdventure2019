@@ -27,3 +27,12 @@ Actions::Actions(const vector<pair<string, string>> &actions) {
 void Actions::clear() {
     this->env.clear();
 }
+
+
+bool Actions::operator==(Actions &other) const {
+    return (this->env == other.env);
+}
+
+bool Actions::operator==(const Actions &other) const {
+    return (this->env == other.env);
+}

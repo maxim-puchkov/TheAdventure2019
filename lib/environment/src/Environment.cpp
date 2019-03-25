@@ -165,13 +165,13 @@ Environment<K, V>& Environment<K, V>::operator=(const Environment<K, V> &other) 
 
 
 template<class K, class V>
-bool Environment<K, V>::operator==(Environment<K, V> &other) {
+bool Environment<K, V>::operator==(Environment<K, V> &other) const {
     return (this->map == other.map);
 }
 
 
 template<class K, class V>
-bool Environment<K, V>::operator==(const Environment<K, V> &other) {
+bool Environment<K, V>::operator==(const Environment<K, V> &other) const {
     return (this->map == other.map);
 }
 

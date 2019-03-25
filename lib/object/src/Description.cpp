@@ -72,7 +72,13 @@ vector<string> Description::full() const {
     return this->longdesc;
 }
 
+bool Description::operator==(Description &other) const {
+    return (this->source == other.source);
+}
 
+bool Description::operator==(const Description &other) const {
+    return (this->source == other.source);
+}
 
 
 

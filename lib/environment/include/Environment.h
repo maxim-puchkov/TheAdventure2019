@@ -96,9 +96,9 @@ public:
     
     Environment<K, V>& operator=(const Environment<K, V> &other);
     
-    bool operator==(Environment<K, V> &other);
+    bool operator==(Environment<K, V> &other) const;
     
-    bool operator==(const Environment<K, V> &other);
+    bool operator==(const Environment<K, V> &other) const;
     
 private:
     

@@ -97,6 +97,10 @@ public:
     /// Retrieve long description
     vector<Text> full() const;
     
+    bool operator==(Description &other) const;
+    bool operator==(const Description &other) const;
+    
+    
     
     
     

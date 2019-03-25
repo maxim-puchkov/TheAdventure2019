@@ -31,6 +31,8 @@ public:
     
     // Actions(Environment<string, string> e);
     
+    bool operator==(Actions &other) const;
+    bool operator==(const Actions &other) const;
     
 private:
     
