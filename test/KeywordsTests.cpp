@@ -10,14 +10,12 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "KeywordSet.h"
+#include "Keywords.h"
 
 
 namespace objects {
 
 
-    
-    
 /// ItemBuilderTests Fixture
 class KeywordsTests : public testing::Test {
 protected:
@@ -63,9 +61,6 @@ protected:
 
 
 
-using Keywords = KeywordSet;
-
-
 
 
 /* Object Fixture Tests */
@@ -77,12 +72,12 @@ TEST_F(KeywordsTests, FixtureInitialization) {
 
 // Testing default constructor
 TEST_F(KeywordsTests, Instantiation) {
-    Keywords keys = KeywordSet(keys_1);
+    Keywords keys = Keywords(keys_1);
     EXPECT_EQ(keys_1, keys.toVector());
 }
-    
 
-    
+
+// Testing size function
 TEST_F(KeywordsTests, Size) {
     Keywords keys3a{keys_3a};
     Keywords keys3b{keys_3b};
@@ -93,6 +88,8 @@ TEST_F(KeywordsTests, Size) {
     EXPECT_EQ(keys_3c.size(), keys3c.size());
 }
 
+
+// Testing clear function
 TEST_F(KeywordsTests, Clear) {
     Keywords keys{keys_1};
     EXPECT_NE(0, keys.size());
@@ -101,6 +98,8 @@ TEST_F(KeywordsTests, Clear) {
     EXPECT_EQ(0, keys.size());
 }
 
+
+// Testing contains function
 TEST_F(KeywordsTests, Contains) {
     Keywords keys{keys_1};
     for (auto &key : keys_1) {
@@ -108,16 +107,22 @@ TEST_F(KeywordsTests, Contains) {
     }
 }
 
+
+// Testing first function
 TEST_F(KeywordsTests, FirstKeyword) {
     Keywords keys{keys_1};
     EXPECT_EQ(keys_1.front(), keys.first());
 }
 
+
+// Testing last function
 TEST_F(KeywordsTests, LastKeyword) {
     Keywords keys{keys_1};
     EXPECT_EQ(keys_1.back(), keys.last());
 }
-    
+
+
+// Testing equality operator
 TEST_F(KeywordsTests, Equality) {
     Keywords sword{keys_3a};
     Keywords shield{keys_3b};
@@ -128,6 +133,8 @@ TEST_F(KeywordsTests, Equality) {
     EXPECT_FALSE(shield == sword);
 }
 
+
+// Testing inequality operator
 TEST_F(KeywordsTests, Inequality) {
     Keywords sword{keys_3a};
     Keywords shield{keys_3b};
@@ -137,11 +144,11 @@ TEST_F(KeywordsTests, Inequality) {
     EXPECT_FALSE(sword != sword);
     EXPECT_FALSE(shield != shield);
 }
-    
-    
-    
-    // TEST_F(KeywordsTests, CaseInsensetivity) { }
-    
-    // TEST_F(KeywordsTests, PartialMatching) { }
+
+
+// TEST_F(KeywordsTests, CaseInsensetivity) { }
+
+// TEST_F(KeywordsTests, PartialMatching) { }
+
 
 } /* namespace objects */
