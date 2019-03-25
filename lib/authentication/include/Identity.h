@@ -11,7 +11,9 @@
 #ifndef Identity_h
 #define Identity_h
 
-#include "auth.hpp"
+namespace auth {
+    
+inline namespace control {
 
 
 /**
@@ -19,23 +21,35 @@
 
     @brief < ... >
  */
-template<typename Identifier>
+template<typename T>
 class Identity {
 public:
     
     /// Initial identifier
-    const Identifier initial;
+    const T initial;
     
+    /// Default constructor
+    Identity();
+    
+    /// Parameterized constructor
+    Identity(T initial);
+    
+    /// 
+    T generate_unique_identifier();
     
     /// Identify any type by a assigning a unique identifier
-    template<typename T>
-    void identify(T &&t);
+//    template<typename Instance>
+//    void identify(Instance &&instance);
     
 private:
     
-    Identifier current;
+    T current;
     
 };
 
 
+}
+
+}
+    
 #endif /* Identity_h */

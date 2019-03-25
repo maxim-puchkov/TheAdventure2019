@@ -9,6 +9,9 @@
 //
 
 #include "Identity.h"
+
+using namespace auth;
+
 //using namespace auth::identity;
 //
 //
@@ -23,3 +26,20 @@
 //    // Else, do nothing
 //}
 
+
+template<typename IDType>
+Identity<IDType>::Identity()
+: initial(0), current(0)
+{ }
+
+
+template<typename IDType>
+Identity<IDType>::Identity(IDType initial)
+: initial(initial), current(initial)
+{ }
+
+
+template<typename IDType>
+IDType Identity<IDType>::generate_unique_identifier() {
+    return ++this->current;
+}

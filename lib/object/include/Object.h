@@ -28,9 +28,17 @@ namespace objects {
 class Object {
 public:
     
+    using IdentifierTypename = Identifier;
+    
+    
+    
     Object();
     
     ~Object();
+    
+    
+    
+    /* Object Interface */
     
     /// Retrieve object ID
     virtual Identifier id() const = 0;
