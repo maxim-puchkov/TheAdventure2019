@@ -7,7 +7,6 @@
 #include <iostream>
 #include <assert.h>
 #include <algorithm>
-#include "termcolor.hpp"
 
 
 //getters and setters
@@ -76,11 +75,9 @@ void Board::drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const
         {
             case RED_LOWERCASE:
                 stream  << (char)tolower(search->second);
-
                 break;
             case BLUE_UPPERCASE:
                 stream << search->second;
-                stream << termcolor::reset;
                 break;
             default:
                 stream << search->second ;

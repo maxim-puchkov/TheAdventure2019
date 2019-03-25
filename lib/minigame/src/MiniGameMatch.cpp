@@ -50,8 +50,11 @@ bool MiniGameMatch::makePlayerMove(const std::string& playerName, std::string& m
         return false;
     }
 
-    currentPlayerTurn = (currentPlayerTurn + 1) % players.size();
-    return game.readChessMove(moveFrom, moveTo, playerName);
+    bool moveResult = game.readChessMove(moveFrom,moveTo,playerName);
+    if(moveResult == true) {
+        currentPlayerTurn = (currentPlayerTurn + 1) % players.size();
+    }
+    return moveResult;
 
 }
 
@@ -78,7 +81,6 @@ std::string MiniGameMatch::display(){
     return game.getBoardView();
 }
 
-
 MoveValidator& MiniGameMatch::getGame() {
     return this->game;
 }
@@ -93,3 +95,9 @@ std::vector<std::string>& MiniGameMatch::getPlayers(){
 std::vector<std::string>& MiniGameMatch::getSpectators(){
     return spectators;
 }
+
+const std::string& MiniGameMatch::getCurrentPlayerTurn() const {
+    return players.at(currentPlayerTurn);
+}
+
+

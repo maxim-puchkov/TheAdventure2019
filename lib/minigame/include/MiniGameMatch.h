@@ -24,6 +24,14 @@ public:
     bool addPlayer(const std::string& playerName);
     void removePlayer(const std::string& playerName);
     unsigned long getCurrentPlayers() const;
+
+    const std::string& getCurrentPlayerTurn() const;
+
+
+
+
+
+
     MoveValidator& getGame();
 
     std::string display();
