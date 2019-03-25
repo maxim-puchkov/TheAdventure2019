@@ -9,8 +9,13 @@
 #ifndef Builder_h
 #define Builder_h
 
-#include "Object.h"
+#include "BuilderLibrary.pch"
+
 using namespace objects;
+
+using std::string;
+using std::pair;
+using std::vector;
 
 
 /*!
@@ -21,24 +26,21 @@ using namespace objects;
 class Builder {
 public:
     
-//    virtual ~Builder()
-//    { }
+    ~Builder();
     
     /// Reset current object creation
     virtual void reset() = 0;
     
     /// Set object's identifying keywords
-    virtual void setKeywords(const KeywordSet &keywords) = 0;
+    // virtual void setKeywords(const KeywordSet &keywords) = 0;
+    virtual void setKeywords(const vector<string> &keywords) = 0;
     
     /// Set object's description text
-    virtual void setDescription(const Description &description) = 0;
-    
-    
-    // template<typename KeywordSet>
-    // virtual void setKeywords(const KeywordSet &keywords) = 0;
-    
-    // template<typename Description>
     // virtual void setDescription(const Description &description) = 0;
+    virtual void setDescription(const string &description) = 0;
+    
+    
+    virtual void setActions(const vector<pair<string, string>> &actions) = 0;
     
 };
 
