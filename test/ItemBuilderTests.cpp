@@ -48,12 +48,14 @@ protected:
 
 /* Fixture Tests */
 
+// Testing fixture initialization
 TEST_F(ItemBuilderTests, TestInitialization) {
     EXPECT_TRUE(initialized);
 }
 
 
-TEST_F(ItemBuilderTests, Construction) {
+// Testing objing construction
+TEST_F(ItemBuilderTests, Build) {
 
     // Variable input
     vector<string> keys{"sword", "rare"};
@@ -68,12 +70,11 @@ TEST_F(ItemBuilderTests, Construction) {
     Item sword = constructor.create();
 
     
-    Actions a(actions);
-    
-    EXPECT_TRUE(sword.id() > 0);
-    // EXPECT_TRUE(keywords == sword.keywords);
-    // EXPECT_TRUE(description == sword.description.full());
-    // EXPECT_TRUE(a == sword.actions);
+    // Test main object properties
+    EXPECT_EQ(1, sword.id());
+    EXPECT_EQ(Keywords(keys), sword.keywords);
+    EXPECT_EQ(Description(description), sword.description);
+    EXPECT_EQ(Actions(actions), sword.actions);
 
 }
 

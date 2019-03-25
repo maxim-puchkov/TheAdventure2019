@@ -56,13 +56,33 @@ TEST_F(DescriptionTests, FixtureInitialization) {
 
 
 // Testing lines partitioning
-TEST_F(DescriptionTests, Partition) {
+TEST_F(DescriptionTests, PartitionBreak) {
     
+    // Will break this string into 4 strings "break"
     Text source = "break break break break";
     unsigned short width = 5;
+    Description description(source, width);
     
+    EXPECT_EQ(4, description.lineCount());
+    for (int i = 0; i < description.lineCount(); i++) {
+        EXPECT_EQ("break", description[i]);
+    }
     
-    Description desc(source, width);
+}
+
+
+// Testing lines partitioning
+TEST_F(DescriptionTests, PartitionNumbers) {
+    
+    // Will break this string into 10 strings
+    Text source = "0 1 2 3 4 5 6 7 8 9";
+    unsigned short width = 1;
+    Description description(source, width);
+    
+    EXPECT_EQ(10, description.lineCount());
+    for (int i = 0; i < description.lineCount(); i++) {
+        EXPECT_EQ(std::to_string(i), description[i]);
+    }
     
 }
 
