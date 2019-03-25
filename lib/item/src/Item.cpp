@@ -10,6 +10,15 @@
 using namespace objects;
 
 
+
+
+
+/* Constructors */
+
+Item::Item()
+{ }
+
+
 Item::Item(Identifier id,
            const KeywordSet &keywords,
            const Description &description,
@@ -17,25 +26,29 @@ Item::Item(Identifier id,
 : itemID(id), keywords(keywords), description(description), actions(actions)
 { }
 
-// Item::Item() { }
-// Item::~Item() { }
+
+Item::~Item()
+{ }
+
+
+
+
+
+
+/* Object Interface */
 
 Identifier Item::id() const {
     return this->itemID;
 }
 
+
 Key Item::brief() const {
-    return this->keywords.first();
-}
-
-
-Text Item::display() const {
     return this->keywords.asString();
 }
 
 
-bool Item::hasKeyword(const Key &keyword) const {
-    return this->keywords.contains(keyword);
+Text Item::display() const {
+    return this->description.full();
 }
 
 
@@ -48,13 +61,10 @@ Text Item::examine(const Key &keyword) const {
 
 
 
-Item& Item::operator=(const Item &other) {
-    this->itemID = other.id();
-    this->keywords = other.keywords;
-    this->description = other.description;
-    this->actions = other.actions;
-    return *this;
-}
+
+
+
+/* Operators */
 
 Item& Item::operator=(Item &other) {
     this->itemID = other.id();
@@ -63,6 +73,21 @@ Item& Item::operator=(Item &other) {
     this->actions = other.actions;
     return *this;
 }
+
+
+Item& Item::operator=(const Item &other) {
+    this->itemID = other.id();
+    this->keywords = other.keywords;
+    this->description = other.description;
+    this->actions = other.actions;
+    return *this;
+}
+
+
+
+
+
+/* Hash Function */
 
 std::size_t std::hash<Item>::operator()(const Item &item) const {
     return std::hash<unsigned long>{}(item.id());

@@ -24,8 +24,9 @@ inline namespace items {
 class Item : public Object {
 public:
     
-    Item()
-    { }
+    /* Constructors */
+    
+    Item();
     
     /// Default item constructor with an object ID, identifying keywords,
     ///     item description, and extra actions.
@@ -34,19 +35,25 @@ public:
          const Description &description,
          const Actions &actions);
     
-    ~Item()
-    { }
+    ~Item();
 
     
 
+    /* Mutable Structures */
     
     /// Set of keywords describing this item
     KeywordSet keywords;
     
+    /// Formatted description text
     Description description;
     
+    /// Interactable actions
     Actions actions;
     
+    
+    
+    
+    /* Object interface */
     
     /// Retrieve object ID
     Identifier id() const override;
@@ -60,13 +67,17 @@ public:
     /// Examine an Extra attribute of an item
     Text examine(const Key &keyword) const override;
     
-    /// Assignment
-    Item& operator=(const Item &other); /* undefined */
-    Item& operator=(Item &other); /* undefined */
     
     
-    // #rename
-    bool hasKeyword(const Key &keyword) const;
+    
+    
+    /* Operators */
+    
+    Item& operator=(Item &other);
+    
+    Item& operator=(const Item &other);
+    
+    
 
 private:
     
@@ -80,8 +91,16 @@ private:
 } /* namespace objects */
 
 
+
+
+
+
 using objects::items::Item;
 
+/*!
+ @struct hash
+ @discussion Item's hash function
+ */
 template<>
 struct std::hash<Item> {
     std::size_t operator()(const Item &item) const;
