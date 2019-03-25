@@ -10,21 +10,43 @@
 #include "UITextPartition.h"
 
 
+/* Constructors */
 
 UITextPartition::UITextPartition(vector<string> &&elements)
 : elements(std::move(elements)), currentIndex(0), max_index(elements.size())
 { }
 
 
+
+
+
+
+/* Partitioning state */
+
+bool UITextPartition::done() const {
+    return (this->currentIndex >= this->max_index);
+}
+
+
+size_t UITextPartition::index() const {
+    return this->currentIndex;
+}
+
+
+size_t UITextPartition::size() const {
+    return this->elements.size();
+}
+
+
+
+
+
+/* Mutable current index control */
+
 string UITextPartition::next() {
     string element = this->elements.at(currentIndex);
     this->advance();
     return element;
-}
-
-
-bool UITextPartition::done() const {
-    return (this->currentIndex >= this->max_index);
 }
 
 
@@ -38,15 +60,14 @@ void UITextPartition::invalidate() {
 }
 
 
-size_t UITextPartition::index() const {
-    return this->currentIndex;
+
+
+
+/* Operators */
+
+string UITextPartition::operator[](size_t index) {
+    return this->elements[index];
 }
-
-
-size_t UITextPartition::size() const {
-    return this->elements.size();
-}
-
 
 string UITextPartition::operator[](size_t index) const {
     return this->elements[index];

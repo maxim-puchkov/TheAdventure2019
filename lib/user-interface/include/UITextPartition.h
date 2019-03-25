@@ -11,6 +11,7 @@
 #define UITextPartition_h
 
 #include "UILibrary.pch"
+
 using std::string;
 using std::vector;
 
@@ -41,23 +42,42 @@ struct UITextPartitionResult {
 class UITextPartition {
 public:
     
+    /* Constant values */
+    
+    const size_t max_index;
+    
+    
+    
+    /* Constructors */
+    
     UITextPartition(vector<string> &&elements);
     
-    string next();
+    
+    
+    /* Partitioning state */
     
     bool done() const;
-    
-    void advance();
-    
-    void invalidate();
     
     size_t index() const;
     
     size_t size() const;
     
-    string operator[](size_t index) const;
     
-    const size_t max_index;
+    
+    /* Mutable current index control */
+    
+    string next();
+    
+    void advance();
+    
+    void invalidate();
+    
+    
+    
+    /* Operators */
+    
+    string operator[](size_t index);
+    string operator[](size_t index) const;
     
 private:
     
