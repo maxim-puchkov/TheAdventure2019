@@ -58,10 +58,10 @@ void Description::reformat() {
     
     debug::print("All words -> ");
     auto words = this->textWords();
-    for (auto &line : longdesc) {
-        debug::print("Line: ", line);
+    for (auto &word : words) {
+        debug::print("Word: ", word);
     }
-    debug::print("<- All words end");
+    debug::print("<- All words end", '\n');
     
     
     debug::print("All lines ->");
@@ -69,7 +69,7 @@ void Description::reformat() {
     for (auto &line : longdesc) {
         debug::print("Line: ", line);
     }
-    debug::print("<- All lines end");
+    debug::print("<- All lines end", '\n');
     
 }
 
@@ -81,10 +81,9 @@ void Description::clear() {
 
 
 
+
+
 //
-
-
-
 
 Text Description::brief() const {
     return this->shortdesc;
@@ -118,7 +117,7 @@ bool Description::operator==(const Description &other) const {
 
 
 
-/* Private */
+/* * *   Private   * * */
 
 vector<string> Description::textWords() const {
     std::stringstream ss(this->source);
