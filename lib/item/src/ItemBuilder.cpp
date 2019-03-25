@@ -10,7 +10,7 @@
 #include "DebugToolset.h"
 
 using namespace objects;
-
+using auth::Authenticator;
 
 
 
@@ -18,7 +18,12 @@ using namespace objects;
 /* Constructors */
 
 ItemBuilder::ItemBuilder()
-: ready(true), keywords(Keywords()), description(Description()), actions(Actions()) {
+: ready(true),
+keywords(Keywords()),
+description(Description()),
+actions(Actions())
+//, authenticator(Authenticator<Object::IdentifierTypename>())
+{
     debug::PrefixMessage = "ItemBuilder";
 }
 
@@ -29,15 +34,15 @@ ItemBuilder::ItemBuilder()
 /* Create / Reset */
 
 Item ItemBuilder::create() {
+    debug::print("Creating item with id = ", id);
     Item item(id, keywords, description, actions);
+    this->created.push_back(&item);
     this->reset();
-    
-    debug::print("Created item with id = ", id);
     return item;
 }
 
 
-void ItemBuilder::reset() {
+void ItemBuilder::reset() noexcept {
      this->clearAll();
 }
 
@@ -47,22 +52,30 @@ void ItemBuilder::reset() {
 
 /* Set Properties */
 
-void ItemBuilder::setKeywords(const vector<string> &keywords) {
+void ItemBuilder::setKeywords(const vector<string> &keywords) noexcept {
     this->keywords = Keywords(keywords);
 }
 
 
-void ItemBuilder::setDescription(const string &text) {
+void ItemBuilder::setDescription(const string &text) noexcept {
     this->description = Description(text);
 }
 
 
-void ItemBuilder::setActions(const vector<pair<string, string>> &actions) {
+void ItemBuilder::setActions(const vector<pair<string, string>> &actions) noexcept {
     this->actions = Actions(actions);
 }
 
 
+vector<Object *> ItemBuilder::list() const noexcept {
+    return this->created;
+}
 
+
+Object::IdentifierTypename ItemBuilder::requestIdentifier() noexcept {
+    //return this->authenticator.request_unique_identifier();
+    return 0;
+}
 
 
 

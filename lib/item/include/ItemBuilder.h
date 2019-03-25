@@ -9,17 +9,12 @@
 #ifndef ItemBuilder_h
 #define ItemBuilder_h
 
-#include <vector>
-#include <string>
-
 #include "Builder.h"
 #include "Item.h"
+#include "Authenticator.h"
 
 using namespace objects;
-
-
-
-
+using auth::Authenticator;
 
 
 /**
@@ -46,7 +41,7 @@ public:
     Item create();
 
     /// Reset current item settings
-    void reset() override;
+    void reset() noexcept override;
     
     
     
@@ -54,14 +49,19 @@ public:
     
     /* Set item's properties */
 
-    /// Set item's unique keywords
-    void setKeywords(const vector<string> &keywords) override;
+    // Set item's unique keywords
+    void setKeywords(const vector<string> &keywords) noexcept override;
 
-    /// Set item's description text
-    void setDescription(const string &text) override;
+    // Set item's description text
+    void setDescription(const string &text) noexcept override;
     
-    /// Set item's interactable actions
-    void setActions(const vector<pair<string, string>> &actions) override;
+    // Set item's interactable actions
+    void setActions(const vector<pair<string, string>> &actions) noexcept override;
+    
+    // Each builder maintains list of created objects
+    vector<Object *> list() const noexcept override;
+    
+    Object::IdentifierTypename requestIdentifier() noexcept override;
     
     
     // temp
@@ -71,14 +71,18 @@ private:
 
     /// Clear all data members and reset to default value
     void clearAll();
-
     
     
     /* Item Constructor Data members */
-    Identifier id;
+    Object::IdentifierTypename id;
     Keywords keywords;
     Description description;
     Actions actions;
+    
+    
+    /* Each object is authentic and stored inside the builder */
+    // Authenticator<Object::IdentifierTypename> authenticator;
+    vector<Object *> created;
     
 };
 

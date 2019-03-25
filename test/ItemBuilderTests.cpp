@@ -71,7 +71,7 @@ TEST_F(ItemBuilderTests, Build) {
 
     
     // Test main object properties
-    EXPECT_EQ(1, sword.id());
+    EXPECT_NE(0, sword.id());
     EXPECT_EQ(Keywords(keys), sword.keywords);
     EXPECT_EQ(Description(description), sword.description);
     EXPECT_EQ(Actions(actions), sword.actions);
