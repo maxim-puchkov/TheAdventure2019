@@ -15,6 +15,11 @@ inline namespace defaults {
 }
 
 
+
+
+
+// Constructors
+
 Description::Description()
 : shortdesc(EMPTY), longdesc({EMPTY}), width(LINE_WIDTH)
 { }
@@ -38,24 +43,28 @@ Description::Description(const Text &source, uint16_t lineWidth)
 
 
 
-/* * * *  < Deprecated * * * */
 
-//Description::Description(const string &desc)
-//: shortdesc(desc)
-//{ }
 //
-//Description::Description(const string &shortdesc, const vector<string> &longdesc)
-//: shortdesc(shortdesc), longdesc(longdesc)
-//{ }
-//
-//Description::Description(objects::Text description);
 
-/* * * * Deprecated > * * * */
+void Description::setWidth(uint16_t width) {
+    this->width = width;
+}
 
-
-
-
-
+/// Formats description according to line width
+void Description::reformat() {
+    
+    debug::print("Source:", source);
+    
+    auto words = this->textWords();
+    //debug::print("Words:", words);
+    
+    auto longdesc = this->breakLines(words);
+    for (auto &line : longdesc) {
+        debug::print("Line: ", line);
+    }
+    //debug::print("Lines:", longdesc);
+    
+}
 
 void Description::clear() {
     this->shortdesc.empty();
@@ -63,18 +72,31 @@ void Description::clear() {
 }
 
 
-string Description::brief() const {
+
+
+//
+
+
+
+
+Text Description::brief() const {
     return this->shortdesc;
 }
 
 
-vector<string> Description::full() const {
-    return this->longdesc;
+Text Description::full() const {
+    std::stringstream ss{""};
+    for (auto &line : this->longdesc) {
+        ss << line << '\n';
+    }
+    return ss.str();
 }
+
 
 bool Description::operator==(Description &other) const {
     return (this->source == other.source);
 }
+
 
 bool Description::operator==(const Description &other) const {
     return (this->source == other.source);
@@ -82,7 +104,43 @@ bool Description::operator==(const Description &other) const {
 
 
 
+
+
+
+
+
+
+
 /* Private */
+
+vector<Text> Description::breakLines(const vector<Text> &words) const {
+    
+    vector<Text> lines;
+    
+    
+    std::stringstream line("");
+    unsigned short lineLength = 0;
+    
+    
+    
+    for (auto &word : words) {
+        auto wordLength = word.size();
+        
+        // Go to next line if cannot fit
+        if ((lineLength + wordLength) > this->width) {
+            lines.push_back(line.str());
+            line.clear();
+            lineLength = 0;
+        }
+        
+        line << word;
+        lineLength += wordLength;
+    }
+    
+    return lines;
+    
+}
+
 
 vector<string> Description::textWords() const {
     std::stringstream ss(this->source);

@@ -10,10 +10,10 @@
 #define Description_h
 
 #include "objects.hpp"
-#include <iterator>
-#include <sstream>
 
 namespace objects {
+    
+inline namespace structures {
 
 
 /*!
@@ -26,62 +26,27 @@ namespace objects {
 struct Description {
 public:
     
-    //
+    // Constructors
     
     /// Empty description
     Description();
     
+    Description(const Text &source);
+    
     /// Break up description text into multiple lines.
-    Description(const Text &description, uint16_t lineWidth);
+    Description(const Text &source, uint16_t lineWidth);
     
     
     
     
     
-    //
+    // Mutators
     
     /// Set description line width
-    void setWidth(uint16_t width) {
-        this->width = width;
-    }
+    void setWidth(uint16_t width);
     
     /// Formats description according to line width
-    void reformat() {
-        
-        auto words = this->textWords();
-        
-        auto longdesc = this->breakLines(words);
-        
-    }
-    
-    /// Breaks up text
-    /// @warning incomplete
-    vector<Text> breakLines(const vector<Text> &words) {
-        
-        vector<Text> lines;
-        
-        
-        std::stringstream line("");
-        unsigned short lineLength = 0;
-        
-        
-        for (auto &word : words) {
-            auto wordLength = word.size();
-            
-            // Go to next line if cannot fit
-            if (lineLength + wordLength > this->width) {
-                lines.push_back(line.str());
-                line.clear();
-                lineLength = 0;
-            }
-            
-            line << word;
-            lineLength += wordLength;
-        }
-        
-        return lines;
-        
-    }
+    void reformat();
     
     /// Clear all text
     void clear();
@@ -96,33 +61,18 @@ public:
     Text brief() const;
     
     /// Retrieve long description
-    vector<Text> full() const;
+    //vector<Text> full() const;
+    Text full() const;
+    
+    
+    
+    
+    
+    // Operators
     
     bool operator==(Description &other) const;
+    
     bool operator==(const Description &other) const;
-    
-    
-    
-    
-    
-    // Deprecated
-    
-    /* * * * * */
-    // Assumess correct desc
-    /// @ignore
-    Description(const Text &desc);
-    
-    // Assumes correct longdesc
-    /// @ignore
-    Description(const string &shortdesc,
-                const vector<string> &longdesc);
-    
-    // undefined
-    /// @ignore
-    Description(string description,
-                int shortdescWidth,
-                int lineWidth); /* undefined */
-    /* * * * * */
     
 private:
     
@@ -139,15 +89,26 @@ private:
     /// Width of one line
     uint16_t width;
     
+
+    
     /*!
      @function textWords
      @return Vector of individual source text words without whitespaces.
      */
     vector<string> textWords() const;
     
+    /*!
+     @function breakLines
+     @param words Partitioned words of full text input
+     @return Lines of words with specified width
+     */
+    vector<Text> breakLines(const vector<Text> &words) const;
+    
     
 };
 
+
+} /* namespace structures */
 
 } /* namespace objects */
 
