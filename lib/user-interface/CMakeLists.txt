@@ -13,6 +13,7 @@ target_include_directories(${libUserInterface}
 
 set_target_properties(${libUserInterface}
     PROPERTIES
+    COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
 )

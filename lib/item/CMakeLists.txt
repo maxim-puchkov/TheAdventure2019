@@ -14,6 +14,7 @@ target_include_directories(${libitem}
 )
 
 target_link_libraries(${libitem}
+    ${libauthentication}
     ${libbuilder}
     ${libobject}
     ${libdebugtools}
@@ -21,6 +22,7 @@ target_link_libraries(${libitem}
 
 set_target_properties(${libitem}
     PROPERTIES
+    COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
 )

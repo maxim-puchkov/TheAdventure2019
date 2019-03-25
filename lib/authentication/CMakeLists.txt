@@ -1,5 +1,5 @@
 add_library(${libauthentication} SHARED
-	src/Authentication.cpp
+	src/Authenticator.cpp
     src/Identity.cpp
 )
 
@@ -17,6 +17,7 @@ target_link_libraries(${libauthentication}
 
 set_target_properties(${libauthentication}
     PROPERTIES
+    COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
 )
