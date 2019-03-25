@@ -42,31 +42,34 @@ public:
     
     ItemBuilder();
 
-    //~ItemBuilder() override;
-
     /// Create an item with current settings
     Item create();
 
     /// Reset current item settings
     void reset() override;
 
-    /// - parameter keywords: Item's unique keywords
-    void setKeywords(const KeywordSet &keywords) override;
-
-    /** @ignore */
-    void setKeywords(const vector<Key> &vs) {
-        KeywordSet keyw(vs);
-        this->setKeywords(keyw);
+    /// Set item's unique keywords
+    void setKeywords(const vector<string> &keywords) override {
+        this->keywords = KeywordSet(keywords);
     }
 
     /// Set item's description text
-    void setDescription(const Description &description) override;
-    void setDescription(const string &text) {
-        this->setDescription(Description(text));
+    void setDescription(const string &text) override {
+        this->description = Description(text);
     }
+    
 
-    /// Set collection of interactable commands
-    void setExtras(const Extras &extras);
+    /// Set item's interactable actions
+    void setActions(const vector<pair<string, string>> &actions) override {
+        this->actions = Actions(actions);
+    }
+    
+    // ~ItemBuilder() override;
+    // void setKeywords(const KeywordSet &keywords) override;
+    // void setDescription(const Description &description) override;
+
+    // void setActions(const Actions &actions) override;
+    
     
     
     bool ready = false;
@@ -82,7 +85,9 @@ private:
     Identifier id;
     KeywordSet keywords;
     Description description;
-    Extras extras; // additional actions of an item
+    Actions actions;
+    
+    // Extras extras; // additional actions of an item
     
 };
 
