@@ -12,9 +12,30 @@ Area AreaGenerator::getArea(std::string filePath){
     auto objects = jsonArea["OBJECTS"];
 
     generateRooms(rooms, area);
-    generateNPC(allNPC);
+    generateNPC(allNPC, area);
     generateObjects(objects, area);
 
+    // For Testing 
+    auto areaRooms = area.getRooms();
+    for(auto room: areaRooms){
+
+        auto exits = room.getExits();
+        auto NPCs = room.getNPCs();
+
+        std::cout<< "\n *** ROOM " +room.getName()+ " *** \n ";
+        std::cout<< room.getDescription() << "\n";
+        
+        std::cout<< "\n *** EXITS *** \n ";
+        for(auto tmpExit : exits){
+            std::cout<< tmpExit.getExitName() << "\n";
+            std::cout<< tmpExit.getExitDescription() << "\n";
+        }
+        std::cout<< "\n *** ALL NPCS *** \n ";
+        for(auto NPC_name : NPCs){
+            std::cout<< NPC_name << "\n";
+        }
+
+    }
     return Area{};
 }
 
@@ -37,24 +58,12 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
         area.addRoom(roomObj);
     }
 
-    // For Testing 
-    // auto areaRooms = area.getRooms();
-    // for(auto room: areaRooms){
-
-    //     auto exits = room.getExits();
-    //     std::cout<< room.getName() << "\n";
-    //     std::cout<< room.getDescription() << "\n";
-
-    //     for(auto tmpExit : exits){
-    //         std::cout<< tmpExit.getExitName() << "\n";
-    //         std::cout<< tmpExit.getExitDescription() << "\n";
-    //     }
-
-    // }
 }
 
-void AreaGenerator::generateNPC(json allNPC){
-
+void AreaGenerator::generateNPC(json allNPC, Area& area){
+    
+    std::vector<Character> NPCs;
+    int index = 0;
     for(auto NPC: allNPC){
 
         std::cout << NPC["id"] << "\n";
@@ -62,7 +71,12 @@ void AreaGenerator::generateNPC(json allNPC){
         std::string shortDesc = NPC["shortdesc"];
         std::string longDesc = jsonParser.json2string(NPC["longdesc"]);
         std::string description = jsonParser.json2string(NPC["description"]);
-
+        
+        if(area.addNPCtoRooms(shortDesc, index)){
+            index++;
+        } else{
+            index = 0;
+        }
         // For Testing
         // for(auto word : keywords){
         //     std::cout << word + "\n";

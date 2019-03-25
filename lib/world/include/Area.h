@@ -13,6 +13,7 @@ class Area {
         std::string name;
         std::string description;
         std::vector<Room> rooms;
+        std::vector<Character> NPCS;
     public:
         Area()
                 : name("DEFAULT_NAME"),
@@ -36,8 +37,13 @@ class Area {
 
     void setDescription(const std::string &description);
 
-    //Debugging Functions
+    //WORLD JSON Functions
     std::vector<Room> getRooms();
+    void setNPCs(std::vector<Character> NPCs){
+        NPCS = NPCs;
+    };
+    bool addNPCtoRooms(std::string shortDesc, int ID);
+
 };
 
 

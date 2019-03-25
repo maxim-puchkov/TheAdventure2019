@@ -16,7 +16,7 @@ class AreaGenerator {
     JsonParser jsonParser;
 
     void generateRooms(json rooms, Area& area);
-    void generateNPC(json allNPC);
+    void generateNPC(json allNPC, Area& area);
     void generateObjects(json rooms, Area& area);
 
   public:

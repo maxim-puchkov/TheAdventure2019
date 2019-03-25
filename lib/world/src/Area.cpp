@@ -41,3 +41,13 @@ void Area::setDescription(const std::string &description) {
 std::vector<Room> Area::getRooms(){
     return rooms;
 }
+
+bool Area::addNPCtoRooms(std::string shortDesc, int ID){
+    if(ID > rooms.size()){
+        rooms[0].addNPC(shortDesc);
+        return false;
+    }else{
+        rooms[ID].addNPC(shortDesc);
+        return true;
+    }
+}

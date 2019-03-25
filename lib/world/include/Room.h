@@ -22,6 +22,7 @@ private:
     std::string roomName;
     std::string roomDescription;
     std::vector<std::string> charactersInRoom;
+    std::vector<std::string> NPCsInRoom;
     std::vector<Exit> exitsInRoom;
 
 public:
@@ -53,6 +54,12 @@ public:
     void setName(std::string newName) { roomName = newName; }
     void setDescription(std::string newDescription) { roomDescription = newDescription; }
     void setRoomID(int id){roomId = id;}
+
+    //NPCs
+    bool addNPC(const std::string &name);
+    bool removeNPC(const std::string &name);
+    std::vector<std::string> getNPCs(){return NPCsInRoom;}
+
 
 
 };

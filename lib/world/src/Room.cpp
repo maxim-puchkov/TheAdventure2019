@@ -87,6 +87,20 @@ std::string Room::listExits() const {
 	return result;
 }
 
+bool Room::removeNPC(const std::string &name){
+	auto iter = std::remove(NPCsInRoom.begin(),NPCsInRoom.end(),name);
+	NPCsInRoom.erase(iter,NPCsInRoom.end());
+	return ( !( NPCsInRoom.end() == iter ) ); //If iter==char.end() then userName wasn't found in list
+}
+
+bool Room::addNPC(const std::string &name){
+	try{
+		NPCsInRoom.push_back(name);
+	} catch(const std::bad_alloc& e){
+		return false;
+	}
+	return true;
+}
 
 
 
