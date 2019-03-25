@@ -7,20 +7,54 @@
 //
 
 #include "Description.h"
-using objects::Description;
+using namespace objects;
+
+inline namespace defaults {
+    const string EMPTY = "";
+    const uint16_t LINE_WIDTH = 5;
+}
 
 
 Description::Description()
-: shortdesc(EMPTY), longdesc({EMPTY})
+: shortdesc(EMPTY), longdesc({EMPTY}), width(LINE_WIDTH)
 { }
 
 
-Description::Description(const string &shortdesc, const vector<string> &longdesc)
-: shortdesc(shortdesc), longdesc(longdesc)
-{ }
+Description::Description(const Text &source)
+: source(source), width(LINE_WIDTH) {
+    this->reformat();
+    
+    
+    //this->reformat(source, lineWidth);
+}
 
 
-// Description::Description(objects::Text description);
+Description::Description(const Text &source, uint16_t lineWidth)
+: source(source), width(lineWidth) {
+    this->reformat();
+    //this->reformat(source, lineWidth);
+}
+
+
+
+
+/* * * *  < Deprecated * * * */
+
+//Description::Description(const string &desc)
+//: shortdesc(desc)
+//{ }
+//
+//Description::Description(const string &shortdesc, const vector<string> &longdesc)
+//: shortdesc(shortdesc), longdesc(longdesc)
+//{ }
+//
+//Description::Description(objects::Text description);
+
+/* * * * Deprecated > * * * */
+
+
+
+
 
 
 void Description::clear() {
@@ -29,11 +63,24 @@ void Description::clear() {
 }
 
 
-string Description::getShort() const {
+string Description::brief() const {
     return this->shortdesc;
 }
 
 
-vector<string> Description::getLong() const {
+vector<string> Description::full() const {
     return this->longdesc;
+}
+
+
+
+
+
+/* Private */
+
+vector<string> Description::textWords() const {
+    std::stringstream ss(this->source);
+    std::istream_iterator<string> begin{ss};
+    std::istream_iterator<string> end{};
+    return {begin, end};
 }
