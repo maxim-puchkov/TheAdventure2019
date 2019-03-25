@@ -15,6 +15,7 @@ target_include_directories(${libitem}
 target_link_libraries(${libitem}
     ${libbuilder}
     ${libobject}
+    ${libdebugtools}
 )
 
 set_target_properties(${libitem}

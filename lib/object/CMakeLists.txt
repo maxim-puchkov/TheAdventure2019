@@ -15,10 +15,13 @@ target_include_directories(${libobject}
 
 target_link_libraries(${libobject}
 	${libauthentication}
+    ${libenvironment}
+    ${libdebugtools}
 )
 
 set_target_properties(${libobject}
     PROPERTIES
+    COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
 )

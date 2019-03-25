@@ -12,7 +12,7 @@ target_include_directories(${libauthentication}
 )
 
 target_link_libraries(${libauthentication}
-	${libtypes}
+	${libenvironment}
 )
 
 set_target_properties(${libauthentication}

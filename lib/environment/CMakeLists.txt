@@ -1,8 +1,8 @@
-add_library(${libtypes}
+add_library(${libenvironment} SHARED
     src/Environment.cpp
 )
 
-target_include_directories(${libtypes}
+target_include_directories(${libenvironment}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<INSTALL_INTERFACE:src>
@@ -11,12 +11,12 @@ target_include_directories(${libtypes}
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-set_target_properties(${libtypes}
+set_target_properties(${libenvironment}
     PROPERTIES
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
 )
 
-install(TARGETS ${libtypes}
-    ARCHIVE DESTINATION lib
+install(TARGETS ${libenvironment}
+    LIBRARY DESTINATION lib
 )

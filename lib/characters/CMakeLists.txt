@@ -15,7 +15,7 @@ target_include_directories(${libcharacters}
 
 target_link_libraries(${libcharacters}
     ${libworld}
-    ${libobject}
+    ${libitem}
     ${libcharacterdb}
     ${libminigame}
     ${libcombat}
@@ -28,5 +28,5 @@ set_target_properties(${libcharacters}
 )
 
 install(TARGETS ${libcharacters}
-  ARCHIVE DESTINATION lib
+    ARCHIVE DESTINATION lib
 )
