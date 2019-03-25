@@ -17,7 +17,7 @@ using std::vector;
 class Board {
 public:
     Board();
-    std::string getBoardView() const; // SHOULD BE SPERATED INTO ANOTHER CLASS BUT LEAVE HERE FOR NOW THIS IS THE MODEL! Maybe mvc isn't what we want.
+    std::string getBoardView() const;
 
     Piece& requestPiece(const ChessCoordinate &position);
     const PieceUnit requestUnit(const ChessCoordinate &position) const;
