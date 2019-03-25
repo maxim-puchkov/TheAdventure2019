@@ -11,8 +11,7 @@
 #ifndef Auth_h
 #define Auth_h
 
-#include <stdint.h>
-#include "Identity.h"
+#include "AuthenticationLibrary.pch"
 
 
 /**
@@ -22,20 +21,20 @@
  */
 namespace auth {
 
-/// Unsigned integer number
+
 inline namespace defaults {
-    using IdentifierTypename = uint64_t;
+    using Identifier = uint64_t;
 }
 
 
 
-///
-class Authentication;
+inline namespace control {
 
-///
-template<typename T = IdentifierTypename>
+template<typename T = Identifier>
 class Identity;
-    
+
+}
+
 }
 
 

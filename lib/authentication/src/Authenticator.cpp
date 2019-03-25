@@ -19,4 +19,25 @@
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
 
-#include "Authentication.h"
+#include "Authenticator.h"
+
+namespace auth {
+
+template<typename IdentifierTypename>
+Authenticator<IdentifierTypename>::Authenticator()
+: identity(Identity<Identifier>())
+{ }
+
+
+template<typename IdentifierTypename>
+IdentifierTypename Authenticator<IdentifierTypename>::request_unique_identifier() noexcept {
+    return this->identity.generate_unique_identifier();
+}
+
+    template<typename IdentifierTypename>
+    Authenticator<IdentifierTypename>& Authenticator<IdentifierTypename>::operator=(Authenticator &&other) {
+        this->identity = std::move(other.identity);
+        return *this;
+    }
+
+} /* namespace auth */

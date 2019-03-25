@@ -23,23 +23,30 @@
 #define Authentication_h
 
 #include "auth.hpp"
-
+#include "Identity.h"
 
 
 namespace auth {
+//inline namespace control {
+
+template<typename IdentifierTypename>
+class Authenticator {
+public:
+
+    Authenticator();
+
+    IdentifierTypename request_unique_identifier() noexcept;
     
-    /*
-    class Authentication {
-    public:
-        IdentifierTypename newIdentifier() const;
-    private:
-    };
-    
-    namespace identity {
-        Identity<IdentifierTypename> identifiers();
-    }
-    */
-    
+    Authenticator& operator=(Authenticator &&other);
+
+
+private:
+
+    Identity<IdentifierTypename> identity; //= Identity<IDType>();
+
+};
+
+//}
 }
 
 #endif /* Authentication_h */
