@@ -1,4 +1,4 @@
-# Add libraries' subdirectories in alphabetic order
+# Add libraries' subdirectories in alphabetical order
 
 add_subdirectory(${libauthentication})
 add_subdirectory(${libbuilder})
@@ -17,3 +17,4 @@ add_subdirectory(${libobject})
 add_subdirectory(${libuserdb})
 add_subdirectory(${libminigame})
 add_subdirectory(${libcombat})
+add_subdirectory(${libUserInterface})

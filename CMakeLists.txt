@@ -21,27 +21,26 @@ set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
 
 
 
-# Declare new libraries here (in alphabetic order)
+# Declare new libraries here (in alphabetical order)
 
 set(libauthentication "authentication")
 set(libbuilder "builder")
-set(libcharacters "characters")
 set(libcharacterdb "characterDB")
+set(libcharacters "characters")
+set(libcombat "combat")
 set(libcommands "commands")
 set(libdebugtools "debugtools")
 set(libenvironment "environment")
 set(libgame "game")
 set(libitem "item")
+set(libminigame "minigame")
 set(libnetwork "network")
+set(libobject "object")
+set(libparsers "parsers")
+set(libUserInterface "user-interface")
+set(libuserdb "userdb")
 set(libusers "users")
 set(libworld "world")
-set(libparsers "parsers")
-set(libuserdb "userdb")
-set(libobject "object")
-set(libminigame "minigame")
-set(libcombat "combat")
-
-
 
 
 

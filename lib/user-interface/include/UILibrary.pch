@@ -1,0 +1,19 @@
+//
+//  UILibrary.pch
+//  adventure2019: adventure2019
+//  com.maximpuchkov.Faworki.adventure2019.UILibrary
+//
+//  Created by mpuchkov on 2019-03-25. macOS 10.13, Xcode 10.1.
+//  Copyright © 2019 Maxim Puchkov. All rights reserved.
+//
+
+#ifndef UILibrary_pch
+#define UILibrary_pch
+
+#include <string>
+#include <vector>
+#include <cstdint>
+#include <sstream>
+#include <iterator>
+
+#endif /* UILibrary_pch */

@@ -3,6 +3,7 @@ add_library(${libobject} SHARED
 	src/Keywords.cpp
 	src/Description.cpp
     src/Actions.cpp
+    src/ObjectController.cpp
 )
 
 target_include_directories(${libobject}
@@ -16,6 +17,7 @@ target_include_directories(${libobject}
 target_link_libraries(${libobject}
 	${libauthentication}
     ${libenvironment}
+    ${libUserInterface}
     ${libdebugtools}
 )
 
