@@ -6,6 +6,7 @@
 #define WEBSOCKETNETWORKING_AREA_H
 
 #include <string>
+#include <iostream>
 #include "Room.h"
 
 class Area {
@@ -13,6 +14,8 @@ class Area {
         std::string name;
         std::string description;
         std::vector<Room> rooms;
+        std::unordered_map<int, Room> roomList;
+        Room nullRoom{};
     public:
         Area()
                 : name("DEFAULT_NAME"),
@@ -22,7 +25,11 @@ class Area {
                 : name(rName),
                   description(rDescription)
         {}
-        Room& getRoom(unsigned int index);
+        // Room& getRoom(unsigned int index);
+
+        Room& getRoom(int roomId);
+
+        std::unordered_map<int, Room>& getRoomList();
 
         void addRoom(Room room);
 

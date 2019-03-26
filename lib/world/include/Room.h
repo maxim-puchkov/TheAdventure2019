@@ -18,6 +18,7 @@
 class Room {
 
 private:
+    int roomId = -1;
     std::string roomName;
     std::string roomDescription;
     std::vector<std::string> charactersInRoom;
@@ -41,6 +42,8 @@ public:
     std::string lookForName(const std::string &objName) const;
     std::string lookForExitName(const std::string &objName) const;
     std::string listExits() const;
+    void setRoomId(int id);
+    int getRoomId();
 
 
     //getters

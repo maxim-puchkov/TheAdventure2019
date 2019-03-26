@@ -4,36 +4,53 @@
 
 WorldManager::WorldManager() {}
 
+
+void WorldManager::printRoomsInArea(Area area) {
+    for(auto& p: area.getRoomList()){
+        std::cout << p.first << " => " << p.second.getName() << ": ";
+        std::cout << p.second.getDescription() << "\n";
+        std::cout <<"\n";
+    }
+}
+
 void WorldManager::generateWorld() {
     Area a("Starting Area", "Welcome to adventure.");
     Area b("Secret area", "Welcome to die.");
 
     Room r1("Room1", "This dark room contains only the number 1");
+    r1.setRoomId(0);
     r1.createExit("gate", "goes to room 2", "east", 0, 1);
     r1.createExit("South Gate", "goes to room 3", "south", 0, 2);
+    std::cout << r1.getRoomId() << "\n";
     a.addRoom(r1);
     Room r2("Room2", "This dark room contains only the number 2");
+    r2.setRoomId(1);
     r2.createExit("West Gate", "goes to room 1", "west", 0, 0);
     r2.createExit("South Gate", "goes to room 4", "south", 0, 3);
+    std::cout << r2.getRoomId() << "\n";
     a.addRoom(r2);
     Room r3("Room3", "This dark room contains only the number 3");
+    r3.setRoomId(2);
     r3.createExit("East Gate", "goes to room 4", "east", 0, 3);
     r3.createExit("West Gate", "goes to room 6", "west", 0, 5);
     r3.createExit("South Hidden Passage", "goes to room 1", "south", 0, 0);
     a.addRoom(r3);
     Room r4("Room4", "This dark room contains only the number 4");
+    r4.setRoomId(3);
     r4.createExit("East Gate", "goes to room 5", "east", 0, 4);
     r4.createExit("North Gate", "goes to room 2", "north", 0, 1);
     a.addRoom(r4);
     Room r5("Room5", "This dark room contains only the number 5");
+    r5.setRoomId(4);
     r5.createExit("East Gate", "goes out of bounds", "east", 0, 10);
     r5.createExit("West Gate", "goes to room 4", "west", 0, 3);
     a.addRoom(r5);
     Room r6("Room6", "This dark room contains only the number 6");
+    r6.setRoomId(5);
     r6.createExit("West Gate", "goes to area 2", "west", 1, 0);
     a.addRoom(r6);
-
     Room r7("Room6", "This secret room contains only the number 1");
+    r7.setRoomId(6);
     r7.createExit("West Gate", "goes to area 1", "west", 0, 0);
     b.addRoom(r7);
 
@@ -47,11 +64,11 @@ Room& WorldManager::findRoomByLocation(LocationCoordinates location) {
         throw std::domain_error("Area out of bounds");
 
     auto& areaOfInterest = areas.at((unsigned long)location.area);
-
     if (areaOfInterest.size() < 1 || location.room < 0 || (unsigned int)location.room >= areaOfInterest.size())
         throw std::domain_error("Room out of bounds");
 
-    return areaOfInterest.getRoom((unsigned int)location.room);
+    // return areaOfInterest.getRoom((unsigned int)location.room);
+    return areaOfInterest.getRoom(location.room);
 }
 
 bool WorldManager::kick(const std::string& characterName, LocationCoordinates location) {

@@ -25,6 +25,7 @@ void CommandEditRoom::executeInHeartbeat(const std::string& username, const std:
             std::cout << "Area: " << location.area << "\n";
             std::cout << "Room: " << location.room << "\n";
             auto& room = worldManager.findRoomByLocation(location);
+            std::cout << room.getName() << "\n";
             auto editSuccess = room.createExit("admin test", "goes to test", "north", 0, 6);
         }
         default: {return;}
