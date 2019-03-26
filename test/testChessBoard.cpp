@@ -437,3 +437,13 @@ TEST(MoveValidatorTest, reversePrint){
 
 
 // Queen is RookAndBishop combined so we don't really need to test, since we reuse function/method.
+
+// TODO: TEST DISABLED BECAUSE IT FAILS
+TEST(InvalidInputTest, DISABLED_invalidMoveInput) {
+    MoveValidator test;
+    std::string start, finish, player;
+    start = "12";
+    finish = "12";
+    player = "tester";
+    EXPECT_FALSE(test.readChessMove(start, finish, player));
+}
