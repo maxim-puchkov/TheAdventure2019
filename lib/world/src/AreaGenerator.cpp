@@ -77,13 +77,6 @@ void AreaGenerator::generateNPC(json allNPC, Area& area){
         } else{
             index = 0;
         }
-        // For Testing
-        // for(auto word : keywords){
-        //     std::cout << word + "\n";
-        // }
-        // std::cout << shortDesc << "\n";
-        // std::cout << longDesc << "\n";
-        // std::cout << description << "\n";
     }
 }
 
