@@ -182,19 +182,22 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo, co
         return false;
     }
 
-    std::string xaxis = "abcdefgh";
-    std::string yaxis = "12345678";
-    // Checks if first character of input is in xaxis and if second character of input is in yaxis
-    if(xaxis.find(result.at(0)) != std::string::npos || yaxis.find(result.at(1)) != std::string::npos) {
-        return false;
-    }
 
     int sCol =  convertCharColToInt(result.at(0).at(0));
     int sRow = convertChessRowToInt(result.at(0).at(1));
+    if(sCol == -1 || sRow == -1){
+        return false;
+    }
+
+
     ChessCoordinate startPos{sRow,sCol};
 
     int finishPositionColumn = convertCharColToInt(result.at(1).at(0));
     int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
+    if(finishPositionColumn == -1 || finishPositionRow == -1){
+        return false;
+    }
+
     ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
 
     const Color &pieceColor = gameBoard.requestPiece(startPos).getColor();
@@ -217,16 +220,28 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo) {
     result.push_back(moveFrom);
     result.push_back(moveTo);
 
+
+
+
     if(result.size() > 2  || result.at(0).size() != 2 || result.at(1).size() != 2 ){
         return false;
     }
 
     int sCol =  convertCharColToInt(result.at(0).at(0));
     int sRow = convertChessRowToInt(result.at(0).at(1));
+
+    if(sCol == -1 || sRow == -1){
+        return false;
+    }
+
     ChessCoordinate startPos{sRow,sCol};
 
     int finishPositionColumn = convertCharColToInt(result.at(1).at(0));
     int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
+
+    if(finishPositionColumn == -1 || finishPositionRow == -1){
+        return false;
+    }
     ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
 
 
