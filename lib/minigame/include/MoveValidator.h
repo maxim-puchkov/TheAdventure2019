@@ -50,6 +50,7 @@ class MoveValidator {
         int convertChessRowToInt(char input);
         bool validatePlayer(const std::string &playerName, const Color &color) const;
         bool processChessMove(const ChessCoordinate &startPos,const ChessCoordinate &finishPos ) ;
+        bool readMoveValidator(vector<std::string> &rst, ChessCoordinate &start, ChessCoordinate &finish);
 
 };
 
