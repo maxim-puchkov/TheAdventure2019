@@ -36,7 +36,7 @@ Area AreaGenerator::getArea(std::string filePath){
         }
 
     }
-    return Area{};
+    return area;
 }
 
 void AreaGenerator::generateRooms(json rooms, Area& area){
@@ -52,7 +52,7 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
         for(auto tmpExit : room["doors"]){
 
             std::string exitDesc = jsonParser.json2string(tmpExit["desc"]);
-            auto creatExit = roomObj.createExit(("exit " + std::to_string(count)), exitDesc, jsonParser.removeQuotes(tmpExit["dir"].dump()), 0, 0);
+            auto creatExit = roomObj.createExit(("exit " + std::to_string(count)), exitDesc, jsonParser.removeQuotes(tmpExit["dir"].dump()), 0, count);
             count++;
         }
         area.addRoom(roomObj);

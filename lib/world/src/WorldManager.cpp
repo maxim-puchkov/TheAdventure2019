@@ -10,8 +10,9 @@ void WorldManager::generateWorld() {
     // *** AREA GENERATION TEST CODE ***
     AreaGenerator areaGen;
     std::string filePath = "mirkwood.json";
-    areaGen.getArea(filePath);
-
+    auto newArea = areaGen.getArea(filePath);
+    areas.push_back(newArea);
+    
     // *********************************
 
     Area a("Starting Area", "Welcome to adventure.");
