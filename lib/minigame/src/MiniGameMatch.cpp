@@ -81,6 +81,14 @@ const std::string MiniGameMatch::display() const {
     return game.getBoardView();
 }
 
+bool MiniGameMatch::isGameFinished() const {
+    return game.isGameFinished();
+}
+
+std::string MiniGameMatch::getWinMessage() const {
+    return game.gameOverMessage();
+}
+
 //A "reversed" display for player 2.
 const std::string MiniGameMatch::reverseDisplay() const {
     return game.getReverseBoardView();

@@ -16,6 +16,9 @@ public:
 
 private:
 	std::vector<std::string> reassembleMinigameMove(std::vector<std::string>& splitByComma, bool& commandIsValid);
+	void sendWinMessage(vector<std::string> &player, vector<std::string> &spectator, std::string msg);
+
+
 };
 
 

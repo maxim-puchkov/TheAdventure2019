@@ -4,14 +4,22 @@
 
 
 
+void CommandMinigame::sendWinMessage(vector<std::string> &players, vector<std::string> &spectators, std::string msg) {
 
+    msg.append(" Type 'minigame exit' to leave this game \n");
+    for(const std::string &iter : spectators){
+        onlineUserManager.addMessageToUser(iter,  msg + "\n");
+    }
+    
+    for(const std::string &aPlayer : players){
+        onlineUserManager.addMessageToUser(aPlayer, msg + "\n");
+    }
 
-
+}
 
 void CommandMinigame::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
     auto &miniGameLobby = characterManager.getMiniGameLobby();
     auto &playerMatch = miniGameLobby.getMatchWithPlayer(username);
-
     auto &firstCommand = fullCommand.at(1);
 
     if (firstCommand == "start") {
@@ -81,7 +89,6 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
 
 
     vector<string> &players = playerMatch.getPlayers();
-
     if (players.size() == 2) {
         onlineUserManager.addMessageToUser(players.at(0), playerMatch.reverseDisplay() + "\n" );
         onlineUserManager.addMessageToUser(players.at(1), playerMatch.display() + "\n" );
@@ -91,6 +98,12 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
     for(const std::string &spectator : playerMatch.getSpectators()){
         onlineUserManager.addMessageToUser(spectator, playerMatch.display() + "\n");
     }
+
+
+    if(playerMatch.isGameFinished()){
+        sendWinMessage( playerMatch.getPlayers(), playerMatch.getSpectators(), std::move(playerMatch.getWinMessage()) );
+    }
+
 
 }
 
