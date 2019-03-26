@@ -1,3 +1,8 @@
+
+
+<!--  Unmodified issue template  -->
+
+
 ## Description of the proposal
 
 <!--
@@ -9,8 +14,13 @@ Please describe the proposal and add a link to the source (for example, http://w
 - [ ] Once approved, mention it again in the next backend weekly call and the #backend channel
 
 
-/label ~"development guidelines"
-/label ~"Style decision"
-/label ~Documentation
 
-/cc @gitlab-org/maintainers/rails-backend
+---
+
+>>>
+/label ~"code style"
+
+/label ~documentation
+
+_Issue markdown template document_ 
+>>>

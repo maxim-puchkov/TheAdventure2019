@@ -1,3 +1,8 @@
+
+
+<!--  Unmodified issue template  -->
+
+
 <!---
 Please read this!
 
@@ -84,4 +89,11 @@ logs, and code as it's very hard to read otherwise.)
 
 (If you can, link to the line of code that might be responsible for the problem)
 
+
+---
+
+>>>
 /label ~bug
+
+_Issue markdown template document_
+>>>

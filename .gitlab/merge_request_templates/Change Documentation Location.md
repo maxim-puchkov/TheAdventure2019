@@ -1,16 +1,23 @@
-<!--See the general Documentation guidelines https://docs.gitlab.com/ee/development/documentation/ -->
 
-<!-- Use this description template for changing documentation location. For new docs or updates to existing docs, use the "Documentation" template -->
+
+<!--  Unmodified issue template  -->
+
 
 ## What does this MR do?
 
 <!-- Briefly describe what this MR is about -->
 
+<!--See the general Documentation guidelines https://docs.gitlab.com/ee/development/documentation/ -->
+
+<!-- Use this description template for changing documentation location. For new docs or updates to existing docs, use the "Documentation" template -->
+
+
 ## Related issues
 
-<!-- Mention the issue(s) this MR closes or is related to -->
+<!-- Mention the issue(s) this MR closes or is related to --> 
 
-Closes 
+Closes #<!-- IssueNumber --> 
+
 
 ## Moving docs to a new location?
 
@@ -29,4 +36,12 @@ https://docs.gitlab.com/ce/development/documentation/index.html#changing-documen
       with the changes as well (https://docs.gitlab.com/ce/development/documentation/index.html#cherry-picking-from-ce-to-ee).
 - [ ] Ping one of the technical writers for review.
 
-/label ~Documentation
+
+---
+
+
+>>>
+/label ~documentation
+
+_Merge Request markdown template document_
+>>>

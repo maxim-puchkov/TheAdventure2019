@@ -1,27 +1,26 @@
-<!--  Merge Request Minor template markdown document  -->
-
+# Merge Request
 
 
 ## Description
-<!-- Briefly describe what you are adding / removing -->
 
+<!-- Write a description here -->
 _No description._
 
-
-
+<!-- Use if the merge request adds or removes functionality -->
+<!-- * [ ] {+++}Adds X ... -->
+<!-- * [ ] {---}Removes Y ... -->
 
 
 ## Related issues
+
 <!-- Link related issues below. -->
 <!-- Insert the issue link or reference after the word "Closes" if merging this should automatically close it. -->
 
 _No related issues._
 
 
-
-
-
 ## Author's checklist
+
 <!--  Review changes before requesting merge  -->
 
 - [ ] Follow GitLab [User Documentation][user] and [Style Guide][styleguide].
@@ -32,49 +31,24 @@ _No related issues._
 - [ ] Document code using [HeaderDoc][hdoc] syntax. ~optional
 
 
-
-
-
 ## Reviewers' checklist
+
 <!--  Review and accept merge request  -->
 
-- [ ] Commit successfully passes all  __build__, __analyze__, and __test__ stages.
+- [ ] Commit successfully passes all  __build__ and __test__ stages.
 - [ ] Review new references in master API Reference [masterTOC][hdoc-toc] if any were added. ~optional
 - [ ] Team review ~optional
 - [ ] Review by assigned maintainer to confirm __accuracy__, __clarity__, and __completeness__.
     * This can be skipped for requests without substantive content changes.
 
 
-
-
-
-
-
 ## Notifications
+
 <!--  Notify other team members if you want  -->  
+<!--  /cc @ica29 @jjankows @jha257 @mpuchkov @parmj @tnpham @vun  -->
+<!--  /cc @user  --> 
 
 _No notifications._
-
-<!--  
-/cc @ica29 
-/cc @jjankows
-/cc @jha257
-/cc @mpuchkov
-/cc @parmj
-/cc @tnpham
-/cc @vun
--->
-
-
-
-
-
-
-
-
-
-
-
 
 
 ### Further details
@@ -85,11 +59,12 @@ _No notifications._
 
 --- 
 
-_Minor update_
 
-/label ~minor
+>>>
+/label ~Minor
 
-
+_Merge Request markdown template document_ 
+>>>
 
 
 <!--  Links  -->

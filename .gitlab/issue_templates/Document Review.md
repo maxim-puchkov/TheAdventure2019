@@ -1,3 +1,8 @@
+
+
+<!--  Unmodified issue template  -->
+
+
 <!-- This issue requests a technical writer review as required for documentation
      content that was merged without one. -->
 
@@ -17,4 +22,11 @@ Related issue(s):
 <!-- Any additional context, questions, or notes for the technical writer. -->
 
 
-/label ~Documentation ~docs-review
+
+---
+
+>>>
+/label ~documentation
+
+_Issue markdown template document_ 
+>>>

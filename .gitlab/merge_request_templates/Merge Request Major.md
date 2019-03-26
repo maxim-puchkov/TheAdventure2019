@@ -1,26 +1,26 @@
-<!--  Merge Request Major template markdown document  -->
-
+# Merge Request: _Major Update_
 
 
 ## Description
-<!-- Describe what you are adding / removing -->
 
-_{-No description.-}_
+<!-- Write a description here -->
+_No description._
 
-
+<!-- Use if the merge request adds or removes functionality -->
+<!-- * [ ] {+++}Adds X ... -->
+<!-- * [ ] {---}Removes Y ... -->
 
 
 ## Related issues
+
 <!-- Link related issues below. -->
 <!-- Insert the issue link or reference after the word "Closes" if merging this should automatically close it. -->
 
-_{-No related issues.-}_
-
-
-
+_No related issues._
 
 
 ## Author's checklist
+
 <!--  Review changes before requesting merge  -->
 
 - [ ] Follow GitLab [User Documentation][user] and [Style Guide][styleguide].
@@ -28,23 +28,11 @@ _{-No related issues.-}_
 - [ ] Apply relevant [project labels][labels]. 
 - [ ] Assign [someone][team] to review your request.
 - [x] Notify other members about changes.
-- [ ] Document code using [HeaderDoc][hdoc] syntax:        
-
-        /*!
-        *  @class Server
-        *
-        *  @brief A single threaded network server for transferring text.
-        *
-        *  The Server class transfers text to and from multiple Client 
-        *  instances connected on a given port. The behavior is ...
-        */
-        class Server { ... }
-
-
-
-
+- [ ] Document code using [HeaderDoc][hdoc] syntax:
+        
 
 ## Reviewers' checklist
+
 <!--  Review and accept merge request  -->
 
 - [ ] Commit successfully passes all  __build__, __analyze__, and __test__ stages.
@@ -54,24 +42,11 @@ _{-No related issues.-}_
     * This can be skipped for requests without substantive content changes.
 
 
-
-
-
-
-
 ## Notification
-<!--  Major changes notify all team members  -->  
+
+_:warning: Major changes notify all team members._  
 
 /cc @ica29 @jjankows @jha257 @mpuchkov @parmj @tnpham @vun
-
-
-
-
-
-
-
-
-
 
 
 ### Further details
@@ -83,11 +58,14 @@ _{-No related issues.-}_
 
 ---
 
-_Major update_
 
-/label ~important ~major
+>>>
+_ Major update_
 
+/label ~important ~Major
 
+_Merge Request markdown template document_ 
+>>>
 
 
 <!--  Links  -->
