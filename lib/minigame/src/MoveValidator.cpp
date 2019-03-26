@@ -182,12 +182,23 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo, co
         return false;
     }
 
+
+
     int sCol =  convertCharColToInt(result.at(0).at(0));
     int sRow = convertChessRowToInt(result.at(0).at(1));
+    if(sCol == -1 || sRow == -1){
+        return false;
+    }
+
+
     ChessCoordinate startPos{sRow,sCol};
 
     int finishPositionColumn = convertCharColToInt(result.at(1).at(0));
     int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
+    if(finishPositionColumn == -1 || finishPositionRow == -1){
+        return false;
+    }
+
     ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
 
     const Color &pieceColor = gameBoard.requestPiece(startPos).getColor();
@@ -223,6 +234,7 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo) {
     if(sCol == -1 || sRow == -1){
         return false;
     }
+
     ChessCoordinate startPos{sRow,sCol};
 
     int finishPositionColumn = convertCharColToInt(result.at(1).at(0));
