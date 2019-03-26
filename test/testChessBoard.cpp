@@ -428,10 +428,21 @@ TEST(MoveValidatorTest, reversePrint){
 
 
 
-
-
 }
 
+
+TEST(MoveValidatorTest, testInput){
+
+    MoveValidator testG;
+
+    string input1 = "12";
+    string input2 = "12";
+
+
+    bool result = testG.readChessMove(input1,input2);
+    EXPECT_EQ(false,result);
+
+}
 
 
 
