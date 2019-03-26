@@ -394,6 +394,39 @@ TEST(MoveValidatorTest, testTurn){
     EXPECT_EQ(isValid,true);
 
 
+}
+
+//You need to validate this with your own eyes
+TEST(MoveValidatorTest, reversePrint){
+
+    std::string p1 = "playerOne";
+    std::string p2 = "playerTwo";
+
+    MoveValidator testGame;
+
+    //PLAYER 1 is red_LOWERCASE, PLAYER 2 is blue_UPPERCASE
+    testGame.initializeSide(p1,p2);
+
+    string source = "a7";
+    string target = "a6";
+    bool isValid = testGame.readChessMove(source, target ,p1 );
+    EXPECT_EQ(isValid,false);
+
+
+
+    source = "a2";
+    target = "a4";
+    isValid = testGame.readChessMove(source, target );
+
+    source = "g2";
+    target = "g4";
+    isValid = testGame.readChessMove(source, target );
+ //   std::cout << testGame.getBoardView() ;
+//    std::cout << testGame.getReverseBoardView();
+
+
+
+
 
 
 
