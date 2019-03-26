@@ -182,6 +182,13 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo, co
         return false;
     }
 
+    std::string xaxis = "abcdefgh";
+    std::string yaxis = "12345678";
+    // Checks if first character of input is in xaxis and if second character of input is in yaxis
+    if(xaxis.find(result.at(0)) != std::string::npos || yaxis.find(result.at(1)) != std::string::npos) {
+        return false;
+    }
+
     int sCol =  convertCharColToInt(result.at(0).at(0));
     int sRow = convertChessRowToInt(result.at(0).at(1));
     ChessCoordinate startPos{sRow,sCol};
