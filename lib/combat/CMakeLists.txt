@@ -1,6 +1,6 @@
 add_library(${libcombat}
         src/CombatManager.cpp
-        src/Combat.cpp)
+        src/Match.cpp)
 
 
 cmake_minimum_required(VERSION 3.12)

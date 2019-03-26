@@ -2,13 +2,22 @@
 #include <boost/algorithm/string.hpp>
 
 void CommandCombat::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
-    auto& combatManager = characterManager.getCombatManager();
     auto& currentCombat = combatManager.getCombatWithPlayer(username);
-    if(currentCombat.hasPlayer(username)){
-        onlineUserManager.addMessageToUser(username, "One of you are already in a combat!\n");
+    auto& firstCommand = fullCommand.at(1);
+
+    if(firstCommand == "print"){
+        if(fullCommand.at(2) == "combats"){
+            onlineUserManager.addMessageToUser(username, combatManager.printCombats());
+        }else if(fullCommand.at(2) == "invites"){
+            onlineUserManager.addMessageToUser(username, combatManager.printInvites());
+        }
+        return;
     }
 
-    auto& firstCommand = fullCommand.at(1);
+    if(currentCombat.hasPlayer(username)){
+        onlineUserManager.addMessageToUser(username, "One of you are already in a combat!\n");
+        return;
+    }
 
     if(firstCommand == "challenge"){
         auto& challengedName = fullCommand.at(2);
@@ -47,7 +56,8 @@ std::vector<std::string> CommandCombat::reassembleCommand(std::string& fullComma
         //reassemble the command
         commandIsValid = (processedCommand[1] == "accept" ||
                             processedCommand[1] == "join" ||
-                            processedCommand[1] == "challenge");
+                            processedCommand[1] == "challenge" ||
+                            processedCommand[1] == "print" && (processedCommand[2] == "combats" || processedCommand[2] == "invites"));
     } else {
         commandIsValid = false;
     }

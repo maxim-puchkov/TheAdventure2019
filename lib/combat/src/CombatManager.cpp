@@ -3,19 +3,37 @@
 
 CombatManager::CombatManager(){}
 
-Combat& CombatManager::createCombat(const std::string& player1Name, const std::string& player2Name) {
-    Combat newCombat{player1Name, player2Name};
+Match& CombatManager::createCombat(const std::string& player1Name, const std::string& player2Name) {
+    Match newCombat{player1Name, player2Name};
     this->combatList.emplace_back(newCombat);
     return combatList.back();
 }
 
-Combat& CombatManager::getCombatWithPlayer(const std::string& playerName){
+void CombatManager::deleteCombat(const std::string& eitherName){
+    combatList.erase(std::remove_if(combatList.begin(), combatList.end(),
+                                  [&eitherName](Match& x){return x.hasPlayer(eitherName);}),
+                   combatList.end());
+}
+
+bool CombatManager::playerIsInCombat(const std::string& eitherName) const{
+    auto it = std::find_if(combatList.begin(), combatList.end(), [&eitherName](const Match& x){return x.hasPlayer(eitherName);});
+    return it != combatList.end();
+}
+
+Match& CombatManager::getCombatWithPlayer(const std::string& playerName){
     for(auto& combat : combatList){
         if (combat.hasPlayer(playerName)){
             return combat;
         }
     }
     return nullCombat;
+}
+
+std::vector<std::pair<std::string, std::vector<std::string>>> CombatManager::resolveCombatStep() {
+
+    roundTick();
+
+    return std::move(getCombatCommands());
 }
 
 void CombatManager::roundTick(){
@@ -30,17 +48,27 @@ std::vector<std::pair<std::string, std::vector<std::string>>> CombatManager::get
     std::vector<std::pair<std::string, std::vector<std::string>>> commandList;
 
     for (auto &combat : combatList) {
-        if(combat.getRoundTime() == 0){
+        if(combat.getRoundTime() <= 0){
             //temporary implementation
             std::vector<std::string> tempVector1;
             std::vector<std::string> tempVector2;
-            tempVector1.push_back(combat.getCommand(0));
-            tempVector2.push_back(combat.getCommand(1));
+            auto player1Command = combat.getCommand(0);
+            auto player2Command = combat.getCommand(1);
+
+            tempVector1.push_back(player1Command);
+            tempVector2.push_back(player2Command);
 
             auto player1Pair = std::make_pair(combat.getPlayer(0), tempVector1);
             auto player2Pair = std::make_pair(combat.getPlayer(1), tempVector2);
-            commandList.push_back(player1Pair);
-            commandList.push_back(player2Pair);
+
+            if(player1Command == "flee"){
+                commandList.push_back(player2Pair);
+                commandList.push_back(player1Pair);
+            } else {
+                commandList.push_back(player1Pair);
+                commandList.push_back(player2Pair);
+            }
+
             combat.clearCommands();
         }
     }
@@ -87,4 +115,21 @@ bool CombatManager::confirmInvite(const std::string& invitedName){
         }
     }
     return false;
+}
+
+std::string CombatManager::printCombats() const{
+    std::string result = "Combat List:\n";
+    for(auto combat : combatList){
+        result += combat.getPlayer(0) + " vs. ";
+        result += combat.getPlayer(1) + "\n";
+    }
+    return result;
+}
+
+std::string CombatManager::printInvites() const{
+    std::string result = "Invite List:\n";
+    for(auto& invite : pendingInvites){
+        result += std::get<0>(invite) + ", " + std::get<1>(invite) + "\n";
+    }
+    return result;
 }

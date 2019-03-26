@@ -63,7 +63,7 @@ public:
     bool operator==(const Character &other);
     bool operator!=(const Character &other);
 
-    // Combat WIP
+    // Match WIP
     void characterTakeDamage(const int &damage);
     
 private:

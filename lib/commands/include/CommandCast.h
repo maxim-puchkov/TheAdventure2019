@@ -8,8 +8,10 @@ using charactermanager::CharacterManager;
 
 class CommandCast : public Command
 {
+protected:
+	CombatManager& combatManager;
 public:
-	CommandCast(CharacterManager& c, OnlineUserManager& u, WorldManager& w): Command(c, u, w) {}
+	CommandCast(CharacterManager& c, OnlineUserManager& u, WorldManager& w, CombatManager& x): Command(c, u, w), combatManager(x) {}
 	
 	virtual void executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand);
 	virtual std::vector<std::string> reassembleCommand(std::string& fullCommand, bool& commandIsValid);

@@ -127,7 +127,7 @@ std::string CommandHelp::printMinigameCommands(OnlineUserManager::USER_CODE user
 
 std::string CommandHelp::printCombatCommands(OnlineUserManager::USER_CODE userRole) {
     std::stringstream answer;
-    answer << "Combat\n";
+    answer << "Match\n";
     answer << "--------------------------------------------------\n";    
     answer << "combat challenge [username]\n";
     answer << "combat accept\n";
@@ -150,7 +150,7 @@ std::string CommandHelp::printUtilityCommands(OnlineUserManager::USER_CODE userR
     answer << "help World-interaction\n";
     answer << "help Inventory\n";
     answer << "help Minigame\n";
-    answer << "help Combat\n";
+    answer << "help Match\n";
     answer << "--------------------------------------------------\n\n";
     return answer.str();
 }

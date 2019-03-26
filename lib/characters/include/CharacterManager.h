@@ -19,7 +19,6 @@ private:
     Character nullCharacter{""};
     CharacterDB characterDB;
     MiniGameLobby minigameLobby;
-    CombatManager combatManager;
     LocationCoordinates nullLocation{-1, -1};
 
     const std::string SHORT_DESC = "shortdesc";
@@ -60,8 +59,7 @@ public:
 
     //MiniGame commands
     MiniGameLobby& getMiniGameLobby();
-    //Combat commands
-    CombatManager& getCombatManager();
+    //combat commands
     CHARACTER_CODE damageCharacter(const std::string& username, int amount);
     int getCharacterAttack(const std::string& username);
     int getCharacterHealth(const std::string& username);

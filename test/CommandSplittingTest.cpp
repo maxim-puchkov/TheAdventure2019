@@ -11,6 +11,7 @@ struct CommandSplittingTest : testing::Test {
     OnlineUserManager u;
     CharacterManager c;
     WorldManager w;
+    CombatManager x;
     bool isValid = true;
     std::vector<std::string> testVector;
     std::string commandToPut;
@@ -194,7 +195,7 @@ TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyNotCaseSensitive) {
 
 // CAST
 TEST_F(CommandSplittingTest, CastCommandSplitsCorrectly) {
-    CommandCast testCommand(c, u, w);
+    CommandCast testCommand(c, u, w, x);
 
     commandToPut = "cast ligma";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -203,7 +204,7 @@ TEST_F(CommandSplittingTest, CastCommandSplitsCorrectly) {
 }
 
 TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyCastingACommand) {
-    CommandCast testCommand(c, u, w);
+    CommandCast testCommand(c, u, w, x);
 
     commandToPut = "cast say:";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -212,7 +213,7 @@ TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyCastingACommand) {
 }
 
 TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyCastingOwnCommand) {
-    CommandCast testCommand(c, u, w);
+    CommandCast testCommand(c, u, w, x);
 
     commandToPut = "cast cast";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -221,7 +222,7 @@ TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyCastingOwnCommand) {
 }
 
 TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyWithSpace) {
-    CommandCast testCommand(c, u, w);
+    CommandCast testCommand(c, u, w, x);
     
     commandToPut = "cast               ligma";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -230,7 +231,7 @@ TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyWithSpace) {
 }
 
 TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyNotCaseSensitive) {
-    CommandCast testCommand(c, u, w);
+    CommandCast testCommand(c, u, w, x);
 
     commandToPut = "caSt liGma";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);

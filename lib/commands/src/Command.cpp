@@ -23,3 +23,8 @@ std::string Command::executePromptReply(const std::string& connectionID, const s
 void Command::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	//Intended to be a null-function. Normally it should never reach this.
 }
+
+//Default behavior: swallow and log the error
+void Command::executeCombatRound(const std::string& username, const std::vector<std::string>& fullCommand) {
+	//Intended to be a null-function. Normally it should never reach this.
+}

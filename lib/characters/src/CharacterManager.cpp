@@ -118,10 +118,6 @@ MiniGameLobby& CharacterManager::getMiniGameLobby(){
 	return minigameLobby;
 }
 
-CombatManager& CharacterManager::getCombatManager(){
-	return combatManager;
-}
-
 CharacterManager::CHARACTER_CODE CharacterManager::damageCharacter(const std::string& username, int amount){
 	auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {

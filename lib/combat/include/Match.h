@@ -9,10 +9,11 @@
 
 const static unsigned int HEARTBEATS_PER_ROUND = 10;
 
-class Combat{
+class Match{
 public:
-    Combat();
-    Combat(const std::string& player1Name, const std::string& player2Name);
+    Match();
+    Match(const std::string& player1Name, const std::string& player2Name);
+    Match(const std::vector<std::string>& players);
     bool hasPlayer(const std::string& name) const;
     int getRoundTime() const;
     std::string getOpponent(const std::string& name) const;

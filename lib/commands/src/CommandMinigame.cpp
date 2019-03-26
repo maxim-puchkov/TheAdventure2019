@@ -8,6 +8,11 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
 
     auto& firstCommand = fullCommand.at(1);
 
+    if(combatManager.playerIsInCombat(username)){
+        onlineUserManager.addMessageToUser(username, "Cannot do this while in combat.\n");
+        return;
+    }
+
     if(firstCommand == "start"){
 
         miniGameLobby.createGame(username);

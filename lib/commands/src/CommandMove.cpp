@@ -2,6 +2,11 @@
 #include <boost/algorithm/string.hpp>
 
 void CommandMove::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
+    if(combatManager.playerIsInCombat(username)){
+        onlineUserManager.addMessageToUser(username, "Cannot do this while in combat.\n");
+        return;
+    }
+
     auto location = characterManager.getCharacterLocation(username);
     if(location.area == -1) {
         //should not reach here, report error

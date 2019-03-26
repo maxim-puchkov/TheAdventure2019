@@ -45,6 +45,8 @@ private:
     WorldManager world{};
     OnlineUserManager onlineUserManager{};
     CharacterManager characterManager{};
+    CombatManager combatManager{};
+
     std::unordered_map<std::string, std::unique_ptr<Command>> tableOfCommands;
     
     std::string extractKeyword(std::string& fullCommand);
