@@ -174,6 +174,7 @@ bool MoveValidator::readMoveValidator(vector<std::string> &result, ChessCoordina
         return false;
     }
 
+
     int sCol =  convertCharColToInt(result.at(0).at(0));
     int sRow = convertChessRowToInt(result.at(0).at(1));
     if( sCol == -1 || sRow == -1){
