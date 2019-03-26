@@ -62,6 +62,9 @@ public:
     // Compare characters' usernames
     bool operator==(const Character &other);
     bool operator!=(const Character &other);
+
+    // Combat WIP
+    void characterTakeDamage(const int &damage);
     
 private:
     std::string name;
