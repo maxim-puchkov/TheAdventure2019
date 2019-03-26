@@ -23,7 +23,7 @@ const string ENV_BIND_ERROR = "Map Environment error: Key is already defined.";
 const string ENV_FIND_ERROR = "Map Environment error: Unable to find specified key.";
 
 
-/**
+/*!
  *  @class Environment
  *
  *  @brief Custom safe map environment.

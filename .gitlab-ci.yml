@@ -13,9 +13,24 @@ build:
     - cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=True ../
     - make
   artifacts:
-    expire_in: 10 mins
+    expire_in: 30 mins
     paths:
       - build/*
+
+build-release:
+  stage: build
+  script:
+    - mkdir build-release
+    - cd build-release
+    - cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_CXX_COMPILER=clang++ ../
+    - make
+  artifacts:
+    expire_in: 5 mins
+    paths:
+      - build/*
+  allow_failure: true
+  only:
+    - master
 
 analyze:
   stage: analyze
@@ -34,6 +49,30 @@ analyze:
       - build/cppcheck-results.txt
       - build/clang-tidy-results.txt
   except:
+
+headerdoc2html:
+  stage: analyze
+  script:
+    - echo '...Debugging...'
+    - ls
+    - cd bin/
+    - ls
+    - cd ../../
+    - ls
+  allow_failure: true
+  only:
+    - docs
+    - libraries
+    
+gatherheaderdoc:
+  stage: analyze
+  script:
+    - find . -regex '.*\.h'
+    - find lib -regex '.*\.h'
+    - sh bin/headerdoc2html doc/.HeaderDoc/ $(find lib -regex '.*\.h')
+  allow_failure: true
+  only:
+    - docs
     - libraries
 
 test:

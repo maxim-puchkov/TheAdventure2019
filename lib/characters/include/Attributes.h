@@ -11,7 +11,7 @@
 const int DEF_HEALTH = 100;
 const int DEF_DAMAGE = 10;
 
-/**
+/*!
  *  @class Attributes
  *
  *  @brief Manages characters' attributes.

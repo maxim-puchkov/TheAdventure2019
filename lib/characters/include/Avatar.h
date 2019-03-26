@@ -16,7 +16,7 @@
 using std::string;
 
 
-/**
+/*!
  *  @class Avatar
  *
  *  @brief Character that can be controlled and customized.
