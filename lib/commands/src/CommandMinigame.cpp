@@ -10,7 +10,7 @@ void CommandMinigame::sendWinMessage(vector<std::string> &players, vector<std::s
     for(const std::string &iter : spectators){
         onlineUserManager.addMessageToUser(iter,  msg + "\n");
     }
-    
+
     for(const std::string &aPlayer : players){
         onlineUserManager.addMessageToUser(aPlayer, msg + "\n");
     }
@@ -103,7 +103,6 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
     if(playerMatch.isGameFinished()){
         sendWinMessage( playerMatch.getPlayers(), playerMatch.getSpectators(), std::move(playerMatch.getWinMessage()) );
     }
-
 
 }
 
