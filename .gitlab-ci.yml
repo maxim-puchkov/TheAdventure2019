@@ -49,6 +49,8 @@ analyze:
       - build/cppcheck-results.txt
       - build/clang-tidy-results.txt
   except:
+    - docs
+    - libraries
 
 headerdoc2html:
   stage: analyze
