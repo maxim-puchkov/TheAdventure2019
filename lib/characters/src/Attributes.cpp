@@ -15,15 +15,23 @@ Attributes::Attributes(int health, int damage)
 
 Attributes::~Attributes() { }
 
-int Attributes::getHealth() {
+int Attributes::getHealth() const {
     return this->health;
 }
 
-int Attributes::getDamage() {
+int Attributes::getDamage() const {
     return this->damage;
 }
 
-Attributes Attributes::operator+(const Attributes &other) {
+void Attributes::setHealth(const int &value) {
+    this->health = value;
+}
+
+void Attributes::setDamage(const int &value) {
+    this->damage = value;
+}
+
+Attributes Attributes::operator+(const Attributes &other) const {
     int h = this->health + other.health;
     int d = this->damage + other.damage;
     return Attributes(h, d);

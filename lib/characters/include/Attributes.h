@@ -28,11 +28,15 @@ public:
     
     ~Attributes();
     
-    int getHealth();
+    int getHealth() const;
     
-    int getDamage();
+    int getDamage() const;
+
+    void setHealth(const int &value);
+
+    void setDamage(const int &value);
     
-    Attributes operator+(const Attributes &other);
+    Attributes operator+(const Attributes &other) const;
     
 private:
     

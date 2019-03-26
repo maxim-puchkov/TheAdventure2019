@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unordered_map> 
 #include <string>
+#include <chrono>
 #include <boost/algorithm/string.hpp>
 #include "OnlineUserManager.h"
 #include "User.h"
@@ -9,7 +10,6 @@ using user::User;
 using usermanager::OnlineUserManager;
 
 bool OnlineUserManager::insertUser(const std::string &id, const User &user){
-    std::cout << id << "\n";
     if (getUserByUsername(user.getUserName()) != nullUser) return false;
     bool result = onlineUsers.insert(std::make_pair(id, user)).second;
     return result;
@@ -25,7 +25,7 @@ User OnlineUserManager::removeUser(const std::string& id){
     }
 }
 
-User OnlineUserManager::getUserById(const std::string& id) const {
+User& OnlineUserManager::getUserById(const std::string& id){
     auto search = onlineUsers.find(id);
     if (search != onlineUsers.end()) {
         return search->second;
@@ -43,7 +43,7 @@ User& OnlineUserManager::getUserByUsername(const std::string& userName){
     return nullUser;
 }
 
-
+//TODO: switch this to a type
 std::string OnlineUserManager::getConnectionID(const std::string& userName) {
 	for (auto &element : onlineUsers) {
         if(element.second.getUserName() == userName) {
@@ -53,13 +53,23 @@ std::string OnlineUserManager::getConnectionID(const std::string& userName) {
     return "Invalid";
 }
 
-std::string OnlineUserManager::getUsernameFromConnectionID(const std::string& connectionID) const {
-	return getUserById(connectionID).getUserName();
+std::string OnlineUserManager::getUsernameFromConnectionID(const std::string& connectionID){
+    auto user = getUserById(connectionID);
+	return user.getUserName();
 }
 
+long OnlineUserManager::currentTimeStamp(){
+    auto now = std::chrono::system_clock::now();
+    auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
+    auto epoch = now_ms.time_since_epoch();
+    auto value = std::chrono::duration_cast<std::chrono::milliseconds>(epoch);
+    long timeStamp = value.count();
+    return timeStamp;
+}
 
-bool OnlineUserManager::updateUserTimeStamp(const std::string& id, const long timeStamp) {
-    auto user = getUserById(id);
+bool OnlineUserManager::updateUserTimeStamp(const std::string& id) {
+    long timeStamp = currentTimeStamp();
+    auto &user = getUserById(id);
     if(user.getUserName() != "") {
         user.setTimeStamp(timeStamp);
         return true;
@@ -69,8 +79,7 @@ bool OnlineUserManager::updateUserTimeStamp(const std::string& id, const long ti
 
 void OnlineUserManager::printTable() {
     for(auto& p: onlineUsers){
-        std::cout << p.first << " => " << p.second.getUserName() << " "
-                  << p.second.getId() << " " << p.second.getMessageSize() << "\n";
+        std::cout << p.first << " => " << p.second.getUserName() << "\n";
         auto message = p.second.getMessages();
         for(auto& m: message) {
             std::cout << m <<" ";
@@ -100,7 +109,6 @@ std::vector<std::pair<std::string, std::string>> OnlineUserManager::getOnlineUse
 
 
 bool OnlineUserManager::addMessageToUser(const std::string& userName, const std::string& message) {
-    std::cout << userName << "\n";
 	auto& user = getUserByUsername(userName);
     if(user.getUserName() != ""){
         user.addMessage(message);
@@ -135,22 +143,59 @@ std::vector<std::pair<std::string, std::vector<std::string>>> OnlineUserManager:
     return std::move(commandList);
 }
 
+bool sortFunction(User i, User j) {
+    return i.getTimeStamp() < j.getTimeStamp();
+}
 
+// User who unactive for more than 300000 millisecond will be kicked
+std::vector<std::string> OnlineUserManager::unactiveUser(){
+    long currentTime = currentTimeStamp();
+    long timeToKick = currentTime - 300000;
+    std::vector<std::string> unactiveUserIDs;
+    if(onlineUsers.size() != 0) {
+        std::vector<User> listUsers;
+        for (auto &element : onlineUsers) {
+            listUsers.push_back(element.second);
+        }
+        std::sort(listUsers.begin(), listUsers.end(), sortFunction);
+        for(auto& value: listUsers) {
+            if(value.getTimeStamp() < timeToKick) {
+                unactiveUserIDs.push_back(getConnectionID(value.getUserName()));
+            }
+        }
+    }
+    return unactiveUserIDs;
+}
+
+OnlineUserManager::USER_CODE OnlineUserManager::getUserRole(const std::string& username) {
+    auto& user = getUserByUsername(username);
+    if(user == nullUser) {
+        return OnlineUserManager::USER_CODE::USER_NOT_FOUND;
+    } else if (user.getRole() == User::USER_ROLE::ADMIN) {
+        return OnlineUserManager::USER_CODE::USER_ADMIN;
+    } else if (user.getRole() == User::USER_ROLE::NORMAL_USER) {
+        return OnlineUserManager::USER_CODE::USER_NORMAL_USER;
+    } else {
+        //error state
+        return OnlineUserManager::USER_CODE::INVALID_USERNAME;
+    }
+}
 
 
 
 // ******* Functions that Uses UserDB *******
 
 OnlineUserManager::USER_CODE OnlineUserManager::login(const std::string& id, const std::string& userName, const std::string& pwd){
-    std::cout << "Inside Login\n";
-    std::cout << id << "\n";
-    User user = userDB.getUser(userName,pwd);
+    auto user = userDB.getUser(userName,pwd);
     if(user.getUserName() != ""){
-        if(!insertUser(id, user)){
+        auto search = onlineUsers.find(id);
+        if (search != onlineUsers.end()) {
             return OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN;
+        }else{
+            user.setTimeStamp(currentTimeStamp());
+            insertUser(id, user);
+            return OnlineUserManager::USER_CODE::USER_LOGGED_IN;
         }
-        onlineUsers.insert(std::make_pair(id, user));
-        return OnlineUserManager::USER_CODE::USER_LOGGED_IN;
     }
     else{
         return OnlineUserManager::USER_CODE::USER_NOT_FOUND;

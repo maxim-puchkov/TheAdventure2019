@@ -1,30 +1,32 @@
 add_library(${libcharacters}
-     src/Character.cpp
-    src/Avatar.cpp
-    src/PlayerControlledCharacter.cpp
-    src/NonPlayerControlledCharacter.cpp
+    src/Character.cpp
+    src/CharacterManager.cpp
     src/Attributes.cpp
-    src/AvatarManager.cpp
 )
 
 target_include_directories(${libcharacters}
-  PUBLIC
-    $<INSTALL_INTERFACE:include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    PUBLIC
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 target_link_libraries(${libcharacters}
     ${libworld}
+    ${libitem}
+    ${libcharacterdb}
+    ${libminigame}
+    ${libcombat}
 )
 
 set_target_properties(${libcharacters}
-                      PROPERTIES
-                      LINKER_LANGUAGE CXX
-                      CXX_STANDARD 17
+    PROPERTIES
+    COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
+    LINKER_LANGUAGE CXX
+    CXX_STANDARD 17
 )
 
 install(TARGETS ${libcharacters}
-  ARCHIVE DESTINATION lib
+    ARCHIVE DESTINATION lib
 )

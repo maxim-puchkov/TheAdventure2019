@@ -13,7 +13,7 @@
 #include "Character.h"
 #include "LocationCoordinates.h"
 #include <algorithm>
-
+#include "NPC.h"
 
 class Room {
 
@@ -22,7 +22,6 @@ private:
     std::string roomDescription;
     std::vector<std::string> charactersInRoom;
     std::vector<Exit> exitsInRoom;
-
 public:
     Room()
             : roomName("NO_ROOM_NAME"),
@@ -37,6 +36,7 @@ public:
                     const std::string& cardinalDirection, int areaID, int roomID);
     bool addCharacter(const std::string &userName);
     bool removeCharacter(const std::string &userName);
+
 
     std::string lookForName(const std::string &objName) const;
     std::string lookForExitName(const std::string &objName) const;

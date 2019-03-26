@@ -7,7 +7,7 @@ WorldManager::WorldManager() {}
 void WorldManager::generateWorld() {
     Area a("Starting Area", "Welcome to adventure.");
     Area b("Secret area", "Welcome to die.");
-
+    
     Room r1("Room1", "This dark room contains only the number 1");
     r1.createExit("gate", "goes to room 2", "east", 0, 1);
     r1.createExit("South Gate", "goes to room 3", "south", 0, 2);
@@ -32,14 +32,14 @@ void WorldManager::generateWorld() {
     Room r6("Room6", "This dark room contains only the number 6");
     r6.createExit("West Gate", "goes to area 2", "west", 1, 0);
     a.addRoom(r6);
-
+    
     Room r7("Room6", "This secret room contains only the number 1");
     r7.createExit("West Gate", "goes to area 1", "west", 0, 0);
     b.addRoom(r7);
-
+    
     areas.push_back(a);
     areas.push_back(b);
-
+    
 }
 
 Room& WorldManager::findRoomByLocation(LocationCoordinates location) {
@@ -95,10 +95,10 @@ const std::vector<std::string> WorldManager::getUserNamesInRange (LocationCoordi
             nameList.reserve(nameList.size() + nextNameList.size());
             nameList.insert(nameList.end(), nextNameList.begin(), nextNameList.end());
         }
+
         return nameList;
 
     } catch(const std::domain_error& e){
-
         return std::vector<std::string>{};
     }
 }
@@ -112,7 +112,7 @@ LocationCoordinates WorldManager::move(const std::string& characterName, Locatio
 
         roomOfInterest.removeCharacter(characterName);
         newRoom.addCharacter(characterName);
-
+        
         return newLocation;
     } catch(const std::domain_error& e){
         return location;
@@ -126,6 +126,23 @@ std::string WorldManager::listExits(LocationCoordinates location) {
         return result;
     } catch(const std::domain_error& e){
         return "No exits found! uh oh!";
+    }
+}
+
+std::string WorldManager::listPeople(const Character& character) {
+    LocationCoordinates currentLocation = character.getCurrentLocation();
+    try{
+
+        auto& currentRoom = findRoomByLocation(currentLocation);
+        auto& peopleList = currentRoom.getUserNames();
+        std::string result = "People in room: \n";
+        for(auto& charName: peopleList){
+            result += "- " + charName + "\n";
+        }
+
+        return result;
+    } catch(const std::domain_error& e){
+        return "No one else in the room.";
     }
 }
 
