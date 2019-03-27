@@ -16,6 +16,8 @@ class CharacterManager{
 private:
     std::unordered_map<std::string, Character> onlineCharacters;
     std::vector<Character> computerControlledCharacters;
+    std::vector<Character> NPCs;
+
     Character nullCharacter{""};
     CharacterDB characterDB;
     MiniGameLobby minigameLobby;
@@ -66,6 +68,10 @@ public:
     int getCharacterAttack(const std::string& username);
     int getCharacterHealth(const std::string& username);
 
+    // NPC STUFF
+    void addNPC(Character NPC){
+        NPCs.push_back(NPC);
+    }
 };
 
 }

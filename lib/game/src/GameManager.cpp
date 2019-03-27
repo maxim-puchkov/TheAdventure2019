@@ -9,7 +9,7 @@ GameManager::GameManager() {
     std::vector<std::string> areaJSONs = {"../adventure2019/data/mirkwood.json"};
 
     for (auto filePath : areaJSONs){
-        auto area = areaGen.getArea(filePath);
+        auto area = areaGen.getArea(filePath, characterManager);
         world.addArea(area);
         world.printRoomsInArea(area);
     }

@@ -18,6 +18,7 @@ target_link_libraries(${libworld}
     ${libusers}
     ${libcharacters}
     ${libparsers}
+    ${libcharacters}
 )
 
 set_target_properties(${libworld}
