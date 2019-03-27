@@ -14,17 +14,6 @@ void WorldManager::printRoomsInArea(Area area) {
     }
 }
 
-void WorldManager::generateWorld() {
-
-    // *** AREA GENERATION TEST CODE ***
-    AreaGenerator areaGen;
-    std::string filePath = "mirkwood.json";
-    auto newArea = areaGen.getArea(filePath);
-    printRoomsInArea(newArea);
-    areas.push_back(newArea);
-
-}
-
 Room& WorldManager::findRoomByLocation(LocationCoordinates location) {
     if (areas.empty() || location.area < 0 || (unsigned int)location.area >= areas.size()){
         throw std::domain_error("Area out of bounds");
@@ -154,3 +143,8 @@ void WorldManager::createArea() {
 int WorldManager::getRoomToSpawnUser() {
     return areas[0].getFirstRoomID();
 }
+
+void WorldManager::addArea(Area area){
+    areas.push_back(area);
+}
+

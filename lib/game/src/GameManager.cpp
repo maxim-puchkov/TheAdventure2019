@@ -4,7 +4,16 @@
 int heartBeatDuration = 50;
 
 GameManager::GameManager() {
-    world.generateWorld();
+    // Make area using generation, add NPC to characterManager then add area to the world
+    AreaGenerator areaGen{};
+    std::vector<std::string> areaJSONs = {"../adventure2019/data/mirkwood.json"};
+
+    for (auto filePath : areaJSONs){
+        auto area = areaGen.getArea(filePath);
+        world.addArea(area);
+        world.printRoomsInArea(area);
+    }
+    // world.generateWorld();
     createTableOfCommands();
 }
 

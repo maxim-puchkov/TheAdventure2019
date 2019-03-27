@@ -2,7 +2,7 @@
 
 Area AreaGenerator::getArea(std::string filePath){
     json jsonArea;
-    jsonArea = jsonParser.processJSON("../adventure2019/data/mirkwood.json");
+    jsonArea = jsonParser.processJSON(filePath);
 
     Area area{};
     area.setName(jsonArea["AREA"]["name"]);
