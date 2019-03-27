@@ -15,11 +15,17 @@ void CommandCreateRoom::executeInHeartbeat(const std::string& username, const st
             std::cout <<  "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
-            // Need to implement createArea in Area class and add that method in WorldManager
-            // Need to implement createRoom in Room class 
             auto location = characterManager.getCharacterLocation(username);
             worldManager.createRoom(location, fullCommand[1], fullCommand[2]);
         }
+        case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
+        case usermanager::OnlineUserManager::USER_CODE::ACCOUNT_CREATED: {} 
+        case usermanager::OnlineUserManager::USER_CODE::USER_UPDATED: {} 
+        case usermanager::OnlineUserManager::USER_CODE::USER_DELETED: {} 
+        case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_OUT: {} 
+        case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN: {}
+        case usermanager::OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN: {}
+        case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE: {}   
     }
 }
 

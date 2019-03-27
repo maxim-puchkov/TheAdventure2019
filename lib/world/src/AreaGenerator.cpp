@@ -77,7 +77,7 @@ void AreaGenerator::generateNPC(json allNPC, Area& area){
     auto roomIds = area.getRoomIdList();
     int index = 0;
     for(auto NPC: allNPC){
-        std::cout << NPC["id"] << "\n";
+        //std::cout << NPC["id"] << "\n";
         std::vector<std::string> keywords = jsonParser.json2Vector(NPC["keywords"]);
         std::string shortDesc = NPC["shortdesc"];
         std::string longDesc = jsonParser.json2string(NPC["longdesc"]);
@@ -96,7 +96,7 @@ void AreaGenerator::generateObjects(json objects, Area& area){
     
     for(auto object : objects){
 
-        std::cout << object["id"] << "\n";
+        //std::cout << object["id"] << "\n";
         std::vector<std::string> keywords = jsonParser.json2Vector(object["keywords"]);
         std::string shortDesc = object["shortdesc"];
         std::string longDesc = jsonParser.json2string(object["longdesc"]);

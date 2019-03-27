@@ -20,7 +20,7 @@ void WorldManager::generateWorld() {
     AreaGenerator areaGen;
     std::string filePath = "mirkwood.json";
     auto newArea = areaGen.getArea(filePath);
-    printRoomsInArea(newArea);
+    //printRoomsInArea(newArea);
     areas.push_back(newArea);
 
 }
@@ -155,4 +155,20 @@ void WorldManager::createArea() {
 
 int WorldManager::getRoomToSpawnUser() {
     return areas[0].getFirstRoomID();
+}
+
+std::string WorldManager::worldDetail(LocationCoordinates location) {
+    std::string worldDetail = "The world made of: \n";
+    for(auto& area : areas) {
+        worldDetail += "Area: ";
+        worldDetail += area.getName();
+        worldDetail += "\n";
+        worldDetail += "Rooms:\n";
+        auto roomNameIDsList = area.getRoomNameIDListAdmin();
+        for(auto& room : roomNameIDsList){
+            worldDetail += room;
+            worldDetail += "\n";
+        }
+    }
+    return worldDetail;
 }

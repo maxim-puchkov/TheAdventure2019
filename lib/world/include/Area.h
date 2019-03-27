@@ -65,6 +65,9 @@ class Area {
 
         int getNextRoomID();
 
+        std::vector<std::string> getRoomNameList();
+        std::vector<std::string> getRoomNameIDListAdmin();
+
 };
 
 

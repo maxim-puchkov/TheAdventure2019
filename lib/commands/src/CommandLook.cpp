@@ -23,6 +23,35 @@ void CommandLook::executeInHeartbeat(const std::string& username, const std::vec
         onlineUserManager.addMessageToUser(username, (worldManager.look(location, fullCommand.at(1)) + "\n"));
     }
 
+    //use for admin. look world => output the list of room
+    //TODO: for some reasons the server does not print the full string
+    //      if the string is too long. Only print the second half of the string.
+    if(fullCommand.at(1) == "world"){
+        auto role = onlineUserManager.getUserRole(username);
+        switch(role) {
+            case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
+                std::cout << "Please log in again.\n";
+            }
+            case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
+                //don't let normal user know that this syntax exists
+                std::cout <<  "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+            }
+            case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
+                auto location = characterManager.getCharacterLocation(username);
+                auto resultMessage = worldManager.worldDetail(location);
+                onlineUserManager.addMessageToUser(username, resultMessage);
+            }
+            case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
+            case usermanager::OnlineUserManager::USER_CODE::ACCOUNT_CREATED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_UPDATED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_DELETED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_OUT: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN: {}
+            case usermanager::OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN: {}
+            case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE: {}   
+        }
+    }
+
 }
 
 std::vector<std::string> CommandLook::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {

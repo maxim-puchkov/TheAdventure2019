@@ -77,3 +77,27 @@ void Area::setNextRoomID(int id) {
 int Area::getNextRoomID() {
     return nextRoomID;
 }
+
+std::vector<std::string> Area::getRoomNameList(){
+    std::vector<std::string> roomNames;
+    for(auto room : roomList) {
+        roomNames.push_back(room.second.getName());
+    }
+    return roomNames;
+}
+
+std::vector<std::string> Area::getRoomNameIDListAdmin(){
+    std::vector<std::string> roomIDsNames;
+    auto roomNames = getRoomNameList();
+    auto roomIDs = getRoomIdList();
+
+    int index = 0;
+    for(auto& name : roomNames) {
+        std::string nameAndID = std::to_string(roomIDs.at(index));
+        nameAndID += " - ";
+        nameAndID += name;
+        roomIDsNames.push_back(nameAndID);
+        index++;
+    }
+    return roomIDsNames;
+}

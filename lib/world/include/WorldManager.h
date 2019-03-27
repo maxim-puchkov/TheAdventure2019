@@ -37,6 +37,7 @@ public:
     void createRoom(const LocationCoordinates & location, const std::string& direction, const std::string& name);
     void printRoomsInArea(Area area);
     int getRoomToSpawnUser();
+    std::string worldDetail(LocationCoordinates location);
 };
 
 
