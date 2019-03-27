@@ -19,7 +19,8 @@ target_link_libraries(${libgame}
     ${Boost_LIBRARIES}
     ${libusers}
     ${libcommands}
-		${libcombat}
+    ${libcombat}
+    ${libstrings}
 )
 
 set_target_properties(${libgame}

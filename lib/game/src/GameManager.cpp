@@ -1,8 +1,6 @@
 #include "GameManager.h"
 #include <boost/algorithm/string.hpp>
 
-int heartBeatDuration = 50;
-
 GameManager::GameManager() {
     world.generateWorld();
     createTableOfCommands();
@@ -45,9 +43,11 @@ std::string GameManager::extractCommands(const std::string& connectionID, std::s
             onlineUserManager.updateUserTimeStamp(connectionID);
     		return found->second->executePromptReply(connectionID, processedCommand);
     	}
-    	return "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+        return stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX);
+    	//return "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
     }
-    return "Command not found. Please enter \"help\" to see the syntax.\n";
+    //return "Command not found. Please enter \"help\" to see the syntax.\n";
+    return stringManager.getString(Internationalization::STRING_CODE::COMMAND_NOT_FOUND);
 }
 
 std::string GameManager::extractKeyword(std::string& fullCommand) {

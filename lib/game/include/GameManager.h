@@ -9,6 +9,7 @@
 #include "OnlineUserManager.h"
 #include "WorldManager.h"
 #include "CharacterManager.h"
+#include "Internationalization.h"
 
 #include "Command.h"
 #include "CommandLogin.h"
@@ -38,6 +39,7 @@
 
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
+using internationalization::Internationalization;
 
 class GameManager{
 
@@ -45,8 +47,10 @@ private:
     WorldManager world{};
     OnlineUserManager onlineUserManager{};
     CharacterManager characterManager{};
+    Internationalization stringManager{};
     std::unordered_map<std::string, std::unique_ptr<Command>> tableOfCommands;
-    
+    int heartBeatDuration = 50;
+
     std::string extractKeyword(std::string& fullCommand);
     void createTableOfCommands();
 

@@ -1,0 +1,5 @@
+{
+	"command_not_found":{"string": "Command not found. Please enter \"help\" to see the supported commands.\n"},
+	"wrong_command_syntax":{"string": "Wrong command syntax. Please enter \"help\" to see the syntax.\n"}
+
+}

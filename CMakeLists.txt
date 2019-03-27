@@ -24,6 +24,7 @@ set(libuserdb "userdb")
 set(libcharacterdb "characterDB")
 set(libminigame "minigame")
 set(libcombat "combat")
+set(libstrings "strings")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-rtti")
