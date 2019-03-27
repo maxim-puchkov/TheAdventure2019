@@ -7,19 +7,40 @@
 /**
  * Returns a room at a particular index from an area
  */
-Room& Area::getRoom(unsigned int index) {
-    if(index >= rooms.size()){
-        //return some invalid room
+// Room& Area::getRoom(unsigned int index) {
+//     if(index >= rooms.size()){
+//         //return some invalid room
+//     }
+//     return rooms.at(index);
+// }
+
+Room& Area::getRoom(int roomId) {
+    auto search = roomList.find(roomId);
+    if(search != roomList.end()) {
+        return search->second;
+    }else{
+        return nullRoom;
     }
-    return rooms.at(index);
 }
+
+std::unordered_map<int, Room>& Area::getRoomList(){
+    return this->roomList;
+}
+// void Area::addRoom(Room room){
+//     rooms.push_back(room);
+// }
 
 void Area::addRoom(Room room){
-    rooms.push_back(room);
+    // std::cout << room.getRoomId() << "\n";
+    roomList.insert(std::make_pair(room.getRoomId(), room));
 }
 
+// unsigned long Area::size() const{
+//     return rooms.size();
+// }
+
 unsigned long Area::size() const{
-    return rooms.size();
+    return roomList.size();
 }
 
 const std::string &Area::getName() const {
@@ -38,16 +59,25 @@ void Area::setDescription(const std::string &description) {
     Area::description = description;
 }
 
-std::vector<Room> Area::getRooms(){
-    return rooms;
+// std::vector<Room> Area::getRooms(){
+//     return rooms;
+// }
+
+std::vector<int> Area::getRoomIdList() {
+    std::vector<int> roomIds;
+    roomIds.reserve(roomList.size());
+    for(auto room : roomList){
+        roomIds.push_back(room.first);
+    }
+    return roomIds;
 }
 
 bool Area::addNPCtoRooms(std::string shortDesc, int ID){
-    if(ID > rooms.size()){
-        rooms[0].addNPC(shortDesc);
-        return false;
-    }else{
-        rooms[ID].addNPC(shortDesc);
+    auto search = roomList.find(ID);
+    if(search != roomList.end()) {
+        search->second.addNPC(shortDesc);
         return true;
+    }else{
+        return false;
     }
 }

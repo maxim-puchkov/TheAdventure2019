@@ -16,32 +16,38 @@ Area AreaGenerator::getArea(std::string filePath){
     generateObjects(objects, area);
 
     // For Testing 
-    auto areaRooms = area.getRooms();
-    for(auto room: areaRooms){
+    // auto areaRooms = area.get();
+    // for(auto room: areaRooms){
 
-        auto exits = room.getExits();
-        auto NPCs = room.getNPCs();
+    //     auto exits = room.getExits();
+    //     auto NPCs = room.getNPCs();
 
-        std::cout<< "\n *** ROOM " +room.getName()+ " *** \n ";
-        std::cout<< room.getDescription() << "\n";
+    //     std::cout<< "\n *** ROOM " +room.getName()+ " *** \n ";
+    //     std::cout<< room.getDescription() << "\n";
         
-        std::cout<< "\n *** EXITS *** \n ";
-        for(auto tmpExit : exits){
-            std::cout<< tmpExit.getExitName() << "\n";
-            std::cout<< tmpExit.getExitDescription() << "\n";
-        }
-        std::cout<< "\n *** ALL NPCS *** \n ";
-        for(auto NPC_name : NPCs){
-            std::cout<< NPC_name << "\n";
-        }
+    //     std::cout<< "\n *** EXITS *** \n ";
+    //     for(auto tmpExit : exits){
+    //         std::cout<< tmpExit.getExitName() << "\n";
+    //         std::cout<< tmpExit.getExitDescription() << "\n";
+    //     }
+    //     std::cout<< "\n *** ALL NPCS *** \n ";
+    //     for(auto NPC_name : NPCs){
+    //         std::cout<< NPC_name << "\n";
+    //     }
 
-    }
+    // }
     return area;
 }
 
 void AreaGenerator::generateRooms(json rooms, Area& area){
+    int count = 0;
     for (auto room: rooms) {
-
+        //keep track the first room to spawn character
+        //idk how to access the element using index LOL
+        if(count == 0) {
+            area.setFirstRoomInArea(room["id"]);
+            count ++;
+        }
         Room roomObj{};
         std::string roomDesc = jsonParser.json2string(room["desc"]);
         roomObj.setRoomID(room["id"]);
@@ -61,18 +67,20 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
 }
 
 void AreaGenerator::generateNPC(json allNPC, Area& area){
-    
     std::vector<Character> NPCs;
+
+    //vector of room ids
+    auto roomIds = area.getRoomIdList();
     int index = 0;
     for(auto NPC: allNPC){
-
         std::cout << NPC["id"] << "\n";
         std::vector<std::string> keywords = jsonParser.json2Vector(NPC["keywords"]);
         std::string shortDesc = NPC["shortdesc"];
         std::string longDesc = jsonParser.json2string(NPC["longdesc"]);
         std::string description = jsonParser.json2string(NPC["description"]);
         
-        if(area.addNPCtoRooms(shortDesc, index)){
+        // need to check for out of bound
+        if(area.addNPCtoRooms(shortDesc, roomIds[index])){
             index++;
         } else{
             index = 0;

@@ -6,13 +6,16 @@
 #define WEBSOCKETNETWORKING_AREA_H
 
 #include <string>
+#include <iostream>
 #include "Room.h"
 
 class Area {
     private:
         std::string name;
         std::string description;
-        std::vector<Room> rooms;
+        std::unordered_map<int, Room> roomList;
+        int firstRoomInTheArea;
+        Room nullRoom{};
         std::vector<Character> NPCS;
     public:
         Area()
@@ -23,26 +26,39 @@ class Area {
                 : name(rName),
                   description(rDescription)
         {}
-        Room& getRoom(unsigned int index);
+        // Room& getRoom(unsigned int index);
+
+        Room& getRoom(int roomId);
+
+        std::unordered_map<int, Room>& getRoomList();
 
         void addRoom(Room room);
 
         unsigned long size() const;
 
-    const std::string &getName() const;
+        const std::string &getName() const;
 
-    void setName(const std::string &name);
+        void setName(const std::string &name);
 
-    const std::string &getDescription() const;
+        const std::string &getDescription() const;
 
-    void setDescription(const std::string &description);
+        void setDescription(const std::string &description);
 
-    //WORLD JSON Functions
-    std::vector<Room> getRooms();
-    void setNPCs(std::vector<Character> NPCs){
-        NPCS = NPCs;
-    };
-    bool addNPCtoRooms(std::string shortDesc, int ID);
+        std::vector<int> getRoomIdList();
+
+        //WORLD JSON Functions
+        // std::vector<Room> getRooms();
+        void setFirstRoomInArea(int id){
+            firstRoomInTheArea = id;
+        };
+
+        int getFirstRoomID() {
+            return firstRoomInTheArea;
+        }
+        void setNPCs(std::vector<Character> NPCs){
+            NPCS = NPCs;
+        };
+        bool addNPCtoRooms(std::string shortDesc, int ID);
 
 };
 
