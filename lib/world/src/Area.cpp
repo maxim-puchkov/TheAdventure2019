@@ -58,3 +58,26 @@ const std::string &Area::getDescription() const {
 void Area::setDescription(const std::string &description) {
     Area::description = description;
 }
+
+// std::vector<Room> Area::getRooms(){
+//     return rooms;
+// }
+
+std::vector<int> Area::getRoomIdList() {
+    std::vector<int> roomIds;
+    roomIds.reserve(roomList.size());
+    for(auto room : roomList){
+        roomIds.push_back(room.first);
+    }
+    return roomIds;
+}
+
+bool Area::addNPCtoRooms(std::string shortDesc, int ID){
+    auto search = roomList.find(ID);
+    if(search != roomList.end()) {
+        search->second.addNPC(shortDesc);
+        return true;
+    }else{
+        return false;
+    }
+}

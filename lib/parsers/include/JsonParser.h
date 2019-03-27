@@ -11,7 +11,9 @@ class JsonParser{
     public:
         json processJSON(const std::string&);
         void saveJSON(json , const std::string&);
-
+        std::string removeQuotes(std::string str);
+        std::string json2string(json j);
+        std::vector<std::string> json2Vector(json j);
 };
 
 

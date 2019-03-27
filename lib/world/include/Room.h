@@ -18,10 +18,11 @@
 class Room {
 
 private:
-    int roomId = -1;
+    int roomId;
     std::string roomName;
     std::string roomDescription;
     std::vector<std::string> charactersInRoom;
+    std::vector<std::string> NPCsInRoom;
     std::vector<Exit> exitsInRoom;
 
 public:
@@ -42,7 +43,6 @@ public:
     std::string lookForName(const std::string &objName) const;
     std::string lookForExitName(const std::string &objName) const;
     std::string listExits() const;
-    void setRoomId(int id);
     int getRoomId();
 
 
@@ -54,6 +54,15 @@ public:
     //setters
     void setName(std::string newName) { roomName = newName; }
     void setDescription(std::string newDescription) { roomDescription = newDescription; }
+    void setRoomID(int id){roomId = id;}
+
+    //NPCs
+    bool addNPC(const std::string &name);
+    bool removeNPC(const std::string &name);
+    std::vector<std::string> getNPCs(){return NPCsInRoom;}
+
+
+
 };
 
 

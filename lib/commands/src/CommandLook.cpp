@@ -11,8 +11,18 @@ void CommandLook::executeInHeartbeat(const std::string& username, const std::vec
         //should not reach here, report error
         return;
     }
-    
-    onlineUserManager.addMessageToUser(username, (worldManager.look(location) + "\n"));
+
+    if(fullCommand.size() < 2) {
+        onlineUserManager.addMessageToUser(username, (worldManager.look(location) + "\n"));
+        return;
+    }
+
+    if(fullCommand.at(1) == "exits"){
+        onlineUserManager.addMessageToUser(username, (worldManager.listExits(location) + "\n"));
+    } else {
+        onlineUserManager.addMessageToUser(username, (worldManager.look(location, fullCommand.at(1)) + "\n"));
+    }
+
 }
 
 std::vector<std::string> CommandLook::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {

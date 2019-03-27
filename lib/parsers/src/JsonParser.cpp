@@ -32,3 +32,23 @@ char* string2charArray(std::string& str){
     strcpy(char_filePath, str.c_str());
     return char_filePath;
 }
+
+std::string JsonParser::removeQuotes( std::string str){
+    return str.substr(1, str.size() - 2);
+}
+
+std::string JsonParser::json2string(json j){
+    std::string retStr;
+    for(auto line : j){
+        retStr += (removeQuotes(line.dump()) + "\n");
+    }
+    return retStr;
+}
+
+std::vector<std::string> JsonParser::json2Vector(json j){
+    std:vector<std::string> strVec;
+    for(auto line : j){
+        strVec.push_back(removeQuotes(line.dump()));
+    }
+    return strVec;
+}

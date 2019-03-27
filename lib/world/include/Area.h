@@ -13,9 +13,10 @@ class Area {
     private:
         std::string name;
         std::string description;
-        std::vector<Room> rooms;
         std::unordered_map<int, Room> roomList;
+        int firstRoomInTheArea;
         Room nullRoom{};
+        std::vector<Character> NPCS;
     public:
         Area()
                 : name("DEFAULT_NAME"),
@@ -35,13 +36,29 @@ class Area {
 
         unsigned long size() const;
 
-    const std::string &getName() const;
+        const std::string &getName() const;
 
-    void setName(const std::string &name);
+        void setName(const std::string &name);
 
-    const std::string &getDescription() const;
+        const std::string &getDescription() const;
 
-    void setDescription(const std::string &description);
+        void setDescription(const std::string &description);
+
+        std::vector<int> getRoomIdList();
+
+        //WORLD JSON Functions
+        // std::vector<Room> getRooms();
+        void setFirstRoomInArea(int id){
+            firstRoomInTheArea = id;
+        };
+
+        int getFirstRoomID() {
+            return firstRoomInTheArea;
+        }
+        void setNPCs(std::vector<Character> NPCs){
+            NPCS = NPCs;
+        };
+        bool addNPCtoRooms(std::string shortDesc, int ID);
 
 };
 
