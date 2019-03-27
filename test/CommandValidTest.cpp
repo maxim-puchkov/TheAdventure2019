@@ -8,9 +8,10 @@ using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
 
 struct CommandValidTest : testing::Test {
+    Internationalization stringManager{};
+    WorldManager w = WorldManager(stringManager);
     OnlineUserManager u;
     CharacterManager c;
-    WorldManager w;
     bool isValid = true;
     std::vector<std::string> testVector;
     std::string commandToPut;
