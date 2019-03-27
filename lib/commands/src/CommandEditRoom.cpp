@@ -5,6 +5,31 @@ void CommandEditRoom::executeInHeartbeat(const std::string& username, const std:
     //TODO
     //if (role == admin) then allow to edit
     //else notify no permissions
+    for(auto element : fullCommand) {
+        std::cout << element << "\n";
+    }
+    auto role = onlineUserManager.getUserRole(username);
+    switch(role) {
+        case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
+            std::cout << "Please log in again.\n";
+        }
+        case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
+            //don't let normal user know that this syntax exists
+            std::cout <<  "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+        }
+        case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
+            // Need to implement createArea in Area class and add that method in WorldManager
+            // Need to implement createRoom in Room class 
+            std::cout <<  "YOU ARE THE ADMIN \n";
+            auto location = characterManager.getCharacterLocation(username);
+            std::cout << "Area: " << location.area << "\n";
+            std::cout << "Room: " << location.room << "\n";
+            auto& room = worldManager.findRoomByLocation(location);
+            std::cout << room.getName() << "\n";
+            auto editSuccess = room.createExit("admin test", "goes to test", "north", 0, 6);
+        }
+        default: {return;}
+    }
 }
 
 std::vector<std::string> CommandEditRoom::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {

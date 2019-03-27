@@ -41,7 +41,7 @@ public:
       CHARACTER_FAILED
     };
 
-    LocationCoordinates spawnCharacter(const std::string& username);
+    LocationCoordinates spawnCharacter(const std::string& username, LocationCoordinates location);
     void kickCharacter(const std::string& username);
     
     std::string getUsernameFromCharacter(const std::string& username) const; //for now character name and user name are the same

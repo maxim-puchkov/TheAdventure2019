@@ -5,6 +5,22 @@ void CommandCreateRoom::executeInHeartbeat(const std::string& username, const st
 	//TODO
     //if (role == admin) then allow to edit
     //else notify no permissions
+    auto role = onlineUserManager.getUserRole(username);
+    switch(role) {
+        case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
+            std::cout << "Please log in again.\n";
+        }
+        case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
+            //don't let normal user know that this syntax exists
+            std::cout <<  "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+        }
+        case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
+            // Need to implement createArea in Area class and add that method in WorldManager
+            // Need to implement createRoom in Room class 
+            auto location = characterManager.getCharacterLocation(username);
+            worldManager.createRoom(location, fullCommand[1], fullCommand[2]);
+        }
+    }
 }
 
 std::vector<std::string> CommandCreateRoom::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
@@ -16,6 +32,6 @@ std::vector<std::string> CommandCreateRoom::reassembleCommand(std::string& fullC
     //split by " " and compress all long spaces
     boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
     commandIsValid = (processedCommand.size() == 3);
-   
+    std::cout << processedCommand.size() << "\n";
     return processedCommand;
 }

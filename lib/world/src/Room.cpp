@@ -41,6 +41,9 @@ bool Room::addCharacter(const std::string &userName){
 	return true;
 }
 
+int Room::getRoomId(){
+	return this->roomId;
+}
 /**
  *Removes username from Room. Note that it removes duplicates (but we shouldn't have duplicates)
  * @param userName - UserNmae you want to remove

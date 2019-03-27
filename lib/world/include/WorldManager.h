@@ -18,6 +18,7 @@
 class WorldManager {
 private:
     std::vector<Area> areas;
+    int roomToSpawnUser;
 public:
     WorldManager();
     void generateWorld();
@@ -32,6 +33,10 @@ public:
     LocationCoordinates move(const std::string& characterName, LocationCoordinates location, const std::string& direction) ;
     std::string look(LocationCoordinates location) ;
     std::string look(LocationCoordinates location, std::string objName) ;
+    void createArea();
+    void createRoom(const LocationCoordinates & location, const std::string& direction, const std::string& name);
+    void printRoomsInArea(Area area);
+    int getRoomToSpawnUser();
 };
 
 

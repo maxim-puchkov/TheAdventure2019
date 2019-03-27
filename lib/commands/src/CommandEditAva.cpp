@@ -116,7 +116,8 @@ std::string CommandEditAva::spawnAvatar(const std::string& username) {
     answer << "";
     auto isFirstTime = characterManager.isThisFirstTimeSetup(username);
     if(isFirstTime == CharacterManager::CHARACTER_CODE::CHARACTER_THIS_IS_FIRST_TIME_SET_UP) {
-        auto spawnLocation = characterManager.spawnCharacter(username);
+        auto roomToSpawnUser = worldManager.getRoomToSpawnUser();
+        auto spawnLocation = characterManager.spawnCharacter(username, LocationCoordinates{0, roomToSpawnUser});
         worldManager.spawn(username, spawnLocation);      
         answer << "Current location: Area:" << spawnLocation.area << ", Room: " << spawnLocation.room << "\n";
     }
