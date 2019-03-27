@@ -44,10 +44,11 @@ using internationalization::Internationalization;
 class GameManager{
 
 private:
-    WorldManager world{};
+    Internationalization stringManager{};
+    WorldManager world = WorldManager(stringManager);
     OnlineUserManager onlineUserManager{};
     CharacterManager characterManager{};
-    Internationalization stringManager{};
+
     std::unordered_map<std::string, std::unique_ptr<Command>> tableOfCommands;
     int heartBeatDuration = 50;
 

@@ -16,6 +16,7 @@ target_include_directories(${libworld}
 target_link_libraries(${libworld}
     ${libusers}
     ${libcharacters}
+    ${libstrings}
 )
 
 set_target_properties(${libworld}

@@ -14,12 +14,16 @@
 #include "Room.h"
 #include "Character.h"
 #include "LocationCoordinates.h"
+#include "Internationalization.h"
+
+using internationalization::Internationalization;
 
 class WorldManager {
 private:
     std::vector<Area> areas;
+    Internationalization& stringManager;
 public:
-    WorldManager();
+    WorldManager(Internationalization& i): stringManager(i) {}
     void generateWorld();
     Room& findRoomByLocation(LocationCoordinates location);
 
