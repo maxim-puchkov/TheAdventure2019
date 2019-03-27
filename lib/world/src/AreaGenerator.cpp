@@ -54,6 +54,8 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
         roomObj.setName(room["name"]);
         roomObj.setDescription(roomDesc);
 
+
+        //need to fix this count tmr!!!!!
         int count = 0;
         for(auto tmpExit : room["doors"]){
 
