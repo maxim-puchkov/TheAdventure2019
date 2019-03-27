@@ -15,6 +15,7 @@ class Area {
         std::string description;
         std::unordered_map<int, Room> roomList;
         int firstRoomInTheArea;
+        int nextRoomID;
         Room nullRoom{};
         std::vector<Character> NPCS;
     public:
@@ -59,6 +60,10 @@ class Area {
             NPCS = NPCs;
         };
         bool addNPCtoRooms(std::string shortDesc, int ID);
+
+        void setNextRoomID(int id);
+
+        int getNextRoomID();
 
 };
 

@@ -26,18 +26,10 @@ Room& Area::getRoom(int roomId) {
 std::unordered_map<int, Room>& Area::getRoomList(){
     return this->roomList;
 }
-// void Area::addRoom(Room room){
-//     rooms.push_back(room);
-// }
 
 void Area::addRoom(Room room){
-    // std::cout << room.getRoomId() << "\n";
     roomList.insert(std::make_pair(room.getRoomId(), room));
 }
-
-// unsigned long Area::size() const{
-//     return rooms.size();
-// }
 
 unsigned long Area::size() const{
     return roomList.size();
@@ -59,10 +51,6 @@ void Area::setDescription(const std::string &description) {
     Area::description = description;
 }
 
-// std::vector<Room> Area::getRooms(){
-//     return rooms;
-// }
-
 std::vector<int> Area::getRoomIdList() {
     std::vector<int> roomIds;
     roomIds.reserve(roomList.size());
@@ -80,4 +68,12 @@ bool Area::addNPCtoRooms(std::string shortDesc, int ID){
     }else{
         return false;
     }
+}
+
+void Area::setNextRoomID(int id) {
+    nextRoomID = id + 1;
+}
+
+int Area::getNextRoomID() {
+    return nextRoomID;
 }

@@ -41,6 +41,7 @@ Area AreaGenerator::getArea(std::string filePath){
 
 void AreaGenerator::generateRooms(json rooms, Area& area){
     int count = 0;
+    int lastRoomID = 0;
     for (auto room: rooms) {
         //keep track the first room to spawn character
         //idk how to access the element using index LOL
@@ -64,8 +65,9 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
             count++;
         }
         area.addRoom(roomObj);
+        lastRoomID = room["id"];
     }
-
+    area.setNextRoomID(lastRoomID);
 }
 
 void AreaGenerator::generateNPC(json allNPC, Area& area){
