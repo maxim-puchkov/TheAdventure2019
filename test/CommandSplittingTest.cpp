@@ -19,7 +19,7 @@ struct CommandSplittingTest : testing::Test {
 
 // SAY
 TEST_F(CommandSplittingTest, SayCommandSplitsCorrectly) {
-    CommandSay testCommand(c, u, w);
+    CommandSay testCommand(c, u, w, stringManager);
     
     commandToPut = "say: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -34,7 +34,7 @@ TEST_F(CommandSplittingTest, SayCommandSplitsCorrectly) {
 
 // TODO: TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandSplittingTest, DISABLED_SayCommandSplitsCorrectlyOwnCommand) {
-    CommandSay testCommand(c, u, w);
+    CommandSay testCommand(c, u, w, stringManager);
 
     commandToPut = "say: say:";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -49,7 +49,7 @@ TEST_F(CommandSplittingTest, DISABLED_SayCommandSplitsCorrectlyOwnCommand) {
 
 // TODO: TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandSplittingTest, DISABLED_SayCommandSplitsCorrectlyOtherCommand) {
-    CommandSay testCommand(c, u, w);
+    CommandSay testCommand(c, u, w, stringManager);
 
     commandToPut = "say: yell:";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -63,7 +63,7 @@ TEST_F(CommandSplittingTest, DISABLED_SayCommandSplitsCorrectlyOtherCommand) {
 }
 
 TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyWithDifferentSpaces) {
-    CommandSay testCommand(c, u, w);
+    CommandSay testCommand(c, u, w, stringManager);
 
     commandToPut = "say           :                     hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -82,7 +82,7 @@ TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyWithDifferentSpaces) {
 }
 
 TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyNotCaseSensitive) {
-    CommandSay testCommand(c, u, w);
+    CommandSay testCommand(c, u, w, stringManager);
 
     commandToPut = "SAy: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -108,7 +108,7 @@ TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyNotCaseSensitive) {
 
 // TELL
 TEST_F(CommandSplittingTest, TellCommandSplitsCorrectly) {
-    CommandTell testCommand(c, u, w);
+    CommandTell testCommand(c, u, w, stringManager);
 
     commandToPut = "tell user: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -125,7 +125,7 @@ TEST_F(CommandSplittingTest, TellCommandSplitsCorrectly) {
 
 // TODO: TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandSplittingTest, DISABLED_TellCommandSplitsCorrectlyOwnCommand) {
-    CommandTell testCommand(c, u, w);
+    CommandTell testCommand(c, u, w, stringManager);
 
     commandToPut = "tell user: tell:";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -142,7 +142,7 @@ TEST_F(CommandSplittingTest, DISABLED_TellCommandSplitsCorrectlyOwnCommand) {
 
 // TODO: TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandSplittingTest, DISABLED_TellCommandSplitsCorrectlyOtherCommand) {
-    CommandTell testCommand(c, u, w);
+    CommandTell testCommand(c, u, w, stringManager);
 
     commandToPut = "tell user: say:";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -158,7 +158,7 @@ TEST_F(CommandSplittingTest, DISABLED_TellCommandSplitsCorrectlyOtherCommand) {
 }
 
 TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyWithDifferentSpaces) {
-    CommandTell testCommand(c, u, w);
+    CommandTell testCommand(c, u, w, stringManager);
 
     commandToPut = "tell       user    :                     hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -180,7 +180,7 @@ TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyWithDifferentSpaces) {
 }
 
 TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyNotCaseSensitive) {
-    CommandTell testCommand(c, u, w);
+    CommandTell testCommand(c, u, w, stringManager);
 
     commandToPut = "TEll user: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -210,7 +210,7 @@ TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyNotCaseSensitive) {
 
 // CAST
 TEST_F(CommandSplittingTest, CastCommandSplitsCorrectly) {
-    CommandCast testCommand(c, u, w);
+    CommandCast testCommand(c, u, w, stringManager);
 
     commandToPut = "cast ligma";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -219,7 +219,7 @@ TEST_F(CommandSplittingTest, CastCommandSplitsCorrectly) {
 }
 
 TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyCastingACommand) {
-    CommandCast testCommand(c, u, w);
+    CommandCast testCommand(c, u, w, stringManager);
 
     commandToPut = "cast say:";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -228,7 +228,7 @@ TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyCastingACommand) {
 }
 
 TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyCastingOwnCommand) {
-    CommandCast testCommand(c, u, w);
+    CommandCast testCommand(c, u, w, stringManager);
 
     commandToPut = "cast cast";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -237,7 +237,7 @@ TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyCastingOwnCommand) {
 }
 
 TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyWithSpace) {
-    CommandCast testCommand(c, u, w);
+    CommandCast testCommand(c, u, w, stringManager);
     
     commandToPut = "cast               ligma";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -246,7 +246,7 @@ TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyWithSpace) {
 }
 
 TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyNotCaseSensitive) {
-    CommandCast testCommand(c, u, w);
+    CommandCast testCommand(c, u, w, stringManager);
 
     commandToPut = "caSt liGma";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -265,7 +265,7 @@ TEST_F(CommandSplittingTest, CastCommandSplitsCorrectlyNotCaseSensitive) {
 
 // CREATE-AVATAR
 TEST_F(CommandSplittingTest, CreateAvatarCommandSplitsCorrectly) {
-    CommandCreateAva testCommand(c, u, w);
+    CommandCreateAva testCommand(c, u, w, stringManager);
 
     commandToPut = "create-avatar user";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -274,7 +274,7 @@ TEST_F(CommandSplittingTest, CreateAvatarCommandSplitsCorrectly) {
 }
 
 TEST_F(CommandSplittingTest, CreateAvatarCommandSplitsCorrectlyWithSpaces) {
-    CommandCreateAva testCommand(c, u, w);
+    CommandCreateAva testCommand(c, u, w, stringManager);
 
     commandToPut = "create-avatar                   user";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -283,7 +283,7 @@ TEST_F(CommandSplittingTest, CreateAvatarCommandSplitsCorrectlyWithSpaces) {
 }
 
 TEST_F(CommandSplittingTest, CreateAvatarCommandSplitsCorrectlyNotCaseSensitive) {
-    CommandCreateAva testCommand(c, u, w);
+    CommandCreateAva testCommand(c, u, w, stringManager);
 
     commandToPut = "crEAte-aVaTar user";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -300,7 +300,7 @@ TEST_F(CommandSplittingTest, CreateAvatarCommandSplitsCorrectlyNotCaseSensitive)
 
 // YELL
 TEST_F(CommandSplittingTest, YellCommandSplitsCorrectly) {
-    CommandYell testCommand(c, u, w);
+    CommandYell testCommand(c, u, w, stringManager);
 
     commandToPut = "yell: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -315,7 +315,7 @@ TEST_F(CommandSplittingTest, YellCommandSplitsCorrectly) {
 
 // TODO: TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandSplittingTest, DISABLED_YellCommandSplitsCorrectlyOwnCommand) {
-    CommandYell testCommand(c, u, w);
+    CommandYell testCommand(c, u, w, stringManager);
 
     commandToPut = "yell: yell:";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -330,7 +330,7 @@ TEST_F(CommandSplittingTest, DISABLED_YellCommandSplitsCorrectlyOwnCommand) {
 
 // TODO: TEST DISABLED BECAUSE IT FAILS
 TEST_F(CommandSplittingTest, DISABLED_YellCommandSplitsCorrectlyOtherCommand) {
-    CommandYell testCommand(c, u, w);
+    CommandYell testCommand(c, u, w, stringManager);
 
     commandToPut = "yell: say:";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -344,7 +344,7 @@ TEST_F(CommandSplittingTest, DISABLED_YellCommandSplitsCorrectlyOtherCommand) {
 }
 
 TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyWithDifferentSpaces) {
-    CommandYell testCommand(c, u, w);
+    CommandYell testCommand(c, u, w, stringManager);
 
     commandToPut = "yell           :                     hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -363,7 +363,7 @@ TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyWithDifferentSpaces) {
 }
 
 TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyNotCaseSensitive) {
-    CommandYell testCommand(c, u, w);
+    CommandYell testCommand(c, u, w, stringManager);
 
     commandToPut = "Yell: hello";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -389,7 +389,7 @@ TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyNotCaseSensitive) {
 
 //HELP
 TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectly) {
-    CommandHelp testCommand(c, u, w);
+    CommandHelp testCommand(c, u, w, stringManager);
 
     commandToPut = "help";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -403,7 +403,7 @@ TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectly) {
 }
 
 TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectlyOwnCommand) {
-    CommandHelp testCommand(c, u, w);
+    CommandHelp testCommand(c, u, w, stringManager);
 
     commandToPut = "help help";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -413,7 +413,7 @@ TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectlyOwnCommand) {
 
 
 TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectlyWithSpaces) {
-    CommandHelp testCommand(c, u, w);
+    CommandHelp testCommand(c, u, w, stringManager);
 
     commandToPut = "help                    account";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
@@ -422,7 +422,7 @@ TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectlyWithSpaces) {
 }
 
 TEST_F(CommandSplittingTest, HelpCommandSplitsCorrectlyNotCaseSensitive) {
-    CommandHelp testCommand(c, u, w);
+    CommandHelp testCommand(c, u, w, stringManager);
 
     commandToPut = "hELP";
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
