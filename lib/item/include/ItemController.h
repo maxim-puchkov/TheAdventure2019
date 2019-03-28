@@ -10,5 +10,39 @@
 #ifndef ItemController_h
 #define ItemController_h
 
+#include "Builder.h"
+#include "Item.h"
+#include "ItemBuilder.h"
+
+
+namespace items {
+
+
+class ItemController {
+public:
+    
+    const ItemBuilder builder;
+    
+    
+    ItemController()
+    : builder(ItemBuilder())
+    { }
+    
+    Item lookup(Identifier id) {
+        return Item();
+    }
+    
+    Item create() {
+        return this->builder.build();
+    }
+    
+private:
+    
+    Environment<Identifier, Item *> env;
+    
+};
+
+
+} /* namespace items */
 
 #endif /* ItemController_h */
