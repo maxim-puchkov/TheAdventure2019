@@ -13,15 +13,19 @@
 #include "objects.hpp"
 #include "Description.h"
 
+
 namespace objects {
-    
+
+
 inline namespace structures {
 
 
 /*!
- @class Actions
+ @struct Actions
  
  @brief Collection of action keywords and associated examinable descriptions
+ 
+ @warning Incomplete structure
  */
 struct Actions {
 public:
@@ -49,6 +53,7 @@ private:
 
 
 } /* namespace structures */
+
 
 } /* namepsace objects */
 

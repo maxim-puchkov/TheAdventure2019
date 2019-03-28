@@ -16,19 +16,19 @@
 #include "Description.h"
 #include "Actions.h"
 
+
 namespace objects {
 
 
 /**
     @class Object
  
-    @brief Instance within a game that can be
-           uniquely identified and interacted with
+    @brief Instance within a game that can be interacted with
  */
 class Object {
 public:
     
-    using IdentifierTypename = Identifier;
+    // using IdentifierTypename = Identifier;
     
     
     
@@ -48,8 +48,8 @@ public:
     virtual Key brief() const = 0;
     
     
-    /// Represent this object as formatted text
-    virtual Text display() const = 0;
+    /// Represent this object as string
+    virtual Text toString() const = 0;
     
     
     /// Examine an action to see its description

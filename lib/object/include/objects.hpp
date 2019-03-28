@@ -12,18 +12,18 @@
 
 #include "ObjectLibrary.pch"
 #include "DebugToolset.h"
-#include "UIText.h"
-#include "Environment.h"
+#include "UIText.h" // !
 
 using std::string;
 using std::vector;
 using std::pair;
 
 
+/*! Object Library scope type definitions */
 namespace objects {
 
 
-// Type aliases
+/*! Type aliases */
 inline namespace typenames {
     using Identifier = uint64_t;
     using Key = string;
@@ -34,12 +34,12 @@ inline namespace typenames {
 
 
 
-// Forward struct declarations
+/*! Forward struct declarations */
 inline namespace structures {
     struct Keywords;
     struct Description;
     struct Actions;
-}
+} /* namespace structures */
 
 
 } /* namespace objects */

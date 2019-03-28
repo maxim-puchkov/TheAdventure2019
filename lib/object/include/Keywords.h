@@ -12,11 +12,19 @@
 
 #include "objects.hpp"
 
+
 namespace objects {
+
 
 inline namespace structures {
 
-
+/*!
+ @struct Keywords
+ 
+ @brief Object's set of keywords
+ 
+ Container and processor of all keywords associated with an object.
+ */
 struct Keywords {
 public:
     
@@ -105,6 +113,7 @@ private:
 
 
 } /* namespace structures */
+
 
 } /* namespace objects */
 

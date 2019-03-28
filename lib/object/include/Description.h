@@ -11,7 +11,9 @@
 
 #include "objects.hpp"
 
+
 namespace objects {
+
 
 inline namespace structures {
 
@@ -100,6 +102,7 @@ private:
 
 
 } /* namespace structures */
+
 
 } /* namespace objects */
 

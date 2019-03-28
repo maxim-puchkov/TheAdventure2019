@@ -14,6 +14,7 @@
 #include "objects.hpp"
 #include "Object.h"
 
+
 namespace objects {
     
 
@@ -24,7 +25,7 @@ public:
     
     // virtual Builder *builder() const = 0;
     
-    virtual vector<Object *> objects() const = 0;
+    // virtual vector<Object *> objects() const = 0;
     
 private:
     
