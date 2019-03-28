@@ -40,17 +40,43 @@ class Internationalization {
 
        COMMAND_NOT_FOUND,
        WRONG_COMMAND_SYNTAX,
-       IDLE_FOR_TOO_LONG,
+       NAME,
+       YOU,
+       SAID,
+       TOLD,
+       YELLED,
+       
        PLEASE_ENTER,
        TO_SEE_SUPPORTED_COMMANDS,
        TO_SEE_SUPPORTED_SYNTAX,
+       TO_SEE_MORE_INFO,
+       TO_CREATE,
 
        NO_EXITS_FOUND,
        YOU_ARE_LOST,
        ROOM,
        AREA,
-       OUT_OF_BOUND
+       EXITS,
+       OUT_OF_BOUND,
+       CURRENT_LOCATION,
+
+       USER_NOT_ONLINE,
+       INVALID_USERNAME,
+       ACCOUNT_CREATED,
+       IDLE_FOR_TOO_LONG,
+       NOW_LOGGED_IN,
+       NOW_LOGGED_OUT,
+       USERNAME_NOT_FOUND,
+       ALREADY_LOGGED_IN,
+       NOT_LOGGED_IN,
+
+       PLEASE_CUSTOMIZE_AVATAR_FIRST,
+       AVATAR_IS_REQUIRED,
+       AVATAR,
        
+       ERROR,
+       PLEASE_TRY_AGAIN,
+       FAILED_TO_FIND_WITH_NAME
     };
 
   private:

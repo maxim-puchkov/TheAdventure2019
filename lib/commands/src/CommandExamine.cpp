@@ -1,6 +1,8 @@
 #include "CommandExamine.h"
 #include <boost/algorithm/string.hpp>
 
+using internationalization::Internationalization;
+
 void CommandExamine::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	auto location = characterManager.getCharacterLocation(username);
     if(location.area == -1) {
@@ -8,7 +10,7 @@ void CommandExamine::executeInHeartbeat(const std::string& username, const std::
     	return;
     }
 
-	if(fullCommand[1] == "exits")
+	if(fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::EXITS))
 	    onlineUserManager.addMessageToUser(username, (worldManager.listExits(location) + "\n"));
 	else
 	    onlineUserManager.addMessageToUser(username, (worldManager.look(location, fullCommand[1]) + "\n"));

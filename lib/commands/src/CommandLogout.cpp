@@ -1,6 +1,8 @@
 #include "CommandLogout.h"
 #include <boost/algorithm/string.hpp>
 
+using internationalization::Internationalization;
+
 std::string CommandLogout::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
 	auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
     auto answer = onlineUserManager.logout(connectionID);
@@ -9,12 +11,13 @@ std::string CommandLogout::executePromptReply(const std::string& connectionID, c
 		{
             worldManager.kick(username, characterManager.getCharacterLocation(username));
             characterManager.kickCharacter(username);
-			return "You are now logged out.\n";
+			return stringManager.getString(Internationalization::STRING_CODE::NOW_LOGGED_OUT);;
 		}
 		case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE:
-			return "Error! You are not logged in.\n";
+			return (stringManager.getString(Internationalization::STRING_CODE::ERROR) + " " +
+                    stringManager.getString(Internationalization::STRING_CODE::NOT_LOGGED_IN));
 		default:
-            std::cout << "ERROR SHOULD NOT GET HERE! \n";
+            //should not get here, log error
         	break;
 	}
 	//swallow

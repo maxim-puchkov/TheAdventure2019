@@ -1,6 +1,8 @@
 #include "CommandMove.h"
 #include <boost/algorithm/string.hpp>
 
+using internationalization::Internationalization;
+
 void CommandMove::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
     auto location = characterManager.getCharacterLocation(username);
     if(location.area == -1) {
@@ -12,7 +14,11 @@ void CommandMove::executeInHeartbeat(const std::string& username, const std::vec
     characterManager.changeCharacterLocation(username, newLocation);
     
     std::stringstream answer;
-    answer << "Current location: Area:" << newLocation.area << ", Room: " << newLocation.room << "\n";
+    answer << stringManager.getString(Internationalization::STRING_CODE::CURRENT_LOCATION);
+    answer << stringManager.getString(Internationalization::STRING_CODE::AREA) << ": " << newLocation.area;
+    answer << stringManager.getString(Internationalization::STRING_CODE::ROOM) << ": " << newLocation.room;
+    answer << "\n";
+    
     onlineUserManager.addMessageToUser(username, answer.str());
 }
 

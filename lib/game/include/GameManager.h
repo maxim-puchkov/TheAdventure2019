@@ -45,7 +45,7 @@ class GameManager{
 
 private:
     Internationalization stringManager{};
-    WorldManager world = WorldManager(stringManager);
+    WorldManager worldManager = WorldManager(stringManager);
     OnlineUserManager onlineUserManager{};
     CharacterManager characterManager{};
 

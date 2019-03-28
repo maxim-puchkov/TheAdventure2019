@@ -1,6 +1,8 @@
 #include "CommandSay.h"
 #include <boost/algorithm/string.hpp>
 
+using internationalization::Internationalization;
+
 void CommandSay::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	auto location = characterManager.getCharacterLocation(username);
     if(location.area == -1) {
@@ -10,10 +12,20 @@ void CommandSay::executeInHeartbeat(const std::string& username, const std::vect
     
     auto& userNamesInRoom = worldManager.getUserNamesInRange(location, SAY_RANGE);
     for(auto& name: userNamesInRoom) {
+        std::string message;
+
         if(name == username) {
-    		onlineUserManager.addMessageToUser(username, "You said: \"" + fullCommand[1] + "\"\n");
-    	}
-        onlineUserManager.addMessageToUser(name, username + " said: \"" + fullCommand[1] + "\"\n");
+            message = stringManager.getString(Internationalization::STRING_CODE::YOU) + " " +
+                        stringManager.getString(Internationalization::STRING_CODE::SAID) + ": \"" +
+                        fullCommand[1] + "\"\n";
+
+            onlineUserManager.addMessageToUser(username, message);
+    	} else {
+            message = username + " " +
+                    stringManager.getString(Internationalization::STRING_CODE::SAID) + ": \"" +
+                    fullCommand[1] + "\"\n";
+            onlineUserManager.addMessageToUser(name, message);
+        }        
     }    
 }
 
