@@ -8,7 +8,10 @@
 
 #include "Inventory.h"
 
-inline namespace defaults {
+
+namespace items {
+
+inline namespace inventory_defaults {
     const unsigned int CAPACITY = 20;
 }
 
@@ -17,6 +20,7 @@ inline namespace defaults {
 
 
 /* */
+
 
 Inventory::Inventory()
 : capacity(CAPACITY)
@@ -63,3 +67,6 @@ void Inventory::display() const {
         debug::print(itemID);
     }
 }
+
+
+} /* namespace items */

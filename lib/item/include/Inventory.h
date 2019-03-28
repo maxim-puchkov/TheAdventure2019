@@ -11,15 +11,16 @@
 
 #include "Collection.h"
 
-using objects::Identifier;
-using objects::Item;
-using objects::Collection;
+
+namespace items {
 
 
-/**
- *  @class Inventory
- *
- *  @brief Character's set of items.
+/*!
+ @class Inventory
+ 
+ @brief Character's set of items.
+ 
+ Limited capacity storage where each element is an object identifier.
  */
 class Inventory {
 public:
@@ -59,5 +60,8 @@ private:
     Collection items;
     
 };
+
+
+} /* namespace items */
 
 #endif /* Inventory_h */
