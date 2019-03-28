@@ -27,7 +27,7 @@
 #include "CommandCreateRoom.h"
 #include "CommandUse.h"
 #include "CommandEquip.h"
-#include "CommandPickup.h"
+#include "CommandTake.h"
 #include "CommandDrop.h"
 #include "CommandPut.h"
 #include "CommandMinigame.h"

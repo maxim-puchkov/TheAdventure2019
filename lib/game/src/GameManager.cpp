@@ -25,7 +25,7 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"edit-room", make_unique<CommandEditRoom>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"use", make_unique<CommandUse>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"equip", make_unique<CommandEquip>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"pickup", make_unique<CommandPickup>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"take", make_unique<CommandTake>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"drop", make_unique<CommandDrop>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"put", make_unique<CommandPut>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"minigame", make_unique<CommandMinigame>(characterManager, onlineUserManager, world)});
