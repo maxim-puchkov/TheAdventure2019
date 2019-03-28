@@ -12,8 +12,11 @@
 #include <utility> //std::move
 #include "Attributes.h"
 #include "Inventory.h"
-#include "Equipment.h"
+#include "Equipment.h" 
 #include "LocationCoordinates.h"
+
+using items::Inventory;
+
 
 const std::string DEF_CHAR_NAME = "DEF_CHAR_NAME";
 const int DEF_CHAR_HEALTH = 100;
