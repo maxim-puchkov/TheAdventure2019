@@ -46,9 +46,9 @@ public:
     
     size_t size() const;
     
-    void display() const;
-    
 private:
+    
+    void display() const;
     
     //Collection items = Collection("description");
     
