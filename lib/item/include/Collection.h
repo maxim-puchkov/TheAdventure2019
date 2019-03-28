@@ -16,13 +16,12 @@
 #include "Object.h"
 #include "Item.h"
 
-
-namespace objects {
-using objects::Keywords;
-using objects::Description;
+// using namespace objects;
 
 
-inline namespace items {
+namespace items {
+
+
 /*!
  @class Collection
  
@@ -70,7 +69,7 @@ public:
     Key brief() const override;
     
     /// Display detailed info
-    Text display() const override;
+    Text toString() const override;
         
     /// Examine an Extra attribute of an item
     Text examine(const Key &keyword) const override;
@@ -114,8 +113,5 @@ private:
 
 
 } /* namespace items */
-
-
-} /* namespace objects */
 
 #endif /* Collection_h */

@@ -11,4 +11,21 @@
 #define ItemHash_h
 
 
+namespace std {
+
+using items::Item;
+
+
+/*!
+ @struct hash
+ @discussion Item's hash function
+ */
+template<>
+struct hash<Item> {
+    size_t operator()(const Item &item) const;
+};
+
+
+}
+
 #endif /* ItemHash_h */

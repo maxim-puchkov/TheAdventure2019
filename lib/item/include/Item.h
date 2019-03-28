@@ -9,11 +9,10 @@
 #ifndef Item_h
 #define Item_h
 
-#include "Object.h"
+#include "items.hpp"
 
 
-namespace objects {
-inline namespace items {
+namespace items {
 
 
 /**
@@ -24,16 +23,26 @@ inline namespace items {
 class Item : public Object {
 public:
     
+    // using IdentifierTypename = Object::IdentifierTypename;
+    
     /* Constructors */
     
+    // !
     Item();
     
-    /// Default item constructor with an object ID, identifying keywords,
-    ///     item description, and extra actions.
+    
+    /// Default item constructor with identifying keywords,
+    /// item description, and additional actions.
+    Item(const Keywords &keywords,
+         const Description &description,
+         const Actions &actions);
+    
+    // !
     Item(Identifier id,
          const Keywords &keywords,
          const Description &description,
          const Actions &actions);
+    
     
     ~Item();
 
@@ -62,11 +71,20 @@ public:
     Key brief() const override;
     
     /// Display detailed info
-    Text display() const override;
+    Text toString() const override;
     
     /// Examine an Extra attribute of an item
     Text examine(const Key &keyword) const override;
     
+    
+    
+    
+    
+    /* Mutators */
+    
+    void setIdentifier(Identifier identifier) {
+        this->itemID = identifier;
+    }
     
     
     
@@ -87,23 +105,5 @@ private:
 
 
 } /* namespace items */
-    
-} /* namespace objects */
-
-
-
-
-
-
-using objects::items::Item;
-
-/*!
- @struct hash
- @discussion Item's hash function
- */
-template<>
-struct std::hash<Item> {
-    std::size_t operator()(const Item &item) const;
-};
 
 #endif /* Item_h */

@@ -7,10 +7,11 @@
 //
 
 #include "Collection.h"
-using namespace objects;
 
+// using namespace objects;
+//using items::Collection;
 
-
+namespace items {
 
 
 /* Constructors */
@@ -25,9 +26,9 @@ Collection::~Collection()
 
 Collection::Collection(const Item &item, unsigned int capacity)
 : container(item), capacity(capacity) {
-    for (unsigned int i = 0; i < capacity; i++) {
-        // this->set.insert(Slot(i));
-    }
+//    for (unsigned int i = 0; i < capacity; i++) {
+//        // this->set.insert(Slot(i));
+//    }
 }
 
 
@@ -47,7 +48,7 @@ Key Collection::brief() const {
 }
 
 
-Text Collection::display() const {
+Text Collection::toString() const {
     std::stringstream ss(this->keywords.first());
     const char NL = '\n';
     const char TAB = '\t';
@@ -112,15 +113,14 @@ size_t Collection::size() const {
 }
 
 
-
-
-
-/* */
-
 std::set<Identifier>::const_iterator Collection::begin() const {
     return this->set.cbegin();
 }
 
+
 std::set<Identifier>::const_iterator Collection::end() const {
     return this->set.cend();
 }
+
+
+} /* namespace items */

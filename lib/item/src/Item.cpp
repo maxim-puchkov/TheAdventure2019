@@ -7,15 +7,22 @@
 //
 
 #include "Item.h"
-using namespace objects;
+#include "ItemHash.h"
 
 
-
+namespace items {
 
 
 /* Constructors */
 
 Item::Item()
+{ }
+
+
+Item::Item(const Keywords &keywords,
+           const Description &description,
+           const Actions &actions)
+: keywords(keywords), description(description), actions(actions)
 { }
 
 
@@ -47,7 +54,7 @@ Key Item::brief() const {
 }
 
 
-Text Item::display() const {
+Text Item::toString() const {
     return this->description.full();
 }
 
@@ -83,12 +90,16 @@ Item& Item::operator=(const Item &other) {
     return *this;
 }
 
+} /* namespace items */
 
 
 
+namespace std {
 
-/* Hash Function */
 
-std::size_t std::hash<Item>::operator()(const Item &item) const {
-    return std::hash<unsigned long>{}(item.id());
+size_t hash<Item>::operator()(const Item &item) const {
+    return hash<unsigned long>{}(item.id());
 }
+
+
+} /* namespace std */
