@@ -1,8 +1,9 @@
-add_library(${libitem}
+add_library(${libitem} SHARED
     src/Item.cpp
     src/ItemBuilder.cpp
     src/Collection.cpp
     src/Inventory.cpp
+    src/ItemController.cpp
 )
 
 target_include_directories(${libitem}
@@ -15,6 +16,7 @@ target_include_directories(${libitem}
 
 target_link_libraries(${libitem}
     ${libauthentication}
+    ${libenvironment}
     ${libbuilder}
     ${libobject}
     ${libdebugtools}
@@ -28,5 +30,5 @@ set_target_properties(${libitem}
 )
 
 install(TARGETS ${libitem}
-    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
 )

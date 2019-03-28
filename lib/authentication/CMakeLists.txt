@@ -1,6 +1,5 @@
 add_library(${libauthentication} SHARED
 	src/Authenticator.cpp
-    src/Identity.cpp
 )
 
 target_include_directories(${libauthentication}
