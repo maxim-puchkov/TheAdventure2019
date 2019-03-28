@@ -14,7 +14,9 @@
 #include "gmock/gmock.h"
 
 #include "Collection.h"
-namespace objects {
+
+
+namespace items {
 
 
 /// ItemBuilderTests Fixture

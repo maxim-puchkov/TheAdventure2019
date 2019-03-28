@@ -11,8 +11,7 @@
 #include "ItemBuilder.h"
 
 
-
-namespace objects {
+namespace items {
 
 
 /// ItemBuilderTests Fixture
@@ -67,7 +66,7 @@ TEST_F(ItemBuilderTests, Build) {
     constructor.setKeywords(keys);
     constructor.setDescription(description);
     constructor.setActions(actions);
-    Item sword = constructor.create();
+    Item sword = constructor.build();
 
     
     // Test main object properties
@@ -88,7 +87,7 @@ TEST_F(ItemBuilderTests, Build) {
 //    // Create first item
 //    constructor.setKeywords(keys);
 //    constructor.setDescription(description);
-//    Item item = constructor.create();
+//    Item item = constructor.build();
 //
 //    EXPECT_EQ(1, item.id());
 //
@@ -104,7 +103,7 @@ TEST_F(ItemBuilderTests, Build) {
 //    // Create an item
 //    constructor.setKeywords(keys);
 //    constructor.setDescription(description);
-//     Item item = constructor.create();
+//     Item item = constructor.build();
 //
 //
 //     EXPECT_TRUE(item.keywords.contains(keys[0]));
@@ -124,7 +123,7 @@ TEST_F(ItemBuilderTests, KeywordType) {
     // Create an item
     constructor.setKeywords(keys);
     constructor.setDescription(description);
-    Item item = constructor.create();
+    Item item = constructor.build();
  
  
     EXPECT_EQ(true, item.keywords.contains(skey));
@@ -135,4 +134,4 @@ TEST_F(ItemBuilderTests, KeywordType) {
 */
     
 
-}
+} /* namespace items */

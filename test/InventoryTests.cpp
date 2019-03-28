@@ -15,6 +15,9 @@
 #include "Inventory.h"
 
 
+namespace items {
+
+
 /// ItemBuilderTests Fixture
 class InventoryTests : public testing::Test {
 protected:
@@ -74,7 +77,7 @@ TEST_F(InventoryTests, Add) {
     // Build an item
     builder.setKeywords({"sword", "slot 1"});
     builder.setDescription("Testing Inventory");
-    Item sword = builder.create();
+    Item sword = builder.build();
     
     // Add its identifier to inventory
     inventory.add(sword.id());
@@ -89,7 +92,7 @@ TEST_F(InventoryTests, Remove) {
     // Build an item
     builder.setKeywords({"sword", "slot 1"});
     builder.setDescription("Testing Inventory");
-    Item sword = builder.create();
+    Item sword = builder.build();
     
     // Add its identifier to inventory
     Identifier id = sword.id();
@@ -101,3 +104,6 @@ TEST_F(InventoryTests, Remove) {
     EXPECT_EQ(0, inventory.size());
     
 }
+
+
+} /* namespace items */
