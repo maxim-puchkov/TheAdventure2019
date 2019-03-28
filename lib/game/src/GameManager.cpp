@@ -4,16 +4,29 @@
 int heartBeatDuration = 50;
 
 GameManager::GameManager() {
-    // Make area using generation, add NPC to characterManager then add area to the world
+
+    // Making the World using the JSON files
     AreaGenerator areaGen{};
-    std::vector<std::string> areaJSONs = {"../adventure2019/data/mirkwood.json"};
+    std::vector<std::string> areaJSONs = 
+        {"../adventure2019/data/world/mirkwood.json",
+        "../adventure2019/data/world/shire.json",
+        "../adventure2019/data/world/solace.json"};
 
     for (auto filePath : areaJSONs){
         auto area = areaGen.getArea(filePath, characterManager);
         world.addArea(area);
-        world.printRoomsInArea(area);
+        // world.printRoomsInArea(area);
     }
-    // world.generateWorld();
+    
+    auto roomsMap = areaGen.getRoomsMap();
+    for(auto elm: roomsMap){
+        auto roomID = elm.first;
+        auto areaName = elm.second.first;
+        auto roomName= elm.second.second;
+        
+        std::cout<<"ID: " << roomID << " Area: " << areaName << " RoomName: " << roomName << "\n"; 
+    }
+
     createTableOfCommands();
 }
 

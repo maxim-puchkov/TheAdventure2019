@@ -16,8 +16,9 @@ Area AreaGenerator::getArea(std::string filePath, CharacterManager& characterMan
     generateObjects(objects, area);
 
     // For Testing 
-    // auto areaRooms = area.get();
-    // for(auto room: areaRooms){
+    // auto areaRooms = area.getRoomList();
+    // for(auto elm: areaRooms){
+    //     auto room = elm.second;
 
     //     auto exits = room.getExits();
     //     auto NPCs = room.getNPCs();
@@ -41,7 +42,6 @@ Area AreaGenerator::getArea(std::string filePath, CharacterManager& characterMan
 
 void AreaGenerator::generateRooms(json rooms, Area& area){
     int count = 0;
-    
     for (auto room: rooms) {
 
         Room roomObj{};
@@ -50,6 +50,9 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
         roomObj.setName(room["name"]);
         roomObj.setDescription(roomDesc);
         
+        // roomsMap[roomID] -> pair<AreaName, RoomName>
+        roomsMap.insert(std::pair(roomObj.getRoomID(), std::pair(area.getName(), roomObj.getName())));
+
         //keep track the first room to spawn character
         //idk how to access the element using index LOL
 
@@ -67,6 +70,7 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
         area.addRoom(roomObj);
     }
 
+    // Updating the Exit Names to the corresponding room they lead to
 }
 
 void AreaGenerator::generateNPC(json allNPC, Area& area, CharacterManager& characterManager){
@@ -75,7 +79,7 @@ void AreaGenerator::generateNPC(json allNPC, Area& area, CharacterManager& chara
     auto roomIds = area.getRoomIdList();
     int index = 0;
     for(auto NPC: allNPC){
-        std::cout << NPC["id"] << "\n";
+        // std::cout << NPC["id"] << "\n";
         std::vector<std::string> keywords = jsonParser.json2Vector(NPC["keywords"]);
         std::string shortDesc = NPC["shortdesc"];
         std::string longDesc = jsonParser.json2string(NPC["longdesc"]);

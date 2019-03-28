@@ -16,7 +16,9 @@ class AreaGenerator {
 
   private:
     JsonParser jsonParser;
-    CharacterManager characterManager;
+    //Store the roomsMap[roomID] -> pair<AreaName, RoomName>
+    std::unordered_map<int,std::pair<std::string,std::string>> roomsMap;
+
 
     void generateRooms(json rooms, Area& area);
     void generateNPC(json allNPC, Area& area, CharacterManager& characterManager);
@@ -24,5 +26,6 @@ class AreaGenerator {
 
   public:
     Area getArea(std::string filepath, CharacterManager&);
+    std::unordered_map<int,std::pair<std::string,std::string>> getRoomsMap(){return roomsMap;}
 };
 #endif

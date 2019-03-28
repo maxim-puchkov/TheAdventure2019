@@ -81,3 +81,10 @@ bool Area::addNPCtoRooms(std::string shortDesc, int ID){
         return false;
     }
 }
+
+void Area::updateRoomExits(int id, std::string name){
+    for(auto elm: roomList){
+        auto room = elm.second;
+        room.updateExits(id,name);
+    }
+}

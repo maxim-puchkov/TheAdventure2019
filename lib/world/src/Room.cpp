@@ -1,5 +1,5 @@
 #include "Room.h"
-
+#include <iostream>
 
 LocationCoordinates Room::findExitLocation(const std::string& direction) const {
 	auto checkDirection = Exit::getCardinalDirection(direction);
@@ -105,5 +105,12 @@ bool Room::addNPC(const std::string &name){
 	return true;
 }
 
+void Room::updateExits(int id, std::string name){
+	for (auto tmpExit: exitsInRoom){
+		if(tmpExit.getTargetLocation().room == id){
+			tmpExit.setExitName(name);
+		}
+	}
+}
 
 
