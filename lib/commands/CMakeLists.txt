@@ -14,11 +14,13 @@ add_library(${libcommands}
     src/CommandEditAva.cpp
     src/CommandCreateRoom.cpp
     src/CommandEditRoom.cpp
+
     src/CommandUse.cpp
     src/CommandEquip.cpp
-    src/CommandPickup.cpp
+    src/CommandTake.cpp
     src/CommandDrop.cpp
     src/CommandPut.cpp
+
     src/CommandMinigame.cpp
     src/CommandCombat.cpp
     src/CommandAttack.cpp

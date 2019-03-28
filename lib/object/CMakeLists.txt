@@ -15,6 +15,7 @@ target_include_directories(${libobject}
 
 target_link_libraries(${libobject}
 	${libauthentication}
+    ${libenvironment}
     ${libUserInterface}
     ${libdebugtools}
 )

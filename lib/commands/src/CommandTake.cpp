@@ -1,15 +1,37 @@
-#include "CommandPickup.h"
+#include "CommandTake.h"
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
+
 
 using boost::lexical_cast;
 using boost::bad_lexical_cast;
 
-void CommandPickup::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
-    //fill this
+
+// Execute command
+void CommandTake::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
+    
+    // Find where character is
+    auto location = Command::characterManager.getCharacterLocation(username);
+    
+    // Then find the actual room...
+    auto room = Command::worldManager.findRoomByLocation(location);
+    
+    // Get the input keyword
+    auto keyword = fullCommand[0];
+    
+    // Find the object
+    /*
+    if (room.items.contain(itemKeyword)) {
+        auto itemIdentifier = room.items.get(keyword));
+        Command::characterManager.addItemToCharacter(username, itemIdentifier);
+    }
+     */
+    
 }
 
-std::vector<std::string> CommandPickup::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
+
+// Internal command validation
+std::vector<std::string> CommandTake::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
     std::vector<std::string> processedCommand;
 
     //Format: pickup [object-in-inventory]
