@@ -9,13 +9,14 @@
 #ifndef ItemBuilder_h
 #define ItemBuilder_h
 
-#include "Builder.h"
 #include "Item.h"
-#include "Authenticator.h"
+#include "Builder.h"
 
-using namespace objects;
-using auth::Authenticator;
+using builders::Builder;
 
+
+namespace items {
+    
 
 /**
  @class ItemBuilder (IB)
@@ -29,6 +30,8 @@ public:
     /* Constructors */
     
     ItemBuilder();
+    
+    ~ItemBuilder() override;
 
     
     
@@ -38,10 +41,10 @@ public:
     /* Create / Reset */
     
     /// Create an item with current settings
-    Item create();
+    Item build() const;
 
     /// Reset current item settings
-    void reset() noexcept override;
+    void reset() const noexcept override;
     
     
     
@@ -50,18 +53,18 @@ public:
     /* Set item's properties */
 
     // Set item's unique keywords
-    void setKeywords(const vector<string> &keywords) noexcept override;
+    void setKeywords(const vector<string> &keywords) const noexcept override;
 
     // Set item's description text
-    void setDescription(const string &text) noexcept override;
+    void setDescription(const string &text) const noexcept override;
     
     // Set item's interactable actions
-    void setActions(const vector<pair<string, string>> &actions) noexcept override;
+    void setActions(const vector<pair<string, string>> &actions) const noexcept override;
     
     // Each builder maintains list of created objects
-    vector<Object *> list() const noexcept override;
+    // vector<Object *> list() const noexcept override;
     
-    Object::IdentifierTypename requestIdentifier() noexcept override;
+    // Object::IdentifierTypename requestIdentifier() noexcept override;
     
     
     // temp
@@ -69,22 +72,27 @@ public:
 
 private:
 
+    //Object::IdentifierTypename identify(Object *object) noexcept override;
+    
     /// Clear all data members and reset to default value
-    void clearAll();
+    void clearAll() const;
     
     
     /* Item Constructor Data members */
-    Object::IdentifierTypename id;
-    Keywords keywords;
-    Description description;
-    Actions actions;
+    mutable Identifier itemID;
+    mutable Keywords keywords;
+    mutable Description description;
+    mutable Actions actions;
     
     
     /* Each object is authentic and stored inside the builder */
     // Authenticator<Object::IdentifierTypename> authenticator;
-    vector<Object *> created;
+    // vector<Object *> created;
+    // Environment<Object::IdentifierTypename, Object *> env;
     
 };
 
+
+} /* namespace items */
 
 #endif /* ItemBuilder_h */
