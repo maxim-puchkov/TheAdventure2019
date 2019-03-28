@@ -21,23 +21,44 @@
 
 #include "Authenticator.h"
 
+
 namespace auth {
 
-template<typename IdentifierTypename>
-Authenticator<IdentifierTypename>::Authenticator()
-: identity(Identity<Identifier>())
+
+template<typename T>
+Authenticator<T>::Authenticator()
+: initial(0), current(0)
 { }
 
 
-template<typename IdentifierTypename>
-IdentifierTypename Authenticator<IdentifierTypename>::request_unique_identifier() noexcept {
-    return this->identity.generate_unique_identifier();
-}
+template<typename T>
+Authenticator<T>::Authenticator(T initial)
+: initial(initial), current(initial)
+{ }
 
-    template<typename IdentifierTypename>
-    Authenticator<IdentifierTypename>& Authenticator<IdentifierTypename>::operator=(Authenticator &&other) {
-        this->identity = std::move(other.identity);
-        return *this;
-    }
+
+template<typename T>
+T Authenticator<T>::generate_unique_identifier() {
+    return ++this->current;
+}
+    
+//template<typename IdentifierTypename>
+//Authenticator<IdentifierTypename>::Authenticator()
+//// : identity(Identity<Identifier>())
+//{ }
+//
+//
+//template<typename IdentifierTypename>
+//IdentifierTypename Authenticator<IdentifierTypename>::request_unique_identifier() noexcept {
+//    return this->identity.generate_unique_identifier();
+//}
+//
+//
+//template<typename IdentifierTypename>
+//Authenticator<IdentifierTypename>& Authenticator<IdentifierTypename>::operator=(Authenticator &&other) {
+//    this->identity = std::move(other.identity);
+//    return *this;
+//}
+
 
 } /* namespace auth */
