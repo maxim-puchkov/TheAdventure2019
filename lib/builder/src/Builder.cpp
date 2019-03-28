@@ -7,15 +7,14 @@
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
 
-
 #include "Builder.h"
 
 
-Builder::Builder() {
+builders::Builder::Builder() {
     debug::PrefixMessage = "Builder";
     debug::print("Builder created.");
 }
 
-Builder::~Builder() {
+builders::Builder::~Builder() {
     debug::print("Builder destroyed.");
 }

@@ -17,7 +17,6 @@
 #include <vector>
 #include <utility>
 
-#include "Authenticator.h"
 #include "Object.h"
 
 #endif /* BuilderLibrary_pch */
