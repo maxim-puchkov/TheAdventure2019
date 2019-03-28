@@ -22,12 +22,19 @@ public:
     bool isPlayersTurn(const std::string& playerName) const;
     bool makePlayerMove(const std::string& playerName, std::string& moveFrom, std::string moveTo);
     bool addPlayer(const std::string& playerName);
+
+    bool isGameFinished() const;
+    std::string getWinMessage() const;
+
     void removePlayer(const std::string& playerName);
     unsigned long getCurrentPlayers() const;
+
+    const std::string& getCurrentPlayerTurn() const;
+
     MoveValidator& getGame();
 
-    
-    std::string display();
+    const std::string display() const;
+    const std::string reverseDisplay() const;
 
     std::string getAdminName() const;
     std::vector<std::string>& getPlayers();

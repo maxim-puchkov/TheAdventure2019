@@ -53,9 +53,14 @@ int MoveValidator::convertChessRowToInt(char input){
  *
  * @return A string that you can use to draw the board
  */
-std::string MoveValidator::getBoardView(){
-    return gameBoard.getBoardView();
+const std::string MoveValidator::getBoardView() const {
+    return  gameBoard.getBoardView();
 }
+
+const std::string MoveValidator::getReverseBoardView() const{
+    return gameBoard.getReverseBoardView();
+}
+
 
 /**
  * Checks to see if the input is valid.
@@ -80,7 +85,7 @@ bool MoveValidator::processChessMove(const ChessCoordinate &startPos, const Ches
 /**
  * @return A message on how to play the game
  */
-std::string MoveValidator::helpMessage(){
+std::string MoveValidator::helpMessage() const{
 
     std::string msg = "Welcome to chess2019!. Some of the rules are modified from standard chess\n"
                       "such as checks/checkmates aren't declared, game ends when king is terminated, \n"
@@ -90,7 +95,7 @@ std::string MoveValidator::helpMessage(){
                       "EX. a2,a4  is move piece at column A, row 2 to column A row 4.\n"
                       "Coordinates are printed on board for reference.  ";
 
-    return msg;
+    return std::move(msg);
 }
 
 
@@ -104,7 +109,7 @@ bool MoveValidator::isGameFinished() const {
 }
 
 //Should be called after isGameFinished.
-std::string MoveValidator::gameOverMessage() {
+std::string MoveValidator::gameOverMessage() const {
 
     std::string stream = "";
     const Piece &piece = gameBoard.getLastPieceKilled();
@@ -117,7 +122,7 @@ std::string MoveValidator::gameOverMessage() {
     } else {
         stream = "team upperCase has won the game ";
     }
-    return stream;
+    return std::move(stream);
 }
 
 
@@ -177,12 +182,22 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo, co
         return false;
     }
 
+
     int sCol =  convertCharColToInt(result.at(0).at(0));
     int sRow = convertChessRowToInt(result.at(0).at(1));
+    if(sCol == -1 || sRow == -1){
+        return false;
+    }
+
+
     ChessCoordinate startPos{sRow,sCol};
 
     int finishPositionColumn = convertCharColToInt(result.at(1).at(0));
     int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
+    if(finishPositionColumn == -1 || finishPositionRow == -1){
+        return false;
+    }
+
     ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
 
     const Color &pieceColor = gameBoard.requestPiece(startPos).getColor();
@@ -205,16 +220,28 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo) {
     result.push_back(moveFrom);
     result.push_back(moveTo);
 
+
+
+
     if(result.size() > 2  || result.at(0).size() != 2 || result.at(1).size() != 2 ){
         return false;
     }
 
     int sCol =  convertCharColToInt(result.at(0).at(0));
     int sRow = convertChessRowToInt(result.at(0).at(1));
+
+    if(sCol == -1 || sRow == -1){
+        return false;
+    }
+
     ChessCoordinate startPos{sRow,sCol};
 
     int finishPositionColumn = convertCharColToInt(result.at(1).at(0));
     int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
+
+    if(finishPositionColumn == -1 || finishPositionRow == -1){
+        return false;
+    }
     ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
 
 

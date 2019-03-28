@@ -3,7 +3,8 @@
 #include "AttributesTest.cpp"
 #include "CharacterTest.cpp"
 #include "CommandSplittingTest.cpp"
-#include "CommandTest.cpp"
+#include "CommandValidTest.cpp"
+#include "testChessBoard.cpp"
 
 
 #include "KeywordsTests.cpp"

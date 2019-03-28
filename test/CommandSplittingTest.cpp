@@ -24,9 +24,15 @@ TEST_F(CommandSplittingTest, SayCommandSplitsCorrectly) {
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     EXPECT_EQ("say", testVector.at(0));
     EXPECT_EQ("hello", testVector.at(1));
+
+    commandToPut = "say:";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("say", testVector.at(0));
+    EXPECT_EQ("", testVector.at(1));
 }
-/*
-TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyOwnCommand) {
+
+// TODO: TEST DISABLED BECAUSE IT FAILS
+TEST_F(CommandSplittingTest, DISABLED_SayCommandSplitsCorrectlyOwnCommand) {
     CommandSay testCommand(c, u, w);
 
     commandToPut = "say: say:";
@@ -40,7 +46,8 @@ TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyOwnCommand) {
     EXPECT_EQ("helpsay:", testVector.at(1));
 }
 
-TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyOtherCommand) {
+// TODO: TEST DISABLED BECAUSE IT FAILS
+TEST_F(CommandSplittingTest, DISABLED_SayCommandSplitsCorrectlyOtherCommand) {
     CommandSay testCommand(c, u, w);
 
     commandToPut = "say: yell:";
@@ -53,7 +60,7 @@ TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyOtherCommand) {
     EXPECT_EQ("say", testVector.at(0));
     EXPECT_EQ("helpyell:", testVector.at(1));
 }
-*/
+
 TEST_F(CommandSplittingTest, SayCommandSplitsCorrectlyWithDifferentSpaces) {
     CommandSay testCommand(c, u, w);
 
@@ -107,9 +114,16 @@ TEST_F(CommandSplittingTest, TellCommandSplitsCorrectly) {
     EXPECT_EQ("tell", testVector.at(0));
     EXPECT_EQ("user", testVector.at(1));
     EXPECT_EQ("hello", testVector.at(2));
+
+    commandToPut = "tell user:";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("tell", testVector.at(0));
+    EXPECT_EQ("user", testVector.at(1));
+    EXPECT_EQ("", testVector.at(2));
 }
-/*
-TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyOwnCommand) {
+
+// TODO: TEST DISABLED BECAUSE IT FAILS
+TEST_F(CommandSplittingTest, DISABLED_TellCommandSplitsCorrectlyOwnCommand) {
     CommandTell testCommand(c, u, w);
 
     commandToPut = "tell user: tell:";
@@ -125,7 +139,8 @@ TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyOwnCommand) {
     EXPECT_EQ("helptell:", testVector.at(2));
 }
 
-TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyOtherCommand) {
+// TODO: TEST DISABLED BECAUSE IT FAILS
+TEST_F(CommandSplittingTest, DISABLED_TellCommandSplitsCorrectlyOtherCommand) {
     CommandTell testCommand(c, u, w);
 
     commandToPut = "tell user: say:";
@@ -140,7 +155,7 @@ TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyOtherCommand) {
     EXPECT_EQ("user", testVector.at(1));
     EXPECT_EQ("helpsay:", testVector.at(2));
 }
-*/
+
 TEST_F(CommandSplittingTest, TellCommandSplitsCorrectlyWithDifferentSpaces) {
     CommandTell testCommand(c, u, w);
 
@@ -290,9 +305,15 @@ TEST_F(CommandSplittingTest, YellCommandSplitsCorrectly) {
     testVector = testCommand.reassembleCommand(commandToPut, isValid);
     EXPECT_EQ("yell", testVector.at(0));
     EXPECT_EQ("hello", testVector.at(1));
+
+    commandToPut = "yell:";
+    testVector = testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_EQ("yell", testVector.at(0));
+    EXPECT_EQ("", testVector.at(1));
 }
-/*
-TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyOwnCommand) {
+
+// TODO: TEST DISABLED BECAUSE IT FAILS
+TEST_F(CommandSplittingTest, DISABLED_YellCommandSplitsCorrectlyOwnCommand) {
     CommandYell testCommand(c, u, w);
 
     commandToPut = "yell: yell:";
@@ -306,7 +327,8 @@ TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyOwnCommand) {
     EXPECT_EQ("helpyell:", testVector.at(1));
 }
 
-TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyOtherCommand) {
+// TODO: TEST DISABLED BECAUSE IT FAILS
+TEST_F(CommandSplittingTest, DISABLED_YellCommandSplitsCorrectlyOtherCommand) {
     CommandYell testCommand(c, u, w);
 
     commandToPut = "yell: say:";
@@ -319,7 +341,7 @@ TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyOtherCommand) {
     EXPECT_EQ("yell", testVector.at(0));
     EXPECT_EQ("helpsay:", testVector.at(1));
 }
-*/
+
 TEST_F(CommandSplittingTest, YellCommandSplitsCorrectlyWithDifferentSpaces) {
     CommandYell testCommand(c, u, w);
 

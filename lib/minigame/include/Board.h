@@ -17,7 +17,8 @@ using std::vector;
 class Board {
 public:
     Board();
-    std::string getBoardView() const; // SHOULD BE SPERATED INTO ANOTHER CLASS BUT LEAVE HERE FOR NOW THIS IS THE MODEL! Maybe mvc isn't what we want.
+    const std::string getBoardView() const;
+    const std::string getReverseBoardView() const;
 
     Piece& requestPiece(const ChessCoordinate &position);
     const PieceUnit requestUnit(const ChessCoordinate &position) const;
@@ -34,7 +35,8 @@ private:
 
    void initializeGame(vector<vector<Piece>> &boardView);
    void createBackRank(Color myColor, vector<vector<Piece>> &boardView) ;
-   void drawRow(vector<Piece> &listPieceId, std::stringstream &stream) const;
+   void drawRow(const vector<Piece> &listPieceId, std::stringstream &stream) const;
+   void drawRowReverse(const vector<Piece> &listPieceId, std::stringstream &stream) const;
 
 
    bool checkHorizontalPath(const ChessCoordinate &start, const ChessCoordinate &finish) const;

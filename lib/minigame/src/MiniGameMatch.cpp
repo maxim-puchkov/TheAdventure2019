@@ -50,8 +50,11 @@ bool MiniGameMatch::makePlayerMove(const std::string& playerName, std::string& m
         return false;
     }
 
-    currentPlayerTurn = (currentPlayerTurn + 1) % players.size();
-    return game.readChessMove(moveFrom, moveTo, playerName);
+    bool moveResult = game.readChessMove(moveFrom,moveTo,playerName);
+    if(moveResult == true) {
+        currentPlayerTurn = (currentPlayerTurn + 1) % players.size();
+    }
+    return moveResult;
 
 }
 
@@ -74,10 +77,22 @@ unsigned long MiniGameMatch::getCurrentPlayers() const{
     return players.size();
 }
 
-std::string MiniGameMatch::display(){
+const std::string MiniGameMatch::display() const {
     return game.getBoardView();
 }
 
+bool MiniGameMatch::isGameFinished() const {
+    return game.isGameFinished();
+}
+
+std::string MiniGameMatch::getWinMessage() const {
+    return game.gameOverMessage();
+}
+
+//A "reversed" display for player 2.
+const std::string MiniGameMatch::reverseDisplay() const {
+    return game.getReverseBoardView();
+}
 
 MoveValidator& MiniGameMatch::getGame() {
     return this->game;
@@ -93,3 +108,9 @@ std::vector<std::string>& MiniGameMatch::getPlayers(){
 std::vector<std::string>& MiniGameMatch::getSpectators(){
     return spectators;
 }
+
+const std::string& MiniGameMatch::getCurrentPlayerTurn() const {
+    return players.at(currentPlayerTurn);
+}
+
+
