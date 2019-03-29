@@ -11,7 +11,9 @@
 #include "gmock/gmock.h"
 
 #include "Item.h"
-namespace objects {
+
+
+namespace items {
 
 
 using S = std::string;
@@ -92,4 +94,4 @@ TEST_F(ItemTests, Instantiation) {
 }
 
 
-} /* namespace objects */
+} /* namespace items */
