@@ -55,10 +55,6 @@ void Inventory::add(Identifier id) {
 void Inventory::remove(Identifier id) {
     //this->items.erase(id);
 }
-    
-    void Inventory::remove(InventorySlot index) {
-        this->items[index] = EMPTY;
-    }
 
 
 bool Inventory::contains(Identifier id) const {

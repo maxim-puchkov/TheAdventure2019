@@ -44,7 +44,6 @@ public:
     void add(Identifier id);
     
     void remove(Identifier id);
-    void remove(InventorySlot index);
     
     bool contains(Identifier id) const;
     
