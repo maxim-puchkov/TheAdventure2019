@@ -8,7 +8,7 @@ LocationCoordinates CharacterManager::spawnCharacter(const std::string& username
 	onlineCharacters.insert(std::make_pair(username, character));
 	// auto spawnLocation = LocationCoordinates{0, 0};
 	auto spawnLocation = location;
-	changeCharacterLocation(username, spawnLocation);
+	changeCharacterLocation(username, character.getCurrentLocation());
 	return spawnLocation;
 }
 
