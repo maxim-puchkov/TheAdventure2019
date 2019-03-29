@@ -33,7 +33,7 @@ public:
     Builder();
     
     /*! Builder destructor */
-    virtual ~Builder() = 0;
+    virtual ~Builder();
     
     
     
