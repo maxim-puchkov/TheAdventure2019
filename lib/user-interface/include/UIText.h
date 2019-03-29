@@ -36,7 +36,7 @@ public:
     
     UIText(const string &source);
     
-    UIText(const string &source, uint16_t width);
+    UIText(const string &source, size_t width);
     
     
     
@@ -84,7 +84,7 @@ private:
     
     size_t length;
     
-    uint16_t width;
+    size_t width;
     
 };
 

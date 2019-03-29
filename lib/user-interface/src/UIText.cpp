@@ -21,7 +21,7 @@ UIText::UIText(const string &source)
 }
 
 
-UIText::UIText(const string &source, uint16_t width)
+UIText::UIText(const string &source, size_t width)
 : source(source), width(width) {
     this->lines.reserve(RESERVE);
 }
@@ -99,6 +99,7 @@ string UIText::nextLine(UITextPartition &partition) const {
     }
 
     return output.str();
+    
 }
 
 UITextPartitionResult UIText::partition(UITextPartition &&partition) const {
