@@ -1,27 +1,26 @@
 //
-//  ObjectLibrary.pch
+//  ObjectPrefixHeader.pch
 //  adventure2019: adventure2019
-//  com.maximpuchkov.Faworki.adventure2019.ObjectLibrary
+//  com.maximpuchkov.Faworki.adventure2019.ObjectPrefixHeader
 //
 //  Created by mpuchkov on 2019-03-21. macOS 10.13, Xcode 10.1.
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
 
-#ifndef ObjectLibrary_pch
-#define ObjectLibrary_pch
+#ifndef ObjectPrefixHeader_pch
+#define ObjectPrefixHeader_pch
 
 
 #include <string>
 #include <sstream>
 #include <iterator>
 
+#include <utility>
 #include <functional>
 #include <cstdint>
 
 #include <set>
 #include <vector>
 
-#include "Environment.h"
 
-
-#endif /* ObjectLibrary_pch */
+#endif /* ObjectPrefixHeader_pch */

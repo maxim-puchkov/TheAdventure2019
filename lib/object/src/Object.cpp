@@ -10,9 +10,10 @@
 
 
 objects::Object::Object() {
-    debug::PrefixMessage = "Object";
+    debug::prefix("Object");
     debug::print("Object created.");
 }
+
 
 objects::Object::~Object() {
     debug::print("Object destroyed.");

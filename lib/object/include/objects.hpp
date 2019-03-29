@@ -10,9 +10,8 @@
 #ifndef objects_hpp
 #define objects_hpp
 
-#include "ObjectLibrary.pch"
+#include "ObjectPrefixHeader.pch"
 #include "DebugToolset.h"
-#include "UIText.h" // !
 
 using std::string;
 using std::vector;
@@ -34,7 +33,7 @@ inline namespace typenames {
 
 
 
-/*! Forward struct declarations */
+/*! Forward data structure declarations */
 inline namespace structures {
     struct Keywords;
     struct Description;
