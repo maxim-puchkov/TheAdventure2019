@@ -11,9 +11,10 @@
 
 
 builders::Builder::Builder() {
-    debug::PrefixMessage = "Builder";
+    debug::prefix("Builder");
     debug::print("Builder created.");
 }
+
 
 builders::Builder::~Builder() {
     debug::print("Builder destroyed.");
