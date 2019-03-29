@@ -20,39 +20,37 @@
 namespace objects {
 
 
-/**
+/*!
     @class Object
  
-    @brief Instance within a game that can be interacted with
+    @brief Interactable game object interface
  */
 class Object {
 public:
     
-    // using IdentifierTypename = Identifier;
-    
-    
-    
+    /*! Object constructor */
     Object();
     
-    ~Object();
+    /*! Object destructor */
+    virtual ~Object();
     
     
     
     /* Object Interface */
     
-    /// Retrieve object ID
+    /*! Retrieve object ID */
     virtual Identifier id() const = 0;
     
     
-    /// Display item's short description
+    /*! Display item's short description */
     virtual Key brief() const = 0;
     
     
-    /// Represent this object as string
+    /*! Represent this object as string */
     virtual Text toString() const = 0;
     
     
-    /// Examine an action to see its description
+    /*! Examine an action to see its description */
     virtual Text examine(const Key &keyword) const = 0;
     
 };
