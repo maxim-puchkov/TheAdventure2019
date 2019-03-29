@@ -28,8 +28,8 @@ protected:
         // Initial set up before each test...
         initialized = true;
         
-        inventory = Inventory();
-        builder = ItemBuilder();
+//        inventory = Inventory();
+//        builder = ItemBuilder();
     }
     
     void TearDown() override {
@@ -41,9 +41,9 @@ protected:
     
     
     /* * *         Variables        * * */
-    Inventory inventory;
-    
-    ItemBuilder builder;
+//    Inventory inventory;
+//    
+//    ItemBuilder builder;
     
     
 };
@@ -56,54 +56,54 @@ protected:
 
 
 
-/* Inventory Fixture Tests */
-
-// Testing test fixture set up
-TEST_F(InventoryTests, FixtureInitialization) {
-    EXPECT_TRUE(initialized);
-}
-
-
-// Testing instantiation
-TEST_F(InventoryTests, Instantiation) {
-    Inventory test_inventory = Inventory();
-    EXPECT_EQ(0, inventory.size());
-}
-
-
-// Testing add function
-TEST_F(InventoryTests, Add) {
-    
-    // Build an item
-    builder.setKeywords({"sword", "slot 1"});
-    builder.setDescription("Testing Inventory");
-    Item sword = builder.build();
-    
-    // Add its identifier to inventory
-    inventory.add(sword.id());
-    EXPECT_EQ(1, inventory.size());
-    
-}
-
-
-// Testing add function
-TEST_F(InventoryTests, Remove) {
-    
-    // Build an item
-    builder.setKeywords({"sword", "slot 1"});
-    builder.setDescription("Testing Inventory");
-    Item sword = builder.build();
-    
-    // Add its identifier to inventory
-    Identifier id = sword.id();
-    inventory.add(id);
-    EXPECT_EQ(1, inventory.size());
-    
-    // Then remove it
-    inventory.remove(id);
-    EXPECT_EQ(0, inventory.size());
-    
-}
+///* Inventory Fixture Tests */
+//
+//// Testing test fixture set up
+//TEST_F(InventoryTests, FixtureInitialization) {
+//    EXPECT_TRUE(initialized);
+//}
+//
+//
+//// Testing instantiation
+//TEST_F(InventoryTests, Instantiation) {
+//    Inventory test_inventory = Inventory();
+//    EXPECT_EQ(0, inventory.size());
+//}
+//
+//
+//// Testing add function
+//TEST_F(InventoryTests, Add) {
+//
+//    // Build an item
+//    builder.setKeywords({"sword", "slot 1"});
+//    builder.setDescription("Testing Inventory");
+//    Item sword = builder.build();
+//
+//    // Add its identifier to inventory
+//    inventory.add(sword.id());
+//    EXPECT_EQ(1, inventory.size());
+//
+//}
+//
+//
+//// Testing add function
+//TEST_F(InventoryTests, Remove) {
+//
+//    // Build an item
+//    builder.setKeywords({"sword", "slot 1"});
+//    builder.setDescription("Testing Inventory");
+//    Item sword = builder.build();
+//
+//    // Add its identifier to inventory
+//    Identifier id = sword.id();
+//    inventory.add(id);
+//    EXPECT_EQ(1, inventory.size());
+//
+//    // Then remove it
+//    inventory.remove(id);
+//    EXPECT_EQ(0, inventory.size());
+//
+//}
 
 
 } /* namespace items */

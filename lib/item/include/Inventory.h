@@ -1,15 +1,17 @@
 //
 //  Inventory.h
-//  test
+//  Item: Inventory
+//  com.maximpuchkov.Faworki.Item.Inventory
 //
-//  Created by admin on 2019-01-17.
-//  Copyright © 2019 maximpuchkov. All rights reserved.
+//  Created by mpuchkov on 2019-01-17. macOS 10.13, Xcode 10.1.
+//  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
+
 
 #ifndef Inventory_h
 #define Inventory_h
 
-#include "Collection.h"
+#include "Collection.h" // !
 
 
 namespace items {
@@ -24,44 +26,56 @@ using InventorySlot = size_t;
  
  Limited capacity storage where each element is an object identifier.
  */
-class Inventory {
+class Inventory /*: public ItemControllerDelegate */ {
 public:
     
     /* Constructors */
     
     Inventory();
     
-    Inventory(unsigned int capacity);
+    Inventory(unsigned int maxCapacity);
     
     ~Inventory();
     
     
     
     
+    /*  */
+    
+    /*! */
+    
+    
+    
     
     /* */
     
-    void add(Identifier id);
+    /*! Identifiers of all items in the inventory */
+    vector<Identifier> all() const noexcept;
     
-    void remove(Identifier id);
+    /*! Add ID of a new item */
+    void add(Identifier id) noexcept;
     
-    bool contains(Identifier id) const;
+    /*! Remove item with ID */
+    void remove(Identifier id) noexcept;
     
-    size_t size() const;
+    /*! Check if item is in the inventory */
+    bool contains(Identifier id) const noexcept;
+    
+    /*! Current size of the inventory */
+    size_t size() const noexcept;
+    
+    /*! Maximum quantity of items this inventory can store */
+    size_t capacity() const noexcept;
+    
     
 private:
     
+    /// IO
     void display() const;
     
-    //Collection items = Collection("description");
-    
-    //unordered_set<void *> items;
-    
-    unsigned int capacity;
+    unsigned int max_capacity;
     
     std::vector<Identifier> items;
-    
-    //Collection items;
     
 };
 
