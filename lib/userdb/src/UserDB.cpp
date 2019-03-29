@@ -20,7 +20,8 @@ UserDB::DB_CODE UserDB::createUser(const std::string& name, const std::string& p
     }
     else{
         users_json[name]["password"] = pwd;
-        cout << users_json << "\n";
+        users_json[name]["admin"] = false;
+        // cout << users_json << "\n";
         jsonParser.saveJSON(users_json, json_filePath);
         return UserDB::DB_CODE::ACCOUNT_CREATED;
     }
@@ -33,6 +34,14 @@ UserDB::DB_CODE UserDB::updateUser(User& user){
     }
     else{
         // UPDATE THE USER IN DB HERE
+
+        // users_json[user.getUserName()]["password"] = user;
+        if(user.getRole() == User::USER_ROLE::ADMIN){
+            users_json[user.getUserName()]["admin"] = true;
+        } else{
+            users_json[user.getUserName()]["admin"] = false;
+        }
+
         cout << users_json << "\n";
         jsonParser.saveJSON(users_json, json_filePath);
         return UserDB::DB_CODE::USER_UPDATED;
@@ -46,7 +55,15 @@ User UserDB::getUser(const std::string& name, const std::string& pwd){
     if (users_json[name]["password"] == pwd){
         // UPDATE when User Constructor changes and you want to get more than just name and pwd
         cout<<"USER FOUND\n";
-        return User{name,pwd};
+        
+        User user{name,pwd};
+        
+        if(users_json[name]["admin"] == User::USER_ROLE::ADMIN){
+            user.setRole(User::USER_ROLE::ADMIN);
+        } else{
+            user.setRole(User::USER_ROLE::NORMAL_USER);
+        }
+        return user;
     }else{
         return User{"",""};
     }
