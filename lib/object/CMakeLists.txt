@@ -1,5 +1,6 @@
 add_library(${libobject} SHARED
 	src/Object.cpp
+    src/ObjectDataStructure.cpp
 	src/Keywords.cpp
 	src/Description.cpp
     src/Actions.cpp
