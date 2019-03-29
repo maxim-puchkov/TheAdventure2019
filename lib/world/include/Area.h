@@ -62,6 +62,7 @@ class Area {
         bool addNPCtoRooms(std::string shortDesc, int ID);
         void updateRoomExits(int id, std::string name);
 
+        //for admin
         void setNextRoomID(int id);
 
         int getNextRoomID();

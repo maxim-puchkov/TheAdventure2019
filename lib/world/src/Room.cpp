@@ -84,7 +84,9 @@ std::string Room::listExits() const {
 
 	std::string result = "Exits are: \n";
 	for(Exit iter: exitsInRoom){
-		result += "- " + iter.getExitName() + ", " + iter.CardinalToString() + "\n";
+		// result += "- " + iter.getExitName() + ", " + iter.CardinalToString() + "\n";
+		result += "- " + iter.getExitTargetLocation() + ", " + iter.CardinalToString() + "\n";
+
 	}
 
 	return result;

@@ -87,5 +87,12 @@ using namespace std;
         this->targetLocation = newLocation;
     }
 
+    void Exit::setExitTargetLocation(const std::string & name) {
+        this->exitTargetLocation = name;
+    }
+
+    std::string Exit::getExitTargetLocation() {
+        return exitTargetLocation;
+    }
 
 

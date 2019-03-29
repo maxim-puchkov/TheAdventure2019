@@ -50,7 +50,7 @@ public:
     std::string getName() const { return roomName; }
     std::string getDescription() const { return roomDescription; }
     const std::vector<std::string>& getUserNames() const { return charactersInRoom; }
-    const std::vector<Exit>& getExits() const { return exitsInRoom; }
+    std::vector<Exit>& getExits() { return exitsInRoom; }
     int getRoomID(){return roomId;}
     //setters
     void setName(std::string newName) { roomName = newName; }

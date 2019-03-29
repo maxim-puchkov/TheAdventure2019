@@ -39,6 +39,7 @@ public:
     CardinalDirection getCardinalDirection() const;
     LocationCoordinates getTargetLocation() const;
     const std::string &CardinalToString() const;
+    std::string getExitTargetLocation();
 
 
     //Setters
@@ -47,8 +48,10 @@ public:
     void setCardinalDirection(CardinalDirection direction);
     void setTargetLocation(std::string area, int room);
     void setTargetLocation(LocationCoordinates newLocation);
+    void setExitTargetLocation(const std::string & name);
 
 private:
+    std::string exitTargetLocation;
     std::string exitName;
     std::string exitDescription;
     CardinalDirection exitDirection;

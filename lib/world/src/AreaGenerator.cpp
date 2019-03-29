@@ -40,6 +40,17 @@ Area AreaGenerator::getArea(std::string filePath, CharacterManager& characterMan
     return area;
 }
 
+void AreaGenerator::generateExitsTo(Area& area){
+    for (auto& room : area.getRoomList()){
+        for(auto& ext : room.second.getExits()) {
+            auto exitLocation = ext.getTargetLocation();
+            auto nextRoom = area.getRoom(exitLocation.room);
+            std::string exitTo = "exit to: " + nextRoom.getName();
+            ext.setExitTargetLocation(exitTo);
+        }
+    }
+}
+
 void AreaGenerator::generateRooms(json rooms, Area& area){
     int count = 0;
     int lastRoomID = 0;
@@ -73,6 +84,7 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
         area.addRoom(roomObj);
         lastRoomID = room["id"];
     }
+    generateExitsTo(area);
     area.setNextRoomID(lastRoomID);
     // Updating the Exit Names to the corresponding room they lead to
 }

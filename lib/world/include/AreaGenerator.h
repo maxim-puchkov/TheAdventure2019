@@ -24,6 +24,8 @@ class AreaGenerator {
     void generateNPC(json allNPC, Area& area, CharacterManager& characterManager);
     void generateObjects(json rooms, Area& area);
 
+    void generateExitsTo(Area& area);
+
   public:
     Area getArea(std::string filepath, CharacterManager&);
     std::unordered_map<int,std::pair<std::string,std::string>> getRoomsMap(){return roomsMap;}
