@@ -12,11 +12,11 @@
 #include "Item.h"
 #include "Builder.h"
 
-using builders::Builder;
-
 
 namespace items {
-    
+
+using builders::Builder;
+
 
 /**
  @class ItemBuilder (IB)
@@ -24,7 +24,7 @@ namespace items {
  @brief Constructs items with keywords, descriptions,
         and extra commands
  */
-class ItemBuilder : public Builder {
+class ItemBuilder: public Builder {
 public:
     
     /* Constructors */
@@ -33,7 +33,6 @@ public:
     
     ~ItemBuilder() override;
 
-    
     
     
     
@@ -61,34 +60,18 @@ public:
     // Set item's interactable actions
     void setActions(const vector<pair<string, string>> &actions) const noexcept override;
     
-    // Each builder maintains list of created objects
-    // vector<Object *> list() const noexcept override;
-    
-    // Object::IdentifierTypename requestIdentifier() noexcept override;
-    
-    
-    // temp
-    bool ready = false;
+    /// Add a new action
+    void addAction(Action &&action) const noexcept;
 
 private:
-
-    //Object::IdentifierTypename identify(Object *object) noexcept override;
     
     /// Clear all data members and reset to default value
     void clearAll() const;
     
-    
-    /* Item Constructor Data members */
-    mutable Identifier itemID;
+    /* Item's data members */
     mutable Keywords keywords;
     mutable Description description;
     mutable Actions actions;
-    
-    
-    /* Each object is authentic and stored inside the builder */
-    // Authenticator<Object::IdentifierTypename> authenticator;
-    // vector<Object *> created;
-    // Environment<Object::IdentifierTypename, Object *> env;
     
 };
 

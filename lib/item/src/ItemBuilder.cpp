@@ -16,13 +16,12 @@ namespace items {
 /* Constructors */
 
 ItemBuilder::ItemBuilder()
-: ready(true),
-keywords(Keywords()),
+: keywords(Keywords()),
 description(Description()),
 actions(Actions())
-//, authenticator(Authenticator<Object::IdentifierTypename>())
 {
     debug::PrefixMessage = "ItemBuilder";
+    debug::print("Item builder created.");
 }
 
 
@@ -37,10 +36,8 @@ ItemBuilder::~ItemBuilder() {
 /* Create / Reset */
 
 Item ItemBuilder::build() const {
-    // this->itemID = this->requestIdentifier();
-    debug::print("Creating item with id = ", itemID);
-    Item item(itemID, keywords, description, actions);
-    // this->created.push_back(&item);
+    debug::print("Creating a new item...");
+    Item item(keywords, description, actions);
     this->reset();
     return item;
 }
@@ -69,17 +66,11 @@ void ItemBuilder::setDescription(const string &text) const noexcept {
 void ItemBuilder::setActions(const vector<pair<string, string>> &actions) const noexcept {
     this->actions = Actions(actions);
 }
-
-
-//vector<Object *> ItemBuilder::list() const noexcept {
-//    return this->created;
-//}
-
-
-//Object::IdentifierTypename ItemBuilder::requestIdentifier() noexcept {
-//    // return this->authenticator.request_unique_identifier();
-//    return 0;
-//}
+    
+    
+void ItemBuilder::addAction(Action &&action) const noexcept {
+    this->actions.add(std::move(action));
+}
 
 
 
@@ -89,10 +80,6 @@ void ItemBuilder::setActions(const vector<pair<string, string>> &actions) const 
 
 
 /* * *   Private   * * */
-
-//Object::IdentifierTypename ItemBuilder::identify(Object *object) noexcept {
-//    return 0;
-//}
 
 void ItemBuilder::clearAll() const {
     this->keywords.clear();
