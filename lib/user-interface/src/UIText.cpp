@@ -9,13 +9,8 @@
 
 #include "UIText.h"
 
-inline namespace defaults {
-    const uint16_t WIDTH = 20;
-    const uint8_t RESERVE = 5;
-}
 
-
-
+namespace ui {
 
 
 /* Constructors */
@@ -33,6 +28,8 @@ UIText::UIText(const string &source, uint16_t width)
 
 
 
+
+
 /* Change text style */
 
 void UIText::format() {
@@ -40,6 +37,7 @@ void UIText::format() {
     this->lines = result.content;
     this->length = result.length;
 }
+
 
 
 
@@ -116,3 +114,6 @@ UITextPartitionResult UIText::partition(UITextPartition &&partition) const {
     UITextPartitionResult result({lines, length});
     return result;
 }
+
+
+} /* namespace ui */

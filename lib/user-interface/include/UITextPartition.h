@@ -10,10 +10,13 @@
 #ifndef UITextPartition_h
 #define UITextPartition_h
 
-#include "UILibrary.pch"
+#include "UIPrefixHeader.pch"
 
 using std::string;
 using std::vector;
+
+
+namespace ui {
 
 
 /*!
@@ -86,5 +89,8 @@ private:
     vector<string> elements;
     
 };
+
+
+} /* namespace ui */
 
 #endif /* UITextPartition_h */

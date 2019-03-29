@@ -10,6 +10,9 @@
 #include "UITextPartition.h"
 
 
+namespace ui {
+
+
 /* Constructors */
 
 UITextPartition::UITextPartition(vector<string> &&elements)
@@ -72,3 +75,6 @@ string UITextPartition::operator[](size_t index) {
 string UITextPartition::operator[](size_t index) const {
     return this->elements[index];
 }
+
+
+} /* namespace ui */

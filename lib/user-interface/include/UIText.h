@@ -10,8 +10,16 @@
 #ifndef UIText_h
 #define UIText_h
 
-#include "UILibrary.pch"
+#include "UIPrefixHeader.pch"
 #include "UITextPartition.h"
+
+
+namespace ui {
+
+inline namespace text {
+    const size_t WIDTH = 80;
+    const uint8_t RESERVE = 5;
+}
 
 
 /*!
@@ -79,5 +87,8 @@ private:
     uint16_t width;
     
 };
+
+
+} /* namespace ui */
 
 #endif /* UIText_h */
