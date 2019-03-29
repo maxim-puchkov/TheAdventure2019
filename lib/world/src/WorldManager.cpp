@@ -5,15 +5,6 @@
 
 WorldManager::WorldManager() {}
 
-
-void WorldManager::printRoomsInArea(Area area) {
-    for(auto& p: area.getRoomList()){
-        std::cout << p.first << " => " << p.second.getName() << ": ";
-        std::cout << p.second.getDescription() << "\n";
-        std::cout <<"\n";
-    }
-}
-
 Room& WorldManager::findRoomByLocation(LocationCoordinates location) {
     if (areas.empty() || location.area == ""){
         throw std::domain_error("Area out of bounds");
@@ -165,3 +156,14 @@ void WorldManager::addArea(Area area){
     areas.insert(std::make_pair(area.getName(), area));
 }
 
+void WorldManager::printRoomsInArea(Area area) {
+    for(auto& p: area.getRoomList()){
+        std::cout << p.first << " => " << p.second.getName() << ": ";
+        std::cout << p.second.getDescription() << "\n";
+        std::cout <<"\n";
+
+        for(auto ext: p.second.getExits()){
+            std::cout << "EXIT NAME: " + ext.getExitName() << " \n";
+        }
+    }
+}

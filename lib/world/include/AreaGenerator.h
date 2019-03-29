@@ -28,6 +28,7 @@ class AreaGenerator {
 
   public:
     Area getArea(std::string filepath, CharacterManager&);
-    std::unordered_map<int,std::pair<std::string,std::string>> getRoomsMap(){return roomsMap;}
+    Area generateExits(Area area);
+
 };
 #endif

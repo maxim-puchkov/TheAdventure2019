@@ -40,17 +40,6 @@ Area AreaGenerator::getArea(std::string filePath, CharacterManager& characterMan
     return area;
 }
 
-void AreaGenerator::generateExitsTo(Area& area){
-    for (auto& room : area.getRoomList()){
-        for(auto& ext : room.second.getExits()) {
-            auto exitLocation = ext.getTargetLocation();
-            auto nextRoom = area.getRoom(exitLocation.room);
-            std::string exitTo = "exit to: " + nextRoom.getName();
-            ext.setExitTargetLocation(exitTo);
-        }
-    }
-}
-
 void AreaGenerator::generateRooms(json rooms, Area& area){
     int count = 0;
     int lastRoomID = 0;
@@ -84,7 +73,7 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
         area.addRoom(roomObj);
         lastRoomID = room["id"];
     }
-    generateExitsTo(area);
+    // generateExitsTo(area);
     area.setNextRoomID(lastRoomID);
     // Updating the Exit Names to the corresponding room they lead to
 }
@@ -142,4 +131,31 @@ void AreaGenerator::generateObjects(json objects, Area& area){
         // std::cout << extra_desc << "\n";
 
     }
+}
+
+void AreaGenerator::generateExitsTo(Area& area){
+    for (auto& room : area.getRoomList()){
+        for(auto& ext : room.second.getExits()) {
+            auto exitLocation = ext.getTargetLocation();
+            auto nextRoom = area.getRoom(exitLocation.room);
+            std::string exitTo = "exit to: " + nextRoom.getName();
+            ext.setExitTargetLocation(exitTo);
+        }
+    }
+}
+
+Area AreaGenerator::generateExits(Area area){
+    for(auto& room :area.getRoomList()){
+        for(auto& ext: room.second.getExits()){
+
+            auto exitID = ext.getTargetLocation().room;
+            ext.getTargetLocation().area = roomsMap[exitID].first;
+            std::string exitName = "exit to, Area: " + roomsMap[exitID].first + " Room: " + roomsMap[exitID].second; 
+            // area.updateRoomExits(exitID,exitName);
+            ext.setExitTargetLocation(exitName);
+            ext.setExitName(exitName);
+            // std::cout<<exitName << " \n";
+        }
+    }
+    return area;
 }

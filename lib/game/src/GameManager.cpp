@@ -10,20 +10,16 @@ GameManager::GameManager() {
         {"../adventure2019/data/world/mirkwood.json",
         "../adventure2019/data/world/shire.json",
         "../adventure2019/data/world/solace.json"};
+    std::vector<Area> areas;
 
     for (auto filePath : areaJSONs){
         auto area = areaGen.getArea(filePath, characterManager);
-        world.addArea(area);
-        // world.printRoomsInArea(area);
+        areas.push_back(area);
     }
-    
-    auto roomsMap = areaGen.getRoomsMap();
-    for(auto elm: roomsMap){
-        auto roomID = elm.first;
-        auto areaName = elm.second.first;
-        auto roomName= elm.second.second;
-        
-        std::cout<<"ID: " << roomID << " Area: " << areaName << " RoomName: " << roomName << "\n"; 
+
+    for(auto& area: areas){
+        area = areaGen.generateExits(area);
+        world.addArea(area);
     }
 
     createTableOfCommands();
