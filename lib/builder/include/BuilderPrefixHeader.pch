@@ -7,8 +7,8 @@
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
 
-#ifndef BuilderPrefixHeader _pch
-#define BuilderPrefixHeader _pch
+#ifndef BuilderPrefixHeader_pch
+#define BuilderPrefixHeader_pch
 
 
 #include <string>
@@ -16,4 +16,4 @@
 #include <utility>
 
 
-#endif /* BuilderPrefixHeader _pch */
+#endif /* BuilderPrefixHeader_pch */
