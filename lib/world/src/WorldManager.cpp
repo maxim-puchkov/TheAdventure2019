@@ -122,16 +122,16 @@ std::string WorldManager::look(LocationCoordinates location, std::string objName
 }
 
 void WorldManager::createRoom(const LocationCoordinates & location, const std::string& direction, const std::string& name) {
-    Room room{name, "Admind generated"};
+    Room room{name, "Admin generated"};
     int roomID = areas[location.area].getNextRoomID();
     room.setRoomID(roomID);
     areas[location.area].addRoom(room);
+    areas[location.area].setNextRoomID(roomID);
 
     std::string exitName = direction; 
     exitName = exitName + " Gate";
     auto& currentRoom = findRoomByLocation(location);
     currentRoom.createExit(exitName, "to Admin Generated Room", direction, location.area, roomID);
-    std::cout << areas.size() << "ROOM is CREATE\n";
 }
 
 int WorldManager::getRoomToSpawnUser() {
