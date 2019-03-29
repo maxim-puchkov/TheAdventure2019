@@ -4,7 +4,7 @@ using namespace std;
 
 
     //Constructors
-    Exit::Exit(const string& exitName, const string& exitDescription, const std::string& cardinalDirection, int areaID, int roomID)
+    Exit::Exit(const string& exitName, const string& exitDescription, const std::string& cardinalDirection, std::string areaID, int roomID)
         : exitName(exitName), exitDescription(exitDescription)
         {
             exitDirection = getCardinalDirection(cardinalDirection);
@@ -77,7 +77,7 @@ using namespace std;
     void Exit::setExitName(const string &exitName) { Exit::exitName = exitName; }
     void Exit::setExitDescription(const string &exitDescription) { Exit::exitDescription = exitDescription; }
     void Exit::setCardinalDirection(Exit::CardinalDirection cardinalDirection) { exitDirection = cardinalDirection; }
-    void Exit::setTargetLocation(int areaID, int roomID) {
+    void Exit::setTargetLocation(std::string areaID, int roomID) {
         LocationCoordinates exitLocation;
         exitLocation.area = areaID;
         exitLocation.room = roomID;

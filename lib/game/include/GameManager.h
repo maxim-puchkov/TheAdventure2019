@@ -9,6 +9,7 @@
 #include "OnlineUserManager.h"
 #include "WorldManager.h"
 #include "CharacterManager.h"
+#include "AreaGenerator.h"
 
 #include "Command.h"
 #include "CommandLogin.h"

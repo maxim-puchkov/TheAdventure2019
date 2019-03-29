@@ -101,3 +101,10 @@ std::vector<std::string> Area::getRoomNameIDListAdmin(){
     }
     return roomIDsNames;
 }
+
+void Area::updateRoomExits(int id, std::string name){
+    for(auto elm: roomList){
+        auto room = elm.second;
+        room.updateExits(id,name);
+    }
+}

@@ -36,7 +36,7 @@ public:
     {}
     LocationCoordinates findExitLocation(const std::string& cardinalDirection) const;
     bool createExit(const std::string& exitName, const std::string& exitDescription,
-                    const std::string& cardinalDirection, int areaID, int roomID);
+                    const std::string& cardinalDirection, std::string areaID, int roomID);
     bool addCharacter(const std::string &userName);
     bool removeCharacter(const std::string &userName);
 
@@ -61,6 +61,8 @@ public:
     bool addNPC(const std::string &name);
     bool removeNPC(const std::string &name);
     std::vector<std::string> getNPCs(){return NPCsInRoom;}
+    void updateExits(int id, std::string name);
+
 
 
 

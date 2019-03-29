@@ -1,5 +1,5 @@
 #include "Room.h"
-
+#include <iostream>
 
 LocationCoordinates Room::findExitLocation(const std::string& direction) const {
 	auto checkDirection = Exit::getCardinalDirection(direction);
@@ -8,7 +8,7 @@ LocationCoordinates Room::findExitLocation(const std::string& direction) const {
 	auto iterator = std::find_if(exitsInRoom.begin(), exitsInRoom.end(),
 			[&] (const Exit& e) { return e.getCardinalDirection() == checkDirection; } );
 
-	LocationCoordinates result{-1,-1}; //returns invalid location if exit doesn't exist
+	LocationCoordinates result{"WRONG AREA",-1}; //returns invalid location if exit doesn't exist
 
 	if(iterator != exitsInRoom.end()){
 		auto index = std::distance(exitsInRoom.begin(), iterator);
@@ -20,7 +20,7 @@ LocationCoordinates Room::findExitLocation(const std::string& direction) const {
 
 
 bool Room::createExit(const std::string& exitName, const std::string& exitDescription,
-					  const std::string& cardinalDirection, int areaID, int roomID) {
+					  const std::string& cardinalDirection, std::string areaID, int roomID) {
 
 	Exit newExit(exitName, exitDescription, cardinalDirection, areaID, roomID);
 	try{
@@ -105,5 +105,12 @@ bool Room::addNPC(const std::string &name){
 	return true;
 }
 
+void Room::updateExits(int id, std::string name){
+	for (auto tmpExit: exitsInRoom){
+		if(tmpExit.getTargetLocation().room == id){
+			tmpExit.setExitName(name);
+		}
+	}
+}
 
 

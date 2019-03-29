@@ -16,11 +16,13 @@ class CharacterManager{
 private:
     std::unordered_map<std::string, Character> onlineCharacters;
     std::vector<Character> computerControlledCharacters;
+    std::vector<Character> NPCs;
+
     Character nullCharacter{""};
     CharacterDB characterDB;
     MiniGameLobby minigameLobby;
     CombatManager combatManager;
-    LocationCoordinates nullLocation{-1, -1};
+    LocationCoordinates nullLocation{"WRONG AREA", -1};
 
     const std::string SHORT_DESC = "shortdesc";
     const std::string LONG_DESC = "longdesc";
@@ -66,6 +68,10 @@ public:
     int getCharacterAttack(const std::string& username);
     int getCharacterHealth(const std::string& username);
 
+    // NPC STUFF
+    void addNPC(Character NPC){
+        NPCs.push_back(NPC);
+    }
 };
 
 }

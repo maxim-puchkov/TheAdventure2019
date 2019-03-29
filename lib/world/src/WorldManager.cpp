@@ -14,31 +14,17 @@ void WorldManager::printRoomsInArea(Area area) {
     }
 }
 
-void WorldManager::generateWorld() {
-
-    // *** AREA GENERATION TEST CODE ***
-    AreaGenerator areaGen;
-    std::string filePath = "mirkwood.json";
-    auto newArea = areaGen.getArea(filePath);
-    //printRoomsInArea(newArea);
-    areas.push_back(newArea);
-
-}
-
 Room& WorldManager::findRoomByLocation(LocationCoordinates location) {
-    if (areas.empty() || location.area < 0 || (unsigned int)location.area >= areas.size()){
+    if (areas.empty() || location.area == ""){
         throw std::domain_error("Area out of bounds");
     }
-
-    auto& areaOfInterest = areas.at((unsigned long)location.area);
-    std::cout << location.room << "\n";
-    // if (areaOfInterest.size() < 1 || location.room < 0 || (unsigned int)location.room >= areaOfInterest.size())
-    if (areaOfInterest.size() < 1 || location.room < 0) {
+    // auto& areaOfInterest = areas.at((unsigned long)location.area);
+    auto search = areas.find(location.area);
+    if (search != areas.end()) {
+        return search->second.getRoom(location.room);
+    }else{
         throw std::domain_error("Room out of bounds");
     }
-
-    // return areaOfInterest.getRoom((unsigned int)location.room);
-    return areaOfInterest.getRoom(location.room);
 }
 
 bool WorldManager::kick(const std::string& characterName, LocationCoordinates location) {
@@ -148,23 +134,25 @@ void WorldManager::createRoom(const LocationCoordinates & location, const std::s
     std::cout << areas.size() << "ROOM is CREATE\n";
 }
 
-void WorldManager::createArea() {
-    Area c("Admin Area", "Generating World");
-    areas.push_back(c);
-}
-
 int WorldManager::getRoomToSpawnUser() {
-    return areas[0].getFirstRoomID();
+    //need to change this to dynamic
+    auto search = areas.find("Mirkwood");
+
+    if(search != areas.end()) {
+        return search->second.getFirstRoomID();
+    }else{
+        return -1;
+    }
 }
 
 std::string WorldManager::worldDetail(LocationCoordinates location) {
     std::string worldDetail = "The world made of: \n";
     for(auto& area : areas) {
         worldDetail += "Area: ";
-        worldDetail += area.getName();
+        worldDetail += area.second.getName();
         worldDetail += "\n";
         worldDetail += "Rooms:\n";
-        auto roomNameIDsList = area.getRoomNameIDListAdmin();
+        auto roomNameIDsList = area.second.getRoomNameIDListAdmin();
         for(auto& room : roomNameIDsList){
             worldDetail += room;
             worldDetail += "\n";
@@ -172,3 +160,8 @@ std::string WorldManager::worldDetail(LocationCoordinates location) {
     }
     return worldDetail;
 }
+void WorldManager::addArea(Area area){
+    // areas.push_back(area);
+    areas.insert(std::make_pair(area.getName(), area));
+}
+

@@ -7,7 +7,7 @@ using boost::bad_lexical_cast;
 
 void CommandLook::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	auto location = characterManager.getCharacterLocation(username);
-    if(location.area == -1) {
+    if(location.area == "") {
         //should not reach here, report error
         return;
     }
