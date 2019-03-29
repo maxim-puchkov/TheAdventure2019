@@ -21,14 +21,12 @@
 
 #include "Keywords.h"
 
-using namespace objects;
 
-inline namespace defaults {
+namespace objects {
+
+inline namespace keywords_defaults {
     const Text SET_DELIMITER = ", ";
 }
-
-
-
 
 
 /* Constructors */
@@ -41,6 +39,35 @@ Keywords::Keywords()
 Keywords::Keywords(const std::vector<Key> &container)
 : set(std::make_move_iterator(container.cbegin()), std::make_move_iterator(container.cend()))
 { }
+
+
+
+
+
+/* ObjectDataStructure Protocol */
+
+string Keywords::toString() const noexcept {
+    // If set is empty, return empty string
+    if (this->empty()) {
+        const Text EmptyText = "";
+        return EmptyText;
+    }
+    
+    // Start from the first keyword
+    auto iterator = this->set.cbegin();
+    std::ostringstream stream;
+    stream << *iterator;
+    iterator++;
+    
+    // Add delimiter and next keyword until the end
+    auto delimiter = SET_DELIMITER;
+    while (iterator != this->set.cend()) {
+        stream << delimiter << *iterator;
+        iterator++;
+    }
+    
+    return stream.str();
+}
 
 
 
@@ -85,34 +112,6 @@ Key Keywords::first() const {
 
 Key Keywords::last() const {
     return *this->set.crbegin();
-}
-
-
-Text Keywords::asString() const {
-    return this->asString(SET_DELIMITER);
-}
-
-
-Text Keywords::asString(const Text &delimiter) const {
-    // If set is empty, return empty string
-    if (this->empty()) {
-        const Text EmptyText = "";
-        return EmptyText;
-    }
-    
-    // Start from the first keyword
-    auto iterator = this->set.cbegin();
-    std::ostringstream oss;
-    oss << *iterator;
-    iterator++;
-    
-    // Add delimiter and next keyword until the end
-    while (iterator != this->set.cend()) {
-        oss << delimiter << *iterator;
-        iterator++;
-    }
-    
-    return oss.str();
 }
 
 
@@ -162,3 +161,13 @@ bool Keywords::operator!=(Keywords &other) const {
 bool Keywords::operator!=(const Keywords &other) const {
     return (this->set != other.set);
 }
+
+
+} /* namespace objects */
+
+// Stream insertion
+//std::ostream& operator<<(std::ostream& stream,
+//                        const Keywords &keywords) {
+//    stream << keywords.asString();
+//    return stream;
+//}

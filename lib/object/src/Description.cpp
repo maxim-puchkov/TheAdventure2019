@@ -8,17 +8,15 @@
 
 #include "Description.h"
 
-using namespace objects;
 
-inline namespace defaults {
+namespace objects {
+
+inline namespace description_defaults {
     const Text EMPTY = "";
     const Text DELIMITER = ", ";
     const Text WS = " ";
-    const uint16_t LINE_WIDTH = 5;
+    const size_t LINE_WIDTH = ui::text::WIDTH;
 }
-
-
-
 
 
 /* Constructors */
@@ -34,9 +32,26 @@ Description::Description(const Text &source)
 }
 
 
+Description::Description(const vector<Text> &source)
+: longdesc(source), source(toString()) {
+    this->shortdesc = this->cut();
+    this->width = this->lineWidth();
+}
+
+
 Description::Description(const Text &source, uint16_t lineWidth)
 : source(source, lineWidth), width(lineWidth) {
     this->init();
+}
+
+
+
+
+
+/* ObjectDataStructure Protocol */
+
+string Description::toString() const noexcept {
+    return this->full();
 }
 
 
@@ -50,7 +65,14 @@ void Description::setWidth(uint16_t width) {
 }
 
 
-// void Description::reformat() { }
+void Description::setBrief(const Text &description) {
+    this->shortdesc = description;
+}
+
+
+void Description::setFull(const vector<Text> &description) {
+    this->longdesc = description;
+}
 
 
 void Description::clear() {
@@ -71,15 +93,27 @@ Text Description::brief() const {
 
 
 Text Description::full() const {
-    std::stringstream ss{""};
-    for (auto &line : this->longdesc) {
-        ss << line << '\n';
+    std::ostringstream stream{""};
+    
+    auto iterator = this->longdesc.cbegin();
+    stream << *iterator;
+    
+    auto end = this->longdesc.cend();
+    for (iterator = iterator + 1; iterator < end; iterator++) {
+        stream << '\n' << *iterator;
     }
-    return ss.str();
+    
+    return stream.str();
 }
+
 
 size_t Description::lineCount() const {
     return this->longdesc.size();
+}
+
+
+size_t Description::lineWidth() const {
+    return this->shortdesc.size();
 }
 
 
@@ -116,88 +150,17 @@ Text Description::operator[](size_t index) const {
 
 void Description::init() {
     this->source.format();
+    std::cout << (this->source.data());
     Lines lines = this->source.arrangedSource();
-    this->shortdesc = lines[0];
+    std::cout << (this->source.arrangedSource().size());
     this->longdesc = lines;
+    this->shortdesc = this->cut();
 }
 
-//TextPartitionUnits Description::textWords() const {
-//    std::stringstream ss(this->source);
-//    return TextPartitionUnits({std::istream_iterator<string>{ss},
-//        std::istream_iterator<string>{}});
-//}
-//
-//
-//Text Description::toString(vector<string> &&words) const {
-//    std::stringstream line(words[0]);
-//    const unsigned long SIZE = words.size();
-//
-//    for (unsigned long i = 1; i < SIZE; i++) {
-//        line << WS << words[i];
-//    }
-//
-//    return line.str();
-//}
-//
-//
-//Text Description::nextLine(TextPartitionUnits &unit) const {
-//
-//    const Text delimiter = WS;
-//    const unsigned long start = unit.index;
-//
-//    std::stringstream output("");
-//    unsigned int length = 0;
-//
-//    if (unit[start].length() > this->width) {
-//        unit.index = unit.max_index;
-//        return EMPTY;
-//    }
-//
-//    for (unsigned long i = unit.index; i < unit.max_index; i++) {
-//        Text word = unit[i];
-//        if (length + word.length() > this->width) {
-//            break;
-//        }
-//
-//        if (i > start) {
-//            output << delimiter;
-//            length += 1;
-//        }
-//
-//        output << word;
-//        length += word.size();
-//        unit.index++;
-//    }
-//
-//    return output.str();
-//}
-//
-//
-//TextPartition Description::partition(TextPartitionUnits &&words) const {
-//
-//    TextPartitionUnits unit(std::move(words));
-//
-//    Lines lines;
-//    lines.reserve(RESERVE);
-//
-//    size_t length = 0;
-//    while (!unit.done()) {
-//        Text line = this->nextLine(unit);
-//        std::cout << "Scanning lines: " << line << '\n';
-//        lines.push_back(line);
-//        length += line.size();
-//    }
-//
-//    TextPartition output({lines, length});
-//
-//
-//    for (auto &l : lines) {
-//        std::cout << "Line: '" << l << "'\n";
-//    }
-//    std::cout << "Line sz = " << lines.size() << '\n';
-//    std::cout << "Length = " << length << '\n';
-//
-//
-//    return output; //  {{""}, 0};
-//
-//}
+
+Text Description::cut() const {
+    return this->longdesc[0];
+}
+
+
+} /* namespace objects */

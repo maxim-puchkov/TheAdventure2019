@@ -11,21 +11,24 @@
 #define Keywords_h
 
 #include "objects.hpp"
+#include "ObjectDataStructure.h"
 
 
 namespace objects {
 
-
 inline namespace structures {
+
 
 /*!
  @struct Keywords
  
  @brief Object's set of keywords
  
+ @helps Object process and use keywords
+ 
  Container and processor of all keywords associated with an object.
  */
-struct Keywords {
+struct Keywords: public ObjectDataStructure<Keywords> {
 public:
     
     /* Constructors */
@@ -38,22 +41,27 @@ public:
     
     
     
+    /* ObjectDataStructure Protocol */
+    
+    string toString() const noexcept override;
+    
+    
+    
+    
+    
     /* Keywords */
     
-    /// All keywords
+    /*! All keywords */
     Set all() const;
     
-    /// First keyword in the set
+    /*! First keyword in the set */
     Key first() const;
     
-    /// Last keyword in the set
+    /*! Last keyword in the set */
     Key last() const;
     
-    /// Convert to text
-    Text asString() const;
-    
     /// Convert to text seperated by delimiter
-    Text asString(const Text &delimiter) const;
+    //Text toString(const Text &delimiter) const;
     
     
     
@@ -61,22 +69,28 @@ public:
     
     /* Set functions */
     
-    /// Insert new keyword
+    /*!
+     Insert new keyword
+     @warning Undefined
+    */
     void insert(); /* undefined */
     
-    /// Erase a keyword
+    /*!
+     Erase a keyword
+     @warning undefined
+     */
     void erase(); /* undefined */
     
-    /// Check if keyword is in the set
+    /*! Check if keyword is in the set */
     bool contains(const Key &key) const;
     
-    /// Check if set is empty
+    /*! Check if set is empty */
     bool empty() const;
     
-    /// Clear set contents
+    /*! Clear set contents */
     void clear();
     
-    /// Current set size
+    /*! Current set size */
     size_t size() const;
     
     
@@ -84,7 +98,8 @@ public:
     
     
     /* Convert */
-    
+
+    /*! Convert to vector of keywords */
     std::vector<Key> toVector() const;
     
     
@@ -105,15 +120,18 @@ public:
     bool operator!=(Keywords &other) const;
     bool operator!=(const Keywords &other) const;
     
+    // Stream insertion
+    // friend std::ostream& operator<<(std::ostream& stream, const ObjectDataStructure *data);
+    
 private:
     
+    /*! Set that contains all of the keywords */
     Set set;
     
 };
 
 
 } /* namespace structures */
-
 
 } /* namespace objects */
 

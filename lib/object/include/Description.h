@@ -10,10 +10,11 @@
 #define Description_h
 
 #include "objects.hpp"
+#include "ObjectDataStructure.h"
+#include "UIText.h" // !
 
 
 namespace objects {
-
 
 inline namespace structures {
 
@@ -21,23 +22,36 @@ inline namespace structures {
 /*!
  @struct Description
  
- @brief Short and long descriptions of an item. If description
-        is a long text, it will be broken down into multiple
-        lines depending on the line width.
+ @brief Short and long descriptions
+ 
+ Brief (short) and full (long) descriptions of an item.
+ If description is too long to fit on a line, it will be
+ broken down into multiple lines depending on the line width.
  */
-struct Description {
+struct Description: public ObjectDataStructure<Description> {
 public:
     
     /* Constructors */
     
-    /// Empty description
+    /*! Empty description */
     Description();
     
-    /// Default constructor
+    /*! Description from text */
     Description(const Text &source);
     
-    /// Description with specified line width
+    /*! Description from multiple text lines */
+    Description(const vector<Text> &source);
+    
+    /*! Description with specified line width */
     Description(const Text &source, uint16_t lineWidth);
+    
+    
+    
+    
+    
+    /* ObjectDataStructure Protocol */
+    
+    string toString() const noexcept override;
     
     
     
@@ -45,13 +59,16 @@ public:
     
     /* Description properties */
     
-    /// Set description line width
+    /*! Set description line width */
     void setWidth(uint16_t width);
     
-    /// Formats description according to line width
-    // void reformat();
+    /*! Overwrite brief description */
+    void setBrief(const Text &description);
     
-    /// Clear all text
+    /*! Overwrite full description */
+    void setFull(const vector<Text> &description);
+    
+    /*! Clear all descriptions */
     void clear();
     
     
@@ -60,14 +77,17 @@ public:
     
     /* Retrieval */
     
-    /// Retrieve short description
+    /*! Retrieve short description */
     Text brief() const;
     
-    /// Retrieve long description
+    /*! Retrieve long description */
     Text full() const;
     
-    /// Retrieve total line count of long description
+    /*! Retrieve total line count of long description */
     size_t lineCount() const;
+    
+    /*! Retrieve width of the first line */
+    size_t lineWidth() const;
     
     
     
@@ -85,6 +105,8 @@ private:
     
     void init();
     
+    Text cut() const;
+    
     /// First line of long description
     Text shortdesc;
     
@@ -93,16 +115,15 @@ private:
     vector<Text> longdesc;
     
     /// Source string is saved to allow reformatting
-    UIText source;
+    ui::UIText source;
     
     /// Width of one line
-    uint16_t width;
+    size_t width;
     
 };
 
 
 } /* namespace structures */
-
 
 } /* namespace objects */
 
