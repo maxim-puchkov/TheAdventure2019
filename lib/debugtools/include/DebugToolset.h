@@ -13,50 +13,72 @@
 #include <iostream>
 #include <string>
 
+
 namespace debug {
 
-/// Format customization
-inline namespace colors {
-    const std::string RED = "\u001b[31m";
-    const std::string RESET = "\u001b[0m";
-}
+using std::string;
+using std::cout;
 
-/// Functionality customization
+
 inline namespace config {
+    
+    inline namespace colors {
+        const string RED = "\u001b[31m";
+        const string RESET = "\u001b[0m";
+    } /* namespace colors */
+    
+    /*! Prefixes all outputted messages */
+    static string PrefixMessage = "Debug";
+
+    /*! Messages will not be displayed if set true */
     static bool silenced = false;
-}
-
-/// Prefixes all outputted messages
-// Message:
-// "    Debug: <parameters>"
-static std::string PrefixMessage = "Debug";
+    
+} /* namespace config */
 
 
 
-/* Debug Toolset */
 
+
+/*! Highlight text */
 static inline void highlight() {
-    std::cout << RED;
+    cout << RED;
 }
 
+
+/*! Reset text format */
 static inline void reset() {
-    std::cout << RESET;
+    cout << RESET;
+}
+
+
+/*! Change prefix message */
+static inline void prefix(const std::string &message) {
+    debug::PrefixMessage = message;
 }
 
 
 /*!
  @function print
- @param ts Variadic generic parameters
+ @param args Variadic generic arguments
  @discussion Universal function to print debug messages. Highlights messages
-             and allows disabling all messages.
+             and allows silencing all messages.
  */
-template<typename ...T>
-static void print(T &&...ts) {
+template<typename ...Arguments>
+static void print(Arguments &&...args) {
+    
+    // Discard all messages if silenced
     if (silenced) { return; }
-    std::cout << '\t' << debug::PrefixMessage << ": ";
+    
+    // Print caller's prefix
+    cout << '\t' << debug::PrefixMessage << ": ";
+    
+    // Highlight and print messages
     highlight();
-    (std::cout << ... << ts) << '\n';
+    (cout << ... << args);
+    
     reset();
+    cout << '\n';
+    
 }
 
 

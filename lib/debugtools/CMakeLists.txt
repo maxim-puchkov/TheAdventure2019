@@ -1,5 +1,5 @@
 add_library(${libdebugtools} SHARED
-  src/DebugToolset.cpp
+    src/DebugToolset.cpp
 )
 
 target_include_directories(${libdebugtools}
