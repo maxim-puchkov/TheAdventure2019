@@ -54,6 +54,13 @@ void Environment<K, V>::bind(const std::pair<const K, V> &binding) {
 
 
 template<class K, class V>
+void Environment<K, V>::bind(const std::pair<const K, V> &&binding) {
+    this->validate(binding.first);
+    this->map.insert(std::move(binding));
+}
+
+
+template<class K, class V>
 void Environment<K, V>::unbind(const K &k) {
     auto it = this->find(k);
     this->map.erase(it);

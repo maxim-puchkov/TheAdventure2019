@@ -58,6 +58,8 @@ public:
     
     void bind(const std::pair<const K, V> &binding);
     
+    void bind(const std::pair<const K, V> &&binding);
+    
     void unbind(const K &k);
     
     void modify(const K &k, const V &v);
