@@ -34,6 +34,7 @@ class Character {
 public:
     
     Character(const std::string &name);
+    ~Character();
     
     //TODO: create control mode interface for combat
     
