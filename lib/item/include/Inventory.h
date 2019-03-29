@@ -14,6 +14,8 @@
 
 namespace items {
 
+using InventorySlot = size_t;
+
 
 /*!
  @class Inventory
@@ -42,6 +44,7 @@ public:
     void add(Identifier id);
     
     void remove(Identifier id);
+    void remove(InventorySlot index);
     
     bool contains(Identifier id) const;
     
@@ -57,7 +60,9 @@ private:
     
     unsigned int capacity;
     
-    Collection items;
+    std::vector<Identifier> items;
+    
+    //Collection items;
     
 };
 

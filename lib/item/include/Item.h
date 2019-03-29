@@ -20,7 +20,7 @@ namespace items {
  
  @brief ...
  */
-class Item : public Object {
+class Item: public Object {
 public:
     
     // using IdentifierTypename = Object::IdentifierTypename;
@@ -28,7 +28,7 @@ public:
     /* Constructors */
     
     // !
-    Item();
+//    Item();
     
     
     /// Default item constructor with identifying keywords,
@@ -38,13 +38,13 @@ public:
          const Actions &actions);
     
     // !
-    Item(Identifier id,
-         const Keywords &keywords,
-         const Description &description,
-         const Actions &actions);
+//    Item(Identifier id,
+//         const Keywords &keywords,
+//         const Description &description,
+//         const Actions &actions);
     
     
-    ~Item();
+    ~Item() override;
 
     
 

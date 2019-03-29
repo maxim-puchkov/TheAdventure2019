@@ -9,13 +9,17 @@
 #include "Object.h"
 
 
-objects::Object::Object() {
+namespace objects {
+
+
+Object::Object() {
     debug::prefix("Object");
     debug::print("Object created.");
 }
 
-
-objects::Object::~Object() {
+Object::~Object() {
     debug::print("Object destroyed.");
 }
 
+
+} /* namespace objects */

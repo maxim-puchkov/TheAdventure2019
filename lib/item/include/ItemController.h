@@ -29,7 +29,7 @@ public:
     { }
     
     Item lookup(Identifier id) {
-        return Item();
+        return Item({}, {}, {{}});
     }
     
     Item create() {

@@ -29,9 +29,9 @@ protected:
         // Initial set up before each test...
         initialized = true;
         
-        string actionKey = "action";
-        string actionDesc = "A description";
-        action = {{actionKey, actionDesc}};
+//        string actionKey = "action";
+//        string actionDesc = "A description";
+//        action = {{actionKey, actionDesc}};
     }
     
     void TearDown() override {
@@ -47,7 +47,7 @@ protected:
     // Extras extras_1;
     // Extras extras_2;
     
-    vector<std::pair<string, string>> action;
+//    vector<std::pair<string, string>> action;
     
 };
 
@@ -59,39 +59,39 @@ protected:
 
 
 
-/* Object Fixture Tests */
-
-// Testing test fixture set up
-TEST_F(ItemTests, FixtureInitialization) {
-    EXPECT_TRUE(initialized);
-}
-
-
-// Testing item default instantiation
-TEST_F(ItemTests, Instantiation) {
-    
-    // Identifier
-    Identifier id = 0;
-    
-    // Keywords
-    string keyword1 = "Item";
-    string keyword2 = "Second keyword";
-    Keywords keywords({keyword1, keyword2});
-    
-    // Item description
-    Description description("Item tests");
-    
-    // Extra actions
-    Actions actions(action);
-    
-    Item item = Item(id, keywords, description, actions);
-    
-    
-    EXPECT_EQ(id, item.id());
-    EXPECT_EQ(keywords, item.keywords);
-    // EXPECT_EQ(actions, item.actions());
-    
-}
+///* Object Fixture Tests */
+//
+//// Testing test fixture set up
+//TEST_F(ItemTests, FixtureInitialization) {
+//    EXPECT_TRUE(initialized);
+//}
+//
+//
+//// Testing item default instantiation
+//TEST_F(ItemTests, Instantiation) {
+//    
+//    // Identifier
+//    Identifier id = 0;
+//    
+//    // Keywords
+//    string keyword1 = "Item";
+//    string keyword2 = "Second keyword";
+//    Keywords keywords({keyword1, keyword2});
+//    
+//    // Item description
+//    Description description("Item tests");
+//    
+//    // Extra actions
+//    Actions actions(action);
+//    
+//    Item item = Item(keywords, description, actions);
+//    
+//    
+//    EXPECT_EQ(id, item.id());
+//    EXPECT_EQ(keywords, item.keywords);
+//    // EXPECT_EQ(actions, item.actions());
+//    
+//}
 
 
 } /* namespace items */

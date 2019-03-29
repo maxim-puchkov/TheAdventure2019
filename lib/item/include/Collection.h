@@ -35,11 +35,11 @@ public:
     
     /* Constructors */
     
-    Collection();
+    //Collection();
     
     ~Collection();
     
-    Collection(const Item &item, unsigned int capacity);
+    Collection(const Item &container, unsigned int capacity);
     
     
     
@@ -94,7 +94,7 @@ public:
     
     
     
-    /* */
+    /* Iterators */
     
     std::set<Identifier>::const_iterator begin() const;
     std::set<Identifier>::const_iterator end() const;

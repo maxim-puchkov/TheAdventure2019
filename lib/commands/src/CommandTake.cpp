@@ -16,16 +16,26 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
     // Then find the actual room...
     auto room = Command::worldManager.findRoomByLocation(location);
     
-    // Get the input keyword
-    auto keyword = fullCommand[0];
-    
-    // Find the object
+    // Keyword is the second element of the vector
+    auto keyword = fullCommand.at(1);
+   
+    // Find the object...
     /*
     if (room.items.contain(itemKeyword)) {
         auto itemIdentifier = room.items.get(keyword));
         Command::characterManager.addItemToCharacter(username, itemIdentifier);
     }
      */
+    
+    
+    
+    /* Debugging */
+    
+    debug::prefix("CommandTake");
+    
+    // Note: location.room actually means the id of the room
+    debug::print("Room: ", room.getName(), " (id: ", location.room, ")");
+    debug::print("Keyword: ", keyword);
     
 }
 

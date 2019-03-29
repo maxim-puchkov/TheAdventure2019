@@ -15,23 +15,26 @@ namespace items {
 
 /* Constructors */
 
-Item::Item()
-{ }
+//Item::Item()
+//{ }
 
 
 Item::Item(const Keywords &keywords,
            const Description &description,
            const Actions &actions)
 : keywords(keywords), description(description), actions(actions)
-{ }
+{
+    debug::prefix("Item");
+    debug::print("Created item (keywords: ", keywords.toString(), "\"");
+}
 
 
-Item::Item(Identifier id,
-           const Keywords &keywords,
-           const Description &description,
-           const Actions &actions)
-: itemID(id), keywords(keywords), description(description), actions(actions)
-{ }
+//Item::Item(Identifier id,
+//           const Keywords &keywords,
+//           const Description &description,
+//           const Actions &actions)
+//: itemID(id), keywords(keywords), description(description), actions(actions)
+//{ }
 
 
 Item::~Item()
@@ -50,7 +53,7 @@ Identifier Item::id() const {
 
 
 Key Item::brief() const {
-    return this->keywords.asString();
+    return this->keywords.toString();
 }
 
 
@@ -91,6 +94,8 @@ Item& Item::operator=(const Item &other) {
 }
 
 } /* namespace items */
+
+
 
 
 

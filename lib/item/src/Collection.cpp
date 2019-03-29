@@ -16,16 +16,16 @@ namespace items {
 
 /* Constructors */
 
-Collection::Collection()
-{ }
+//Collection::Collection()
+//{ }
 
 
 Collection::~Collection()
 { }
 
 
-Collection::Collection(const Item &item, unsigned int capacity)
-: container(item), capacity(capacity) {
+Collection::Collection(const Item &container, unsigned int capacity)
+: container(container), capacity(capacity) {
 //    for (unsigned int i = 0; i < capacity; i++) {
 //        // this->set.insert(Slot(i));
 //    }

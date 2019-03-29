@@ -12,6 +12,7 @@
 namespace items {
 
 inline namespace inventory_defaults {
+    const Identifier EMPTY = 0;
     const unsigned int CAPACITY = 20;
 }
 
@@ -23,13 +24,18 @@ inline namespace inventory_defaults {
 
 
 Inventory::Inventory()
-: capacity(CAPACITY)
+: Inventory(CAPACITY)
 { }
 
 
 Inventory::Inventory(unsigned int capacity)
 : capacity(capacity)
-{ }
+{
+    this->items.reserve(capacity);
+    for (auto &slot : this->items) {
+        slot = EMPTY;
+    }
+}
 
 
 Inventory::~Inventory()
@@ -42,17 +48,22 @@ Inventory::~Inventory()
 /* */
 
 void Inventory::add(Identifier id) {
-    this->items.insert(id);
+    this->items.push_back(id);
 }
 
 
 void Inventory::remove(Identifier id) {
-    this->items.erase(id);
+    //this->items.erase(id);
 }
+    
+    void Inventory::remove(InventorySlot index) {
+        this->items[index] = EMPTY;
+    }
 
 
 bool Inventory::contains(Identifier id) const {
-    return this->items.contains(id);
+    //return this->items.contains(id);
+    return false;
 }
 
 
