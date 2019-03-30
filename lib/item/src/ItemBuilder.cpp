@@ -15,19 +15,13 @@ namespace items {
 
 /* Constructors */
 
-ItemBuilder::ItemBuilder()
-: keywords(Keywords()),
-description(Description()),
-actions(Actions())
-{
-    debug::PrefixMessage = "ItemBuilder";
-    debug::print("Item builder created.");
+ItemBuilder::ItemBuilder() {
+    this->reset();
 }
 
 
-ItemBuilder::~ItemBuilder() {
-    debug::print("Item builder destroyed.");
-}
+ItemBuilder::~ItemBuilder()
+{ }
 
 
 
@@ -61,7 +55,6 @@ void ItemBuilder::addAction(Action &&action) const noexcept {
 /* Create / Reset */
 
 Item ItemBuilder::build(Identifier id) const {
-    debug::print("Creating a new item...");
     Item item(id, keywords, description, actions);
     this->reset();
     return item;
@@ -78,6 +71,23 @@ void ItemBuilder::setDescription(const vector<string> &lines) const noexcept {
 }
 
 
+void ItemBuilder::setItemProperties(const vector<string> &keywords,
+                       const string &description,
+                       const vector<pair<string, string>> &actions) const noexcept {
+    this->keywords = Keywords(keywords);
+    this->description = Description(description);
+    this->actions = Actions(actions);
+}
+
+
+void ItemBuilder::setItemProperties(const Keywords &keywords,
+                       const Description &description,
+                       const Actions &actions) const noexcept {
+    this->keywords = keywords;
+    this->description = description;
+    this->actions = actions;
+}
+
 
 
 
@@ -85,7 +95,7 @@ void ItemBuilder::setDescription(const vector<string> &lines) const noexcept {
 
 void ItemBuilder::clearAll() const {
     this->keywords.clear();
-    this->keywords = DEF_KEYS;
+    this->keywords = EMPTY_KEYS;
     
     this->description.clear();
     this->description = DEF_DESC;

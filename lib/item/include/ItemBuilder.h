@@ -18,8 +18,9 @@ namespace items {
 using builders::Builder;
 
 inline namespace builder_defaults {
-    const Keywords DEF_KEYS{};
-    const Description DEF_DESC{};
+    const Keywords EMPTY_KEYS{};
+    
+    const Description DEF_DESC{"No description"};
     const Actions DEF_ACTS{{}};
 }
 
@@ -76,20 +77,12 @@ public:
     /*! Overload for convenience */
     void setItemProperties(const vector<string> &keywords,
                            const string &description,
-                           const vector<pair<string, string>> &actions) const noexcept {
-        this->keywords = Keywords(keywords);
-        this->description = Description(description);
-        this->actions = Actions(actions);
-    }
+                           const vector<pair<string, string>> &actions) const noexcept;
 
     /*! Overload for convenience */
     void setItemProperties(const Keywords &keywords,
                            const Description &description,
-                           const Actions &actions) const noexcept {
-        this->keywords = keywords;
-        this->description = description;
-        this->actions = actions;
-    }
+                           const Actions &actions) const noexcept;
     
 private:
     

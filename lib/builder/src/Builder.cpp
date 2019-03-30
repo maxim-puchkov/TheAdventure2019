@@ -10,12 +10,9 @@
 #include "Builder.h"
 
 
-builders::Builder::Builder() {
-    debug::prefix("Builder");
-    debug::print("Builder created.");
-}
+builders::Builder::Builder()
+{ }
 
 
-builders::Builder::~Builder() {
-    debug::print("Builder destroyed.");
-}
+builders::Builder::~Builder()
+{ }
