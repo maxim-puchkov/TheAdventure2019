@@ -119,10 +119,17 @@ void WorldManager::createRoom(const LocationCoordinates & location, const std::s
     areas[location.area].addRoom(room);
     areas[location.area].setNextRoomID(roomID);
 
-    std::string exitName = direction; 
-    exitName = exitName + " Gate";
     auto& currentRoom = findRoomByLocation(location);
-    currentRoom.createExit(exitName, "to Admin Generated Room", direction, location.area, roomID);
+    currentRoom.createExit("-1", "to Admin Generated Room", direction, location.area, roomID);
+    auto& exitList = currentRoom.getExits();
+    for(auto& ext : exitList) {
+        if(ext.getExitName() == "-1"){
+            std::string exitName = "exit to, Area: " + location.area;
+            exitName += " Room: " + name;
+            ext.setExitTargetLocation(exitName);
+            break;
+        }
+    }
 }
 
 int WorldManager::getRoomToSpawnUser() {
@@ -152,7 +159,6 @@ std::string WorldManager::worldDetail(LocationCoordinates location) {
     return worldDetail;
 }
 void WorldManager::addArea(Area area){
-    // areas.push_back(area);
     areas.insert(std::make_pair(area.getName(), area));
 }
 
