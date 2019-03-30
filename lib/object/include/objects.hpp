@@ -25,24 +25,21 @@ namespace objects {
 
 /*! Type aliases */
 inline namespace typenames {
-    
-    
     using Identifier = uint64_t;
     using Key = string;
     using Text = string;
     using Set = std::set<Key>;
     using Lines = vector<Text>;
-
-
-    /*! Forward data classes declarations */
-    inline namespace data {
-        class Keywords;
-        class Description;
-        class Actions;
-    } /* namespace data */
-    
-    
 } /* namespace typenames */
+
+
+
+/*! Forward data classes declarations */
+inline namespace data {
+    class Keywords;
+    class Description;
+    class Actions;
+} /* namespace data */
 
 
 } /* namespace objects */

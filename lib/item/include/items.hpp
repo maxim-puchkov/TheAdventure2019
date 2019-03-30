@@ -23,6 +23,7 @@ namespace items {
 
 
 using namespace objects::typenames;
+using namespace objects::data;
 
 using objects::Object;
 
