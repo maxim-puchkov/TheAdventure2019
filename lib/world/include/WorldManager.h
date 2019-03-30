@@ -14,10 +14,22 @@
 #include "Room.h"
 #include "Character.h"
 #include "LocationCoordinates.h"
+#include "Authenticator.h"
+#include "ItemController.h"
+#include "Item.h"
+
+using auth::Authenticator;
+using items::ItemController;
+using ID = unsigned long long;
+
 
 class WorldManager {
 private:
     std::vector<Area> areas;
+    
+    /*! Uniquely identifies contents of the world */
+    const Authenticator<ID> auth;
+    
 public:
     WorldManager();
     void generateWorld();
@@ -33,6 +45,9 @@ public:
     LocationCoordinates move(const std::string& characterName, LocationCoordinates location, const std::string& direction) ;
     std::string look(LocationCoordinates location) ;
     std::string look(LocationCoordinates location, std::string objName) ;
+    
+    /*! All items are created and stored in the item controller */
+    const ItemController items;
 };
 
 
