@@ -21,8 +21,6 @@ namespace objects {
  
  @brief Convert object's properties
  
- @templatefield T Property Class
- 
  Protocol for all object's properties. Keywords, Description
  and Actions can be converted and serialized.
  */

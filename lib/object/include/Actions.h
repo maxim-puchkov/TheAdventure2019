@@ -55,13 +55,12 @@ private:
 
 
 /*!
- @struct Actions
+ @class Actions
  
  @brief All object's action keywords and their descriptions
  
  Environment mapping action's keyword to its description.
  
- @example
  If an object in a room has Action("sign", "This is a room..."), then, when
  character types "examine sign", message "This is a room..." will be displayed
  

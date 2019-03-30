@@ -11,6 +11,7 @@
 #ifndef Inventory_h
 #define Inventory_h
 
+#include "ItemController.h"
 #include "Collection.h" // !
 
 

@@ -20,7 +20,7 @@ inline namespace data {
 
 
 /*!
- @struct Keywords
+ @class Keywords
  
  @brief Object's set of keywords
  
