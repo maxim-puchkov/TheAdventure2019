@@ -52,13 +52,14 @@ Text Item::toString() const {
     ostringstream stream{""};
     const char NL = '\n';
     const char TAB = '\t';
+    const string DELIM = {NL, TAB};
     
-    stream << "Item (" << NL;
-    stream << TAB << "id: " << this->id << "," << NL;
-    stream << TAB << "keywords: {" << this->keywords.toString() << "}," << NL;
-    stream << TAB << "description: " << this->description.toString() << "," << NL;
-    stream << TAB << "actions: {" << this->actions.toString() << "}," << NL;
-    stream << ")" << NL;
+    stream << "Item (" << DELIM;
+    stream << "id: " << this->id << "," << DELIM;
+    stream << "keywords: {" << this->keywords.toString() << "}," << DELIM;
+    stream << "description: " << this->description.toString() << "," << DELIM;
+    stream << "actions: {" << this->actions.toString() << "}," << NL;
+    stream << ")";
     
     return stream.str();
 }

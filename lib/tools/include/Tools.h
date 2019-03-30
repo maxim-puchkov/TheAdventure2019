@@ -33,12 +33,14 @@ inline namespace configuration {
     } /* namespace colors */
     
     
-    /*! Prefixes all outputted messages */
-    static string PrefixMessage = "Debug";
-    
-    
     /*! Messages will not be displayed if set true */
     static bool silenced = false;
+    
+    /*! */
+    static bool DefaultHighlight = true;
+    
+    /*! Prefixes all outputted messages */
+    static string PrefixMessage = "Debug";
     
     
 } /* namespace config */
@@ -57,14 +59,8 @@ static inline void reset() {
 }
 
 
-/*! Change prefix message */
-static inline void prefix(const string &message) {
-    debug::PrefixMessage = message;
-}
-
-
 /*! Configure message highlight color */
-static inline void highlight(bool enable) {
+static inline void enableHighlight(bool enable) {
     if (enable) {
         HIGHLIGHT_COLOR = RED;
         HIGHLIGHT_RESET = RESET;
@@ -75,9 +71,16 @@ static inline void highlight(bool enable) {
 }
 
 
+/*! Change prefix message */
+static inline void prefix(const string &message) {
+    debug::PrefixMessage = message;
+    debug::enableHighlight(DefaultHighlight);
+}
+
+
 static inline void config(const string &message, bool enable) {
     debug::prefix(message);
-    debug::highlight(enable);
+    debug::enableHighlight(enable);
 }
 
 

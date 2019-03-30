@@ -28,7 +28,7 @@ Action::Action(const string &keyword, const vector<string> &longdesc)
 : keyword(keyword), description(Description(longdesc))
 { }
 
-pair<Key, Description> Action::toPair() {
+inline pair<Key, Description> Action::toPair() {
     return {keyword, description};
 }
 
