@@ -22,18 +22,29 @@
 #ifndef Authentication_h
 #define Authentication_h
 
-#include "auth.hpp"
+
+#include <stdint.h>
+#include <utility>
 
 
 namespace auth {
 
 
+/*!
+ @class Authenticator
+ 
+ @brief Generate unique identifiers.
+ 
+ If only one Authenticator is used, all generated identifiers will
+ be universally unique. Class was initially designed to identify
+ all of: characters, rooms, and objects.
+ */
 template<typename T>
 class Authenticator {
 public:
     
-    /*! Initial identifier */
-    const T initial;
+    /*! Authenticator's identificator (initial) */
+    const T id;
     
     /* */
     Authenticator()
@@ -42,13 +53,12 @@ public:
     
     
     Authenticator(T initial)
-    : initial(initial), current(initial) {
-        debug::prefix("Auth");
-        debug::print("Authenticator created.");
-    }
+    : id(initial), current(initial)
+    { }
     
     
-    T generateUniqueIdentifier() const {
+    /*! Identificators are generated incrementaly */
+    T generateUniqueidentificator() const {
         return ++this->current;
     }
     
