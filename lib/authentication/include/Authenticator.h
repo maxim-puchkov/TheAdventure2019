@@ -26,27 +26,31 @@
 
 
 namespace auth {
-//inline namespace control {
+
 
 template<typename T>
 class Authenticator {
 public:
     
-    /// Initial identifier
+    /*! Initial identifier */
     const T initial;
     
-    /// Default constructor
-    Authenticator();
+    /* */
+    Authenticator()
+    : Authenticator(0)
+    { }
     
-    /// Parameterized constructor
-    Authenticator(T initial);
     
-    ///
-    T generate_unique_identifier();
+    Authenticator(T initial)
+    : initial(initial), current(initial) {
+        debug::prefix("Auth");
+        debug::print("Authenticator created.");
+    }
     
-    /// Identify any type by a assigning a unique identifier
-    //    template<typename Instance>
-    //    void identify(Instance &&instance);
+    
+    T generateUniqueIdentifier() {
+        return ++this->current;
+    }
     
 private:
     
@@ -54,7 +58,7 @@ private:
 
 };
 
-//}
+
 }
 
 #endif /* Authentication_h */

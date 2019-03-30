@@ -25,22 +25,22 @@
 namespace auth {
 
 
-template<typename T>
-Authenticator<T>::Authenticator()
-: initial(0), current(0)
-{ }
-
-
-template<typename T>
-Authenticator<T>::Authenticator(T initial)
-: initial(initial), current(initial)
-{ }
-
-
-template<typename T>
-T Authenticator<T>::generate_unique_identifier() {
-    return ++this->current;
-}
+//template<typename T>
+//Authenticator<T>::Authenticator()
+//: initial(0), current(0)
+//{ }
+//
+//
+//template<typename T>
+//Authenticator<T>::Authenticator(T initial)
+//: initial(initial), current(initial)
+//{ }
+//
+//
+//template<typename T>
+//T Authenticator<T>::generate_unique_identifier() {
+//    return ++this->current;
+//}
     
 //template<typename IdentifierTypename>
 //Authenticator<IdentifierTypename>::Authenticator()

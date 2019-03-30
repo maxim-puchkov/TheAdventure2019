@@ -11,14 +11,12 @@
 #ifndef Auth_h
 #define Auth_h
 
-#include "AuthenticationLibrary.pch"
+#include "AuthenticationPrefixHeader.pch"
+#include "Tools.h"
 
 
-/**
- @namespace auth
- 
- @brief Library scope declaration
- */
+
+/*! Authentication Library scope type definitions */
 namespace auth {
 
 
@@ -26,14 +24,6 @@ inline namespace defaults {
     using Identifier = uint64_t;
 }
 
-
-
-inline namespace control {
-
-template<typename T = Identifier>
-class Identity;
-
-}
 
 }
 
