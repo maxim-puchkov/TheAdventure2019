@@ -45,14 +45,22 @@ public:
     /*! Unique identifier assigned to this object */
     virtual Identifier identifier() const = 0;
     
+    
     /*! Display item's short description */
     virtual Text brief() const = 0;
+    
+    
+    /*! Examine an action to see its description */
+    virtual Text examine(const Key &keyword) const = 0;
+    
     
     /*! Represent this object as string */
     virtual Text toString() const = 0;
     
-    /*! Examine an action to see its description */
-    virtual Text examine(const Key &keyword) const = 0;
+    
+    /*! Check if object has additional actions */
+    virtual bool isInteractable() const = 0;
+    
     
 };
 

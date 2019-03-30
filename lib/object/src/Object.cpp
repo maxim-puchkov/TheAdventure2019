@@ -12,14 +12,12 @@
 namespace objects {
 
 
-Object::Object() {
-    debug::prefix("Object");
-    debug::print("Object created.");
-}
+Object::Object()
+{ }
 
-Object::~Object() {
-    debug::print("Object destroyed.");
-}
+
+Object::~Object()
+{ }
 
 
 } /* namespace objects */
