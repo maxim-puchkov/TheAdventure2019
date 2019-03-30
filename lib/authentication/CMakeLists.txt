@@ -11,6 +11,7 @@ target_include_directories(${libauthentication}
 )
 
 target_link_libraries(${libauthentication}
+    ${libtools}
 	${libenvironment}
 )
 

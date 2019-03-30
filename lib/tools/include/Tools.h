@@ -1,5 +1,5 @@
 //
-//  DebugToolset.h
+//  Tools.h
 //  adventure2019: adventure2019
 //  com.maximpuchkov.Faworki.adventure2019.Debugger
 //
@@ -7,8 +7,8 @@
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
 
-#ifndef DebugToolset_h
-#define DebugToolset_h
+#ifndef Tools_h
+#define Tools_h
 
 #include <iostream>
 #include <string>
@@ -20,40 +20,64 @@ using std::string;
 using std::cout;
 
 
-inline namespace config {
+inline namespace configuration {
+    
     
     inline namespace colors {
+        static string HIGHLIGHT_COLOR;
+        static string HIGHLIGHT_RESET;
+        
         const string RED = "\u001b[31m";
         const string RESET = "\u001b[0m";
+        const string NONE = "";
     } /* namespace colors */
+    
     
     /*! Prefixes all outputted messages */
     static string PrefixMessage = "Debug";
-
+    
+    
     /*! Messages will not be displayed if set true */
     static bool silenced = false;
+    
     
 } /* namespace config */
 
 
 
-
-
 /*! Highlight text */
 static inline void highlight() {
-    cout << RED;
+    cout << HIGHLIGHT_COLOR;
 }
 
 
 /*! Reset text format */
 static inline void reset() {
-    cout << RESET;
+    cout << HIGHLIGHT_RESET;
 }
 
 
 /*! Change prefix message */
-static inline void prefix(const std::string &message) {
+static inline void prefix(const string &message) {
     debug::PrefixMessage = message;
+}
+
+
+/*! Configure message highlight color */
+static inline void highlight(bool enable) {
+    if (enable) {
+        HIGHLIGHT_COLOR = RED;
+        HIGHLIGHT_RESET = RESET;
+    } else {
+        HIGHLIGHT_COLOR = NONE;
+        HIGHLIGHT_RESET = NONE;
+    }
+}
+
+
+static inline void config(const string &message, bool enable) {
+    debug::prefix(message);
+    debug::highlight(enable);
 }
 
 
@@ -84,4 +108,4 @@ static void print(Arguments &&...args) {
 
 } /* namespace debug */
 
-#endif /* DebugToolset_h */
+#endif /* Tools_h */

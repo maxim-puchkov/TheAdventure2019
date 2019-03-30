@@ -1,6 +1,6 @@
 add_library(${libobject} SHARED
 	src/Object.cpp
-    src/ObjectDataStructure.cpp
+    src/ObjectData.cpp
 	src/Keywords.cpp
 	src/Description.cpp
     src/Actions.cpp
@@ -18,7 +18,7 @@ target_link_libraries(${libobject}
 	${libauthentication}
     ${libenvironment}
     ${libUserInterface}
-    ${libdebugtools}
+    ${libtools}
 )
 
 set_target_properties(${libobject}

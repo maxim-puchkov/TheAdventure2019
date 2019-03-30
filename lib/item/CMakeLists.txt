@@ -19,7 +19,7 @@ target_link_libraries(${libitem}
     ${libenvironment}
     ${libbuilder}
     ${libobject}
-    ${libdebugtools}
+    ${libtools}
 )
 
 set_target_properties(${libitem}
