@@ -71,7 +71,7 @@ gatherheaderdoc:
   script:
     - find . -regex '.*\.h'
     - find lib -regex '.*\.h'
-    - sh bin/headerdoc2html doc/.HeaderDoc/ $(find lib -regex '.*\.h')
+    - echo 'sh bin/headerdoc2html doc/.HeaderDoc/ $(find lib -regex '.*\.h')'
   allow_failure: true
   only:
     - docs
