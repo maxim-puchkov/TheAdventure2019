@@ -59,6 +59,7 @@ vector<Identifier> Inventory::all() const noexcept {
 
 void Inventory::add(Identifier id) noexcept {
     debug::print("Adding item's id ", id);
+    //debug::print(lookup(id).toString());
     this->items.push_back(id);
 }
 

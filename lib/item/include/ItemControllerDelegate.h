@@ -11,4 +11,10 @@
 #define ItemControllerDelegate_h
 
 
+class ItemControllerDelegate: public ItemController {
+    
+    
+    
+};
+
 #endif /* ItemControllerDelegate_h */
