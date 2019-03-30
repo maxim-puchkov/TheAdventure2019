@@ -91,7 +91,14 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::ERROR, "error");
     generateDefaultStrings(Internationalization::STRING_CODE::PLEASE_TRY_AGAIN, "please_try_again");
     generateDefaultStrings(Internationalization::STRING_CODE::FAILED_TO_FIND_WITH_NAME, "failed_to_find_with_name");
-    
+
+    generateDefaultStrings(Internationalization::STRING_CODE::ROUND_TIME_START, "round_time_start");
+    generateDefaultStrings(Internationalization::STRING_CODE::YOU_ATTACKED, "you_attacked");
+    generateDefaultStrings(Internationalization::STRING_CODE::FOR, "for");
+    generateDefaultStrings(Internationalization::STRING_CODE::YOU_WERE_ATTACKED_FOR, "you_were_attacked_for");
+    generateDefaultStrings(Internationalization::STRING_CODE::CURRENT_HP, "current_hp");
+    generateDefaultStrings(Internationalization::STRING_CODE::ROUND_TIME_NOT_EXPIRING, "round_time_not_expiring");
+    generateDefaultStrings(Internationalization::STRING_CODE::NOT_IN_COMBAT, "not_in_combat");
 }
 
 void Internationalization::generateDefaultStrings(Internationalization::STRING_CODE codeName, const std::string& defaultString) {

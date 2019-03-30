@@ -76,7 +76,15 @@ class Internationalization {
        
        ERROR,
        PLEASE_TRY_AGAIN,
-       FAILED_TO_FIND_WITH_NAME
+       FAILED_TO_FIND_WITH_NAME,
+
+       ROUND_TIME_START,
+       YOU_ATTACKED,
+       FOR,
+       YOU_WERE_ATTACKED_FOR,
+       CURRENT_HP,
+       ROUND_TIME_NOT_EXPIRING,
+       NOT_IN_COMBAT
     };
 
   private:

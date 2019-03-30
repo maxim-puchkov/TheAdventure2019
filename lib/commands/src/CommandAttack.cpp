@@ -2,6 +2,8 @@
 #include <boost/algorithm/string.hpp>
 #include <iostream>
 
+using internationalization::Internationalization;
+
 void CommandAttack::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
     auto& combatManager = characterManager.getCombatManager();
     auto& currentCombat = combatManager.getCombatWithPlayer(username);
@@ -9,21 +11,29 @@ void CommandAttack::executeInHeartbeat(const std::string& username, const std::v
     if(currentCombat.hasPlayer(username)){
 
         if(currentCombat.getRoundTime() <= 0){
-            cerr << "round time 0, executing attack\n";
+            cerr << stringManager.getString(Internationalization::STRING_CODE::ROUND_TIME_START);
             auto attackValue = characterManager.getCharacterAttack(username);
             auto opponentName = currentCombat.getOpponent(username);
             characterManager.damageCharacter(opponentName, attackValue);
-            onlineUserManager.addMessageToUser(username, "You attacked " + opponentName + " for " + std::to_string(attackValue) + ".\n");
+            onlineUserManager.addMessageToUser(username,
+                                               stringManager.getString(Internationalization::STRING_CODE::YOU_ATTACKED) + 
+                                               opponentName + 
+                                               stringManager.getString(Internationalization::STRING_CODE::FOR) + 
+                                               std::to_string(attackValue) + 
+                                               ".\n");
             onlineUserManager.addMessageToUser(opponentName,
-                    "You were attacked for " + std::to_string(attackValue) +
-                    ".\nCurrent HP: " + std::to_string(characterManager.getCharacterHealth(opponentName)) + "\n");
+                                               stringManager.getString(Internationalization::STRING_CODE::YOU_WERE_ATTACKED_FOR) + 
+                                               std::to_string(attackValue) +
+                                               stringManager.getString(Internationalization::STRING_CODE::CURRENT_HP) + 
+                                               std::to_string(characterManager.getCharacterHealth(opponentName)) + 
+                                               "\n");
         } else {
-            cerr << "round time not expired, queuing attack\n";
+            cerr << stringManager.getString(Internationalization::STRING_CODE::ROUND_TIME_NOT_EXPIRING);
             currentCombat.queueCommand(username, "attack");
         }
 
     } else { //player is not in a combat
-        onlineUserManager.addMessageToUser(username, "You are not in combat with anyone!\n");
+        onlineUserManager.addMessageToUser(username, stringManager.getString(Internationalization::STRING_CODE::NOT_IN_COMBAT));
     }
 }
 

@@ -55,5 +55,12 @@
 	"said":{"string": "said"},
 	"told":{"string": "told"},
 	"yelled":{"string": "yelled"},
-	"failed_to_find_with_name":{"string": "Failed to find online user with name: "}
+	"failed_to_find_with_name":{"string": "Failed to find online user with name: "},
+	"round_time_start":{"string": "round time 0, executing attack\n"},
+	"you_attacked":{"string": "You attacked "},
+	"for":{"string": " for "},
+	"you_were_attacked_for":{"string": "You were attacked for "},
+	"current_hp":{"string": ".\nCurrent HP: "},
+	"round_time_not_expiring":{"string": "round time not expired, queuing attack\n"},
+	"not_in_combat":{"string": "You are not in combat with anyone!\n"}
 }
