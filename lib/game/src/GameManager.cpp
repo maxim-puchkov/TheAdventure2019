@@ -1,9 +1,15 @@
 #include "GameManager.h"
 #include <boost/algorithm/string.hpp>
 
+using logger::Logger;
+
 GameManager::GameManager() {
     worldManager.generateWorld();
     createTableOfCommands();
+
+    //create log file
+    Logger log = Logger();
+    log.init();
 }
 
 void GameManager::createTableOfCommands() {
@@ -81,6 +87,9 @@ void GameManager::createTableOfCommands() {
 }
 
 std::string GameManager::extractCommands(const std::string& connectionID, std::string fullCommand) {
+    Logger log = Logger();
+    log.write(logger::Logger::LOG_TYPE::INFO, fullCommand);
+
 	auto found = tableOfCommands.find(extractKeyword(fullCommand));
     
     if(found != tableOfCommands.end()) {

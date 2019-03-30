@@ -21,6 +21,7 @@ target_link_libraries(${libgame}
     ${libcommands}
     ${libcombat}
     ${libstrings}
+    ${liblogging}
 )
 
 set_target_properties(${libgame}

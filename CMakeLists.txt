@@ -8,6 +8,8 @@ set(PACKAGE_STRING "${PACKAGE_NAME} ${PACKAGE_VERSION}")
 set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
 
 
+ADD_DEFINITIONS(-DBOOST_LOG_DYN_LINK)
+
 # Declare new libraries here. Other CMakeLists
 #   will not need changes.
 # Or search for ${libNAME} to quickly find all
@@ -25,6 +27,7 @@ set(libcharacterdb "characterDB")
 set(libminigame "minigame")
 set(libcombat "combat")
 set(libstrings "strings")
+set(liblogging "logging")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-rtti")
@@ -33,7 +36,7 @@ set(CMAKE_CXX_FLAGS_DEBUG
     "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -fsanitize=address,undefined -fno-omit-frame-pointer")
 set(CMAKE_CXX_FLAGS_RELEASE
     "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra  -Wstrict-aliasing -pedantic -Werror -Wunreachable-code -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option")
-
+set (CMAKE_CXX_FLAGS "-g -Wall -DBOOST_LOG_DYN_LINK")
 
 # cmake -DCMAKE_BUILD_TYPE=RELEASE ../adventure2019
 message("")

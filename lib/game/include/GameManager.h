@@ -10,6 +10,7 @@
 #include "WorldManager.h"
 #include "CharacterManager.h"
 #include "Internationalization.h"
+#include "Logger.h"
 
 #include "Command.h"
 #include "CommandLogin.h"
