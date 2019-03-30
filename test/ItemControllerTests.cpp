@@ -27,7 +27,7 @@ protected:
         initialized = true;
         
         // temp
-        controller = Itemcontroller(auth);
+        controller = ItemController(auth);
        // auth(0);
     }
     
