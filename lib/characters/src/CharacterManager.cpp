@@ -152,3 +152,15 @@ int CharacterManager::getCharacterHealth(const std::string& username){
 }
 
 
+
+
+
+
+
+
+
+
+Inventory CharacterManager::getCharacterInventory(const std::string& username) {
+    auto found = onlineCharacters.find(username);
+    return found->second.getInventory();
+}
