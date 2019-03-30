@@ -43,13 +43,24 @@ Identifier Item::identifier() const {
 }
 
 
-Key Item::brief() const {
+Text Item::brief() const {
     return this->keywords.toString();
 }
 
 
 Text Item::toString() const {
-    return this->description.full();
+    ostringstream stream{""};
+    const char NL = '\n';
+    const char TAB = '\t';
+    
+    stream << "Item (" << NL;
+    stream << TAB << "id: " << this->id << "," << NL;
+    stream << TAB << "keywords: {" << this->keywords.toString() << "}," << NL;
+    stream << TAB << "description: " << this->description.toString() << "," << NL;
+    stream << TAB << "actions: {" << this->actions.toString() << "}," << NL;
+    stream << ")" << NL;
+    
+    return stream.str();
 }
 
 

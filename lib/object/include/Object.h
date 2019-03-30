@@ -46,7 +46,7 @@ public:
     virtual Identifier identifier() const = 0;
     
     /*! Display item's short description */
-    virtual Key brief() const = 0;
+    virtual Text brief() const = 0;
     
     /*! Represent this object as string */
     virtual Text toString() const = 0;

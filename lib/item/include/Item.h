@@ -51,12 +51,12 @@ public:
     Identifier identifier() const override;
     
     /*! Display item's short description */
-    Key brief() const override;
+    Text brief() const override;
     
     /*! Represent this object as string */
     Text toString() const override;
     
-    /*! Examine an action to see its description */
+    /*! Examine an action to see its description @warning undefined */
     Text examine(const Key &keyword) const override;
     
     

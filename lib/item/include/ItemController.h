@@ -31,8 +31,8 @@ public:
     : builder(ItemBuilder())
     { }
     
-    Item lookup(Identifier id) {
-        return Item(0, {}, {}, {{}});
+    Item lookup(Identifier id) const noexcept(false) {
+        return this->env.lookup(id);
     }
     
     Item create() {
@@ -52,7 +52,7 @@ public:
 protected:
     
     
-    bool exists(Identifier id) {
+    bool exists(Identifier id) const noexcept {
         return this->env.exists(id);
     }
     

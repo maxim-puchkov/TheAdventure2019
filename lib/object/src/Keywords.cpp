@@ -55,7 +55,7 @@ string Keywords::toString() const noexcept {
     
     // Start from the first keyword
     auto iterator = this->set.cbegin();
-    std::ostringstream stream;
+    ostringstream stream;
     stream << *iterator;
     iterator++;
     

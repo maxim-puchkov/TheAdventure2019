@@ -58,7 +58,7 @@ Actions::Actions(const vector<pair<string, string>> &actions)
 /* ObjectData Protocol */
 
 string Actions::toString() const noexcept {
-    std::ostringstream stream{""};
+    ostringstream stream{""};
     
     auto iterator = this->env.begin();
     stream << (*iterator).first;

@@ -98,7 +98,7 @@ Text Description::brief() const {
 
 
 Text Description::full() const {
-    std::ostringstream stream{""};
+    ostringstream stream{""};
     
     auto iterator = this->longdesc.cbegin();
     stream << *iterator;
