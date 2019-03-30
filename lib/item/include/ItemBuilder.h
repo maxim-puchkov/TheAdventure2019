@@ -72,7 +72,25 @@ public:
     
     /*! Overload for convenience */
     void setDescription(const vector<string> &lines) const noexcept;
+    
+    /*! Overload for convenience */
+    void setItemProperties(const vector<string> &keywords,
+                           const string &description,
+                           const vector<pair<string, string>> &actions) const noexcept {
+        this->keywords = Keywords(keywords);
+        this->description = Description(description);
+        this->actions = Actions(actions);
+    }
 
+    /*! Overload for convenience */
+    void setItemProperties(const Keywords &keywords,
+                           const Description &description,
+                           const Actions &actions) const noexcept {
+        this->keywords = keywords;
+        this->description = description;
+        this->actions = actions;
+    }
+    
 private:
     
     /*! Clear builder's settings and reset to default value */

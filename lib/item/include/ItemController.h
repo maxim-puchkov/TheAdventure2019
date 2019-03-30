@@ -11,6 +11,7 @@
 #define ItemController_h
 
 #include "Item.h"
+#include "ItemSearchKey.h"
 #include "ItemBuilder.h"
 #include "Authenticator.h"
 
@@ -19,7 +20,8 @@ namespace items {
 
 using auth::Authenticator;
 
-// IC
+
+/// IC
 class ItemController {
 public:
     
@@ -32,18 +34,34 @@ public:
     
     //template<typename T>
     //ItemController(Authenticator<T> &&auth)
-    ItemController(Authenticator<Identifier> &&auth)
+    ItemController(const Authenticator<Identifier> &auth)
     : authenticator(auth), builder(ItemBuilder())
     { }
     
     
     Item lookup(Identifier id) const noexcept(false) {
-        return this->env.lookup(id);
+        return this->env.lookup({id, {}});
     }
     
     
     bool exists(Identifier id) const noexcept {
-        return this->env.exists(id);
+        return this->env.exists({id, {}});
+    }
+    
+    
+    bool exists(Keywords &&keywords) const noexcept {
+        return this->env.exists({0, keywords});
+    }
+    
+    vector<Identifier> search(string &&keyword) const {
+        vector<Identifier> vec;
+        for (auto element : this->env) {
+            ItemSearchKey key = element.first;
+            if (key.keywords.contains(keyword)) {
+                vec.push_back(key.id);
+            }
+        }
+        return vec;
     }
     
     
@@ -53,7 +71,7 @@ public:
         Item item = this->builder.build(id);
         
         // 
-        this->env.bind(id, item);
+        this->env.bind({id, item.keywords}, item);
         return item;
     }
     
@@ -62,7 +80,7 @@ public:
     
 private:
     
-    mutable Environment<Identifier, Item> env;
+    mutable Environment<ItemSearchKey, Item> env;
     
     const Authenticator<Identifier> authenticator;
     

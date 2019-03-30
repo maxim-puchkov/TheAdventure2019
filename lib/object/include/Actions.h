@@ -73,6 +73,8 @@ public:
     
     Actions(const vector<pair<string, string>> &actions);
     
+    Actions(vector<Action> &actions);
+    
     
     
     

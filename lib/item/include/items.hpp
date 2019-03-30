@@ -22,8 +22,12 @@ using std::ostringstream;
 namespace items {
 
 
-using namespace objects::typenames;
-using namespace objects::data;
+namespace typenames = objects::typenames;
+namespace data = objects::data;
+
+
+using namespace typenames;
+using namespace data;
 
 using objects::Object;
 

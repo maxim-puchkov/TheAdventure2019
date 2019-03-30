@@ -51,6 +51,13 @@ Actions::Actions(const vector<pair<string, string>> &actions)
     }
 }
 
+Actions::Actions(vector<Action> &actions)
+: env(Environment<Key, Description>{}) {
+    for (auto &action : actions) {
+        this->add(std::forward<Action>(action));
+    }
+}
+
 
 
 

@@ -106,7 +106,7 @@ namespace std {
 
 
 size_t hash<Item>::operator()(const Item &item) const {
-    return hash<unsigned long>{}(item.identifier());
+    return hash<items::Identifier>{}(item.identifier());
 }
 
 
