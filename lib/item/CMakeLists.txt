@@ -3,6 +3,7 @@ add_library(${libItem} SHARED
     src/ItemBuilder.cpp
     src/Collection.cpp
     src/Inventory.cpp
+    src/ItemSearchKey.cpp
     src/ItemController.cpp
 )
 
