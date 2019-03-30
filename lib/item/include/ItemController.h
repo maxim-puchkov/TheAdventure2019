@@ -10,16 +10,19 @@
 #ifndef ItemController_h
 #define ItemController_h
 
-#include "Builder.h"
 #include "Item.h"
 #include "ItemBuilder.h"
+#include "Authenticator.h"
 
 
 namespace items {
 
+using auth::Authenticator;
 
+// IC
 class ItemController {
 public:
+    
     
     const ItemBuilder builder;
     
@@ -33,12 +36,38 @@ public:
     }
     
     Item create() {
-        return this->builder.build();
+        // Generate unique id and create item
+        Identifier id = this->authenticator.generateUniqueIdentifier();
+        Item item = this->builder.build(id);
+        
+        // 
+        this->env.bind(id, item);
+        return item;
     }
+    
+    
+    
+    
+    
+protected:
+    
+    
+    bool exists(Identifier id) {
+        return this->env.exists(id);
+    }
+    
+    
+
+    
+    
+    Environment<Identifier, Item> env;
+    
     
 private:
     
-    Environment<Identifier, Item *> env;
+    
+    Authenticator<Identifier> authenticator;
+    
     
 };
 
