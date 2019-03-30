@@ -11,7 +11,6 @@
 #include "gmock/gmock.h"
 
 #include "Item.h"
-#include "ItemBuilder.h"
 #include "Inventory.h"
 
 
@@ -28,7 +27,6 @@ protected:
         // Initial set up before each test...
         initialized = true;
         
-//        inventory = Inventory();
 //        builder = ItemBuilder();
     }
     
@@ -41,10 +39,8 @@ protected:
     
     
     /* * *         Variables        * * */
-//    Inventory inventory;
-//    
-//    ItemBuilder builder;
     
+    Inventory inventory = Inventory();
     
 };
 
@@ -56,54 +52,75 @@ protected:
 
 
 
-///* Inventory Fixture Tests */
-//
-//// Testing test fixture set up
-//TEST_F(InventoryTests, FixtureInitialization) {
-//    EXPECT_TRUE(initialized);
-//}
-//
-//
-//// Testing instantiation
-//TEST_F(InventoryTests, Instantiation) {
-//    Inventory test_inventory = Inventory();
-//    EXPECT_EQ(0, inventory.size());
-//}
-//
-//
-//// Testing add function
-//TEST_F(InventoryTests, Add) {
-//
-//    // Build an item
-//    builder.setKeywords({"sword", "slot 1"});
-//    builder.setDescription("Testing Inventory");
-//    Item sword = builder.build();
-//
-//    // Add its identifier to inventory
-//    inventory.add(sword.id());
-//    EXPECT_EQ(1, inventory.size());
-//
-//}
-//
-//
-//// Testing add function
-//TEST_F(InventoryTests, Remove) {
-//
-//    // Build an item
-//    builder.setKeywords({"sword", "slot 1"});
-//    builder.setDescription("Testing Inventory");
-//    Item sword = builder.build();
-//
-//    // Add its identifier to inventory
-//    Identifier id = sword.id();
-//    inventory.add(id);
-//    EXPECT_EQ(1, inventory.size());
-//
-//    // Then remove it
-//    inventory.remove(id);
-//    EXPECT_EQ(0, inventory.size());
-//
-//}
+/* Inventory Fixture Tests */
+
+// Testing test fixture set up
+TEST_F(InventoryTests, FixtureInitialization) {
+    EXPECT_TRUE(initialized);
+}
+
+
+// Testing instantiation
+TEST_F(InventoryTests, Instantiation) {
+    Inventory test_inventory = Inventory();
+    EXPECT_EQ(0, inventory.size());
+}
+
+
+// Testing add function
+TEST_F(InventoryTests, Add) {
+    Identifier id = 0;
+    inventory.add(id);
+    // EXPECT_EQ(id, inventory[0]);
+    EXPECT_EQ(1, inventory.size());
+}
+
+
+/* Remove not implemented */
+// Testing add function
+TEST_F(InventoryTests, DISABLED_Remove) {
+    // Add identifier to inventory
+    Identifier id = 0;
+    inventory.add(id);
+    // EXPECT_EQ(id, inventory[0]);
+    EXPECT_EQ(1, inventory.size());
+    
+    // Then remove it
+    inventory.remove(id);
+    EXPECT_EQ(0, inventory.size());
+}
+    
+    
+    
+    TEST_F(InventoryTests, DISABLED_Contains) {
+        Identifier id = 0;
+        EXPECT_FALSE(inventory.contains(id));
+        
+        inventory.add(id);
+        EXPECT_TRUE(inventory.contains(id));
+        
+        inventory.remove(id);
+        EXPECT_FALSE(inventory.contains(id));
+    }
+
+    
+    
+    TEST_F(InventoryTests, Order) {
+        const int size = 3;
+        Identifier ids[size] = {1, 2, 3};
+        
+        for (auto id : ids) {
+            inventory.add(id);
+        }
+        
+        EXPECT_EQ(size, inventory.size());
+        
+//        for (auto id : inventory) {
+//            EXPECT_EQ();
+//        }
+        
+        
+    }
 
 
 } /* namespace items */
