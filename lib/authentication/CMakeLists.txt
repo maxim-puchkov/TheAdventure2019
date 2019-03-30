@@ -1,8 +1,8 @@
-add_library(${libauthentication} SHARED
+add_library(${libAuthentication} SHARED
 	src/Authenticator.cpp
 )
 
-target_include_directories(${libauthentication}
+target_include_directories(${libAuthentication}
   PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -10,18 +10,18 @@ target_include_directories(${libauthentication}
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(${libauthentication}
-    ${libtools}
+target_link_libraries(${libAuthentication}
+    ${libTools}
 	${libenvironment}
 )
 
-set_target_properties(${libauthentication}
+set_target_properties(${libAuthentication}
     PROPERTIES
     COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
 )
 
-install(TARGETS ${libauthentication}
+install(TARGETS ${libAuthentication}
     LIBRARY DESTINATION lib
 )

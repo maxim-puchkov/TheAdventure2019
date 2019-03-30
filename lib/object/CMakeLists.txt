@@ -1,4 +1,4 @@
-add_library(${libobject} SHARED
+add_library(${libObject} SHARED
 	src/Object.cpp
     src/ObjectData.cpp
 	src/Keywords.cpp
@@ -6,7 +6,7 @@ add_library(${libobject} SHARED
     src/Actions.cpp
 )
 
-target_include_directories(${libobject}
+target_include_directories(${libObject}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -14,20 +14,20 @@ target_include_directories(${libobject}
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(${libobject}
-	${libauthentication}
+target_link_libraries(${libObject}
+	${libAuthentication}
     ${libenvironment}
     ${libUserInterface}
-    ${libtools}
+    ${libTools}
 )
 
-set_target_properties(${libobject}
+set_target_properties(${libObject}
     PROPERTIES
     COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
 )
 
-install(TARGETS ${libobject}
+install(TARGETS ${libObject}
     LIBRARY DESTINATION lib
 )

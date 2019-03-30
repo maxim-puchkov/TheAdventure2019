@@ -19,9 +19,10 @@ target_link_libraries(runAllTests
   world
   parsers
   userdb
-    ${libauthentication}
-    ${libbuilder} ${libobject}
-    ${libitem}
+  ${libAuthentication}
+  ${libBuilder}
+  ${libObject}
+  ${libItem}
 )
 
 set_target_properties(runAllTests

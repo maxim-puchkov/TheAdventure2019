@@ -1,4 +1,4 @@
-add_library(${libitem} SHARED
+add_library(${libItem} SHARED
     src/Item.cpp
     src/ItemBuilder.cpp
     src/Collection.cpp
@@ -6,7 +6,7 @@ add_library(${libitem} SHARED
     src/ItemController.cpp
 )
 
-target_include_directories(${libitem}
+target_include_directories(${libItem}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -14,21 +14,21 @@ target_include_directories(${libitem}
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(${libitem}
-    ${libauthentication}
+target_link_libraries(${libItem}
+    ${libAuthentication}
     ${libenvironment}
-    ${libbuilder}
-    ${libobject}
-    ${libtools}
+    ${libBuilder}
+    ${libObject}
+    ${libTools}
 )
 
-set_target_properties(${libitem}
+set_target_properties(${libItem}
     PROPERTIES
     COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
 )
 
-install(TARGETS ${libitem}
+install(TARGETS ${libItem}
     LIBRARY DESTINATION lib
 )

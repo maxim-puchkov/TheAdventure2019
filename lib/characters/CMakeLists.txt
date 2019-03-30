@@ -14,7 +14,7 @@ target_include_directories(${libcharacters}
 
 target_link_libraries(${libcharacters}
     ${libworld}
-    ${libitem}
+    ${libItem}
     ${libcharacterdb}
     ${libminigame}
     ${libcombat}
