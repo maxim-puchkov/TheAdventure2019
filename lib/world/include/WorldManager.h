@@ -5,11 +5,6 @@
 #ifndef WEBSOCKETNETWORKING_WORLDMANAGER_H
 #define WEBSOCKETNETWORKING_WORLDMANAGER_H
 
-#include <string>
-#include <vector>
-#include <memory>
-#include <exception>
-#include <cstdlib> //std::rand
 #include "Area.h"
 #include "Room.h"
 #include "Character.h"
@@ -20,7 +15,7 @@
 
 using auth::Authenticator;
 using items::ItemController;
-using ID = unsigned long long;
+using ID = uint64_t;
 
 
 class WorldManager {
