@@ -64,8 +64,8 @@ vector<string> UIText::arrangedSource() const {
 /* * *   Private   * * */
 
 UITextPartition UIText::words() const {
-    std::stringstream ss(this->source);
-    return UITextPartition({std::istream_iterator<string>{ss},
+    std::istringstream stream(this->source);
+    return UITextPartition({std::istream_iterator<string>{stream},
         std::istream_iterator<string>{}});
 }
 
@@ -74,7 +74,7 @@ string UIText::nextLine(UITextPartition &partition) const {
     const char delimiter = ' ';
     const unsigned long start = partition.index();
 
-    std::stringstream output("");
+    std::ostringstream output("");
     unsigned int length = 0;
 
     if (partition[start].length() > this->width) {
