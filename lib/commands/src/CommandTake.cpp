@@ -10,22 +10,28 @@ using boost::bad_lexical_cast;
 // Execute command
 void CommandTake::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
     
-    // Find where character is
+    // Find character's location
     auto location = Command::characterManager.getCharacterLocation(username);
     
-    // Then find the actual room...
+    // Then find the actual room
     auto room = Command::worldManager.findRoomByLocation(location);
     
     // Keyword is the second element of the vector
     auto keyword = fullCommand.at(1);
-   
-    // Find the object...
-    /*
-    if (room.items.contain(itemKeyword)) {
-        auto itemIdentifier = room.items.get(keyword));
-        Command::characterManager.addItemToCharacter(username, itemIdentifier);
+    
+    // Find all items matching this keyword
+    // Searching whole world because rooms don't have items
+    auto ids = Command::worldManager.items.search(std::move(keyword));
+    
+    if (ids.size() == 1) {
+        // If there is exactly one item matching
+        auto itemID = ids[0];
+        auto inventory = Command::characterManager.getCharacterInventory(username);
+        inventory.add(itemID);
+    } else {
+        // Else two or more items have the same keyword...
     }
-     */
+    
     
     
     
@@ -35,7 +41,10 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
     
     // Note: location.room actually means the id of the room
     debug::print("Room: ", room.getName(), " (id: ", location.room, ")");
-    debug::print("Keyword: ", keyword);
+    debug::print("Keyword: ", keyword, '\n');
+    
+    debug::print("Found ", ids.size(), " items matching the keyword");
+
     
 }
 
