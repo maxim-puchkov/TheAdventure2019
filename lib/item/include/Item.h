@@ -15,7 +15,7 @@
 namespace items {
 
 
-/**
+/*!
  @class Item
  
  @brief ...
@@ -23,68 +23,67 @@ namespace items {
 class Item: public Object {
 public:
     
-    // using IdentifierTypename = Object::IdentifierTypename;
-    
-    /* Constructors */
-    
-    // !
-//    Item();
+    /*! Unique identifier */
+    const Identifier id;
     
     
-    /// Default item constructor with identifying keywords,
-    /// item description, and additional actions.
-    Item(const Keywords &keywords,
+    /*!
+     Item constructor for building game items
+     
+     @param keywords    Set of identifying keywords
+     @param description Item description text
+     @param actions     Actions associated with this item
+     */
+    Item(Identifier id,
+         const Keywords &keywords,
          const Description &description,
          const Actions &actions);
     
-    // !
-//    Item(Identifier id,
-//         const Keywords &keywords,
-//         const Description &description,
-//         const Actions &actions);
-    
-    
     ~Item() override;
-
     
-
-    /* Mutable Structures */
-    
-    /// Set of keywords describing this item
-    Keywords keywords;
-    
-    /// Formatted description text
-    Description description;
-    
-    /// Interactable actions
-    Actions actions;
     
     
     
     
     /* Object interface */
     
-    /// Retrieve object ID
-    Identifier id() const override;
+    /*! Unique identifier assigned to this object */
+    Identifier identifier() const override;
     
-    /// Display item's first keyword
+    /*! Display item's short description */
     Key brief() const override;
     
-    /// Display detailed info
+    /*! Represent this object as string */
     Text toString() const override;
     
-    /// Examine an Extra attribute of an item
+    /*! Examine an action to see its description */
     Text examine(const Key &keyword) const override;
     
     
     
     
     
-    /* Mutators */
+    /* Item data */
+    
+    /*! Set of keywords describing this item */
+    Keywords keywords;
+    
+    /*! Formatted description text */
+    Description description;
+    
+    /*! Interactable actions */
+    Actions actions;
+    
+    
+    
+    
+    
+    /* Modifiers */
     
     void setIdentifier(Identifier identifier) {
-        this->itemID = identifier;
+        // this->itemID = identifier;
     }
+    
     
     
     
@@ -92,14 +91,9 @@ public:
     /* Operators */
     
     Item& operator=(Item &other);
-    
     Item& operator=(const Item &other);
     
-    
-
 private:
-    
-    Identifier itemID;
     
 };
 

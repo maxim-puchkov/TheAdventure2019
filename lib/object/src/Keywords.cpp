@@ -44,7 +44,7 @@ Keywords::Keywords(const std::vector<Key> &container)
 
 
 
-/* ObjectDataStructure Protocol */
+/* ObjectData Protocol */
 
 string Keywords::toString() const noexcept {
     // If set is empty, return empty string
@@ -69,7 +69,9 @@ string Keywords::toString() const noexcept {
     return stream.str();
 }
 
-
+vector<string> Keywords::toVector() const noexcept {
+    return {this->set.cbegin(), this->set.cend()};
+}
 
 
 
@@ -118,17 +120,6 @@ Key Keywords::last() const {
 
 
 
-/* Convert */
-
-std::vector<Key> Keywords::toVector() const {
-    return {this->set.cbegin(), this->set.cend()};
-}
-
-
-
-
-
-
 /* Operators */
 
 // Assignment
@@ -164,6 +155,15 @@ bool Keywords::operator!=(const Keywords &other) const {
 
 
 } /* namespace objects */
+
+
+
+
+
+
+
+
+
 
 // Stream insertion
 //std::ostream& operator<<(std::ostream& stream,

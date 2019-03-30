@@ -16,8 +16,6 @@
 #include "Object.h"
 #include "Item.h"
 
-// using namespace objects;
-
 
 namespace items {
 
@@ -63,7 +61,7 @@ public:
     /* Object Interface */
 
     /// Retrieve object ID
-    Identifier id() const override;
+    Identifier identifier() const override;
     
     /// Display item's first keyword
     Key brief() const override;

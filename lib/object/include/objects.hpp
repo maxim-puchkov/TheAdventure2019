@@ -11,11 +11,12 @@
 #define objects_hpp
 
 #include "ObjectPrefixHeader.pch"
-#include "DebugToolset.h"
+#include "Tools.h"
 
 using std::string;
 using std::vector;
 using std::pair;
+using std::ostringstream;
 
 
 /*! Object Library scope type definitions */
@@ -24,21 +25,24 @@ namespace objects {
 
 /*! Type aliases */
 inline namespace typenames {
+    
+    
     using Identifier = uint64_t;
     using Key = string;
     using Text = string;
     using Set = std::set<Key>;
     using Lines = vector<Text>;
+
+
+    /*! Forward data classes declarations */
+    inline namespace data {
+        class Keywords;
+        class Description;
+        class Actions;
+    } /* namespace data */
+    
+    
 } /* namespace typenames */
-
-
-
-/*! Forward data structure declarations */
-inline namespace structures {
-    struct Keywords;
-    struct Description;
-    struct Actions;
-} /* namespace structures */
 
 
 } /* namespace objects */

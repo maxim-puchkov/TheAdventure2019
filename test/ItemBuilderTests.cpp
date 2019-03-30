@@ -57,6 +57,7 @@ TEST_F(ItemBuilderTests, TestInitialization) {
 TEST_F(ItemBuilderTests, Build) {
 
     // Variable input
+    Identifier id = 1;
     vector<string> keys{"sword", "rare"};
     Text description = "Testing Construction";
     vector<pair<string, string>> actions{{"action", "examining action"}};
@@ -66,11 +67,11 @@ TEST_F(ItemBuilderTests, Build) {
     constructor.setKeywords(keys);
     constructor.setDescription(description);
     constructor.setActions(actions);
-    Item sword = constructor.build();
+    Item sword = constructor.build(id);
 
     
     // Test main object properties
-    EXPECT_NE(0, sword.id());
+    EXPECT_EQ(id, sword.id);
     EXPECT_EQ(Keywords(keys), sword.keywords);
     EXPECT_EQ(Description(description), sword.description);
     EXPECT_EQ(Actions(actions), sword.actions);

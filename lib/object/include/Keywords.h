@@ -11,12 +11,12 @@
 #define Keywords_h
 
 #include "objects.hpp"
-#include "ObjectDataStructure.h"
+#include "ObjectData.h"
 
 
 namespace objects {
 
-inline namespace structures {
+inline namespace data {
 
 
 /*!
@@ -28,7 +28,7 @@ inline namespace structures {
  
  Container and processor of all keywords associated with an object.
  */
-struct Keywords: public ObjectDataStructure<Keywords> {
+class Keywords: public ObjectData<Keywords> {
 public:
     
     /* Constructors */
@@ -41,9 +41,11 @@ public:
     
     
     
-    /* ObjectDataStructure Protocol */
+    /* ObjectData Protocol */
     
     string toString() const noexcept override;
+    
+    vector<string> toVector() const noexcept override;
     
     
     
@@ -59,9 +61,6 @@ public:
     
     /*! Last keyword in the set */
     Key last() const;
-    
-    /// Convert to text seperated by delimiter
-    //Text toString(const Text &delimiter) const;
     
     
     
@@ -97,15 +96,6 @@ public:
     
     
     
-    /* Convert */
-
-    /*! Convert to vector of keywords */
-    std::vector<Key> toVector() const;
-    
-    
-    
-    
-    
     /* Operators */
     
     // Assignment
@@ -121,7 +111,7 @@ public:
     bool operator!=(const Keywords &other) const;
     
     // Stream insertion
-    // friend std::ostream& operator<<(std::ostream& stream, const ObjectDataStructure *data);
+    // friend std::ostream& operator<<(std::ostream& stream, const ObjectData *data);
     
 private:
     

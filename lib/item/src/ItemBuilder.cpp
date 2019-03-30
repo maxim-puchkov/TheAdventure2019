@@ -7,7 +7,7 @@
 //
 
 #include "ItemBuilder.h"
-#include "DebugToolset.h"
+#include "Tools.h"
 
 
 namespace items {
@@ -27,24 +27,6 @@ actions(Actions())
 
 ItemBuilder::~ItemBuilder() {
     debug::print("Item builder destroyed.");
-}
-
-
-
-
-
-/* Create / Reset */
-
-Item ItemBuilder::build() const {
-    debug::print("Creating a new item...");
-    Item item(keywords, description, actions);
-    this->reset();
-    return item;
-}
-
-
-void ItemBuilder::reset() const noexcept {
-     this->clearAll();
 }
 
 
@@ -76,6 +58,26 @@ void ItemBuilder::addAction(Action &&action) const noexcept {
 
 
 
+/* Create / Reset */
+
+Item ItemBuilder::build(Identifier id) const {
+    debug::print("Creating a new item...");
+    Item item(id, keywords, description, actions);
+    this->reset();
+    return item;
+}
+
+
+void ItemBuilder::reset() const noexcept {
+    this->clearAll();
+}
+
+
+void ItemBuilder::setDescription(const vector<string> &lines) const noexcept {
+    this->description = Description(lines);
+}
+
+
 
 
 
@@ -83,8 +85,13 @@ void ItemBuilder::addAction(Action &&action) const noexcept {
 
 void ItemBuilder::clearAll() const {
     this->keywords.clear();
+    this->keywords = DEF_KEYS;
+    
     this->description.clear();
+    this->description = DEF_DESC;
+    
     this->actions.clear();
+    this->actions = DEF_ACTS;
 }
 
 

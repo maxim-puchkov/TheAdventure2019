@@ -17,60 +17,74 @@ namespace items {
 
 using builders::Builder;
 
+inline namespace builder_defaults {
+    const Keywords DEF_KEYS{};
+    const Description DEF_DESC{};
+    const Actions DEF_ACTS{{}};
+}
 
-/**
+
+/*!
  @class ItemBuilder (IB)
  
- @brief Constructs items with keywords, descriptions,
-        and extra commands
+ @brief Creates items with keywords, descriptions, and additional actions
  */
 class ItemBuilder: public Builder {
 public:
     
     /* Constructors */
     
+    /*! ItemBuilder constructor */
     ItemBuilder();
     
+    /*! ItemBuilder destructor */
     ~ItemBuilder() override;
 
     
     
     
     
-    /* Create / Reset */
+    /* Builder Interface */
     
-    /// Create an item with current settings
-    Item build() const;
-
-    /// Reset current item settings
+    /*! Reset current item settings */
     void reset() const noexcept override;
     
-    
-    
-    
-    
-    /* Set item's properties */
-
-    // Set item's unique keywords
+    /*! Set item's unique keywords */
     void setKeywords(const vector<string> &keywords) const noexcept override;
-
-    // Set item's description text
+    
+    /*! Set item's description text */
     void setDescription(const string &text) const noexcept override;
     
-    // Set item's interactable actions
+    /*! Set item's interactable actions */
     void setActions(const vector<pair<string, string>> &actions) const noexcept override;
     
-    /// Add a new action
+    
+    
+    
+    
+    /* Item Builder */
+    
+    /*! Build using specified keywords, descriptions, and actions */
+    Item build(Identifier id) const;
+
+    /*! Add a new action */
     void addAction(Action &&action) const noexcept;
+    
+    /*! Overload for convenience */
+    void setDescription(const vector<string> &lines) const noexcept;
 
 private:
     
-    /// Clear all data members and reset to default value
+    /*! Clear builder's settings and reset to default value */
     void clearAll() const;
+    
+    
     
     /* Item's data members */
     mutable Keywords keywords;
+    
     mutable Description description;
+    
     mutable Actions actions;
     
 };

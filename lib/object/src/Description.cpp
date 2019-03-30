@@ -48,10 +48,15 @@ Description::Description(const Text &source, uint16_t lineWidth)
 
 
 
-/* ObjectDataStructure Protocol */
+/* ObjectData Protocol */
 
 string Description::toString() const noexcept {
     return this->full();
+}
+
+
+vector<string> Description::toVector() const noexcept {
+    return this->longdesc;
 }
 
 
@@ -150,10 +155,10 @@ Text Description::operator[](size_t index) const {
 
 void Description::init() {
     this->source.format();
-    std::cout << (this->source.data());
+    
     Lines lines = this->source.arrangedSource();
-    std::cout << (this->source.arrangedSource().size());
     this->longdesc = lines;
+    
     this->shortdesc = this->cut();
 }
 

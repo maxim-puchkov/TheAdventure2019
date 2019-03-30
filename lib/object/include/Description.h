@@ -10,17 +10,17 @@
 #define Description_h
 
 #include "objects.hpp"
-#include "ObjectDataStructure.h"
+#include "ObjectData.h"
 #include "UIText.h" // !
 
 
 namespace objects {
 
-inline namespace structures {
+inline namespace data {
 
 
 /*!
- @struct Description
+ @class Description
  
  @brief Short and long descriptions
  
@@ -28,7 +28,7 @@ inline namespace structures {
  If description is too long to fit on a line, it will be
  broken down into multiple lines depending on the line width.
  */
-struct Description: public ObjectDataStructure<Description> {
+class Description: public ObjectData<Description> {
 public:
     
     /* Constructors */
@@ -49,9 +49,11 @@ public:
     
     
     
-    /* ObjectDataStructure Protocol */
+    /* ObjectData Protocol */
     
     string toString() const noexcept override;
+    
+    vector<string> toVector() const noexcept override;
     
     
     

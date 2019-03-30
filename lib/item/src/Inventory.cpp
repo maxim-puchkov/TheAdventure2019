@@ -14,7 +14,7 @@
 namespace items {
 
 inline namespace inventory_defaults {
-    const Identifier EMPTY = 0;
+    //const Identifier EMPTY = 0;
     const unsigned int MAX_CAPACITY = 20;
 }
 
@@ -29,6 +29,7 @@ Inventory::Inventory()
 Inventory::Inventory(unsigned int max_capacity)
 : max_capacity(max_capacity)
 {
+    debug::prefix("Inventory");
     this->items.reserve(max_capacity);
 //    for (auto &slot : this->items) {
 //        slot = EMPTY;
@@ -57,6 +58,7 @@ vector<Identifier> Inventory::all() const noexcept {
 
 
 void Inventory::add(Identifier id) noexcept {
+    debug::print("Adding item's id ", id);
     this->items.push_back(id);
 }
 

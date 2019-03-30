@@ -21,9 +21,11 @@ namespace objects {
 
 
 /*!
-    @class Object
+ @class Object
  
-    @brief Interactable game object interface
+ @brief Interactable game object interface
+ 
+ Every object has Keywords, Description, and Actions.
  */
 class Object {
 public:
@@ -36,19 +38,18 @@ public:
     
     
     
+    
+    
     /* Object Interface */
     
-    /*! Retrieve object ID */
-    virtual Identifier id() const = 0;
-    
+    /*! Unique identifier assigned to this object */
+    virtual Identifier identifier() const = 0;
     
     /*! Display item's short description */
     virtual Key brief() const = 0;
     
-    
     /*! Represent this object as string */
     virtual Text toString() const = 0;
-    
     
     /*! Examine an action to see its description */
     virtual Text examine(const Key &keyword) const = 0;

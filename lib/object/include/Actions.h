@@ -11,24 +11,24 @@
 #define Actions_h
 
 #include "objects.hpp"
-#include "ObjectDataStructure.h"
+#include "ObjectData.h"
 #include "Description.h"
 #include "Environment.h"
 
 
 namespace objects {
 
-inline namespace structures {
+inline namespace data {
 
 
 /*!
- @struct Action
+ @class Action
  
  @brief Stores keyword and description of a single action
  
  @helper Helps constructing object's Actions environment
  */
-struct Action {
+class Action {
 public:
     
     Action(const string &keyword, const string &desc);
@@ -67,7 +67,7 @@ private:
  
  @warning Structure may be changed later
  */
-struct Actions: public ObjectDataStructure<Actions> {
+class Actions: public ObjectData<Actions> {
 public:
     
     Actions();
@@ -78,9 +78,11 @@ public:
     
     
     
-    /* ObjectDataStructure Protocol */
+    /* ObjectData Protocol */
     
     string toString() const noexcept override;
+    
+    vector<string> toVector() const noexcept override;
     
     
     

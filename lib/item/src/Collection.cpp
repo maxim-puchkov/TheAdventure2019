@@ -38,7 +38,7 @@ Collection::Collection(const Item &container, unsigned int capacity)
 
 /* Object interface */
 
-Identifier Collection::id() const {
+Identifier Collection::identifier() const {
     return this->collectionID;
 }
 
@@ -49,20 +49,19 @@ Key Collection::brief() const {
 
 
 Text Collection::toString() const {
-    std::stringstream ss(this->keywords.first());
+    ostringstream stream{""};
     const char NL = '\n';
     const char TAB = '\t';
     
-    
-    ss << NL;
+    stream << this->keywords.first();
+    stream << NL;
     for (auto &itemID : this->set) {
-        ss << TAB << itemID << NL;
+        stream << TAB << itemID << NL;
     }
     
-    ss << "Total size: " << this->size();
+    stream << "Total size: " << this->size();
     
-    
-    return ss.str();
+    return stream.str();
     
 }
 
@@ -82,7 +81,7 @@ Text Collection::examine(const Key &keyword) const {
 /* Set operations */
 
 bool Collection::insert(const Item &item) {
-    return this->set.insert(item.id()).second;
+    return this->set.insert(item.identifier()).second;
 }
 
 bool Collection::insert(Identifier id) {
@@ -91,8 +90,8 @@ bool Collection::insert(Identifier id) {
 
 
 bool Collection::erase(const Item &item) {
-    bool valid = (this->set.find(item.id()) != this->set.cend());
-    this->set.erase(item.id());
+    bool valid = (this->set.find(item.identifier()) != this->set.cend());
+    this->set.erase(item.identifier());
     return valid;
 }
 

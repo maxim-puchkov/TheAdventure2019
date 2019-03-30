@@ -12,14 +12,20 @@
 
 #include "Object.h"
 
+using std::string;
+using std::vector;
+using std::pair;
+using std::ostringstream;
+
 
 /*! Item Library scope type definitions */
 namespace items {
 
+
 using namespace objects::typenames;
-using namespace objects::structures;
 
 using objects::Object;
+
 
 } /* namespace items */
 

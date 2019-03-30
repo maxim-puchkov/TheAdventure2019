@@ -55,7 +55,7 @@ Actions::Actions(const vector<pair<string, string>> &actions)
 
 
 
-/* ObjectDataStructure Protocol */
+/* ObjectData Protocol */
 
 string Actions::toString() const noexcept {
     std::ostringstream stream{""};
@@ -71,6 +71,16 @@ string Actions::toString() const noexcept {
     }
     
     return stream.str();
+}
+
+
+vector<string> Actions::toVector() const noexcept {
+    vector<string> vec = {};
+    for (auto &bind : this->env) {
+        vec.push_back(bind.first);
+        vec.push_back(bind.second.toString());
+    }
+    return vec;
 }
 
 

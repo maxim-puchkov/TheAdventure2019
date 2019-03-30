@@ -15,30 +15,21 @@ namespace items {
 
 /* Constructors */
 
-//Item::Item()
-//{ }
-
-
-Item::Item(const Keywords &keywords,
+Item::Item(Identifier id,
+           const Keywords &keywords,
            const Description &description,
            const Actions &actions)
-: keywords(keywords), description(description), actions(actions)
+: id(id), keywords(keywords), description(description), actions(actions)
 {
     debug::prefix("Item");
-    debug::print("Created item (keywords: ", keywords.toString(), "\"");
+    debug::print("Created item (keywords: {", keywords.toString(), "}, actions: {", actions.toString(), "})");
 }
 
 
-//Item::Item(Identifier id,
-//           const Keywords &keywords,
-//           const Description &description,
-//           const Actions &actions)
-//: itemID(id), keywords(keywords), description(description), actions(actions)
-//{ }
-
-
-Item::~Item()
-{ }
+Item::~Item() {
+    debug::print("Item destroyed (id: ", id,
+                 ", keywords: {", keywords.toString(), "})");
+}
 
 
 
@@ -47,8 +38,8 @@ Item::~Item()
 
 /* Object Interface */
 
-Identifier Item::id() const {
-    return this->itemID;
+Identifier Item::identifier() const {
+    return this->id;
 }
 
 
@@ -77,7 +68,7 @@ Text Item::examine(const Key &keyword) const {
 /* Operators */
 
 Item& Item::operator=(Item &other) {
-    this->itemID = other.id();
+    //this->itemID = other.identifier();
     this->keywords = other.keywords;
     this->description = other.description;
     this->actions = other.actions;
@@ -86,7 +77,7 @@ Item& Item::operator=(Item &other) {
 
 
 Item& Item::operator=(const Item &other) {
-    this->itemID = other.id();
+    //this->itemID = other.identifier();
     this->keywords = other.keywords;
     this->description = other.description;
     this->actions = other.actions;
@@ -103,7 +94,7 @@ namespace std {
 
 
 size_t hash<Item>::operator()(const Item &item) const {
-    return hash<unsigned long>{}(item.id());
+    return hash<unsigned long>{}(item.identifier());
 }
 
 

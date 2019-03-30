@@ -19,6 +19,8 @@ using items::Item;
 /*!
  @struct hash
  @discussion Item's hash function
+ 
+ @ignore
  */
 template<>
 struct hash<Item> {
@@ -26,6 +28,6 @@ struct hash<Item> {
 };
 
 
-}
+} /* namespace std */
 
 #endif /* ItemHash_h */
