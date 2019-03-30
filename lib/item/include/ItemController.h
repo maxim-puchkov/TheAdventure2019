@@ -23,7 +23,6 @@ using auth::Authenticator;
 class ItemController {
 public:
     
-    
     const ItemBuilder builder;
     
     
@@ -31,11 +30,24 @@ public:
     : builder(ItemBuilder())
     { }
     
+    //template<typename T>
+    //ItemController(Authenticator<T> &&auth)
+    ItemController(Authenticator<Identifier> &&auth)
+    : authenticator(auth), builder(ItemBuilder())
+    { }
+    
+    
     Item lookup(Identifier id) const noexcept(false) {
         return this->env.lookup(id);
     }
     
-    Item create() {
+    
+    bool exists(Identifier id) const noexcept {
+        return this->env.exists(id);
+    }
+    
+    
+    Item create() const {
         // Generate unique id and create item
         Identifier id = this->authenticator.generateUniqueIdentifier();
         Item item = this->builder.build(id);
@@ -48,26 +60,11 @@ public:
     
     
     
-    
-protected:
-    
-    
-    bool exists(Identifier id) const noexcept {
-        return this->env.exists(id);
-    }
-    
-    
-
-    
-    
-    Environment<Identifier, Item> env;
-    
-    
 private:
     
+    mutable Environment<Identifier, Item> env;
     
-    Authenticator<Identifier> authenticator;
-    
+    const Authenticator<Identifier> authenticator;
     
 };
 

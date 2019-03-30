@@ -48,13 +48,13 @@ public:
     }
     
     
-    T generateUniqueIdentifier() {
+    T generateUniqueIdentifier() const {
         return ++this->current;
     }
     
 private:
     
-    T current;
+    mutable T current;
 
 };
 
