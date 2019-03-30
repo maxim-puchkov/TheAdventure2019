@@ -20,6 +20,7 @@ private:
     // std::vector<Area> areas;
     std::unordered_map<std::string, Area> areas;
     int roomToSpawnUser;
+    Area nullArea{};
 public:
     WorldManager();
     void generateWorld();
@@ -40,6 +41,8 @@ public:
     void printRoomsInArea(Area area);
     int getRoomToSpawnUser();
     std::string worldDetail(LocationCoordinates location);
+
+    Area getAreaByLocation(LocationCoordinates location);
 
     void addArea(Area area);
 };

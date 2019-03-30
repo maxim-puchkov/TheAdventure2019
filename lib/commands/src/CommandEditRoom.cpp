@@ -17,19 +17,39 @@ void CommandEditRoom::executeInHeartbeat(const std::string& username, const std:
         case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
             // Need to implement createArea in Area class and add that method in WorldManager
             // Need to implement createRoom in Room class
+            // edit-room exit: <direction>, <target room ID>
+            // can only connect room in the same area
             if(fullCommand.at(1) == "exit") { 
-                std::cout <<  "YOU ARE THE ADMIN \n";
+                std::vector<std::string> splitByComma;
+                boost::split(splitByComma, fullCommand[2], boost::is_any_of(","), boost::token_compress_on);
+                boost::trim_if(splitByComma[1], boost::is_any_of(" \t"));
+            
                 auto location = characterManager.getCharacterLocation(username);
-                std::cout << "Area: " << location.area << "\n";
-                std::cout << "Room: " << location.room << "\n";
-                auto& room = worldManager.findRoomByLocation(location);
-                std::cout << room.getName() << "\n";
-                auto editSuccess = room.createExit("admin test", "goes to test", "north", 0, 6);
+                auto targetArea = worldManager.getAreaByLocation(location);
+                if(targetArea.getName() != "DEFAULT_NAME"){
+                    auto targetRoom = targetArea.getRoom(stoi(splitByComma[1]));
+                    if(targetRoom.getName() != "NO_ROOM_NAME") {
+                        auto& currentRoom = worldManager.findRoomByLocation(location);
+                        currentRoom.createExit("-1", "admin exit", splitByComma[0], location.area, stoi(splitByComma[1]));
+
+                        auto& exitList = currentRoom.getExits();
+                        for(auto& ext : exitList) {
+                            if(ext.getExitName() == "-1"){
+                                std::string exitName = "exit to, Area: " + location.area;
+                                exitName += " Room: " + targetRoom.getName();
+                                ext.setExitTargetLocation(exitName);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    //auto editSuccess = room.createExit("admin test", "goes to test", "north", 0, 6);
+                }
             }else if(fullCommand.at(1) == "desc") {
                 auto location = characterManager.getCharacterLocation(username);
                 auto& room = worldManager.findRoomByLocation(location);
                 room.setDescription(fullCommand.at(2));
-                
+
             }
         }
         case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
