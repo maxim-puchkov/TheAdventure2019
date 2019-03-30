@@ -1,11 +1,17 @@
-//
-//  Tools.h
-//  adventure2019: adventure2019
-//  com.maximpuchkov.Faworki.adventure2019.Debugger
-//
-//  Created by mpuchkov on 2019-03-24. macOS 10.13, Xcode 10.1.
-//  Copyright © 2019 Maxim Puchkov. All rights reserved.
-//
+/*!
+ @header Tools
+ 
+ @brief Pretty debugging.
+ 
+ Use functions in this header to display debug messages.
+ Code
+     debug::prefix("my class name");
+     debug::print("total things created ", 123, '/', 124);
+ will print
+    "   my class name: total things created 123/124"
+ 
+ @warning temporary
+ */
 
 #ifndef Tools_h
 #define Tools_h
