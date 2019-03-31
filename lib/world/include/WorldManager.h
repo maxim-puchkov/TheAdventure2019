@@ -15,7 +15,7 @@
 
 using auth::Authenticator;
 using items::ItemController;
-using ID = uint64_t;
+using WorldIdentifier = uint64_t;
 
 
 class WorldManager {
@@ -23,7 +23,7 @@ private:
     std::vector<Area> areas;
     
     /*! Uniquely identifies contents of the world */
-    const Authenticator<ID> auth;
+    const Authenticator<WorldIdentifier> authenticator;
     
 public:
     WorldManager();
@@ -42,7 +42,8 @@ public:
     std::string look(LocationCoordinates location, std::string objName) ;
     
     /*! All items are created and stored in the item controller */
-    const ItemController items;
+    const ItemController<WorldIdentifier> items;
+    
 };
 
 

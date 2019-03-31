@@ -3,14 +3,14 @@
 #include "WorldManager.h"
 
 WorldManager::WorldManager()
-: auth(Authenticator<ID>()), items(auth) {
+: authenticator(Authenticator<WorldIdentifier>()), items(authenticator) {
     debug::prefix("World");
     debug::print("World created");
     
     using namespace items::data;
     vector<Action> vec{Action("read", " < items are now working > ")};
     this->items.builder.setItemProperties(Keywords({"letter"}), Description("You received a letter"), Actions(vec));
-    this->items.create();
+    this->items.create(0);
 }
 
 void WorldManager::generateWorld() {
