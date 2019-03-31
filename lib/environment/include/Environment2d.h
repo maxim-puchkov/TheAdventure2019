@@ -10,5 +10,11 @@
 #ifndef Environment2d_h
 #define Environment2d_h
 
+#include "Environment.h"
+
+
+template <typename K, template<typename, typename> V>
+class Environment2d;
+
 
 #endif /* Environment2d_h */

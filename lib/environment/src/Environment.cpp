@@ -9,13 +9,11 @@
 #define Environment_cpp
 
 #include "Environment.h"
-#include <iostream>
-#include <string>
-#include <unordered_map>
+#include "convertable.h"
 
-using std::string;
-using std::unordered_map;
 
+
+/* Constructors */
 
 template<class K, class V>
 Environment<K, V>::Environment()
@@ -39,6 +37,29 @@ Environment<K, V>::~Environment()
 { }
 
 
+
+
+
+/* Map operations */
+
+template<class K, class V>
+V Environment<K, V>::lookup(const K &k) const {
+    auto it = this->find(k);
+    return it->second;
+}
+
+
+template<class K, class V>
+V Environment<K, V>::lookup(K &&k) const {
+    auto it = this->find(std::forward<K>(k));
+    return it->second;
+}
+
+
+// template<class K, class V>
+// std::queue<V> Environment<K, V>::lookupAll(
+
+
 template<class K, class V>
 void Environment<K, V>::bind(const K &k, const V &v) {
     this->validate(k);
@@ -54,7 +75,7 @@ void Environment<K, V>::bind(const std::pair<const K, V> &binding) {
 
 
 template<class K, class V>
-void Environment<K, V>::bind(const std::pair<const K, V> &&binding) {
+void Environment<K, V>::bind(std::pair<const K, V> &&binding) {
     this->validate(binding.first);
     this->map.insert(std::move(binding));
 }
@@ -71,13 +92,6 @@ template<class K, class V>
 void Environment<K, V>::modify(const K &k, const V &v) {
     auto it = this->find(std::forward(k));
     it->second = v;
-}
-
-
-template<class K, class V>
-V Environment<K, V>::lookup(const K &k) const {
-    auto it = this->find(k);
-    return it->second;
 }
 
 
@@ -106,7 +120,18 @@ void Environment<K, V>::clear() noexcept {
 
 
 template<class K, class V>
-typename unordered_map<K, V>::const_iterator Environment<K, V>::find(const K &k) const noexcept(false) {
+bool Environment<K, V>::empty() const noexcept {
+    return this->map.empty();
+}
+
+
+
+
+
+/* Retrieval */
+
+template<class K, class V>
+typename std::unordered_map<K, V>::const_iterator Environment<K, V>::find(const K &k) const noexcept(false) {
     auto it = this->map.find(k);
     if (it == this->map.end()) {
         throw std::invalid_argument(ENV_FIND_ERROR);
@@ -116,7 +141,7 @@ typename unordered_map<K, V>::const_iterator Environment<K, V>::find(const K &k)
 
 
 template<class K, class V>
-typename unordered_map<K, V>::size_type Environment<K, V>::size() const {
+typename std::unordered_map<K, V>::size_type Environment<K, V>::size() const {
     return this->map.size();
 }
 
@@ -145,11 +170,47 @@ std::queue<std::pair<const K, V>> Environment<K, V>::pairs() const {
 }
 
 
+
+
+
+/* Convert */
+
+template<class K, class V>
+std::string Environment<K, V>::toString() const noexcept {
+    if (!(__convertable<K>::to_string && __convertable<V>::to_string)) {
+        return {};
+    }
+    
+    std::ostringstream stream{""};
+    stream << "{";
+    auto it = this->begin();
+    //stream << (*it).first.toString() << ", " << (*it).second.toString();
+    stream << (*it).second.toString();
+    it++;
+    
+    while (it != this->end()) {
+        stream << ", (";
+        //stream << (*it).first.toString() << ", " << (*it).second.toString();
+        stream << (*it).second.toString();
+        stream << ")";
+        
+        it++;
+    }
+    
+    stream << "}";
+    return stream.str();
+}
+
+
+
+
+
+/* Iterator */
+
 template<class K, class V>
 typename unordered_map<K, V>::const_iterator Environment<K, V>::begin() const {
     return this->map.cbegin();
 }
-
 
 template<class K, class V>
 typename unordered_map<K, V>::const_iterator Environment<K, V>::end() const {
@@ -157,12 +218,16 @@ typename unordered_map<K, V>::const_iterator Environment<K, V>::end() const {
 }
 
 
+
+
+
+/* Operators */
+
 template<class K, class V>
 Environment<K, V>& Environment<K, V>::operator=(Environment<K, V> &other) {
     this->map = other.map;
     return *this;
 }
-
 
 template<class K, class V>
 Environment<K, V>& Environment<K, V>::operator=(const Environment<K, V> &other) {
@@ -176,10 +241,16 @@ bool Environment<K, V>::operator==(Environment<K, V> &other) const {
     return (this->map == other.map);
 }
 
-
 template<class K, class V>
 bool Environment<K, V>::operator==(const Environment<K, V> &other) const {
     return (this->map == other.map);
+}
+
+
+template<class K, class V>
+std::ostream& operator<<(std::ostream& stream, Environment<K, V>& env) {
+    stream << env.toString();
+    return stream;
 }
 
 #endif /* Environment_cpp */
