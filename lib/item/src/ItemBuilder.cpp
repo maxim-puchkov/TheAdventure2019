@@ -7,7 +7,6 @@
 //
 
 #include "ItemBuilder.h"
-#include "Tools.h"
 
 
 namespace items {
@@ -27,7 +26,17 @@ ItemBuilder::~ItemBuilder()
 
 
 
-/* Set Properties */
+/* Builder Interface */
+
+void ItemBuilder::reset() const noexcept {
+    this->clearAll();
+}
+
+
+bool ItemBuilder::validate() const noexcept {
+    return !this->keywords.empty();
+}
+
 
 void ItemBuilder::setKeywords(const vector<string> &keywords) const noexcept {
     this->keywords = Keywords(keywords);
@@ -52,17 +61,12 @@ void ItemBuilder::addAction(Action &&action) const noexcept {
 
 
 
-/* Create / Reset */
+/* Item Builder */
 
-Item ItemBuilder::build(Identifier id) const {
+Item ItemBuilder::build(ItemIdentifier id) const {
     Item item(id, keywords, description, actions);
     this->reset();
     return item;
-}
-
-
-void ItemBuilder::reset() const noexcept {
-    this->clearAll();
 }
 
 
@@ -72,8 +76,8 @@ void ItemBuilder::setDescription(const vector<string> &lines) const noexcept {
 
 
 void ItemBuilder::setItemProperties(const vector<string> &keywords,
-                       const string &description,
-                       const vector<pair<string, string>> &actions) const noexcept {
+                                    const string &description,
+                                    const vector<pair<string, string>> &actions) const noexcept {
     this->keywords = Keywords(keywords);
     this->description = Description(description);
     this->actions = Actions(actions);
@@ -81,8 +85,8 @@ void ItemBuilder::setItemProperties(const vector<string> &keywords,
 
 
 void ItemBuilder::setItemProperties(const Keywords &keywords,
-                       const Description &description,
-                       const Actions &actions) const noexcept {
+                                    const Description &description,
+                                    const Actions &actions) const noexcept {
     this->keywords = keywords;
     this->description = description;
     this->actions = actions;

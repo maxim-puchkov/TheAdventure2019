@@ -50,6 +50,9 @@ public:
     /*! Reset current item settings */
     void reset() const noexcept override;
     
+    /*! Validate current settings */
+    bool validate() const noexcept override;
+    
     /*! Set item's unique keywords */
     void setKeywords(const vector<string> &keywords) const noexcept override;
     
@@ -66,7 +69,7 @@ public:
     /* Item Builder */
     
     /*! Build using specified keywords, descriptions, and actions */
-    Item build(Identifier id) const;
+    Item build(ItemIdentifier id) const;
 
     /*! Add a new action */
     void addAction(Action &&action) const noexcept;

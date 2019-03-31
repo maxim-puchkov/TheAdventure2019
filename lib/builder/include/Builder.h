@@ -44,6 +44,9 @@ public:
     /*! Reset current object creation */
     virtual void reset() const noexcept = 0;
     
+    /*! Validate current settings */
+    virtual bool validate() const noexcept = 0;
+    
     /*! Set object's identifying keywords */
     virtual void setKeywords(const vector<string> &keywords) const noexcept = 0;
     
