@@ -100,6 +100,8 @@ public:
     /*! Remove all object's actons */
     void clear();
     
+    bool empty() const;
+    
     
     
     

@@ -51,6 +51,7 @@ Actions::Actions(const vector<pair<string, string>> &actions)
     }
 }
 
+
 Actions::Actions(vector<Action> &actions)
 : env(Environment<Key, Description>{}) {
     for (auto &action : actions) {
@@ -100,8 +101,14 @@ void Actions::add(Action &&action) {
     this->env.bind(action.toPair());
 }
 
+
 void Actions::clear() {
     this->env.clear();
+}
+
+
+bool Actions::empty() const {
+    return this->env.empty();
 }
 
 
