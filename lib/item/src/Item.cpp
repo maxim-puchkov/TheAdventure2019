@@ -21,14 +21,13 @@ Item::Item(Identifier id,
            const Actions &actions)
 : id(id), keywords(keywords), description(description), actions(actions)
 {
-    debug::prefix("Item");
-    debug::print("Created item (keywords: {", keywords.toString(), "}, actions: {", actions.toString(), "})");
+//    debug::prefix("Item");
+//    debug::print("Created ", this->toString());
 }
 
 
 Item::~Item() {
-    debug::print("Item destroyed (id: ", id,
-                 ", keywords: {", keywords.toString(), "})");
+//    debug::print("Destroyed ", this->toString());
 }
 
 
@@ -50,15 +49,16 @@ Text Item::brief() const {
 
 Text Item::toString() const {
     ostringstream stream{""};
-    const char NL = '\n';
-    const char TAB = '\t';
-    const string DELIM = {NL, TAB};
+    //const char NL = '\n';
+    //const char TAB = '\t';
+    //const string DELIM = {NL, TAB};
+    const string DELIM = ", ";
     
-    stream << "Item (" << DELIM;
-    stream << "id: " << this->id << "," << DELIM;
-    stream << "keywords: {" << this->keywords.toString() << "}," << DELIM;
-    stream << "description: " << this->description.toString() << "," << DELIM;
-    stream << "actions: {" << this->actions.toString() << "}," << NL;
+    stream << "Item (";
+    stream << "id: " << this->id << DELIM;
+    stream << "keywords: {" << this->keywords.toString() << "}" << DELIM;
+    stream << "description: " << this->description.toString() << "" << DELIM;
+    stream << "actions: {" << this->actions.toString() << "}";
     stream << ")";
     
     return stream.str();
@@ -73,7 +73,9 @@ Text Item::examine(const Key &keyword) const {
 }
 
 
-
+bool Item::isInteractable() const {
+    return !this->actions.empty();
+}
 
 
 
@@ -87,7 +89,6 @@ Item& Item::operator=(Item &other) {
     return *this;
 }
 
-
 Item& Item::operator=(const Item &other) {
     //this->itemID = other.identifier();
     this->keywords = other.keywords;
@@ -95,6 +96,16 @@ Item& Item::operator=(const Item &other) {
     this->actions = other.actions;
     return *this;
 }
+
+
+bool Item::operator==(Item &other) const {
+    return (this->id == other.id);
+}
+
+bool Item::operator==(const Item& other) const {
+    return (this->id == other.id);
+}
+
 
 } /* namespace items */
 

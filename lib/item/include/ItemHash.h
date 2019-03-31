@@ -10,24 +10,9 @@
 #ifndef ItemHash_h
 #define ItemHash_h
 
-
-namespace std {
-
-using items::Item;
+#include "Item.h"
 
 
-/*!
- @struct hash
- @discussion Item's hash function
- 
- @ignore
- */
-template<>
-struct hash<Item> {
-    size_t operator()(const Item &item) const;
-};
 
-
-} /* namespace std */
 
 #endif /* ItemHash_h */

@@ -60,6 +60,9 @@ public:
     Text examine(const Key &keyword) const override;
     
     
+    bool isInteractable() const override;
+    
+    
     
     
     
@@ -93,11 +96,37 @@ public:
     Item& operator=(Item &other);
     Item& operator=(const Item &other);
     
+    bool operator==(Item &other) const;
+    bool operator==(const Item& other) const;
+    
 private:
     
 };
 
 
 } /* namespace items */
+
+
+
+
+
+namespace std {
+
+using items::Item;
+
+
+/*!
+ @struct hash
+ @discussion Item's hash function
+ 
+ @ignore
+ */
+template<>
+struct hash<Item> {
+    size_t operator()(const Item &item) const;
+};
+
+
+} /* namespace std */
 
 #endif /* Item_h */
