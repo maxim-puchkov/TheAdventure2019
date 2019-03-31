@@ -9,11 +9,9 @@
 #include "Room.h"
 #include "Character.h"
 #include "LocationCoordinates.h"
-#include "Authenticator.h"
 #include "ItemController.h"
 #include "Item.h"
 
-using auth::Authenticator;
 using items::ItemController;
 using WorldIdentifier = uint64_t;
 
@@ -21,9 +19,6 @@ using WorldIdentifier = uint64_t;
 class WorldManager {
 private:
     std::vector<Area> areas;
-    
-    /*! Uniquely identifies contents of the world */
-    const Authenticator<WorldIdentifier> authenticator;
     
 public:
     WorldManager();

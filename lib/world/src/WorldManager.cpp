@@ -3,7 +3,7 @@
 #include "WorldManager.h"
 
 WorldManager::WorldManager()
-: authenticator(Authenticator<WorldIdentifier>()), items(authenticator) {
+: items(ItemController<WorldIdentifier>()) {
     debug::prefix("World");
     debug::print("World created");
     

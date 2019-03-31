@@ -18,7 +18,6 @@ target_link_libraries(${libworld}
         ${libusers}
         ${libcharacters}
     PRIVATE
-        ${libAuthentication}
         ${libItem}
 )
 
