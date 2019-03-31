@@ -5,6 +5,22 @@
 using boost::lexical_cast;
 using boost::bad_lexical_cast;
 
+
+
+
+std::string CommandLook::lookObject(const std::string& userName, const std::string &target ) const {
+
+
+
+
+
+
+
+
+
+}
+
+
 void CommandLook::executeInHeartbeat(const std::string& userName, const std::vector<std::string>& fullCommand) {
 
 	auto location = characterManager.getCharacterLocation(userName);
@@ -12,18 +28,19 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
 
     if(location.area == -1) {
         //should not reach here, report error
-        onlineUserManager.addMessageToUser(userName, "ERROR: this message should not print, invalid area for looking\n" );
+        onlineUserManager.addMessageToUser(userName, "ERROR: this message should not print,\n"
+                                                     "you need to create an avatar first!.\n"
+                                                     "If this message prints w/an avatar something went wrong"
+                                                     " invalid area for looking\n" );
         return;
     }
 
-
     auto room = worldManager.findRoomByLocation(location);
-    std::string listOfExits = room.listExits();
-    const auto listUsers = room.getUserNames();
+    const std::string &listOfExits = room.listExits();
 
     if(fullCommand.size() == 1){
-        std::string allUsersInRoom = "";
-        for(std::string userA : listUsers){
+        std::string allUsersInRoom = " ";
+        for(const std::string &userA : room.getUserNames() ){
             allUsersInRoom.append(userA + ",\n");
         }
 
@@ -36,12 +53,19 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     //ROUGH code debug later
 
     std::string targetLookingAt = fullCommand.at(1);
-    const auto target = std::find(listUsers.begin(), listUsers.end() , targetLookingAt);
-    if(target != listUsers.end()){
-        onlineUserManager.addMessageToUser( userName, worldManager.look(location,targetLookingAt) );
-    } else{
-        onlineUserManager.addMessageToUser(userName, " user/object not found\n");
+    
+    std::string result = room.lookForExitName(targetLookingAt);
+
+
+    const std::string &charName = room.lookForName(targetLookingAt);
+    if( !charName.empty() ){
+       result.append( characterManager.getLongDescription( charName ) );
     }
+
+
+    onlineUserManager.addMessageToUser(userName, std::move(result) );
+
+
 
     //////////////////////////////////////////
 

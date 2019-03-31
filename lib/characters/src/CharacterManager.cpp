@@ -3,6 +3,41 @@
 
 using charactermanager::CharacterManager;
 
+
+
+
+
+/**
+ * Returns the long description of a NPC.
+ * If an NPC and a PC happen to share the same name, append the description and return them both for viewing
+ * @param userName - The username of a playable character, or the name of a NPC
+ * @return - The long description of a character
+ */
+const std::string& CharacterManager::getLongDescription(const std::string &userName) {
+
+    std::string result = "";
+
+
+    auto onlineChar = onlineCharacters.find(userName);
+    if(onlineChar != onlineCharacters.end() ){
+        result.append(onlineChar->second.getLongdesc() + "\n");
+    }
+
+
+
+    const auto &npc = std::find_if(computerControlledCharacters.begin(),computerControlledCharacters.end(),
+            [&] (const auto &iter) {return iter.getName() == userName ; }
+            );
+
+    if(npc != computerControlledCharacters.end()){
+        result.append( (*npc).getLongdesc() + "\n" );
+    }
+
+    return std::move(result);
+}
+
+
+
 LocationCoordinates CharacterManager::spawnCharacter(const std::string& username) {
 	Character character = characterDB.getCharacter(username);
 	onlineCharacters.insert(std::make_pair(username, character));
@@ -14,6 +49,7 @@ LocationCoordinates CharacterManager::spawnCharacter(const std::string& username
 
 void CharacterManager::kickCharacter(const std::string& username) {
 	auto found = onlineCharacters.find(username);
+
 	if (found != onlineCharacters.end()) {
 		characterDB.updateCharacter(found->second);
 		onlineCharacters.erase(username);

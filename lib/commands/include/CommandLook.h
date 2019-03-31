@@ -13,6 +13,10 @@ public:
 	
 	virtual void executeInHeartbeat(const std::string& userName, const std::vector<std::string>& fullCommand);
 	virtual std::vector<std::string> reassembleCommand(std::string& fullCommand, bool& commandIsValid);
+
+private:
+    std::string lookObject(const std::string &userName, const std::string &target,) const ;
+
 };
 
 
