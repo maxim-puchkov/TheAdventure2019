@@ -138,7 +138,7 @@ public:
     bool operator==(Environment<K, V> &other) const;
     bool operator==(const Environment<K, V> &other) const;
     
-    friend std::ostream& operator<<(std::ostream &stream, Environment &env);
+    friend std::ostream& operator<<(std::ostream &stream, Environment<K, V> &env);
     //friend std::ostream& operator<<(std::ostream &stream, const Environment &env);
     
 private:
