@@ -152,4 +152,14 @@ int CharacterManager::getCharacterHealth(const std::string& username){
 	return found->second.getAttributes().getHealth();
 }
 
+std::string CharacterManager::listNPCs() {
+    std::string NPCList = "";
+    for(auto& npc : NPCs){
+        std::cout << npc.getShortdesc();
+        NPCList += npc.getShortdesc();
+        NPCList += "\n";
+    }
+    return NPCList;
+}
+
 

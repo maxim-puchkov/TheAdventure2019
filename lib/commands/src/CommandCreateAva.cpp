@@ -3,6 +3,8 @@
 
 std::string CommandCreateAva::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
 	//Format: create-avatar <name> NPC
+    // name has to be the same as the NPC's name in the room.
+    // This command will make additional NPC which is currently in the room
     if(fullCommand.size() == 3) {
         auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
         auto role = onlineUserManager.getUserRole(username);
@@ -14,20 +16,20 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
                 //don't let normal user know that this syntax exists
                 return "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
             }
+            //Creating non-user characters
             case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
-                //TODO: fill this
-                auto answer = characterManager.createCharacter(username);
-                switch(answer){
-                    case charactermanager::CharacterManager::CHARACTER_CODE::CHARACTER_CREATED:{
-                        auto roomToSpawnUser = worldManager.getRoomToSpawnUser();
-                        characterManager.spawnCharacter(username, LocationCoordinates{0, roomToSpawnUser});
-                        return "Avatar created.\nPlease enter \"edit-avatar shortdesc: [value]\" to customize your character.\n";
-                    }
-                    default: {
-                        return "SHOULD NOT GET HERE";
-                    }
-                }
+                auto location = characterManager.getCharacterLocation(username);
+                auto currentArea = worldManager.getAreaByLocation(location);
+                
             }
+            case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
+            case usermanager::OnlineUserManager::USER_CODE::ACCOUNT_CREATED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_UPDATED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_DELETED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_OUT: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN: {}
+            case usermanager::OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN: {}
+            case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE: {} 
             default:
                 //swallow, log error state
                 return "";

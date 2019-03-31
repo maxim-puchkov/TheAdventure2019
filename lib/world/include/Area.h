@@ -60,6 +60,8 @@ class Area {
             NPCS = NPCs;
         };
         bool addNPCtoRooms(std::string shortDesc, int ID);
+        std::vector<Character> & getNPCs() {return NPCS;}
+        std::string listNPCs();
         void updateRoomExits(int id, std::string name);
 
         //for admin

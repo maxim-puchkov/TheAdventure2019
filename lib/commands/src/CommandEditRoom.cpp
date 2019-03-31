@@ -42,8 +42,6 @@ void CommandEditRoom::executeInHeartbeat(const std::string& username, const std:
                             }
                         }
                     }
-                    
-                    //auto editSuccess = room.createExit("admin test", "goes to test", "north", 0, 6);
                 }
             }else if(fullCommand.at(1) == "desc") {
                 auto location = characterManager.getCharacterLocation(username);

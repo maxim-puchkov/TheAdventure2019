@@ -8,10 +8,13 @@ void CommandExamine::executeInHeartbeat(const std::string& username, const std::
     	return;
     }
 
-	if(fullCommand[1] == "exits")
+	if(fullCommand[1] == "exits"){
 	    onlineUserManager.addMessageToUser(username, (worldManager.listExits(location) + "\n"));
-	else
+    }else if(fullCommand[1] == "npcs"){
+        onlineUserManager.addMessageToUser(username, characterManager.listNPCs());
+    }else{
 	    onlineUserManager.addMessageToUser(username, (worldManager.look(location, fullCommand[1]) + "\n"));
+    }
 }
 
 std::vector<std::string> CommandExamine::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {

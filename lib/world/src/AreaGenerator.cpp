@@ -94,7 +94,7 @@ void AreaGenerator::generateNPC(json allNPC, Area& area, CharacterManager& chara
         characterNPC.setShortdesc(shortDesc);
         characterNPC.setLongdesc(longDesc);
         characterNPC.setDescription(description);
-
+       
         characterManager.addNPC(characterNPC);
 
         // need to check for out of bound

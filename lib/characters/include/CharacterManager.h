@@ -72,6 +72,8 @@ public:
     void addNPC(Character NPC){
         NPCs.push_back(NPC);
     }
+
+    std::string listNPCs();
 };
 
 }
