@@ -15,10 +15,10 @@ target_include_directories(${libObject}
 )
 
 target_link_libraries(${libObject}
-	${libAuthentication}
-    ${libenvironment}
-    ${libUserInterface}
-    ${libTools}
+    PUBLIC
+        ${libTools}
+        ${libUserInterface}
+        ${libEnvironment}
 )
 
 set_target_properties(${libObject}

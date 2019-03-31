@@ -14,10 +14,12 @@ target_include_directories(${libworld}
 )
 
 target_link_libraries(${libworld}
-    ${libusers}
-    ${libcharacters}
-    ${libAuthentication}
-    ${libItem}
+    PUBLIC
+        ${libusers}
+        ${libcharacters}
+    PRIVATE
+        ${libAuthentication}
+        ${libItem}
 )
 
 set_target_properties(${libworld}

@@ -10,11 +10,6 @@ target_include_directories(${libAuthentication}
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(${libAuthentication}
-    ${libTools}
-	${libenvironment}
-)
-
 set_target_properties(${libAuthentication}
     PROPERTIES
     COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"

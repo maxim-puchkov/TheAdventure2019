@@ -16,11 +16,10 @@ target_include_directories(${libItem}
 )
 
 target_link_libraries(${libItem}
-    ${libAuthentication}
-    ${libenvironment}
-    ${libBuilder}
-    ${libObject}
-    ${libTools}
+    PUBLIC
+        ${libAuthentication}
+        ${libObject}
+        ${libBuilder}
 )
 
 set_target_properties(${libItem}

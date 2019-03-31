@@ -1,8 +1,8 @@
-add_library(${libenvironment} SHARED
+add_library(${libEnvironment} SHARED
     src/Environment.cpp
 )
 
-target_include_directories(${libenvironment}
+target_include_directories(${libEnvironment}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<INSTALL_INTERFACE:src>
@@ -11,13 +11,19 @@ target_include_directories(${libenvironment}
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-set_target_properties(${libenvironment}
+target_link_libraries(${libEnvironment}
+    PUBLIC
+        ${libUtility}
+)
+
+
+set_target_properties(${libEnvironment}
     PROPERTIES
     COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
 )
 
-install(TARGETS ${libenvironment}
+install(TARGETS ${libEnvironment}
     LIBRARY DESTINATION lib
 )

@@ -15,11 +15,12 @@ add_library(${libcommands}
     src/CommandCreateRoom.cpp
     src/CommandEditRoom.cpp
 
+    src/CommandTake.cpp
+    src/CommandPut.cpp
+    src/CommandDrop.cpp
     src/CommandUse.cpp
     src/CommandEquip.cpp
-    src/CommandTake.cpp
-    src/CommandDrop.cpp
-    src/CommandPut.cpp
+#    src/CommandUnequip.cpp
 
     src/CommandMinigame.cpp
     src/CommandCombat.cpp
@@ -44,8 +45,6 @@ set_target_properties(${libcommands}
 )
 
 target_link_libraries(${libcommands}
-    ${libtypes}
-    ${libaccounts}
     ${libcharacters}
     ${libworld}
     ${libusers}

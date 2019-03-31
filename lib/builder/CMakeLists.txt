@@ -11,7 +11,8 @@ target_include_directories(${libBuilder}
 )
 
 target_link_libraries(${libBuilder}
-    ${libObject}
+    PRIVATE
+        ${libObject}
 )
 
 set_target_properties(${libBuilder}
