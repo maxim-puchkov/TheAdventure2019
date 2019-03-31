@@ -42,7 +42,7 @@ public:
     int getRoomToSpawnUser();
     std::string worldDetail(LocationCoordinates location);
 
-    Area getAreaByLocation(LocationCoordinates location);
+    Area& getAreaByLocation(LocationCoordinates location);
 
     void addArea(Area area);
 };

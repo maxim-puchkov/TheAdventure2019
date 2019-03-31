@@ -19,7 +19,7 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
             //Creating non-user characters
             case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
                 auto location = characterManager.getCharacterLocation(username);
-                auto currentArea = worldManager.getAreaByLocation(location);
+                auto& currentArea = worldManager.getAreaByLocation(location);
 
                 Character characterNPC{fullCommand[1]};
                 characterNPC.setShortdesc(fullCommand[1]);
@@ -27,6 +27,7 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
                 characterNPC.setDescription(fullCommand[1]);
             
                 characterManager.addNPC(characterNPC);
+                currentArea.addNPCtoRooms(characterNPC.getName(), location.room);
                 
             }
             case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 

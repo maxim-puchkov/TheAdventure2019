@@ -11,7 +11,15 @@ void CommandExamine::executeInHeartbeat(const std::string& username, const std::
 	if(fullCommand[1] == "exits"){
 	    onlineUserManager.addMessageToUser(username, (worldManager.listExits(location) + "\n"));
     }else if(fullCommand[1] == "npcs"){
-        onlineUserManager.addMessageToUser(username, characterManager.listNPCs());
+        auto currentRoom = worldManager.findRoomByLocation(location);
+        auto NPCs = currentRoom.getNPCs();
+        std::cout << NPCs.size() << "\n";
+        std::string returnMessage = "";
+        for(auto npc : NPCs) {
+            returnMessage += npc;
+            returnMessage += "\n";
+        }
+        onlineUserManager.addMessageToUser(username, returnMessage);
     }else{
 	    onlineUserManager.addMessageToUser(username, (worldManager.look(location, fullCommand[1]) + "\n"));
     }

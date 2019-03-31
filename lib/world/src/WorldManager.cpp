@@ -174,7 +174,7 @@ void WorldManager::printRoomsInArea(Area area) {
     }
 }
 
-Area WorldManager::getAreaByLocation(LocationCoordinates location){
+Area& WorldManager::getAreaByLocation(LocationCoordinates location){
     auto search = areas.find(location.area);
     if(search != areas.end()){
         return search->second;
