@@ -29,6 +29,7 @@ void Internationalization::bindEnumToKey() {
     //why wouldn't people create enum.toString for C++?
     
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_LOGIN, "command_login");
+    generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_LOGOUT, "command_logout");
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_CREATE_ACCOUNT, "command_create_account");
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_HELP, "command_help");
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_SAY, "command_say");
