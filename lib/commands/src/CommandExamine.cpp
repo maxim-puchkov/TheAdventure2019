@@ -13,10 +13,9 @@ void CommandExamine::executeInHeartbeat(const std::string& username, const std::
     }else if(fullCommand[1] == "npcs"){
         auto currentRoom = worldManager.findRoomByLocation(location);
         auto NPCs = currentRoom.getNPCs();
-        std::cout << NPCs.size() << "\n";
-        std::string returnMessage = "";
+        std::string returnMessage = "NPC in room: \n";
         for(auto npc : NPCs) {
-            returnMessage += npc;
+            returnMessage += "- " + npc;
             returnMessage += "\n";
         }
         onlineUserManager.addMessageToUser(username, returnMessage);
