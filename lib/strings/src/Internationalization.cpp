@@ -101,6 +101,43 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::ROUND_TIME_NOT_EXPIRING, "round_time_not_expiring");
     generateDefaultStrings(Internationalization::STRING_CODE::NOT_IN_COMBAT, "not_in_combat");
 
+    generateDefaultStrings(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN, "please_log_in_again");
+    generateDefaultStrings(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX, "please_enter_help_syntax");
+    generateDefaultStrings(Internationalization::STRING_CODE::AVATAR_CREATED, "avatar_created");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::EDIT_AVATAR_SHORTDESC, "edit_avatar_shortdesc");
+    generateDefaultStrings(Internationalization::STRING_CODE::EDIT_AVATAR_LONGDESC, "edit_avatar_longdesc");
+    generateDefaultStrings(Internationalization::STRING_CODE::EDIT_AVATAR_DESC, "edit_avatar_desc");
+    generateDefaultStrings(Internationalization::STRING_CODE::AVATAR_FULLY_CUSTOMIZED, "avatar_fully_customized");
+    generateDefaultStrings(Internationalization::STRING_CODE::AVATAR_UPDATED, "avatar_updated");
+    generateDefaultStrings(Internationalization::STRING_CODE::ATTRIBUTE_TO_BE_UPDATED, "attribute_to_be_updated");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::TYPE_MINIGAME_EXIT, "type_minigame_exit");
+    generateDefaultStrings(Internationalization::STRING_CODE::STARTED_GAME, "started_game");
+    generateDefaultStrings(Internationalization::STRING_CODE::YOU_ARE_NOT_IN_ANY_MINIGAMES, "you_are_not_in_any_minigames");
+    generateDefaultStrings(Internationalization::STRING_CODE::INVALID_MOVE_OR_NOT_YOUR_TURN, "invalid_move_or_not_your_turn");
+    generateDefaultStrings(Internationalization::STRING_CODE::HAS_CHALLENGED_TO_MINIGAME, "has_challenged_to_minigame");
+    generateDefaultStrings(Internationalization::STRING_CODE::AWAITING_RESPONSE_FROM, "awaiting_response_from");
+    generateDefaultStrings(Internationalization::STRING_CODE::HAS_JOINED_THE_GAME, "has_joined_the_game");
+    generateDefaultStrings(Internationalization::STRING_CODE::JOINED_GAME_WITH, "joined_game_with");
+    generateDefaultStrings(Internationalization::STRING_CODE::INVITE_DOES_NOT_EXIST_OR_FULL, "invite_does_not_exist_or_full");
+    generateDefaultStrings(Internationalization::STRING_CODE::YOU_LEFT_GAME, "you_left_game");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::ACCOUNT_COMMANDS, "account_commands");
+    generateDefaultStrings(Internationalization::STRING_CODE::AVATAR_COMMANDS, "avatar_commands");
+    generateDefaultStrings(Internationalization::STRING_CODE::CREATE_AVATAR_INSTRUCTIONS, "create_avatar_instructions");
+    generateDefaultStrings(Internationalization::STRING_CODE::EDIT_AVATAR_INSTRUCTIONS, "edit_avatar_instructions");
+    generateDefaultStrings(Internationalization::STRING_CODE::EDIT_AVATAR_INSTRUCTIONS_VALUE, "edit_avatar_instructions_value");
+    generateDefaultStrings(Internationalization::STRING_CODE::LINE_WITH_SINGE_NEWLINE, "line_with_single_newline");
+    generateDefaultStrings(Internationalization::STRING_CODE::COMMUNICATION_COMMANDS, "communication_commands");
+    generateDefaultStrings(Internationalization::STRING_CODE::WORLD_INTERACTION_COMMANDS, "world_interaction_commands");
+    generateDefaultStrings(Internationalization::STRING_CODE::WORLD_INTERACTION_COMMANDS_ADMIN, "world_interaction_commands_admin");
+    generateDefaultStrings(Internationalization::STRING_CODE::LINE_WITH_DOUBLE_NEWLINE, "line_with_double_newline");
+    generateDefaultStrings(Internationalization::STRING_CODE::INVENTORY_COMMANDS, "inventory_commands");
+    generateDefaultStrings(Internationalization::STRING_CODE::MINIGAME_COMMANDS, "minigame_commands");
+    generateDefaultStrings(Internationalization::STRING_CODE::COMBAT_COMMANDS, "combat_commands");
+    generateDefaultStrings(Internationalization::STRING_CODE::UTILITY_COMMANDS, "utility_commands");
+
     generateDefaultStrings(Internationalization::STRING_CODE::ONE_OF_YOU_ALREADY_IN_COMBAT, "one_of_you_already_in_combat");
     generateDefaultStrings(Internationalization::STRING_CODE::WAITING_FOR, "waiting_for");
     generateDefaultStrings(Internationalization::STRING_CODE::TO_ACCEPT_CHALLENGE, "to_accept_challenge");
@@ -109,6 +146,19 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::ACCEPTED_YOUR_CHALLENGE, "accepted_your_challenge");
     generateDefaultStrings(Internationalization::STRING_CODE::YOU_NOT_CHALLENGED_TO_COMBAT, "you_not_challenged_to_combat");
 }
+
+/*
+
+INTERNATIONALIZATION TOOLKIT:
+
+            using internationalization::Internationalization;
+
+            generateDefaultStrings(Internationalization::STRING_CODE::, "");
+
+            "":{"string": ""},
+
+            stringManager.getString(Internationalization::STRING_CODE::)
+*/
 
 void Internationalization::generateDefaultStrings(Internationalization::STRING_CODE codeName, const std::string& defaultString) {
     auto pair = std::pair(codeName, defaultString);

@@ -23,6 +23,7 @@ std::string CommandLogin::executePromptReply(const std::string& connectionID, co
 			    worldManager.spawn(fullCommand[1], spawnLocation);
 			    reply << stringManager.getString(Internationalization::STRING_CODE::CURRENT_LOCATION);
 			    reply << stringManager.getString(Internationalization::STRING_CODE::AREA) << ": " << spawnLocation.area;
+				reply << " ";
 			    reply << stringManager.getString(Internationalization::STRING_CODE::ROOM) << ": " << spawnLocation.room;
 			    reply << "\n";
 			}

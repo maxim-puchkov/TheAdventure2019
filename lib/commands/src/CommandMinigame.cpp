@@ -2,11 +2,11 @@
 #include <boost/algorithm/string.hpp>
 #include <iostream>
 
-
+using internationalization::Internationalization;
 
 void CommandMinigame::sendWinMessage(vector<std::string> &players, vector<std::string> &spectators, std::string msg) {
 
-    msg.append(" Type 'minigame exit' to leave this game \n");
+    msg.append(stringManager.getString(Internationalization::STRING_CODE::TYPE_MINIGAME_EXIT));
     for(const std::string &iter : spectators){
         onlineUserManager.addMessageToUser(iter,  msg + "\n");
     }
@@ -25,18 +25,20 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
     if (firstCommand == "start") {
 
         miniGameLobby.createGame(username);
-        onlineUserManager.addMessageToUser(username, "Started game.\n");
+        onlineUserManager.addMessageToUser(username,
+                                           stringManager.getString(Internationalization::STRING_CODE::STARTED_GAME));
 
     } else if (firstCommand == "move") {
 
         if (playerMatch.getAdminName() == "null") {
-            onlineUserManager.addMessageToUser(username, "You are not a player in any minigames.\n");
+            onlineUserManager.addMessageToUser(username, 
+                                               stringManager.getString(Internationalization::STRING_CODE::YOU_ARE_NOT_IN_ANY_MINIGAMES));
         }
 
         auto moveFrom = fullCommand.at(2);
         auto moveTo = fullCommand.at(3);
         if (!playerMatch.makePlayerMove(username, moveFrom, moveTo)) {
-            std::string msg = "Invalid move or not your turn, is currently " +
+            std::string msg = stringManager.getString(Internationalization::STRING_CODE::INVALID_MOVE_OR_NOT_YOUR_TURN) +
                               playerMatch.getCurrentPlayerTurn() + "'s turn\n ";
             onlineUserManager.addMessageToUser(username, std::move(msg));
         }
@@ -45,10 +47,11 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
 
         auto &challengedName = fullCommand.at(2);
         miniGameLobby.createInvite(username, challengedName);
-        onlineUserManager.addMessageToUser(challengedName, username + " has challenged you to a game, type 'minigame accept'"
-                                                                      " to accept challenge\n");
+        onlineUserManager.addMessageToUser(challengedName, username + stringManager.getString(Internationalization::STRING_CODE::HAS_CHALLENGED_TO_MINIGAME) 
+                                                                    + stringManager.getString(Internationalization::STRING_CODE::TO_ACCEPT_CHALLENGE));
 
-        onlineUserManager.addMessageToUser(username, "awaiting response from " + challengedName + "\n");
+        onlineUserManager.addMessageToUser(username, 
+                                          (stringManager.getString(Internationalization::STRING_CODE::AWAITING_RESPONSE_FROM) + challengedName + "\n"));
 
     } else if (firstCommand == "join" || firstCommand == "accept") {
 
@@ -58,25 +61,30 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
             auto &playerList = playerMatch.getPlayers();
             std::string pNames;
             for (auto &pName : playerList) {
-                onlineUserManager.addMessageToUser(pName, username + " has joined the game\n");
+                onlineUserManager.addMessageToUser(pName, 
+                                                   username + stringManager.getString(Internationalization::STRING_CODE::HAS_JOINED_THE_GAME));
                 pNames += pName + ", ";
             }
-            onlineUserManager.addMessageToUser(username, "joined game with " + pNames + "\n");
+            onlineUserManager.addMessageToUser(username, 
+                                               stringManager.getString(Internationalization::STRING_CODE::JOINED_GAME_WITH) + pNames + "\n");
         } else {
-            onlineUserManager.addMessageToUser(username, "Invite does not exist or game is full\n");
+            onlineUserManager.addMessageToUser(username, 
+                                               stringManager.getString(Internationalization::STRING_CODE::INVITE_DOES_NOT_EXIST_OR_FULL));
         }
 
     } else if (firstCommand == "quit" || firstCommand == "exit") {
 
         auto &playerMatch = miniGameLobby.getMatchWithPlayer(username);
         if (playerMatch.getAdminName() == "null") {
-            onlineUserManager.addMessageToUser(username, "You are not a player in any minigames.\n");
+            onlineUserManager.addMessageToUser(username, 
+                                               stringManager.getString(Internationalization::STRING_CODE::YOU_ARE_NOT_IN_ANY_MINIGAMES));
         }
         playerMatch.removePlayer(username);
         if (playerMatch.getCurrentPlayers() == 0) {
             miniGameLobby.deleteGame(playerMatch.getAdminName());
         }
-        onlineUserManager.addMessageToUser(username, "You left the game.\n");
+        onlineUserManager.addMessageToUser(username, 
+                                           stringManager.getString(Internationalization::STRING_CODE::YOU_LEFT_GAME));
         return;
 
     } else if (firstCommand == "print") {

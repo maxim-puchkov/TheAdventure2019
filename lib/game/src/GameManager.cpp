@@ -92,13 +92,13 @@ std::string GameManager::extractCommands(const std::string& connectionID, std::s
     		return found->second->executePromptReply(connectionID, processedCommand);
     	}
         //wrong syntax
-        return (stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX) +
+        return (stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX) + " " +
                 stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER) + "\"" +
                 stringManager.getString(Internationalization::STRING_CODE::COMMAND_HELP) + "\"" +
                 stringManager.getString(Internationalization::STRING_CODE::TO_SEE_SUPPORTED_SYNTAX));
     }
     //command not found
-    return (stringManager.getString(Internationalization::STRING_CODE::COMMAND_NOT_FOUND) +
+    return (stringManager.getString(Internationalization::STRING_CODE::COMMAND_NOT_FOUND) + " " +
             stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER) + "\"" +
             stringManager.getString(Internationalization::STRING_CODE::COMMAND_HELP) + "\"" +
             stringManager.getString(Internationalization::STRING_CODE::TO_SEE_SUPPORTED_COMMANDS));
