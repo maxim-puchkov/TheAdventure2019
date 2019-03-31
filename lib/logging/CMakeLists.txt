@@ -2,7 +2,6 @@ add_library(${liblogging}
   src/Logger.cpp
 )
 
-SET(Boost_USE_STATIC_LIBS ON)
 find_package(Boost REQUIRED COMPONENTS system log)
 
 add_definitions(-DBOOST_LOG_DYN_LINK)
@@ -20,6 +19,8 @@ target_link_libraries(${liblogging}
   ${Boost_LIBRARIES}
   ${Boost_SYSTEM_LIBRARY}
   ${Boost_LOG_LIBRARY}
+  boost_log_setup
+  boost_log
 )
 
 set_target_properties(${liblogging}
