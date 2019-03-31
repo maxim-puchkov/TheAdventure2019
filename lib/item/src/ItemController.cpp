@@ -15,7 +15,7 @@
 //    
 //    Environment<ItemSearchKey, Item> *container = this->env2d.lookup(id);
 //    
-//    Identifier item_id = this->authenticator.generateUniqueidentificator();
+//    Identifier item_id = this->authenticator.generateUniqueIdentificator();
 //    
 //    Item item = this->builder.build(item_id);
 //    

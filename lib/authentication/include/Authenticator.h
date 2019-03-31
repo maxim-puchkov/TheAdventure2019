@@ -27,8 +27,12 @@
 #include <utility>
 
 
-namespace auth {
+inline namespace {
+    using Identifier = uint64_t;
+}
 
+
+namespace auth {
 
 /*!
  @class Authenticator
@@ -43,8 +47,8 @@ template<typename T>
 class Authenticator {
 public:
     
-    /*! Authenticator's identificator (initial) */
-    const T id;
+    /*! Authenticator parent's identificator (initial id) */
+    const T parent_id;
     
     /* */
     Authenticator()
@@ -53,12 +57,12 @@ public:
     
     
     Authenticator(T initial)
-    : id(initial), current(initial)
+    : parent_id(initial), current(initial)
     { }
     
     
     /*! Identificators are generated incrementaly */
-    T generateUniqueidentificator() const {
+    T generateUniqueIdentificator() const {
         return ++this->current;
     }
     

@@ -66,7 +66,8 @@ public:
             container = this->env2d.lookup(std::forward<ContainerKey>(ck));
         }
         
-        ItemIdentifier id = this->authenticator.generateUniqueidentificator();
+
+        ItemIdentifier id = this->authenticator.generateUniqueIdentificator();
         
         Item item = this->builder.build(id);
         
