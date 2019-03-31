@@ -10,5 +10,73 @@
 #ifndef SearchKey_h
 #define SearchKey_h
 
+#include <vector>
+#include <string>
+
+
+bool compare(void *, void *);
+
+
+template<typename T>
+class SearchKey {
+public:
+    
+    
+    SearchKey(T &t)
+    // h(
+    {
+        //std::hash<SearchKey> = hash;
+    }
+    
+    
+    void add(void *category) {//, std::function<bool(void *, void *)> comparator) {
+        data.push_back(category);
+        // comparators.push_back(comparator);
+    }
+    
+    
+    bool operator==(SearchKey &sk) const {
+        for (int i = 0; i < this->data.size(); i++) {
+            if (this->data[i] == sk.data[i]) return true;
+        }
+        return false;
+    }
+    
+    
+    bool operator==(const SearchKey &sk) const {
+        for (int i = 0; i < this->data.size(); i++) {
+            if (this->data[i] == sk.data[i]) return true;
+        }
+        return false;
+    }
+    
+    
+    
+    std::vector<void *> data{};
+    
+    //vector<function<bool(void *, void *)>> comparators;
+    
+    std::hash<SearchKey> h;
+    
+private:
+    
+    
+    //vector<
+    
+};
+
+
+namespace std {
+    
+    
+    
+    /*!
+     @struct
+     @ignore
+     */
+    
+    
+} /* namespace std */
+
 
 #endif /* SearchKey_h */

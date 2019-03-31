@@ -8,3 +8,39 @@
 //
 
 #include "ItemSearchKey.h"
+
+namespace items {
+
+//    
+//bool ItemSearchKey::operator<(ItemSearchKey &other) const {
+//    return this->index < other.index;
+//}
+//bool ItemSearchKey::operator<(const ItemSearchKey &other) const {
+//    return this->index < other.index;
+//}
+
+bool ItemSearchKey::operator==(ItemSearchKey &other) const {
+    return ((this->id == other.id) || (this->keywords == other.keywords));
+}
+
+bool ItemSearchKey::operator==(const ItemSearchKey &other) const {
+    return ((this->id == other.id) || (this->keywords == other.keywords));
+}
+
+
+} /* namespace items */
+
+
+
+
+
+
+namespace std {
+
+
+size_t hash<ItemSearchKey>::operator()(const ItemSearchKey &key) const {
+    return hash<items::Identifier>{}(key.id);
+}
+
+
+} /* namespace std */
