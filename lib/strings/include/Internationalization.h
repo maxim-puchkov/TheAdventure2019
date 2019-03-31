@@ -84,7 +84,17 @@ class Internationalization {
        YOU_WERE_ATTACKED_FOR,
        CURRENT_HP,
        ROUND_TIME_NOT_EXPIRING,
-       NOT_IN_COMBAT
+       NOT_IN_COMBAT,
+
+       ONE_OF_YOU_ALREADY_IN_COMBAT,
+       WAITING_FOR,
+       TO_ACCEPT_CHALLENGE,
+       YOU_WERE_CHALLENGED_TO_COMBAT,
+       JOINED_COMBAT_WITH,
+       ACCEPTED_YOUR_CHALLENGE,
+       YOU_NOT_CHALLENGED_TO_COMBAT
+
+
     };
 
   private:

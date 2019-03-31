@@ -62,5 +62,12 @@
 	"you_were_attacked_for":{"string": "You were attacked for "},
 	"current_hp":{"string": ".\nCurrent HP: "},
 	"round_time_not_expiring":{"string": "round time not expired, queuing attack\n"},
-	"not_in_combat":{"string": "You are not in combat with anyone!\n"}
+	"not_in_combat":{"string": "You are not in combat with anyone!\n"},
+	"one_of_you_already_in_combat":{"string": "One of you are already in a combat!\n"},
+	"waiting_for":{"string": "Waiting for "},
+	"to_accept_challenge":{"string": " to accept challenge.\n"},
+	"you_were_challenged_to_combat":{"string": "You were challenged to combat by "},
+	"joined_combat_with":{"string": "joined combat with "},
+	"accepted_your_challenge":{"string": " accepted your challenge.\n"},
+	"you_not_challenged_to_combat":{"string": "You have not been challenged to combat.\n"}
 }

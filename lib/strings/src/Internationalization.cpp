@@ -99,6 +99,14 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::CURRENT_HP, "current_hp");
     generateDefaultStrings(Internationalization::STRING_CODE::ROUND_TIME_NOT_EXPIRING, "round_time_not_expiring");
     generateDefaultStrings(Internationalization::STRING_CODE::NOT_IN_COMBAT, "not_in_combat");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::ONE_OF_YOU_ALREADY_IN_COMBAT, "one_of_you_already_in_combat");
+    generateDefaultStrings(Internationalization::STRING_CODE::WAITING_FOR, "waiting_for");
+    generateDefaultStrings(Internationalization::STRING_CODE::TO_ACCEPT_CHALLENGE, "to_accept_challenge");
+    generateDefaultStrings(Internationalization::STRING_CODE::YOU_WERE_CHALLENGED_TO_COMBAT, "you_were_challenged_to_combat");
+    generateDefaultStrings(Internationalization::STRING_CODE::JOINED_COMBAT_WITH, "joined_combat_with");
+    generateDefaultStrings(Internationalization::STRING_CODE::ACCEPTED_YOUR_CHALLENGE, "accepted_your_challenge");
+    generateDefaultStrings(Internationalization::STRING_CODE::YOU_NOT_CHALLENGED_TO_COMBAT, "you_not_challenged_to_combat");
 }
 
 void Internationalization::generateDefaultStrings(Internationalization::STRING_CODE codeName, const std::string& defaultString) {
