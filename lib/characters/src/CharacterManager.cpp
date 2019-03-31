@@ -153,9 +153,9 @@ int CharacterManager::getCharacterHealth(const std::string& username){
 }
 
 std::string CharacterManager::listNPCs() {
+	std::cout << "NPC size: " << NPCs.size() << "\n";
     std::string NPCList = "";
     for(auto& npc : NPCs){
-        std::cout << npc.getShortdesc();
         NPCList += npc.getShortdesc();
         NPCList += "\n";
     }

@@ -20,6 +20,13 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
             case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
                 auto location = characterManager.getCharacterLocation(username);
                 auto currentArea = worldManager.getAreaByLocation(location);
+
+                Character characterNPC{fullCommand[1]};
+                characterNPC.setShortdesc(fullCommand[1]);
+                characterNPC.setLongdesc(fullCommand[1]);
+                characterNPC.setDescription(fullCommand[1]);
+            
+                characterManager.addNPC(characterNPC);
                 
             }
             case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
@@ -67,7 +74,10 @@ std::vector<std::string> CommandCreateAva::reassembleCommand(std::string& fullCo
     //split by " " and compress all long spaces
     boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
     if(processedCommand.size() == 3) {
-        commandIsValid = (processedCommand[2] == "NPC");
+        if(processedCommand[2] == "npc"){
+            std::cout << processedCommand[2] << "\n";
+            commandIsValid = true;
+        }
     } else {
         commandIsValid = (processedCommand.size() == 2);
     }

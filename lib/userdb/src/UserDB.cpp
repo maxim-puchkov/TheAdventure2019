@@ -58,7 +58,7 @@ User UserDB::getUser(const std::string& name, const std::string& pwd){
         
         User user{name,pwd};
         
-        if(users_json[name]["admin"] == User::USER_ROLE::ADMIN){
+        if(users_json[name]["admin"]){
             user.setRole(User::USER_ROLE::ADMIN);
         } else{
             user.setRole(User::USER_ROLE::NORMAL_USER);
