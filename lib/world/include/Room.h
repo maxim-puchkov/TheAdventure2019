@@ -60,7 +60,7 @@ public:
     //NPCs
     bool addNPC(const std::string &name);
     bool removeNPC(const std::string &name);
-    std::vector<std::string> getNPCs(){return NPCsInRoom;}
+    std::vector<std::string>& getNPCs(){return NPCsInRoom;}
     void updateExits(int id, std::string name);
 
 

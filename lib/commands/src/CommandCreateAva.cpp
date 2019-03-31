@@ -25,7 +25,9 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
                 characterNPC.setShortdesc(fullCommand[1]);
                 characterNPC.setLongdesc(fullCommand[1]);
                 characterNPC.setDescription(fullCommand[1]);
-            
+                
+                // add new NPC to characterManager
+                // add new NPC to current room
                 characterManager.addNPC(characterNPC);
                 currentArea.addNPCtoRooms(characterNPC.getName(), location.room);
                 

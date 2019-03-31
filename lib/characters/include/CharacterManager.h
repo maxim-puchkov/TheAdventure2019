@@ -73,6 +73,7 @@ public:
         NPCs.push_back(NPC);
     }
 
+    std::vector<Character>& getListNPCs(){return NPCs;}
     std::string listNPCs();
 };
 

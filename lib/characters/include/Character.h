@@ -54,6 +54,7 @@ public:
     void setLongdesc(const std::string& longdesc);
     void setDescription(const std::string& description);
     void setFirstTimeSetup(const bool value);
+    void setName(const std::string& newName){name = newName;}
     
     // States ...
     bool isInCombat();

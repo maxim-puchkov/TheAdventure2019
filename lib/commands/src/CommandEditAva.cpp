@@ -6,24 +6,49 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
     if(fullCommand.size() == 4) {
         auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
         auto role = onlineUserManager.getUserRole(username);
+        auto location = characterManager.getCharacterLocation(username);
         switch(role) {
-            case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND:
+            case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND:{
                 return "Please log in again.\n";
-            case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER:
+            }
+            case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER:{
                 //don't let normal user know that this syntax exists
                 return "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
-            case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN:
-                //TODO: fill this
+            }
+            case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN:{
+                bool found = false;
+                auto& currentRoom = worldManager.findRoomByLocation(location);
+                auto& listNPCsInRoom = currentRoom.getNPCs();
+                for(auto& npc : listNPCsInRoom){
+                    if(npc == fullCommand[1]){
+                        found = true;
+                    }
+                }
+                if(found){
+                    auto& listNPCs = characterManager.getListNPCs();
+                    if(fullCommand[2] == "name"){
+                        //update npc in room
+                        for(auto& npc : listNPCsInRoom){
+                            if(npc == fullCommand[1]){
+                                npc = fullCommand[3];
+                            }
+                        }
+                        //update npc in characterManager
+                        for(auto& npc : listNPCs){
+                            if(npc.getName() == fullCommand[1]){
+                                npc.setName(fullCommand[3]);
+                            }
+                        }
+                    }
+                    }else if(fullCommand[2] == "desc"){
 
+                    }else if(fullCommand[2] == "delete"){
 
-
-
-            
+                    }
+                }
                 return "test answer";
-            default:
-                //swallow, log error state
-                return "";
-        }
+            }
+            
     } else {
         //Format: edit-avatar <what-to-edit>: <value>
         auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
