@@ -1,3 +1,4 @@
+#include <boost/algorithm/string.hpp>
 #include "Exit.h"
 
 using namespace std;
@@ -69,6 +70,14 @@ using namespace std;
 
 
     const string &Exit::getExitName() const {return exitName;}
+
+    const string Exit::getLowerCaseExitName() const {
+        std::string result = exitName;
+        boost::algorithm::to_lower(result);
+        return std::move(result);
+
+    }
+
     const string &Exit::getExitDescription() const {return exitDescription;}
     Exit::CardinalDirection Exit::getCardinalDirection() const {return exitDirection;}
     LocationCoordinates Exit::getTargetLocation() const {return targetLocation;}

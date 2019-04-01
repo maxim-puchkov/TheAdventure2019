@@ -35,6 +35,9 @@ public:
     static Exit::CardinalDirection getCardinalDirection(const std::string& direction);
     //getters
     const std::string &getExitName() const;
+    const std::string getLowerCaseExitName() const;
+
+
     const std::string &getExitDescription() const;
     CardinalDirection getCardinalDirection() const;
     LocationCoordinates getTargetLocation() const;
@@ -47,6 +50,7 @@ public:
     void setCardinalDirection(CardinalDirection direction);
     void setTargetLocation(int area, int room);
     void setTargetLocation(LocationCoordinates newLocation);
+
 
 private:
     std::string exitName;

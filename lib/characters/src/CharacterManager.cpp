@@ -7,7 +7,7 @@ using charactermanager::CharacterManager;
 
 
 
-/**
+/** Do we really need this?
  * Returns the long description of a NPC.
  * If an NPC and a PC happen to share the same name, append the description and return them both for viewing
  * @param userName - The username of a playable character, or the name of a NPC
@@ -17,13 +17,10 @@ const std::string& CharacterManager::getLongDescription(const std::string &userN
 
     std::string result = "";
 
-
     auto onlineChar = onlineCharacters.find(userName);
     if(onlineChar != onlineCharacters.end() ){
         result.append(onlineChar->second.getLongdesc() + "\n");
     }
-
-
 
     const auto &npc = std::find_if(computerControlledCharacters.begin(),computerControlledCharacters.end(),
             [&] (auto &iter) {return iter.getName() == userName ; }
