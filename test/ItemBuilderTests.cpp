@@ -18,10 +18,31 @@ namespace items {
 class ItemBuilderTests : public testing::Test {
 protected:
     
+    bool initialized;
+    
     void SetUp() override {
         // Initial set up before each test...
-        constructor = ItemBuilder();
         initialized = true;
+        
+        // Set test identifier
+        test_id = 1;
+        
+        // Set input values
+        input_keys = {"Keyword 1", "Keyword 2"};
+        input_desc = "ItemController tests...";
+        input_acts = {
+            {"open", "you opened something!"},
+            {"close", "you closed something!"}
+        };
+        
+        // Convert to object data
+        keys = Keywords(input_keys);
+        desc = Description(input_desc);
+        acts = Actions(input_acts);
+        
+        // Set defaults values
+        def_desc = DEF_DESC;
+        def_acts = DEF_ACTS;
     }
     
     void TearDown() override {
@@ -32,8 +53,33 @@ protected:
     
     /* * *         Variables        * * */
     
-    ItemBuilder constructor;
-    bool initialized;
+    /// Fixture builder
+    ItemBuilder test_builder;
+    
+    /// Identifier assigned to all test items
+    ItemIdentifier test_id;
+    
+    
+    
+    // Raw variables that could be read from file or entered by characters
+    vector<string> input_keys;
+    string input_desc;
+    vector<pair<string, string>> input_acts;
+    
+    
+    // ItemBuilder converts raw variables to easy-to-use
+    // self-managing classes. These can be converted back via
+    // .toString() and/or .toVector()
+    Keywords keys;
+    Description desc;
+    Actions acts;
+    
+    
+    // Keywords are required; Description and Actions are optional.
+    // If value is not specified when creating an object,
+    // builder will assign default values.
+    Description def_desc;
+    Actions def_acts;
     
 };
 
@@ -53,86 +99,95 @@ TEST_F(ItemBuilderTests, TestInitialization) {
 }
 
 
-// Testing objing construction
+// Testing building a complete item with keywords, description, and actions
 TEST_F(ItemBuilderTests, Build) {
-
-    // Variable input
-    Identifier id = 1;
-    vector<string> keys{"sword", "rare"};
-    Text description = "Testing Construction";
-    vector<pair<string, string>> actions{{"action", "examining action"}};
-
     
-    // Create a rare sword with one action
-    constructor.setKeywords(keys);
-    constructor.setDescription(description);
-    constructor.setActions(actions);
-    Item sword = constructor.build(id);
-
-    
-    // Test main object properties
-    EXPECT_EQ(id, sword.id);
-    EXPECT_EQ(Keywords(keys), sword.keywords);
-    EXPECT_EQ(Description(description), sword.description);
-    EXPECT_EQ(Actions(actions), sword.actions);
-
-}
-
-
-//TEST_F(ItemBuilderTests, Authentication) {
-//
-//    // Item's keywords and description
-//    vector<string> keys{"Unique item", "First item's id ID = 1"};
-//    string description = "1";
-//
-//    // Create first item
-//    constructor.setKeywords(keys);
-//    constructor.setDescription(description);
-//    Item item = constructor.build();
-//
-//    EXPECT_EQ(1, item.id());
-//
-//}
-
-
-//TEST_F(ItemBuilderTests, KeywordMatching) {
-//
-//    // Variable input
-//    vector<string> keys{"1. A keyword", "2. Also a keyword"};
-//    string description = "Testing keywords";
-//
-//    // Create an item
-//    constructor.setKeywords(keys);
-//    constructor.setDescription(description);
-//     Item item = constructor.build();
-//
-//
-//     EXPECT_TRUE(item.keywords.contains(keys[0]));
-//     EXPECT_TRUE(item.keywords.contains(keys[1]));
-//     EXPECT_FALSE(item.keywords.contains("Not a keyword"));
-//
-//}
-
-/*
-TEST_F(ItemBuilderTests, KeywordType) {
- 
-    string skey = "string key";
-    char *ckey = "char* key";
-    string description = "Testing item types";
-
- 
     // Create an item
-    constructor.setKeywords(keys);
-    constructor.setDescription(description);
-    Item item = constructor.build();
- 
- 
-    EXPECT_EQ(true, item.keywords.contains(skey));
-    EXPECT_EQ(true, item.keywords.contains(ckey));
- 
+    test_builder.setKeywords(input_keys);
+    test_builder.setDescription(input_desc);
+    test_builder.setActions(input_acts);
+    Item item = test_builder.build(test_id);
+    
+    EXPECT_EQ(test_id, item.id);
+    EXPECT_EQ(keys, item.keywords);
+    EXPECT_EQ(desc, item.description);
+    EXPECT_EQ(acts, item.actions);
+    EXPECT_TRUE(item.isInteractable());
+
+}
+    
+    
+// Testing building an item with keywords, description, and NO actions
+TEST_F(ItemBuilderTests, BuildNoActs) {
+    
+    // Create an item without actions
+    test_builder.setKeywords(input_keys);
+    test_builder.setDescription(input_desc);
+    Item item = test_builder.build(test_id);
+    
+    EXPECT_EQ(1, item.id);
+    EXPECT_EQ(keys, item.keywords);
+    EXPECT_EQ(desc, item.description);
+    EXPECT_EQ(def_acts, item.actions);
+    EXPECT_FALSE(item.isInteractable());
+    
 }
 
-*/
+
+// Testing building an item with keywords, NO description, and NO actions
+TEST_F(ItemBuilderTests, BuildNoDescActs) {
     
+    // Build an item without description and actions
+    test_builder.setKeywords(input_keys);
+    Item item = test_builder.build(test_id);
+
+    EXPECT_EQ(1, item.id);
+    EXPECT_EQ(keys, item.keywords);
+    EXPECT_EQ(def_desc, item.description);
+    EXPECT_EQ(def_acts, item.actions);
+    EXPECT_FALSE(item.isInteractable());
+    
+}
+
+
+// Testing building and resetting builder
+TEST_F(ItemBuilderTests, BuildReset) {
+    
+    // Create an item
+    test_builder.setKeywords(input_keys);
+    test_builder.setDescription(input_desc);
+    test_builder.setActions(input_acts);
+    Item item = test_builder.build(test_id);
+    
+    // And another one
+    auto test_id_2 = test_id + 1;
+    Item item_2 = test_builder.build(test_id_2);
+    
+    EXPECT_EQ(test_id, item.id);
+    EXPECT_EQ(test_id_2, item_2.id);
+    
+    EXPECT_EQ(EMPTY_KEYS, item_2.keywords);
+    EXPECT_EQ(DEF_DESC, item_2.description);
+    EXPECT_EQ(DEF_ACTS, item_2.actions);
+    
+    EXPECT_NE(item, item_2);
+    
+}
+
+
+// Testing matching item keywords 
+TEST_F(ItemBuilderTests, KeywordMatching) {
+
+    // Create an item
+    test_builder.setKeywords(input_keys);
+    test_builder.setDescription(input_desc);
+    Item item = test_builder.build(test_id);
+
+    EXPECT_TRUE(item.keywords.contains(input_keys[0]));
+    EXPECT_TRUE(item.keywords.contains(input_keys[1]));
+    EXPECT_FALSE(item.keywords.contains("Not a keyword"));
+
+}
+
 
 } /* namespace items */
