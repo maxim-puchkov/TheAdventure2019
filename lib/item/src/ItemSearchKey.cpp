@@ -11,13 +11,23 @@
 
 namespace items {
 
-//    
-//bool ItemSearchKey::operator<(ItemSearchKey &other) const {
-//    return this->index < other.index;
-//}
-//bool ItemSearchKey::operator<(const ItemSearchKey &other) const {
-//    return this->index < other.index;
-//}
+
+ItemSearchKey::ItemSearchKey(ItemIdentifier id)
+: id(id), keywords(Keywords{})
+{ }
+
+ItemSearchKey::ItemSearchKey(const Keywords &keywords)
+: id(0), keywords(keywords)
+{ }
+
+ItemSearchKey::ItemSearchKey(ItemIdentifier id, const Keywords &keywords)
+: id(id), keywords(keywords)
+{ }
+
+ItemSearchKey::ItemSearchKey(const Item &item)
+: id(item.id), keywords(item.keywords)
+{ }
+
 
 bool ItemSearchKey::operator==(ItemSearchKey &other) const {
     return ((this->id == other.id) || (this->keywords == other.keywords));
@@ -25,6 +35,13 @@ bool ItemSearchKey::operator==(ItemSearchKey &other) const {
 
 bool ItemSearchKey::operator==(const ItemSearchKey &other) const {
     return ((this->id == other.id) || (this->keywords == other.keywords));
+}
+
+
+string ItemSearchKey::toString() const noexcept {
+    ostringstream stream{""};
+    stream << "Search Key: " << id << ". " << keywords.toString();
+    return stream.str();
 }
 
 
@@ -39,7 +56,7 @@ namespace std {
 
 
 size_t hash<ItemSearchKey>::operator()(const ItemSearchKey &key) const {
-    return hash<items::Identifier>{}(key.id);
+    return hash<items::ItemIdentifier>{}(key.id);
 }
 
 

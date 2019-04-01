@@ -11,17 +11,29 @@
 #define ItemSearchKey_h
 
 #include "items.hpp"
+#include "Item.h"
 
 namespace items {
 
 
-struct ItemSearchKey {
+class ItemSearchKey {
+public:
     
-    Identifier id;
-    Keywords keywords;
+    const ItemIdentifier id;
+    const Keywords keywords;
+    
+    
+    ItemSearchKey(ItemIdentifier id);
+    ItemSearchKey(const Keywords &keywords);
+    ItemSearchKey(ItemIdentifier id, const Keywords &keywords);
+    ItemSearchKey(const Item &item);
+    
     
     bool operator==(ItemSearchKey &other) const;
     bool operator==(const ItemSearchKey &other) const;
+    
+    
+    string toString() const noexcept;
     
 };
 
