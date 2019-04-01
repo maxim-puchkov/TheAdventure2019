@@ -38,7 +38,7 @@ Collection::Collection(const Item &container, unsigned int capacity)
 
 /* Object interface */
 
-Identifier Collection::identifier() const {
+ItemIdentifier Collection::identifier() const {
     return this->collectionID;
 }
 
@@ -84,7 +84,7 @@ bool Collection::insert(const Item &item) {
     return this->set.insert(item.identifier()).second;
 }
 
-bool Collection::insert(Identifier id) {
+bool Collection::insert(ItemIdentifier id) {
     return this->set.insert(id).second;
 }
 
@@ -95,14 +95,14 @@ bool Collection::erase(const Item &item) {
     return valid;
 }
 
-bool Collection::erase(Identifier id) {
+bool Collection::erase(ItemIdentifier id) {
     bool valid = (this->set.find(id) != this->set.cend());
     this->set.erase(id);
     return valid;
 }
 
 
-bool Collection::contains(Identifier id) const {
+bool Collection::contains(ItemIdentifier id) const {
     return (this->set.find(id) != this->set.cend());
 }
 
@@ -112,12 +112,12 @@ size_t Collection::size() const {
 }
 
 
-std::set<Identifier>::const_iterator Collection::begin() const {
+std::set<ItemIdentifier>::const_iterator Collection::begin() const {
     return this->set.cbegin();
 }
 
 
-std::set<Identifier>::const_iterator Collection::end() const {
+std::set<ItemIdentifier>::const_iterator Collection::end() const {
     return this->set.cend();
 }
 

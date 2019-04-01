@@ -26,6 +26,8 @@ namespace items {
  @brief Game chests, bags, inventory
  
  Collection
+ 
+ @warning Not used
  */
 //template<typename T, unsigned int capacity>
 class Collection : public Object {
@@ -61,7 +63,7 @@ public:
     /* Object Interface */
 
     /// Retrieve object ID
-    Identifier identifier() const override;
+    ItemIdentifier identifier() const override;
     
     /// Display item's first keyword
     Key brief() const override;
@@ -79,12 +81,12 @@ public:
     /* Set operations */
     
     bool insert(const Item &item);
-    bool insert(Identifier id);
+    bool insert(ItemIdentifier id);
     
     bool erase(const Item &item);
-    bool erase(Identifier id);
+    bool erase(ItemIdentifier id);
     
-    bool contains(Identifier id) const;
+    bool contains(ItemIdentifier id) const;
     
     size_t size() const;
     
@@ -94,18 +96,18 @@ public:
     
     /* Iterators */
     
-    std::set<Identifier>::const_iterator begin() const;
-    std::set<Identifier>::const_iterator end() const;
+    std::set<ItemIdentifier>::const_iterator begin() const;
+    std::set<ItemIdentifier>::const_iterator end() const;
 
 private:
     
-    Identifier collectionID;
+    ItemIdentifier collectionID;
     
     Item container;
     
     unsigned int capacity;
 
-    std::set<Identifier> set;
+    std::set<ItemIdentifier> set;
     
 };
 
