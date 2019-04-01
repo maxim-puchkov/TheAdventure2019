@@ -154,6 +154,13 @@ Text Description::operator[](size_t index) const {
 /* * *   Private   * * */
 
 void Description::init() {
+    
+    if (this->source.data() == EMPTY) {
+        this->longdesc = {};
+        this->shortdesc = EMPTY;
+        return;
+    }
+    
     this->source.format();
     
     Lines lines = this->source.arrangedSource();

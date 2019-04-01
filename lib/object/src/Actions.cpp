@@ -24,9 +24,9 @@ Action::Action(const string &keyword, const string &desc)
 : keyword(keyword), description(Description(desc))
 { }
 
-Action::Action(const string &keyword, const vector<string> &longdesc)
-: keyword(keyword), description(Description(longdesc))
-{ }
+//Action::Action(const string &keyword, const vector<string> &longdesc)
+//: keyword(keyword), description(Description(longdesc))
+//{ }
 
 inline pair<Key, Description> Action::toPair() {
     return {keyword, description};
@@ -66,9 +66,13 @@ Actions::Actions(vector<Action> &actions)
 /* ObjectData Protocol */
 
 string Actions::toString() const noexcept {
-    ostringstream stream{""};
+    if (this->env.empty()) {
+        return "";
+    }
     
+    ostringstream stream{""};
     auto iterator = this->env.begin();
+
     stream << (*iterator).first;
     iterator++;
     

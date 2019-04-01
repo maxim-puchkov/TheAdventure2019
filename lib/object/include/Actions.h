@@ -38,10 +38,10 @@ public:
     pair<Key, Description> toPair();
     
 private:
+
+    Key keyword{""};
     
-    Key keyword;
-    
-    Description description;
+    Description description{"No description"};;
     
 };
 
