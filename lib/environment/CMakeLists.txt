@@ -1,12 +1,15 @@
+#
+#   Environment CMakeLists
+#
+
+
 cmake_minimum_required(VERSION 3.12)
+project(${environment} VERSION 1.0)
 
 
-project(${environment})
-
-
-add_library(${PROJECT_NAME} SHARED
-    include/${PROJECT_NAME}.h
-    src/${PROJECT_NAME}.cpp
+add_library(${PROJECT_NAME}
+    include/Environment.h
+    src/Environment.cpp
 )
 
 
@@ -14,7 +17,6 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/traits/>
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
@@ -26,4 +28,7 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 
-install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
+install(TARGETS ${PROJECT_NAME}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+)
