@@ -16,7 +16,7 @@ namespace ui {
 /* Constructors */
 
 UITextPartition::UITextPartition(vector<string> &&elements)
-: elements(std::move(elements)), currentIndex(0), max_index(elements.size())
+: max_index(elements.size()), elements(std::move(elements))
 { }
 
 

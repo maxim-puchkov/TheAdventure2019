@@ -84,7 +84,7 @@ public:
     
 private:
     
-    size_t currentIndex;
+    size_t currentIndex = 0;
     
     vector<string> elements;
     
