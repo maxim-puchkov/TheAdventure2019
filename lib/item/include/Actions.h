@@ -41,7 +41,7 @@ private:
 
     Key keyword{""};
     
-    Description description{"No description"};;
+    Description description{"No description"};
     
 };
 
