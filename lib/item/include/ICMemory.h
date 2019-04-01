@@ -13,7 +13,7 @@
 #include "items.hpp"
 #include "Item.h"
 #include "ItemSearchKey.h"
-#include "bad_dealloc.h"
+// #include "bad_dealloc.h"
 
 
 namespace items {
@@ -38,14 +38,12 @@ public:
 //private:
 
     
-    void validate() const noexcept(false) {
-        if (this->allocs != this->deallocs) {
-            throw bad_dealloc("ItemController memory deallocation exception");
-        }
+    bool validate() const noexcept {
+        return (this->allocs != this->deallocs);
     }
     
     template<typename T>
-    Environment<ItemSearchKey, Item> allocate(T t) noexcept {
+    Environment<ItemSearchKey, Item> allocate(T&) noexcept {
         //         auto *container =
         //        this->env2d.bind(t, containerEnv);
         this->allocs++;

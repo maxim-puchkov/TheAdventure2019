@@ -18,7 +18,6 @@
 
 #include <iostream>
 #include <string>
-#include "bad_dealloc.h" // test
 
 
 namespace debug {
