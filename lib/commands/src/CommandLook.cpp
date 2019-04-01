@@ -33,23 +33,19 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
         return;
     }
 
+    
     std::string appendedCommand;
     for(int i = 1; i < fullCommand.size(); i++){
         appendedCommand.append( fullCommand.at(i) + " " );
     }
-    boost::trim(appendedCommand);
-
-
-    /////////////////////////////////////////// If looking at a specific user then....
-    //If an username and exit share the same name, send both of the messages to the user.
-
+    boost::algorithm::trim(appendedCommand);
     std::string result = room.lookForExitName( appendedCommand ) + "\n";
-    /*
-    const std::string &charName = room.lookForName(targetLookingAt);
-    if( !charName.empty() ){
-       result.append( characterManager.getLongDescription(charName) + "\n" );
-    } */
 
+
+    /////////////////////////Looking at characthers ///////////////////////
+    string a = room.lookForName(fullCommand.at(1));
+
+    result.append( characterManager.getLongDescription(a) + "\n" ); // This line causes the crash
     onlineUserManager.addMessageToUser(userName, result );
     //////////////////////////////////////////
 

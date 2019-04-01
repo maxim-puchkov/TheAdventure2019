@@ -73,7 +73,7 @@ std::string Room::lookForExitName(const std::string &objName) const {
 		return (*roomExit).getExitDescription();
 	}
 
-	return "You couldn't find anything called " + objName;
+	return "You couldn't find an exit called " + objName ;
 
 }
 

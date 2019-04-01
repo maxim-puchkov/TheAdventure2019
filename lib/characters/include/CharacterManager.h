@@ -41,7 +41,7 @@ public:
       CHARACTER_FAILED
     };
 
-    const std::string &getLongDescription(const std::string &userName);
+    const std::string getLongDescription(const std::string &userName) const;
 
     LocationCoordinates spawnCharacter(const std::string& username);
     void kickCharacter(const std::string& username);
