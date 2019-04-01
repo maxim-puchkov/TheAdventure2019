@@ -30,7 +30,7 @@ public:
     
     /*! Convert symbolic data a to viewable string */
     virtual string toString() const noexcept = 0;
-    
+
     /*! Convert symbolic data to a vector of strings */
     virtual vector<string> toVector() const noexcept = 0;
     
@@ -42,11 +42,20 @@ public:
     
 private:
     
-    T& data();
+    T& data() {
+        return *static_cast<T*>(this);
+    }
     
 };
 
 
 } /* namespace objects */
+
+// Ambiguous
+//template<class T>
+//std::ostream& operator<<(std::ostream &stream, T structure) {
+//    stream << objects::ObjectData<T>::data().toString();
+//    return stream;
+//}
 
 #endif /* ObjectData _h */

@@ -9,7 +9,8 @@
 #define Environment_cpp
 
 #include "Environment.h"
-#include "convertable.h"
+
+
 
 
 
@@ -190,7 +191,7 @@ std::string Environment<K, V>::toString() const noexcept {
         return ENV_CONV_ERROR;
     }
     
-    std::ostringstream stream{""};
+    std::ostringstream stream({""});
     stream << "{";
     auto it = this->begin();
     

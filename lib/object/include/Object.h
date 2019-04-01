@@ -31,10 +31,12 @@ class Object {
 public:
     
     /*! Object constructor */
-    Object();
+    Object()
+    { }
     
     /*! Object destructor */
-    virtual ~Object();
+    virtual ~Object()
+    { }
     
     
     

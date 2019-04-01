@@ -1,29 +1,29 @@
-add_library(${libEnvironment} SHARED
-    src/Environment.cpp
+cmake_minimum_required(VERSION 3.12)
+
+
+project(${environment})
+
+
+add_library(${PROJECT_NAME} SHARED
+    include/${PROJECT_NAME}.h
+    src/${PROJECT_NAME}.cpp
 )
 
-target_include_directories(${libEnvironment}
+
+target_include_directories(${PROJECT_NAME}
     PUBLIC
         $<INSTALL_INTERFACE:include>
-        $<INSTALL_INTERFACE:src>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/traits/>
+    PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(${libEnvironment}
+
+target_link_libraries(${PROJECT_NAME}
     PUBLIC
-        ${libUtility}
+        ${traits}
 )
 
 
-set_target_properties(${libEnvironment}
-    PROPERTIES
-    COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
-    LINKER_LANGUAGE CXX
-    CXX_STANDARD 17
-)
-
-install(TARGETS ${libEnvironment}
-    LIBRARY DESTINATION lib
-)
+install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)

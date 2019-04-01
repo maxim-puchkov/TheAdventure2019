@@ -6,18 +6,18 @@
 //  Copyright © 2019 maximpuchkov. All rights reserved.
 //
 
-#include "Object.h"
-
-
-namespace objects {
-
-
-Object::Object()
-{ }
-
-
-Object::~Object()
-{ }
-
-
-} /* namespace objects */
+//#include "Object.h"
+//
+//
+//namespace objects {
+//
+//
+//Object::Object()
+//{ }
+//
+//
+//Object::~Object()
+//{ }
+//
+//
+//} /* namespace objects */

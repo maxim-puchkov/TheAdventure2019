@@ -9,12 +9,14 @@
 #define Environment_h
 
 #include <unordered_map>
+#include <iostream>
 #include <ostream>
 #include <sstream>
 #include <string>
 #include <exception>
 #include <queue>
 #include <type_traits>
+#include "convertable.h"
 
 
 using std::string;
