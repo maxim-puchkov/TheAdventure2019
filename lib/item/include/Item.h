@@ -24,7 +24,7 @@ class Item: public Object {
 public:
     
     /*! Unique identifier */
-    const Identifier id;
+    const ItemIdentifier id;
     
     
     /*!
@@ -34,7 +34,7 @@ public:
      @param description Item description text
      @param actions     Actions associated with this item
      */
-    Item(Identifier id,
+    Item(ItemIdentifier id,
          const Keywords &keywords,
          const Description &description,
          const Actions &actions);
@@ -48,7 +48,7 @@ public:
     /* Object interface */
     
     /*! Unique identifier assigned to this object */
-    Identifier identifier() const override;
+    ItemIdentifier identifier() const override;
     
     /*! Display item's short description */
     Text brief() const override;
@@ -59,7 +59,7 @@ public:
     /*! Examine an action to see its description @warning undefined */
     Text examine(const Key &keyword) const override;
     
-    
+    /*! Check if object has additional actions */
     bool isInteractable() const override;
     
     
@@ -81,16 +81,6 @@ public:
     
     
     
-    /* Modifiers */
-    
-    void setIdentifier(Identifier identifier) {
-        // this->itemID = identifier;
-    }
-    
-    
-    
-    
-    
     /* Operators */
     
     Item& operator=(Item &other);
@@ -98,6 +88,9 @@ public:
     
     bool operator==(Item &other) const;
     bool operator==(const Item& other) const;
+    
+    bool operator!=(Item &other) const;
+    bool operator!=(const Item& other) const;
     
 private:
     

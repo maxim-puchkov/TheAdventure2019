@@ -7,7 +7,6 @@
 //
 
 #include "Item.h"
-#include "ItemHash.h"
 
 
 namespace items {
@@ -15,20 +14,16 @@ namespace items {
 
 /* Constructors */
 
-Item::Item(Identifier id,
+Item::Item(ItemIdentifier id,
            const Keywords &keywords,
            const Description &description,
            const Actions &actions)
 : id(id), keywords(keywords), description(description), actions(actions)
-{
-//    debug::prefix("Item");
-//    debug::print("Created ", this->toString());
-}
+{ }
 
 
-Item::~Item() {
-//    debug::print("Destroyed ", this->toString());
-}
+Item::~Item()
+{ }
 
 
 
@@ -37,7 +32,7 @@ Item::~Item() {
 
 /* Object Interface */
 
-Identifier Item::identifier() const {
+ItemIdentifier Item::identifier() const {
     return this->id;
 }
 
@@ -49,9 +44,6 @@ Text Item::brief() const {
 
 Text Item::toString() const {
     ostringstream stream{""};
-    //const char NL = '\n';
-    //const char TAB = '\t';
-    //const string DELIM = {NL, TAB};
     const string DELIM = ", ";
     
     stream << "Item (";
@@ -107,6 +99,15 @@ bool Item::operator==(const Item& other) const {
 }
 
 
+bool Item::operator!=(Item &other) const {
+    return (this->id != other.id);
+}
+
+bool Item::operator!=(const Item& other) const {
+    return (this->id != other.id);
+}
+
+
 } /* namespace items */
 
 
@@ -117,7 +118,7 @@ namespace std {
 
 
 size_t hash<Item>::operator()(const Item &item) const {
-    return hash<items::Identifier>{}(item.identifier());
+    return hash<items::ItemIdentifier>{}(item.identifier());
 }
 
 

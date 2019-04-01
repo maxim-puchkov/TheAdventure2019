@@ -43,7 +43,7 @@ public:
     /* Object Interface */
     
     /*! Unique identifier assigned to this object */
-    virtual Identifier identifier() const = 0;
+    virtual ObjectIdentifier identifier() const = 0;
     
     
     /*! Display item's short description */

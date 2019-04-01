@@ -30,6 +30,7 @@ using namespace typenames;
 using namespace data;
 
 using objects::Object;
+using ItemIdentifier = objects::ObjectIdentifier;
 
 
 } /* namespace items */

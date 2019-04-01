@@ -25,7 +25,7 @@ namespace objects {
 
 /*! Type aliases */
 inline namespace typenames {
-    using Identifier = uint64_t;
+    using ObjectIdentifier = uint64_t;
     using Key = string;
     using Text = string;
     using Set = std::set<Key>;
