@@ -10,10 +10,10 @@
 #include <vector>
 #include <utility> //std::move (objects)
 #include "Exit.h"
-#include "Character.h"
+// #include "Character.h"
 #include "LocationCoordinates.h"
 #include <algorithm>
-#include "NPC.h"
+// #include "NPC.h"
 
 class Room {
 

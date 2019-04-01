@@ -138,22 +138,22 @@ std::string WorldManager::listExits(LocationCoordinates location) {
     }
 }
 
-std::string WorldManager::listPeople(const Character& character) {
-    LocationCoordinates currentLocation = character.getCurrentLocation();
-    try{
-
-        auto& currentRoom = findRoomByLocation(currentLocation);
-        auto& peopleList = currentRoom.getUserNames();
-        std::string result = "People in room: \n";
-        for(auto& charName: peopleList){
-            result += "- " + charName + "\n";
-        }
-
-        return result;
-    } catch(const std::domain_error& e){
-        return "No one else in the room.";
-    }
-}
+//std::string WorldManager::listPeople(const Character& character) {
+//    LocationCoordinates currentLocation = character.getCurrentLocation();
+//    try{
+//
+//        auto& currentRoom = findRoomByLocation(currentLocation);
+//        auto& peopleList = currentRoom.getUserNames();
+//        std::string result = "People in room: \n";
+//        for(auto& charName: peopleList){
+//            result += "- " + charName + "\n";
+//        }
+//
+//        return result;
+//    } catch(const std::domain_error& e){
+//        return "No one else in the room.";
+//    }
+//}
 
 
 std::string WorldManager::look(LocationCoordinates location) {
