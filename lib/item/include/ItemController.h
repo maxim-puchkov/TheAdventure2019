@@ -14,13 +14,14 @@
 #include "ItemSearchKey.h"
 #include "ItemBuilder.h"
 #include "Authenticator.h"
+#include "ICMemory.h"
+#include "print.h"
 
 
 namespace items {
 
 using auth::Authenticator;
 using ItemIdentifier = Identifier;
-// using ContainerIdentifier = Identifier;
 
 
 /// IC
@@ -30,158 +31,349 @@ public:
     
     const ItemBuilder builder = ItemBuilder();
     
+    const Identifier id;
+    
     
     ItemController()
-    : authenticator(Authenticator<ItemIdentifier>()) {
-        debug::prefix("ItemController");
-        debug::print("ItemController created");
+    : id(0), authenticator(Authenticator<ItemIdentifier>()) {
+        this->init();
     }
     
-    //template<typename T>
-    //ItemController(Authenticator<T> &&auth)
     ItemController(const Authenticator<ItemIdentifier> &auth)
-    : authenticator(auth) {
-        debug::prefix("ItemController");
-        debug::print("ItemController created");
+    : id(auth.parent_id), authenticator(auth) {
+        this->init();
     }
     
     
-    ~ItemController() /* override */ {
-        // dealloc
+    ~ItemController() /* noexcept(false) */ {
+        this->deallocateContainers();
+//        this->memory.validate();
+//        debug::print("Allocated: ", this->memory.allocs);
+//        debug::print("Deallocated: ", this->memory.deallocs);
     }
 
-
     
     
-    /// Create an item in the container
-    ItemIdentifier create(ContainerKey ck) const  /* noexcept override */{
-        
-        Environment<ItemSearchKey, Item> *container;
-        
-        if (!this->env2d.exists(ck)) {
-            debug::print("Allocating container environment for ", ck);
-            container = this->alloc(std::forward<ContainerKey>(ck));
-        } else {
-            debug::print("Looking up existing env2d for ", ck);
-            container = this->env2d.lookup(std::forward<ContainerKey>(ck));
+    ItemIdentifier create(ContainerKey ck) const {
+        if (!this->builder.validate()) {
+            return this->id;
         }
         
 
-        ItemIdentifier id = this->authenticator.generateUniqueIdentificator();
+        this->memory.items_created++;
         
-        Item item = this->builder.build(id);
+        if (!this->env2d.exists(ck)) {
+            
+            debug::print("1. Allocating container environment for ", ck);
+            this->memory.allocs++;
+            Environment<ItemSearchKey, Item> newContainer;
+            auto item = this->buildUniqueItem();
+
+            newContainer.bind(ItemSearchKey(item), item);
+            this->env2d.bind(ck, newContainer);
+            
+            
+            return item.id;
+            
+        } else {
+            
+            debug::print("1. Looking up existing container environment for ", ck);
+            Environment<ItemSearchKey, Item> container = this->env2d.lookup(ck);
+            auto item = this->buildUniqueItem();
+
+            container.bind(ItemSearchKey(item), item);
+
+            this->update(ck, container);
+            return item.id;
+            
+        }
+    }
+    
+    
+    void update(ContainerKey ck, Environment<ItemSearchKey, Item> &container) const {
+        this->env2d.unbind(ck);
+        this->env2d.bind(ck, container);
+    }
+    
+    /// Create an item in the container
+    ItemIdentifier updateContainer(ContainerKey ck, Environment<ItemSearchKey, Item> &container) const {
+        return 0;
         
-        container->bind({id, item.keywords}, item);
+//        if (!this->builder.validate()) {
+////            debug::print();
+//            return this->id;
+//        }
+//
+//
+//        //Environment<ItemSearchKey, Item> *container;
+//        Environment<ItemSearchKey, Item> container;
+//        if (!this->env2d.exists(ck)) {
+//            debug::print("1. Allocating container environment for ", ck);
+//            // container = this->memory.allocate(ck);
+//            this->allocs++;
+//            container = Environment
+//            this->env2d.bind(ck, container);
+//        } else {
+//            debug::print("1. Looking up existing env2d for ", ck);
+//            container = this->env2d.lookup(ck);
+//        }
         
-        this->count++;
+        
+//        ItemIdentifier id = this->authenticator.generateUniqueIdentifier();
+//
+//        Item item = this->builder.build(id);
+//
+//        /// @warning bug keywors==
+//        container.bind({id, item.keywords}, item);
+//
+//        return container;
+        
+//        debug::print("4. Bound in container: ", (*container).toString());
+
+        /// @warning bug
+//        this->env2d.modify(ck, container);
+//        this->env2d.unbind(ck);
+//        this->env2d.bind(ck, container);
+        
+        
+//        debug::print("5. Item env2d updated: ", this->env2d.toString());
+        
+//        debug::print("6. env2d size: ", this->env2d.size());
+        
+        
+//        this->memory.items_created++;
+//        debug::print("7. Items created: ", this->memory.items_created);
+
         
         return id;
         
     }
     
     
-    /// Items owned by the container */
-    vector<Identifier> findOwned(ContainerKey ck) const  /* noexcept override */ {
-        Environment<ItemSearchKey, Item> *env = this->env2d.lookup(std::forward<ContainerKey>(ck));
+    /*! Generate unique id and build a new item */
+    Item buildUniqueItem() const noexcept {
+        ItemIdentifier id = this->authenticator.generateUniqueIdentifier();
+        return this->builder.build(id);
+    }
+    
+
+    /// Search for all items matching a keyword
+    vector<ItemIdentifier> search(ContainerKey ck, const string &keyword) const {
+        vector<Identifier> vec;
+        auto env = this->env2d.lookup(ck);
         
-        vector<Identifier> vec;
-        for (auto element : *env) {
-            ItemSearchKey key = element.first;
-            vec.push_back(key.id);
-        }
-        return vec;
-    }
-    
-    /**/
-    unsigned int itemsCreated() const noexcept {
-        return this->count;
-    }
-    
-    /**/
-    unsigned int allocations() const noexcept {
-        return this->allocs;
-    }
-    
-    /**/
-    unsigned int deallocations() const noexcept {
-        return this->deallocs;
-    }
-    
-    
-    Item lookup(ContainerKey ck, ItemIdentifier id) const noexcept(false) {
-        return this->env2d.lookup(ck)->lookup({id, {}});
-    }
-    
-    Item lookup(ContainerKey ck, Keywords &&keywords) const noexcept(false) {
-        return this->env2d.lookup(ck)->lookup({0, std::forward<Keywords>(keywords)});
-    }
-    
-    // Check by id
-    bool exists(ContainerKey ck, Identifier id) const noexcept {
-        return ((this->env2d.exists(ck)) && (this->env2d.lookup(ck)->exists({id, {}})));
-    }
-    
-    // Check by keywords
-    bool exists(ContainerKey ck, Keywords &&keywords) const noexcept {
-        return ((this->env2d.exists(ck))
-                && (this->env2d.lookup(ck)->exists({0, std::forward<Keywords>(keywords)})));
-    }
-    
-    
-    
-    // debug
-    void display_all() {
-        debug::print(this->env2d);
-    }
-    
-    
-    
-    /* * * Deprecated * * */
-    
-    [[deprecated]] vector<Identifier> search(const string &keyword) const {
-        vector<Identifier> vec;
-        for (auto element : this->env) {
+        for (auto element : env) {
             ItemSearchKey key = element.first;
             if (key.keywords.contains(keyword)) {
                 vec.push_back(key.id);
             }
         }
+        
         return vec;
     }
-  
-    [[deprecated]] mutable Environment<ItemSearchKey, Item> env;
     
-    /* * * Deprecated * * */
+    
+    /*! */
+    Item lookup(ContainerKey ck, ItemIdentifier id) const noexcept(false) {
+        return this->env2d.lookup(ck).lookup({id, {}});
+    }
+    
+    /*! */
+    Item lookup(ContainerKey ck, const Keywords &keywords) const noexcept(false) {
+        /// return this->env2d.lookup(ck)->lookup({0, keywords});
+        auto env = this->env2d.lookup(ck);
+        for (auto element : env) {
+            ItemSearchKey key = element.first;
+            debug::print("3. ", key.id);
+            if (key == ItemSearchKey{0, keywords}) {
+                return element.second;
+            }
+        }
+        
+        throw std::invalid_argument("IC lookup");
+    }
+    
+    
+    
+    /*! Determine if item exists by its identifier */
+    bool exists(ContainerKey ck, ItemIdentifier id) const noexcept {
+        if (this->env2d.exists(ck)) {
+            auto env = this->env2d.lookup(ck);
+            for (auto element : env) {
+                ItemSearchKey key = element.first;
+                if (key == ItemSearchKey{id, {}}) {
+                    return true;
+                }
+            }
+        }
+        return false;
+        
+    }
+    
+    // using debug::print;
+    
+    /*! Check if item matching the keywords exists in a container */
+    bool exists(ContainerKey ck, const Keywords &keywords) const noexcept {
+        if (this->env2d.exists(ck)) {
+            auto env = this->env2d.lookup(ck);
+            for (auto element : env) {
+                ItemSearchKey key = element.first;
+                if (key == ItemSearchKey{0, keywords}) {
+                    return true;
+                }
+            }
+        }
+        return false;
+            //return ((this->env2d.exists(ck)) && (this->env2d.lookup(ck)->exists(ItemSearchKey{0, keywords})));
+    }
+    
+    
+    /*!
+     Contents of a container
+     @return Vector of {id, keywords} pairs
+     */
+    vector<ItemSearchKey> contentsOf(ContainerKey ck) const {
+        
+        auto env = this->env2d.lookup(ck);
+        vector<ItemSearchKey> vec;
+        vec.reserve(env.size());
+        
+        for (auto &binding : env) {
+            ItemSearchKey key = binding.first;
+            //vec.push_back(key.id);
+            vec.push_back(key);
+        }
+        
+        return vec;
+        
+    }
+    
+    /*! */
+    size_t containerSize(ContainerKey ck) const noexcept {
+        if (this->env2d.exists(ck)) {
+            auto env = this->env2d.lookup(ck);
+            return env.size();
+        }
+        
+        return 0;
+    }
+    
+    
+    bool removeItem(Environment<ItemSearchKey, Item> &owner, ItemIdentifier id) const noexcept {
+        ItemSearchKey key(id);
+        if (owner.exists(key)) {
+            owner.unbind(key);
+            return true;
+        }
+        
+        return false;
+    }
+    
+    
+    void reassign(ContainerKey ck_owner, ContainerKey ck_recipient, ItemIdentifier id) {
+        
+        auto owner = this->env2d.lookup(ck_owner);
+        auto recipient = this->env2d.lookup(ck_recipient);
+        
+        print_contentsOf(ck_owner);
+        print_contentsOf(ck_recipient);
+        
+        
+        Item item = owner.lookup(id);
+        
+        owner.unbind(id);
+        recipient.bind({id, item.keywords}, item);
+        
+        this->env2d.unbind(ck_owner);
+        this->env2d.bind(ck_owner, owner);
+        
+        this->env2d.unbind(ck_recipient);
+        this->env2d.bind(ck_recipient, recipient);
+        
+
+        print_contentsOf(ck_owner);
+        print_contentsOf(ck_recipient);
+        
+    }
+
+    
+
+    
+    /**/
+    unsigned int itemsCreated() const noexcept {
+        return this->memory.items_created;
+    }
+    
+    /**/
+    unsigned int allocations() const noexcept {
+        return this->memory.allocs;
+    }
+    
+    /**/
+    unsigned int deallocations() const noexcept {
+        return this->memory.deallocs;
+    }
+    
+    
+  
+    /* * * * * * * * * * * *       Deprecated      * * * * * * * * * * * */
+    // debug
+    void display_all() {
+        debug::print(this->env2d);
+    }
+    
+    void print_contentsOf(ContainerKey ck) {
+        for (auto &x : contentsOf(ck)) {
+            print("id ", ck, ". ", x.toString());
+        }
+    }
+
+    /* * * * * * * * * * * *       Deprecated      * * * * * * * * * * * */
+    
+    
+    
+    
+    
+    // using ContainerEnv = Environment<ItemSearchKey, Item>;
+    // using GlobalEnv2d = Environment<ContainerKey, ContainerEnv>;
+    // mutable GlobalEnv2d env2d;
+    
+    /*! All existing items are stored in the two-dimensional environment */
+    mutable Environment<ContainerKey, Environment<ItemSearchKey, Item>> env2d;
     
     
 private:
-    
-    mutable unsigned int count = 0;
-    mutable unsigned int allocs = 0;
-    mutable unsigned int deallocs = 0;
-    
-    mutable Environment<ContainerKey, Environment<ItemSearchKey, Item> *> env2d;
-    
+
+    /*! Local item authenticator */
     const Authenticator<ItemIdentifier> authenticator;
     
     
     
-    //template<typename K, typename V>
-    Environment<ItemSearchKey, Item>* alloc(ContainerKey &&ck) const noexcept {
-        auto *containerEnv = new Environment<ItemSearchKey, Item>();
-        this->env2d.bind(std::forward<ContainerKey>(ck), containerEnv);
-        this->allocs++;
-        return containerEnv;
+    void init() {
+        debug::prefix("ItemController");
+        debug::print("ItemController created");
     }
     
-    
     //template<typename K, typename V>
-    void dealloc(ContainerKey &&ck) const noexcept(false) {
-        Environment<ItemSearchKey, Item> *containerEnv = this->env2d.lookup(std::forward<ContainerKey>(ck));
-        this->env2d.unbind(std::forward<ContainerKey>(ck));
-        this->deallocs++;
-        delete containerEnv;
+
+    
+    void deallocateContainers() const noexcept(false) {
+//        auto keys = this->env2d.keys();
+//        while (!keys.empty()) {
+//            this->memory.dealloc(keys.front());
+//            keys.pop();
+//        }
+        for (auto &binding : this->env2d) {
+            ContainerKey key = binding.first;
+            Environment<ItemSearchKey, Item>env = binding.second;
+            
+            this->env2d.unbind(key);
+            this->memory.deallocate(env);
+        }
     }
+    
+    /*! Keeps track of dynamic memory deallocations */
+    mutable ICMemory memory;
     
 };
 
