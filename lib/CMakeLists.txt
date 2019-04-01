@@ -1,21 +1,39 @@
-# Add libraries' subdirectories in alphabetical order
+#
+#   lib CMakeLists
+#
 
-add_subdirectory(${libAuthentication})
-add_subdirectory(${libBuilder})
-add_subdirectory(${libcharacters})
-add_subdirectory(${libcharacterdb})
-add_subdirectory(${libcommands})
-add_subdirectory(${libEnvironment})
-add_subdirectory(${libgame})
-add_subdirectory(${libItem})
-add_subdirectory(${libnetwork})
-add_subdirectory(${libusers})
-add_subdirectory(${libparsers})
-add_subdirectory(${libObject})
-add_subdirectory(${libuserdb})
-add_subdirectory(${libminigame})
-add_subdirectory(${libcombat})
-add_subdirectory(${libTools})
-add_subdirectory(${libUserInterface})
-add_subdirectory(${libUtility})
-add_subdirectory(${libworld})
+
+# Add subdirectories in alphabetical order
+
+# add_subdirectory(${authentication})
+# add_subdirectory(${builder})
+# add_subdirectory(${characters})
+# add_subdirectory(${combat})
+# add_subdirectory(${commands})
+# add_subdirectory(${environment})
+# add_subdirectory(${exceptions})
+# add_subdirectory(${game})
+# add_subdirectory(${item})
+# add_subdirectory(${minigame})
+# add_subdirectory(${network})
+# add_subdirectory(${object})
+# add_subdirectory(${parsers})
+# add_subdirectory(${print})
+# add_subdirectory(${time})
+# add_subdirectory(${traits})
+# add_subdirectory(${user-interface})
+# add_subdirectory(${users})
+# add_subdirectory(${world})
+
+
+
+
+
+
+
+
+
+
+# Moved
+#   add_subdirectory(${libcharactersdb})
+#   add_subdirectory(${libuserdb})
