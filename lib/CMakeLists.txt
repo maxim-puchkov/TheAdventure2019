@@ -5,7 +5,7 @@
 
 # Add subdirectories in alphabetical order
 
-# add_subdirectory(${authentication})
+add_subdirectory(${authentication})
 # add_subdirectory(${builder})
 # add_subdirectory(${characters})
 # add_subdirectory(${combat})
@@ -18,10 +18,10 @@
 # add_subdirectory(${network})
 # add_subdirectory(${object})
 # add_subdirectory(${parsers})
-# add_subdirectory(${print})
+add_subdirectory(${print})
 # add_subdirectory(${time})
 # add_subdirectory(${traits})
-# add_subdirectory(${user-interface})
+add_subdirectory(${user-interface})
 # add_subdirectory(${users})
 # add_subdirectory(${world})
 
