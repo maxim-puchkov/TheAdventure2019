@@ -256,8 +256,8 @@ bool Environment<K, V>::operator==(const Environment<K, V> &other) const {
 }
 
 
-template<class K, class V>
-std::ostream& operator<<(std::ostream& stream, Environment<K, V>& env) {
+template<class FK, class FV>
+std::ostream& operator<<(std::ostream& stream, Environment<FK, FV>& env) {
     stream << env.toString();
     return stream;
 }

@@ -125,13 +125,8 @@ public:
     typename unordered_map<K, V>::const_iterator end() const;
     
     
-//    typename std::map<K, V>::const_iterator rcbegin() const {
-//        return this->map.rcbegin();
-//    }
-//    typename std::map<K, V>::const_iterator rcend() const {
-//        return this->map.rcend();
-//    }
-
+    
+    
     
     
     /* Operators */
@@ -142,8 +137,8 @@ public:
     bool operator==(Environment<K, V> &other) const;
     bool operator==(const Environment<K, V> &other) const;
     
-    friend std::ostream& operator<<(std::ostream &stream, Environment<K, V> &env);
-    //friend std::ostream& operator<<(std::ostream &stream, const Environment &env);
+    template<class FK, class FV>
+    friend std::ostream& operator<<(std::ostream &stream, Environment<FK, FV> &env);
     
 private:
     
