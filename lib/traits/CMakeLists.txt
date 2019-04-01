@@ -8,7 +8,7 @@ project(${traits} VERSION 1.0)
 
 
 add_library(${PROJECT_NAME}
-    include/convertable.h
+    include/convertible.h
 )
 
 

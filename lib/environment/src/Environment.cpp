@@ -184,10 +184,10 @@ std::queue<std::pair<const K, V>> Environment<K, V>::pairs() const {
 
 template<class K, class V>
 std::string Environment<K, V>::toString() const noexcept {
-    bool convertableK = (__convertable<K>::to_string || std::is_arithmetic<K>::value);
-    bool convertableV = (__convertable<V>::to_string || std::is_arithmetic<V>::value);
+    bool convertibleK = (__convertible<K>::to_string || std::is_arithmetic<K>::value);
+    bool convertibleV = (__convertible<V>::to_string || std::is_arithmetic<V>::value);
     
-    if (!convertableK || !convertableV) {
+    if (!convertibleK || !convertibleV) {
         return ENV_CONV_ERROR;
     }
     

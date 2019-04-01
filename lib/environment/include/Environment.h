@@ -16,7 +16,7 @@
 #include <exception>
 #include <queue>
 #include <type_traits>
-#include "convertable.h"
+#include "convertible.h"
 
 
 using std::string;
