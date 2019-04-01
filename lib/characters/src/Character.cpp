@@ -21,7 +21,7 @@ Character::~Character() {
 void Character::createCharacter(const std::string &name) {
     this->name = DEF_CHAR_NAME;
     this->baseAttr = Attributes(DEF_CHAR_HEALTH, DEF_CHAR_DAMAGE);
-    this->inventory = Inventory();
+    // this->inventory = Inventory();
     this->equipment = Equipment();
     this->currentLocation = LocationCoordinates{0,0};
     
@@ -44,9 +44,9 @@ Attributes Character::getBaseAttributes() {
     return this->baseAttr;
 }
 
-Inventory Character::getInventory() {
-    return this->inventory;
-}
+//Inventory Character::getInventory() {
+//    return this->inventory;
+//}
 
 Equipment Character::getEquipment() {
     return this->equipment;

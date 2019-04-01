@@ -11,11 +11,11 @@
 #include <string>
 #include <utility> //std::move
 #include "Attributes.h"
-#include "Inventory.h"
-#include "Equipment.h" 
+// #include "Inventory.h"
+#include "Equipment.h" // !
 #include "LocationCoordinates.h"
 
-using items::Inventory;
+// using items::Inventory;
 
 
 const std::string DEF_CHAR_NAME = "DEF_CHAR_NAME";
@@ -42,7 +42,7 @@ public:
     std::string getName();
     Attributes getAttributes();
     Attributes getBaseAttributes();
-    Inventory getInventory();
+    // Inventory getInventory();
     Equipment getEquipment();
     LocationCoordinates getCurrentLocation() const;
 
@@ -75,7 +75,7 @@ private:
     Attributes baseAttr;
     Attributes currentAttr;
     Equipment equipment;
-    Inventory inventory;
+    // Inventory inventory;
     LocationCoordinates currentLocation;
     
     //basic stuff to allow user edit
