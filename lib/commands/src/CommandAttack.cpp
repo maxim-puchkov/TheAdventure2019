@@ -15,18 +15,22 @@ void CommandAttack::executeInHeartbeat(const std::string& username, const std::v
             auto attackValue = characterManager.getCharacterAttack(username);
             auto opponentName = currentCombat.getOpponent(username);
             characterManager.damageCharacter(opponentName, attackValue);
-            onlineUserManager.addMessageToUser(username,
-                                               stringManager.getString(Internationalization::STRING_CODE::YOU_ATTACKED) + 
-                                               opponentName + 
-                                               stringManager.getString(Internationalization::STRING_CODE::FOR) + 
-                                               std::to_string(attackValue) + 
-                                               ".\n");
-            onlineUserManager.addMessageToUser(opponentName,
-                                               stringManager.getString(Internationalization::STRING_CODE::YOU_WERE_ATTACKED_FOR) + 
-                                               std::to_string(attackValue) +
-                                               stringManager.getString(Internationalization::STRING_CODE::CURRENT_HP) + 
-                                               std::to_string(characterManager.getCharacterHealth(opponentName)) + 
-                                               "\n");
+            onlineUserManager.addMessageToUser(
+                username,
+                stringManager.getString(Internationalization::STRING_CODE::YOU_ATTACKED) + 
+                opponentName + 
+                stringManager.getString(Internationalization::STRING_CODE::FOR) + 
+                std::to_string(attackValue) + 
+                ".\n"
+            );
+            onlineUserManager.addMessageToUser(
+                opponentName,
+                stringManager.getString(Internationalization::STRING_CODE::YOU_WERE_ATTACKED_FOR) + 
+                std::to_string(attackValue) +
+                ".\n" + stringManager.getString(Internationalization::STRING_CODE::CURRENT_HP) + 
+                std::to_string(characterManager.getCharacterHealth(opponentName)) + 
+                "\n"
+            );
         } else {
             cerr << stringManager.getString(Internationalization::STRING_CODE::ROUND_TIME_NOT_EXPIRING);
             currentCombat.queueCommand(username, "attack");

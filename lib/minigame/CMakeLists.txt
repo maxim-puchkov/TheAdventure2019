@@ -22,6 +22,7 @@ target_include_directories(${libminigame}
 target_link_libraries(${libminigame}
         ${Boost_LIBRARIES}
         ${libtime}
+	${libstrings}
         )
 
 set_target_properties(${libminigame}

@@ -145,11 +145,54 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::JOINED_COMBAT_WITH, "joined_combat_with");
     generateDefaultStrings(Internationalization::STRING_CODE::ACCEPTED_YOUR_CHALLENGE, "accepted_your_challenge");
     generateDefaultStrings(Internationalization::STRING_CODE::YOU_NOT_CHALLENGED_TO_COMBAT, "you_not_challenged_to_combat");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::MINIGAME_CHESS_WELCOME_MESSAGE, "minigame_chess_welcome_message");
+    generateDefaultStrings(Internationalization::STRING_CODE::MINIGAME_CHESS_KING_NOT_DEAD, "minigame_chess_king_not_dead");
+    generateDefaultStrings(Internationalization::STRING_CODE::MINIGAME_CHESS_TEAM_LOWER_WON, "minigame_chess_team_lower_won");
+    generateDefaultStrings(Internationalization::STRING_CODE::MINIGAME_CHESS_TEAM_UPPER_WON, "minigame_chess_team_upper_won");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::MAKING_NEW_MATCH, "making_new_match");
+    generateDefaultStrings(Internationalization::STRING_CODE::MINIGAME_LOBBY_GAMELIST, "minigame_lobby_gamelist");
+    generateDefaultStrings(Internationalization::STRING_CODE::MINIGAME_LOBBY_INVITELIST, "minigame_lobby_invitelist");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::DIRECTION_NOT_FOUND, "direction_not_found");
+    generateDefaultStrings(Internationalization::STRING_CODE::NONE, "none");
+    generateDefaultStrings(Internationalization::STRING_CODE::NORTH, "north");
+    generateDefaultStrings(Internationalization::STRING_CODE::NORTHEAST, "northeast");
+    generateDefaultStrings(Internationalization::STRING_CODE::EAST, "east");
+    generateDefaultStrings(Internationalization::STRING_CODE::SOUTHEAST, "southeast");
+    generateDefaultStrings(Internationalization::STRING_CODE::SOUTH, "south");
+    generateDefaultStrings(Internationalization::STRING_CODE::SOUTHWEST, "southwest");
+    generateDefaultStrings(Internationalization::STRING_CODE::WEST, "west");
+    generateDefaultStrings(Internationalization::STRING_CODE::NORTHWEST, "northwest");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::STARTING_AREA, "starting_area");
+    generateDefaultStrings(Internationalization::STRING_CODE::SECRET_AREA, "secret_area");
+    generateDefaultStrings(Internationalization::STRING_CODE::STARTING_AREA_WELCOME_MESSAGE, "starting_area_welcome_message");
+    generateDefaultStrings(Internationalization::STRING_CODE::SECRET_AREA_WELCOME_MESSAGE, "secret_area_welcome_message");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::ROOM_UPPER_CASE, "room_upper_case");
+    generateDefaultStrings(Internationalization::STRING_CODE::GOES_TO_ROOM, "goes_to_room");
+    generateDefaultStrings(Internationalization::STRING_CODE::THIS_DARK_ROOM_CONTAINS_NUMBER, "this_dark_room_contains_number");
+    generateDefaultStrings(Internationalization::STRING_CODE::GATE, "gate");
+    generateDefaultStrings(Internationalization::STRING_CODE::THIS_SECRET_ROOM_CONTAINS_NUMBER, "this_secret_room_contains_number");
+    generateDefaultStrings(Internationalization::STRING_CODE::GOES_TO_AREA, "goes_to_area");
+    generateDefaultStrings(Internationalization::STRING_CODE::GOES_OUT_OF_BOUNDS, "goes_out_of_bounds");
+    generateDefaultStrings(Internationalization::STRING_CODE::HIDDEN_PASSAGE, "hidden_passage");
+    generateDefaultStrings(Internationalization::STRING_CODE::SOUTH_GATE, "south_gate");
+    generateDefaultStrings(Internationalization::STRING_CODE::WEST_GATE, "west_gate");
+    generateDefaultStrings(Internationalization::STRING_CODE::EAST_GATE, "east_gate");
+    generateDefaultStrings(Internationalization::STRING_CODE::NORTH_GATE, "north_gate");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::CHARACTERS_JSON_FILE_NAME, "characters_json_file_name");
+    generateDefaultStrings(Internationalization::STRING_CODE::CREATE_CHARACTER_SHORTDESC, "create_character_shortdesc");
+    generateDefaultStrings(Internationalization::STRING_CODE::CREATE_CHARACTER_LONGDESC, "create_character_longdesc");
+    generateDefaultStrings(Internationalization::STRING_CODE::CREATE_CHARACTER_DESC, "create_character_desc");
+    generateDefaultStrings(Internationalization::STRING_CODE::CHARACTER_FIRST_TIME_SETUP, "character_first_time_setup");
 }
 
 /*
-
-INTERNATIONALIZATION TOOLKIT:
+INTERNATIONALIZATION COPY AND PASTE STUFF:
 
             using internationalization::Internationalization;
 

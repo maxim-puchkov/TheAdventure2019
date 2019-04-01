@@ -8,8 +8,11 @@ std::string CommandCreate::executePromptReply(const std::string& connectionID, c
 	auto answer = onlineUserManager.createUser(fullCommand[1], fullCommand[2]);
 	switch(answer) {
 		case UserDB::DB_CODE::INVALID_USERNAME:
-            return (stringManager.getString(Internationalization::STRING_CODE::ERROR) + " " +
-                    stringManager.getString(Internationalization::STRING_CODE::INVALID_USERNAME));
+            return (
+                stringManager.getString(Internationalization::STRING_CODE::ERROR) + 
+                " " +
+                stringManager.getString(Internationalization::STRING_CODE::INVALID_USERNAME)
+            );
 
 		case UserDB::DB_CODE::ACCOUNT_CREATED:
 			return stringManager.getString(Internationalization::STRING_CODE::ACCOUNT_CREATED);

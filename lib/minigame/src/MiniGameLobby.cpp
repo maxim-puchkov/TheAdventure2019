@@ -48,7 +48,7 @@ bool MiniGameLobby::confirmInvite(const std::string& invitedName){
             auto& match = getMatchWithPlayer(inviter);
 
             if (match.getAdminName() == "null"){ //if inviter is not in a match, create new one
-                std::cerr << "making new match\n";
+                std::cerr << stringManager.getString(Internationalization::STRING_CODE::MAKING_NEW_MATCH);
                 //match = createGame(inviter); //PROBLEM HERE. when accepting challenge when no game exists, challengee is not properly added to game (or game is not added to gameList)
                 match = MiniGameMatch{inviter, invited}; //new constructor as temp solution. 1hr+ of debugging could not find solution to previous line
                 gameList.emplace_back(match);
@@ -67,7 +67,7 @@ void MiniGameLobby::removeInvite(const std::string& eitherName){
 }
 
 std::string MiniGameLobby::printGames() const{
-    std::string result = "Game List:\n";
+    std::string result = stringManager.getString(Internationalization::STRING_CODE::MINIGAME_LOBBY_GAMELIST);
     for(auto game : gameList){
         std::string playerNames;
         auto& playerList = game.getPlayers();
@@ -80,7 +80,7 @@ std::string MiniGameLobby::printGames() const{
 }
 
 std::string MiniGameLobby::printInvites() const{
-    std::string result = "Invite List:\n";
+    std::string result = stringManager.getString(Internationalization::STRING_CODE::MINIGAME_LOBBY_INVITELIST);
     for(auto& invite : pendingInvites){
         result += std::get<0>(invite) + ", " + std::get<1>(invite) + "\n";
     }

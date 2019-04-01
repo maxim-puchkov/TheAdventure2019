@@ -4,6 +4,7 @@
 #include "Character.h"
 #include "JsonParser.h"
 #include "json.hpp"
+#include "Internationalization.h"
 
 #include <unordered_map>
 #include <string>
@@ -12,12 +13,14 @@
 
 using namespace std;
 using nlohmann::json;
+using internationalization::Internationalization;
 
 class CharacterDB {
   private:
     JsonParser jsonParser;
     json characters_json;
     std::string json_filePath = "../adventure2019/data/db/characters.json";
+    Internationalization stringManager{};
   public:
     CharacterDB();
     ~CharacterDB();

@@ -5,36 +5,141 @@
 using internationalization::Internationalization;
 
 void WorldManager::generateWorld() {
-    Area a("Starting Area", "Welcome to adventure.");
-    Area b("Secret area", "Welcome to die.");
+    Area a(stringManager.getString(
+        Internationalization::STRING_CODE::STARTING_AREA),
+        stringManager.getString(Internationalization::STRING_CODE::STARTING_AREA_WELCOME_MESSAGE)
+    );
+    Area b(
+        stringManager.getString(Internationalization::STRING_CODE::SECRET_AREA), 
+        stringManager.getString(Internationalization::STRING_CODE::SECRET_AREA_WELCOME_MESSAGE)
+    );
 
-    Room r1("Room1", "This dark room contains only the number 1");
-    r1.createExit("gate", "goes to room 2", "east", 0, 1);
-    r1.createExit("South Gate", "goes to room 3", "south", 0, 2);
+    Room r1(
+        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "1",
+        stringManager.getString(Internationalization::STRING_CODE::THIS_DARK_ROOM_CONTAINS_NUMBER) + " 1"
+    );
+    r1.createExit(
+        stringManager.getString(Internationalization::STRING_CODE::GATE),
+        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 2",
+        stringManager.getString(Internationalization::STRING_CODE::EAST), 
+        0, 
+        1
+    );
+    r1.createExit(
+        stringManager.getString(Internationalization::STRING_CODE::SOUTH_GATE), 
+        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 3", 
+        stringManager.getString(Internationalization::STRING_CODE::SOUTH), 
+        0, 
+        2
+    );
     a.addRoom(r1);
-    Room r2("Room2", "This dark room contains only the number 2");
-    r2.createExit("West Gate", "goes to room 1", "west", 0, 0);
-    r2.createExit("South Gate", "goes to room 4", "south", 0, 3);
+    Room r2(
+        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "2", 
+        stringManager.getString(Internationalization::STRING_CODE::THIS_DARK_ROOM_CONTAINS_NUMBER) + " 2"
+    );
+    r2.createExit(
+        stringManager.getString(Internationalization::STRING_CODE::WEST_GATE), 
+        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 1", 
+        stringManager.getString(Internationalization::STRING_CODE::WEST), 
+        0, 
+        0
+    );
+    r2.createExit(
+        stringManager.getString(Internationalization::STRING_CODE::SOUTH_GATE), 
+        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 4", 
+        stringManager.getString(Internationalization::STRING_CODE::SOUTH), 
+        0, 
+        3
+    );
     a.addRoom(r2);
-    Room r3("Room3", "This dark room contains only the number 3");
-    r3.createExit("East Gate", "goes to room 4", "east", 0, 3);
-    r3.createExit("West Gate", "goes to room 6", "west", 0, 5);
-    r3.createExit("South Hidden Passage", "goes to room 1", "south", 0, 0);
+    Room r3(
+        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "3", 
+        stringManager.getString(Internationalization::STRING_CODE::THIS_DARK_ROOM_CONTAINS_NUMBER) + " 3"
+    );
+    r3.createExit(
+        stringManager.getString(Internationalization::STRING_CODE::EAST_GATE), 
+        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 4", 
+        stringManager.getString(Internationalization::STRING_CODE::EAST),
+        0, 
+        3
+    );
+    r3.createExit(
+        stringManager.getString(Internationalization::STRING_CODE::WEST_GATE), 
+        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 6", 
+        stringManager.getString(Internationalization::STRING_CODE::WEST), 
+        0, 
+        5
+    );
+    r3.createExit(
+        stringManager.getString(Internationalization::STRING_CODE::HIDDEN_PASSAGE), 
+        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 1", 
+        stringManager.getString(Internationalization::STRING_CODE::SOUTH), 
+        0, 
+        0
+    );
     a.addRoom(r3);
-    Room r4("Room4", "This dark room contains only the number 4");
-    r4.createExit("East Gate", "goes to room 5", "east", 0, 4);
-    r4.createExit("North Gate", "goes to room 2", "north", 0, 1);
+    Room r4(
+        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "4", 
+        stringManager.getString(Internationalization::STRING_CODE::THIS_DARK_ROOM_CONTAINS_NUMBER) + " 4"
+    );
+    r4.createExit(
+        stringManager.getString(Internationalization::STRING_CODE::EAST_GATE), 
+        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 5", 
+        stringManager.getString(Internationalization::STRING_CODE::EAST), 
+        0, 
+        4
+    );
+    r4.createExit(
+        stringManager.getString(Internationalization::STRING_CODE::NORTH_GATE), 
+        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 2", 
+        stringManager.getString(Internationalization::STRING_CODE::NORTH), 
+        0, 
+        1
+    );
     a.addRoom(r4);
-    Room r5("Room5", "This dark room contains only the number 5");
-    r5.createExit("East Gate", "goes out of bounds", "east", 0, 10);
-    r5.createExit("West Gate", "goes to room 4", "west", 0, 3);
+    Room r5(
+        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "5", 
+        stringManager.getString(Internationalization::STRING_CODE::THIS_DARK_ROOM_CONTAINS_NUMBER) + " 5"
+    );
+    r5.createExit(
+        stringManager.getString(Internationalization::STRING_CODE::EAST_GATE), 
+        stringManager.getString(Internationalization::STRING_CODE::GOES_OUT_OF_BOUNDS), 
+        stringManager.getString(Internationalization::STRING_CODE::EAST), 
+        0, 
+        10
+    );
+    r5.createExit(
+        stringManager.getString(Internationalization::STRING_CODE::WEST_GATE), 
+        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 4",
+        stringManager.getString(Internationalization::STRING_CODE::WEST), 
+        0, 
+        3
+    );
     a.addRoom(r5);
-    Room r6("Room6", "This dark room contains only the number 6");
-    r6.createExit("West Gate", "goes to area 2", "west", 1, 0);
+    Room r6(
+        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "6", 
+        stringManager.getString(Internationalization::STRING_CODE::THIS_DARK_ROOM_CONTAINS_NUMBER) + " 6"
+    );
+    r6.createExit(
+        stringManager.getString(Internationalization::STRING_CODE::WEST_GATE), 
+        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_AREA) + " 2", 
+        stringManager.getString(Internationalization::STRING_CODE::WEST), 
+        1, 
+        0
+    );
     a.addRoom(r6);
 
-    Room r7("Room6", "This secret room contains only the number 1");
-    r7.createExit("West Gate", "goes to area 1", "west", 0, 0);
+    Room r7(
+        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "6", 
+        stringManager.getString(Internationalization::STRING_CODE::THIS_SECRET_ROOM_CONTAINS_NUMBER) + " 1"
+    );
+    r7.createExit(
+        stringManager.getString(Internationalization::STRING_CODE::WEST_GATE), 
+        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_AREA) + " 1", 
+        stringManager.getString(Internationalization::STRING_CODE::WEST), 
+        0, 
+        0
+    );
     b.addRoom(r7);
 
     areas.push_back(a);

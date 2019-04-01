@@ -16,6 +16,7 @@ void CommandMove::executeInHeartbeat(const std::string& username, const std::vec
     std::stringstream answer;
     answer << stringManager.getString(Internationalization::STRING_CODE::CURRENT_LOCATION);
     answer << stringManager.getString(Internationalization::STRING_CODE::AREA) << ": " << newLocation.area;
+    answer << " ";
     answer << stringManager.getString(Internationalization::STRING_CODE::ROOM) << ": " << newLocation.room;
     answer << "\n";
     

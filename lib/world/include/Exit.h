@@ -10,8 +10,6 @@
 #include "LocationCoordinates.h"
 #include <unordered_map>
 
-
-
 class Exit{
 
 public:
@@ -53,6 +51,7 @@ private:
     std::string exitDescription;
     CardinalDirection exitDirection;
     LocationCoordinates targetLocation;
+    Internationalization stringManager{};
 
     //A map that is used to convert CardinalDirection's (enum) into a string for viewing, initialized in cpp
     static std::unordered_map<CardinalDirection, std::string> const directionMap;

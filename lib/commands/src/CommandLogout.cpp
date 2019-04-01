@@ -14,8 +14,11 @@ std::string CommandLogout::executePromptReply(const std::string& connectionID, c
 			return stringManager.getString(Internationalization::STRING_CODE::NOW_LOGGED_OUT);;
 		}
 		case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE:
-			return (stringManager.getString(Internationalization::STRING_CODE::ERROR) + " " +
-                    stringManager.getString(Internationalization::STRING_CODE::NOT_LOGGED_IN));
+			return (
+                stringManager.getString(Internationalization::STRING_CODE::ERROR) + 
+                " " +
+                stringManager.getString(Internationalization::STRING_CODE::NOT_LOGGED_IN)
+            );
 		default:
             //should not get here, log error
         	break;

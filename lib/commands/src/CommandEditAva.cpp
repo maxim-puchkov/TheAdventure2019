@@ -123,7 +123,12 @@ std::string CommandEditAva::spawnAvatar(const std::string& username) {
         auto spawnLocation = characterManager.spawnCharacter(username);
         worldManager.spawn(username, spawnLocation);      
         answer << 
-        (stringManager.getString(Internationalization::STRING_CODE::CURRENT_LOCATION), " ", stringManager.getString(Internationalization::STRING_CODE::AREA), ":") << 
+        (
+            stringManager.getString(Internationalization::STRING_CODE::CURRENT_LOCATION), 
+            " ", 
+            stringManager.getString(Internationalization::STRING_CODE::AREA), 
+            ":"
+        ) << 
         spawnLocation.area << 
         (", ", stringManager.getString(Internationalization::STRING_CODE::ROOM), ": ") << 
         spawnLocation.room << 

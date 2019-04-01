@@ -13,9 +13,11 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
                 return stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN);
             case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER:
                 //don't let normal user know that this syntax exists
-                return (stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX), 
-                       " ", 
-                       stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX));
+                return (
+                    stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX), 
+                    " ", 
+                    stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX)
+                );
             case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN:
                 //TODO: fill this
 

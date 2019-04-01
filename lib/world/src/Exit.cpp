@@ -23,7 +23,7 @@ using namespace std;
             return search->second;
         }
 
-        return " direction not found ";
+        return stringManager.getString(Internationalization::STRING_CODE::DIRECTION_NOT_FOUND);
 
     }
 

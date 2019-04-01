@@ -14,9 +14,6 @@
 #include "Room.h"
 #include "Character.h"
 #include "LocationCoordinates.h"
-#include "Internationalization.h"
-
-using internationalization::Internationalization;
 
 class WorldManager {
 private:
