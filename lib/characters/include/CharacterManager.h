@@ -66,8 +66,6 @@ public:
     int getCharacterAttack(const std::string& username);
     int getCharacterHealth(const std::string& username);
     
-    Inventory getCharacterInventory(const std::string& username);
-
 };
 
 }
