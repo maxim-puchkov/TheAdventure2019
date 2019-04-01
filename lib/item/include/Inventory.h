@@ -26,8 +26,10 @@ using InventorySlot = size_t;
  @brief Character's set of items.
  
  Limited capacity storage where each element is an object identifier.
+ 
+ @warning Will be removed
  */
-class Inventory /*: public ItemControllerDelegate */ {
+class [[deprecated]] Inventory {
 public:
     
     /* Constructors */
