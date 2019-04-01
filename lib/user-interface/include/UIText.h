@@ -80,11 +80,11 @@ private:
     
     string source;
     
-    vector<string> lines;
+    vector<string> text_lines;
     
-    size_t length;
+    size_t text_length = 0;
     
-    size_t width;
+    size_t width = 0;
     
 };
 

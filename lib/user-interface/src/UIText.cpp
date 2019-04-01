@@ -17,13 +17,13 @@ namespace ui {
 
 UIText::UIText(const string &source)
 : source(source), width(WIDTH) {
-    this->lines.reserve(RESERVE);
+    this->text_lines.reserve(RESERVE);
 }
 
 
 UIText::UIText(const string &source, size_t width)
 : source(source), width(width) {
-    this->lines.reserve(RESERVE);
+    this->text_lines.reserve(RESERVE);
 }
 
 
@@ -34,8 +34,8 @@ UIText::UIText(const string &source, size_t width)
 
 void UIText::format() {
     UITextPartitionResult result = this->partition(this->words());
-    this->lines = result.content;
-    this->length = result.length;
+    this->text_lines = result.content;
+    this->text_length = result.length;
 }
 
 
@@ -49,7 +49,7 @@ string UIText::data() const {
 
 
 vector<string> UIText::arrangedSource() const {
-    return this->lines;
+    return this->text_lines;
 }
 
 
@@ -75,7 +75,7 @@ string UIText::nextLine(UITextPartition &partition) const {
     const unsigned long start = partition.index();
 
     std::ostringstream output("");
-    unsigned int length = 0;
+    size_t length = 0;
 
     if (partition[start].length() > this->width) {
         partition.invalidate();
