@@ -16,7 +16,7 @@
 
 namespace items {
     
-using ContainerSearchKey = uint8_t;
+using ContainerSearchKey = uint64_t;
 
 
 /// ItemControllerTests Fixture
@@ -67,13 +67,13 @@ protected:
     /* * *         Variables        * * */
     
     /// Pre-existing authenticator
-    const Authenticator<ItemIdentifier> test_authenticator = Authenticator<ItemIdentifier>(0);
+    Authenticator<ItemIdentifier> test_authenticator = Authenticator<ItemIdentifier>(0);
     
     /// Fixture controller
-    const ItemController<ContainerSearchKey> test_controller{test_authenticator};
+    ItemController<ContainerSearchKey> test_controller{test_authenticator};
     
-    /// Default placement
-    const ContainerSearchKey test_container = 0;
+    /// Default container
+    ContainerSearchKey test_container = 0;
     
     
     
@@ -119,6 +119,7 @@ TEST_F(ItemControllerTests, FixtureInitialization) {
 
 // Testing item controller default instantiation
 TEST_F(ItemControllerTests, Instantiation) {
+    // ItemController with id = 0
     ItemController<ContainerSearchKey> controller = ItemController<ContainerSearchKey>();
     EXPECT_EQ(0, controller.itemsCreated());
 }
@@ -127,7 +128,7 @@ TEST_F(ItemControllerTests, Instantiation) {
 // Testing item controller instantiation with an existing authenticator
 TEST_F(ItemControllerTests, InstantiationAuth) {
     
-    // Authenticator with id = 123
+    // ItemController with id = 123
     ItemIdentifier initial_value = 123;
     Authenticator<ItemIdentifier> auth(initial_value);
     ItemController<ContainerSearchKey> controller(auth);
@@ -136,22 +137,40 @@ TEST_F(ItemControllerTests, InstantiationAuth) {
 }
 
 
-// Testing creating an item with keywords, description, and actions
+// Testing creating an valid item with keywords, description, and actions
 TEST_F(ItemControllerTests, Create) {
     
-    // Create an item
+    // Item is prepared by using .builder of the controller
     test_controller.builder.setKeywords(input_keys);
     test_controller.builder.setDescription(input_desc);
     test_controller.builder.setActions(input_acts);
-    auto id = test_controller.create(test_container);
     
+    // Create function will generate unique item in a container.
+    // Container can be a Character (== same as Inventory), a Room,
+    // or anything else.
+    // ALL used containers must be unique (cannot simply store a character with id = 123 and room with id = 123, yet)
+    
+    // If test_container = 0, then an item will be owned by
+    // anything that has id = 0
+    ItemIdentifier id = test_controller.create(test_container);
+    
+    // Creating a valid item returns its id. First id = 1
     EXPECT_EQ(1, test_controller.itemsCreated());
     
-//    EXPECT_EQ(1, item.id);
-//    EXPECT_EQ(keys, item.keywords);
-//    EXPECT_EQ(desc, item.description);
-//    EXPECT_EQ(acts, item.actions);
-//    EXPECT_TRUE(item.isInteractable());
+}
+
+
+// Testing creating an invalid item with NO parameters (input error)
+TEST_F(ItemControllerTests, CreateEmpty) {
+    
+    // Keywords are required to create an item
+    // Description and Actions are optional
+    auto count = test_controller.itemsCreated();
+    ItemIdentifier id = test_controller.create(test_container);
+    
+    // Trying to create an invalid item returns controller's id
+    EXPECT_EQ(id, test_controller.id);
+    EXPECT_EQ(count, test_controller.itemsCreated());
     
 }
 
@@ -162,15 +181,9 @@ TEST_F(ItemControllerTests, CreateNoActs) {
     // Create an item without actions
     test_controller.builder.setKeywords(input_keys);
     test_controller.builder.setDescription(input_desc);
-    auto id = test_controller.create(test_container);
+    ItemIdentifier id = test_controller.create(test_container);
     
     EXPECT_EQ(1, test_controller.itemsCreated());
-    
-//    EXPECT_EQ(1, item.id);
-//    EXPECT_EQ(keys, item.keywords);
-//    EXPECT_EQ(desc, item.description);
-//    EXPECT_EQ(def_acts, item.actions);
-//    EXPECT_FALSE(item.isInteractable());
     
 }
 
@@ -180,43 +193,21 @@ TEST_F(ItemControllerTests, CreateNoDescActs) {
     
     // Create an item without description and actions
     test_controller.builder.setKeywords(input_keys);
-    auto id = test_controller.create(test_container);
+    ItemIdentifier id = test_controller.create(test_container);
     
     EXPECT_EQ(1, test_controller.itemsCreated());
     
-//    EXPECT_EQ(1, item.id);
-//    EXPECT_EQ(keys, item.keywords);
-//    EXPECT_EQ(def_desc, item.description);
-//    EXPECT_EQ(def_acts, item.actions);
-//    EXPECT_FALSE(item.isInteractable());
 }
 
-
-// Testing creating an item with NO parameters (input error)
-TEST_F(ItemControllerTests, CreateEmpty) {
-    bool caught;
-    auto count = test_controller.itemsCreated();
-    
-    // Try to create an invalid item
-    try {
-        auto id = test_controller.create(test_container);
-        caught = false;
-    } catch (std::exception &e) {
-        caught = true;
-    }
-    
-    EXPECT_EQ(count, test_controller.itemsCreated());
-    EXPECT_TRUE(caught);
-}
 
 
 // Testing items created count
 TEST_F(ItemControllerTests, ItemsCreated) {
     int count = 10;
     
-    for (int i = 0; i < count; i++) {
+    for (int i = 1; i <= count; i++) {
         test_controller.builder.setItemProperties(keys, desc, acts);
-        auto id = test_controller.create(test_container);
+        ItemIdentifier id = test_controller.create(test_container);
         EXPECT_EQ(i, test_controller.itemsCreated());
     }
     
@@ -227,12 +218,14 @@ TEST_F(ItemControllerTests, ItemsCreated) {
 // Testing exists function
 TEST_F(ItemControllerTests, ExistsItemIdentifier) {
     
-    ItemIdentifier id = 1;
-    EXPECT_FALSE(test_controller.exists(id));
+    // Checking if id = 1 exists before creating
+    ItemIdentifier test_id = 1;
+    EXPECT_FALSE(test_controller.exists(test_container, test_id));
     
+    // Checking if id = 1 exists after creating
     test_controller.builder.setItemProperties(keys, desc, acts);
-    auto id = test_controller.create(test_container);
-    EXPECT_TRUE(test_controller.exists(id));
+    ItemIdentifier id = test_controller.create(test_container);
+    EXPECT_TRUE(test_controller.exists(test_container, test_id));
     
 }
 
@@ -240,10 +233,12 @@ TEST_F(ItemControllerTests, ExistsItemIdentifier) {
 // Testing exists function
 TEST_F(ItemControllerTests, ExistsKeywords) {
     
+    // Checking if keywords exist before creating
     EXPECT_FALSE(test_controller.exists(test_container, keys));
     
+    // Checking if keywords exist after creating
     test_controller.builder.setItemProperties(keys, desc, acts);
-    auto id = test_controller.create(test_container);
+    ItemIdentifier id = test_controller.create(test_container);
     EXPECT_TRUE(test_controller.exists(test_container, keys));
     
 }
@@ -252,16 +247,14 @@ TEST_F(ItemControllerTests, ExistsKeywords) {
 // Testing lookup function
 TEST_F(ItemControllerTests, Lookup) {
     
+    // Identifier can be used to find {id, keywords} pair
     test_controller.builder.setItemProperties(keys, desc, acts);
-    auto id = test_controller.create(test_container);
+    ItemIdentifier id = test_controller.create(test_container);
     auto search_key = test_controller.lookup(test_container, id);
     
     EXPECT_EQ(id, search_key.id);
-    EXPECT_EQ(desc, search_key.desc);
-    
-    // EXPECT_EQ(item, test_controller.lookup(item.id));
-    // EXPECT_EQ(item, test_controller.lookup(item.keywords));
-    
+    EXPECT_EQ(keys, search_key.keywords);
+
 }
     
     
@@ -270,9 +263,10 @@ TEST_F(ItemControllerTests, Authenticity) {
     
     int count = 10;
     
-    for (int i = 0; i < count; i++) {
+    // Identifier is never duplicated or reused
+    for (int i = 1; i <= count; i++) {
         test_controller.builder.setItemProperties(keys, desc, acts);
-        auto id = test_controller.create(test_container);
+        ItemIdentifier id = test_controller.create(test_container);
         EXPECT_EQ(i, id);
     }
     
@@ -285,7 +279,7 @@ TEST_F(ItemControllerTests, AuthenticityGlobal) {
     const auto size = 5;
     ItemIdentifier ids[size] = {0, 1, 100, 10000000, 999999999999999999};
     
-    for (auto id : ids) {
+    for (ItemIdentifier id : ids) {
         Authenticator<ItemIdentifier> auth(id);
         ItemController<ContainerSearchKey> controller(auth);
         
@@ -296,6 +290,31 @@ TEST_F(ItemControllerTests, AuthenticityGlobal) {
     
 }
 
+
+// Testing searching for a keyword if there is more than one match
+TEST_F(ItemControllerTests, Search) {
+    
+    const auto same_keyword = "Same Keyword";
+    
+    // Create first item
+    test_controller.builder.setKeywords({same_keyword, "Different Keyword"});
+    auto id_1 = test_controller.create(test_container);
+    
+    // Create second item where one keyword is the same
+    test_controller.builder.setKeywords({same_keyword, "Keyword Different"});
+    auto id_2 = test_controller.create(test_container);
+    
+    // Search for the same keyword in one container
+    auto ids = test_controller.search(test_container, same_keyword);
+    
+    // Both identifiers will be returned
+    EXPECT_EQ(2, ids.size());
+    
+    
+//        EXPECT_EQ(id_1, ids[0]);
+//        EXPECT_EQ(id_2, ids[1]);
+    
+}
 
 } /* namespace items */
 
