@@ -1,5 +1,5 @@
 /*!
- @header Tools
+ @header print
  
  @brief Pretty debugging.
  
@@ -13,11 +13,12 @@
  @warning temporary
  */
 
-#ifndef Tools_h
-#define Tools_h
+#ifndef print_h
+#define print_h
 
 #include <iostream>
 #include <string>
+#include "bad_dealloc.h" // test
 
 
 namespace debug {
@@ -43,7 +44,7 @@ inline namespace configuration {
     static bool silenced = false;
     
     /*! */
-    static bool DefaultHighlight = true;
+    static bool DefaultHighlight = false;
     
     /*! Prefixes all outputted messages */
     static string PrefixMessage = "Debug";
@@ -117,4 +118,4 @@ static void print(Arguments &&...args) {
 
 } /* namespace debug */
 
-#endif /* Tools_h */
+#endif /* print_h */

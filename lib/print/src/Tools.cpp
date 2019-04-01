@@ -1,5 +1,5 @@
 //
-//  Tools.cpp
+//  tools.cpp
 //  adventure2019: adventure2019
 //  com.maximpuchkov.Faworki.adventure2019.Debugger
 //
@@ -7,5 +7,5 @@
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
 
-#include "Tools.h"
+// #include "print.h"
 

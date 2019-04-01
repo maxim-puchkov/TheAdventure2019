@@ -61,8 +61,8 @@ public:
     { }
     
     
-    /*! Identificators are generated incrementaly */
-    T generateUniqueIdentificator() const {
+    /*! Identifiers are generated incrementaly */
+    T generateUniqueIdentifier() const {
         return ++this->current;
     }
     
