@@ -26,7 +26,7 @@ const std::string& CharacterManager::getLongDescription(const std::string &userN
 
 
     const auto &npc = std::find_if(computerControlledCharacters.begin(),computerControlledCharacters.end(),
-            [&] (const auto &iter) {return iter.getName() == userName ; }
+            [&] (auto &iter) {return iter.getName() == userName ; }
             );
 
     if(npc != computerControlledCharacters.end()){

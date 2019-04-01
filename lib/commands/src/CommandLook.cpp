@@ -8,18 +8,6 @@ using boost::bad_lexical_cast;
 
 
 
-std::string CommandLook::lookObject(const std::string& userName, const std::string &target ) const {
-
-
-
-
-
-
-
-
-
-}
-
 
 void CommandLook::executeInHeartbeat(const std::string& userName, const std::vector<std::string>& fullCommand) {
 
@@ -53,19 +41,14 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     //ROUGH code debug later
 
     std::string targetLookingAt = fullCommand.at(1);
-    
+
     std::string result = room.lookForExitName(targetLookingAt);
-
-
     const std::string &charName = room.lookForName(targetLookingAt);
     if( !charName.empty() ){
        result.append( characterManager.getLongDescription( charName ) );
     }
 
-
-    onlineUserManager.addMessageToUser(userName, std::move(result) );
-
-
+    onlineUserManager.addMessageToUser(userName, result );
 
     //////////////////////////////////////////
 
