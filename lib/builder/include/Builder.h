@@ -30,10 +30,10 @@ class Builder {
 public:
     
     /*! Builder constructor */
-    Builder();
+    Builder() { }
     
     /*! Builder destructor */
-    virtual ~Builder();
+    virtual ~Builder() { }
     
     
     
