@@ -3,27 +3,77 @@
 
 std::string CommandEditAva::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
 	//Format: edit-avatar <name-of-NPC> <what-to-edit>: <value>
+    // <what-to-edit> : name, desc, delete
     if(fullCommand.size() == 4) {
         auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
         auto role = onlineUserManager.getUserRole(username);
+        auto location = characterManager.getCharacterLocation(username);
         switch(role) {
-            case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND:
+            case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND:{
                 return "Please log in again.\n";
-            case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER:
+            }
+            case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER:{
                 //don't let normal user know that this syntax exists
                 return "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
-            case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN:
-                //TODO: fill this
-
-
-
-
-            
-                return "test answer";
-            default:
-                //swallow, log error state
-                return "";
+            }
+            case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN:{
+                std::string answer = "NPC does not exist. Please enter NPC name\n";
+                bool found = false;
+                auto& currentRoom = worldManager.findRoomByLocation(location);
+                auto& listNPCsInRoom = currentRoom.getNPCs();
+                for(auto& npc : listNPCsInRoom){
+                    if(npc == fullCommand[1]){
+                        found = true;
+                    }
+                }
+                if(found){
+                    auto& listNPCs = characterManager.getListNPCs();
+                    if(fullCommand[2] == "name"){   
+                        //update npc in room
+                        for(auto& npc : listNPCsInRoom){
+                            if(npc == fullCommand[1]){
+                                npc = fullCommand[3];
+                            }
+                        }
+                        //update npc in characterManager
+                        for(auto& npc : listNPCs){
+                            if(npc.getName() == fullCommand[1]){
+                                npc.setName(fullCommand[3]);
+                            }
+                        }
+                        answer = "Edited NPC's name: " + fullCommand[3] + "\n";
+                    }else if(fullCommand[2] == "desc"){
+                        //update npc in characterManager
+                        for(auto& npc : listNPCs){
+                            if(npc.getName() == fullCommand[1]){
+                                npc.setLongdesc(fullCommand[3]);
+                            }
+                        }
+                        answer = "Edited NPC's description: " + fullCommand[1] + "\n";
+                    }else if(fullCommand[2] == "delete"){
+                        //update npc in room
+                        int index = 0;
+                        for(auto& npc : listNPCsInRoom){
+                            if(npc == fullCommand[1]){
+                                listNPCsInRoom.erase(listNPCsInRoom.begin() + index);
+                            }
+                            index++;
+                        }
+                        //update npc in characterManager
+                        int indexChar = 0;
+                        for(auto& npc : listNPCs){
+                            if(npc.getName() == fullCommand[1]){
+                                listNPCs.erase(listNPCs.begin() + indexChar);
+                            }
+                            indexChar++;
+                        }
+                        answer = "Deleted NPC: " + fullCommand[1] + "\n";
+                    }
+                }
+                return answer;
+            }
         }
+
     } else {
         //Format: edit-avatar <what-to-edit>: <value>
         auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
@@ -58,6 +108,7 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
                 return "";
         }
     } 
+    return "SHOULD NOT GET HERE";
 }
 
 std::vector<std::string> CommandEditAva::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
@@ -116,7 +167,8 @@ std::string CommandEditAva::spawnAvatar(const std::string& username) {
     answer << "";
     auto isFirstTime = characterManager.isThisFirstTimeSetup(username);
     if(isFirstTime == CharacterManager::CHARACTER_CODE::CHARACTER_THIS_IS_FIRST_TIME_SET_UP) {
-        auto spawnLocation = characterManager.spawnCharacter(username);
+        auto roomToSpawnUser = worldManager.getRoomToSpawnUser();
+        auto spawnLocation = characterManager.spawnCharacter(username, LocationCoordinates{"Mirkwood", roomToSpawnUser});
         worldManager.spawn(username, spawnLocation);      
         answer << "Current location: Area:" << spawnLocation.area << ", Room: " << spawnLocation.room << "\n";
     }

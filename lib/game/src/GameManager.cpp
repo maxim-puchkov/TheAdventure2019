@@ -4,7 +4,24 @@
 int heartBeatDuration = 50;
 
 GameManager::GameManager() {
-    world.generateWorld();
+    // Making the World using the JSON files
+    AreaGenerator areaGen{};
+    std::vector<std::string> areaJSONs = 
+        {"../adventure2019/data/world/mirkwood.json",
+        "../adventure2019/data/world/shire.json",
+        "../adventure2019/data/world/solace.json"};
+    std::vector<Area> areas;
+
+    for (auto filePath : areaJSONs){
+        auto area = areaGen.getArea(filePath, characterManager);
+        areas.push_back(area);
+    }
+
+    for(auto& area: areas){
+        area = areaGen.generateExits(area);
+        world.addArea(area);
+    }
+
     createTableOfCommands();
 }
 

@@ -8,11 +8,9 @@ using boost::bad_lexical_cast;
 
 
 
-
 void CommandLook::executeInHeartbeat(const std::string& userName, const std::vector<std::string>& fullCommand) {
-
 	auto location = characterManager.getCharacterLocation(userName);
-    if(location.area == -1) {
+    if(location.area == "") {
         //should not reach here, report error
         onlineUserManager.addMessageToUser(userName, "ERROR: this message should not print,\n"
                                                      "you need to create an avatar first!.\n"
@@ -42,8 +40,8 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
 
     /////////////////////////////////////////// If looking at a specific user then....
     //If an username and exit share the same name, send both of the messages to the user.
-
     std::string result = room.lookForExitName( appendedCommand ) + "\n";
+
     /*
     const std::string &charName = room.lookForName(targetLookingAt);
     if( !charName.empty() ){
@@ -51,7 +49,51 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     } */
 
     onlineUserManager.addMessageToUser(userName, result );
-    //////////////////////////////////////////
+
+    //////////////////////////////////////////Code Below from master
+
+    /*
+    if(fullCommand.size() < 2) {
+        onlineUserManager.addMessageToUser(username, (worldManager.look(location) + "\n"));
+        return;
+    }
+
+    if(fullCommand.at(1) == "exits"){
+        onlineUserManager.addMessageToUser(username, (worldManager.listExits(location) + "\n"));
+    } else {
+        onlineUserManager.addMessageToUser(username, (worldManager.look(location, fullCommand.at(1)) + "\n"));
+    }
+     */
+
+    //use for admin. look world => output the list of room
+    //TODO: for some reasons the server does not print the full string
+    //      if the string is too long. Only print the second half of the string.
+    if(fullCommand.at(1) == "world"){
+        auto role = onlineUserManager.getUserRole(userName);
+        switch(role) {
+            case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
+                std::cout << "Please log in again.\n";
+            }
+            case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
+                //don't let normal user know that this syntax exists
+                std::cout <<  "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+            }
+            case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
+                auto location = characterManager.getCharacterLocation(userName);
+                auto resultMessage = worldManager.worldDetail(location);
+                onlineUserManager.addMessageToUser(userName, resultMessage);
+            }
+            case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
+            case usermanager::OnlineUserManager::USER_CODE::ACCOUNT_CREATED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_UPDATED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_DELETED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_OUT: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN: {}
+            case usermanager::OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN: {}
+            case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE: {}   
+        }
+        return;
+    }
 
 }
 

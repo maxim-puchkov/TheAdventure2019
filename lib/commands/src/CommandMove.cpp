@@ -3,16 +3,16 @@
 
 void CommandMove::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
     auto location = characterManager.getCharacterLocation(username);
-    if(location.area == -1) {
+    if(location.area == "") {
         //should not reach here, report error
         return;
     }
     
     auto newLocation = worldManager.move(username, location, fullCommand[1]);
     characterManager.changeCharacterLocation(username, newLocation);
-    
+    auto room = worldManager.findRoomByLocation(newLocation);
     std::stringstream answer;
-    answer << "Current location: Area:" << newLocation.area << ", Room: " << newLocation.room << "\n";
+    answer << "Current location: Area:" << newLocation.area << ", Room: " << room.getName() << "\n";
     onlineUserManager.addMessageToUser(username, answer.str());
 }
 

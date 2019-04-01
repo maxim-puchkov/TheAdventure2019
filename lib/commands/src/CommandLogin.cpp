@@ -12,9 +12,13 @@ std::string CommandLogin::executePromptReply(const std::string& connectionID, co
 			if(!characterManager.isCharacterCreated(fullCommand[1])) {
 				reply << "An avatar is required to play the game. Please input \"create-avatar [name]\" to create.\n";
 			} else {
-				auto spawnLocation = characterManager.spawnCharacter(fullCommand[1]);
+				//tmr, when user login, get the location from json, then pass to characterManager
+				// if user is first time, then get the first area name from worldManager.
+				auto roomToSpawnUser = worldManager.getRoomToSpawnUser();
+				auto spawnLocation = characterManager.spawnCharacter(fullCommand[1], LocationCoordinates{"Mirkwood", roomToSpawnUser});
+				auto room = worldManager.findRoomByLocation(spawnLocation);
 			    worldManager.spawn(fullCommand[1], spawnLocation);	    
-			    reply << "Current location: Area:" << spawnLocation.area << ", Room: " << spawnLocation.room << "\n";
+			    reply << "Current location: Area:" << spawnLocation.area << ", Room: " << room.getName() << "\n";
 			}
 
 			return reply.str();
@@ -40,6 +44,5 @@ std::vector<std::string> CommandLogin::reassembleCommand(std::string& fullComman
     //split by " " and compress all long spaces
     boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
     commandIsValid = (processedCommand.size() == 3);
-   
     return processedCommand;
 }

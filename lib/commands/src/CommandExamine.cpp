@@ -3,15 +3,25 @@
 
 void CommandExamine::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	auto location = characterManager.getCharacterLocation(username);
-    if(location.area == -1) {
+    if(location.area == "") {
     	//should not reach here, report error
     	return;
     }
 
-	if(fullCommand[1] == "exits")
+	if(fullCommand[1] == "exits"){
 	    onlineUserManager.addMessageToUser(username, (worldManager.listExits(location) + "\n"));
-	else
+    }else if(fullCommand[1] == "npcs"){
+        auto currentRoom = worldManager.findRoomByLocation(location);
+        auto NPCs = currentRoom.getNPCs();
+        std::string returnMessage = "NPC in room: \n";
+        for(auto npc : NPCs) {
+            returnMessage += "- " + npc;
+            returnMessage += "\n";
+        }
+        onlineUserManager.addMessageToUser(username, returnMessage);
+    }else{
 	    onlineUserManager.addMessageToUser(username, (worldManager.look(location, fullCommand[1]) + "\n"));
+    }
 }
 
 std::vector<std::string> CommandExamine::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {

@@ -29,7 +29,7 @@ public:
 
 
     Exit(const std::string& exitName, const std::string& exitDescription,
-         const std::string& cardinalDirection, int areaID, int roomID);
+         const std::string& cardinalDirection, std::string areaID, int roomID);
 
 
     static Exit::CardinalDirection getCardinalDirection(const std::string& direction);
@@ -41,18 +41,21 @@ public:
     const std::string &getExitDescription() const;
     CardinalDirection getCardinalDirection() const;
     LocationCoordinates getTargetLocation() const;
-    const std::string &CardinalToString() const;
+    const std::string CardinalToString() const;
+    std::string getExitTargetLocation();
 
 
     //Setters
     void setExitName(const std::string &exitName);
     void setExitDescription(const std::string &exitDescription);
     void setCardinalDirection(CardinalDirection direction);
-    void setTargetLocation(int area, int room);
+    void setTargetLocation(std::string area, int room);
     void setTargetLocation(LocationCoordinates newLocation);
+    void setExitTargetLocation(const std::string & name);
 
 
 private:
+    std::string exitTargetLocation;
     std::string exitName;
     std::string exitDescription;
     CardinalDirection exitDirection;

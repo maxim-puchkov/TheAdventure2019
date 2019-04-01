@@ -5,7 +5,7 @@ using namespace std;
 
 
     //Constructors
-    Exit::Exit(const string& exitName, const string& exitDescription, const std::string& cardinalDirection, int areaID, int roomID)
+    Exit::Exit(const string& exitName, const string& exitDescription, const std::string& cardinalDirection, std::string areaID, int roomID)
         : exitName(exitName), exitDescription(exitDescription)
         {
             exitDirection = getCardinalDirection(cardinalDirection);
@@ -16,16 +16,14 @@ using namespace std;
     /**
      * Returns the cardinal direction of a room as a string for viewing, displaying for the user to view
      */
-    const string& Exit::CardinalToString() const {
-        CardinalDirection result = this->exitDirection;
+    const string Exit::CardinalToString() const {
+        const CardinalDirection &result = this->exitDirection;
         auto search = directionMap.find(result);
-
         if(search != directionMap.end()){
             return search->second;
         }
 
-        return " direction not found ";
-
+        return "Direction not found\n";
     }
 
     //REARRANGE THIS TO TAKE ADVANTAGE OF MAP "directionMap"
@@ -86,7 +84,7 @@ using namespace std;
     void Exit::setExitName(const string &exitName) { Exit::exitName = exitName; }
     void Exit::setExitDescription(const string &exitDescription) { Exit::exitDescription = exitDescription; }
     void Exit::setCardinalDirection(Exit::CardinalDirection cardinalDirection) { exitDirection = cardinalDirection; }
-    void Exit::setTargetLocation(int areaID, int roomID) {
+    void Exit::setTargetLocation(std::string areaID, int roomID) {
         LocationCoordinates exitLocation;
         exitLocation.area = areaID;
         exitLocation.room = roomID;
@@ -96,5 +94,12 @@ using namespace std;
         this->targetLocation = newLocation;
     }
 
+    void Exit::setExitTargetLocation(const std::string & name) {
+        this->exitTargetLocation = name;
+    }
+
+    std::string Exit::getExitTargetLocation() {
+        return exitTargetLocation;
+    }
 
 

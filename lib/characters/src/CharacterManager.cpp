@@ -35,11 +35,13 @@ const std::string& CharacterManager::getLongDescription(const std::string &userN
 
 
 
-LocationCoordinates CharacterManager::spawnCharacter(const std::string& username) {
+
+LocationCoordinates CharacterManager::spawnCharacter(const std::string& username, LocationCoordinates location) {
 	Character character = characterDB.getCharacter(username);
 	onlineCharacters.insert(std::make_pair(username, character));
-	auto spawnLocation = LocationCoordinates{0, 0};
-	changeCharacterLocation(username, spawnLocation);
+	// auto spawnLocation = LocationCoordinates{0, 0};
+	auto spawnLocation = location;
+	changeCharacterLocation(username, character.getCurrentLocation());
 	return spawnLocation;
 }
 
@@ -182,6 +184,16 @@ int CharacterManager::getCharacterHealth(const std::string& username){
 	}
 
 	return found->second.getAttributes().getHealth();
+}
+
+std::string CharacterManager::listNPCs() {
+	std::cout << "NPC size: " << NPCs.size() << "\n";
+    std::string NPCList = "";
+    for(auto& npc : NPCs){
+        NPCList += npc.getShortdesc();
+        NPCList += "\n";
+    }
+    return NPCList;
 }
 
 

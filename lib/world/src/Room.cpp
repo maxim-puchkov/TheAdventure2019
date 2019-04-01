@@ -1,5 +1,5 @@
 #include "Room.h"
-
+#include <iostream>
 
 LocationCoordinates Room::findExitLocation(const std::string& direction) const {
 	auto checkDirection = Exit::getCardinalDirection(direction);
@@ -8,7 +8,7 @@ LocationCoordinates Room::findExitLocation(const std::string& direction) const {
 	auto iterator = std::find_if(exitsInRoom.begin(), exitsInRoom.end(),
 			[&] (const Exit& e) { return e.getCardinalDirection() == checkDirection; } );
 
-	LocationCoordinates result{-1,-1}; //returns invalid location if exit doesn't exist
+	LocationCoordinates result{"WRONG AREA",-1}; //returns invalid location if exit doesn't exist
 
 	if(iterator != exitsInRoom.end()){
 		auto index = std::distance(exitsInRoom.begin(), iterator);
@@ -20,7 +20,7 @@ LocationCoordinates Room::findExitLocation(const std::string& direction) const {
 
 
 bool Room::createExit(const std::string& exitName, const std::string& exitDescription,
-					  const std::string& cardinalDirection, int areaID, int roomID) {
+					  const std::string& cardinalDirection, std::string areaID, int roomID) {
 
 	Exit newExit(exitName, exitDescription, cardinalDirection, areaID, roomID);
 	try{
@@ -41,6 +41,9 @@ bool Room::addCharacter(const std::string &userName){
 	return true;
 }
 
+int Room::getRoomId(){
+	return this->roomId;
+}
 /**
  *Removes username from Room. Note that it removes duplicates (but we shouldn't have duplicates)
  * @param userName - UserNmae you want to remove
@@ -72,9 +75,7 @@ std::string Room::lookForExitName(const std::string &objName) const {
 	if(roomExit != exitsInRoom.end()){
 		return (*roomExit).getExitDescription();
 	}
-
 	return "You couldn't find anything called " + objName;
-
 }
 
 
@@ -88,12 +89,35 @@ std::string Room::listExits() const {
 
 	std::string result = "Exits are: \n";
 	for(Exit iter: exitsInRoom){
-		result += "- " + iter.getExitName() + ", " + iter.CardinalToString() + "\n";
+		// result += "- " + iter.getExitName() + ", " + iter.CardinalToString() + "\n";
+		result += "- " + iter.getExitTargetLocation() + ", " + iter.CardinalToString() + "\n";
+
 	}
 
 	return result;
 }
 
+bool Room::removeNPC(const std::string &name){
+	auto iter = std::remove(NPCsInRoom.begin(),NPCsInRoom.end(),name);
+	NPCsInRoom.erase(iter,NPCsInRoom.end());
+	return ( !( NPCsInRoom.end() == iter ) ); //If iter==char.end() then userName wasn't found in list
+}
 
+bool Room::addNPC(const std::string &name){
+	try{
+		NPCsInRoom.push_back(name);
+	} catch(const std::bad_alloc& e){
+		return false;
+	}
+	return true;
+}
+
+void Room::updateExits(int id, std::string name){
+	for (auto tmpExit: exitsInRoom){
+		if(tmpExit.getTargetLocation().room == id){
+			tmpExit.setExitName(name);
+		}
+	}
+}
 
 
