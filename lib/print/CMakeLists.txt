@@ -1,25 +1,33 @@
-project(${dev})
+#
+#   Print CMakeLists
+#
 
 
-add_library(${PROJECT_NAME} INTERFACE)
+cmake_minimum_required(VERSION 3.12)
+project(${print} VERSION 1.0)
+
+
+add_library(${PROJECT_NAME}
+    include/print.h
+)
 
 
 target_include_directories(${PROJECT_NAME}
-    INTERFACE
+    PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 
 
-install(DIRECTORY "${PROJECT_SOURCE_DIR}/include/" DESTINATION lib)
+set_target_properties(${PROJECT_NAME}
+    PROPERTIES
+        COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
+        LINKER_LANGUAGE CXX
+        CXX_STANDARD 17
+)
 
-# install(DIRECTORY include DESTINATION bin)
 
-
-#install(TARGETS ${PROJECT_NAME} PUBLIC_HEADER DESTINATION lib)
-
-
-#install(
-#    DIRECTORY include/${PROJECT_NAME}
-#    DESTINATION include/${PROJECT_NAME}
-#)
+install(TARGETS ${PROJECT_NAME}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+)
