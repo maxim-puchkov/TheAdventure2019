@@ -17,7 +17,10 @@
 
 class WorldManager {
 private:
-    std::vector<Area> areas;
+    // std::vector<Area> areas;
+    std::unordered_map<std::string, Area> areas;
+    int roomToSpawnUser;
+    Area nullArea{};
 public:
     WorldManager();
     void generateWorld();
@@ -32,6 +35,16 @@ public:
     LocationCoordinates move(const std::string& characterName, LocationCoordinates location, const std::string& direction) ;
     std::string look(LocationCoordinates location) ;
     std::string look(LocationCoordinates location, std::string objName) ;
+    
+    void createArea();
+    void createRoom(const LocationCoordinates & location, const std::string& direction, const std::string& name);
+    void printRoomsInArea(Area area);
+    int getRoomToSpawnUser();
+    std::string worldDetail(LocationCoordinates location);
+
+    Area& getAreaByLocation(LocationCoordinates location);
+
+    void addArea(Area area);
 };
 
 

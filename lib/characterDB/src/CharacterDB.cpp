@@ -23,6 +23,9 @@ bool CharacterDB::createCharacter(const std::string& name){
         characters_json[name]["longdesc"] = "";
         characters_json[name]["description"] = "";
         characters_json[name]["FirstTimeSetup"] = false;
+        characters_json[name]["LocationCoordinates"]["area"] = "Mirkwood";
+        characters_json[name]["LocationCoordinates"]["room"] = 8800;
+
         //cout << characters_json << "\n";
         jsonParser.saveJSON(characters_json, json_filePath);
         return true;
@@ -41,9 +44,9 @@ bool CharacterDB::updateCharacter(Character& character){
         characters_json[characterName]["longdesc"] = character.getLongdesc();
         characters_json[characterName]["description"] = character.getDescription();
         characters_json[characterName]["FirstTimeSetup"] = character.getIsDoneFirstTimeSetup();
+        characters_json[characterName]["LocationCoordinates"]["area"] = character.getCurrentLocation().area;
+        characters_json[characterName]["LocationCoordinates"]["room"] = character.getCurrentLocation().room;
 
-        // UPDATE THE Character IN DB HERE
-        //cout << characters_json << "\n";
         jsonParser.saveJSON(characters_json, json_filePath);
 
         return true;
@@ -63,13 +66,8 @@ Character CharacterDB::getCharacter(const std::string& name){
         character.setShortdesc(characters_json[name]["shortdesc"]);
         character.setDescription(characters_json[name]["description"]);
         character.setFirstTimeSetup(characters_json[name]["FirstTimeSetup"]);
-/*
-        cout << character.getName() << " \n";
-        cout << character.getShortdesc() << " \n";
-        cout << character.getLongdesc() << " \n";
-        cout << character.getDescription() << " \n";
-        cout << character.getIsDoneFirstTimeSetup() << " \n";
-*/
+        character.setCurrentLocation(LocationCoordinates{characters_json[name]["LocationCoordinates"]["area"],characters_json[name]["LocationCoordinates"]["room"]});
+
         return character;
     }
 }
