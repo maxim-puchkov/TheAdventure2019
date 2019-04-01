@@ -1,7 +1,8 @@
 add_executable(chatclient
-  chatclient.cpp
-  ChatWindow.cpp
+    chatclient.cpp
+    ChatWindow.cpp
 )
+
 
 set_target_properties(chatclient
                       PROPERTIES
@@ -10,20 +11,24 @@ set_target_properties(chatclient
                       PREFIX ""
 )
 
+
 find_package(Curses REQUIRED)
 find_package(Threads REQUIRED)
+
 
 target_include_directories(chatclient
     PUBLIC
         ${CURSES_INCLUDE_DIR}
 )
 
+
 target_link_libraries(chatclient
-    ${libnetwork}
+    ${network}
     ${CURSES_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
 )
 
+
 install(TARGETS chatclient
-  RUNTIME DESTINATION bin
+    RUNTIME DESTINATION bin
 )

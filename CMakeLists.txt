@@ -88,5 +88,5 @@ set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}")
 # Add subdirectory for libraries, executables, and tests
 
 add_subdirectory(lib)
-# add_subdirectory(tools)
+add_subdirectory(tools)
 # add_subdirectory(test)
