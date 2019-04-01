@@ -49,6 +49,13 @@ V Environment<K, V>::lookup(const K &k) const {
 }
 
 
+//template<class K, class V>
+//std::unique_ptr<V> Environment<K, V>::lookup_ptr(const K &k) const {
+//    auto it = this->find(k);
+//    return it->second;
+//}
+
+
 template<class K, class V>
 V Environment<K, V>::lookup(K &&k) const {
     auto it = this->find(std::forward<K>(k));
@@ -90,8 +97,7 @@ void Environment<K, V>::unbind(const K &k) {
 
 template<class K, class V>
 void Environment<K, V>::modify(const K &k, const V &v) {
-    auto it = this->find(std::forward(k));
-    it->second = v;
+    this->map[k] = v;
 }
 
 
@@ -177,20 +183,22 @@ std::queue<std::pair<const K, V>> Environment<K, V>::pairs() const {
 
 template<class K, class V>
 std::string Environment<K, V>::toString() const noexcept {
-    if (!(__convertable<K>::to_string && __convertable<V>::to_string)) {
-        return {};
+    bool convertableK = (__convertable<K>::to_string || std::is_arithmetic<K>::value);
+    bool convertableV = (__convertable<V>::to_string || std::is_arithmetic<V>::value);
+    
+    if (!convertableK || !convertableV) {
+        return ENV_CONV_ERROR;
     }
     
     std::ostringstream stream{""};
     stream << "{";
     auto it = this->begin();
-    //stream << (*it).first.toString() << ", " << (*it).second.toString();
+    
     stream << (*it).second.toString();
     it++;
     
     while (it != this->end()) {
         stream << ", (";
-        //stream << (*it).first.toString() << ", " << (*it).second.toString();
         stream << (*it).second.toString();
         stream << ")";
         

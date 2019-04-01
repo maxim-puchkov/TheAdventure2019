@@ -14,6 +14,7 @@
 #include <string>
 #include <exception>
 #include <queue>
+#include <type_traits>
 
 
 using std::string;
@@ -22,6 +23,7 @@ using std::unordered_map;
 
 const string ENV_BIND_ERROR = "Map Environment error: Key is already defined.";
 const string ENV_FIND_ERROR = "Map Environment error: Unable to find specified key.";
+const string ENV_CONV_ERROR = "Map Environment error: Template argument does not have .toString() function.";
 
 
 /*!
