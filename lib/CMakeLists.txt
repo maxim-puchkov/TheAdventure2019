@@ -11,7 +11,6 @@ add_subdirectory(${builder})
 add_subdirectory(${combat})
 # add_subdirectory(${commands})
 add_subdirectory(${environment})
-add_subdirectory(${exceptions})
 # add_subdirectory(${game})
 # add_subdirectory(${item})
 # add_subdirectory(${minigame})
@@ -37,3 +36,8 @@ add_subdirectory(${user-interface})
 # Moved
 #   add_subdirectory(${libcharactersdb})
 #   add_subdirectory(${libuserdb})
+
+
+# Excluded
+#   add_subdirectory(${exceptions})
+
