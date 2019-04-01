@@ -1,32 +1,44 @@
-add_library(${libcombat}
-        src/CombatManager.cpp
-        src/Combat.cpp)
+#
+#   Combat CMakeLists
+#
 
 
 cmake_minimum_required(VERSION 3.12)
-find_package(Boost 1.68 COMPONENTS system REQUIRED)
+project(${combat} VERSION 1.0)
 
 
-target_include_directories(${libcombat}
-        PUBLIC
-            $<INSTALL_INTERFACE:include>
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> # this line here fixes the include/include issues
-        PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}/src
-            ${Boost_INCLUDE_DIR}
-        )
+add_library(${PROJECT_NAME}
+    src/CombatManager.cpp
+    src/Combat.cpp
+)
 
-target_link_libraries(${libcombat}
+
+target_include_directories(${PROJECT_NAME}
+    PUBLIC
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${Boost_INCLUDE_DIR}
+)
+
+
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
         ${Boost_LIBRARIES}
-        ${libtime}
-        )
+        ${time}
+)
 
-set_target_properties(${libcombat}
-        PROPERTIES
+
+set_target_properties(${PROJECT_NAME}
+    PROPERTIES
+        COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
         LINKER_LANGUAGE CXX
         CXX_STANDARD 17
-        )
+)
 
-install(TARGETS ${libcombat}
-        ARCHIVE DESTINATION lib
-        )
+
+install(TARGETS ${PROJECT_NAME}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+)

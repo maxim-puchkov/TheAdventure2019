@@ -1,27 +1,39 @@
-add_library(${libBuilder} SHARED
-    src/Builder.cpp
+#
+#   Builder CMakeLists
+#
+
+
+cmake_minimum_required(VERSION 3.12)
+project(${builder} VERSION 1.0)
+
+
+add_library(${PROJECT_NAME}
+    include/Builder.h
 )
 
-target_include_directories(${libBuilder}
+
+target_include_directories(${PROJECT_NAME}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(${libBuilder}
+
+target_link_libraries(${PROJECT_NAME}
     PRIVATE
-        ${libObject}
+#        ${object}
 )
 
-set_target_properties(${libBuilder}
+
+set_target_properties(${PROJECT_NAME}
     PROPERTIES
-    COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
-    LINKER_LANGUAGE CXX
-    CXX_STANDARD 17
+        COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
+        LINKER_LANGUAGE CXX
+        CXX_STANDARD 17
 )
 
-install(TARGETS ${libBuilder}
+
+install(TARGETS ${PROJECT_NAME}
+    ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
 )

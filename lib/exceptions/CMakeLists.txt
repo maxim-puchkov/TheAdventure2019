@@ -1,13 +1,14 @@
 #
-#   Time CMakeLists
+#   Exceptions CMakeLists
 #
 
+
 cmake_minimum_required(VERSION 3.12)
-project(${time} VERSION 1.0)
+project(${exceptions} VERSION 1.0)
 
 
 add_library(${PROJECT_NAME} SHARED
-    include/TimeStamp.h
+    src/bad_dealloc.cpp
 )
 
 
@@ -15,12 +16,8 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-)
-
-
-target_link_libraries(${PROJECT_NAME}
     PRIVATE
-        ${libminigame}
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 
@@ -33,6 +30,5 @@ set_target_properties(${PROJECT_NAME}
 
 
 install(TARGETS ${PROJECT_NAME}
-    ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
 )

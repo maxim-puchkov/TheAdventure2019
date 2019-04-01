@@ -1,10 +1,13 @@
+#
+#   Object CMakeLists
+#
+
+
 cmake_minimum_required(VERSION 3.12)
+project(${object} VERSION 1.0)
 
 
-project(${object})
-
-
-add_library(${PROJECT_NAME} SHARED
+add_library(${PROJECT_NAME}
     include/Object.h
     include/ObjectData.h
 )
@@ -31,4 +34,7 @@ set_target_properties(${PROJECT_NAME}
 )
 
 
-install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
+install(TARGETS ${PROJECT_NAME}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+)
