@@ -21,6 +21,8 @@ target_link_libraries(${liblogging}
   ${Boost_LOG_LIBRARY}
   boost_log_setup
   boost_log
+  boost_filesystem
+  )
 
 set_target_properties(${liblogging}
                       PROPERTIES
