@@ -37,7 +37,6 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     }
 
 
-
     const string& roomDescription = room.lookCardinalDirection(fullCommand.at(1));
     if( !roomDescription.empty() ) {
         onlineUserManager.addMessageToUser(userName, roomDescription + "\n");
@@ -83,14 +82,17 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     boost::trim(appendedCommand);
 
 
+    const std::string& characterDescription = ( characterManager.getLongDescription(appendedCommand) ); // This line causes the crash
+    onlineUserManager.addMessageToUser(userName, characterDescription );
+
+
+
     /////////////////////////////////////////// If looking at a specific user then....
     //If an username and exit share the same name, send both of the messages to the user.
     /* It seems as though exits can't have names based of the json, so this will be removed.
     std::string result = room.lookForExitName( appendedCommand ) + "\n";
     */
 
-    std::string rst = room.lookForName(appendedCommand);
-    onlineUserManager.addMessageToUser(userName, rst);
 
 
 }

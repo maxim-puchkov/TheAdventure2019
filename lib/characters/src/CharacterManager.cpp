@@ -20,7 +20,7 @@ const std::string CharacterManager::getLongDescription(const std::string &userNa
     auto onlineChar = onlineCharacters.find(userName);
 
     if(onlineChar != onlineCharacters.end() ){
-        result.append("Looking at " + userName + onlineChar->second.getLongdesc() + "\n");
+        result.append("Looking at userName: '" + userName + "' description: " + onlineChar->second.getLongdesc() + "\n");
     }
 
 
@@ -29,7 +29,11 @@ const std::string CharacterManager::getLongDescription(const std::string &userNa
             );
 
     if(npc != computerControlledCharacters.end()){
-        result.append("Looking at NPC: "+ userName + (*npc).getLongdesc() + "\n" );
+        result.append("Looking at NPC: "+ userName + " description: " + (*npc).getLongdesc() + "\n" );
+    }
+
+    if(result.empty()){
+        result.append(" No object with name " + userName + "\n");
     }
 
     return result;
