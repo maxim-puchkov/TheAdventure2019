@@ -12,6 +12,7 @@ add_executable(runAllTests
 #    TestRunner.cpp
 #   testChessBoard.cpp
     ItemBuilderTests.cpp
+    ItemControllerTests.cpp
 )
 
 
