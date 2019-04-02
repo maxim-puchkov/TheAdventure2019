@@ -76,7 +76,7 @@ using namespace std;
 
     }
 
-    const string &Exit::getExitDescription() const {return exitDescription;}
+    const string Exit::getExitDescription() const {return exitDescription + " put here for debbuing in exit.cpp rm later \n";}
     Exit::CardinalDirection Exit::getCardinalDirection() const {return exitDirection;}
     LocationCoordinates Exit::getTargetLocation() const {return targetLocation;}
 

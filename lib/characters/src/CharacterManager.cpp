@@ -13,24 +13,26 @@ using charactermanager::CharacterManager;
  * @param userName - The username of a playable character, or the name of a NPC
  * @return - The long description of a character
  */
-const std::string& CharacterManager::getLongDescription(const std::string &userName) {
+const std::string CharacterManager::getLongDescription(const std::string &userName) const {
 
-    std::string result = "";
+    std::string result;
 
     auto onlineChar = onlineCharacters.find(userName);
+
     if(onlineChar != onlineCharacters.end() ){
-        result.append(onlineChar->second.getLongdesc() + "\n");
+        result.append("Looking at " + userName + onlineChar->second.getLongdesc() + "\n");
     }
+
 
     const auto &npc = std::find_if(computerControlledCharacters.begin(),computerControlledCharacters.end(),
             [&] (auto &iter) {return iter.getName() == userName ; }
             );
 
     if(npc != computerControlledCharacters.end()){
-        result.append( (*npc).getLongdesc() + "\n" );
+        result.append("Looking at NPC: "+ userName + (*npc).getLongdesc() + "\n" );
     }
 
-    return std::move(result);
+    return result;
 }
 
 

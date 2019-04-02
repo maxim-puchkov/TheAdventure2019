@@ -38,7 +38,7 @@ public:
     const std::string getLowerCaseExitName() const;
 
 
-    const std::string &getExitDescription() const;
+    const std::string getExitDescription() const;
     CardinalDirection getCardinalDirection() const;
     LocationCoordinates getTargetLocation() const;
     const std::string CardinalToString() const;

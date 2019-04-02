@@ -420,7 +420,7 @@
       "doors": [
         {
           "dir": "north",
-          "desc": [],
+          "desc": ["Original description written by JH to see if you can examine an exit more closely"],
           "keywords": [],
           "to": 8802
         },

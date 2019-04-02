@@ -35,7 +35,7 @@ public:
     //TODO: create control mode interface for combat
     
     // Get
-    std::string getName();
+    const std::string& getName() const;
     Attributes getAttributes();
     Attributes getBaseAttributes();
     Inventory getInventory();

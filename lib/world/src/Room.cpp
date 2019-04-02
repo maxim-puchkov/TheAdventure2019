@@ -75,7 +75,25 @@ std::string Room::lookForExitName(const std::string &objName) const {
 	if(roomExit != exitsInRoom.end()){
 		return (*roomExit).getExitDescription();
 	}
-	return "You couldn't find anything called " + objName;
+
+	return " No exits called:  " + objName;
+
+}
+
+const std::string Room::lookCardinalDirection(const std::string &cardinalDirection) const {
+    Exit a{"a","a","a","a",1}; //Object only created to call methods.
+    const Exit::CardinalDirection &direction= a.getCardinalDirection(cardinalDirection);
+    if(direction == Exit::CardinalDirection::NONE){
+        return  "";
+    }
+
+    auto iterator = std::find_if(exitsInRoom.begin(), exitsInRoom.end(),
+                                 [&] (const Exit& e) { return e.getCardinalDirection() == direction; } );
+
+    if(iterator != exitsInRoom.end() ){
+        return (*iterator).getExitDescription() ;
+    }
+    return "";
 }
 
 
