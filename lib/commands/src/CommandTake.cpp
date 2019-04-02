@@ -47,7 +47,7 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
     print(keyword);
     print(ids.size());
     print(room_id);
-    print(location.area());
+    print(location.area);
 
 
 //
