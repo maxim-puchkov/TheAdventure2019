@@ -10,7 +10,7 @@
 #include "Actions.h"
 
 
-namespace objects {
+namespace items {
 
 inline namespace actions_defaults {
     const Text DISPLAY_PREFIX = "Actions: ";
@@ -28,32 +28,32 @@ Action::Action(const string &keyword, const string &desc)
 //: keyword(keyword), description(Description(longdesc))
 //{ }
 
-inline pair<Key, Description> Action::toPair() {
+inline pair<Text, Description> Action::toPair() {
     return {keyword, description};
 }
 
 
 
 
+
+
+
+
+
+
 /* Object's Actions environment Constructors */
+    
 
-Actions::Actions()
-: env(Environment<Key, Description>{})
-{ }
-
-
-Actions::Actions(const vector<pair<string, string>> &actions)
-: env(Environment<Key, Description>{}) {
+Actions::Actions(const vector<pair<string, string>> &actions) {
     for (auto &pair : actions) {
-        Key keyword = pair.first;
+        Text keyword = pair.first;
         Description description = Description(pair.second);
         this->env.bind(keyword, description);
     }
 }
 
 
-Actions::Actions(vector<Action> &actions)
-: env(Environment<Key, Description>{}) {
+Actions::Actions(vector<Action> &actions) {
     for (auto &action : actions) {
         this->add(std::forward<Action>(action));
     }
@@ -141,4 +141,4 @@ bool Actions::operator==(const Actions &other) const {
 }
 
 
-} /* namespace objects */
+} /* namespace items */

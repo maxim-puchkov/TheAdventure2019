@@ -45,13 +45,13 @@ public:
     
     /* Constructors */
     
-    Environment();
+    Environment() = default;
     
     Environment(const Environment &other);
     
-    Environment(Environment &&other);
+    Environment(Environment &&other) noexcept;
     
-    ~Environment();
+    ~Environment() = default;
     
     
     
@@ -131,7 +131,7 @@ public:
     
     /* Operators */
     
-    Environment<K, V>& operator=(Environment<K, V> &other);
+    Environment<K, V>& operator=(Environment<K, V> &&other) noexcept;
     Environment<K, V>& operator=(const Environment<K, V> &other);
     
     bool operator==(Environment<K, V> &other) const;

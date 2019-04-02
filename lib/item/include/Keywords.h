@@ -14,9 +14,12 @@
 #include "ObjectData.h"
 
 
-namespace objects {
+namespace items {
 
 inline namespace data {
+
+using Key = string;
+using Set = std::set<Key>;
 
 
 /*!
@@ -28,12 +31,12 @@ inline namespace data {
  
  Container and processor of all keywords associated with an object.
  */
-class Keywords: public ObjectData<Keywords> {
+class Keywords: public objects::ObjectData<Keywords> {
 public:
     
     /* Constructors */
     
-    Keywords();
+    Keywords() = default;
     
     Keywords(const std::vector<Key> &container);
 
@@ -116,13 +119,13 @@ public:
 private:
     
     /*! Set that contains all of the keywords */
-    Set set;
+    Set set{};
     
 };
 
 
-} /* namespace structures */
+} /* namespace data */
 
-} /* namespace objects */
+} /* namespace items */
 
 #endif /* Keywords_h */

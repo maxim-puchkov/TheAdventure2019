@@ -9,14 +9,15 @@
 #ifndef Description_h
 #define Description_h
 
-#include "objects.hpp"
 #include "ObjectData.h"
-#include "UIText.h" // !
+#include "UIText.h"
 
 
-namespace objects {
+namespace items {
 
 inline namespace data {
+
+using Text = string;
 
 
 /*!
@@ -28,7 +29,7 @@ inline namespace data {
  If description is too long to fit on a line, it will be
  broken down into multiple lines depending on the line width.
  */
-class Description: public ObjectData<Description> {
+class Description: public objects::ObjectData<Description> {
 public:
     
     /* Constructors */
@@ -125,8 +126,8 @@ private:
 };
 
 
-} /* namespace structures */
+} /* namespace data */
 
-} /* namespace objects */
+} /* namespace items */
 
 #endif /* Description_h */

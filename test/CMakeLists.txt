@@ -21,19 +21,19 @@ target_link_libraries(runAllTests
     gtest
     gtest_main
 
-    ${network}
+#    ${network}
 
 #    ${game}
-    ${minigame}
+#    ${minigame}
 #    ${commands}
 
-    ${users}
+#    ${users}
 #    ${characters}
 
-    ${authentication}
+#    ${authentication}
 #    ${world}
 
-    ${parsers}
+#    ${parsers}
     ${builder}
 
     ${object}

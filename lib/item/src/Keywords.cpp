@@ -22,18 +22,16 @@
 #include "Keywords.h"
 
 
-namespace objects {
+namespace items {
+
+using Key = string;
 
 inline namespace keywords_defaults {
-    const Text SET_DELIMITER = ", ";
+    const string SET_DELIMITER = ", ";
 }
 
 
 /* Constructors */
-
-Keywords::Keywords()
-: set({})
-{}
 
 
 Keywords::Keywords(const std::vector<Key> &container)
@@ -49,13 +47,12 @@ Keywords::Keywords(const std::vector<Key> &container)
 string Keywords::toString() const noexcept {
     // If set is empty, return empty string
     if (this->empty()) {
-        const Text EmptyText = "";
-        return EmptyText;
+        return "";
     }
     
     // Start from the first keyword
     auto iterator = this->set.cbegin();
-    ostringstream stream;
+    ostringstream stream{""};
     stream << *iterator;
     iterator++;
     
@@ -154,7 +151,7 @@ bool Keywords::operator!=(const Keywords &other) const {
 }
 
 
-} /* namespace objects */
+} /* namespace items */
 
 
 

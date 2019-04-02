@@ -9,10 +9,10 @@
 #include "Description.h"
 
 
-namespace objects {
+namespace items {
 
 inline namespace description_defaults {
-    const Text EMPTY = "";
+    const Text EMPTY;
     const Text DELIMITER = ", ";
     const Text WS = " ";
     const size_t LINE_WIDTH = ui::text::WIDTH;
@@ -163,7 +163,7 @@ void Description::init() {
     
     this->source.format();
     
-    Lines lines = this->source.arrangedSource();
+    vector<Text> lines = this->source.arrangedSource();
     this->longdesc = lines;
     
     this->shortdesc = this->cut();
@@ -175,4 +175,4 @@ Text Description::cut() const {
 }
 
 
-} /* namespace objects */
+} /* namespace items */

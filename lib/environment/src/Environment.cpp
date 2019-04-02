@@ -16,10 +16,6 @@
 
 /* Constructors */
 
-template<class K, class V>
-Environment<K, V>::Environment()
-{ }
-
 
 template<class K, class V>
 Environment<K, V>::Environment(const Environment &other)
@@ -28,13 +24,8 @@ Environment<K, V>::Environment(const Environment &other)
 
 
 template<class K, class V>
-Environment<K, V>::Environment(Environment &&other)
+Environment<K, V>::Environment(Environment &&other) noexcept
 : map(std::move(other.map))
-{ }
-
-
-template<class K, class V>
-Environment<K, V>::~Environment()
 { }
 
 
@@ -105,10 +96,7 @@ void Environment<K, V>::modify(const K &k, const V &v) {
 template<class K, class V>
 bool Environment<K, V>::exists(const K &k) const noexcept {
     auto it = this->map.find(k);
-    if (it == this->map.end()) {
-        return false;
-    }
-    return true;
+    return (it != this->map.end());
 }
 
 
@@ -233,8 +221,8 @@ typename unordered_map<K, V>::const_iterator Environment<K, V>::end() const {
 /* Operators */
 
 template<class K, class V>
-Environment<K, V>& Environment<K, V>::operator=(Environment<K, V> &other) {
-    this->map = other.map;
+Environment<K, V>& Environment<K, V>::operator=(Environment<K, V> &&other) noexcept {
+    this->map = std::move(other.map);
     return *this;
 }
 

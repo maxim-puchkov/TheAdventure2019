@@ -11,6 +11,10 @@
 
 #include "items.hpp"
 
+#include "Keywords.h"
+#include "Description.h"
+#include "Actions.h"
+
 
 namespace items {
 
@@ -39,7 +43,7 @@ public:
          const Description &description,
          const Actions &actions);
     
-    ~Item() override;
+    ~Item() override = default;
     
     
     
@@ -57,7 +61,7 @@ public:
     Text toString() const override;
     
     /*! Examine an action to see its description @warning undefined */
-    Text examine(const Key &keyword) const override;
+    Text examine(const Text &keyword) const override;
     
     /*! Check if object has additional actions */
     bool isInteractable() const override;

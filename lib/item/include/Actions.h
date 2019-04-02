@@ -10,13 +10,12 @@
 #ifndef Actions_h
 #define Actions_h
 
-#include "objects.hpp"
 #include "ObjectData.h"
 #include "Description.h"
 #include "Environment.h"
 
 
-namespace objects {
+namespace items {
 
 inline namespace data {
 
@@ -35,11 +34,11 @@ public:
     
     Action(const string &keyword, const vector<string> &longdesc);
     
-    pair<Key, Description> toPair();
+    pair<string, Description> toPair();
     
 private:
 
-    Key keyword{""};
+    string keyword{""};
     
     Description description{"No description"};
     
@@ -66,10 +65,10 @@ private:
  
  @warning Structure may be changed later
  */
-class Actions: public ObjectData<Actions> {
+class Actions: public objects::ObjectData<Actions> {
 public:
     
-    Actions();
+    Actions() = default;
     
     Actions(const vector<pair<string, string>> &actions);
     
@@ -117,13 +116,13 @@ public:
 private:
     
     /*! Environment that maps all actions */
-    Environment<Key, Description> env;
+    Environment<Text, Description> env;
     
 };
 
 
-} /* namespace structures */
+} /* namespace data */
 
-} /* namepsace objects */
+} /* namepsace items */
 
 #endif /* Actions_h */

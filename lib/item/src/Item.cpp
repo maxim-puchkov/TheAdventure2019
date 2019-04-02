@@ -22,12 +22,7 @@ Item::Item(ItemIdentifier id,
 { }
 
 
-Item::~Item()
-{ }
-
-
-
-
+    
 
 
 /* Object Interface */
@@ -57,7 +52,7 @@ Text Item::toString() const {
 }
 
 
-Text Item::examine(const Key &keyword) const {
+Text Item::examine(const Text &keyword) const {
     
     // .....
     return "callee: Item::examine(const Key&)";
@@ -74,7 +69,6 @@ bool Item::isInteractable() const {
 /* Operators */
 
 Item& Item::operator=(Item &other) {
-    //this->itemID = other.identifier();
     this->keywords = other.keywords;
     this->description = other.description;
     this->actions = other.actions;
@@ -82,7 +76,6 @@ Item& Item::operator=(Item &other) {
 }
 
 Item& Item::operator=(const Item &other) {
-    //this->itemID = other.identifier();
     this->keywords = other.keywords;
     this->description = other.description;
     this->actions = other.actions;

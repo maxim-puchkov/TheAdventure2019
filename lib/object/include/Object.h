@@ -12,12 +12,14 @@
 
 #include "objects.hpp"
 
-#include "Keywords.h"
-#include "Description.h"
-#include "Actions.h"
-
 
 namespace objects {
+
+/*! Type aliases */
+inline namespace typenames {
+    using ObjectIdentifier = uint64_t;
+    using Text = string;
+} /* namespace typenames */
 
 
 /*!
@@ -26,17 +28,17 @@ namespace objects {
  @brief Interactable game object interface
  
  Every object has Keywords, Description, and Actions.
+ Every object can be converted to string.
  */
 class Object {
 public:
     
+    
     /*! Object constructor */
-    Object()
-    { }
+    Object() = default;
     
     /*! Object destructor */
-    virtual ~Object()
-    { }
+    virtual ~Object() = default;
     
     
     
@@ -53,7 +55,7 @@ public:
     
     
     /*! Examine an action to see its description */
-    virtual Text examine(const Key &keyword) const = 0;
+    virtual Text examine(const Text &keyword) const = 0;
     
     
     /*! Represent this object as string */
