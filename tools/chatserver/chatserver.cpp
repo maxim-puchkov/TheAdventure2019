@@ -8,6 +8,7 @@
 #include "Server.h"
 //#include "User.h"
 #include "GameManager.h"
+#include "TimeStamp.h"
 
 // #include <experimental/filesystem>
 #include <fstream>
@@ -26,7 +27,6 @@ using networking::Connection;
 using networking::Message;
 
 std::vector<Connection> clients;
-GameManager gm{};
 
 void
 onConnect(Connection c) {
@@ -46,7 +46,7 @@ onDisconnect(Connection c) {
 std::unique_ptr<std::unordered_map<std::string, std::string>>
 processMessages(Server &server,
                 const std::deque<Message> &incoming,
-                bool &quit) {
+                bool &quit, GameManager& gm) {
 
   auto result = std::make_unique<std::unordered_map<std::string, std::string>>();
   for (auto& message : incoming) {
@@ -115,6 +115,8 @@ includeHeartbeatMessages(std::unique_ptr<std::unordered_map<std::string, std::st
 
 int
 main(int argc, char* argv[]) {
+  GameManager gm{};
+
   if (argc < 3) {
     std::cerr << "Usage:\n  " << argv[0] << " <port> <html response>\n"
               << "  e.g. " << argv[0] << " 4002 ./webchat.html\n";
@@ -135,9 +137,13 @@ main(int argc, char* argv[]) {
     }
 
     auto incoming = server.receive();
-    auto promptReplies = processMessages(server, incoming, done);
-    auto heartbeatReplies = gm.heartbeat();
+    auto promptReplies = processMessages(server, incoming, done, gm);
+    
+    //getTimeStamp();
 
+    //if(getTimeStamp){
+      auto heartbeatReplies = gm.heartbeat();
+    //}
     auto logs = includeHeartbeatMessages(std::move(promptReplies), std::move(heartbeatReplies));
 
     auto outgoing = buildOutgoing(std::move(logs));
