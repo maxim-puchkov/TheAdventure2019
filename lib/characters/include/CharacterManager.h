@@ -1,7 +1,8 @@
 #ifndef CHARACTER_MANAGER_H
 #define CHARACTER_MANAGER_H
 
-#include <unordered_map> 
+#include <unordered_map>
+#include <algorithm>
 #include <string>
 #include <vector>
 #include "Character.h"
@@ -60,10 +61,18 @@ public:
     //MiniGame commands
     MiniGameLobby& getMiniGameLobby();
     //combat commands
+    std::string getCombatReply(const std::string& username);
+    std::string getAttackReply(const std::string& username);
     CHARACTER_CODE damageCharacter(const std::string& username, int amount);
     int getCharacterAttack(const std::string& username);
     int getCharacterHealth(const std::string& username);
 
+    //for combat testing
+    void addNPC(const std::string& name){
+        Character newNPC = Character{name};
+        newNPC.setMode("aggro");
+        computerControlledCharacters.push_back(newNPC);
+    }
 };
 
 }

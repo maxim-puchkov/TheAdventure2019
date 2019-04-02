@@ -25,6 +25,14 @@ void CommandCombat::executeInHeartbeat(const std::string& username, const std::v
             onlineUserManager.addMessageToUser(username, "Waiting for " + challengedName +" to accept challenge.\n");
             onlineUserManager.addMessageToUser(challengedName, "You were challenged to combat by " + username +".\n");
         }
+        //handle npc opponent
+        auto response = characterManager.getCombatReply(challengedName);
+        if(response == "combat accept") { //temp until merge with actions stored in char
+            combatManager.confirmInvite(challengedName);
+        } else {
+            onlineUserManager.addMessageToUser(username, challengedName + " says " + response + " and does not fight you.\n");
+        }
+
     }else if(firstCommand == "join" || firstCommand == "accept"){
         if(combatManager.confirmInvite(username)){
             combatManager.removeInvite(username);

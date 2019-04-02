@@ -118,6 +118,24 @@ MiniGameLobby& CharacterManager::getMiniGameLobby(){
 	return minigameLobby;
 }
 
+std::string CharacterManager::getCombatReply(const std::string& username){
+	auto found = std::find_if(computerControlledCharacters.begin(), computerControlledCharacters.end(), [&username](Character& x){return x.getName() == username;});
+	if (found == computerControlledCharacters.end()) {
+		return "";
+	}
+	return "combat accept";
+	//return found->getCombatReply();
+}
+
+std::string CharacterManager::getAttackReply(const std::string& username){
+	auto found = std::find_if(computerControlledCharacters.begin(), computerControlledCharacters.end(), [&username](Character& x){return x.getName() == username;});
+	if (found == computerControlledCharacters.end()) {
+		return "";
+	}
+	return "attack";
+	//return found->getAttackReply();
+}
+
 CharacterManager::CHARACTER_CODE CharacterManager::damageCharacter(const std::string& username, int amount){
 	auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {

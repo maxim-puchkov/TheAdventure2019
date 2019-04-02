@@ -49,19 +49,19 @@ std::vector<std::pair<std::string, std::vector<std::string>>> CombatManager::get
 
     for (auto &combat : combatList) {
         if(combat.getRoundTime() <= 0){
-            //temporary implementation
+/*            //temporary implementation
             std::vector<std::string> tempVector1;
             std::vector<std::string> tempVector2;
             auto player1Command = combat.getCommand(0);
             auto player2Command = combat.getCommand(1);
 
             tempVector1.push_back(player1Command);
-            tempVector2.push_back(player2Command);
+            tempVector2.push_back(player2Command);*/
 
-            auto player1Pair = std::make_pair(combat.getPlayer(0), tempVector1);
-            auto player2Pair = std::make_pair(combat.getPlayer(1), tempVector2);
+            auto player1Pair = std::make_pair(combat.getPlayer(0), combat.getCommand(0));
+            auto player2Pair = std::make_pair(combat.getPlayer(1), combat.getCommand(1));
 
-            if(player1Command == "flee"){
+            if(!player1Pair.second.empty() && player1Pair.second.at(0) == "flee"){
                 commandList.push_back(player2Pair);
                 commandList.push_back(player1Pair);
             } else {
@@ -111,6 +111,7 @@ bool CombatManager::confirmInvite(const std::string& invitedName){
                 return false;
             }
             createCombat(inviter, invited);
+            removeInvite(invitedName);
             return true;
         }
     }

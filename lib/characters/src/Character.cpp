@@ -90,6 +90,16 @@ void Character::setDescription(const std::string& description) {
     this->description = description;
 }
 
+void Character::setMode(const std::string& modeName){
+    if(modeName == "user"){
+        this->mode = &userControl;
+    }else if(modeName == "aggro"){
+        this->mode = &aggroNPC;
+    }else if(modeName == "pacifist"){
+        this->mode = &pacifistNPC;
+    }
+}
+
 
 bool Character::isInCombat() {
     return false;
@@ -106,6 +116,14 @@ bool Character::operator==(const Character &other) {
 
 bool Character::operator!=(const Character &other) {
     return this->name.compare(other.name) != 0;
+}
+
+std::string Character::getCombatReply(){
+    return this->mode->getCombatReply();
+}
+
+std::string Character::getAttackReply(){
+    return this->mode->getAttackReply();
 }
 
 void Character::characterTakeDamage(const int &damage) {

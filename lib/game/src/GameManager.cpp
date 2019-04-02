@@ -5,6 +5,8 @@ int heartBeatDuration = 50;
 
 GameManager::GameManager() {
     world.generateWorld();
+    world.spawn("jeff", LocationCoordinates{0,0});
+    characterManager.addNPC("jeff");
     createTableOfCommands();
 }
 
@@ -82,7 +84,7 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
     for (auto& element : combatCommands){
         auto& username = element.first;
         auto& command = element.second;
-
+        if(command.empty()) continue;
         auto found = tableOfCommands.find(command[0]);
         if(found != tableOfCommands.end()) {
             found->second->executeCombatRound(username, command);

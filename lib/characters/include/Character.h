@@ -14,6 +14,7 @@
 #include "Inventory.h"
 #include "Equipment.h"
 #include "LocationCoordinates.h"
+#include "CharacterMode.h"
 
 const std::string DEF_CHAR_NAME = "DEF_CHAR_NAME";
 const int DEF_CHAR_HEALTH = 100;
@@ -54,6 +55,7 @@ public:
     void setLongdesc(const std::string& longdesc);
     void setDescription(const std::string& description);
     void setFirstTimeSetup(const bool value);
+    void setMode(const std::string& modeName);
     
     // States ...
     bool isInCombat();
@@ -64,6 +66,8 @@ public:
     bool operator!=(const Character &other);
 
     // Match WIP
+    std::string getCombatReply();
+    std::string getAttackReply();
     void characterTakeDamage(const int &damage);
     
 private:
@@ -81,6 +85,13 @@ private:
 
     //first time set up flag
     bool isDoneFirstTimeSetup = false;
+
+    //modes
+    UserControlled userControl{};
+    AggressiveNPC aggroNPC{};
+    PacifistNPC pacifistNPC{};
+    //combat
+    CharacterMode* mode = &userControl;
 
     void createCharacter(const std::string &name);
 };

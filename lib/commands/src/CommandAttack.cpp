@@ -8,7 +8,17 @@ void CommandAttack::executeInHeartbeat(const std::string& username, const std::v
     if(currentCombat.hasPlayer(username)){
 
         cerr << "round time not expired, queuing attack\n";
-        currentCombat.queueCommand(username, fullCommand.at(0));
+        currentCombat.queueCommand(username, fullCommand);
+        //handle npc opponent. does nothing if character is user controlled
+        auto opponentName = currentCombat.getOpponent(username);
+        auto opponentResponse = characterManager.getAttackReply(opponentName);
+        if(!opponentResponse.empty()) {
+            onlineUserManager.addMessageToUser(username, opponentName + " prepares a(n) " + opponentResponse + "\n");
+            std::vector<std::string> opponentCommand;
+            opponentCommand.push_back(opponentResponse);
+            currentCombat.queueCommand(opponentName, opponentCommand);
+        }
+
 
     } else { //player is not in a combat
         onlineUserManager.addMessageToUser(username, "You are not in combat with anyone!\n");
@@ -23,6 +33,9 @@ void CommandAttack::executeCombatRound(const std::string& username, const std::v
     auto opponentName = currentCombat.getOpponent(username);
 
     characterManager.damageCharacter(opponentName, attackValue);
+
+    //check character hp
+    //kill/respawn character
 
     onlineUserManager.addMessageToUser(username, "You attacked " + opponentName + " for " + std::to_string(attackValue) + ".\n");
     onlineUserManager.addMessageToUser(opponentName,

@@ -8,7 +8,7 @@ void CommandFlee::executeInHeartbeat(const std::string& username, const std::vec
     if(currentCombat.hasPlayer(username)){
 
         cerr << "round time not expired, queuing flee\n";
-        currentCombat.queueCommand(username, fullCommand.at(0));
+        currentCombat.queueCommand(username, fullCommand);
 
     } else { //player is not in a combat
         onlineUserManager.addMessageToUser(username, "You are not in combat with anyone!\n");

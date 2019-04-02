@@ -13,20 +13,20 @@ class Match{
 public:
     Match();
     Match(const std::string& player1Name, const std::string& player2Name);
-    Match(const std::vector<std::string>& players);
+    //Match(const std::vector<std::string>& players);
     bool hasPlayer(const std::string& name) const;
     int getRoundTime() const;
     std::string getOpponent(const std::string& name) const;
-    void queueCommand(const std::string& name, const std::string& command);
+    void queueCommand(const std::string& name, std::vector<std::string> command);
     void clearCommands();
     void decrementRoundTime();
     void resetRoundTime();
     std::string getPlayer(int playerNum) const;
-    std::string getCommand(int playerNum) const;
+    std::vector<std::string> getCommand(int playerNum);
 
 private:
     std::vector<std::string> combatants;
-    std::vector<std::string> queuedActions;
+    std::vector<std::vector<std::string>> queuedActions;
 
     int roundTime;
 };
