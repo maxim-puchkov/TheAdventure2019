@@ -61,12 +61,13 @@ public:
         }
         
 
-        this->memory.items_created++;
+        //this->memory.items_created++;
+        this->created++;
         
         if (!this->env2d.exists(ck)) {
             
             debug::print("1. Allocating container environment for ", ck);
-            this->memory.allocs++;
+            //this->memory.allocs++;
             debug::print("2");
             Environment<ItemSearchKey, Item> newContainer;
             debug::print("3");
@@ -308,17 +309,19 @@ public:
     
     /**/
     unsigned int itemsCreated() const noexcept {
-        return this->memory.items_created;
+        return this->created;
     }
     
     /**/
     unsigned int allocations() const noexcept {
-        return this->memory.allocs;
+        //return this->memory.allocs;
+        return 0;
     }
     
     /**/
     unsigned int deallocations() const noexcept {
-        return this->memory.deallocs;
+        //return this->memory.deallocs;
+        return 0;
     }
     
     
@@ -354,7 +357,7 @@ private:
     /*! Local item authenticator */
     const Authenticator<ItemIdentifier> authenticator;
     
-    
+    mutable size_t created = 0;
     
     void init() {
         debug::prefix("ItemController");
@@ -375,12 +378,12 @@ private:
             Environment<ItemSearchKey, Item>env = binding.second;
             
             this->env2d.unbind(key);
-            this->memory.deallocate(env);
+            // this->memory.deallocate(env);
         }
     }
     
     /*! Keeps track of dynamic memory deallocations */
-    mutable ICMemory memory;
+    //mutable ICMemory memory;
     
 };
 
