@@ -14,7 +14,7 @@ add_subdirectory(${environment})
 add_subdirectory(${game})
 add_subdirectory(${item})
 add_subdirectory(${minigame})
-add_subdirectory(${network})
+#add_subdirectory(${network})
 add_subdirectory(${object})
 add_subdirectory(${parsers})
 add_subdirectory(${print})
@@ -26,10 +26,9 @@ add_subdirectory(${world})
 
 
 
-
-
-
-
+# Added
+add_subdirectory(simple)
+add_subdirectory(test)
 
 
 

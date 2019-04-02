@@ -9,10 +9,10 @@ add_subdirectory(lib)
 add_executable(runAllTests
     # Add all new test files to the list here.
     # Place each file name on a separate line.
-#    TestRunner.cpp
+    TestRunner.cpp
 #   testChessBoard.cpp
-    ItemBuilderTests.cpp
-    ItemControllerTests.cpp
+#    ItemBuilderTests.cpp
+#    ItemControllerTests.cpp
 )
 
 
@@ -25,7 +25,7 @@ target_link_libraries(runAllTests
 #    ${network}
 
 #    ${game}
-#    ${minigame}
+    ${minigame}
 #    ${commands}
 
 #    ${users}
@@ -36,9 +36,9 @@ target_link_libraries(runAllTests
 
 #    ${parsers}
     ${builder}
-
-    ${object}
-    ${item}
+${time}
+#    ${object}
+#    ${item}
 )
 
 

@@ -52,6 +52,7 @@ analyze:
     paths:
       - build/cppcheck-results.txt
       - build/clang-tidy-results.txt
+  allow_failure: true
   except:
     - docs
     - libraries
@@ -92,6 +93,7 @@ test:
     - llvm-cov show build/bin/runAllTests -instr-profile=runAllTests.profdata -show-line-counts-or-regions -output-dir=coverage/ -format="html"
     - llvm-cov report build/bin/runAllTests -instr-profile=runAllTests.profdata
   coverage: '/TOTAL.*\s+(\S+\%)/'
+  allow_failure: true
   artifacts:
     expire_in: 1 hour
     paths:

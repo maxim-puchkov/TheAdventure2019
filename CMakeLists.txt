@@ -10,9 +10,9 @@ cmake_minimum_required(VERSION 3.12)
 project(adventure2019 VERSION 1.0)
 
 # set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 set(BUILD_SHARED_LIBS ON)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
 
@@ -93,8 +93,8 @@ endif()
 # Complier flags
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-rtti")
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-# set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -fsanitize=address,undefined -fno-omit-frame-pointer")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -fsanitize=undefined -fno-omit-frame-pointer")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra  -Wstrict-aliasing -pedantic -Wunreachable-code -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option")
 
 
@@ -118,4 +118,4 @@ set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}")
 
 add_subdirectory(lib)
 add_subdirectory(tools)
-add_subdirectory(test)
+# add_subdirectory(test)

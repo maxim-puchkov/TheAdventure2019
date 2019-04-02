@@ -18,21 +18,25 @@
 #include "ICMemory.h"
 #include "print.h"
 
-
+#include "ItemController.h"
 namespace items {
 
 using auth::Authenticator;
 using ItemIdentifier = Identifier;
 
+static long iccc = 0;
 
 /// IC
 template<typename ContainerKey>
 class ItemController {
 public:
     
+    
+    
     const ItemBuilder builder = ItemBuilder();
     
     const Identifier id;
+    
     
     
     ItemController()
@@ -56,11 +60,18 @@ public:
     
     
     ItemIdentifier create(ContainerKey ck) const {
+        debug::print("A", ck);
         if (!this->builder.validate()) {
             return this->id;
         }
         
 
+        debug::print("B, ", ck);
+        //return 1;
+        
+        
+        
+        
         //this->memory.items_created++;
         this->created++;
         
@@ -362,6 +373,9 @@ private:
     void init() {
         debug::prefix("ItemController");
         debug::print("ItemController created");
+        
+        iccc++;
+        debug::print("<<< #", iccc, ", id", id, " >>>");
     }
     
     //template<typename K, typename V>
@@ -385,8 +399,10 @@ private:
     /*! Keeps track of dynamic memory deallocations */
     //mutable ICMemory memory;
     
+    
 };
 
+    
 
 } /* namespace items */
 

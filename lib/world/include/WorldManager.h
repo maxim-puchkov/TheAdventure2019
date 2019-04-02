@@ -15,12 +15,15 @@
 using items::ItemController;
 using WorldIdentifier = uint64_t;
 
+static long wmcc = 0;
 
 class WorldManager {
 private:
     std::vector<Area> areas;
     
 public:
+    
+    
     WorldManager();
     void generateWorld();
     Room& findRoomByLocation(LocationCoordinates location);

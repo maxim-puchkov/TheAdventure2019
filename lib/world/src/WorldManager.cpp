@@ -11,6 +11,7 @@ WorldManager::WorldManager()
     vector<Action> vec{Action("read", " < items are now working > ")};
     this->items.builder.setItemProperties(Keywords({"letter"}), Description("You received a letter"), Actions(vec));
     this->items.create(0);
+    wmcc++;
 }
 
 void WorldManager::generateWorld() {

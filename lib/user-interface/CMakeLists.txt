@@ -21,9 +21,12 @@ target_include_directories(${PROJECT_NAME}
 )
 
 
+find_library(M_LIB m)
+
+
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
-        ${environment}
+        ${M_LIB}
 )
 
 
