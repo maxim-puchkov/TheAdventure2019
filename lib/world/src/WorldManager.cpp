@@ -14,13 +14,17 @@ WorldManager::WorldManager()
     wmcc++;
 
     vector<Action> vec1{Action("read", " < items are now working > ")};
-    this->items.builder.setItemProperties(Keywords({"letter"},"cat"), Description("You received a letter"), Actions(vec1));
+    this->items.builder.setItemProperties(Keywords({"letter","cat"}), Description("You received a letter"), Actions(vec1));
     this->items.create(0);
 
     vector<Action> vec2{Action("read", " < items are now working > ")};
     this->items.builder.setItemProperties(Keywords({"book","apple"}), Description("You received a book"), Actions(vec2));
     this->items.create(0);
 
+
+
+    items.containerSize(0);
+    items.print_contentsOf(0);
 }
 
 void WorldManager::generateWorld() {
