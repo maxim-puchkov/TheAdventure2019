@@ -16,7 +16,8 @@ void Character::createCharacter(const std::string &name) {
     this->baseAttr = Attributes(DEF_CHAR_HEALTH, DEF_CHAR_DAMAGE);
     this->inventory = Inventory();
     this->equipment = Equipment();
-    this->currentLocation = LocationCoordinates{0,0};
+    //need to fix this
+    this->currentLocation = LocationCoordinates{"test",0};
     
     // Creating a character
     this->name = name;
@@ -25,7 +26,7 @@ void Character::createCharacter(const std::string &name) {
     this->description = "";
 }
 
-std::string Character::getName() {
+const std::string& Character::getName() const {
     return this->name;
 }
 

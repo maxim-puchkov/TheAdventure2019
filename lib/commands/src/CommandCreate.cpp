@@ -4,7 +4,21 @@
 
 using internationalization::Internationalization;
 
+bool validateUserName(const std::string& userName){
+    bool stringIsCorrect = true;
+    for(const auto& ch : userName){
+        if(stringIsCorrect && !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch <= '9' && ch >= '0'))){
+		    std::cout << ch << "\n";
+            stringIsCorrect = false;
+        }
+    }
+    return stringIsCorrect;
+}
+
 std::string CommandCreate::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
+    if (!validateUserName(fullCommand[1])) {
+        return "Error! Invalid username.\nPlease use character from a-z or 0-9 for your username\n";
+    }  
 	auto answer = onlineUserManager.createUser(fullCommand[1], fullCommand[2]);
 	switch(answer) {
 		case UserDB::DB_CODE::INVALID_USERNAME:

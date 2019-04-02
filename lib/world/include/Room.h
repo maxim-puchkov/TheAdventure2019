@@ -18,9 +18,11 @@
 class Room {
 
 private:
+    int roomId;
     std::string roomName;
     std::string roomDescription;
     std::vector<std::string> charactersInRoom;
+    std::vector<std::string> NPCsInRoom;
     std::vector<Exit> exitsInRoom;
 
 public:
@@ -34,23 +36,40 @@ public:
     {}
     LocationCoordinates findExitLocation(const std::string& cardinalDirection) const;
     bool createExit(const std::string& exitName, const std::string& exitDescription,
-                    const std::string& cardinalDirection, int areaID, int roomID);
+                    const std::string& cardinalDirection, std::string areaID, int roomID);
     bool addCharacter(const std::string &userName);
     bool removeCharacter(const std::string &userName);
 
     std::string lookForName(const std::string &objName) const;
+
     std::string lookForExitName(const std::string &objName) const;
+    const std::string lookCardinalDirection(const std::string &cardinalDirection) const;
+
+
     std::string listExits() const;
+    int getRoomId();
 
 
     //getters
     std::string getName() const { return roomName; }
     std::string getDescription() const { return roomDescription; }
     const std::vector<std::string>& getUserNames() const { return charactersInRoom; }
-    const std::vector<Exit>& getExits() const { return exitsInRoom; }
+    std::vector<Exit>& getExits() { return exitsInRoom; }
+    int getRoomID(){return roomId;}
     //setters
     void setName(std::string newName) { roomName = newName; }
     void setDescription(std::string newDescription) { roomDescription = newDescription; }
+    void setRoomID(int id){roomId = id;}
+
+    //NPCs
+    bool addNPC(const std::string &name);
+    bool removeNPC(const std::string &name);
+    std::vector<std::string>& getNPCs(){return NPCsInRoom;}
+    void updateExits(int id, std::string name);
+
+
+
+
 };
 
 

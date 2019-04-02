@@ -3,17 +3,58 @@
 
 using charactermanager::CharacterManager;
 
-LocationCoordinates CharacterManager::spawnCharacter(const std::string& username) {
+
+
+
+
+/** Do we really need this?
+ * Returns the long description of a NPC.
+ * If an NPC and a PC happen to share the same name, append the description and return them both for viewing
+ * @param userName - The username of a playable character, or the name of a NPC
+ * @return - The long description of a character
+ */
+const std::string CharacterManager::getLongDescription(const std::string &userName) const {
+
+    std::string result;
+
+    auto onlineChar = onlineCharacters.find(userName);
+
+    if(onlineChar != onlineCharacters.end() ){
+        result.append("Looking at userName: '" + userName + "' description: " + onlineChar->second.getLongdesc() + "\n");
+    }
+
+
+    const auto &npc = std::find_if(computerControlledCharacters.begin(),computerControlledCharacters.end(),
+            [&] (auto &iter) {return iter.getName() == userName ; }
+            );
+
+    if(npc != computerControlledCharacters.end()){
+        result.append("Looking at NPC: "+ userName + " description: " + (*npc).getLongdesc() + "\n" );
+    }
+
+    if(result.empty()){
+        result.append(" No object with name " + userName + "\n");
+    }
+
+    return result;
+}
+
+
+
+
+LocationCoordinates CharacterManager::spawnCharacter(const std::string& username, LocationCoordinates location) {
 	Character character = characterDB.getCharacter(username);
 	onlineCharacters.insert(std::make_pair(username, character));
-	auto spawnLocation = LocationCoordinates{0, 0};
-	changeCharacterLocation(username, spawnLocation);
+	// auto spawnLocation = LocationCoordinates{0, 0};
+	auto spawnLocation = location;
+	changeCharacterLocation(username, character.getCurrentLocation());
 	return spawnLocation;
 }
 
 
 void CharacterManager::kickCharacter(const std::string& username) {
 	auto found = onlineCharacters.find(username);
+
 	if (found != onlineCharacters.end()) {
 		characterDB.updateCharacter(found->second);
 		onlineCharacters.erase(username);
@@ -149,6 +190,16 @@ int CharacterManager::getCharacterHealth(const std::string& username){
 	}
 
 	return found->second.getAttributes().getHealth();
+}
+
+std::string CharacterManager::listNPCs() {
+	std::cout << "NPC size: " << NPCs.size() << "\n";
+    std::string NPCList = "";
+    for(auto& npc : NPCs){
+        NPCList += npc.getShortdesc();
+        NPCList += "\n";
+    }
+    return NPCList;
 }
 
 

@@ -35,7 +35,7 @@ public:
     //TODO: create control mode interface for combat
     
     // Get
-    std::string getName();
+    const std::string& getName() const;
     Attributes getAttributes();
     Attributes getBaseAttributes();
     Inventory getInventory();
@@ -54,6 +54,7 @@ public:
     void setLongdesc(const std::string& longdesc);
     void setDescription(const std::string& description);
     void setFirstTimeSetup(const bool value);
+    void setName(const std::string& newName){name = newName;}
     
     // States ...
     bool isInCombat();

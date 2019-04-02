@@ -1,10 +1,11 @@
+#include <boost/algorithm/string.hpp>
 #include "Exit.h"
 
 using namespace std;
 
 
     //Constructors
-    Exit::Exit(const string& exitName, const string& exitDescription, const std::string& cardinalDirection, int areaID, int roomID)
+    Exit::Exit(const string& exitName, const string& exitDescription, const std::string& cardinalDirection, std::string areaID, int roomID)
         : exitName(exitName), exitDescription(exitDescription)
         {
             exitDirection = getCardinalDirection(cardinalDirection);
@@ -15,15 +16,14 @@ using namespace std;
     /**
      * Returns the cardinal direction of a room as a string for viewing, displaying for the user to view
      */
-    const string& Exit::CardinalToString() const {
-        CardinalDirection result = this->exitDirection;
+    const string Exit::CardinalToString() const {
+        const CardinalDirection &result = this->exitDirection;
         auto search = directionMap.find(result);
-
         if(search != directionMap.end()){
             return search->second;
         }
 
-        return stringManager.getString(Internationalization::STRING_CODE::DIRECTION_NOT_FOUND);
+        return (stringManager.getString(Internationalization::STRING_CODE::DIRECTION_NOT_FOUND), "\n");
 
     }
 
@@ -69,7 +69,21 @@ using namespace std;
 
 
     const string &Exit::getExitName() const {return exitName;}
-    const string &Exit::getExitDescription() const {return exitDescription;}
+
+    const string Exit::getLowerCaseExitName() const {
+        std::string result = exitName;
+        boost::algorithm::to_lower(result);
+        return std::move(result);
+
+    }
+
+    const string Exit::getExitDescription() const {
+        if (exitDescription.empty()) {
+            return " This exit has no description! \n";
+        }
+        return exitDescription;
+    }
+
     Exit::CardinalDirection Exit::getCardinalDirection() const {return exitDirection;}
     LocationCoordinates Exit::getTargetLocation() const {return targetLocation;}
 
@@ -77,7 +91,7 @@ using namespace std;
     void Exit::setExitName(const string &exitName) { Exit::exitName = exitName; }
     void Exit::setExitDescription(const string &exitDescription) { Exit::exitDescription = exitDescription; }
     void Exit::setCardinalDirection(Exit::CardinalDirection cardinalDirection) { exitDirection = cardinalDirection; }
-    void Exit::setTargetLocation(int areaID, int roomID) {
+    void Exit::setTargetLocation(std::string areaID, int roomID) {
         LocationCoordinates exitLocation;
         exitLocation.area = areaID;
         exitLocation.room = roomID;
@@ -87,5 +101,12 @@ using namespace std;
         this->targetLocation = newLocation;
     }
 
+    void Exit::setExitTargetLocation(const std::string & name) {
+        this->exitTargetLocation = name;
+    }
+
+    std::string Exit::getExitTargetLocation() {
+        return exitTargetLocation;
+    }
 
 

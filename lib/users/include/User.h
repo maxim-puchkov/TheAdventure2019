@@ -23,6 +23,9 @@ public:
     std::string getUserName() const;
 
     USER_ROLE getRole() const;
+    void setRole(USER_ROLE newRole){
+        role = newRole;
+    };
 
     void addMessage(std::string message);
     std::vector<std::string>& getMessages();

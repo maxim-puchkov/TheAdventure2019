@@ -1,168 +1,27 @@
 #include <stdexcept>
 #include <iostream>
 #include "WorldManager.h"
+#include "AreaGenerator.h"
 
 using internationalization::Internationalization;
 
-void WorldManager::generateWorld() {
-    Area a(stringManager.getString(
-        Internationalization::STRING_CODE::STARTING_AREA),
-        stringManager.getString(Internationalization::STRING_CODE::STARTING_AREA_WELCOME_MESSAGE)
-    );
-    Area b(
-        stringManager.getString(Internationalization::STRING_CODE::SECRET_AREA), 
-        stringManager.getString(Internationalization::STRING_CODE::SECRET_AREA_WELCOME_MESSAGE)
-    );
-
-    Room r1(
-        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "1",
-        stringManager.getString(Internationalization::STRING_CODE::THIS_DARK_ROOM_CONTAINS_NUMBER) + " 1"
-    );
-    r1.createExit(
-        stringManager.getString(Internationalization::STRING_CODE::GATE),
-        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 2",
-        stringManager.getString(Internationalization::STRING_CODE::EAST), 
-        0, 
-        1
-    );
-    r1.createExit(
-        stringManager.getString(Internationalization::STRING_CODE::SOUTH_GATE), 
-        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 3", 
-        stringManager.getString(Internationalization::STRING_CODE::SOUTH), 
-        0, 
-        2
-    );
-    a.addRoom(r1);
-    Room r2(
-        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "2", 
-        stringManager.getString(Internationalization::STRING_CODE::THIS_DARK_ROOM_CONTAINS_NUMBER) + " 2"
-    );
-    r2.createExit(
-        stringManager.getString(Internationalization::STRING_CODE::WEST_GATE), 
-        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 1", 
-        stringManager.getString(Internationalization::STRING_CODE::WEST), 
-        0, 
-        0
-    );
-    r2.createExit(
-        stringManager.getString(Internationalization::STRING_CODE::SOUTH_GATE), 
-        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 4", 
-        stringManager.getString(Internationalization::STRING_CODE::SOUTH), 
-        0, 
-        3
-    );
-    a.addRoom(r2);
-    Room r3(
-        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "3", 
-        stringManager.getString(Internationalization::STRING_CODE::THIS_DARK_ROOM_CONTAINS_NUMBER) + " 3"
-    );
-    r3.createExit(
-        stringManager.getString(Internationalization::STRING_CODE::EAST_GATE), 
-        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 4", 
-        stringManager.getString(Internationalization::STRING_CODE::EAST),
-        0, 
-        3
-    );
-    r3.createExit(
-        stringManager.getString(Internationalization::STRING_CODE::WEST_GATE), 
-        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 6", 
-        stringManager.getString(Internationalization::STRING_CODE::WEST), 
-        0, 
-        5
-    );
-    r3.createExit(
-        stringManager.getString(Internationalization::STRING_CODE::HIDDEN_PASSAGE), 
-        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 1", 
-        stringManager.getString(Internationalization::STRING_CODE::SOUTH), 
-        0, 
-        0
-    );
-    a.addRoom(r3);
-    Room r4(
-        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "4", 
-        stringManager.getString(Internationalization::STRING_CODE::THIS_DARK_ROOM_CONTAINS_NUMBER) + " 4"
-    );
-    r4.createExit(
-        stringManager.getString(Internationalization::STRING_CODE::EAST_GATE), 
-        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 5", 
-        stringManager.getString(Internationalization::STRING_CODE::EAST), 
-        0, 
-        4
-    );
-    r4.createExit(
-        stringManager.getString(Internationalization::STRING_CODE::NORTH_GATE), 
-        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 2", 
-        stringManager.getString(Internationalization::STRING_CODE::NORTH), 
-        0, 
-        1
-    );
-    a.addRoom(r4);
-    Room r5(
-        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "5", 
-        stringManager.getString(Internationalization::STRING_CODE::THIS_DARK_ROOM_CONTAINS_NUMBER) + " 5"
-    );
-    r5.createExit(
-        stringManager.getString(Internationalization::STRING_CODE::EAST_GATE), 
-        stringManager.getString(Internationalization::STRING_CODE::GOES_OUT_OF_BOUNDS), 
-        stringManager.getString(Internationalization::STRING_CODE::EAST), 
-        0, 
-        10
-    );
-    r5.createExit(
-        stringManager.getString(Internationalization::STRING_CODE::WEST_GATE), 
-        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_ROOM) + " 4",
-        stringManager.getString(Internationalization::STRING_CODE::WEST), 
-        0, 
-        3
-    );
-    a.addRoom(r5);
-    Room r6(
-        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "6", 
-        stringManager.getString(Internationalization::STRING_CODE::THIS_DARK_ROOM_CONTAINS_NUMBER) + " 6"
-    );
-    r6.createExit(
-        stringManager.getString(Internationalization::STRING_CODE::WEST_GATE), 
-        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_AREA) + " 2", 
-        stringManager.getString(Internationalization::STRING_CODE::WEST), 
-        1, 
-        0
-    );
-    a.addRoom(r6);
-
-    Room r7(
-        stringManager.getString(Internationalization::STRING_CODE::ROOM_UPPER_CASE) + "6", 
-        stringManager.getString(Internationalization::STRING_CODE::THIS_SECRET_ROOM_CONTAINS_NUMBER) + " 1"
-    );
-    r7.createExit(
-        stringManager.getString(Internationalization::STRING_CODE::WEST_GATE), 
-        stringManager.getString(Internationalization::STRING_CODE::GOES_TO_AREA) + " 1", 
-        stringManager.getString(Internationalization::STRING_CODE::WEST), 
-        0, 
-        0
-    );
-    b.addRoom(r7);
-
-    areas.push_back(a);
-    areas.push_back(b);
-
-}
-
 Room& WorldManager::findRoomByLocation(LocationCoordinates location) {
-    if (areas.empty() || location.area < 0 || (unsigned int)location.area >= areas.size())
+    if (areas.empty() || location.area == ""){
         throw std::domain_error(
             stringManager.getString(Internationalization::STRING_CODE::AREA) +
             stringManager.getString(Internationalization::STRING_CODE::OUT_OF_BOUND)
         );
-
-    auto& areaOfInterest = areas.at((unsigned long)location.area);
-
-    if (areaOfInterest.size() < 1 || location.room < 0 || (unsigned int)location.room >= areaOfInterest.size())
+    }
+    // auto& areaOfInterest = areas.at((unsigned long)location.area);
+    auto search = areas.find(location.area);
+    if (search != areas.end()) {
+        return search->second.getRoom(location.room);
+    }else{
         throw std::domain_error(
             stringManager.getString(Internationalization::STRING_CODE::ROOM) +
             stringManager.getString(Internationalization::STRING_CODE::OUT_OF_BOUND)
         );
-
-    return areaOfInterest.getRoom((unsigned int)location.room);
+    }
 }
 
 bool WorldManager::kick(const std::string& characterName, LocationCoordinates location) {
@@ -257,4 +116,74 @@ std::string WorldManager::look(LocationCoordinates location, std::string objName
     } catch(const std::domain_error& e){
         return stringManager.getString(Internationalization::STRING_CODE::YOU_ARE_LOST);
     }
+}
+
+void WorldManager::createRoom(const LocationCoordinates & location, const std::string& direction, const std::string& name) {
+    Room room{name, "Admin generated"};
+    int roomID = areas[location.area].getNextRoomID();
+    room.setRoomID(roomID);
+    areas[location.area].addRoom(room);
+    areas[location.area].setNextRoomID(roomID);
+
+    auto& currentRoom = findRoomByLocation(location);
+    currentRoom.createExit("-1", "to Admin Generated Room", direction, location.area, roomID);
+    auto& exitList = currentRoom.getExits();
+    for(auto& ext : exitList) {
+        if(ext.getExitName() == "-1"){
+            std::string exitName = "exit to, Area: " + location.area;
+            exitName += " Room: " + name;
+            ext.setExitTargetLocation(exitName);
+            break;
+        }
+    }
+}
+
+int WorldManager::getRoomToSpawnUser() {
+    //need to change this to dynamic
+    auto search = areas.find("Mirkwood");
+
+    if(search != areas.end()) {
+        return search->second.getFirstRoomID();
+    }else{
+        return -1;
+    }
+}
+
+std::string WorldManager::worldDetail(LocationCoordinates location) {
+    std::string worldDetail = "The world made of: \n";
+    for(auto& area : areas) {
+        worldDetail += "Area: ";
+        worldDetail += area.second.getName();
+        worldDetail += "\n";
+        worldDetail += "Rooms:\n";
+        auto roomNameIDsList = area.second.getRoomNameIDListAdmin();
+        for(auto& room : roomNameIDsList){
+            worldDetail += room;
+            worldDetail += "\n";
+        }
+    }
+    return worldDetail;
+}
+void WorldManager::addArea(Area area){
+    areas.insert(std::make_pair(area.getName(), area));
+}
+
+void WorldManager::printRoomsInArea(Area area) {
+    for(auto& p: area.getRoomList()){
+        std::cout << p.first << " => " << p.second.getName() << ": ";
+        std::cout << p.second.getDescription() << "\n";
+        std::cout <<"\n";
+
+        for(auto ext: p.second.getExits()){
+            std::cout << "EXIT NAME: " + ext.getExitName() << " \n";
+        }
+    }
+}
+
+Area& WorldManager::getAreaByLocation(LocationCoordinates location){
+    auto search = areas.find(location.area);
+    if(search != areas.end()){
+        return search->second;
+    }
+    return nullArea;
 }

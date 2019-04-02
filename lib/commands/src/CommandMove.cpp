@@ -5,19 +5,19 @@ using internationalization::Internationalization;
 
 void CommandMove::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
     auto location = characterManager.getCharacterLocation(username);
-    if(location.area == -1) {
+    if(location.area == "") {
         //should not reach here, report error
         return;
     }
     
     auto newLocation = worldManager.move(username, location, fullCommand[1]);
     characterManager.changeCharacterLocation(username, newLocation);
-    
+    auto room = worldManager.findRoomByLocation(newLocation);
     std::stringstream answer;
     answer << stringManager.getString(Internationalization::STRING_CODE::CURRENT_LOCATION);
     answer << stringManager.getString(Internationalization::STRING_CODE::AREA) << ": " << newLocation.area;
     answer << " ";
-    answer << stringManager.getString(Internationalization::STRING_CODE::ROOM) << ": " << newLocation.room;
+    answer << stringManager.getString(Internationalization::STRING_CODE::ROOM) << ": " << room.getName();
     answer << "\n";
     
     onlineUserManager.addMessageToUser(username, answer.str());

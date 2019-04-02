@@ -3,6 +3,7 @@ add_library(${libworld}
         src/Room.cpp
         src/WorldManager.cpp
         src/Area.cpp
+        src/AreaGenerator.cpp
 )
 
 target_include_directories(${libworld}
@@ -17,6 +18,8 @@ target_link_libraries(${libworld}
     ${libusers}
     ${libcharacters}
     ${libstrings}
+    ${libparsers}
+    ${libcharacters}
 )
 
 set_target_properties(${libworld}

@@ -8,7 +8,8 @@ using internationalization::Internationalization;
 
 struct LocationCoordinates
 {
-    int area;
+    //int area;
+    std::string area = "";
     int room;
 };
 

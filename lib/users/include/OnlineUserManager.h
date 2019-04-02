@@ -33,6 +33,7 @@ class OnlineUserManager{
 
         User& getUserById(const std::string& id);
         User& getUserByUsername(const std::string& userName);
+        
     public:
         bool insertUser(const std::string &id, const User &user);      
         User removeUser(const std::string& id);
