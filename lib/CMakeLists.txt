@@ -12,7 +12,7 @@ add_subdirectory(${combat})
 # add_subdirectory(${commands})
 add_subdirectory(${environment})
 # add_subdirectory(${game})
-# add_subdirectory(${item})
+add_subdirectory(${item})
 add_subdirectory(${minigame})
 add_subdirectory(${network})
 add_subdirectory(${object})
@@ -40,4 +40,3 @@ add_subdirectory(${users})
 
 # Excluded
 #   add_subdirectory(${exceptions})
-

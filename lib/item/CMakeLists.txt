@@ -1,10 +1,12 @@
+#
+#   Item CMakeLists
+#
+
 cmake_minimum_required(VERSION 3.12)
+project(${item} VERSION 1.0)
 
 
-project(${item})
-
-
-add_library(${PROJECT_NAME} SHARED
+add_library(${PROJECT_NAME}
     src/Item.cpp
     src/ItemBuilder.cpp
     src/Collection.cpp
@@ -37,16 +39,17 @@ set_target_properties(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
+        ${authentication}
         ${object}
         ${user-interface}
-    PRIVATE
-        ${authentication}
-
         ${builder}
         ${print}
-
-        ${exceptions}
+    PRIVATE
 )
 
 
-install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
+install(TARGETS ${PROJECT_NAME}
+    ARCHIVE DESTINATION LIB
+    LIBRARY DESTINATION lib
+    FRAMEWORK DESTINATION lib
+)
