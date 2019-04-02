@@ -8,7 +8,7 @@
 add_subdirectory(${authentication})
 add_subdirectory(${builder})
 # add_subdirectory(${characters})
-add_subdirectory(${combat})
+# add_subdirectory(${combat})
 # add_subdirectory(${commands})
 add_subdirectory(${environment})
 # add_subdirectory(${game})

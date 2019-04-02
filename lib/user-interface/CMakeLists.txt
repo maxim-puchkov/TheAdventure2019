@@ -21,7 +21,14 @@ target_include_directories(${PROJECT_NAME}
 )
 
 
+find_library(M_LIB m)
+
 target_link_libraries(${PROJECT_NAME}
+    PUBLIC
+        gmock
+        gtest
+        gtest_main
+        ${M_LIB}
     PRIVATE
         ${environment}
 )
