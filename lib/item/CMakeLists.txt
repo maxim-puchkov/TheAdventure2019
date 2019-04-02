@@ -37,17 +37,21 @@ set_target_properties(${PROJECT_NAME}
 )
 
 
+find_library(M_LIB m)
+
+
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         gmock
         gtest
         gtest_main
+        ${M_LIB}
+
         ${authentication}
         ${object}
         ${user-interface}
         ${builder}
         ${print}
-    PRIVATE
 )
 
 

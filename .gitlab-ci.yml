@@ -87,12 +87,6 @@ gatherheaderdoc:
 test:
   stage: test
   script:
-    - build/bin/runAllTests
-
-
-test:
-  stage: test
-  script:
     - LLVM_PROFILE_FILE="runAllTests.profraw" build/bin/runAllTests
     - llvm-profdata merge -sparse runAllTests.profraw -o runAllTests.profdata
     - llvm-cov show build/bin/runAllTests -instr-profile=runAllTests.profdata -show-line-counts-or-regions -output-dir=coverage/ -format="html"

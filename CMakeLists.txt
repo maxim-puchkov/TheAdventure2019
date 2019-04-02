@@ -79,9 +79,9 @@ if (ENABLE_COVERAGE)
 
     if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang")
         set(CXX_COVERAGE_FLAGS "-fprofile-instr-generate -fcoverage-mapping")
-        message("Enabling coverage instrumentation with:\n ${CXX_COVERAGE_FLAGS}")
+        message("-- Enabling coverage instrumentation with: ${CXX_COVERAGE_FLAGS}")
     else()
-        message(FATAL_ERROR "Coverage generation is only supported for clang")
+        message(FATAL_ERROR "-- Coverage generation is only supported for clang")
     endif()
 
 endif()
