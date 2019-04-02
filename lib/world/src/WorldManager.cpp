@@ -6,18 +6,27 @@ WorldManager::WorldManager()
 : items(ItemController<WorldIdentifier>()) {
     debug::prefix("World");
     debug::print("World created");
-    
+
     using namespace items::data;
     vector<Action> vec{Action("read", " < items are now working > ")};
     this->items.builder.setItemProperties(Keywords({"letter"}), Description("You received a letter"), Actions(vec));
     this->items.create(0);
     wmcc++;
+
+    vector<Action> vec{Action("read", " < items are now working > ")};
+    this->items.builder.setItemProperties(Keywords({"letter"},"cat"), Description("You received a letter"), Actions(vec));
+    this->items.create(0);
+
+    vector<Action> vec{Action("read", " < items are now working > ")};
+    this->items.builder.setItemProperties(Keywords({"book","apple"}), Description("You received a book"), Actions(vec));
+    this->items.create(0);
+
 }
 
 void WorldManager::generateWorld() {
     Area a("Starting Area", "Welcome to adventure.");
     Area b("Secret area", "Welcome to die.");
-    
+
     Room r1("Room1", "This dark room contains only the number 1");
     r1.createExit("gate", "goes to room 2", "east", 0, 1);
     r1.createExit("South Gate", "goes to room 3", "south", 0, 2);
@@ -42,14 +51,14 @@ void WorldManager::generateWorld() {
     Room r6("Room6", "This dark room contains only the number 6");
     r6.createExit("West Gate", "goes to area 2", "west", 1, 0);
     a.addRoom(r6);
-    
+
     Room r7("Room6", "This secret room contains only the number 1");
     r7.createExit("West Gate", "goes to area 1", "west", 0, 0);
     b.addRoom(r7);
-    
+
     areas.push_back(a);
     areas.push_back(b);
-    
+
 }
 
 Room& WorldManager::findRoomByLocation(LocationCoordinates location) {
@@ -122,7 +131,7 @@ LocationCoordinates WorldManager::move(const std::string& characterName, Locatio
 
         roomOfInterest.removeCharacter(characterName);
         newRoom.addCharacter(characterName);
-        
+
         return newLocation;
     } catch(const std::domain_error& e){
         return location;
