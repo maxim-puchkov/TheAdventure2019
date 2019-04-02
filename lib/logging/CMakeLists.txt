@@ -5,6 +5,7 @@ add_library(${liblogging}
 find_package(Boost REQUIRED COMPONENTS system log)
 
 add_definitions(-DBOOST_ALL_DYN_LINK)
+add_definitions(-DBOOST_FILESYSTEM_DYN_LINK)
 
 target_include_directories(${liblogging}
   PUBLIC
@@ -21,6 +22,7 @@ target_link_libraries(${liblogging}
   ${Boost_LOG_LIBRARY}
   boost_log_setup
   boost_log
+  boost_filesystem
 )
 
 set_target_properties(${liblogging}
