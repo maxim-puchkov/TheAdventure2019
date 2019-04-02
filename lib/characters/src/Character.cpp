@@ -26,7 +26,7 @@ void Character::createCharacter(const std::string &name) {
     this->description = "";
 }
 
-std::string Character::getName() {
+const std::string& Character::getName() const {
     return this->name;
 }
 
