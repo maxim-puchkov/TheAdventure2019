@@ -1,10 +1,20 @@
-add_library(${libcharacters}
+#
+#   Characters CMakeLists
+#
+
+cmake_minimum_required(VERSION 3.12)
+project(${characters} VERSION 1.0)
+
+
+add_library(${PROJECT_NAME}
     src/Character.cpp
     src/CharacterManager.cpp
     src/Attributes.cpp
+    src/CharacterDB.cpp
 )
 
-target_include_directories(${libcharacters}
+
+target_include_directories(${PROJECT_NAME}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -12,21 +22,26 @@ target_include_directories(${libcharacters}
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(${libcharacters}
-    ${libworld}
-    ${libItem}
-    ${libcharacterdb}
-    ${libminigame}
-    ${libcombat}
-)
 
-set_target_properties(${libcharacters}
+set_target_properties(${PROJECT_NAME}
     PROPERTIES
-    COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
-    LINKER_LANGUAGE CXX
-    CXX_STANDARD 17
+        COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
+        LINKER_LANGUAGE CXX
+        CXX_STANDARD 17
 )
 
-install(TARGETS ${libcharacters}
+
+target_link_libraries(${PROJECT_NAME}
+    PUBLIC
+        ${world}
+        ${minigame}
+        ${combat}
+    PRIVATE
+        ${parsers}
+)
+
+
+install(TARGETS ${PROJECT_NAME}
     ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
 )
