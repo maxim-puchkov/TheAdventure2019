@@ -4,7 +4,7 @@ add_library(${liblogging}
 
 find_package(Boost REQUIRED COMPONENTS system log)
 
-add_definitions(-DBOOST_LOG_DYN_LINK)
+add_definitions(-DBOOST_ALL_DYN_LINK)
 
 target_include_directories(${liblogging}
   PUBLIC
