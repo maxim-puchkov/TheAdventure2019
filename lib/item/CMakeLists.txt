@@ -13,7 +13,6 @@ add_library(${PROJECT_NAME}
     src/Inventory.cpp
     src/ItemSearchKey.cpp
     src/ItemController.cpp
-    src/ICMemory.cpp
     src/Keywords.cpp
     src/Description.cpp
     src/Actions.cpp
