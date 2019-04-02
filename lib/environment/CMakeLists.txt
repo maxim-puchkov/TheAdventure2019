@@ -28,6 +28,14 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 
+set_target_properties(${PROJECT_NAME}
+    PROPERTIES
+        COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
+        LINKER_LANGUAGE CXX
+        CXX_STANDARD 17
+)
+
+
 install(TARGETS ${PROJECT_NAME}
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib

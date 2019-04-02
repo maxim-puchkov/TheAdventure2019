@@ -10,6 +10,7 @@
 #ifndef ItemController_h
 #define ItemController_h
 
+
 #include "Item.h"
 #include "ItemSearchKey.h"
 #include "ItemBuilder.h"
@@ -66,12 +67,16 @@ public:
             
             debug::print("1. Allocating container environment for ", ck);
             this->memory.allocs++;
+            debug::print("2");
             Environment<ItemSearchKey, Item> newContainer;
+            debug::print("3");
             auto item = this->buildUniqueItem();
+            debug::print("4");
 
             newContainer.bind(ItemSearchKey(item), item);
+            debug::print("5");
             this->env2d.bind(ck, newContainer);
-            
+            debug::print("6");
             
             return item.id;
             
@@ -79,11 +84,13 @@ public:
             
             debug::print("1. Looking up existing container environment for ", ck);
             Environment<ItemSearchKey, Item> container = this->env2d.lookup(ck);
+            debug::print("2");
             auto item = this->buildUniqueItem();
-
+            debug::print("3");
             container.bind(ItemSearchKey(item), item);
-
+            debug::print("4");
             this->update(ck, container);
+            debug::print("5");
             return item.id;
             
         }

@@ -36,8 +36,10 @@ target_link_libraries(${PROJECT_NAME}
         ${world}
         ${minigame}
         ${combat}
-    PRIVATE
+        ${print}
         ${parsers}
+    PRIVATE
+
 )
 
 

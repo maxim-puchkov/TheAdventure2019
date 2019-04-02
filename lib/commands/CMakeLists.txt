@@ -1,4 +1,13 @@
-add_library(${libcommands}
+#
+#   Commands CMakeLists
+#
+
+
+cmake_minimum_required(VERSION 3.12)
+project(${commands} VERSION 1.0)
+
+
+add_library(${PROJECT_NAME}
     src/Command.cpp
     src/CommandLogin.cpp
     src/CommandLogout.cpp
@@ -20,7 +29,7 @@ add_library(${libcommands}
     src/CommandDrop.cpp
     src/CommandUse.cpp
     src/CommandEquip.cpp
-#    src/CommandUnequip.cpp
+# src/CommandUnequip.cpp
 
     src/CommandMinigame.cpp
     src/CommandCombat.cpp
@@ -29,32 +38,42 @@ add_library(${libcommands}
     src/CommandCast.cpp
 )
 
-target_include_directories(${libcommands}
-  PUBLIC
-    $<INSTALL_INTERFACE:include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${Boost_INCLUDE_DIR}
-)
 
-set_target_properties(${libcommands}
-                      PROPERTIES
-                      LINKER_LANGUAGE CXX
-                      CXX_STANDARD 17
-)
+find_package(Boost 1.68 COMPONENTS system REQUIRED)
 
-target_link_libraries(${libcommands}
-    ${libcharacters}
-    ${libworld}
-    ${libusers}
-    ${libcharacter}
-    ${Boost_LIBRARIES}
-    ${libusers}
-        ${libcombat}
+
+target_include_directories(${PROJECT_NAME}
+    PUBLIC
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${Boost_INCLUDE_DIR}
 )
 
 
-install(TARGETS ${libcommands}
-  ARCHIVE DESTINATION lib
+target_link_libraries(${PROJECT_NAME}
+    PUBLIC
+        ${combat}
+        ${characters}
+        ${world}
+        ${users}
+        ${print}
+    PRIVATE
+        ${Boost_LIBRARIES}
+)
+
+
+
+set_target_properties(${PROJECT_NAME}
+    PROPERTIES
+        COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
+        LINKER_LANGUAGE CXX
+        CXX_STANDARD 17
+)
+
+
+install(TARGETS ${PROJECT_NAME}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
 )

@@ -14,6 +14,7 @@
 // #include "Inventory.h"
 #include "Equipment.h" // !
 #include "LocationCoordinates.h"
+#include "print.h"
 
 // using items::Inventory;
 

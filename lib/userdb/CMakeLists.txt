@@ -1,4 +1,4 @@
-add_library(${libuserdb}
+add_library(${libuserdb} 
   src/UserDB.cpp
 )
 
@@ -13,8 +13,8 @@ target_include_directories(${libuserdb}
 
 target_link_libraries(${libuserdb}
   PUBLIC
-    ${libusers}
-    ${libparsers}
+    ${users}
+    ${parsers}
   PRIVATE
     ${Boost_LIBRARIES}
 )

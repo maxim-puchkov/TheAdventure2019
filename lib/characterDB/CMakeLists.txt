@@ -1,4 +1,4 @@
-add_library(${libcharacterdb}
+add_library(${libcharacterdb} 
   src/CharacterDB.cpp
 )
 
@@ -16,7 +16,7 @@ target_link_libraries(${libcharacterdb}
     ${libusers}
     ${libparsers}
     ${libparsers}
-    ${libcharacters}
+    ${character}
   PRIVATE
     ${Boost_LIBRARIES}
 )
