@@ -22,9 +22,8 @@ WorldManager::WorldManager()
     this->items.create(0);
 
 
-
     items.containerSize(0);
-    items.print_contentsOf(0);
+    
 }
 
 void WorldManager::generateWorld() {

@@ -48,7 +48,6 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
     print(ids.size());
     print(room_id);
     print(location.area);
-    print("items size: ", items.size());
     print(Command::worldManager.items.itemsCreated());
 //
 //    // Find all items matching this keyword
