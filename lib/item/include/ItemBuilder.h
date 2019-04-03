@@ -68,6 +68,12 @@ public:
     
     /* Item Builder */
     
+    /* Item's data members */
+    mutable Keywords keywords;
+    mutable Description description;
+    mutable Actions actions;
+    
+    
     /*! Build using specified keywords, descriptions, and actions */
     Item build(ItemIdentifier id) const;
 
@@ -92,14 +98,6 @@ private:
     /*! Clear builder's settings and reset to default value */
     void clearAll() const;
     
-    
-    
-    /* Item's data members */
-    mutable Keywords keywords;
-    
-    mutable Description description;
-    
-    mutable Actions actions;
     
 };
 
