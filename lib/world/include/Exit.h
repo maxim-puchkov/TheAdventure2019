@@ -24,7 +24,9 @@ public:
         SOUTH,
         SOUTHWEST,
         WEST,
-        NORTHWEST
+        NORTHWEST,
+        UP,
+        DOWN
     };
 
 
