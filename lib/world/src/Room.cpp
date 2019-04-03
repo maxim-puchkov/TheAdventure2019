@@ -81,8 +81,8 @@ std::string Room::lookForExitName(const std::string &objName) const {
 }
 
 const std::string Room::lookCardinalDirection(const std::string &cardinalDirection) const {
-    Exit a{"a","a","a","a",1}; //Object only created to call methods.
-    const Exit::CardinalDirection &direction= a.getCardinalDirection(cardinalDirection);
+
+    const Exit::CardinalDirection &direction= this.getCardinalDirection(cardinalDirection);
     if(direction == Exit::CardinalDirection::NONE){
         return  "";
     }

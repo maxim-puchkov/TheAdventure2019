@@ -34,20 +34,10 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     } else if (fullCommand.at(1) == "exits") {
         onlineUserManager.addMessageToUser(userName, (worldManager.listExits(location) + "\n"));
         return;
-    }
-
-
-    const string& roomDescription = room.lookCardinalDirection(fullCommand.at(1));
-    if( !roomDescription.empty() ) {
-        onlineUserManager.addMessageToUser(userName, roomDescription + "\n");
-        return;
-    }
-
-
-    //use for admin. look world => output the list of room
-    //TODO: for some reasons the server does not print the full string
-    //      if the string is too long. Only print the second half of the string.
-    if(fullCommand.at(1) == "world"){
+    }else if(fullCommand.at(1) == "world"){
+        //use for admin. look world => output the list of room
+        //TODO: for some reasons the server does not print the full string
+        //      if the string is too long. Only print the second half of the string.
         auto role = onlineUserManager.getUserRole(userName);
         switch(role) {
             case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
@@ -75,23 +65,24 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     }
 
 
+    //Return's "empty string if invalid direction/fails"
+    const std::string& roomDescription = room.lookCardinalDirection(fullCommand.at(1));
+    if( !roomDescription.empty() ) {
+        onlineUserManager.addMessageToUser(userName, roomDescription + "\n");
+        //If a user happens to have the same name as a cardinalDirection send all the output to the user
+    }
+
+
     std::string appendedCommand;
     for(int i = 1; i < fullCommand.size(); i++){
         appendedCommand.append( fullCommand.at(i) + " " );
     }
     boost::trim(appendedCommand);
 
-
+    //For looking at a specific user
     const std::string& characterDescription = ( characterManager.getLongDescription(appendedCommand) ); // This line causes the crash
     onlineUserManager.addMessageToUser(userName, characterDescription );
 
-
-
-    /////////////////////////////////////////// If looking at a specific user then....
-    //If an username and exit share the same name, send both of the messages to the user.
-    /* It seems as though exits can't have names based of the json, so this will be removed.
-    std::string result = room.lookForExitName( appendedCommand ) + "\n";
-    */
 
 
 
