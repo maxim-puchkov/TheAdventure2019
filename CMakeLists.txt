@@ -1,6 +1,6 @@
 #
 #   Root CMakeLists.txt
-#   Updated: 2019-04-01
+#   Updated: 2019-04-03
 #
 
 
@@ -24,6 +24,40 @@ set(PACKAGE_NAME ImmersiveWorlds)
 set(PACKAGE_VERSION 1.0)
 set(PACKAGE_STRING "${PACKAGE_NAME} ${PACKAGE_VERSION}")
 set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
+
+
+
+
+
+# Build type
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif(NOT CMAKE_BUILD_TYPE)
+
+
+
+
+
+# Choose to build all targets including all commands and game
+
+#  Default option to build quickly is chosen by default
+#       'cmake -DBUILD_ALL_TARGETS=NO ../adventure2019/'
+#
+#  Choose this option to include all game commands and force 23 additional builds of all code:
+#       'cmake -DBUILD_ALL_TARGETS=YES ../adventure2019/'
+
+if(BUILD_ALL_TARGETS)
+    add_compile_definitions(BUILD_ALL_TARGETS)
+endif()
+
+
+
+
+
+# Find dependencies
+
+find_package(Boost 1.68 COMPONENTS system REQUIRED)
 
 
 
@@ -55,18 +89,10 @@ set(world "world")
 
 
 
-#       set(libcharactersdb "charactersDB")   # Deleted. Files moved to characters
+#       set(libcharacters "characters")   # Deleted. Files moved to characterDB
 #       set(libuserdb "userdb")               # Deleted. Files moved to user
 
 
-
-
-
-# Build type
-
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug)
-endif(NOT CMAKE_BUILD_TYPE)
 
 
 
@@ -88,7 +114,7 @@ endif()
 
 
 
-# Complier flags
+# Complier flags including additional warnings
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-rtti")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
@@ -112,7 +138,7 @@ set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}")
 
 
 
-# Add subdirectory for libraries, executables, and tests
+# Add subdirectory for libraries and executables
 
 add_subdirectory(lib)
 add_subdirectory(tools)
