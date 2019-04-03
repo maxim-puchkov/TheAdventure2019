@@ -5,16 +5,6 @@
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
-#include "Server.h"
-
-
-#ifdef BUILD_ALL_TARGETS
-
-#include "GameManager.h"
-GameManager gm{};
-
-#endif
-
 
 // #include <experimental/filesystem>
 #include <fstream>
@@ -27,6 +17,15 @@ GameManager gm{};
 #include <vector>
 #include <unordered_map>
 #include <utility>
+
+#include "Server.h"
+
+
+
+#include "GameManager.h"
+GameManager gm{};
+
+
 
 using networking::Server;
 using networking::Connection;
