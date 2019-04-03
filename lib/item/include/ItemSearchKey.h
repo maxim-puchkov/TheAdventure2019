@@ -27,6 +27,7 @@ public:
     ItemSearchKey(const Keywords &keywords);
     ItemSearchKey(ItemIdentifier id, const Keywords &keywords);
     ItemSearchKey(const Item &item);
+    ItemSearchKey(const ItemSearchKey &key);
     
     
     bool operator==(ItemSearchKey &other) const;

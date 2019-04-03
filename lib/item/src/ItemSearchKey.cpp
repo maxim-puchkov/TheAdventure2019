@@ -28,6 +28,10 @@ ItemSearchKey::ItemSearchKey(const Item &item)
 : id(item.id), keywords(item.keywords)
 { }
 
+ItemSearchKey::ItemSearchKey(const ItemSearchKey &key)
+: id(key.id), keywords(key.keywords)
+{ }
+
 
 bool ItemSearchKey::operator==(ItemSearchKey &other) const {
     return ((this->id == other.id) || (this->keywords == other.keywords));
