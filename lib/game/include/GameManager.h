@@ -11,22 +11,27 @@
 #include "CharacterManager.h"
 
 
+
 #include "Command.h"
+#include "CommandHelp.h"
+
+// Account
 #include "CommandLogin.h"
 #include "CommandCreate.h"
-#include "CommandLogout.h"
-#include "CommandHelp.h"
+
+// Character
+#include "CommandCreateAva.h"
+#include "CommandEditAva.h"
 
 
 #ifdef BUILD_ALL_TARGETS
+#include "CommandLogout.h"
 #include "CommandSay.h"
 #include "CommandTell.h"
 #include "CommandYell.h"
 #include "CommandLook.h"
 #include "CommandExamine.h"
 #include "CommandMove.h"
-#include "CommandCreateAva.h"
-#include "CommandEditAva.h"
 #include "CommandEditRoom.h"
 #include "CommandCreateRoom.h"
 #include "CommandUse.h"

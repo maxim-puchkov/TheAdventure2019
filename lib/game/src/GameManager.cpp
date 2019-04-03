@@ -10,20 +10,20 @@ GameManager::GameManager() {
 
 void GameManager::createTableOfCommands() {
 
+    tableOfCommands.insert({"help", make_unique<CommandHelp>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"login", make_unique<CommandLogin>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"create-account", make_unique<CommandCreate>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"logout", make_unique<CommandLogout>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"help", make_unique<CommandHelp>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"create-avatar", make_unique<CommandCreateAva>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"edit-avatar", make_unique<CommandEditAva>(characterManager, onlineUserManager, world)});
 #ifdef BUILD_ALL_TARGETS
-
+   tableOfCommands.insert({"logout", make_unique<CommandLogout>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"say", make_unique<CommandSay>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"tell", make_unique<CommandTell>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"yell", make_unique<CommandYell>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"look", make_unique<CommandLook>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"examine", make_unique<CommandExamine>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"move", make_unique<CommandMove>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"create-avatar", make_unique<CommandCreateAva>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"edit-avatar", make_unique<CommandEditAva>(characterManager, onlineUserManager, world)});
+
     tableOfCommands.insert({"create-room", make_unique<CommandCreateRoom>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"edit-room", make_unique<CommandEditRoom>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"use", make_unique<CommandUse>(characterManager, onlineUserManager, world)});
