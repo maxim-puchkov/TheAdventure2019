@@ -14,11 +14,11 @@
 #include "Command.h"
 #include "CommandLogin.h"
 #include "CommandCreate.h"
+#include "CommandLogout.h"
+#include "CommandHelp.h"
 
 
 #ifdef BUILD_ALL_TARGETS
-#include "CommandLogout.h"
-#include "CommandHelp.h"
 #include "CommandSay.h"
 #include "CommandTell.h"
 #include "CommandYell.h"

@@ -12,9 +12,10 @@ void GameManager::createTableOfCommands() {
 
     tableOfCommands.insert({"login", make_unique<CommandLogin>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"create-account", make_unique<CommandCreate>(characterManager, onlineUserManager, world)});
-#ifdef BUILD_ALL_TARGETS
     tableOfCommands.insert({"logout", make_unique<CommandLogout>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"help", make_unique<CommandHelp>(characterManager, onlineUserManager, world)});
+#ifdef BUILD_ALL_TARGETS
+
     tableOfCommands.insert({"say", make_unique<CommandSay>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"tell", make_unique<CommandTell>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"yell", make_unique<CommandYell>(characterManager, onlineUserManager, world)});
