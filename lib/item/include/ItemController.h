@@ -77,6 +77,8 @@ public:
         //this->memory.items_created++;
         this->created++;
         
+       
+        
         if (!this->env2d.exists(ck)) {
             
             debug::print("1. Allocating container environment for ", ck);
@@ -374,8 +376,8 @@ private:
     
     void init() {
         debug::prefix("ItemController");
-        debug::print("ItemController created");
-        
+        debug::print("ItemController (id: ", id, ") created");
+        debug::silenced = true;
         iccc++;
         debug::print("<<< #", iccc, ", id", id, " >>>");
     }
