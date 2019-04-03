@@ -9,9 +9,11 @@ GameManager::GameManager() {
 }
 
 void GameManager::createTableOfCommands() {
+
     tableOfCommands.insert({"login", make_unique<CommandLogin>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"logout", make_unique<CommandLogout>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"create-account", make_unique<CommandCreate>(characterManager, onlineUserManager, world)});
+#ifdef BUILD_ALL_TARGETS
+    tableOfCommands.insert({"logout", make_unique<CommandLogout>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"help", make_unique<CommandHelp>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"say", make_unique<CommandSay>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"tell", make_unique<CommandTell>(characterManager, onlineUserManager, world)});
@@ -33,6 +35,7 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"attack", make_unique<CommandAttack>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"flee", make_unique<CommandFlee>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"cast", make_unique<CommandCast>(characterManager, onlineUserManager, world)});
+#endif
 }
 
 std::string GameManager::extractCommands(const std::string& connectionID, std::string fullCommand) {

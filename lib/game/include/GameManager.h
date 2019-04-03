@@ -10,10 +10,14 @@
 #include "WorldManager.h"
 #include "CharacterManager.h"
 
+
 #include "Command.h"
 #include "CommandLogin.h"
-#include "CommandLogout.h"
 #include "CommandCreate.h"
+
+
+#ifdef BUILD_ALL_TARGETS
+#include "CommandLogout.h"
 #include "CommandHelp.h"
 #include "CommandSay.h"
 #include "CommandTell.h"
@@ -35,6 +39,7 @@
 #include "CommandAttack.h"
 #include "CommandFlee.h"
 #include "CommandCast.h"
+#endif
 
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;

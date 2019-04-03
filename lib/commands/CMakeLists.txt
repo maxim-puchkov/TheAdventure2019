@@ -6,40 +6,46 @@
 cmake_minimum_required(VERSION 3.12)
 project(${commands} VERSION 1.0)
 
+if(NOT BUILD_ALL_TARGETS)
 
-add_library(${PROJECT_NAME}
-    src/Command.cpp
-    src/CommandLogin.cpp
-    src/CommandLogout.cpp
-    src/CommandCreate.cpp
-    src/CommandHelp.cpp
-    src/CommandSay.cpp
-    src/CommandTell.cpp
-    src/CommandYell.cpp
-    src/CommandLook.cpp
-    src/CommandExamine.cpp
-    src/CommandMove.cpp
-    src/CommandCreateAva.cpp
-    src/CommandEditAva.cpp
-    src/CommandCreateRoom.cpp
-    src/CommandEditRoom.cpp
+    add_library(${PROJECT_NAME}
+        src/Command.cpp
+        src/CommandLogin.cpp
+        src/CommandCreate.cpp
+    )
 
-    src/CommandTake.cpp
-    src/CommandPut.cpp
-    src/CommandDrop.cpp
-    src/CommandUse.cpp
-    src/CommandEquip.cpp
-# src/CommandUnequip.cpp
+else()
 
-    src/CommandMinigame.cpp
-    src/CommandCombat.cpp
-    src/CommandAttack.cpp
-    src/CommandFlee.cpp
-    src/CommandCast.cpp
-)
+    add_library(${PROJECT_NAME}
+        src/Command.cpp
+        src/CommandLogin.cpp
+        src/CommandCreate.cpp
+        src/CommandLogout.cpp
+        src/CommandHelp.cpp
+        src/CommandSay.cpp
+        src/CommandTell.cpp
+        src/CommandYell.cpp
+        src/CommandLook.cpp
+        src/CommandExamine.cpp
+        src/CommandMove.cpp
+        src/CommandCreateAva.cpp
+        src/CommandEditAva.cpp
+        src/CommandCreateRoom.cpp
+        src/CommandEditRoom.cpp
+        src/CommandTake.cpp
+        src/CommandPut.cpp
+        src/CommandDrop.cpp
+        src/CommandUse.cpp
+        src/CommandEquip.cpp
+    # src/CommandUnequip.cpp
+        src/CommandMinigame.cpp
+        src/CommandCombat.cpp
+        src/CommandAttack.cpp
+        src/CommandFlee.cpp
+        src/CommandCast.cpp
+    )
 
-
-find_package(Boost 1.68 COMPONENTS system REQUIRED)
+endif()
 
 
 target_include_directories(${PROJECT_NAME}
