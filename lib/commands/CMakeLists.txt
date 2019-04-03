@@ -10,6 +10,8 @@ if(NOT BUILD_ALL_TARGETS)
 
     add_library(${PROJECT_NAME}
         src/Command.cpp
+        src/CommandHelp.cpp
+
         src/CommandLogin.cpp
         src/CommandCreate.cpp
 
