@@ -82,7 +82,7 @@ std::string Room::lookForExitName(const std::string &objName) const {
 }
 
 const std::string Room::lookCardinalDirection(const std::string &cardinalDirection) const {
-    
+
     const Exit::CardinalDirection &direction= Exit::getCardinalDirection(cardinalDirection);
     if(direction == Exit::CardinalDirection::NONE){
         return  "";

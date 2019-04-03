@@ -20,16 +20,23 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     }
 
 
+    //looking without an argument will look at the room itself and present the name and
+    // description of the room as well as a short description of the characters, objects,
+    // and cardinal/ordinal/vertical exits within the room.
+    //A room may have special keywords that when looked at provide deeper description.
+
+
     auto room = worldManager.findRoomByLocation(location);
     const std::string &listOfExits = room.listExits();
 
     if (fullCommand.size() == 1) {
         std::string allUsersInRoom = " Users in room are : \n";
         for (const std::string &userA : room.getUserNames()) {
-            allUsersInRoom.append(userA + ",\n");
+            allUsersInRoom.append( characterManager.getShortDescription(userA) );
         }
         onlineUserManager.addMessageToUser(userName, ("\n" + listOfExits + "\n" + allUsersInRoom + "\n" +
                                                       worldManager.look(location) + "\n"));
+
         return;
     } else if (fullCommand.at(1) == "exits") {
         onlineUserManager.addMessageToUser(userName, (worldManager.listExits(location) + "\n"));
@@ -84,6 +91,13 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     onlineUserManager.addMessageToUser(userName, characterDescription );
 
 
+    /**
+     * Requirements state that one must also be able to look at an item as well.....
+     * so add that here when item's are finished
+     *
+     *
+     *
+     */
 
 
 }

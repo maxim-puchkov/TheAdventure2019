@@ -23,17 +23,56 @@ const std::string CharacterManager::getLongDescription(const std::string &userNa
 
     }
 
-    const auto &npc = std::find_if(computerControlledCharacters.begin(),computerControlledCharacters.end(),
+    const auto &computerControlled = std::find_if(computerControlledCharacters.begin(),computerControlledCharacters.end(),
             [&] (auto &iter) {return iter.getName() == userName; });
 
 
-    if(npc != computerControlledCharacters.end()){
-        result.append("Looking at NPC: "+ userName + " description: " + (*npc).getLongdesc() + "\n" );
+    if(computerControlled != computerControlledCharacters.end()){
+        result.append("Looking at NPC: "+ userName + " description: " + (*computerControlled).getLongdesc() + "\n" );
     }
+
+    const auto &nonPlayable = std::find_if(NPCs.begin(),NPCs.end(),
+                                   [&] (const auto &iter) {return iter.getName() == userName; });
+
+    if(nonPlayable != NPCs.end()){
+        result.append("Looking at NPC: "+ userName + " description: " + (*nonPlayable).getLongdesc() + "\n" );
+    }
+
+
 
     if(result.empty()){
         result.append(" No object with name " + userName + "\n");
     }
+
+    return std::move(result);
+}
+
+//Returns the string of a userName along with a short description of that particular character
+const std::string CharacterManager::getShortDescription(const std::string &userName) const {
+
+    //Once for playable characters
+    std::string result;
+    const auto &onlineChar = onlineCharacters.find(userName);
+    if(onlineChar != onlineCharacters.end()){
+        result.append(userName + " - " + onlineChar->second.getShortdesc() + "\n");
+    }
+
+    //Once for CPU
+    const auto &compControlled = std::find_if(computerControlledCharacters.begin(), computerControlledCharacters.end(),
+                [&](const auto &iter) {return iter.getName() == userName;});
+
+    if(compControlled != computerControlledCharacters.end()){
+        result.append(userName + " - " + (*compControlled).getShortdesc()  + "\n");
+    }
+
+    //One more time for NPC's
+    const auto &nonPlayable = std::find_if(NPCs.begin(), NPCs.end(),
+        [&](const auto &iter) {return iter.getName() == userName;} );
+
+    if(nonPlayable != NPCs.end()){
+        result.append(userName + " - " + (*nonPlayable).getShortdesc() + "\n" );
+    }
+
 
     return std::move(result);
 }
