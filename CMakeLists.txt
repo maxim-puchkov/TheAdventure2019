@@ -33,7 +33,7 @@ set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
 
 set(authentication "authentication")
 set(builder "builder")
-set(characters "characters")
+set(characters "characterDB")
 set(combat "combat")
 set(commands "commands")
 set(environment "environment")
@@ -70,12 +70,10 @@ endif(NOT CMAKE_BUILD_TYPE)
 
 
 
-
-
 # Statement coverage
 # NOTE: Coverage only works/makes sense with debug builds
 
-if (ENABLE_COVERAGE)
+if(ENABLE_COVERAGE)
 
     if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang")
         set(CXX_COVERAGE_FLAGS "-fprofile-instr-generate -fcoverage-mapping")
@@ -119,3 +117,5 @@ set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}")
 add_subdirectory(lib)
 add_subdirectory(tools)
 # add_subdirectory(test)
+
+unset(BUILD_ALL_TARGETS CACHE)

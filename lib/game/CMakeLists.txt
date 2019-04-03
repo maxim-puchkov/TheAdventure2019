@@ -21,6 +21,7 @@ target_include_directories(${game}
         ${Boost_INCLUDE_DIR}
 )
 
+
 target_link_libraries(${game}
     PUBLIC
         ${characters}
@@ -31,6 +32,7 @@ target_link_libraries(${game}
     PRIVATE
         ${Boost_LIBRARIES}
 )
+
 
 set_target_properties(${PROJECT_NAME}
     PROPERTIES

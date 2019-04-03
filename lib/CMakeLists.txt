@@ -3,6 +3,7 @@
 #
 
 
+
 # Add subdirectories in alphabetical order
 
 add_subdirectory(${authentication})
@@ -26,6 +27,7 @@ add_subdirectory(${world})
 
 
 
+
 # Added
 add_subdirectory(simple)
 add_subdirectory(test)
@@ -33,8 +35,8 @@ add_subdirectory(test)
 
 
 # Moved
-#   add_subdirectory(${libcharactersdb})
 #   add_subdirectory(${libuserdb})
+#   add_subdirectory(characterDB)
 
 
 # Excluded
