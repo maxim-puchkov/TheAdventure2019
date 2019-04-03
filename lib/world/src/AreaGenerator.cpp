@@ -10,33 +10,38 @@ Area AreaGenerator::getArea(std::string filePath, CharacterManager& characterMan
     auto rooms = jsonArea["ROOMS"];
     auto allNPC = jsonArea["NPCS"];
     auto objects = jsonArea["OBJECTS"];
+    auto resets = jsonArea["RESETS"];
 
     generateRooms(rooms, area);
     generateNPC(allNPC, area, characterManager);
     generateObjects(objects, area);
+    reset_Area(resets,area,characterManager);
 
     // For Testing 
-    // auto areaRooms = area.getRoomList();
-    // for(auto elm: areaRooms){
-    //     auto room = elm.second;
+    auto areaRooms = area.getRoomList();
+    for(auto elm: areaRooms){
+        auto room = elm.second;
 
-    //     auto exits = room.getExits();
-    //     auto NPCs = room.getNPCs();
+        auto exits = room.getExits();
+        auto NPCs = room.getNPCs();
+        if(room.getName() == "A Guard Post"){
 
-    //     std::cout<< "\n *** ROOM " +room.getName()+ " *** \n ";
-    //     std::cout<< room.getDescription() << "\n";
-        
-    //     std::cout<< "\n *** EXITS *** \n ";
-    //     for(auto tmpExit : exits){
-    //         std::cout<< tmpExit.getExitName() << "\n";
-    //         std::cout<< tmpExit.getExitDescription() << "\n";
-    //     }
-    //     std::cout<< "\n *** ALL NPCS *** \n ";
-    //     for(auto NPC_name : NPCs){
-    //         std::cout<< NPC_name << "\n";
-    //     }
+            std::cout<< "\n *** ROOM " +room.getName()+ " *** \n ";
+            std::cout<< room.getDescription() << "\n";
+            
+            std::cout<< "\n *** EXITS *** \n ";
+            for(auto tmpExit : exits){
+                std::cout<< tmpExit.getExitName() << "\n";
+                std::cout<< tmpExit.getExitDescription() << "\n";
+            }
+            std::cout<< "\n *** ALL NPCS *** \n ";
+            for(auto NPC_name : NPCs){
+                std::cout<< NPC_name << "\n";
+            }
+            
+        }
 
-    // }
+    }
     return area;
 }
 
@@ -94,15 +99,9 @@ void AreaGenerator::generateNPC(json allNPC, Area& area, CharacterManager& chara
         characterNPC.setShortdesc(shortDesc);
         characterNPC.setLongdesc(longDesc);
         characterNPC.setDescription(description);
+        characterNPC.setID(NPC["id"]);
        
         characterManager.addNPC(characterNPC);
-
-        // need to check for out of bound
-        if(area.addNPCtoRooms(shortDesc, roomIds[index])){
-            index++;
-        } else{
-            index = 0;
-        }
     }
 }
 
@@ -159,3 +158,15 @@ Area AreaGenerator::generateExits(Area area){
     }
     return area;
 }
+
+void AreaGenerator::reset_Area(json resetValues, Area& area, CharacterManager& characterManager){
+
+    for( auto val : resetValues){
+        // std::cout << val.dump() << "\n";
+        if(val["action"] == "npc"){
+            area.addNPCtoRooms(characterManager.getNPCshortDesc(val["id"]), val["room"]);
+        }
+        
+    }
+}
+

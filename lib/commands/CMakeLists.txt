@@ -39,7 +39,7 @@ target_include_directories(${libcommands}
 set_target_properties(${libcommands}
                       PROPERTIES
                       LINKER_LANGUAGE CXX
-                      CXX_STANDARD 17
+                      CXX_STANDARD 14
 )
 
 target_link_libraries(${libcommands}

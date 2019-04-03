@@ -74,6 +74,14 @@ public:
     void addNPC(Character NPC){
         NPCs.push_back(NPC);
     }
+    std::string getNPCshortDesc(int id){
+         for(auto npc: NPCs){
+             if (npc.getID() == id){
+                 return npc.getShortdesc();
+             }
+         }
+        return "NO NPC";
+    }
 
     std::vector<Character>& getListNPCs(){return NPCs;}
     std::string listNPCs();
