@@ -18,7 +18,15 @@ Item::Item(ItemIdentifier id,
            const Keywords &keywords,
            const Description &description,
            const Actions &actions)
-: id(id), keywords(keywords), description(description), actions(actions)
+: id(id), json_id(0), keywords(keywords), description(description), actions(actions)
+{ }
+    
+Item::Item(ItemIdentifier id,
+           unsigned int json_id,
+           const Keywords &keywords,
+           const Description &description,
+           const Actions &actions)
+: id(id), json_id(json_id), keywords(keywords), description(description), actions(actions)
 { }
 
 

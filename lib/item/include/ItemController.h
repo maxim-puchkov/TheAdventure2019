@@ -57,9 +57,11 @@ public:
 //        debug::print("Deallocated: ", this->memory.deallocs);
     }
 
-    
-    
     ItemIdentifier create(ContainerKey ck) const {
+        return this->create(ck, 0);
+    }
+    
+    ItemIdentifier create(ContainerKey ck, unsigned int json_id) const {
         debug::print("A", ck);
         if (!this->builder.validate()) {
             return this->id;
@@ -74,6 +76,8 @@ public:
         
         //this->memory.items_created++;
         this->created++;
+        
+       
         
         if (!this->env2d.exists(ck)) {
             
@@ -372,8 +376,8 @@ private:
     
     void init() {
         debug::prefix("ItemController");
-        debug::print("ItemController created");
-        
+        debug::print("ItemController (id: ", id, ") created");
+        debug::silenced = true;
         iccc++;
         debug::print("<<< #", iccc, ", id", id, " >>>");
     }

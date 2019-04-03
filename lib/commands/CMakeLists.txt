@@ -10,10 +10,13 @@ if(NOT BUILD_ALL_TARGETS)
 
     add_library(${PROJECT_NAME}
         src/Command.cpp
+        src/CommandHelp.cpp
+
         src/CommandLogin.cpp
         src/CommandCreate.cpp
-        src/CommandLogout.cpp
-        src/CommandHelp.cpp
+
+        src/CommandCreateAva.cpp
+        src/CommandEditAva.cpp
     )
 
 else()
@@ -39,7 +42,7 @@ else()
         src/CommandDrop.cpp
         src/CommandUse.cpp
         src/CommandEquip.cpp
-    # src/CommandUnequip.cpp
+#       src/CommandUnequip.cpp
         src/CommandMinigame.cpp
         src/CommandCombat.cpp
         src/CommandAttack.cpp

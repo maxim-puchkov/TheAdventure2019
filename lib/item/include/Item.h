@@ -30,6 +30,9 @@ public:
     /*! Unique identifier */
     const ItemIdentifier id;
     
+    /*! Item ID used in JSON file */
+    const unsigned int json_id;
+    
     
     /*!
      Item constructor for building game items
@@ -39,6 +42,12 @@ public:
      @param actions     Actions associated with this item
      */
     Item(ItemIdentifier id,
+         const Keywords &keywords,
+         const Description &description,
+         const Actions &actions);
+    
+    Item(ItemIdentifier id,
+         unsigned int json_id,
          const Keywords &keywords,
          const Description &description,
          const Actions &actions);
@@ -97,6 +106,8 @@ public:
     bool operator!=(const Item& other) const;
     
 private:
+    
+    
     
 };
 
