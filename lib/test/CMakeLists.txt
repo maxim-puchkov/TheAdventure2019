@@ -6,13 +6,17 @@ add_executable(runAllTests
     HailstoneTests.cpp
     AwardsTests.cpp
 
+# Character
 #	AttributesTest.cpp
 
+# Minigame
     testChessBoard.cpp
 
-	KeywordsTests.cpp
+# Item Data Classes
+    KeywordsTests.cpp
     DescriptionTests.cpp
 
+# Item Use Classess
     InventoryTests.cpp
     ItemBuilderTests.cpp
     ItemControllerTests.cpp
@@ -26,7 +30,7 @@ target_link_libraries(runAllTests
 
     simpleLibrary
     ${minigame}
-    ${characters}
+#    ${characters}
 
     ${authentication}
     ${builder}

@@ -13,9 +13,6 @@ add_library(${PROJECT_NAME} STATIC
 )
 
 
-find_package(Boost 1.68 COMPONENTS system REQUIRED)
-
-
 target_include_directories(${PROJECT_NAME}
     PUBLIC
         $<INSTALL_INTERFACE:include>
