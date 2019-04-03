@@ -57,9 +57,11 @@ public:
 //        debug::print("Deallocated: ", this->memory.deallocs);
     }
 
-    
-    
     ItemIdentifier create(ContainerKey ck) const {
+        return this->create(ck, 0);
+    }
+    
+    ItemIdentifier create(ContainerKey ck, unsigned int json_id) const {
         debug::print("A", ck);
         if (!this->builder.validate()) {
             return this->id;

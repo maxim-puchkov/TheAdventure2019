@@ -68,7 +68,12 @@ Item ItemBuilder::build(ItemIdentifier id) const {
     this->reset();
     return item;
 }
-
+    
+Item ItemBuilder::build(ItemIdentifier id, unsigned int json_id) const {
+    Item item(id, json_id, keywords, description, actions);
+    this->reset();
+    return item;
+}
 
 void ItemBuilder::setDescription(const vector<string> &lines) const noexcept {
     this->description = Description(lines);

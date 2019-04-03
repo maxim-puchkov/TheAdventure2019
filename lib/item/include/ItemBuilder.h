@@ -76,6 +76,9 @@ public:
     
     /*! Build using specified keywords, descriptions, and actions */
     Item build(ItemIdentifier id) const;
+    
+    /*! Build using specified keywords, descriptions, and actions */
+    Item build(ItemIdentifier id, unsigned int json_id) const;
 
     /*! Add a new action */
     void addAction(Action &&action) const noexcept;
