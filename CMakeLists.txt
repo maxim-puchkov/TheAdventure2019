@@ -117,5 +117,3 @@ set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}")
 add_subdirectory(lib)
 add_subdirectory(tools)
 # add_subdirectory(test)
-
-unset(BUILD_ALL_TARGETS CACHE)

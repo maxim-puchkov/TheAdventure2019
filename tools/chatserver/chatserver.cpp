@@ -6,8 +6,15 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "Server.h"
-//#include "User.h"
+
+
+#ifdef BUILD_ALL_TARGETS
+
 #include "GameManager.h"
+GameManager gm{};
+
+#endif
+
 
 // #include <experimental/filesystem>
 #include <fstream>
@@ -26,7 +33,7 @@ using networking::Connection;
 using networking::Message;
 
 std::vector<Connection> clients;
-GameManager gm{};
+
 
 void
 onConnect(Connection c) {
