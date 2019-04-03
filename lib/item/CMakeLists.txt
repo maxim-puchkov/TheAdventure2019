@@ -10,7 +10,7 @@ add_library(${PROJECT_NAME}
     src/Item.cpp
     src/ItemBuilder.cpp
     src/Collection.cpp
-    src/Inventory.cpp
+#    src/Inventory.cpp
     src/ItemSearchKey.cpp
     src/ItemController.cpp
     src/Keywords.cpp
