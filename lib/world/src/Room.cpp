@@ -44,6 +44,7 @@ bool Room::addCharacter(const std::string &userName){
 int Room::getRoomId(){
 	return this->roomId;
 }
+
 /**
  *Removes username from Room. Note that it removes duplicates (but we shouldn't have duplicates)
  * @param userName - UserNmae you want to remove
@@ -81,8 +82,8 @@ std::string Room::lookForExitName(const std::string &objName) const {
 }
 
 const std::string Room::lookCardinalDirection(const std::string &cardinalDirection) const {
-    Exit a{"a","a","a","a",1}; //Object only created to call methods.
-    const Exit::CardinalDirection &direction= a.getCardinalDirection(cardinalDirection);
+    
+    const Exit::CardinalDirection &direction= Exit::getCardinalDirection(cardinalDirection);
     if(direction == Exit::CardinalDirection::NONE){
         return  "";
     }
