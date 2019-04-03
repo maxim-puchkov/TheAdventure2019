@@ -1,4 +1,0 @@
-Files moved to:
-
-lib/users/include/UserDB.h
-lib/users/src/UserDB.cpp

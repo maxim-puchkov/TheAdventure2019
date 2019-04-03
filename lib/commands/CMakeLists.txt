@@ -12,6 +12,8 @@ if(NOT BUILD_ALL_TARGETS)
         src/Command.cpp
         src/CommandLogin.cpp
         src/CommandCreate.cpp
+        src/CommandLogout.cpp
+        src/CommandHelp.cpp
     )
 
 else()

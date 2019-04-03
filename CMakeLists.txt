@@ -82,7 +82,7 @@ set(parsers "parsers")
 set(time "time")
 set(traits "traits")
 set(user-interface "user-interface")
-set(users "users")
+set(users "userdb")
 set(world "world")
 
 
