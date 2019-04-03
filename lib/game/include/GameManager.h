@@ -11,10 +11,14 @@
 #include "CharacterManager.h"
 #include "AreaGenerator.h"
 
+
 #include "Command.h"
 #include "CommandLogin.h"
-#include "CommandLogout.h"
 #include "CommandCreate.h"
+
+
+#ifdef BUILD_ALL_TARGETS
+#include "CommandLogout.h"
 #include "CommandHelp.h"
 #include "CommandSay.h"
 #include "CommandTell.h"
@@ -28,7 +32,7 @@
 #include "CommandCreateRoom.h"
 #include "CommandUse.h"
 #include "CommandEquip.h"
-#include "CommandPickup.h"
+#include "CommandTake.h"
 #include "CommandDrop.h"
 #include "CommandPut.h"
 #include "CommandMinigame.h"
@@ -36,6 +40,7 @@
 #include "CommandAttack.h"
 #include "CommandFlee.h"
 #include "CommandCast.h"
+#endif
 
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;

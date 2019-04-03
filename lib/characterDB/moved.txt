@@ -1,0 +1,4 @@
+Files moved to:
+
+lib/characters/include/CharacterDB.h
+lib/characters/src/CharacterDB.cpp

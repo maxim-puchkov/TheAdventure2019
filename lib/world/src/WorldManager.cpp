@@ -3,7 +3,29 @@
 #include "WorldManager.h"
 #include "AreaGenerator.h"
 
-WorldManager::WorldManager() {}
+WorldManager::WorldManager()
+: items(ItemController<WorldIdentifier>()) {
+    debug::prefix("World");
+    debug::print("World created");
+
+    using namespace items::data;
+    vector<Action> vec{Action("read", " < items are now working > ")};
+    // this->items.builder.setItemProperties(Keywords({"letter"}), Description("You received a letter"), Actions(vec));
+    // this->items.create(0);
+    // wmcc++;
+
+    // vector<Action> vec1{Action("read", " < items are now working > ")};
+    // this->items.builder.setItemProperties(Keywords({"letter","cat"}), Description("You received a letter"), Actions(vec1));
+    // this->items.create(0);
+
+    // vector<Action> vec2{Action("read", " < items are now working > ")};
+    // this->items.builder.setItemProperties(Keywords({"book","apple"}), Description("You received a book"), Actions(vec2));
+    // this->items.create(0);
+
+
+    //items.containerSize(0);
+    
+}
 
 Room& WorldManager::findRoomByLocation(LocationCoordinates location) {
     if (areas.empty() || location.area == ""){
@@ -76,7 +98,7 @@ LocationCoordinates WorldManager::move(const std::string& characterName, Locatio
 
         roomOfInterest.removeCharacter(characterName);
         newRoom.addCharacter(characterName);
-        
+
         return newLocation;
     } catch(const std::domain_error& e){
         return location;
@@ -92,6 +114,23 @@ std::string WorldManager::listExits(LocationCoordinates location) {
         return "No exits found! uh oh!";
     }
 }
+
+//std::string WorldManager::listPeople(const Character& character) {
+//    LocationCoordinates currentLocation = character.getCurrentLocation();
+//    try{
+//
+//        auto& currentRoom = findRoomByLocation(currentLocation);
+//        auto& peopleList = currentRoom.getUserNames();
+//        std::string result = "People in room: \n";
+//        for(auto& charName: peopleList){
+//            result += "- " + charName + "\n";
+//        }
+//
+//        return result;
+//    } catch(const std::domain_error& e){
+//        return "No one else in the room.";
+//    }
+//}
 
 
 std::string WorldManager::look(LocationCoordinates location) {
