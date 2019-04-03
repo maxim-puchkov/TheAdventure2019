@@ -11,6 +11,7 @@
 #define items_hpp
 
 #include "Object.h"
+#include "print.h"
 
 using std::string;
 using std::vector;
