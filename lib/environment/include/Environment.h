@@ -79,7 +79,7 @@ public:
     void unbind(const K &k);
     
     /*! Modify key's value */
-    void modify(const K &k, V &&v);
+    void modify(const K &k, const V &v);
     
     /*! Check if a key exists in the environment */
     bool exists(const K &k) const noexcept;
@@ -102,9 +102,9 @@ public:
     
     /* Retrieval */
     
-    std::queue<const K> keys() const noexcept;
+    std::queue<const K> keys() const;
     
-    std::queue<std::pair<const K, V>> pairs() const noexcept;
+    std::queue<std::pair<const K, V>> pairs() const;
     
     
     
@@ -131,21 +131,18 @@ public:
     
     /* Operators */
     
-    Environment<K, V>& operator=(const Environment<K, V> &other) noexcept;
     Environment<K, V>& operator=(Environment<K, V> &&other) noexcept;
+    Environment<K, V>& operator=(const Environment<K, V> &other);
     
     bool operator==(Environment<K, V> &other) const;
     bool operator==(const Environment<K, V> &other) const;
-    
-    V operator[](const K &k) const noexcept(false);
-    V operator[](K &&k) const noexcept(false);
     
     template<class FK, class FV>
     friend std::ostream& operator<<(std::ostream &stream, Environment<FK, FV> &env);
     
 private:
     
-    unordered_map<K, V> map{};
+    unordered_map<K, V> map;
     
 };
 

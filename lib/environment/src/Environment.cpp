@@ -36,14 +36,27 @@ Environment<K, V>::Environment(Environment &&other) noexcept
 
 template<class K, class V>
 V Environment<K, V>::lookup(const K &k) const {
-    return this->find(k)->second;
+    auto it = this->find(k);
+    return it->second;
 }
+
+
+//template<class K, class V>
+//std::unique_ptr<V> Environment<K, V>::lookup_ptr(const K &k) const {
+//    auto it = this->find(k);
+//    return it->second;
+//}
 
 
 template<class K, class V>
 V Environment<K, V>::lookup(K &&k) const {
-    return this->find(std::forward<K>(k))->second;
+    auto it = this->find(std::forward<K>(k));
+    return it->second;
 }
+
+
+// template<class K, class V>
+// std::queue<V> Environment<K, V>::lookupAll(
 
 
 template<class K, class V>
@@ -75,20 +88,21 @@ void Environment<K, V>::unbind(const K &k) {
 
 
 template<class K, class V>
-void Environment<K, V>::modify(const K &k, V &&v) {
-    this->map[k] = std::move(v);
+void Environment<K, V>::modify(const K &k, const V &v) {
+    this->map[k] = v;
 }
 
 
 template<class K, class V>
 bool Environment<K, V>::exists(const K &k) const noexcept {
-    return (this->map.find(k) != this->map.end());
+    auto it = this->map.find(k);
+    return (it != this->map.end());
 }
 
 
 template<class K, class V>
 void Environment<K, V>::validate(const K &k) const noexcept(false) {
-    if (!this->exists(k)) {
+    if (this->exists(k)) {
         throw std::invalid_argument(ENV_BIND_ERROR);
     }
 }
@@ -112,8 +126,7 @@ bool Environment<K, V>::empty() const noexcept {
 /* Retrieval */
 
 template<class K, class V>
-typename std::unordered_map<K, V>::const_iterator
-Environment<K, V>::find(const K &k) const noexcept(false) {
+typename std::unordered_map<K, V>::const_iterator Environment<K, V>::find(const K &k) const noexcept(false) {
     auto it = this->map.find(k);
     if (it == this->map.end()) {
         throw std::invalid_argument(ENV_FIND_ERROR);
@@ -123,27 +136,30 @@ Environment<K, V>::find(const K &k) const noexcept(false) {
 
 
 template<class K, class V>
-typename std::unordered_map<K, V>::size_type
-Environment<K, V>::size() const {
+typename std::unordered_map<K, V>::size_type Environment<K, V>::size() const {
     return this->map.size();
 }
 
 
 template<class K, class V>
-std::queue<const K> Environment<K, V>::keys() const noexcept {
+std::queue<const K> Environment<K, V>::keys() const {
     std::queue<const K> keys;
-    for (const auto &binding : this) {
-        keys.push(binding.first);
+    auto it = this->begin();
+    while (it != this->end()) {
+        keys.push(it->first);
+        it++;
     }
     return keys;
 }
 
 
 template<class K, class V>
-std::queue<std::pair<const K, V>> Environment<K, V>::pairs() const noexcept {
-    std::queue<std::pair<const K, V>> bindings;
-    for (const auto &binding : this) {
-        bindings.push(std::pair<const K, V>(binding.first, binding.second));
+std::queue<std::pair<const K, V>> Environment<K, V>::pairs() const {
+    std::queue<std::pair<const K, V>> pairs;
+    auto it = this->begin();
+    while (it != this->end()) {
+        pairs.push(std::pair<const K, V>(it->first, it->second));
+        it++;
     }
     return pairs;
 }
@@ -211,7 +227,7 @@ Environment<K, V>& Environment<K, V>::operator=(Environment<K, V> &&other) noexc
 }
 
 template<class K, class V>
-Environment<K, V>& Environment<K, V>::operator=(const Environment<K, V> &other) noexcept {
+Environment<K, V>& Environment<K, V>::operator=(const Environment<K, V> &other) {
     this->map = other.map;
     return *this;
 }
@@ -225,17 +241,6 @@ bool Environment<K, V>::operator==(Environment<K, V> &other) const {
 template<class K, class V>
 bool Environment<K, V>::operator==(const Environment<K, V> &other) const {
     return (this->map == other.map);
-}
-
-
-template<class K, class V>
-V Environment<K, V>::operator[](const K &k) const noexcept(false) {
-    return this->lookup(k);
-}
-
-template<class K, class V>
-V Environment<K, V>::operator[](K &&k) const noexcept(false) {
-    return this->lookup(std::forward<K>(k));
 }
 
 
