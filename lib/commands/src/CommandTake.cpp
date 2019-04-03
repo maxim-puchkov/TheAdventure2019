@@ -9,74 +9,73 @@ using boost::bad_lexical_cast;
 
 
 /// Execute command
-void CommandTake::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) { // const {
+void CommandTake::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 
     debug::prefix("TAKE");
-
+    
+    
     // Find character's location
     auto location = Command::characterManager.getCharacterLocation(username);
-//
-//    // Then find the actual room
-//    // auto room = Command::worldManager.findRoomByLocation(location);
-//
+
+    
+    // Room owns items that may be taken
+    // Note: location.room actually means the id of the room
+    auto room_id = location.room;
+    
+    
     // Keyword is the second element of the vector
     auto keyword = fullCommand.at(1);
 
-
-///    auto items = Command::worldManager.items;
-
-
-    // Note: location.room actually means the id of the room
-    auto room_id = location.room;
+    
+    // Search for identifiers of all items matching the keyword
     auto ids = Command::worldManager.items.search(room_id, keyword);
 
 
-    // Note: need to add after fixing this
+    // Recepient of the item
     auto character_id = 100;
 
-
-    if (ids.size() == 1) {
-        auto item_id = ids[0];
-        // Command::worldManager.items.reassign(room_id, character_id, item_id);
-        print( "item id: ", item_id);
-
-    } else {
-        print("deal with more than one item");
+    
+    // Debug
+    print("Searched keyword: ", keyword);
+    print("In room id = ", room_id);
+    print("By character id = ", character_id);
+    print("Matching items found: ", ids.size());
+    print("Total count of created items: ", Command::worldManager.items.itemsCreated());
+    
+    // Otherwise, an error message containing all matching items is sent
+    // to the user so they can choose another unambigious keyword, or
+    // select item to take by its identifier
+    if (ids.size() != 1) {
+        print("Ambiguous search");
+        /* ... */
+        return;
     }
-
-    print(keyword);
-    print(ids.size());
-    print(room_id);
-    print(location.area);
-    print(Command::worldManager.items.itemsCreated());
-//
-//    // Find all items matching this keyword
-//    // Searching whole world because rooms don't have items
-//    auto ids = Command::worldManager.items.search(keyword);
-//
-//    if (ids.size() == 1) {
-//        // If there is exactly one item matching
-//        auto itemID = ids[0];
-//        auto inventory = Command::characterManager.getCharacterInventory(username);
-//        inventory.add(itemID);
-//    } else {
-//        // Else two or more items have the same keyword...
-//    }
-//
-//
-//
-//
-//    /* Debugging */
-//
-//    debug::prefix("CommandTake");
-//
-//    // Note: location.room actually means the id of the room
-//    // debug::print("Room: ", room.getName(), " (id: ", location.room, ")");
-//    debug::print("Keyword: ", keyword, '\n');
-//
-//    debug::print("Found ", ids.size(), " items matching the keyword");
-
-
+    
+    
+    
+    
+    print("Items in the room before update: ",
+          Command::worldManager.items.containerSize(room_id));
+    print("Items in character's inventory before update: ",
+          Command::worldManager.items.containerSize(character_id));
+    
+    
+    // If search is not ambiguous, owner will be changed from
+    // room_id to character_id
+    auto item_id = ids[0];
+    Command::worldManager.items.reassign(room_id, character_id, item_id);
+    
+    
+    print("Item id = ", item_id,
+          " was reassigned from ", room_id,
+          " to ", character_id);
+    
+    print("Items in the room after update: ",
+          Command::worldManager.items.containerSize(room_id));
+    print("Items in character's inventory after update: ",
+          Command::worldManager.items.containerSize(character_id));
+    
+    
 }
 
 
