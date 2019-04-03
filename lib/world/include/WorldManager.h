@@ -11,6 +11,8 @@
 #include "LocationCoordinates.h"
 #include "ItemController.h"
 #include "Item.h"
+#include "print.h"
+
 
 using items::ItemController;
 using WorldIdentifier = uint64_t;

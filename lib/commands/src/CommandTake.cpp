@@ -2,7 +2,6 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
 #include "print.h"
-using debug::print;
 
 using boost::lexical_cast;
 using boost::bad_lexical_cast;
@@ -36,11 +35,11 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
 
     
     // Debug
-    print("Searched keyword: ", keyword);
-    print("In room id = ", room_id);
-    print("By character id = ", character_id);
-    print("Matching items found: ", ids.size());
-    print("Total count of created items: ", Command::worldManager.items.itemsCreated());
+    debug::print("Searched keyword: ", keyword);
+    debug::print("In room id = ", room_id);
+    debug::print("By character id = ", character_id);
+    debug::print("Matching items found: ", ids.size());
+    debug::print("Total count of created items: ", Command::worldManager.items.itemsCreated());
     
     // Otherwise, an error message containing all matching items is sent
     // to the user so they can choose another unambigious keyword, or
@@ -54,9 +53,9 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
     
     
     
-    print("Items in the room before update: ",
+    debug::print("Items in the room before update: ",
           Command::worldManager.items.containerSize(room_id));
-    print("Items in character's inventory before update: ",
+    debug::print("Items in character's inventory before update: ",
           Command::worldManager.items.containerSize(character_id));
     
     
@@ -66,13 +65,13 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
     Command::worldManager.items.reassign(room_id, character_id, item_id);
     
     
-    print("Item id = ", item_id,
+    debug::print("Item id = ", item_id,
           " was reassigned from ", room_id,
           " to ", character_id);
     
-    print("Items in the room after update: ",
+    debug::print("Items in the room after update: ",
           Command::worldManager.items.containerSize(room_id));
-    print("Items in character's inventory after update: ",
+    debug::print("Items in character's inventory after update: ",
           Command::worldManager.items.containerSize(character_id));
     
     
