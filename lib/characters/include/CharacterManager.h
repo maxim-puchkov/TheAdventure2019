@@ -63,6 +63,9 @@ public:
     CHARACTER_CODE isThisFirstTimeSetup(const std::string& username) const;
     void setCharacterIsDoneFirstTimeSetup(std::string& username);
 
+    std::string getCharArea(const std::string& userName);
+    int getCharRoom(const std::string& userName);
+
     //MiniGame commands
     MiniGameLobby& getMiniGameLobby();
     //Combat commands
