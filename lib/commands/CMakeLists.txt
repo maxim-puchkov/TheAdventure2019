@@ -9,14 +9,13 @@ project(${commands} VERSION 1.0)
 if(NOT BUILD_ALL_TARGETS)
 
     add_library(${PROJECT_NAME}
+        # Always included commands
         src/Command.cpp
         src/CommandHelp.cpp
+        src/CommandLogin.cpp        # use 'login abc abc' or any existing account
 
-        src/CommandLogin.cpp
-        src/CommandCreate.cpp
-
-        src/CommandCreateAva.cpp
-        src/CommandEditAva.cpp
+        # Testing items
+        src/CommandTake.cpp
     )
 
 else()
