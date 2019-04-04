@@ -1,5 +1,5 @@
-#include <boost/algorithm/string.hpp>
 #include "Exit.h"
+// #include <boost/algorithm/string.hpp>
 
 using namespace std;
 
@@ -77,7 +77,7 @@ using namespace std;
 
     const string Exit::getLowerCaseExitName() const {
         std::string result = exitName;
-        boost::algorithm::to_lower(result);
+        // boost::algorithm::to_lower(result);
         return std::move(result);
 
     }
@@ -113,5 +113,3 @@ using namespace std;
     std::string Exit::getExitTargetLocation() {
         return exitTargetLocation;
     }
-
-

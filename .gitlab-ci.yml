@@ -1,26 +1,40 @@
 image: nsumner/cmpt373:projectbase
 
+
 stages:
   - build
   - analyze
   - test
+
 
 build:
   stage: build
   script:
     - mkdir build
     - cd build
-    - cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=True ../
+    - cmake -DCMAKE_CXX_COMPILER=clang++ -DENABLE_COVERAGE=True -DCMAKE_EXPORT_COMPILE_COMMANDS=True ../
     - make
   artifacts:
-    expire_in: 10 mins
+    expire_in: 30 mins
     paths:
       - build/*
 
-test:
-  stage: test
+
+build-release:
+  stage: build
   script:
-    - build/bin/runAllTests
+    - mkdir build-release
+    - cd build-release
+    - cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_CXX_COMPILER=clang++ ../
+    - make
+  artifacts:
+    expire_in: 5 mins
+    paths:
+      - build/*
+  allow_failure: true
+  only:
+    - master
+
 
 analyze:
   stage: analyze
@@ -38,3 +52,49 @@ analyze:
     paths:
       - build/cppcheck-results.txt
       - build/clang-tidy-results.txt
+  allow_failure: true
+  except:
+    - docs
+    - libraries
+
+
+headerdoc2html:
+  stage: analyze
+  script:
+    - echo '...Debugging...'
+    - ls
+    - cd bin/
+    - ls
+    - cd ../../
+    - ls
+  allow_failure: true
+  only:
+    - docs
+    - libraries
+
+
+gatherheaderdoc:
+  stage: analyze
+  script:
+    - find . -regex '.*\.h'
+    - find lib -regex '.*\.h'
+    - echo 'sh bin/headerdoc2html doc/.HeaderDoc/ $(find lib -regex '.*\.h')'
+  allow_failure: true
+  only:
+    - docs
+    - libraries
+
+
+test:
+  stage: test
+  script:
+    - LLVM_PROFILE_FILE="runAllTests.profraw" build/bin/runAllTests
+    - llvm-profdata merge -sparse runAllTests.profraw -o runAllTests.profdata
+    - llvm-cov show build/bin/runAllTests -instr-profile=runAllTests.profdata -show-line-counts-or-regions -output-dir=coverage/ -format="html"
+    - llvm-cov report build/bin/runAllTests -instr-profile=runAllTests.profdata
+  coverage: '/TOTAL.*\s+(\S+\%)/'
+  allow_failure: true
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - coverage/*

@@ -25,6 +25,7 @@ class AreaGenerator {
     void generateObjects(json rooms, Area& area);
 
     void generateExitsTo(Area& area);
+    void reset_Area(json resetValues, Area& area, CharacterManager& characterManager);
 
   public:
     Area getArea(std::string filepath, CharacterManager&);

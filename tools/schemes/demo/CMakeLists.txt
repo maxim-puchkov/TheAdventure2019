@@ -12,11 +12,11 @@ set_target_properties(demo
 find_package(Threads REQUIRED)
 
 target_link_libraries(demo
-    ${libcommands}
+    ${commands}
     ${libaccounts}
-    ${libusers}
+    ${users}
     ${libnetwork}
-    ${libworld}
+    ${world}
     ${libgame}
     ${libcharacters}
     ${CMAKE_THREAD_LIBS_INIT}

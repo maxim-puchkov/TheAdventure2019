@@ -19,7 +19,7 @@
 namespace networking {
 
 
-/**
+/*!
  *  An identifier for a Client connected to a Server. The ID of a Connection is
  *  guaranteed to be unique across all actively connected Client instances.
  */
@@ -41,7 +41,7 @@ struct ConnectionHash {
 };
 
 
-/**
+/*!
  *  A Message containing text that can be sent to or was recieved from a given
  *  Connection.
  */
@@ -51,7 +51,7 @@ struct Message {
 };
 
 
-/** A compilation firewall for the server. */
+/*! A compilation firewall for the server. */
 class ServerImpl;
 
 struct ServerImplDeleter {
@@ -59,7 +59,7 @@ struct ServerImplDeleter {
 };
 
 
-/**
+/*!
  *  @class Server
  *
  *  @brief A single threaded network server for transferring text.
@@ -76,7 +76,7 @@ struct ServerImplDeleter {
  */
 class Server {
 public:
-  /**
+  /*!
    *  Construct a Server that listens for connections on the given port.
    *  The onConnect and onDisconnect arguments are callbacks called when a
    *  Client connects or disconnects from the Server respectively.
@@ -101,26 +101,26 @@ public:
       impl{buildImpl(*this, port, std::move(httpMessage))}
       { }
 
-  /**
+  /*!
    *  Perform all pending sends and receives. This function can throw an
    *  exception if any of the I/O operations encounters an error.
    */
   void update();
 
-  /**
+  /*!
    *  Send a list of messages to their respective Clients. The messages may not
    *  contain carriage returns.
    */
   void send(const std::deque<Message>& messages);
 
-  /**
+  /*!
    *  Receive Message instances from Client instances. This returns all Message
    *  instances collected by previous calls to Server::update() and not yet
    *  received.
    */
   std::deque<Message> receive();
 
-  /**
+  /*!
    *  Disconnect the Client specified by the given Connection.
    */
   void disconnect(Connection connection);

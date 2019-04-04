@@ -5,9 +5,6 @@
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
-#include "Server.h"
-//#include "User.h"
-#include "GameManager.h"
 
 // #include <experimental/filesystem>
 #include <fstream>
@@ -21,12 +18,21 @@
 #include <unordered_map>
 #include <utility>
 
+#include "Server.h"
+
+
+
+#include "GameManager.h"
+GameManager gm{};
+
+
+
 using networking::Server;
 using networking::Connection;
 using networking::Message;
 
 std::vector<Connection> clients;
-GameManager gm{};
+
 
 void
 onConnect(Connection c) {

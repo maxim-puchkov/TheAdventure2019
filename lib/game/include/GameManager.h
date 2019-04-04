@@ -11,31 +11,8 @@
 #include "CharacterManager.h"
 #include "AreaGenerator.h"
 
-#include "Command.h"
-#include "CommandLogin.h"
-#include "CommandLogout.h"
-#include "CommandCreate.h"
-#include "CommandHelp.h"
-#include "CommandSay.h"
-#include "CommandTell.h"
-#include "CommandYell.h"
-#include "CommandLook.h"
-#include "CommandExamine.h"
-#include "CommandMove.h"
-#include "CommandCreateAva.h"
-#include "CommandEditAva.h"
-#include "CommandEditRoom.h"
-#include "CommandCreateRoom.h"
-#include "CommandUse.h"
-#include "CommandEquip.h"
-#include "CommandPickup.h"
-#include "CommandDrop.h"
-#include "CommandPut.h"
-#include "CommandMinigame.h"
-#include "CommandCombat.h"
-#include "CommandAttack.h"
-#include "CommandFlee.h"
-#include "CommandCast.h"
+#include "GamePrefixHeader.pch"
+
 
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
