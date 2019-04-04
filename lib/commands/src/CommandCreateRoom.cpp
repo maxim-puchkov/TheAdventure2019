@@ -8,7 +8,7 @@ void CommandCreateRoom::executeInHeartbeat(const std::string& username, const st
     auto role = onlineUserManager.getUserRole(username);
     switch(role) {
         case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
-            std::cout << "Please log in again.\n";
+            std::cout << stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN);
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
             //don't let normal user know that this syntax exists

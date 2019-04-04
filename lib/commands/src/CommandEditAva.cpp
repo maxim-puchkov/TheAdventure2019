@@ -21,7 +21,7 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
                        stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX));
             }
             case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN:{
-                std::string answer = "NPC does not exist. Please enter NPC name\n";
+                std::string answer = stringManager.getString(Internationalization::STRING_CODE::NPC_DOES_NOT_EXIST);
                 bool found = false;
                 auto& currentRoom = worldManager.findRoomByLocation(location);
                 auto& listNPCsInRoom = currentRoom.getNPCs();
@@ -45,7 +45,10 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
                                 npc.setName(fullCommand[3]);
                             }
                         }
-                        answer = "Edited NPC's name: " + fullCommand[3] + "\n";
+                        answer = 
+                            stringManager.getString(Internationalization::STRING_CODE::EDITED_NPC_NAME) + 
+                            fullCommand[3] + 
+                            "\n";
                     }else if(fullCommand[2] == "desc"){
                         //update npc in characterManager
                         for(auto& npc : listNPCs){
@@ -53,7 +56,10 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
                                 npc.setLongdesc(fullCommand[3]);
                             }
                         }
-                        answer = "Edited NPC's description: " + fullCommand[1] + "\n";
+                        answer = 
+                        stringManager.getString(Internationalization::STRING_CODE::EDITED_NPC_DESCRIPTION) + 
+                        fullCommand[1] + 
+                        "\n";
                     }else if(fullCommand[2] == "delete"){
                         //update npc in room
                         int index = 0;
@@ -71,7 +77,10 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
                             }
                             indexChar++;
                         }
-                        answer = "Deleted NPC: " + fullCommand[1] + "\n";
+                        answer = 
+                        stringManager.getString(Internationalization::STRING_CODE::DELETED_NPC) + 
+                        fullCommand[1] + 
+                        "\n";
                     }
                 }
                 return answer;

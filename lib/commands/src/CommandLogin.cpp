@@ -25,7 +25,14 @@ std::string CommandLogin::executePromptReply(const std::string& connectionID, co
 				auto spawnLocation = characterManager.spawnCharacter(fullCommand[1], LocationCoordinates{"Mirkwood", roomToSpawnUser});
 				auto room = worldManager.findRoomByLocation(spawnLocation);
 			    worldManager.spawn(fullCommand[1], spawnLocation);	    
-			    reply << "Current location: Area:" << spawnLocation.area << ", Room: " << room.getName() << "\n";
+			    reply << (
+							stringManager.getString(Internationalization::STRING_CODE::CURRENT_LOCATION),
+						  	stringManager.getString(Internationalization::STRING_CODE::AREA)
+						 )
+					  << spawnLocation.area 
+					  << (", ", stringManager.getString(Internationalization::STRING_CODE::ROOM), ": ") 
+					  << room.getName() 
+					  << "\n";
 			}
 
 			return reply.str();

@@ -10,11 +10,14 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
         auto role = onlineUserManager.getUserRole(username);
         switch(role) {
             case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
-                return "Please log in again.\n";
+                return stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN);
             }
             case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
                 //don't let normal user know that this syntax exists
-                return "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+                return (
+                    stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX), 
+                    stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX)
+                );
             }
             //Creating non-user characters
             case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
@@ -49,7 +52,7 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
         auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
         //kicked for being idle for too long
         if(username == "") {
-            return "Please log in again.\n";
+            return stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN);
         }
 
         //TODO: split avatar name and username (now only use username)
@@ -58,7 +61,7 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
             case charactermanager::CharacterManager::CHARACTER_CODE::CHARACTER_CREATED: {
                 auto roomToSpawnUser = worldManager.getRoomToSpawnUser();
                 characterManager.spawnCharacter(username, LocationCoordinates{"Mirkwood", roomToSpawnUser});
-                return "Avatar created.\nPlease enter \"edit-avatar shortdesc: [value]\" to customize your character.\n";
+                return stringManager.getString(Internationalization::STRING_CODE::AVATAR_CREATED);
             }
             default:
             //error

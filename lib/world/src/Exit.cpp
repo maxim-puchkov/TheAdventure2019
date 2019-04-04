@@ -79,7 +79,7 @@ using namespace std;
 
     const string Exit::getExitDescription() const {
         if (exitDescription.empty()) {
-            return " This exit has no description! \n";
+            return stringManager.getString(Internationalization::STRING_CODE::THIS_EXIT_HAS_NO_DESC);
         }
         return exitDescription;
     }

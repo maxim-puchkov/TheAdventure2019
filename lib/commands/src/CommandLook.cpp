@@ -30,7 +30,7 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     const std::string &listOfExits = room.listExits();
 
     if (fullCommand.size() == 1) {
-        std::string allUsersInRoom = " Users in room are : \n";
+        std::string allUsersInRoom = stringManager.getString(Internationalization::STRING_CODE::USERS_IN_ROOM_ARE);
         for (const std::string &userA : room.getUserNames()) {
             allUsersInRoom.append( characterManager.getShortDescription(userA) );
         }
@@ -48,11 +48,14 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
         auto role = onlineUserManager.getUserRole(userName);
         switch(role) {
             case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
-                std::cout << "Please log in again.\n";
+                std::cout << stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN);
             }
             case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
                 //don't let normal user know that this syntax exists
-                std::cout <<  "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+                std::cout <<  (
+                    stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX), 
+                    stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX)
+                );
             }
             case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
                 auto location = characterManager.getCharacterLocation(userName);

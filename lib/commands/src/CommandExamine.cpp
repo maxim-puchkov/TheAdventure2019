@@ -15,7 +15,7 @@ void CommandExamine::executeInHeartbeat(const std::string& username, const std::
     }else if(fullCommand[1] == "npcs"){
         auto currentRoom = worldManager.findRoomByLocation(location);
         auto NPCs = currentRoom.getNPCs();
-        std::string returnMessage = "NPC in room: \n";
+        std::string returnMessage = stringManager.getString(Internationalization::STRING_CODE::NPC_IN_ROOM);
         for(auto npc : NPCs) {
             returnMessage += "- " + npc;
             returnMessage += "\n";

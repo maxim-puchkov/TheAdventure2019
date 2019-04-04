@@ -184,10 +184,26 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::EAST_GATE, "east_gate");
     generateDefaultStrings(Internationalization::STRING_CODE::NORTH_GATE, "north_gate");
 
+    generateDefaultStrings(Internationalization::STRING_CODE::LOCATION_COORDINATES, "location_coordinates");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::INVALID_USERNAME_CREATE_MESSAGE, "invalid_username_create_message");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::NPC_DOES_NOT_EXIST, "npc_does_not_exist");
+    generateDefaultStrings(Internationalization::STRING_CODE::EDITED_NPC_NAME, "edited_npc_name");
+    generateDefaultStrings(Internationalization::STRING_CODE::EDITED_NPC_DESCRIPTION, "edited_npc_description");
+    generateDefaultStrings(Internationalization::STRING_CODE::DELETED_NPC, "deleted_npc");
+    generateDefaultStrings(Internationalization::STRING_CODE::NPC_IN_ROOM, "npc_in_room");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::USERS_IN_ROOM_ARE, "users_in_room_are");
+    generateDefaultStrings(Internationalization::STRING_CODE::EXIT_TO, "exit_to");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::THIS_EXIT_HAS_NO_DESC, "this_exit_has_no_desc");
+
     generateDefaultStrings(Internationalization::STRING_CODE::CHARACTERS_JSON_FILE_NAME, "characters_json_file_name");
-    generateDefaultStrings(Internationalization::STRING_CODE::CREATE_CHARACTER_SHORTDESC, "create_character_shortdesc");
-    generateDefaultStrings(Internationalization::STRING_CODE::CREATE_CHARACTER_LONGDESC, "create_character_longdesc");
-    generateDefaultStrings(Internationalization::STRING_CODE::CREATE_CHARACTER_DESC, "create_character_desc");
+    generateDefaultStrings(Internationalization::STRING_CODE::SHORTDESC, "shortdesc");
+    generateDefaultStrings(Internationalization::STRING_CODE::LONGDESC, "longdesc");
+    generateDefaultStrings(Internationalization::STRING_CODE::DESC, "desc");
+    generateDefaultStrings(Internationalization::STRING_CODE::KEYWORDS, "keywords");
     generateDefaultStrings(Internationalization::STRING_CODE::CHARACTER_FIRST_TIME_SETUP, "character_first_time_setup");
 }
 
