@@ -48,7 +48,7 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         }
 
     } else if (firstCommand == stringManager.getString(Internationalization::STRING_CODE::CHALLENGE) || 
-                firstCommand == stringManager.getString(Internationalization::STRING_CODE::INVITE) {
+                firstCommand == stringManager.getString(Internationalization::STRING_CODE::INVITE)) {
 
         auto &challengedName = fullCommand.at(2);
         miniGameLobby.createInvite(username, challengedName);
@@ -113,12 +113,15 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         return;
 
     } else if (firstCommand == stringManager.getString(Internationalization::STRING_CODE::PRINT)) {
-        if (fullCommand.at(2) == stringManager.getString(Internationalization::STRING_CODE::GAMES)
+        if (fullCommand.at(2) == stringManager.getString(Internationalization::STRING_CODE::GAMES)) {
             onlineUserManager.addMessageToUser(username, miniGameLobby.printGames());
-        if (fullCommand.at(2) == stringManager.getString(Internationalization::STRING_CODE::INVITES)
+        }
+        if (fullCommand.at(2) == stringManager.getString(Internationalization::STRING_CODE::INVITES)) {
             onlineUserManager.addMessageToUser(username, miniGameLobby.printInvites());
+        }
         return;
     }
+
 
 
     vector<string> &players = playerMatch.getPlayers();
