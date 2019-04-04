@@ -110,15 +110,15 @@ private:
     
     Text cut() const;
     
+    /// Source string is saved to allow reformatting
+    ui::UIText source;
+    
     /// First line of long description
     Text shortdesc;
     
     /// Full description broken down into lines of
     /// specified length
     vector<Text> longdesc;
-    
-    /// Source string is saved to allow reformatting
-    ui::UIText source;
     
     /// Width of one line
     size_t width;
