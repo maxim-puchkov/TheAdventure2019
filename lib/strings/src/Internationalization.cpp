@@ -199,10 +199,37 @@ void Internationalization::bindEnumToKey() {
 
     generateDefaultStrings(Internationalization::STRING_CODE::THIS_EXIT_HAS_NO_DESC, "this_exit_has_no_desc");
 
+    generateDefaultStrings(Internationalization::STRING_CODE::CHALLENGE, "challenge");
+    generateDefaultStrings(Internationalization::STRING_CODE::ACCEPT, "accept");
+    generateDefaultStrings(Internationalization::STRING_CODE::JOIN, "join");
+    generateDefaultStrings(Internationalization::STRING_CODE::NPC, "NPC");
+    generateDefaultStrings(Internationalization::STRING_CODE::DESC, "desc");
+    generateDefaultStrings(Internationalization::STRING_CODE::DELETE, "delete");
+    generateDefaultStrings(Internationalization::STRING_CODE::EXIT, "exit");
+    generateDefaultStrings(Internationalization::STRING_CODE::DEFAULT_NAME, "default_name");
+    generateDefaultStrings(Internationalization::STRING_CODE::NO_ROOM_NAME, "no_room_name");
+    generateDefaultStrings(Internationalization::STRING_CODE::ADMIN_EXIT, "admin_exit");
+    generateDefaultStrings(Internationalization::STRING_CODE::NPCS, "NPCS");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::ACCOUNT, "account");
+    generateDefaultStrings(Internationalization::STRING_CODE::AVATAR_LOWER, "avatar_lower");
+    generateDefaultStrings(Internationalization::STRING_CODE::COMMUNICATION, "communication");
+    generateDefaultStrings(Internationalization::STRING_CODE::WORLD_INTERACTION, "world_interaction");
+    generateDefaultStrings(Internationalization::STRING_CODE::INVENTORY, "inventory");
+    generateDefaultStrings(Internationalization::STRING_CODE::WORLD, "WORLD");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::QUIT, "quit");
+    generateDefaultStrings(Internationalization::STRING_CODE::PRINT, "print");
+    generateDefaultStrings(Internationalization::STRING_CODE::GAMES, "games");
+    generateDefaultStrings(Internationalization::STRING_CODE::INVITES, "invites");
+    generateDefaultStrings(Internationalization::STRING_CODE::START, "start");
+    generateDefaultStrings(Internationalization::STRING_CODE::INVITE, "invites");
+    generateDefaultStrings(Internationalization::STRING_CODE::INVALID_MESSAGE, "invalid_message");
+
     generateDefaultStrings(Internationalization::STRING_CODE::CHARACTERS_JSON_FILE_NAME, "characters_json_file_name");
     generateDefaultStrings(Internationalization::STRING_CODE::SHORTDESC, "shortdesc");
     generateDefaultStrings(Internationalization::STRING_CODE::LONGDESC, "longdesc");
-    generateDefaultStrings(Internationalization::STRING_CODE::DESC, "desc");
+    generateDefaultStrings(Internationalization::STRING_CODE::DESCRIPTION, "description");
     generateDefaultStrings(Internationalization::STRING_CODE::KEYWORDS, "keywords");
     generateDefaultStrings(Internationalization::STRING_CODE::CHARACTER_FIRST_TIME_SETUP, "character_first_time_setup");
 }

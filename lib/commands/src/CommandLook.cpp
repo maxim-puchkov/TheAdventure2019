@@ -38,10 +38,10 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
                                                       worldManager.look(location) + "\n"));
 
         return;
-    } else if (fullCommand.at(1) == "exits") {
+    } else if (fullCommand.at(1) == stringManager.getString(Internationalization::STRING_CODE::EXITS)) {
         onlineUserManager.addMessageToUser(userName, (worldManager.listExits(location) + "\n"));
         return;
-    }else if(fullCommand.at(1) == "world"){
+    }else if(fullCommand.at(1) == stringManager.getString(Internationalization::STRING_CODE::WORLD)){
         //use for admin. look world => output the list of room
         //TODO: for some reasons the server does not print the full string
         //      if the string is too long. Only print the second half of the string.

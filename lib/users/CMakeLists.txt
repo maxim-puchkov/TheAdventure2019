@@ -18,6 +18,7 @@ target_link_libraries(${libusers}
         ${libcharacters}
 	${libparsers}
 	${libuserdb}
+	${libstrings}
     PRIVATE
         ${Boost_LIBRARIES}
 )

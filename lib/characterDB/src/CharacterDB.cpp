@@ -19,10 +19,10 @@ bool CharacterDB::createCharacter(const std::string& name){
         return false;
     }
     else{
-        characters_json[name][stringManager.getString(Internationalization::STRING_CODE::SHORTDESC)] = "";
-        characters_json[name][stringManager.getString(Internationalization::STRING_CODE::LONGDESC)] = "";
-        characters_json[name][stringManager.getString(Internationalization::STRING_CODE::DESC)] = "";
-        characters_json[name][stringManager.getString(Internationalization::STRING_CODE::CHARACTER_FIRST_TIME_SETUP)] = false;
+        characters_json[name]["shortdesc"] = "";
+        characters_json[name]["longdesc"] = "";
+        characters_json[name]["description"] = "";
+        characters_json[name]["FirstTimeSetup"] = false;
         characters_json[name]["LocationCoordinates"]["area"] = "Mirkwood";
         characters_json[name]["LocationCoordinates"]["room"] = 8800;
 
@@ -40,10 +40,10 @@ bool CharacterDB::updateCharacter(Character& character){
         return false;
     }
     else{
-        characters_json[characterName][stringManager.getString(Internationalization::STRING_CODE::SHORTDESC)] = character.getShortdesc();
-        characters_json[characterName][stringManager.getString(Internationalization::STRING_CODE::LONGDESC)] = character.getLongdesc();
-        characters_json[characterName][stringManager.getString(Internationalization::STRING_CODE::DESC)] = character.getDescription();
-        characters_json[characterName][stringManager.getString(Internationalization::STRING_CODE::CHARACTER_FIRST_TIME_SETUP)] = character.getIsDoneFirstTimeSetup();
+        characters_json[characterName]["shortdesc"] = character.getShortdesc();
+        characters_json[characterName]["longdesc"] = character.getLongdesc();
+        characters_json[characterName]["description"] = character.getDescription();
+        characters_json[characterName]["FirstTimeSetup"] = character.getIsDoneFirstTimeSetup();
         characters_json[characterName]["LocationCoordinates"]["area"] = character.getCurrentLocation().area;
         characters_json[characterName]["LocationCoordinates"]["room"] = character.getCurrentLocation().room;
 
@@ -62,10 +62,10 @@ Character CharacterDB::getCharacter(const std::string& name){
         //cout<<"Character FOUND\n";
         // cout << characters_json ;
         Character character{name};
-        character.setLongdesc(characters_json[name][stringManager.getString(Internationalization::STRING_CODE::LONGDESC)]);
-        character.setShortdesc(characters_json[name][stringManager.getString(Internationalization::STRING_CODE::SHORTDESC)]);
-        character.setDescription(characters_json[name][stringManager.getString(Internationalization::STRING_CODE::DESC)]);
-        character.setFirstTimeSetup(characters_json[name][stringManager.getString(Internationalization::STRING_CODE::CHARACTER_FIRST_TIME_SETUP)]);
+        character.setLongdesc(characters_json[name]["longdesc"]);
+        character.setShortdesc(characters_json[name]["shortdesc"]);
+        character.setDescription(characters_json[name]["description"]);
+        character.setFirstTimeSetup(characters_json[name]["FirstTimeSetup"]);
         character.setCurrentLocation(LocationCoordinates{characters_json[name]["LocationCoordinates"]["area"],characters_json[name]["LocationCoordinates"]["room"]});
 /*
         cout << character.getName() << " \n";

@@ -16,9 +16,10 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
             }
             case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER:{
                 //don't let normal user know that this syntax exists
-                return (stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX), 
-                       " ", 
-                       stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX));
+                return (stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX) + " " +
+                    stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER) + "\"" +
+                    stringManager.getString(Internationalization::STRING_CODE::COMMAND_HELP) + "\"" +
+                    stringManager.getString(Internationalization::STRING_CODE::TO_SEE_SUPPORTED_SYNTAX));
             }
             case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN:{
                 std::string answer = stringManager.getString(Internationalization::STRING_CODE::NPC_DOES_NOT_EXIST);
@@ -32,7 +33,7 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
                 }
                 if(found){
                     auto& listNPCs = characterManager.getListNPCs();
-                    if(fullCommand[2] == "name"){   
+                    if(fullCommand[2] == stringManager.getString(Internationalization::STRING_CODE::NAME)){   
                         //update npc in room
                         for(auto& npc : listNPCsInRoom){
                             if(npc == fullCommand[1]){
@@ -49,7 +50,7 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
                             stringManager.getString(Internationalization::STRING_CODE::EDITED_NPC_NAME) + 
                             fullCommand[3] + 
                             "\n";
-                    }else if(fullCommand[2] == "desc"){
+                    }else if(fullCommand[2] == stringManager.getString(Internationalization::STRING_CODE::DESC)){
                         //update npc in characterManager
                         for(auto& npc : listNPCs){
                             if(npc.getName() == fullCommand[1]){
@@ -60,7 +61,7 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
                         stringManager.getString(Internationalization::STRING_CODE::EDITED_NPC_DESCRIPTION) + 
                         fullCommand[1] + 
                         "\n";
-                    }else if(fullCommand[2] == "delete"){
+                    }else if(fullCommand[2] == stringManager.getString(Internationalization::STRING_CODE::DELETE)){
                         //update npc in room
                         int index = 0;
                         for(auto& npc : listNPCsInRoom){

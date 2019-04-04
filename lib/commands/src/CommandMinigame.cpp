@@ -22,7 +22,7 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
     auto &playerMatch = miniGameLobby.getMatchWithPlayer(username);
     auto &firstCommand = fullCommand.at(1);
 
-    if (firstCommand == "start") {
+    if (firstCommand == stringManager.getString(Internationalization::STRING_CODE::START)) {
 
         miniGameLobby.createGame(username);
         onlineUserManager.addMessageToUser(
@@ -30,7 +30,7 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
             stringManager.getString(Internationalization::STRING_CODE::STARTED_GAME)
         );
 
-    } else if (firstCommand == "move") {
+    } else if (firstCommand == stringManager.getString(Internationalization::STRING_CODE::COMMAND_MOVE)) {
 
         if (playerMatch.getAdminName() == "null") {
             onlineUserManager.addMessageToUser(
@@ -47,7 +47,8 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
             onlineUserManager.addMessageToUser(username, std::move(msg));
         }
 
-    } else if (firstCommand == "challenge" || firstCommand == "invite") {
+    } else if (firstCommand == stringManager.getString(Internationalization::STRING_CODE::CHALLENGE) || 
+                firstCommand == stringManager.getString(Internationalization::STRING_CODE::INVITE) {
 
         auto &challengedName = fullCommand.at(2);
         miniGameLobby.createInvite(username, challengedName);
@@ -63,7 +64,8 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         onlineUserManager.addMessageToUser(username, 
                                           (stringManager.getString(Internationalization::STRING_CODE::AWAITING_RESPONSE_FROM) + challengedName + "\n"));
 
-    } else if (firstCommand == "join" || firstCommand == "accept") {
+    } else if (firstCommand == stringManager.getString(Internationalization::STRING_CODE::JOIN) || 
+        firstCommand == stringManager.getString(Internationalization::STRING_CODE::ACCEPT)) {
 
         if (miniGameLobby.confirmInvite(username)) {
             miniGameLobby.removeInvite(username);
@@ -90,25 +92,30 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
                                                stringManager.getString(Internationalization::STRING_CODE::INVITE_DOES_NOT_EXIST_OR_FULL));
         }
 
-    } else if (firstCommand == "quit" || firstCommand == "exit") {
+    } else if (firstCommand == stringManager.getString(Internationalization::STRING_CODE::QUIT) || 
+        firstCommand == stringManager.getString(Internationalization::STRING_CODE::EXIT)) {
 
         auto &playerMatch = miniGameLobby.getMatchWithPlayer(username);
         if (playerMatch.getAdminName() == "null") {
-            onlineUserManager.addMessageToUser(username, 
-                                               stringManager.getString(Internationalization::STRING_CODE::YOU_ARE_NOT_IN_ANY_MINIGAMES));
+            onlineUserManager.addMessageToUser(
+                username, 
+                stringManager.getString(Internationalization::STRING_CODE::YOU_ARE_NOT_IN_ANY_MINIGAMES)
+            );
         }
         playerMatch.removePlayer(username);
         if (playerMatch.getCurrentPlayers() == 0) {
             miniGameLobby.deleteGame(playerMatch.getAdminName());
         }
-        onlineUserManager.addMessageToUser(username, 
-                                           stringManager.getString(Internationalization::STRING_CODE::YOU_LEFT_GAME));
+        onlineUserManager.addMessageToUser(
+            username, 
+            stringManager.getString(Internationalization::STRING_CODE::YOU_LEFT_GAME)
+        );
         return;
 
-    } else if (firstCommand == "print") {
-        if (fullCommand.at(2) == "games")
+    } else if (firstCommand == stringManager.getString(Internationalization::STRING_CODE::PRINT)) {
+        if (fullCommand.at(2) == stringManager.getString(Internationalization::STRING_CODE::GAMES)
             onlineUserManager.addMessageToUser(username, miniGameLobby.printGames());
-        if (fullCommand.at(2) == "invites")
+        if (fullCommand.at(2) == stringManager.getString(Internationalization::STRING_CODE::INVITES)
             onlineUserManager.addMessageToUser(username, miniGameLobby.printInvites());
         return;
     }
@@ -154,16 +161,16 @@ std::vector<std::string> CommandMinigame::reassembleCommand(std::string& fullCom
         //split by " "
         boost::split(processedCommand, splitByComma[0], boost::is_any_of(" \t"), boost::token_compress_on);        
         if(processedCommand.size() == 2) {
-            commandIsValid = (processedCommand[1] == "accept" ||
-                                processedCommand[1] == "start" ||
-                                processedCommand[1] == "quit");
+            commandIsValid = (processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::ACCEPT) ||
+                                processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::START) ||
+                                processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::QUIT));
         
         } else if(processedCommand.size() == 3) {
             //reassemble the command
-            commandIsValid = (processedCommand[1] == "accept" ||
-                                processedCommand[1] == "join" ||
-                                processedCommand[1] == "challenge" ||
-                                processedCommand[1] == "print");
+            commandIsValid = (processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::ACCEPT) ||
+                                processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::JOIN) ||
+                                processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::CHALLENGE) ||
+                                processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::PRINT));
         }
     }
 
@@ -185,7 +192,7 @@ std::vector<std::string> CommandMinigame::reassembleMinigameMove(std::vector<std
         return processedCommand;
     }
 
-    if(leftSide[1] != "move") {
+    if(leftSide[1] != stringManager.getString(Internationalization::STRING_CODE::COMMAND_MOVE)) {
         return processedCommand;
     }
 

@@ -12,7 +12,7 @@ void CommandExamine::executeInHeartbeat(const std::string& username, const std::
 
 	if(fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::EXITS)){
 	    onlineUserManager.addMessageToUser(username, (worldManager.listExits(location) + "\n"));
-    }else if(fullCommand[1] == "npcs"){
+    }else if(fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::NPCS)){
         auto currentRoom = worldManager.findRoomByLocation(location);
         auto NPCs = currentRoom.getNPCs();
         std::string returnMessage = stringManager.getString(Internationalization::STRING_CODE::NPC_IN_ROOM);

@@ -80,7 +80,7 @@ std::vector<std::string> CommandCreateAva::reassembleCommand(std::string& fullCo
     //split by " " and compress all long spaces
     boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
     if(processedCommand.size() == 3) {
-        if(processedCommand[2] == "npc"){
+        if(processedCommand[2] == stringManager.getString(Internationalization::STRING_CODE::NPC)){
             std::cout << processedCommand[2] << "\n";
             commandIsValid = true;
         }

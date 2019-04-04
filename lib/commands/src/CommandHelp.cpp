@@ -14,19 +14,19 @@ std::string CommandHelp::executePromptReply(const std::string& connectionID, con
     if(fullCommand.size() == 1) {
         answer << printUtilityCommands(userRole);
     } else {
-        if(fullCommand[1] == "account") {
+        if(fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::ACCOUNT)) {
             answer << printAccountCommands(userRole);
-        } else if (fullCommand[1] == "avatar") {
+        } else if (fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::AVATAR_LOWER)) {
             answer << printAvatarCommands(userRole);
-        } else if (fullCommand[1] == "communication") {
+        } else if (fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::COMMUNICATION)) {
             answer << printCommunicationCommands(userRole);
-        } else if (fullCommand[1] == "world-interaction") {
+        } else if (fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::WORLD_INTERACTION)) {
             answer << printWorldInteractionCommands(userRole);
-        } else if (fullCommand[1] == "inventory") {
+        } else if (fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::INVENTORY)) {
             answer << printInventoryCommands(userRole);
-        } else if (fullCommand[1] == "minigame") {
+        } else if (fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::COMMAND_MINIGAME)) {
             answer << printMinigameCommands(userRole);
-        } else if (fullCommand[1] == "combat") {
+        } else if (fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::COMMAND_COMBAT)) {
             answer << printCombatCommands(userRole);
         } else {
             answer << (stringManager.getString(Internationalization::STRING_CODE::COMMAND_NOT_FOUND),

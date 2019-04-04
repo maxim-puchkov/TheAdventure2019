@@ -184,10 +184,37 @@ class Internationalization {
 
        THIS_EXIT_HAS_NO_DESC,
 
+       CHALLENGE,
+       ACCEPT,
+       JOIN,
+       NPC,
+       DESC,
+       DELETE,
+       EXIT,
+       DEFAULT_NAME,
+       NO_ROOM_NAME,
+       ADMIN_EXIT,
+       NPCS,
+
+       ACCOUNT,
+       AVATAR_LOWER,
+       COMMUNICATION,
+       WORLD_INTERACTION,
+       INVENTORY,
+       WORLD,
+
+       QUIT,
+       PRINT,
+       GAMES,
+       INVITES,
+       START,
+       INVITE,
+       INVALID_MESSAGE,
+
        CHARACTERS_JSON_FILE_NAME,
        SHORTDESC,
        LONGDESC,
-       DESC,
+       DESCRIPTION,
        KEYWORDS,
        CHARACTER_FIRST_TIME_SETUP
     };
