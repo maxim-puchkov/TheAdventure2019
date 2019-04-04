@@ -3,7 +3,10 @@
 
 int heartBeatDuration = 50;
 
-GameManager::GameManager() {
+GameManager::GameManager()
+: authenticator(new Authenticator<Identifier>(0)),
+world(authenticator),
+characterManager(authenticator) {
     // Making the World using the JSON files
     AreaGenerator areaGen{};
     std::vector<std::string> areaJSONs = 

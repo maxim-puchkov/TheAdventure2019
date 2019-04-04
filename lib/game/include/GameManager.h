@@ -12,27 +12,34 @@
 #include "AreaGenerator.h"
 
 #include "GamePrefixHeader.pch"
+#include "auth.hpp"
 
 
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
+using auth::Authenticator;
+using auth::Identifier;
 
-class GameManager{
 
+class GameManager {
 private:
-    WorldManager world{};
-    OnlineUserManager onlineUserManager{};
-    CharacterManager characterManager{};
-    std::unordered_map<std::string, std::unique_ptr<Command>> tableOfCommands;
     
+    WorldManager world;
+    OnlineUserManager onlineUserManager{};
+    CharacterManager characterManager;
+    
+    std::unordered_map<std::string, std::unique_ptr<Command>> tableOfCommands;
     std::string extractKeyword(std::string& fullCommand);
     void createTableOfCommands();
 
-
+    const Authenticator<Identifier> *const authenticator;
+    
 public:
+    
     GameManager();
     std::string extractCommands(const std::string& connectionID, std::string fullCommand);
     std::unique_ptr<std::unordered_map<std::string, std::string>> heartbeat();
+    
 };
 
 #endif //GAMEMANAGER_H
