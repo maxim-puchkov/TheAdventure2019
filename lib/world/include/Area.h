@@ -17,7 +17,7 @@ class Area {
         int firstRoomInTheArea;
         int nextRoomID;
         Room nullRoom{};
-        std::vector<Character> NPCS;
+        //std::vector<Character> NPCS;
     public:
         Area()
                 : name("DEFAULT_NAME"),
@@ -56,12 +56,12 @@ class Area {
         int getFirstRoomID() {
             return firstRoomInTheArea;
         }
-        void setNPCs(std::vector<Character> NPCs){
-            NPCS = NPCs;
-        };
+        // void setNPCs(std::vector<Character> NPCs){
+        //     NPCS = NPCs;
+        // };
         bool addNPCtoRooms(std::string shortDesc, int ID);
-        std::vector<Character> & getNPCs() {return NPCS;}
-        std::string listNPCs();
+        // std::vector<Character> & getNPCs() {return NPCS;}
+        // std::string listNPCs();
         void updateRoomExits(int id, std::string name);
 
         //for admin

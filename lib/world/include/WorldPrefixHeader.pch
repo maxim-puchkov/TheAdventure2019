@@ -1,0 +1,22 @@
+//
+//  WorldPrefixHeader.pch
+//  Objects: Objects
+//  com.maximpuchkov.Objects.Objects.WorldPrefixHeader
+//
+//  Created by mpuchkov on 2019-03-29. macOS 10.13, Xcode 10.1.
+//  Copyright © 2019 Maxim Puchkov. All rights reserved.
+//
+
+#ifndef WorldPrefixHeader_pch
+#define WorldPrefixHeader_pch
+
+
+#include <string>
+#include <vector>
+#include <memory>
+#include <exception>
+#include <cstdlib>
+#include <stdint.h>
+
+
+#endif /* WorldPrefixHeader_pch */
