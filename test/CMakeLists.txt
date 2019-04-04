@@ -10,7 +10,7 @@ add_executable(runAllTests
 #	  AttributesTest.cpp
 
 # Minigame
-    testChessBoard.cpp
+    TestChessBoard.cpp
 
 # Item Data Classes
 #     KeywordsTests.cpp
@@ -29,6 +29,7 @@ target_link_libraries(runAllTests
     gtest_main
 
     simpleLibrary
+
     ${minigame}
 #    ${characters}
 
