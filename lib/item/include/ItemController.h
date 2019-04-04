@@ -21,6 +21,7 @@
 
 namespace items {
 
+using auth::Identifier;
 using auth::Authenticator;
 using ItemIdentifier = Identifier;
 
@@ -34,8 +35,6 @@ static long iccc = 0;
  @class ItemController
  
  @brief Controlls location and ownership of all items in the game world.
- 
- 
  */
 template<typename Key>
 class ItemController {
@@ -66,17 +65,18 @@ public:
     
     
     
+    
     /* Item Controller constructors */
     
-    // Using new authenticator
-    ItemController()
-    : controller_id(0), authenticator(Authenticator<ItemIdentifier>()) {
-        this->init();
-    }
+//    // Using new authenticator
+//    ItemController()
+//    : controller_id(0), authenticator(Authenticator<ItemIdentifier>()) {
+//        this->init();
+//    }
     
     // Using shared authenticator
-    ItemController(const Authenticator<ItemIdentifier> &auth)
-    : controller_id(auth.parent_id), authenticator(auth) {
+    ItemController(const Authenticator<Identifier> *const authenticator)
+    : controller_id(authenticator->parent_id), authenticator(authenticator) {
         this->init();
     }
     
@@ -166,7 +166,7 @@ public:
     }
     /*! Generate unique id and build a new item */
     Item buildUniqueItem() const noexcept {
-        ItemIdentifier id = this->authenticator.generateUniqueIdentifier();
+        ItemIdentifier id = this->authenticator->generateUniqueIdentifier();
         return this->builder.build(id);
     }
     
@@ -342,7 +342,7 @@ private:
     mutable size_t created = 0;
     
     /*! Local item authenticator */
-    const Authenticator<ItemIdentifier> authenticator;
+    const Authenticator<Identifier> *const authenticator;
     
     
     
