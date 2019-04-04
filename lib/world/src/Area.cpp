@@ -18,8 +18,9 @@ Room& Area::getRoom(int roomId) {
     auto search = roomList.find(roomId);
     if(search != roomList.end()) {
         return search->second;
-    }else{
-        return nullRoom;
+    } else {
+        // return nullRoom;
+        throw roomId;
     }
 }
 

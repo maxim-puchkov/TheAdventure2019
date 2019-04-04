@@ -15,10 +15,13 @@
 
 
 using items::ItemController;
-using WorldIdentifier = uint64_t;
+using auth::Authenticator;
+using auth::Identifier;
+
 
 // Debug WM construction counter
 static long wmcc = 0;
+
 
 class WorldManager {
 private:
@@ -26,10 +29,14 @@ private:
     std::unordered_map<std::string, Area> areas;
     int roomToSpawnUser;
     Area nullArea{};
+    
+    Identifier requestUniqueIdentifier() const;
+    const Authenticator<Identifier> *const authenticator;
+    
 public:
     
     
-    WorldManager();
+    WorldManager(const Authenticator<Identifier> *const authenticator);
     void generateWorld();
     Room& findRoomByLocation(LocationCoordinates location);
 
@@ -54,7 +61,7 @@ public:
 
     void addArea(Area area);
     /*! All items are created and stored in the item controller */
-    const ItemController<WorldIdentifier> items;
+    const ItemController<Identifier> items;
     
 };
 

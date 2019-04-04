@@ -3,8 +3,8 @@
 #include "WorldManager.h"
 #include "AreaGenerator.h"
 
-WorldManager::WorldManager()
-: items(ItemController<WorldIdentifier>()) {
+WorldManager::WorldManager(const Authenticator<Identifier> *const authenticator)
+: authenticator(authenticator), items(authenticator) {
     debug::prefix("World");
     debug::print("World created");
     wmcc++;
@@ -16,8 +16,8 @@ WorldManager::WorldManager()
     vector<Action> vec{Action("read", " < items are now working > ")};
 
     // Choose where item is created
-    WorldIdentifier room_id = 0;
-    WorldIdentifier character_id = 123;
+    Identifier room_id = 0;
+    Identifier character_id = 123;
     
     
     // Creates first item in room (id: 0)
@@ -182,7 +182,10 @@ std::string WorldManager::look(LocationCoordinates location, std::string objName
 }
 
 void WorldManager::createRoom(const LocationCoordinates & location, const std::string& direction, const std::string& name) {
-    Room room{name, "Admin generated"};
+    
+    Identifier roomContainer = this->requestUniqueIdentifier();
+    
+    Room room{name, "Admin generated", roomContainer};
     int roomID = areas[location.area].getNextRoomID();
     room.setRoomID(roomID);
     areas[location.area].addRoom(room);
@@ -249,4 +252,9 @@ Area& WorldManager::getAreaByLocation(LocationCoordinates location){
         return search->second;
     }
     return nullArea;
+}
+
+
+Identifier WorldManager::requestUniqueIdentifier() const {
+    return this->authenticator->generateUniqueIdentifier();
 }

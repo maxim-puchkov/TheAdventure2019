@@ -13,26 +13,40 @@
 // #include "Character.h"
 #include "LocationCoordinates.h"
 #include <algorithm>
+#include "auth.hpp"
 // #include "NPC.h"
 
-class Room {
 
+using auth::Authenticator;
+using auth::Identifier;
+
+
+class Room {
 private:
+    
     int roomId;
     std::string roomName;
     std::string roomDescription;
     std::vector<std::string> charactersInRoom;
     std::vector<std::string> NPCsInRoom;
     std::vector<Exit> exitsInRoom;
+    
 public:
-    Room()
-            : roomName("NO_ROOM_NAME"),
-              roomDescription("NO_ROOM_DESCRIPTION")
-    {}
-    Room(std::string rName, std::string rDescription)
-            : roomName(std::move(rName)),
-              roomDescription(std::move(rDescription))
-    {}
+    
+    const Identifier container_id;
+    
+    Room(Identifier cid)
+    : roomName("NO_ROOM_NAME"),
+    roomDescription("NO_ROOM_DESCRIPTION"),
+    container_id(cid)
+    { }
+    
+    Room(std::string rName, std::string rDescription, Identifier cid)
+    : roomName(std::move(rName)),
+    roomDescription(std::move(rDescription)),
+    container_id(cid)
+    { }
+    
     LocationCoordinates findExitLocation(const std::string& cardinalDirection) const;
     bool createExit(const std::string& exitName, const std::string& exitDescription,
                     const std::string& cardinalDirection, std::string areaID, int roomID);

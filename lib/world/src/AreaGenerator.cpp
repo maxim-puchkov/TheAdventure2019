@@ -45,7 +45,7 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
     int lastRoomID = 0;
     for (auto room: rooms) {
 
-        Room roomObj{};
+        Room roomObj{room["id"]};
         std::string roomDesc = jsonParser.json2string(room["desc"]);
         roomObj.setRoomID(room["id"]);
         roomObj.setName(room["name"]);

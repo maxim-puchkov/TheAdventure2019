@@ -16,7 +16,7 @@ class Area {
         std::unordered_map<int, Room> roomList;
         int firstRoomInTheArea;
         int nextRoomID;
-        Room nullRoom{};
+        // Room nullRoom{};
         //std::vector<Character> NPCS;
     public:
         Area()
