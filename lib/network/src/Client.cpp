@@ -63,7 +63,7 @@ void
 Client::ClientImpl::disconnect() {
   isClosed = true;
   websocket.async_close(boost::beast::websocket::close_code::normal,
-    [] (auto errorCode) {
+    [] (auto) {
       // Swallow errors while closing.
     });
 }
@@ -156,7 +156,7 @@ Client::send(std::string message) {
 
   impl->writeBuffer.emplace_back(std::move(message));
   impl->websocket.async_write(boost::asio::buffer(impl->writeBuffer.back()),
-    [this] (auto errorCode, std::size_t size) {
+    [this] (auto errorCode, std::size_t) {
       if (!errorCode) {
         impl->writeBuffer.pop_front();
       } else {

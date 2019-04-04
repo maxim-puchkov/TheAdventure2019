@@ -5,15 +5,20 @@
 #ifndef WEBSOCKETNETWORKING_WORLDMANAGER_H
 #define WEBSOCKETNETWORKING_WORLDMANAGER_H
 
-#include <string>
-#include <vector>
-#include <memory>
-#include <exception>
-#include <cstdlib> //std::rand
 #include "Area.h"
 #include "Room.h"
-#include "Character.h"
+// #include "Character.h"
 #include "LocationCoordinates.h"
+#include "ItemController.h"
+#include "Item.h"
+#include "print.h"
+
+
+using items::ItemController;
+using WorldIdentifier = uint64_t;
+
+// Debug WM construction counter
+static long wmcc = 0;
 
 class WorldManager {
 private:
@@ -23,6 +28,8 @@ private:
     Area nullArea{};
     std::string areaToSpawnFirstTimer = "";
 public:
+    
+    
     WorldManager();
     void generateWorld();
     Room& findRoomByLocation(LocationCoordinates location);
@@ -31,6 +38,7 @@ public:
     bool kick(const std::string& characterName, LocationCoordinates location);
     bool spawn(const std::string& characterName, LocationCoordinates location);
     std::string listExits(LocationCoordinates location) ;
+    // std::string listPeople(const Character& character);
     const std::vector<std::string>& getUserNamesInRoom (LocationCoordinates location) ;
     const std::vector<std::string> getUserNamesInRange (LocationCoordinates location, unsigned int range) ;
     LocationCoordinates move(const std::string& characterName, LocationCoordinates location, const std::string& direction) ;
@@ -50,6 +58,9 @@ public:
     Area& getAreaByLocation(LocationCoordinates location);
 
     void addArea(Area area);
+    /*! All items are created and stored in the item controller */
+    const ItemController<WorldIdentifier> items;
+    
 };
 
 
