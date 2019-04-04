@@ -5,10 +5,10 @@ std::string Command::executePromptReply(const std::string& connectionID, const s
 	//check if the avatar is fully customized to play or not
 	auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
     
-	/*
+
 	if (characterManager.isCharacterFullyCustomized(username) != CharacterManager::CHARACTER_CODE::CHARACTER_IS_CUSTOMIZED) {
 		return "Please customize your avatar first.\nEnter \"help Avatar\" for more information.\n"; 
-	} */
+	}
 
 
 	bool success = onlineUserManager.onlineUserAddCommandToList(connectionID, fullCommand);

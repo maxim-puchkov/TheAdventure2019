@@ -7,7 +7,6 @@ WorldManager::WorldManager()
 : items(ItemController<WorldIdentifier>()) {
     debug::prefix("World");
     debug::print("World created");
-    wmcc++;
     
     
     using namespace items::data; // Keywords, Description, Actions classes
