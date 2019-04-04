@@ -107,5 +107,3 @@ using namespace std;
     std::string Exit::getExitTargetLocation() {
         return exitTargetLocation;
     }
-
-

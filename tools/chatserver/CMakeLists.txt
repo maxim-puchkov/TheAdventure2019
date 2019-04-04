@@ -1,6 +1,7 @@
 add_executable(chatserver
-  chatserver.cpp
+    chatserver.cpp
 )
+
 
 set_target_properties(chatserver
                       PROPERTIES
@@ -9,14 +10,17 @@ set_target_properties(chatserver
                       PREFIX ""
 )
 
+
 find_package(Threads REQUIRED)
 
+
 target_link_libraries(chatserver
-    ${libgame}
-    ${libnetwork}
+    ${network}
     ${CMAKE_THREAD_LIBS_INIT}
+    ${game}
 )
 
+
 install(TARGETS chatserver
-  RUNTIME DESTINATION bin
+    RUNTIME DESTINATION bin
 )
