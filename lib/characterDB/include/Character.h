@@ -49,6 +49,7 @@ public:
     std::string getLongdesc() const;
     std::string getDescription() const;
     bool getIsDoneFirstTimeSetup() const;
+    int getID(){return id;}
 
     // Set
     void setCurrentLocation(LocationCoordinates newLocation);
@@ -58,6 +59,7 @@ public:
     void setDescription(const std::string& description);
     void setFirstTimeSetup(const bool value);
     void setName(const std::string& newName){name = newName;}
+void setID(int newID){id = newID;}
 
     // States ...
     bool isInCombat();
@@ -76,6 +78,7 @@ private:
     Attributes currentAttr;
     Equipment equipment;
     LocationCoordinates currentLocation;
+    int id;
 
     //basic stuff to allow user edit
     std::string shortdesc;
