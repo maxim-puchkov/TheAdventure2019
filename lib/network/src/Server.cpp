@@ -240,8 +240,8 @@ HTTPSession::handleRequest() {
     return result;
   };
 
-  if (auto method = request.method();
-      method != boost::beast::http::verb::get
+  auto method = request.method();
+  if (method != boost::beast::http::verb::get
       && method != boost::beast::http::verb::head) {
     send(badRequest("Unknown HTTP-method"));
   }
