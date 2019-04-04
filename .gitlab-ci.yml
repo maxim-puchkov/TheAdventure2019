@@ -42,10 +42,11 @@ build-release:
 
 
 
-cpp-check:
+cppcheck:
   stage: analyze
   script:
-    - cppcheck lib/* 2> build/cppcheck-results.txt
+    - cppcheck --enable=all lib/* 2> build/cppcheck-results.txt
+    - cat build/cppcheck-results.txt
   artifacts:
     expire_in: 3 hours
     paths:
@@ -63,6 +64,7 @@ clang-tidy:
      -google-runtime-references,-misc-unused-parameters,
      -google-readability-namespace-comments,
      -readability-else-after-return' '^(?!.*(googletest|test|networking|nlohmann)).*' > clang-tidy-results.txt
+    - cat clang-tidy-results.txt
   artifacts:
     expire_in: 3 hours
     paths:
@@ -75,7 +77,7 @@ headerdoc2html:
   script:
     - echo '...Debugging...'
     - ls
-    - bin/headerdoc2html -o doc/.HeaderDoc $(find ../lib -regex '.*\.h')
+    - bin/headerdoc2html -o doc/.HeaderDoc $(find lib -regex '.*\.h')
     - cd bin/
 #    - ./headerdoc2html ../doc/.HeaderDoc $(find ../lib -regex '.*\.h')
     - ls
