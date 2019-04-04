@@ -50,7 +50,7 @@ cppcheck:
   artifacts:
     expire_in: 3 hours
     paths:
-      - build/cpp-checkresults.txt
+      - build/cppcheck-results.txt
   allow_failure: true
 
 
@@ -77,6 +77,9 @@ headerdoc2html:
   script:
     - echo '...Debugging...'
     - ls
+    - cd data/headerdoc-8.8.38/
+    - make
+    - cd ../../
     - perl data/headerdoc-8.8.38/headerDoc2HTML.pl $(find lib -regex '.*\.h')
 #    - bin/headerdoc2html -o doc/.HeaderDoc $(find lib -regex '.*\.h')
     - cd bin/
