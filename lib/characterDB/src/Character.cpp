@@ -9,7 +9,7 @@
 
 Character::Character(const std::string &name) {
     createCharacter(name);
-    
+
     debug::prefix("Character");
     debug::print("Created character \"", name, "\"");
 }
@@ -25,7 +25,7 @@ void Character::createCharacter(const std::string &name) {
     this->equipment = Equipment();
     //need to fix this
     this->currentLocation = LocationCoordinates{"test",0};
-    
+
     // Creating a character
     this->name = name;
     this->shortdesc = "";
@@ -33,19 +33,19 @@ void Character::createCharacter(const std::string &name) {
     this->description = "";
 }
 
-std::string Character::getName() {
+std::string Character::getName() const {
     return this->name;
 }
 
-Attributes Character::getAttributes() {
+Attributes Character::getAttributes() const {
     return this->currentAttr + this->equipment.attributeBonus();
 }
 
-Attributes Character::getBaseAttributes() {
+Attributes Character::getBaseAttributes() const {
     return this->baseAttr;
 }
 
-Equipment Character::getEquipment() {
+Equipment Character::getEquipment() const {
     return this->equipment;
 }
 
@@ -77,7 +77,7 @@ void Character::setCurrentLocation(LocationCoordinates newLocation){
     this->currentLocation = newLocation;
 }
 
-void Character::damageCharacter(int amount){
+void Character::damageCharacter(int amount) {
     Attributes damage{-amount, 0};
     this->currentAttr = this->currentAttr + damage;
 }

@@ -41,7 +41,11 @@ public:
 
 
     std::string lookForName(const std::string &objName) const;
+
     std::string lookForExitName(const std::string &objName) const;
+    const std::string lookCardinalDirection(const std::string &cardinalDirection) const;
+
+
     std::string listExits() const;
     int getRoomId();
 

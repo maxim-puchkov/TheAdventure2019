@@ -1,7 +1,7 @@
 #ifndef CHARACTER_MANAGER_H
 #define CHARACTER_MANAGER_H
 
-#include <unordered_map> 
+#include <unordered_map>
 #include <string>
 #include <vector>
 #include "Character.h"
@@ -44,14 +44,17 @@ public:
     };
 
     LocationCoordinates spawnCharacter(const std::string& username, LocationCoordinates location);
+    const std::string getLongDescription(const std::string &userName) const;
+    const std::string getShortDescription(const std::string &userName) const;
+
     void kickCharacter(const std::string& username);
-    
+
     std::string getUsernameFromCharacter(const std::string& username) const; //for now character name and user name are the same
     //std::string getCharacterNameFromUser(const std::string& username) const;
-    
+
     LocationCoordinates getCharacterLocation(const std::string& username) const;
     void changeCharacterLocation(const std::string& username, LocationCoordinates newLocation);
-    
+
     bool isCharacterCreated(const std::string& username);
     CHARACTER_CODE createCharacter(const std::string& username);
 

@@ -1,24 +1,8 @@
-#include <iostream>
+#include <boost/algorithm/string.hpp>
 #include "Exit.h"
-#include <boost/assign.hpp>
-#include <boost/assign/list_of.hpp>
-#include <boost/assign/list_inserter.hpp>
-#include <map>//delete??
-#include <unordered_map>//delete??
 
 using namespace std;
-using namespace boost; // bring 'insert()' into scope
 
-const Exit::bimapType Exit::enumStringMap = assign::list_of<bimapType::relation>
-        (NONE,"none"  )
-        (NORTH,"north")
-        (NORTHEAST,"northeast")
-        (EAST,"east")
-        (SOUTHEAST,"southeast")
-        (SOUTH,"south")
-        (SOUTHWEST,"southwest")
-        (WEST,"west")
-        (NORTHWEST,"northwest");
 
     //Constructors
     Exit::Exit(const string& exitName, const string& exitDescription, const std::string& cardinalDirection, std::string areaID, int roomID)
@@ -32,21 +16,19 @@ const Exit::bimapType Exit::enumStringMap = assign::list_of<bimapType::relation>
     /**
      * Returns the cardinal direction of a room as a string for viewing, displaying for the user to view
      */
-    const string& Exit::CardinalToString() const {
-
-        CardinalDirection result = this->exitDirection;
-        auto search = enumStringMap.left.find(result);
-        if( search == enumStringMap.left.end()){
-            const std::string ans = " exit not found ";
-            return std::move(ans);
+    const string Exit::CardinalToString() const {
+        const CardinalDirection &result = this->exitDirection;
+        auto search = directionMap.find(result);
+        if(search != directionMap.end()){
+            return search->second;
         }
-        return search->second;
 
+        return "Direction not found\n";
     }
 
-    ///////////FIGURE HOW TO MAKE THIS WORK WITH BIMAP, We shouldn't need to use if-elseif.
-    Exit::CardinalDirection Exit::getCardinalDirection(const std::string &direction) {
-
+    //REARRANGE THIS TO TAKE ADVANTAGE OF MAP "directionMap"
+    //Getters
+    Exit::CardinalDirection Exit::getCardinalDirection(const std::string& direction) {
         std::string input = direction;
         std::transform(input.begin(), input.end(), input.begin(), ::tolower);
 
@@ -68,12 +50,39 @@ const Exit::bimapType Exit::enumStringMap = assign::list_of<bimapType::relation>
             return Exit::CardinalDirection::NORTHWEST;
         }
 
-       return Exit::NONE;
+        return Exit::CardinalDirection::NONE;
     }
+
+    //A map that is used to convert ENUM's into strings for viewing
+    const std::unordered_map<Exit::CardinalDirection, std::string> Exit::directionMap = {
+            {NONE,"none"},
+            {NORTH,"north"},
+            {NORTHEAST,"northeast"},
+            {EAST,"east"},
+            {SOUTHEAST,"southeast"},
+            {SOUTH,"south"},
+            {SOUTHWEST,"southwest"},
+            {WEST,"west"},
+            {NORTHWEST,"northwest"}
+    };
 
 
     const string &Exit::getExitName() const {return exitName;}
-    const string &Exit::getExitDescription() const {return exitDescription;}
+
+    const string Exit::getLowerCaseExitName() const {
+        std::string result = exitName;
+        boost::algorithm::to_lower(result);
+        return std::move(result);
+
+    }
+
+    const string Exit::getExitDescription() const {
+        if (exitDescription.empty()) {
+            return " This exit has no description! \n";
+        }
+        return exitDescription;
+    }
+
     Exit::CardinalDirection Exit::getCardinalDirection() const {return exitDirection;}
     LocationCoordinates Exit::getTargetLocation() const {return targetLocation;}
 
@@ -98,5 +107,3 @@ const Exit::bimapType Exit::enumStringMap = assign::list_of<bimapType::relation>
     std::string Exit::getExitTargetLocation() {
         return exitTargetLocation;
     }
-
-

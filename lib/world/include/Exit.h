@@ -36,10 +36,13 @@ public:
     static Exit::CardinalDirection getCardinalDirection(const std::string &direction) ;
     //getters
     const std::string &getExitName() const;
-    const std::string &getExitDescription() const;
+    const std::string getLowerCaseExitName() const;
+
+
+    const std::string getExitDescription() const;
     CardinalDirection getCardinalDirection() const;
     LocationCoordinates getTargetLocation() const;
-    const std::string &CardinalToString() const;
+    const std::string CardinalToString() const;
     std::string getExitTargetLocation();
 
 
@@ -52,20 +55,15 @@ public:
     void setExitTargetLocation(const std::string & name);
 
 
-    typedef bimap <
-            unordered_set_of<Exit::CardinalDirection>,
-            unordered_set_of<std::string>
-    > bimapType;
-
-    static bimapType const enumStringMap;
-
-
 private:
     std::string exitTargetLocation;
     std::string exitName;
     std::string exitDescription;
     CardinalDirection exitDirection;
     LocationCoordinates targetLocation;
+
+    //A map that is used to convert CardinalDirection's (enum) into a string for viewing, initialized in cpp
+    static std::unordered_map<CardinalDirection, std::string> const directionMap;
 
 };
 
