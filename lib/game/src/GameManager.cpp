@@ -13,14 +13,14 @@ GameManager::GameManager() {
     std::vector<Area> areas;
 
     for (auto filePath : areaJSONs){
-        auto area = areaGen.getArea(filePath, characterManager);
+        auto area = areaGen.getArea(filePath, characterManager, world.items);
         areas.push_back(area);
     }
 
     for(auto& area: areas){
         area = areaGen.generateExits(area);
         world.addArea(area);
-    }
+    }    
 
     createTableOfCommands();
 }
