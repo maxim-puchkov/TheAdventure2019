@@ -125,7 +125,8 @@ void AreaGenerator::generateObjects(json objects, Area& area, const items::ItemC
             // std::cout << val.dump() << "\n";
             if(val["action"] == "object" && val["id"] == object["id"]){
                 worldItems.create(val["room"], val["id"]);
-                std::cout <<"ITEM MADE \n";
+                std::cout << val["room"] << " "<< val["id"];
+                std::cout << " ITEM MADE \n";
             }
         }
         // world.items.print_contentsOf(val["room"]);

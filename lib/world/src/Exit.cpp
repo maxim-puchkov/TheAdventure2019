@@ -51,6 +51,10 @@ using namespace std;
             return Exit::CardinalDirection::WEST;
         } else if(input == "northwest"){
             return Exit::CardinalDirection::NORTHWEST;
+        } else if(input == "up"){
+            return Exit::CardinalDirection::UP;
+        } else if(input == "down"){
+            return Exit::CardinalDirection::DOWN;
         }
 
         return Exit::CardinalDirection::NONE;
@@ -66,7 +70,9 @@ using namespace std;
             {SOUTH,"south"},
             {SOUTHWEST,"southwest"},
             {WEST,"west"},
-            {NORTHWEST,"northwest"}
+            {NORTHWEST,"northwest"},
+            {UP,"up"},
+            {DOWN,"down"}
     };
 
 
