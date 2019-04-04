@@ -72,7 +72,10 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         if (playerMatch.getAdminName() == "null") {
             onlineUserManager.addMessageToUser(username, "You are not a player in any minigames.\n");
         }
+
         playerMatch.removePlayer(username);
+        playerMatch.removeSpectator(username);
+
         if (playerMatch.getCurrentPlayers() == 0) {
             miniGameLobby.deleteGame(playerMatch.getAdminName());
         }

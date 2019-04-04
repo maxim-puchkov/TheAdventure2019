@@ -29,6 +29,8 @@ public:
     std::string getWinMessage() const;
 
     void removePlayer(const std::string& playerName);
+    void removeSpectator(const std::string& spectatorName);
+
     unsigned long getCurrentPlayers() const;
 
     const std::string& getCurrentPlayerTurn() const;
