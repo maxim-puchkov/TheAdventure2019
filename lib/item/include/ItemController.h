@@ -301,7 +301,7 @@ public:
         this->env2d.unbind(key_recipient);
         this->env2d.bind(key_recipient, recipient);
         
-
+        std::cout << "\n";
         print_contentsOf(key_owner);
         std::cout << "\n";
         print_contentsOf(key_recipient);

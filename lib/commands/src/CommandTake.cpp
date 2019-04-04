@@ -19,7 +19,8 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
     
     // Room owns items that may be taken
     // Note: location.room actually means the id of the room
-    auto room_id = location.room;
+    // Note 2: debug creates items in room 0
+    auto room_id = 0; //location.room;
     
     
     // Keyword is the second element of the vector
@@ -28,23 +29,37 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
     
     // Search for identifiers of all items matching the keyword
     auto ids = Command::worldManager.items.search(room_id, keyword);
+    auto items_found = ids.size();
 
 
     // Recepient of the item
-    auto character_id = 100;
+    // Note: debug creates items in character 123
+    auto character_id = 123;
 
     
     // Debug
     debug::print("Searched keyword: ", keyword);
+    
+    debug::prefix("TAKE\t");
     debug::print("In room id = ", room_id);
     debug::print("By character id = ", character_id);
     debug::print("Matching items found: ", ids.size());
     debug::print("Total count of created items: ", Command::worldManager.items.itemsCreated());
     
+    
+    
+    
+    if (items_found == 0) {
+        debug::print("Nothing found");
+        return;
+    }
+    
+    
+    
     // Otherwise, an error message containing all matching items is sent
     // to the user so they can choose another unambigious keyword, or
     // select item to take by its identifier
-    if (ids.size() != 1) {
+    if (items_found != 1) {
         debug::print("Ambiguous search");
         /* ... */
         return;
