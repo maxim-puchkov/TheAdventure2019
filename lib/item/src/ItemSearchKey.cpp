@@ -44,7 +44,7 @@ bool ItemSearchKey::operator==(const ItemSearchKey &other) const {
 
 string ItemSearchKey::toString() const noexcept {
     ostringstream stream{""};
-    stream << "Search Key: " << id << ". " << keywords.toString();
+    stream << "(id: " << id << ", keywords: " << keywords.toString() << ")";
     return stream.str();
 }
 
