@@ -122,7 +122,7 @@ std::string CommandHelp::printMinigameCommands(OnlineUserManager::USER_CODE user
     answer << "minigame join [username]\n";
     answer << "minigame move [location-of-piece-to-be-moved],[new-location]\n";
     answer << "minigame spectate [username]\n";
-    answer << "minigame view-all-games";
+    answer << "minigame view-all-games\n";
     answer << "--------------------------------------------------\n\n"; 
     return answer.str();
 }
