@@ -58,6 +58,7 @@ endif()
 # Find dependencies
 
 find_package(Boost 1.68 COMPONENTS system REQUIRED)
+find_package(Threads REQUIRED)
 
 
 

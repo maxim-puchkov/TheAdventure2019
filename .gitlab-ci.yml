@@ -70,6 +70,7 @@ headerdoc2html:
     - echo '...Debugging...'
     - ls
     - cd bin/
+    - headerdoc2html ../doc/.HeaderDoc $(find ../lib -regex '.*\.h')
     - ls
     - cd ../../
     - ls
