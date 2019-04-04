@@ -44,6 +44,9 @@ public:
     };
 
     LocationCoordinates spawnCharacter(const std::string& username, LocationCoordinates location);
+    const std::string getLongDescription(const std::string &userName) const;
+    const std::string getShortDescription(const std::string &userName) const;
+
     void kickCharacter(const std::string& username);
     
     std::string getUsernameFromCharacter(const std::string& username) const; //for now character name and user name are the same
