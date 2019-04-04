@@ -249,3 +249,8 @@ int CharacterManager::getCharRoom(const std::string& userName){
 	return charRoom;
 }
 
+bool CharacterManager::updateCharLocation(const std::string& userName, LocationCoordinates location){
+	bool result = characterDB.updateCharLocation(userName, location);
+	return result;
+}
+

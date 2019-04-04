@@ -93,5 +93,17 @@ int CharacterDB::getRoom(const std::string& name){
     return room;
 }
 
+bool CharacterDB::updateCharLocation(const std::string& userName, LocationCoordinates location){
+    bool result = false;
+    if(characters_json[userName] == nullptr){
+        result = false;
+    }else{
+        characters_json[userName]["LocationCoordinates"]["area"] = location.area;
+        characters_json[userName]["LocationCoordinates"]["room"] = location.room;
+        result = true;
+    }
+    return result;
+}
+
 
 

@@ -32,5 +32,6 @@ class CharacterDB {
 
     std::string getArea(const std::string& userName);
     int getRoom(const std::string& userName);
+    bool updateCharLocation(const std::string& userName, LocationCoordinates location);
 };
 #endif

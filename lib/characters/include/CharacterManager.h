@@ -65,6 +65,7 @@ public:
 
     std::string getCharArea(const std::string& userName);
     int getCharRoom(const std::string& userName);
+    bool updateCharLocation(const std::string& userName, LocationCoordinates location);
 
     //MiniGame commands
     MiniGameLobby& getMiniGameLobby();
