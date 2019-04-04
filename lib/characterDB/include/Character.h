@@ -11,7 +11,6 @@
 #include <string>
 #include <utility> //std::move
 #include "Attributes.h"
-// #include "Inventory.h"
 #include "Equipment.h" // !
 #include "LocationCoordinates.h"
 #include "print.h"
@@ -25,11 +24,11 @@ const int DEF_CHAR_DAMAGE = 10;
 
 
 /*!
- *  @class Character
- *
- *  @brief class for both characters controlled by users and NPC via action control modes.
- *
- *  Handles character's attributes, inventory, and equipment.
+ @class Character
+ 
+ @brief class for both characters controlled by users and NPC via action control modes.
+ 
+ Handles character's attributes, inventory, and equipment.
  */
 class Character {
 public:
@@ -77,7 +76,6 @@ private:
     Attributes baseAttr;
     Attributes currentAttr;
     Equipment equipment;
-    // Inventory inventory;
     LocationCoordinates currentLocation;
     
     //basic stuff to allow user edit
