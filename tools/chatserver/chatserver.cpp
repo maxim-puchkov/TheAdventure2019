@@ -138,12 +138,8 @@ main(int argc, char* argv[]) {
 
     auto incoming = server.receive();
     auto promptReplies = processMessages(server, incoming, done, gm);
+    auto heartbeatReplies = gm.heartbeat();
     
-    //getTimeStamp();
-
-    //if(getTimeStamp){
-      auto heartbeatReplies = gm.heartbeat();
-    //}
     auto logs = includeHeartbeatMessages(std::move(promptReplies), std::move(heartbeatReplies));
 
     auto outgoing = buildOutgoing(std::move(logs));
