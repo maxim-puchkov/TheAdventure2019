@@ -23,6 +23,8 @@ public:
     bool makePlayerMove(const std::string& playerName, std::string& moveFrom, std::string moveTo);
     bool addPlayer(const std::string& playerName);
 
+    bool addSpectator(const std::string& userName);
+
     bool isGameFinished() const;
     std::string getWinMessage() const;
 

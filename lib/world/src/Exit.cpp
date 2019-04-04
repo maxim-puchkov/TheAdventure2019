@@ -50,7 +50,7 @@ using namespace std;
             return Exit::CardinalDirection::NORTHWEST;
         } else if(input == "up"){
             return Exit::CardinalDirection::UP;
-        } else if(input == ""){
+        } else if(input == "down"){
             return Exit::CardinalDirection::DOWN;
         }
 

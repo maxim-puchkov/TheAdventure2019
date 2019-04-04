@@ -41,6 +41,15 @@ bool MiniGameMatch::hasSpectator(const std::string& spectatorName) const{
     return result != spectators.end();
 }
 
+//
+bool MiniGameMatch::addSpectator(const std::string &userName) {
+
+
+}
+
+
+
+
 bool MiniGameMatch::isPlayersTurn(const std::string& playerName) const{
     return players.at(currentPlayerTurn) == playerName;
 }
