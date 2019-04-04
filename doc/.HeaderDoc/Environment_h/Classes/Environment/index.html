@@ -276,10 +276,164 @@ Required by Cmd-Processor to evaluate input.
 Potentially needed to track users.
 <!-- headerDoc=discussion;uid=//apple_ref/cpp/cl/Environment;name=end --><!-- end discussion -->
 </p>
+<hr class="afterClassOrHeaderInfo">
+<br><a name="HeaderDoc_functions"></a>
+<h2 class="h2tight">Member Functions</h2>
+<dl>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Environment/bind/void/(std::pair%26%26)" target="_top">bind</a></tt></dt>
+<dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Environment/bind/void/(constK%26,constV%26)" target="_top">bind(const K &amp;, const V &amp;)</a></tt></dt>
+<dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Environment/bind/void/(conststd::pair%26)" target="_top">bind(const std :: pair &amp;)</a></tt></dt>
+<dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Environment/clear/void/()" target="_top">clear</a></tt></dt>
+<dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Environment/exists/bool/(constK%26)" target="_top">exists</a></tt></dt>
+<dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Environment/lookup/V/(constK%26)" target="_top">lookup(const K &amp;)</a></tt></dt>
+<dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Environment/lookup/V/(K%26%26)" target="_top">lookup(K &amp; &amp;)</a></tt></dt>
+<dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Environment/modify/void/(constK%26,constV%26)" target="_top">modify</a></tt></dt>
+<dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Environment/unbind/void/(constK%26)" target="_top">unbind</a></tt></dt>
+<dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Environment/validate/void/(false)" target="_top">validate</a></tt></dt>
+<dd></dd>
+</dl>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Environment/bind/void/(std::pair%26%26);   name=Environment::bind -->
+<a name="//apple_ref/cpp/instm/Environment/bind/void/(std::pair%26%26)"></a>
+<h3><a name="bind">bind</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/void //apple_ref/cpp/tdef/void //apple_ref/cpp/tag/void //apple_ref/cpp/struct/void //apple_ref/cpp/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Environment/bind/void/(constK%26,constV%26)" logicalPath="//apple_ref/cpp/instm/Environment/bind" target="_top"><span class="function">bind</span></a>(
+    <!-- a logicalPath="//apple_ref/cpp/cl/std //apple_ref/cpp/tdef/std //apple_ref/cpp/tag/std //apple_ref/cpp/struct/std //apple_ref/cpp/intf/std //apple_ref/doc/anysymbol/std" machineGenerated="true" --><span class="type">std</span><!-- /a -->::<!-- a logicalPath="//apple_ref/cpp/cl/pair //apple_ref/cpp/tdef/pair //apple_ref/cpp/tag/pair //apple_ref/cpp/struct/pair //apple_ref/cpp/intf/pair //apple_ref/doc/anysymbol/pair" machineGenerated="true" --><span class="type">pair</span><!-- /a -->&lt;<span class="template">const</span> <span class="template">K</span>, <span class="template">V</span>&gt; &amp;&amp;<span class="param">binding</span>); </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/bind/void/(std::pair%26%26);name=start --><p>Bind a pair of key and value <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/bind/void/(std::pair%26%26);name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Environment/bind/void/(constK%26,constV%26);   name=Environment::bind -->
+<a name="//apple_ref/cpp/instm/Environment/bind/void/(constK%26,constV%26)"></a>
+<h3><a name="bind(constK,constV)">bind(const K &amp;, const V &amp;)</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/void //apple_ref/cpp/tdef/void //apple_ref/cpp/tag/void //apple_ref/cpp/struct/void //apple_ref/cpp/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Environment/bind/void/(constK%26,constV%26)" logicalPath="//apple_ref/cpp/instm/Environment/bind" target="_top"><span class="function">bind</span></a>(
+    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/K //apple_ref/cpp/tdef/K //apple_ref/cpp/tag/K //apple_ref/cpp/struct/K //apple_ref/cpp/intf/K //apple_ref/doc/anysymbol/K" machineGenerated="true" --><span class="type">K</span><!-- /a --> &amp;<span class="param">k</span>,
+    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/V //apple_ref/cpp/tdef/V //apple_ref/cpp/tag/V //apple_ref/cpp/struct/V //apple_ref/cpp/intf/V //apple_ref/doc/anysymbol/V" machineGenerated="true" --><span class="type">V</span><!-- /a --> &amp;<span class="param">v</span>); </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/bind/void/(constK%26,constV%26);name=start --><p>Lookup values by composite search key <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/bind/void/(constK%26,constV%26);name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Environment/bind/void/(conststd::pair%26);   name=Environment::bind -->
+<a name="//apple_ref/cpp/instm/Environment/bind/void/(conststd::pair%26)"></a>
+<h3><a name="bind(conststd::pair)">bind(const std :: pair &amp;)</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/void //apple_ref/cpp/tdef/void //apple_ref/cpp/tag/void //apple_ref/cpp/struct/void //apple_ref/cpp/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Environment/bind/void/(constK%26,constV%26)" logicalPath="//apple_ref/cpp/instm/Environment/bind" target="_top"><span class="function">bind</span></a>(
+    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/std //apple_ref/cpp/tdef/std //apple_ref/cpp/tag/std //apple_ref/cpp/struct/std //apple_ref/cpp/intf/std //apple_ref/doc/anysymbol/std" machineGenerated="true" --><span class="type">std</span><!-- /a -->::<!-- a logicalPath="//apple_ref/cpp/cl/pair //apple_ref/cpp/tdef/pair //apple_ref/cpp/tag/pair //apple_ref/cpp/struct/pair //apple_ref/cpp/intf/pair //apple_ref/doc/anysymbol/pair" machineGenerated="true" --><span class="type">pair</span><!-- /a -->&lt;<span class="template">const</span> <span class="template">K</span>, <span class="template">V</span>&gt; &amp;<span class="param">binding</span>); </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/bind/void/(conststd::pair%26);name=start --><p>Bind a pair of key and value <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/bind/void/(conststd::pair%26);name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Environment/clear/void/();   name=Environment::clear -->
+<a name="//apple_ref/cpp/instm/Environment/clear/void/()"></a>
+<h3><a name="clear">clear</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/void //apple_ref/cpp/tdef/void //apple_ref/cpp/tag/void //apple_ref/cpp/struct/void //apple_ref/cpp/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Environment/clear/void/()" logicalPath="//apple_ref/cpp/instm/Environment/clear" target="_top"><span class="function">clear</span></a>() <!-- a logicalPath="//apple_ref/cpp/econst/noexcept //apple_ref/cpp/data/Environment/noexcept //apple_ref/cpp/data/noexcept //apple_ref/cpp/clconst/Environment/noexcept " machineGenerated="true" --><span class="var">noexcept</span><!-- /a -->; </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/clear/void/();name=start --><p>Clear all data <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/clear/void/();name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Environment/exists/bool/(constK%26);   name=Environment::exists -->
+<a name="//apple_ref/cpp/instm/Environment/exists/bool/(constK%26)"></a>
+<h3><a name="exists">exists</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/bool //apple_ref/cpp/tdef/bool //apple_ref/cpp/tag/bool //apple_ref/cpp/struct/bool //apple_ref/cpp/intf/bool //apple_ref/doc/anysymbol/bool" machineGenerated="true" --><span class="type">bool</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Environment/exists/bool/(constK%26)" logicalPath="//apple_ref/cpp/instm/Environment/exists" target="_top"><span class="function">exists</span></a>(
+    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/K //apple_ref/cpp/tdef/K //apple_ref/cpp/tag/K //apple_ref/cpp/struct/K //apple_ref/cpp/intf/K //apple_ref/doc/anysymbol/K" machineGenerated="true" --><span class="type">K</span><!-- /a --> &amp;<span class="param">k</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/econst/noexcept //apple_ref/cpp/data/Environment/noexcept //apple_ref/cpp/data/noexcept //apple_ref/cpp/clconst/Environment/noexcept " machineGenerated="true" --><span class="var">noexcept</span><!-- /a -->; </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/exists/bool/(constK%26);name=start --><p>Check if a key exists in the environment <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/exists/bool/(constK%26);name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Environment/lookup/V/(constK%26);   name=Environment::lookup -->
+<a name="//apple_ref/cpp/instm/Environment/lookup/V/(constK%26)"></a>
+<h3><a name="lookup(constK)">lookup(const K &amp;)</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/V //apple_ref/cpp/tdef/V //apple_ref/cpp/tag/V //apple_ref/cpp/struct/V //apple_ref/cpp/intf/V //apple_ref/doc/anysymbol/V" machineGenerated="true" --><span class="type">V</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Environment/lookup/V/(K%26%26)" logicalPath="//apple_ref/cpp/instm/Environment/lookup" target="_top"><span class="function">lookup</span></a>(
+    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/K //apple_ref/cpp/tdef/K //apple_ref/cpp/tag/K //apple_ref/cpp/struct/K //apple_ref/cpp/intf/K //apple_ref/doc/anysymbol/K" machineGenerated="true" --><span class="type">K</span><!-- /a --> &amp;<span class="param">k</span>) <span class="keyword">const</span>; </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/lookup/V/(constK%26);name=start --><p>Lookup value by search key <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/lookup/V/(constK%26);name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Environment/lookup/V/(K%26%26);   name=Environment::lookup -->
+<a name="//apple_ref/cpp/instm/Environment/lookup/V/(K%26%26)"></a>
+<h3><a name="lookup(K)">lookup(K &amp; &amp;)</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/V //apple_ref/cpp/tdef/V //apple_ref/cpp/tag/V //apple_ref/cpp/struct/V //apple_ref/cpp/intf/V //apple_ref/doc/anysymbol/V" machineGenerated="true" --><span class="type">V</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Environment/lookup/V/(K%26%26)" logicalPath="//apple_ref/cpp/instm/Environment/lookup" target="_top"><span class="function">lookup</span></a>(
+    <!-- a logicalPath="//apple_ref/cpp/cl/K //apple_ref/cpp/tdef/K //apple_ref/cpp/tag/K //apple_ref/cpp/struct/K //apple_ref/cpp/intf/K //apple_ref/doc/anysymbol/K" machineGenerated="true" --><span class="type">K</span><!-- /a --> &amp;&amp;<span class="param">k</span>) <span class="keyword">const</span>; </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/lookup/V/(K%26%26);name=start --><p>Lookup value by search key <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/lookup/V/(K%26%26);name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Environment/modify/void/(constK%26,constV%26);   name=Environment::modify -->
+<a name="//apple_ref/cpp/instm/Environment/modify/void/(constK%26,constV%26)"></a>
+<h3><a name="modify">modify</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/void //apple_ref/cpp/tdef/void //apple_ref/cpp/tag/void //apple_ref/cpp/struct/void //apple_ref/cpp/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Environment/modify/void/(constK%26,constV%26)" logicalPath="//apple_ref/cpp/instm/Environment/modify" target="_top"><span class="function">modify</span></a>(
+    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/K //apple_ref/cpp/tdef/K //apple_ref/cpp/tag/K //apple_ref/cpp/struct/K //apple_ref/cpp/intf/K //apple_ref/doc/anysymbol/K" machineGenerated="true" --><span class="type">K</span><!-- /a --> &amp;<span class="param">k</span>,
+    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/V //apple_ref/cpp/tdef/V //apple_ref/cpp/tag/V //apple_ref/cpp/struct/V //apple_ref/cpp/intf/V //apple_ref/doc/anysymbol/V" machineGenerated="true" --><span class="type">V</span><!-- /a --> &amp;<span class="param">v</span>); </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/modify/void/(constK%26,constV%26);name=start --><p>Modify key's value <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/modify/void/(constK%26,constV%26);name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Environment/unbind/void/(constK%26);   name=Environment::unbind -->
+<a name="//apple_ref/cpp/instm/Environment/unbind/void/(constK%26)"></a>
+<h3><a name="unbind">unbind</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/void //apple_ref/cpp/tdef/void //apple_ref/cpp/tag/void //apple_ref/cpp/struct/void //apple_ref/cpp/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Environment/unbind/void/(constK%26)" logicalPath="//apple_ref/cpp/instm/Environment/unbind" target="_top"><span class="function">unbind</span></a>(
+    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/K //apple_ref/cpp/tdef/K //apple_ref/cpp/tag/K //apple_ref/cpp/struct/K //apple_ref/cpp/intf/K //apple_ref/doc/anysymbol/K" machineGenerated="true" --><span class="type">K</span><!-- /a --> &amp;<span class="param">k</span>); </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/unbind/void/(constK%26);name=start --><p>Unbind key <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Environment/unbind/void/(constK%26);name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Environment/validate/void/(false);   name=Environment::validate -->
+<a name="//apple_ref/cpp/instm/Environment/validate/void/(false)"></a>
+<h3><a name="validate">validate</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/void //apple_ref/cpp/tdef/void //apple_ref/cpp/tag/void //apple_ref/cpp/struct/void //apple_ref/cpp/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Environment/validate/void/(false)" logicalPath="//apple_ref/cpp/instm/Environment/validate" target="_top"><span class="function">validate</span></a>(
+    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/K //apple_ref/cpp/tdef/K //apple_ref/cpp/tag/K //apple_ref/cpp/struct/K //apple_ref/cpp/intf/K //apple_ref/doc/anysymbol/K" machineGenerated="true" --><span class="type">K</span><!-- /a --> &amp;<span class="param">k</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/instm/Environment/noexcept //apple_ref/cpp/clm/Environment/noexcept //apple_ref/cpp/intfcm/Environment/noexcept //apple_ref/cpp/intfm/Environment/noexcept //apple_ref/cpp/func/noexcept //apple_ref/cpp/ftmplt/Environment/noexcept //apple_ref/cpp/defn/noexcept //apple_ref/cpp/macro/noexcept //apple_ref/doc/anysymbol/noexcept" machineGenerated="true" --><span class="function">noexcept</span><!-- /a -->(
+    <span class="keyword">false</span>); </pre>
+</div>
 <p class="gapBeforeFooter">&nbsp;</p>
 <hr class="afterFooter">
 <div class="hd_copyright_and_timestamp">
-<p class="hd_timestamp">Last Updated: Friday, March 29, 2019
+<p class="hd_timestamp">Last Updated: Thursday, April 04, 2019
 </p>
 </div>
 </td>

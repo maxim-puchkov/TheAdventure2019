@@ -280,11 +280,13 @@ function disclosure_triangle(elt) {
 <dl>
 <dt><tt><a href="index.html#//apple_ref/cpp/instm/Item/brief/Text/()" target="_top">brief</a></tt></dt>
 <dd></dd>
-<dt><tt><a href="index.html#//apple_ref/cpp/instm/Item/examine/Text/(constKey%26)" target="_top">examine</a></tt></dt>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Item/examine/Text/(constText%26)" target="_top">examine</a></tt></dt>
 <dd></dd>
-<dt><tt><a href="index.html#//apple_ref/cpp/instm/Item/identifier/Identifier/()" target="_top">identifier</a></tt></dt>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Item/identifier/ItemIdentifier/()" target="_top">identifier</a></tt></dt>
 <dd></dd>
-<dt><tt><a href="index.html#//apple_ref/cpp/instm/Item/Item//(Identifier,constKeywords%26,constDescription%26,constActions%26)" target="_top">Item</a></tt></dt>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Item/isInteractable/bool/()" target="_top">isInteractable</a></tt></dt>
+<dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/Item/Item//(ItemIdentifier,constKeywords%26,constDescription%26,constActions%26)" target="_top">Item</a></tt></dt>
 <dd></dd>
 <dt><tt><a href="index.html#//apple_ref/cpp/instm/Item/toString/Text/()" target="_top">toString</a></tt></dt>
 <dd></dd>
@@ -302,41 +304,53 @@ function disclosure_triangle(elt) {
 <!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/brief/Text/();name=start --><p>Display item's short description <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/brief/Text/();name=end --><!-- end discussion -->
 </p>
 <hr class="betweenAPIEntries">
-<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Item/examine/Text/(constKey%26);   name=Item::examine -->
-<a name="//apple_ref/cpp/instm/Item/examine/Text/(constKey%26)"></a>
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Item/examine/Text/(constText%26);   name=Item::examine -->
+<a name="//apple_ref/cpp/instm/Item/examine/Text/(constText%26)"></a>
 <h3><a name="examine">examine</a></h3>
 <hr class="afterName">
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><!-- a logicalPath="//apple_ref/cpp/cl/Text //apple_ref/cpp/tdef/Text //apple_ref/cpp/tag/Text //apple_ref/cpp/struct/Text //apple_ref/cpp/intf/Text //apple_ref/doc/anysymbol/Text" machineGenerated="true" --><span class="type">Text</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Item/examine/Text/(constKey%26)" logicalPath="//apple_ref/cpp/instm/Item/examine" target="_top"><span class="function">examine</span></a>(
-    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> &amp;<span class="param">keyword</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/econst/override //apple_ref/cpp/data/Item/override //apple_ref/cpp/data/override //apple_ref/cpp/clconst/Item/override " machineGenerated="true" --><span class="var">override</span><!-- /a -->; </pre>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/Text //apple_ref/cpp/tdef/Text //apple_ref/cpp/tag/Text //apple_ref/cpp/struct/Text //apple_ref/cpp/intf/Text //apple_ref/doc/anysymbol/Text" machineGenerated="true" --><span class="type">Text</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Item/examine/Text/(constText%26)" logicalPath="//apple_ref/cpp/instm/Item/examine" target="_top"><span class="function">examine</span></a>(
+    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/Text //apple_ref/cpp/tdef/Text //apple_ref/cpp/tag/Text //apple_ref/cpp/struct/Text //apple_ref/cpp/intf/Text //apple_ref/doc/anysymbol/Text" machineGenerated="true" --><span class="type">Text</span><!-- /a --> &amp;<span class="param">keyword</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/econst/override //apple_ref/cpp/data/Item/override //apple_ref/cpp/data/override //apple_ref/cpp/clconst/Item/override " machineGenerated="true" --><span class="var">override</span><!-- /a -->; </pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
-<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/examine/Text/(constKey%26);name=start --><p>Examine an action to see its description </p>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/examine/Text/(constText%26);name=start --><p>Examine an action to see its description </p>
 <p><b>WARNING:</b><br></p>
 <div class="warning_indent"><p>undefined </p></div>
-<!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/examine/Text/(constKey%26);name=end --><!-- end discussion -->
+<!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/examine/Text/(constText%26);name=end --><!-- end discussion -->
 <hr class="betweenAPIEntries">
-<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Item/identifier/Identifier/();   name=Item::identifier -->
-<a name="//apple_ref/cpp/instm/Item/identifier/Identifier/()"></a>
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Item/identifier/ItemIdentifier/();   name=Item::identifier -->
+<a name="//apple_ref/cpp/instm/Item/identifier/ItemIdentifier/()"></a>
 <h3><a name="identifier">identifier</a></h3>
 <hr class="afterName">
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><!-- a logicalPath="//apple_ref/cpp/cl/Identifier //apple_ref/cpp/tdef/Identifier //apple_ref/cpp/tag/Identifier //apple_ref/cpp/struct/Identifier //apple_ref/cpp/intf/Identifier //apple_ref/doc/anysymbol/Identifier" machineGenerated="true" --><span class="type">Identifier</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Item/identifier/Identifier/()" logicalPath="//apple_ref/cpp/instm/Item/identifier" target="_top"><span class="function">identifier</span></a>() <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/econst/override //apple_ref/cpp/data/Item/override //apple_ref/cpp/data/override //apple_ref/cpp/clconst/Item/override " machineGenerated="true" --><span class="var">override</span><!-- /a -->; </pre>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/ItemIdentifier //apple_ref/cpp/tdef/ItemIdentifier //apple_ref/cpp/tag/ItemIdentifier //apple_ref/cpp/struct/ItemIdentifier //apple_ref/cpp/intf/ItemIdentifier //apple_ref/doc/anysymbol/ItemIdentifier" machineGenerated="true" --><span class="type">ItemIdentifier</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Item/identifier/ItemIdentifier/()" logicalPath="//apple_ref/cpp/instm/Item/identifier" target="_top"><span class="function">identifier</span></a>() <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/econst/override //apple_ref/cpp/data/Item/override //apple_ref/cpp/data/override //apple_ref/cpp/clconst/Item/override " machineGenerated="true" --><span class="var">override</span><!-- /a -->; </pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
-<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/identifier/Identifier/();name=start --><p>Unique identifier assigned to this object <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/identifier/Identifier/();name=end --><!-- end discussion -->
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/identifier/ItemIdentifier/();name=start --><p>Unique identifier assigned to this object <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/identifier/ItemIdentifier/();name=end --><!-- end discussion -->
 </p>
 <hr class="betweenAPIEntries">
-<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Item/Item//(Identifier,constKeywords%26,constDescription%26,constActions%26);   name=Item::Item -->
-<a name="//apple_ref/cpp/instm/Item/Item//(Identifier,constKeywords%26,constDescription%26,constActions%26)"></a>
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Item/isInteractable/bool/();   name=Item::isInteractable -->
+<a name="//apple_ref/cpp/instm/Item/isInteractable/bool/()"></a>
+<h3><a name="isInteractable">isInteractable</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/bool //apple_ref/cpp/tdef/bool //apple_ref/cpp/tag/bool //apple_ref/cpp/struct/bool //apple_ref/cpp/intf/bool //apple_ref/doc/anysymbol/bool" machineGenerated="true" --><span class="type">bool</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Item/isInteractable/bool/()" logicalPath="//apple_ref/cpp/instm/Item/isInteractable" target="_top"><span class="function">isInteractable</span></a>() <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/econst/override //apple_ref/cpp/data/Item/override //apple_ref/cpp/data/override //apple_ref/cpp/clconst/Item/override " machineGenerated="true" --><span class="var">override</span><!-- /a -->; </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/isInteractable/bool/();name=start --><p>Check if object has additional actions <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/isInteractable/bool/();name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Item/Item//(ItemIdentifier,constKeywords%26,constDescription%26,constActions%26);   name=Item::Item -->
+<a name="//apple_ref/cpp/instm/Item/Item//(ItemIdentifier,constKeywords%26,constDescription%26,constActions%26)"></a>
 <h3><a name="Item">Item</a></h3>
 <hr class="afterName">
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Item/Item//(Identifier,constKeywords%26,constDescription%26,constActions%26)" logicalPath="//apple_ref/cpp/instm/Item/Item" target="_top"><span class="function">Item</span></a>(
-    <!-- a logicalPath="//apple_ref/cpp/cl/Identifier //apple_ref/cpp/tdef/Identifier //apple_ref/cpp/tag/Identifier //apple_ref/cpp/struct/Identifier //apple_ref/cpp/intf/Identifier //apple_ref/doc/anysymbol/Identifier" machineGenerated="true" --><span class="type">Identifier</span><!-- /a --> <span class="param">id</span>, 
+<br><a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/Item/Item//(ItemIdentifier,constKeywords%26,constDescription%26,constActions%26)" logicalPath="//apple_ref/cpp/instm/Item/Item" target="_top"><span class="function">Item</span></a>(
+    <!-- a logicalPath="//apple_ref/cpp/cl/ItemIdentifier //apple_ref/cpp/tdef/ItemIdentifier //apple_ref/cpp/tag/ItemIdentifier //apple_ref/cpp/struct/ItemIdentifier //apple_ref/cpp/intf/ItemIdentifier //apple_ref/doc/anysymbol/ItemIdentifier" machineGenerated="true" --><span class="type">ItemIdentifier</span><!-- /a --> <span class="param">id</span>, 
     <span class="keyword">const</span> <a machinegenerated="true" href="../../../Keywords_h/Classes/Keywords/index.html#//apple_ref/cpp/cl/Keywords" logicalPath="//apple_ref/cpp/cl/Keywords" target="_top"><span class="type">Keywords</span></a> &amp;<span class="param">keywords</span>, 
     <span class="keyword">const</span> <a machinegenerated="true" href="../../../Description_h/Classes/Description/index.html#//apple_ref/cpp/cl/Description" logicalPath="//apple_ref/cpp/cl/Description" target="_top"><span class="type">Description</span></a> &amp;<span class="param">description</span>, 
     <span class="keyword">const</span> <a machinegenerated="true" href="../../../Actions_h/Classes/Actions/index.html#//apple_ref/cpp/cl/Actions" logicalPath="//apple_ref/cpp/cl/Actions" target="_top"><span class="type">Actions</span></a> &amp;<span class="param">actions</span>); </pre>
@@ -365,9 +379,9 @@ function disclosure_triangle(elt) {
 </dl>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
-<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/Item//(Identifier,constKeywords%26,constDescription%26,constActions%26);name=start --><p>Item constructor for building game items
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/Item//(ItemIdentifier,constKeywords%26,constDescription%26,constActions%26);name=start --><p>Item constructor for building game items
 </p>
-<!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/Item//(Identifier,constKeywords%26,constDescription%26,constActions%26);name=end --><!-- end discussion -->
+<!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/Item/Item//(ItemIdentifier,constKeywords%26,constDescription%26,constActions%26);name=end --><!-- end discussion -->
 <hr class="betweenAPIEntries">
 <!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/Item/toString/Text/();   name=Item::toString -->
 <a name="//apple_ref/cpp/instm/Item/toString/Text/()"></a>
@@ -386,6 +400,8 @@ function disclosure_triangle(elt) {
 <dl>
 <dt><tt><a href="index.html#//apple_ref/cpp/clconst/Item/id" target="_top">id</a></tt></dt>
 <dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/clconst/Item/json_id" target="_top">json_id</a></tt></dt>
+<dd></dd>
 </dl>
 <hr class="betweenAPIEntries">
 <!-- headerDoc=clconst;  uid=//apple_ref/cpp/clconst/Item/id;   name=Item::id -->
@@ -394,10 +410,22 @@ function disclosure_triangle(elt) {
 <hr class="afterName">
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/Identifier //apple_ref/cpp/tdef/Identifier //apple_ref/cpp/tag/Identifier //apple_ref/cpp/struct/Identifier //apple_ref/cpp/intf/Identifier //apple_ref/doc/anysymbol/Identifier" machineGenerated="true" --><span class="type">Identifier</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/clconst/Item/id" logicalPath="//apple_ref/cpp/econst/id //apple_ref/cpp/data/Item/id //apple_ref/cpp/data/id //apple_ref/cpp/clconst/Item/id" target="_top"><span class="var">id</span></a>; </pre>
+<br><span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/ItemIdentifier //apple_ref/cpp/tdef/ItemIdentifier //apple_ref/cpp/tag/ItemIdentifier //apple_ref/cpp/struct/ItemIdentifier //apple_ref/cpp/intf/ItemIdentifier //apple_ref/doc/anysymbol/ItemIdentifier" machineGenerated="true" --><span class="type">ItemIdentifier</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/clconst/Item/id" logicalPath="//apple_ref/cpp/econst/id //apple_ref/cpp/data/Item/id //apple_ref/cpp/data/id //apple_ref/cpp/clconst/Item/id" target="_top"><span class="var">id</span></a>; </pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
 <!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/clconst/Item/id;name=start --><p>Unique identifier <!-- headerDoc=discussion;uid=//apple_ref/cpp/clconst/Item/id;name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=clconst;  uid=//apple_ref/cpp/clconst/Item/json_id;   name=Item::json_id -->
+<a name="//apple_ref/cpp/clconst/Item/json_id"></a>
+<h3><a name="json_id">json_id</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><span class="keyword">const</span> <span class="keyword">unsigned</span> <!-- a logicalPath="//apple_ref/cpp/cl/int //apple_ref/cpp/tdef/int //apple_ref/cpp/tag/int //apple_ref/cpp/struct/int //apple_ref/cpp/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/clconst/Item/json_id" logicalPath="//apple_ref/cpp/econst/json_id //apple_ref/cpp/data/Item/json_id //apple_ref/cpp/data/json_id //apple_ref/cpp/clconst/Item/json_id" target="_top"><span class="var">json_id</span></a>; </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/clconst/Item/json_id;name=start --><p>Item ID used in JSON file <!-- headerDoc=discussion;uid=//apple_ref/cpp/clconst/Item/json_id;name=end --><!-- end discussion -->
 </p>
 <hr class="betweenSections">
 <a name="HeaderDoc_vars"></a>
@@ -449,7 +477,7 @@ function disclosure_triangle(elt) {
 <p class="gapBeforeFooter">&nbsp;</p>
 <hr class="afterFooter">
 <div class="hd_copyright_and_timestamp">
-<p class="hd_timestamp">Last Updated: Friday, March 29, 2019
+<p class="hd_timestamp">Last Updated: Thursday, April 04, 2019
 </p>
 </div>
 </td>
