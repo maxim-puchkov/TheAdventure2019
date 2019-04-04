@@ -57,7 +57,9 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
         switch(answer) {
             case charactermanager::CharacterManager::CHARACTER_CODE::CHARACTER_CREATED: {
                 auto roomToSpawnUser = worldManager.getRoomToSpawnUser();
-                characterManager.spawnCharacter(username, LocationCoordinates{"Mirkwood", roomToSpawnUser});
+				auto areaToSpawnUser = worldManager.getAreaToSpawnUser();
+				auto spawnLocation = LocationCoordinates{areaToSpawnUser, roomToSpawnUser};
+                characterManager.spawnCharacter(username, spawnLocation);
                 return "Avatar created.\nPlease enter \"edit-avatar shortdesc: [value]\" to customize your character.\n";
             }
             default:

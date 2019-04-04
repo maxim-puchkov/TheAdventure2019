@@ -15,7 +15,8 @@ std::string CommandLogin::executePromptReply(const std::string& connectionID, co
 				//tmr, when user login, get the location from json, then pass to characterManager
 				// if user is first time, then get the first area name from worldManager.
 				auto roomToSpawnUser = worldManager.getRoomToSpawnUser();
-				auto spawnLocation = LocationCoordinates{"Mirkwood", roomToSpawnUser};
+				auto areaToSpawnUser = worldManager.getAreaToSpawnUser();
+				auto spawnLocation = LocationCoordinates{areaToSpawnUser, roomToSpawnUser};
 				std::string spawnArea = characterManager.getCharArea(fullCommand[1]);
 				int spawnRoom = characterManager.getCharRoom(fullCommand[1]);
 				if(spawnArea != "" && spawnRoom != 1) {

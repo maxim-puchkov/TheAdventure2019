@@ -17,7 +17,13 @@ GameManager::GameManager() {
         areas.push_back(area);
     }
 
+    //get the first area name to spawn first time login user
+    int count = 0;
     for(auto& area: areas){
+        if(count == 0) {
+            world.setAreaToSpawnFirstTimer(area.getName());
+            count++;
+        }
         area = areaGen.generateExits(area);
         world.addArea(area);
     }

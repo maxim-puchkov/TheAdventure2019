@@ -21,6 +21,7 @@ private:
     std::unordered_map<std::string, Area> areas;
     int roomToSpawnUser;
     Area nullArea{};
+    std::string areaToSpawnFirstTimer = "";
 public:
     WorldManager();
     void generateWorld();
@@ -40,7 +41,11 @@ public:
     void createRoom(const LocationCoordinates & location, const std::string& direction, const std::string& name);
     void printRoomsInArea(Area area);
     int getRoomToSpawnUser();
+    std::string getAreaToSpawnUser();
     std::string worldDetail(LocationCoordinates location);
+    void setAreaToSpawnFirstTimer(std::string locationName){
+        areaToSpawnFirstTimer = locationName;
+    }
 
     Area& getAreaByLocation(LocationCoordinates location);
 
