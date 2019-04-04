@@ -7,23 +7,53 @@ WorldManager::WorldManager()
 : items(ItemController<WorldIdentifier>()) {
     debug::prefix("World");
     debug::print("World created");
-
-    using namespace items::data;
-    vector<Action> vec{Action("read", " < items are now working > ")};
-    this->items.builder.setItemProperties(Keywords({"letter"}), Description("You received a letter"), Actions(vec));
-    this->items.create(0);
     wmcc++;
+    
+    
+    using namespace items::data; // Keywords, Description, Actions classes
+    
+    // Test action. Actions cannot be used yet
+    vector<Action> vec{Action("read", " < items are now working > ")};
 
-    vector<Action> vec1{Action("read", " < items are now working > ")};
-    this->items.builder.setItemProperties(Keywords({"letter","cat"}), Description("You received a letter"), Actions(vec1));
-    this->items.create(0);
+    // Choose where item is created
+    WorldIdentifier room_id = 0;
+    WorldIdentifier character_id = 123;
+    
+    
+    // Creates first item in room (id: 0)
+    this->items.builder.setItemProperties(Keywords({"letter"}), Description("You received a letter"), Actions(vec));
+    this->items.create(room_id);
+    
 
-    vector<Action> vec2{Action("read", " < items are now working > ")};
-    this->items.builder.setItemProperties(Keywords({"book","apple"}), Description("You received a book"), Actions(vec2));
-    this->items.create(0);
+    
+    // Different ways ways to create items
+    
+    // Creates a second item in room (id: 0). Keyword letter is the same, no actions
+    this->items.builder.setKeywords({"letter", "cat"});
+    this->items.builder.setDescription("You received a cat letter");
+    this->items.create(room_id);
 
+    // Creates a third item in room (id: 0). Description defaults to "No description"
+    this->items.builder.setKeywords({"book", "apple"});
+    this->items.create(room_id);
 
-    items.containerSize(0);
+    
+    
+    
+    // Creates first item for in character's (id: 123) inventory.
+    //      Two lines of description
+    //      shortdesc = "a pile"
+    this->items.builder.setKeywords({"dirt"});
+    this->items.builder.setDescription("A pile of dirt");
+    this->items.create(character_id);
+    
+    
+    // Will be added
+    // Creates first item for in character's (id: 123) inventory
+//    this->items.builder.setKeywords({"sword"});
+//    this->items.builder.setDescription({"You deal more damage"});
+//    this->items.builder.attributes.setDamage(10);
+//    this->items.create(character_id);
     
 }
 
