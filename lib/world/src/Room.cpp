@@ -31,7 +31,6 @@ bool Room::createExit(const std::string& exitName, const std::string& exitDescri
 	return true;
 }
 
-
 bool Room::addCharacter(const std::string &userName){
 	try{
 		charactersInRoom.push_back(userName);
@@ -44,14 +43,15 @@ bool Room::addCharacter(const std::string &userName){
 int Room::getRoomId(){
 	return this->roomId;
 }
+
 /**
  *Removes username from Room. Note that it removes duplicates (but we shouldn't have duplicates)
- * @param userName - UserNmae you want to remove
+ * @param userName - UserName you want to remove
  * @return true if the username is removed, false if not found
  */
 bool Room::removeCharacter(const std::string &userName){
 	auto iter = std::remove(charactersInRoom.begin(),charactersInRoom.end(),userName);
-	charactersInRoom.erase(iter,charactersInRoom.end());
+    charactersInRoom.erase(iter);
 	return ( !( charactersInRoom.end() == iter ) ); //If iter==char.end() then userName wasn't found in list
 }
 
@@ -59,21 +59,44 @@ std::string Room::lookForName(const std::string &objName) const{
 
 	auto iter = std::find(charactersInRoom.begin(),charactersInRoom.end(), objName);
 	if(iter != charactersInRoom.end()){
-		return "A stranger stands before you with the name " + (*iter)  ;
+	    return (*iter);
 	}
-	return "You couldn't find anything called " + objName;
+	return "";
+
 }
+
+
 
 std::string Room::lookForExitName(const std::string &objName) const {
 
 	auto roomExit = std::find_if(exitsInRoom.begin(), exitsInRoom.end(),
-								 [&](const auto& i) {return objName == i.getExitName();} );
+								 [&](const auto& i) {return objName == i.getLowerCaseExitName();} );
 
 	if(roomExit != exitsInRoom.end()){
 		return (*roomExit).getExitDescription();
 	}
-	return "You couldn't find anything called " + objName;
+
+	return " No exits called:  " + objName;
+
 }
+
+const std::string Room::lookCardinalDirection(const std::string &cardinalDirection) const {
+
+    const Exit::CardinalDirection &direction= Exit::getCardinalDirection(cardinalDirection);
+    if(direction == Exit::CardinalDirection::NONE){
+        return  "";
+    }
+
+    auto iterator = std::find_if(exitsInRoom.begin(), exitsInRoom.end(),
+                                 [&] (const Exit& e) { return e.getCardinalDirection() == direction; } );
+
+    if(iterator != exitsInRoom.end() ){
+        return (*iterator).getExitDescription() ;
+    }
+    return "";
+}
+
+
 
 
 /**
@@ -114,5 +137,3 @@ void Room::updateExits(int id, std::string name){
 		}
 	}
 }
-
-
