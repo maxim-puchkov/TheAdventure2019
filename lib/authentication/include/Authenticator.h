@@ -23,16 +23,8 @@
 #define Authentication_h
 
 
-#include <stdint.h>
-#include <utility>
-
-
-inline namespace {
-    using Identifier = uint64_t;
-}
-
-
 namespace auth {
+
 
 /*!
  @class Authenticator
@@ -63,7 +55,7 @@ public:
     
     /*! Identifiers are generated incrementaly */
     T generateUniqueIdentifier() const {
-        return ++this->current;
+        return ++(const_cast<Authenticator *>(this))->current;
     }
     
 private:

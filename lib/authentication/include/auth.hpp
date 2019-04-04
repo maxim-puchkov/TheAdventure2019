@@ -10,6 +10,16 @@
 #ifndef auth_hpp
 #define auth_hpp
 
-#include <stdio.h>
+#include <stdint.h>
+#include <utility>
+#include "Authenticator.h"
+
+namespace auth {
+    
+inline namespace {
+    using Identifier = uint64_t;
+}
+    
+}
 
 #endif /* auth_hpp */
