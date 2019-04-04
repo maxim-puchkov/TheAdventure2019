@@ -9,10 +9,16 @@
 #include "LocationCoordinates.h"
 #include "MiniGameLobby.h"
 #include "CombatManager.h"
+#include "auth.hpp"
 
-namespace charactermanager{
 
-class CharacterManager{
+using auth::Authenticator;
+using auth::Identifier;
+
+
+namespace charactermanager {
+
+class CharacterManager {
 private:
     std::unordered_map<std::string, Character> onlineCharacters;
     std::vector<Character> computerControlledCharacters;
@@ -27,8 +33,15 @@ private:
     const std::string SHORT_DESC = "shortdesc";
     const std::string LONG_DESC = "longdesc";
     const std::string DESCRIPTION = "description";
+    
+    const Authenticator<Identifier> *const authenticator;
 
 public:
+    
+    CharacterManager(const Authenticator<Identifier> *const authenticator)
+    : authenticator(authenticator)
+    { }
+    
     enum class CHARACTER_CODE : uint8_t {
       CHARACTER_CREATED,
       CHARACTER_UPDATED,

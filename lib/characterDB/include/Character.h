@@ -9,13 +9,15 @@
 #define Character_h
 
 #include <string>
-#include <utility> //std::move
+#include <utility>
 #include "Attributes.h"
 #include "Equipment.h" // !
 #include "LocationCoordinates.h"
+#include "auth.hpp"
+
 #include "print.h"
 
-// using items::Inventory;
+using auth::Identifier;
 
 
 const std::string DEF_CHAR_NAME = "DEF_CHAR_NAME";
@@ -32,6 +34,9 @@ const int DEF_CHAR_DAMAGE = 10;
  */
 class Character {
 public:
+    
+    /*! Debug */
+    const Identifier id = 0;
 
     Character(const std::string &name);
     ~Character();

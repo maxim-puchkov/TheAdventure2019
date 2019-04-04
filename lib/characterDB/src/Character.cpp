@@ -12,6 +12,8 @@ Character::Character(const std::string &name) {
 
     debug::prefix("Character");
     debug::print("Created character \"", name, "\"");
+    
+    
 }
 
 Character::~Character() {
