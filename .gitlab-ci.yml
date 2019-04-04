@@ -12,7 +12,7 @@ build:
   script:
     - mkdir build
     - cd build
-    - cmake -DCMAKE_CXX_COMPILER=clang++ -DENABLE_COVERAGE=True -DCMAKE_EXPORT_COMPILE_COMMANDS=True ../
+    - cmake -DCMAKE_CXX_COMPILER=clang++ -DENABLE_COVERAGE=True -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DBUILD_ALL_TARGETS=NO ../
     - make
   artifacts:
     expire_in: 30 mins
@@ -25,21 +25,31 @@ build-release:
   script:
     - mkdir build-release
     - cd build-release
-    - cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_CXX_COMPILER=clang++ ../
+    - cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_CXX_COMPILER=clang++ -DBUILD_ALL_TARGETS=YES ../
     - make
   artifacts:
     expire_in: 5 mins
     paths:
-      - build/*
+      - build-release/*
   allow_failure: true
   only:
     - master
 
 
-analyze:
+cpp-check:
   stage: analyze
   script:
     - cppcheck lib/* 2> build/cppcheck-results.txt
+  artifacts:
+    expire_in: 3 hours
+    paths:
+      - build/cpp-checkresults.txt
+  allow_failure: true
+
+
+clang-tidy:
+  stage: analyze
+  script:
     - cd build
     - >-
      /usr/lib/llvm-6.0/share/clang/run-clang-tidy.py
@@ -48,14 +58,10 @@ analyze:
      -google-readability-namespace-comments,
      -readability-else-after-return' '^(?!.*(googletest|test|networking|nlohmann)).*' > clang-tidy-results.txt
   artifacts:
-    expire_in: 1 hour
+    expire_in: 3 hours
     paths:
-      - build/cppcheck-results.txt
       - build/clang-tidy-results.txt
   allow_failure: true
-  except:
-    - docs
-    - libraries
 
 
 headerdoc2html:
@@ -67,10 +73,12 @@ headerdoc2html:
     - ls
     - cd ../../
     - ls
+    - cd
+    - cd /usr/bin/
+    - ls
+    - cd ../
+    - ls
   allow_failure: true
-  only:
-    - docs
-    - libraries
 
 
 gatherheaderdoc:
@@ -78,11 +86,10 @@ gatherheaderdoc:
   script:
     - find . -regex '.*\.h'
     - find lib -regex '.*\.h'
-    - echo 'sh bin/headerdoc2html doc/.HeaderDoc/ $(find lib -regex '.*\.h')'
+    - set -x
+    - echo "sh bin/headerdoc2html doc/.HeaderDoc/ $(find lib -regex '.*\.h')"
+    - set +x;
   allow_failure: true
-  only:
-    - docs
-    - libraries
 
 
 test:
