@@ -77,7 +77,8 @@ headerdoc2html:
   script:
     - echo '...Debugging...'
     - ls
-    - bin/headerdoc2html -o doc/.HeaderDoc $(find lib -regex '.*\.h')
+    - perl data/headerdoc-8.8.38/headerDoc2HTML.pl $(find lib -regex '.*\.h')
+#    - bin/headerdoc2html -o doc/.HeaderDoc $(find lib -regex '.*\.h')
     - cd bin/
 #    - ./headerdoc2html ../doc/.HeaderDoc $(find ../lib -regex '.*\.h')
     - ls
