@@ -7,12 +7,15 @@ stages:
   - test
 
 
+
+
+
 build:
   stage: build
   script:
     - mkdir build
     - cd build
-    - cmake -DCMAKE_CXX_COMPILER=clang++ -DENABLE_COVERAGE=True -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DBUILD_ALL_TARGETS=NO ../
+    - cmake -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_CXX_COMPILER=clang++ -DBUILD_ALL_TARGETS=NO -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -fprofile-instr-generate -fcoverage-mapping ../
     - make
   artifacts:
     expire_in: 30 mins
@@ -34,6 +37,9 @@ build-release:
   allow_failure: true
   only:
     - master
+
+
+
 
 
 cpp-check:
@@ -69,8 +75,9 @@ headerdoc2html:
   script:
     - echo '...Debugging...'
     - ls
+    - bin/headerdoc2html -o doc/.HeaderDoc $(find ../lib -regex '.*\.h')
     - cd bin/
-    - headerdoc2html ../doc/.HeaderDoc $(find ../lib -regex '.*\.h')
+#    - ./headerdoc2html ../doc/.HeaderDoc $(find ../lib -regex '.*\.h')
     - ls
     - cd ../../
     - ls
@@ -91,6 +98,9 @@ gatherheaderdoc:
     - echo "sh bin/headerdoc2html doc/.HeaderDoc/ $(find lib -regex '.*\.h')"
     - set +x;
   allow_failure: true
+
+
+
 
 
 test:

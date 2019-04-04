@@ -1,6 +1,6 @@
 #
 #   Root CMakeLists.txt
-#   Updated: 2019-04-03
+#   Updated: 2019-04-04
 #
 
 
@@ -66,7 +66,6 @@ find_package(Threads REQUIRED)
 
 # Declare new libraries here (in alphabetical order)
 
-set(location "location")
 set(authentication "authentication")
 set(builder "builder")
 set(characters "characterDB")
@@ -76,6 +75,7 @@ set(environment "environment")
 set(exceptions "exceptions")
 set(game "game")
 set(item "item")
+set(location "location")
 set(minigame "minigame")
 set(network "network")
 set(object "object")
@@ -127,6 +127,10 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -fsanitize=undefined 
 
 
 
+
+
+
+
 # Set and link output directories for executables and libraries
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
@@ -140,8 +144,50 @@ set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}")
 
 
 
-# Add subdirectory for libraries and executables
+
+
+
+
+# Build type
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "DEBUG")
+endif(NOT CMAKE_BUILD_TYPE)
+
+
+
+
+
+
+
+
+
+
+
+# Build configuration
+
+message("\n")
+message("Build configuration for ${PROJECT_NAME} ${PROJECT_VERSION}")
+message("\t Compiler: ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+message("\t Compiler flags: ${CMAKE_CXX_FLAGS}")
+message("\t Build type: ${CMAKE_BUILD_TYPE}")
+message("\t Coverage enabled: ${ENABLE_COVERAGE}")
+message("\t Coverage flags: ${CXX_COVERAGE_FLAGS}")
+message("\t Build all targets: ${BUILD_ALL_TARGETS}")
+message("\n")
+
+
+
+
+
+# Add subdirectories
 
 add_subdirectory(lib)
 add_subdirectory(tools)
 add_subdirectory(test)
+
+
+
+
+unset(BUILD_ALL_TARGETS CACHE)
+unset(CXX_COVERAGE_FLAGS CACHE)
