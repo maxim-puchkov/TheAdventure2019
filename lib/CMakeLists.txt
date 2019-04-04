@@ -31,13 +31,12 @@ add_subdirectory(${world})
 
 # Added
 add_subdirectory(simple)
-add_subdirectory(test)
-
 
 
 # Moved
 #   add_subdirectory(${libuserdb})
 #   add_subdirectory(characterDB)
+#   add_subdirectory(test)
 
 
 # Excluded
