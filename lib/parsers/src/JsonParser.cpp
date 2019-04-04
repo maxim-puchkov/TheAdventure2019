@@ -27,12 +27,6 @@ void JsonParser::saveJSON(json j, const std::string& filePath){
     file << j;
 }
 
-char* string2charArray(std::string& str){
-    char char_filePath[str.length()+1];
-    strcpy(char_filePath, str.c_str());
-    return char_filePath;
-}
-
 std::string JsonParser::removeQuotes( std::string str){
     return str.substr(1, str.size() - 2);
 }
