@@ -349,7 +349,7 @@ public:
     
     void print_contentsOf(ContainerKey ck) {
         for (auto &x : contentsOf(ck)) {
-            print("id ", ck, ". ", x.toString());
+            debug::print("id ", ck, ". ", x.toString());
         }
     }
 

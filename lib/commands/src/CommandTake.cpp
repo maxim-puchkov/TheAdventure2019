@@ -45,7 +45,7 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
     // to the user so they can choose another unambigious keyword, or
     // select item to take by its identifier
     if (ids.size() != 1) {
-        print("Ambiguous search");
+        debug::print("Ambiguous search");
         /* ... */
         return;
     }
