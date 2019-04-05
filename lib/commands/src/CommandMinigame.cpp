@@ -6,7 +6,7 @@
 
 void CommandMinigame::sendWinMessage(vector<std::string> &players, vector<std::string> &spectators, std::string msg) {
 
-    msg.append(" Type 'minigame exit' to leave this game \n");
+    msg.append(" Type 'minigame quit' to leave this game \n");
     for(const std::string &iter : spectators){
         onlineUserManager.addMessageToUser(iter,  msg + "\n");
     }
@@ -29,8 +29,12 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
 
     } else if (firstCommand == "move") {
 
-        if (playerMatch.getAdminName() == "null") {
+        if (playerMatch.getAdminName() == "null" ) {
             onlineUserManager.addMessageToUser(username, "You are not a player in any minigames.\n");
+        }
+
+        if(playerMatch.getCurrentPlayers() != 2){
+            onlineUserManager.addMessageToUser(username, "Not enough players in a game!");
         }
 
         auto moveFrom = fullCommand.at(2);
@@ -44,17 +48,27 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
     } else if (firstCommand == "challenge" || firstCommand == "invite") {
 
         auto &challengedName = fullCommand.at(2);
+        if(challengedName == username){
+            onlineUserManager.addMessageToUser(username, " You can't challenge yourself! \n");
+            return;
+        }
+
+        if( !onlineUserManager.checkUserIsOnline(challengedName) ){
+            onlineUserManager.addMessageToUser(username, " The user you tried to challenge isn't online \n");
+            return;
+        }
+
+
         miniGameLobby.createInvite(username, challengedName);
         onlineUserManager.addMessageToUser(challengedName, username + " has challenged you to a game, type 'minigame accept'"
                                                                       " to accept challenge\n");
 
         onlineUserManager.addMessageToUser(username, "awaiting response from " + challengedName + "\n");
-
     } else if (firstCommand == "join" || firstCommand == "accept") {
 
         if (miniGameLobby.confirmInvite(username)) {
             miniGameLobby.removeInvite(username);
-            auto &playerMatch = miniGameLobby.getMatchWithPlayer(username);
+
             auto &playerList = playerMatch.getPlayers();
             std::string pNames;
             for (auto &pName : playerList) {
@@ -71,8 +85,12 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         auto &playerMatch = miniGameLobby.getMatchWithPlayer(username);
         if (playerMatch.getAdminName() == "null") {
             onlineUserManager.addMessageToUser(username, "You are not a player in any minigames.\n");
+            return;
         }
+
         playerMatch.removePlayer(username);
+        playerMatch.removeSpectator(username);
+
         if (playerMatch.getCurrentPlayers() == 0) {
             miniGameLobby.deleteGame(playerMatch.getAdminName());
         }
@@ -85,11 +103,19 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         if (fullCommand.at(2) == "invites")
             onlineUserManager.addMessageToUser(username, miniGameLobby.printInvites());
         return;
+    } else if (firstCommand == "view-all-games"){
+        onlineUserManager.addMessageToUser(username,miniGameLobby.printGames() + "\n");
+        return;
+    } else if (firstCommand == "spectate"){
+        const std::string &userSpectating = fullCommand.at(2);
+        const std::string& rst = miniGameLobby.spectate(userSpectating, username);
+        onlineUserManager.addMessageToUser(username, rst );
+
     }
 
 
     vector<string> &players = playerMatch.getPlayers();
-    if (players.size() == 2) {
+    if (players.size() >= 2) {
         onlineUserManager.addMessageToUser(players.at(0), playerMatch.reverseDisplay() + "\n" );
         onlineUserManager.addMessageToUser(players.at(1), playerMatch.display() + "\n" );
     }
@@ -104,6 +130,7 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         sendWinMessage( playerMatch.getPlayers(), playerMatch.getSpectators(), std::move(playerMatch.getWinMessage()) );
     }
 
+
 }
 
 std::vector<std::string> CommandMinigame::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
@@ -115,6 +142,8 @@ std::vector<std::string> CommandMinigame::reassembleCommand(std::string& fullCom
     //Format: minigame accept [username]
     //Format: minigame join [username]
     //Format: minigame move [location-of-piece-to-be-moved],[new-location]
+    //Format: minigame spectate [username]
+    //Format: minitamge view-all-games
     boost::trim_if(fullCommand, boost::is_any_of(" \t"));
 
     //Split by ","
@@ -130,14 +159,15 @@ std::vector<std::string> CommandMinigame::reassembleCommand(std::string& fullCom
         if(processedCommand.size() == 2) {
             commandIsValid = (processedCommand[1] == "accept" ||
                                 processedCommand[1] == "start" ||
-                                processedCommand[1] == "quit");
-        
+                                processedCommand[1] == "quit") ||
+                                processedCommand[1] == "view-all-games";
         } else if(processedCommand.size() == 3) {
             //reassemble the command
-            commandIsValid = (processedCommand[1] == "accept" ||
+              commandIsValid = (processedCommand[1] == "accept" ||
                                 processedCommand[1] == "join" ||
                                 processedCommand[1] == "challenge" ||
-                                processedCommand[1] == "print");
+                                processedCommand[1] == "print") ||
+                                processedCommand[1] == "spectate" ;
         }
     }
 

@@ -15,6 +15,9 @@ class MiniGameMatch {
 public:
     MiniGameMatch();
     MiniGameMatch(const std::string& userName);
+
+
+
     MiniGameMatch(const std::string& player1Name, const std::string& player2Name);
 
     bool hasPlayer(const std::string& playerName) const;
@@ -23,10 +26,14 @@ public:
     bool makePlayerMove(const std::string& playerName, std::string& moveFrom, std::string moveTo);
     bool addPlayer(const std::string& playerName);
 
+    bool addSpectator(const std::string& userName);
+
     bool isGameFinished() const;
     std::string getWinMessage() const;
 
     void removePlayer(const std::string& playerName);
+    void removeSpectator(const std::string& spectatorName);
+
     unsigned long getCurrentPlayers() const;
 
     const std::string& getCurrentPlayerTurn() const;

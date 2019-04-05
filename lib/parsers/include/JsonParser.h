@@ -2,6 +2,8 @@
 #define JSON_PARSER_H
 
 #include "json.hpp"
+#include <dirent.h>
+
 using nlohmann::json;
 
 class JsonParser{
@@ -14,6 +16,7 @@ class JsonParser{
         std::string removeQuotes(std::string str);
         std::string json2string(json j);
         std::vector<std::string> json2Vector(json j);
+        std::vector<std::string> getFileNamesInPath(const char*);
 };
 
 

@@ -10,10 +10,10 @@
 #include <vector>
 #include <utility> //std::move (objects)
 #include "Exit.h"
-#include "Character.h"
+// #include "Character.h"
 #include "LocationCoordinates.h"
 #include <algorithm>
-
+// #include "NPC.h"
 
 class Room {
 
@@ -24,7 +24,6 @@ private:
     std::vector<std::string> charactersInRoom;
     std::vector<std::string> NPCsInRoom;
     std::vector<Exit> exitsInRoom;
-
 public:
     Room()
             : roomName("NO_ROOM_NAME"),
@@ -40,6 +39,7 @@ public:
     bool addCharacter(const std::string &userName);
     bool removeCharacter(const std::string &userName);
 
+
     std::string lookForName(const std::string &objName) const;
 
     std::string lookForExitName(const std::string &objName) const;
@@ -48,6 +48,7 @@ public:
 
     std::string listExits() const;
     int getRoomId();
+    bool removeExitToRoom(int id);
 
 
     //getters

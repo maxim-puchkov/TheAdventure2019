@@ -22,6 +22,15 @@
 #include <unordered_map>
 #include <utility>
 
+#include "Server.h"
+
+
+
+#include "GameManager.h"
+GameManager gm{};
+
+
+
 using networking::Server;
 using networking::Connection;
 using networking::Message;
@@ -144,7 +153,7 @@ main(int argc, char* argv[]) {
     std::unique_ptr<std::unordered_map<std::string, std::string>> heartbeatReplies;
     std::unique_ptr<std::unordered_map<std::string, std::string>> logs;
 
-    if(getTimeStamp() - heartbeatTimer > 200) {
+    if(getTimeStamp() - heartbeatTimer > 2000) {
       heartbeatReplies = gm.heartbeat();
       logs = includeHeartbeatMessages(std::move(promptReplies), std::move(heartbeatReplies));
       heartbeatTimer = getTimeStamp();

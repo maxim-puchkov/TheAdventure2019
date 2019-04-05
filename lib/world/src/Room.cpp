@@ -31,7 +31,6 @@ bool Room::createExit(const std::string& exitName, const std::string& exitDescri
 	return true;
 }
 
-
 bool Room::addCharacter(const std::string &userName){
 	try{
 		charactersInRoom.push_back(userName);
@@ -44,14 +43,15 @@ bool Room::addCharacter(const std::string &userName){
 int Room::getRoomId(){
 	return this->roomId;
 }
+
 /**
  *Removes username from Room. Note that it removes duplicates (but we shouldn't have duplicates)
- * @param userName - UserNmae you want to remove
+ * @param userName - UserName you want to remove
  * @return true if the username is removed, false if not found
  */
 bool Room::removeCharacter(const std::string &userName){
 	auto iter = std::remove(charactersInRoom.begin(),charactersInRoom.end(),userName);
-	charactersInRoom.erase(iter,charactersInRoom.end());
+    charactersInRoom.erase(iter);
 	return ( !( charactersInRoom.end() == iter ) ); //If iter==char.end() then userName wasn't found in list
 }
 
@@ -81,8 +81,8 @@ std::string Room::lookForExitName(const std::string &objName) const {
 }
 
 const std::string Room::lookCardinalDirection(const std::string &cardinalDirection) const {
-    Exit a{"a","a","a","a",1}; //Object only created to call methods.
-    const Exit::CardinalDirection &direction= a.getCardinalDirection(cardinalDirection);
+
+    const Exit::CardinalDirection &direction= Exit::getCardinalDirection(cardinalDirection);
     if(direction == Exit::CardinalDirection::NONE){
         return  "";
     }
@@ -138,4 +138,15 @@ void Room::updateExits(int id, std::string name){
 	}
 }
 
-
+bool Room::removeExitToRoom(int id){
+	bool result = false;
+	int count = 0;
+	for(auto tmpExit: exitsInRoom){
+		if(tmpExit.getTargetLocation().room == id){
+			exitsInRoom.erase(exitsInRoom.begin() + count);
+			result = true;
+		}
+		count++;
+	}
+	return result;
+}

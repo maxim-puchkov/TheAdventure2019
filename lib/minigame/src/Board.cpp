@@ -242,8 +242,7 @@ const std::string Board::getReverseBoardView() const {
 
     stream << "   hgfedcba\n___________\n";
 
-    int num = 8;
-    for(num ; num > 0 ; num--){
+    for(int num = 8 ; num > 0 ; num--){
         stream << num << "| ";
         const vector<Piece> &row = boardView.at(num - 1);
         drawRowReverse(row,stream);

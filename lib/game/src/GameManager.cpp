@@ -4,52 +4,85 @@
 int heartBeatDuration = 50;
 
 GameManager::GameManager() {
+    
     // Making the World using the JSON files
     AreaGenerator areaGen{};
-    std::vector<std::string> areaJSONs = 
-        {"../adventure2019/data/world/mirkwood.json",
-        "../adventure2019/data/world/shire.json",
-        "../adventure2019/data/world/solace.json"};
+    std::vector<std::string> areaJSONs = jsonParser.getFileNamesInPath("data/world");
     std::vector<Area> areas;
 
     for (auto filePath : areaJSONs){
-        auto area = areaGen.getArea(filePath, characterManager);
+        auto area = areaGen.getArea("data/world/" + filePath, characterManager, world.items);
         areas.push_back(area);
     }
 
+    //get the first area name to spawn first time login user
+    int count = 0;
     for(auto& area: areas){
+        if(count == 0) {
+            world.setAreaToSpawnFirstTimer(area.getName());
+            count++;
+        }
         area = areaGen.generateExits(area);
         world.addArea(area);
-    }
+    }    
 
     createTableOfCommands();
+    for(auto path: areaJSONs){
+        std::cout<< "data/world/"+path << "\n";
+    }
+        
+
 }
 
 void GameManager::createTableOfCommands() {
+
+#ifndef BUILD_ALL_TARGETS
+    
+    tableOfCommands.insert({"help", make_unique<CommandHelp>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"login", make_unique<CommandLogin>(characterManager, onlineUserManager, world)});
+    
+    tableOfCommands.insert({"take", make_unique<CommandTake>(characterManager, onlineUserManager, world)});
+
+#else
+    
+    tableOfCommands.insert({"help", make_unique<CommandHelp>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"login", make_unique<CommandLogin>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"logout", make_unique<CommandLogout>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"create-account", make_unique<CommandCreate>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"help", make_unique<CommandHelp>(characterManager, onlineUserManager, world)});
+    
+    tableOfCommands.insert({"create-avatar", make_unique<CommandCreateAva>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"edit-avatar", make_unique<CommandEditAva>(characterManager, onlineUserManager, world)});
+
     tableOfCommands.insert({"say", make_unique<CommandSay>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"tell", make_unique<CommandTell>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"yell", make_unique<CommandYell>(characterManager, onlineUserManager, world)});
+    
     tableOfCommands.insert({"look", make_unique<CommandLook>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"examine", make_unique<CommandExamine>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"move", make_unique<CommandMove>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"create-avatar", make_unique<CommandCreateAva>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"edit-avatar", make_unique<CommandEditAva>(characterManager, onlineUserManager, world)});
+
     tableOfCommands.insert({"create-room", make_unique<CommandCreateRoom>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"edit-room", make_unique<CommandEditRoom>(characterManager, onlineUserManager, world)});
+    
+    tableOfCommands.insert({"take", make_unique<CommandTake>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"use", make_unique<CommandUse>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"equip", make_unique<CommandEquip>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"pickup", make_unique<CommandPickup>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"drop", make_unique<CommandDrop>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"put", make_unique<CommandPut>(characterManager, onlineUserManager, world)});
+    
     tableOfCommands.insert({"minigame", make_unique<CommandMinigame>(characterManager, onlineUserManager, world)});
+    
     tableOfCommands.insert({"combat", make_unique<CommandCombat>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"attack", make_unique<CommandAttack>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"flee", make_unique<CommandFlee>(characterManager, onlineUserManager, world)});
+    
     tableOfCommands.insert({"cast", make_unique<CommandCast>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"create-item", make_unique<CommandCreateItem>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"delete-room", make_unique<CommandDeleteRoom>(characterManager, onlineUserManager, world)});
+
+    
+#endif
+    
 }
 
 std::string GameManager::extractCommands(const std::string& connectionID, std::string fullCommand) {
