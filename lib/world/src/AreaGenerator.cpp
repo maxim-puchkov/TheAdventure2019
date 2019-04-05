@@ -90,14 +90,10 @@ void AreaGenerator::generateNPC(json allNPC, Area& area, CharacterManager& chara
     int index = 0;
     for(auto NPC: allNPC){
         //std::cout << NPC["id"] << "\n";
-        std::vector<std::string> keywords = 
-            jsonParser.json2Vector(NPC[stringManager.getString(Internationalization::STRING_CODE::KEYWORDS)]);
-        std::string shortDesc = 
-            NPC[stringManager.getString(Internationalization::STRING_CODE::SHORTDESC)];
-        std::string longDesc = 
-            jsonParser.json2string(NPC[stringManager.getString(Internationalization::STRING_CODE::LONGDESC)]);
-        std::string description = 
-            jsonParser.json2string(NPC[stringManager.getString(Internationalization::STRING_CODE::DESC)]);
+        std::vector<std::string> keywords = jsonParser.json2Vector(NPC["keywords"]);
+        std::string shortDesc = NPC["shortdesc"];
+        std::string longDesc = jsonParser.json2string(NPC["longdesc"]);
+        std::string description = jsonParser.json2string(NPC["description"]);
         
         Character characterNPC{shortDesc};
         characterNPC.setShortdesc(shortDesc);
@@ -114,12 +110,9 @@ void AreaGenerator::generateObjects(json objects, Area& area, const items::ItemC
     for(auto object : objects){
 
         //std::cout << object["id"] << "\n";
-        std::vector<std::string> keywords = 
-            jsonParser.json2Vector(object[stringManager.getString(Internationalization::STRING_CODE::KEYWORDS)]);
-        std::string shortDesc = 
-            object[stringManager.getString(Internationalization::STRING_CODE::SHORTDESC)];
-        std::string longDesc = 
-            jsonParser.json2string(object[stringManager.getString(Internationalization::STRING_CODE::LONGDESC)]);
+        std::vector<std::string> keywords = jsonParser.json2Vector(object["keywords"]);
+        std::string shortDesc = object["shortdesc"];
+        std::string longDesc = jsonParser.json2string(object["longdesc"]);
         
         std::vector<std::string> extra_keywords = jsonParser.json2Vector(object["extra"][0]);
         std::string extra_desc = jsonParser.json2string(object["extra"][1]);
@@ -145,12 +138,7 @@ void AreaGenerator::generateExitsTo(Area& area){
         for(auto& ext : room.second.getExits()) {
             auto exitLocation = ext.getTargetLocation();
             auto nextRoom = area.getRoom(exitLocation.room);
-            std::string exitTo = 
-                (
-                    stringManager.getString(Internationalization::STRING_CODE::EXIT_TO) ,
-                     ": "
-                ) + 
-                nextRoom.getName();
+            std::string exitTo = "exit to: " + nextRoom.getName();
             ext.setExitTargetLocation(exitTo);
         }
     }
@@ -162,16 +150,7 @@ Area AreaGenerator::generateExits(Area area){
 
             auto exitID = ext.getTargetLocation().room;
             ext.getTargetLocation().area = roomsMap[exitID].first;
-            std::string exitName = 
-                (
-                    stringManager.getString(Internationalization::STRING_CODE::EXIT_TO), 
-                    ", ", 
-                    stringManager.getString(Internationalization::STRING_CODE::AREA), 
-                    ": "
-                ) + 
-                roomsMap[exitID].first + 
-                (" ", stringManager.getString(Internationalization::STRING_CODE::ROOM), ": ") + 
-                roomsMap[exitID].second; 
+            std::string exitName = "exit to, Area: " + roomsMap[exitID].first + " Room: " + roomsMap[exitID].second; 
             // area.updateRoomExits(exitID,exitName);
             ext.setExitTargetLocation(exitName);
             ext.setExitName(exitName);
