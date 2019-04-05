@@ -6,7 +6,8 @@
 
 using boost::lexical_cast;
 using boost::bad_lexical_cast;
-
+#include "Item.h"
+#include <string.h>
 
 
 void CommandLook::generalLook(const std::string &userName) const {
@@ -63,6 +64,52 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
         return;
     } else if (fullCommand.at(1) == "exits") {
         onlineUserManager.addMessageToUser(userName, (worldManager.listExits(location) + "\n"));
+        return;
+    } else if(fullCommand.at(1) == "keyword"){
+
+        if(fullCommand.size() == 2){
+            onlineUserManager.addMessageToUser(userName, " No keyword entered \n");
+            return;
+        }
+
+       const auto &keyWordList = worldManager.items.search(room.getRoomID(),fullCommand.at(2));
+
+       if(keyWordList.empty()){
+           onlineUserManager.addMessageToUser(userName, "No items with that keyword exist in this room\n" );
+           return;
+       }
+
+       stringstream ostream;
+
+       ostream << "Items that identify with keyword " << fullCommand.at(2)  << " \n";
+       for(const items::ItemIdentifier &iter : keyWordList){
+           ostream << iter << "\n";
+       }
+
+        onlineUserManager.addMessageToUser(userName,ostream.str());
+        return;
+    } else if (fullCommand.at(1) == "item"){
+        std::string detailedItem;
+
+        if(fullCommand.size() == 2){
+            onlineUserManager.addMessageToUser(userName, " No item specified for lookup ");
+            return;
+        }
+
+        try {
+            int itemId = std::stoi(fullCommand.at(2));
+            bool exist = worldManager.items.exists(room.getRoomID(), itemId);
+            if(exist){
+                const auto &item = worldManager.items.lookup(room.getRoomID(), itemId);
+                onlineUserManager.addMessageToUser(userName,item.description.full() + "\n");
+            }
+            onlineUserManager.addMessageToUser(userName, " Item specified doesn't exist \n ");
+
+        }catch (const std::exception &e){
+            onlineUserManager.addMessageToUser(userName, "Invalid item id! (not a number) \n");
+        }
+
+
         return;
     } else if(fullCommand.at(1) == "world"){
         //use for admin. look world => output the list of room
@@ -123,6 +170,9 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
      //worldManager.items.lookup(room.getRoomId(), );
 
 
+
+
+     //Do something with keywords here
 
 
 

@@ -17,6 +17,7 @@ if(NOT BUILD_ALL_TARGETS)
         # Testing items
         src/CommandTake.cpp
         src/CommandLook.cpp
+        src/CommandMinigame.cpp
     )
 
 else()

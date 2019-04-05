@@ -18,7 +18,6 @@ public:
 private:
     void generalLook(const std::string &userName) const ;
 
-
 };
 
 
