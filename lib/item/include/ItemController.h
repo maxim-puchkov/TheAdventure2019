@@ -14,32 +14,37 @@
 #include "Item.h"
 #include "ItemSearchKey.h"
 #include "ItemBuilder.h"
-#include "Authenticator.h"
+#include "auth.hpp"
 
 #include "print.h"
 
 
 namespace items {
 
-using auth::Identifier;
-using auth::Authenticator;
+using namespace auth;
 using ItemIdentifier = Identifier;
-
-// Debug IC construction counter
-static long iccc = 0;
-
-
 
 
 /*!
  @class ItemController
  
  @brief Controlls location and ownership of all items in the game world.
+ 
+ @note Idea was to use composite template Key (simiar to ItemSearchKey)
+    to allow chaining a container to a container.
+ @note Obviously missing the capacities and all containers are infinite.
+ @note Security seems pointless as commands could overwrite the world itself
  */
 template<typename Key>
 class ItemController {
 public:
+    
+    using Container = Environment<ItemSearchKey, Item>;
+    using Container2d = Environment<Key, Container>;
+    // using Container3d = Environment<Key, Container2d>
+    // using Container4d = ...
 
+    
     /*!
      @brief
         Properties of to-be-created items are set in the builder
@@ -56,32 +61,9 @@ public:
         Upcoming for equipable items:
             .setAttributes( )
      */
-    const ItemBuilder builder = ItemBuilder();
+    const ItemBuilder builder;
     
     
-    /*! Item Controller identifier */
-    const Identifier controller_id;
-    
-    
-    
-    
-    
-    /* Item Controller constructors */
-    
-//    // Using new authenticator
-//    ItemController()
-//    : controller_id(0), authenticator(Authenticator<ItemIdentifier>()) {
-//        this->init();
-//    }
-    
-    // Using shared authenticator
-    ItemController(const Authenticator<Identifier> *const authenticator)
-    : controller_id(authenticator->parent_id), authenticator(authenticator) {
-        this->init();
-    }
-    
-    
-    /* Create new items in the game world */
     
     
     /*!
@@ -91,9 +73,10 @@ public:
      
      @return Unique identifier of the new item
      */
-    ItemIdentifier create(Key key) const {
-        return this->create(key, 0);
+    ItemIdentifier create(Key key) const noexcept {
+        return this->create(key, -1);
     }
+    
     
     /*!
      Create a new item in a container
@@ -103,214 +86,66 @@ public:
      
      @return Unique identifier of the new item
      */
-    ItemIdentifier create(Key key, unsigned int json_id) const {
-        
-        if (!this->builder.validate()) {
-            return this->controller_id;
-        }
-    
-        //return 1;
-        
-        
-        
-        // Cast
-        this->created++;
-        
-       
-        // Redundant if
-        if (!this->env2d.exists(key)) {
-            
-            debug::print("1. Allocating container environment for ", key);
-            debug::print("2");
-            Environment<ItemSearchKey, Item> newContainer;
-            debug::print("3");
-            auto item = this->buildUniqueItem();
-            debug::print("4");
-
-            newContainer.bind(ItemSearchKey(item), item);
-            debug::print("5");
-            this->env2d.bind(key, newContainer);
-            debug::print("6");
-            
-            return item.id;
-            
-        } else {
-            
-            debug::print("1. Looking up existing container environment for ", key);
-            Environment<ItemSearchKey, Item> container = this->env2d.lookup(key);
-            debug::print("2");
-            auto item = this->buildUniqueItem();
-            debug::print("3");
-            container.bind(ItemSearchKey(item), item);
-            debug::print("4");
-            this->update(key, container);
-            debug::print("5");
-            return item.id;
-            
-        }
-    }
-    
-    /*! @return Total number of items created in the world */
-    size_t itemsCreated() const noexcept {
-        return this->created;
-        //return this->items_created;
-    }
+    ItemIdentifier create(Key key, int json_id) const noexcept;
     
     
     
     
-    // not public
-    void update(Key key, Environment<ItemSearchKey, Item> &container) const {
-        this->env2d.unbind(key);
-        this->env2d.bind(key, container);
-    }
-    /*! Generate unique id and build a new item */
-    Item buildUniqueItem() const noexcept {
-        ItemIdentifier id = this->authenticator->generateUniqueIdentifier();
-        return this->builder.build(id);
-    }
+    
     
 
-    /// Search for all items matching a keyword
-    vector<ItemIdentifier> search(Key key, const string &keyword) const {
-        vector<Identifier> vec;
-        auto env = this->env2d.lookup(key);
-        
-        for (auto element : env) {
-            ItemSearchKey key = element.first;
-            if (key.keywords.contains(keyword)) {
-                vec.push_back(key.id);
-            }
-        }
-        
-        return vec;
-    }
+    /*! Search for all items matching a keyword in a container */
+    vector<ItemIdentifier> search(Key key, const string &keyword) const;
     
     
-    /*! */
-    Item lookup(Key key, ItemIdentifier id) const noexcept(false) {
-        return this->env2d.lookup(key).lookup({id, {}});
-    }
+    /*! Lookup item object by its identifier */
+    Item lookup(Key key, ItemIdentifier id) const noexcept(false);
     
-    /*! */
-    Item lookup(Key key, const Keywords &keywords) const noexcept(false) {
-        /// return this->env2d.lookup(key)->lookup({0, keywords});
-        auto env = this->env2d.lookup(key);
-        for (auto element : env) {
-            ItemSearchKey key = element.first;
-            debug::print("IC3. ", key.id);
-            if (key == ItemSearchKey{0, keywords}) {
-                return element.second;
-            }
-        }
-        
-        throw std::invalid_argument("IC lookup");
-    }
+    /*! Lookup item object by its keywords */
+    Item lookup(Key key, const Keywords &keywords) const noexcept(false);
     
     
-    
-    /*! Determine if item exists by its identifier */
-    bool exists(Key key, ItemIdentifier id) const noexcept {
-        if (this->env2d.exists(key)) {
-            auto env = this->env2d.lookup(key);
-            for (auto element : env) {
-                ItemSearchKey key = element.first;
-                if (key == ItemSearchKey{id, {}}) {
-                    return true;
-                }
-            }
-        }
-        return false;
-        
-    }
-    
-    
+    /*! Check if item exists in a container by its identifier */
+    bool exists(Key key, ItemIdentifier id) const noexcept;
     
     /*! Check if item matching the keywords exists in a container */
-    bool exists(Key key, const Keywords &keywords) const noexcept {
-        if (this->env2d.exists(key)) {
-            auto env = this->env2d.lookup(key);
-            
-            for (auto element : env) {
-                ItemSearchKey key = element.first;
-                if (key == ItemSearchKey{0, keywords}) {
-                    return true;
-                }
-            }
-            
-        }
-        
-        return false;
-    }
+    bool exists(Key key, const Keywords &keywords) const noexcept;
+    
+    
     
     
     /*!
      Contents of a container
      @return Vector of {id, keywords} pairs
      */
-    vector<ItemSearchKey> contentsOf(Key key) const {
-        
-        auto env = this->env2d.lookup(key);
-        vector<ItemSearchKey> vec;
-        vec.reserve(env.size());
-        
-        for (auto &binding : env) {
-            ItemSearchKey key = binding.first;
-            //vec.push_bakey(key.id);
-            vec.push_back(key);
-        }
-        
-        return vec;
-        
-    }
+    vector<ItemSearchKey> contentsOf(Key key) const;
     
-    /*! */
-    size_t containerSize(Key key) const noexcept {
-        if (this->env2d.exists(key)) {
-            auto env = this->env2d.lookup(key);
-            return env.size();
-        }
-        
-        return 0;
-    }
-    
-
-    
-    
+    /*! Change ownership */
     void reassign(Key key_owner,
                   Key key_recipient,
-                  ItemIdentifier id) const noexcept(false) {
+                  ItemIdentifier id) const;
+    
+    
+    /*! Quantity of items in a container */
+    std::size_t containerSize(Key key) const noexcept;
+    
+    /*! @return Total number of items created in the world */
+    std::size_t itemsCreated() const noexcept;
+    
         
-        auto owner = this->env2d.lookup(key_owner);
-        auto recipient = this->env2d.lookup(key_recipient);
         
         
-        print_contentsOf(key_owner);
-        std::cout << "\n";
-        print_contentsOf(key_recipient);
         
-        
-        Item item = owner.lookup(id);
-        
-        owner.unbind(id);
-        recipient.bind({id, item.keywords}, item);
-        
-        this->env2d.unbind(key_owner);
-        this->env2d.bind(key_owner, owner);
-        
-        this->env2d.unbind(key_recipient);
-        this->env2d.bind(key_recipient, recipient);
-        
-        std::cout << "\n";
-        print_contentsOf(key_owner);
-        std::cout << "\n";
-        print_contentsOf(key_recipient);
-        
+
+
+
+    
+  
+    /* * * * * * * * * * * *       Deprecated      * * * * * * * * * * * */
+    
+    void display_all() const {
+        debug::print(this->env2d);
     }
-        
-
-
-
     
     void print_contentsOf(Key key) const {
         for (auto &x : contentsOf(key)) {
@@ -318,39 +153,51 @@ public:
         }
     }
 
-    
-  
     /* * * * * * * * * * * *       Deprecated      * * * * * * * * * * * */
     
-    
-        
-    void display_all() const {
-        debug::print(this->env2d);
-    }
 
-    /* * * * * * * * * * * *       Deprecated      * * * * * * * * * * * */
+    
+    /*! Item Controller identifier */
+    const Identifier controller_id = 0;
+    
+    
+//    // Using shared authenticator
+//    ItemController(SharedAuthenticator authenticator)
+//    : authenticator(authenticator) { //, controller_id(authenticator->parent_id) {
+//        this->init();
+//    }
+    
+    
+    ItemController()
+    { }
     
     ~ItemController() = default; // { this->deallocateContainers(); }
-
+    
+    
+    //Text detailsOfList(vector<ItemSearchKey> &&vec) const noexcept {
+    Text detailsOfList(const vector<ItemSearchKey> &vec) const noexcept {
+        std::ostringstream stream("");
+        
+        stream << "Listing items:\n";
+        for (auto &skey : vec) {
+            stream << '\t' << skey.toString() << '\n';
+        }
+        
+        return stream.str();
+    }
     
     
 private:
 
     /*! All existing items are stored in the two-dimensional environment */
-    mutable Environment<Key, Environment<ItemSearchKey, Item>> env2d;
+    Environment<Key, Environment<ItemSearchKey, Item>> env2d;
     
-    mutable size_t created = 0;
-    
-    /*! Local item authenticator */
-    const Authenticator<Identifier> *const authenticator;
-    
-    
+    std::size_t items_created = 0;
     
     void init() {
         debug::prefix("ItemController");
         debug::print("ItemController (id: ", this->controller_id, ") created");
         debug::silenced = true;
-        iccc++;
     }
     
 
@@ -358,12 +205,13 @@ private:
     void deallocateContainers() const noexcept(false) {
         for (auto &binding : this->env2d) {
             Key key = binding.first;
-            Environment<ItemSearchKey, Item>env = binding.second;
-            this->env2d.unbind(key);
+            Environment<ItemSearchKey, Item> env = binding.second;
+            // this->env2d.unbind(key);  cast
         }
     }
     
-    //
+    
+    /*! Remove an item from its owner */
     bool removeItem(Environment<ItemSearchKey, Item> &owner,
                     ItemIdentifier id) const noexcept {
         
@@ -374,7 +222,18 @@ private:
         }
         
         return false;
-        
+    }
+    
+    /*! Update */
+    void update(Key key, Environment<ItemSearchKey, Item> &container) const {
+        (const_cast<ItemController *>(this))->env2d.unbind(key);
+        (const_cast<ItemController *>(this))->env2d.bind(key, container);
+    }
+    
+    /*! Request unique id and build a new item */
+    Item buildUniqueItem() const noexcept {
+        ItemIdentifier id = auth::shared::authenticator.requestUniqueIdentifier();
+        return this->builder.build(id);
     }
     
     /*! Keeps trakey of dynamic memory deallocations */
@@ -390,5 +249,8 @@ private:
     
 
 } /* namespace items */
+
+
+#include "ItemController.cpp"
 
 #endif /* ItemController_h */
