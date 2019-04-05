@@ -3,11 +3,9 @@
 #include "WorldManager.h"
 #include "AreaGenerator.h"
 
-WorldManager::WorldManager(const Authenticator<Identifier> *const authenticator)
-: authenticator(authenticator), items(authenticator) {
+WorldManager::WorldManager() {
     debug::prefix("World");
     debug::print("World created");
-    wmcc++;
     
     
     using namespace items::data; // Keywords, Description, Actions classes
@@ -47,9 +45,9 @@ WorldManager::WorldManager(const Authenticator<Identifier> *const authenticator)
     this->items.builder.setDescription("A pile of dirt");
     this->items.create(character_id);
     
-    
-    // Will be added
-    // Creates first item for in character's (id: 123) inventory
+//
+//     Will be added
+//     Creates first item for in character's (id: 123) inventory
 //    this->items.builder.setKeywords({"sword"});
 //    this->items.builder.setDescription({"You deal more damage"});
 //    this->items.builder.attributes.setDamage(10);
@@ -183,9 +181,11 @@ std::string WorldManager::look(LocationCoordinates location, std::string objName
 
 void WorldManager::createRoom(const LocationCoordinates & location, const std::string& direction, const std::string& name) {
     
-    Identifier roomContainer = this->requestUniqueIdentifier();
+    // Unique id for the room container
+    //Identifier roomContainer = this->authenticator->requestUniqueIdentifier();
     
-    Room room{name, "Admin generated", roomContainer};
+    Room room{name, "Admin generated", shared::authenticator.uuid()};
+    
     int roomID = areas[location.area].getNextRoomID();
     room.setRoomID(roomID);
     areas[location.area].addRoom(room);
@@ -252,9 +252,4 @@ Area& WorldManager::getAreaByLocation(LocationCoordinates location){
         return search->second;
     }
     return nullArea;
-}
-
-
-Identifier WorldManager::requestUniqueIdentifier() const {
-    return this->authenticator->generateUniqueIdentifier();
 }

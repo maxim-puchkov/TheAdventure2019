@@ -32,8 +32,6 @@ const std::string ENV_CONV_ERROR = "Map Environment error: Template argument doe
  *  Binds search key K to value V.
  *  Most operations validate the key and
  *  throw exceptions if invalid.
- *  Required by Cmd-Processor to evaluate input.
- *  Potentially needed to track users.
  */
 template<class K, class V>
 class Environment {

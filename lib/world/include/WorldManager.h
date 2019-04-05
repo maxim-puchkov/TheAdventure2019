@@ -7,36 +7,32 @@
 
 #include "Area.h"
 #include "Room.h"
-// #include "Character.h"
 #include "LocationCoordinates.h"
 #include "ItemController.h"
-#include "Item.h"
-#include "print.h"
+#include "auth.hpp"
 
 
+using namespace auth;
 using items::ItemController;
-using auth::Authenticator;
-using auth::Identifier;
 
+// const Authenticator<Identifier> shared::authenticator = Authenticator<Identifier>();
 
-// Debug WM construction counter
-static long wmcc = 0;
-
-
+/*!
+ @class WorldManager
+ 
+ @brief Generates and populates immersive world with character and items
+ */
 class WorldManager {
 private:
-    // std::vector<Area> areas;
+    
     std::unordered_map<std::string, Area> areas;
     int roomToSpawnUser;
     Area nullArea{};
     
-    Identifier requestUniqueIdentifier() const;
-    const Authenticator<Identifier> *const authenticator;
-    
 public:
     
+    WorldManager();
     
-    WorldManager(const Authenticator<Identifier> *const authenticator);
     void generateWorld();
     Room& findRoomByLocation(LocationCoordinates location);
 
@@ -60,6 +56,7 @@ public:
     Area& getAreaByLocation(LocationCoordinates location);
 
     void addArea(Area area);
+    
     /*! All items are created and stored in the item controller */
     const ItemController<Identifier> items;
     

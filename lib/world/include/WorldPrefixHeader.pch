@@ -18,5 +18,9 @@
 #include <cstdlib>
 #include <stdint.h>
 
+#include <unordered_map>
+#include <iostream>
+#include <fstream>
+
 
 #endif /* WorldPrefixHeader_pch */
