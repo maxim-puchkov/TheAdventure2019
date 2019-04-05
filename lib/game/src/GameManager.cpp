@@ -6,9 +6,9 @@ GameManager::GameManager() {
     // Making the World using the JSON files
     AreaGenerator areaGen{};
     std::vector<std::string> areaJSONs = 
-        {"../adventure2019/data/world/mirkwood.json",
-        "../adventure2019/data/world/shire.json",
-        "../adventure2019/data/world/solace.json"};
+        {"data/world/mirkwood.json",
+        "data/world/shire.json",
+        "data/world/solace.json"};
     std::vector<Area> areas;
 
     for (auto filePath : areaJSONs){
