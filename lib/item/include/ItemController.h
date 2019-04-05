@@ -252,7 +252,13 @@ public:
      @return Vector of {id, keywords} pairs
      */
     vector<ItemSearchKey> contentsOf(Key key) const {
-        
+
+        //Return an empty vector if env2d. doesn't exist for that char.id or room.id
+        if(!env2d.exists(key)){
+            return vector<ItemSearchKey>();
+        }
+
+
         auto env = this->env2d.lookup(key);
         vector<ItemSearchKey> vec;
         vec.reserve(env.size());
@@ -266,6 +272,7 @@ public:
         return vec;
         
     }
+
 
 
 

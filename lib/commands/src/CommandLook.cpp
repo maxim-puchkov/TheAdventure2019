@@ -32,7 +32,7 @@ void CommandLook::generalLook(const std::string &userName) const {
     }
 
     onlineUserManager.addMessageToUser(userName, allItems);
-
+    
 }
 
 
