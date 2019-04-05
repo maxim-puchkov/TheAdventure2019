@@ -115,29 +115,9 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
 
 
     vector<string> &players = playerMatch.getPlayers();
-
-    ////DEBUG
-    stringstream ostream;
-    ostream << players.size() << " <-- number of players in the minigame (for debug) \n";
-    //DEBUG
-
-    //onlineUserManager.addMessageToUser(username, ostream.str() );
-
-
     if (players.size() >= 2) {
         onlineUserManager.addMessageToUser(players.at(0), playerMatch.reverseDisplay() + "\n" );
         onlineUserManager.addMessageToUser(players.at(1), playerMatch.display() + "\n" );
-    }
-
-
-    //Really ghetto way of doing things
-    for(unsigned int i = 0; i < players.size(); i++){
-        if(i == 0) {
-            onlineUserManager.addMessageToUser(players.at(0), playerMatch.reverseDisplay() + "\n");
-        }
-        if(i == 1) {
-            onlineUserManager.addMessageToUser(players.at(1), playerMatch.display() + "\n");
-        }
     }
 
 
