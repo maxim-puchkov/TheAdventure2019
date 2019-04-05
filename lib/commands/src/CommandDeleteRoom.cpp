@@ -18,13 +18,22 @@ void CommandDeleteRoom::executeInHeartbeat(const std::string& username, const st
             std::string returnMessage;
             auto location = characterManager.getCharacterLocation(username);
             if(location.room == stoi(fullCommand[1])){
-                onlineUserManager.addMessageToUser(username, "You cannot delete the room you are in\n");
+                onlineUserManager.addMessageToUser(
+                    username, 
+                    stringManager.getString(Internationalization::STRING_CODE::DELETING_ROOM_YOU_ARE_IN)
+                );
             }else{
                 auto result = worldManager.deleteRoom(LocationCoordinates{location.area, stoi(fullCommand[1])});
                 if(result){
-                    returnMessage = "You have deleted room ID: " + fullCommand[1] + " in area: " + location.area + "\n";
+                    returnMessage = 
+                        stringManager.getString(Internationalization::STRING_CODE::DELETING_ROOM_MESSAGE) + 
+                        fullCommand[1] + 
+                        stringManager.getString(Internationalization::STRING_CODE::IN_AREA) + 
+                        location.area + 
+                        "\n";
                 }else{
-                    returnMessage = "The room you enter is invalid\n";
+                    returnMessage = 
+                        stringManager.getString(Internationalization::STRING_CODE::INVALID_ROOM_ENTER);
                 }
                 onlineUserManager.addMessageToUser(username, returnMessage);
             }

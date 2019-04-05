@@ -236,6 +236,11 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::COULDNT_FIND_GAME_WITH, "couldnt_find_game_with");
     generateDefaultStrings(Internationalization::STRING_CODE::PLAYING, "playing");
 
+    generateDefaultStrings(Internationalization::STRING_CODE::DELETING_ROOM_YOU_ARE_IN, "deleting_room_you_are_in");
+    generateDefaultStrings(Internationalization::STRING_CODE::DELETING_ROOM_MESSAGE, "deleting_room_message");
+    generateDefaultStrings(Internationalization::STRING_CODE::IN_AREA, "in_area");
+    generateDefaultStrings(Internationalization::STRING_CODE::INVALID_ROOM_ENTER, "invalid_room_enter");
+
     generateDefaultStrings(Internationalization::STRING_CODE::CHARACTERS_JSON_FILE_NAME, "characters_json_file_name");
     generateDefaultStrings(Internationalization::STRING_CODE::SHORTDESC, "shortdesc");
     generateDefaultStrings(Internationalization::STRING_CODE::LONGDESC, "longdesc");

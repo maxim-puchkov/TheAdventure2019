@@ -221,6 +221,11 @@ class Internationalization {
        COULDNT_FIND_GAME_WITH,
        PLAYING,
 
+       DELETING_ROOM_YOU_ARE_IN,
+       DELETING_ROOM_MESSAGE,
+       IN_AREA,
+       INVALID_ROOM_ENTER,
+
        CHARACTERS_JSON_FILE_NAME,
        SHORTDESC,
        LONGDESC,

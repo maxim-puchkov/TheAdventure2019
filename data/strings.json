@@ -184,6 +184,11 @@
 	"couldnt_find_game_with":{"string": " Couldn't find a game with "},
 	"playing":{"string": " playing!\n"},
 
+	"deleting_room_you_are_in":{"string": "You cannot delete the room you are in\n"},
+	"deleting_room_message":{"string": "You have deleted room ID: "},
+	"in_area":{"string": " in area: "},
+	"invalid_room_enter":{"string": "The room you enter is invalid\n"},
+
 	"characters_json_file_name":{"string": "charaters_db.json"},
 	"shortdesc":{"string": "shortdesc"},
 	"longdesc":{"string": "longdesc"},
