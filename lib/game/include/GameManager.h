@@ -24,15 +24,13 @@ using auth::Identifier;
 class GameManager {
 private:
     
-    WorldManager world;
+    WorldManager world{};
     OnlineUserManager onlineUserManager{};
-    CharacterManager characterManager;
+    CharacterManager characterManager{};
     
     std::unordered_map<std::string, std::unique_ptr<Command>> tableOfCommands;
     std::string extractKeyword(std::string& fullCommand);
     void createTableOfCommands();
-
-    const Authenticator<Identifier> *const authenticator;
     
 public:
     
