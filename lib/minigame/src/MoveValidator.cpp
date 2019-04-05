@@ -81,7 +81,6 @@ bool MoveValidator::processChessMove(const ChessCoordinate &startPos, const Ches
 }
 
 
-
 /**
  * @return A message on how to play the game
  */
@@ -248,9 +247,21 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo) {
     return processChessMove( startPos, finishPos );
 }
 
+MoveValidator::MoveValidator(const std::string &playerOne) {
+    this->playerOne.playerName = playerOne;
+    this->playerOne.playerColor = RED_LOWERCASE;
 
+}
 
+MoveValidator::MoveValidator(const std::string &playerOne, const std::string &playerTwo) {
 
+    this->playerOne.playerName = playerOne;
+    this->playerOne.playerColor = RED_LOWERCASE;
 
+    this->playerTwo.playerName = playerTwo;
+    this->playerTwo.playerColor = BLUE_UPPERCASE;
+}
 
-
+MoveValidator::MoveValidator() {
+    this->gameBoard = gameBoard;
+}
