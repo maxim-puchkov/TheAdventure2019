@@ -6,8 +6,8 @@ using internationalization::Internationalization;
 std::string Command::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
 	//check if the avatar is fully customized to play or not
 	auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
+    
 
-	/*
 	if (characterManager.isCharacterFullyCustomized(username) != CharacterManager::CHARACTER_CODE::CHARACTER_IS_CUSTOMIZED) {
 		return (stringManager.getString(Internationalization::STRING_CODE::PLEASE_CUSTOMIZE_AVATAR_FIRST) + " " +
 				stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER) + " \"" +
@@ -15,7 +15,7 @@ std::string Command::executePromptReply(const std::string& connectionID, const s
 				stringManager.getString(Internationalization::STRING_CODE::AVATAR) + "\" " +
 				stringManager.getString(Internationalization::STRING_CODE::TO_SEE_MORE_INFO)
 		);
-	}*/
+	}
 
 
 	bool success = onlineUserManager.onlineUserAddCommandToList(connectionID, fullCommand);

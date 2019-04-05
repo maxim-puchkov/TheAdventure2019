@@ -102,7 +102,10 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
                 stringManager.getString(Internationalization::STRING_CODE::YOU_ARE_NOT_IN_ANY_MINIGAMES)
             );
         }
+
         playerMatch.removePlayer(username);
+        playerMatch.removeSpectator(username);
+
         if (playerMatch.getCurrentPlayers() == 0) {
             miniGameLobby.deleteGame(playerMatch.getAdminName());
         }
@@ -118,9 +121,18 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         }
         if (fullCommand.at(2) == stringManager.getString(Internationalization::STRING_CODE::INVITES)) {
             onlineUserManager.addMessageToUser(username, miniGameLobby.printInvites());
-        }
+            return;
+    } else if (firstCommand == "view-all-games"){
+        onlineUserManager.addMessageToUser(username,miniGameLobby.printGames() + "\n");
         return;
+    } else if (firstCommand == "spectate"){
+        const std::string &userSpectating = fullCommand.at(2);
+        const std::string& rst = miniGameLobby.spectate(userSpectating, username);
+        onlineUserManager.addMessageToUser(username, rst );
+
     }
+
+
 
 
 
@@ -140,6 +152,7 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         sendWinMessage( playerMatch.getPlayers(), playerMatch.getSpectators(), std::move(playerMatch.getWinMessage()) );
     }
 
+
 }
 
 std::vector<std::string> CommandMinigame::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
@@ -151,6 +164,8 @@ std::vector<std::string> CommandMinigame::reassembleCommand(std::string& fullCom
     //Format: minigame accept [username]
     //Format: minigame join [username]
     //Format: minigame move [location-of-piece-to-be-moved],[new-location]
+    //Format: minigame spectate [username]
+    //Format: minitamge view-all-games
     boost::trim_if(fullCommand, boost::is_any_of(" \t"));
 
     //Split by ","
@@ -166,14 +181,16 @@ std::vector<std::string> CommandMinigame::reassembleCommand(std::string& fullCom
         if(processedCommand.size() == 2) {
             commandIsValid = (processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::ACCEPT) ||
                                 processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::START) ||
-                                processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::QUIT));
+                                processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::QUIT)) ||
+                                processedCommand[1] == "view-all-games";
         
         } else if(processedCommand.size() == 3) {
             //reassemble the command
             commandIsValid = (processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::ACCEPT) ||
                                 processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::JOIN) ||
                                 processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::CHALLENGE) ||
-                                processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::PRINT));
+                                processedCommand[1] == stringManager.getString(Internationalization::STRING_CODE::PRINT)) ||
+                                processedCommand[1] == "spectate" ;
         }
     }
 

@@ -10,6 +10,7 @@
 #include "LocationCoordinates.h"
 #include <unordered_map>
 
+
 class Exit{
 
 public:
@@ -22,7 +23,9 @@ public:
         SOUTH,
         SOUTHWEST,
         WEST,
-        NORTHWEST
+        NORTHWEST,
+        UP,
+        DOWN
     };
 
 
@@ -30,7 +33,7 @@ public:
          const std::string& cardinalDirection, std::string areaID, int roomID);
 
 
-    static Exit::CardinalDirection getCardinalDirection(const std::string& direction);
+    static Exit::CardinalDirection getCardinalDirection(const std::string &direction) ;
     //getters
     const std::string &getExitName() const;
     const std::string getLowerCaseExitName() const;
@@ -62,7 +65,10 @@ private:
 
     //A map that is used to convert CardinalDirection's (enum) into a string for viewing, initialized in cpp
     static std::unordered_map<CardinalDirection, std::string> const directionMap;
+
 };
+
+
 
 
 

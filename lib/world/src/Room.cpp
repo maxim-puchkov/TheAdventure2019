@@ -31,7 +31,6 @@ bool Room::createExit(const std::string& exitName, const std::string& exitDescri
 	return true;
 }
 
-
 bool Room::addCharacter(const std::string &userName){
 	try{
 		charactersInRoom.push_back(userName);
@@ -47,12 +46,12 @@ int Room::getRoomId(){
 
 /**
  *Removes username from Room. Note that it removes duplicates (but we shouldn't have duplicates)
- * @param userName - UserNmae you want to remove
+ * @param userName - UserName you want to remove
  * @return true if the username is removed, false if not found
  */
 bool Room::removeCharacter(const std::string &userName){
 	auto iter = std::remove(charactersInRoom.begin(),charactersInRoom.end(),userName);
-	charactersInRoom.erase(iter,charactersInRoom.end());
+    charactersInRoom.erase(iter);
 	return ( !( charactersInRoom.end() == iter ) ); //If iter==char.end() then userName wasn't found in list
 }
 
@@ -138,5 +137,3 @@ void Room::updateExits(int id, std::string name){
 		}
 	}
 }
-
-

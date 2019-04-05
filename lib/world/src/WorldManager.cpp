@@ -4,6 +4,58 @@
 #include "AreaGenerator.h"
 
 using internationalization::Internationalization;
+WorldManager::WorldManager()
+: items(ItemController<WorldIdentifier>()) {
+    debug::prefix("World");
+    debug::print("World created");
+    
+    
+    using namespace items::data; // Keywords, Description, Actions classes
+    
+    // Test action. Actions cannot be used yet
+    vector<Action> vec{Action("read", " < items are now working > ")};
+
+    // Choose where item is created
+    WorldIdentifier room_id = 0;
+    WorldIdentifier character_id = 123;
+    
+    
+    // Creates first item in room (id: 0)
+    this->items.builder.setItemProperties(Keywords({"letter"}), Description("You received a letter"), Actions(vec));
+    this->items.create(room_id);
+    
+
+    
+    // Different ways ways to create items
+    
+    // Creates a second item in room (id: 0). Keyword letter is the same, no actions
+    this->items.builder.setKeywords({"letter", "cat"});
+    this->items.builder.setDescription("You received a cat letter");
+    this->items.create(room_id);
+
+    // Creates a third item in room (id: 0). Description defaults to "No description"
+    this->items.builder.setKeywords({"book", "apple"});
+    this->items.create(room_id);
+
+    
+    
+    
+    // Creates first item for in character's (id: 123) inventory.
+    //      Two lines of description
+    //      shortdesc = "a pile"
+    this->items.builder.setKeywords({"dirt"});
+    this->items.builder.setDescription("A pile of dirt");
+    this->items.create(character_id);
+    
+    
+    // Will be added
+    // Creates first item for in character's (id: 123) inventory
+//    this->items.builder.setKeywords({"sword"});
+//    this->items.builder.setDescription({"You deal more damage"});
+//    this->items.builder.attributes.setDamage(10);
+//    this->items.create(character_id);
+    
+}
 
 Room& WorldManager::findRoomByLocation(LocationCoordinates location) {
     if (areas.empty() || location.area == ""){
@@ -82,7 +134,7 @@ LocationCoordinates WorldManager::move(const std::string& characterName, Locatio
 
         roomOfInterest.removeCharacter(characterName);
         newRoom.addCharacter(characterName);
-        
+
         return newLocation;
     } catch(const std::domain_error& e){
         return location;
@@ -98,6 +150,23 @@ std::string WorldManager::listExits(LocationCoordinates location) {
         return stringManager.getString(Internationalization::STRING_CODE::NO_EXITS_FOUND);
     }
 }
+
+//std::string WorldManager::listPeople(const Character& character) {
+//    LocationCoordinates currentLocation = character.getCurrentLocation();
+//    try{
+//
+//        auto& currentRoom = findRoomByLocation(currentLocation);
+//        auto& peopleList = currentRoom.getUserNames();
+//        std::string result = "People in room: \n";
+//        for(auto& charName: peopleList){
+//            result += "- " + charName + "\n";
+//        }
+//
+//        return result;
+//    } catch(const std::domain_error& e){
+//        return "No one else in the room.";
+//    }
+//}
 
 
 std::string WorldManager::look(LocationCoordinates location) {
@@ -140,13 +209,17 @@ void WorldManager::createRoom(const LocationCoordinates & location, const std::s
 
 int WorldManager::getRoomToSpawnUser() {
     //need to change this to dynamic
-    auto search = areas.find("Mirkwood");
+    auto search = areas.find(areaToSpawnFirstTimer);
 
     if(search != areas.end()) {
         return search->second.getFirstRoomID();
     }else{
         return -1;
     }
+}
+
+std::string WorldManager::getAreaToSpawnUser() {
+    return areaToSpawnFirstTimer;
 }
 
 std::string WorldManager::worldDetail(LocationCoordinates location) {

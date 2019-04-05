@@ -14,6 +14,12 @@ using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
 using internationalization::Internationalization;
 
+
+/*!
+ @class Command
+ 
+ @brief Abstract base class for all game commands
+ */
 class Command
 {
 protected:

@@ -1,0 +1,53 @@
+//
+//  GamePrefixHeader.pch
+//  adventure2019: adventure2019
+//  com.maximpuchkov.Faworki.adventure2019.GamePrefixHeader
+//
+//  Created by mpuchkov on 2019-04-03. macOS 10.13, Xcode 10.1.
+//  Copyright © 2019 Maxim Puchkov. All rights reserved.
+//
+
+#ifndef GamePrefixHeader_pch
+#define GamePrefixHeader_pch
+
+
+#ifndef BUILD_ALL_TARGETS
+
+#include "Command.h"
+#include "CommandHelp.h"
+#include "CommandLogin.h"
+#include "CommandTake.h"
+
+#else
+
+#include "Command.h"
+#include "CommandHelp.h"
+#include "CommandLogin.h"
+#include "CommandLogout.h"
+#include "CommandCreate.h"
+#include "CommandSay.h"
+#include "CommandTell.h"
+#include "CommandYell.h"
+#include "CommandLook.h"
+#include "CommandExamine.h"
+#include "CommandCreateAva.h"
+#include "CommandEditAva.h"
+#include "CommandMove.h"
+#include "CommandEditRoom.h"
+#include "CommandCreateRoom.h"
+#include "CommandUse.h"
+#include "CommandEquip.h"
+#include "CommandTake.h"
+#include "CommandDrop.h"
+#include "CommandPut.h"
+#include "CommandMinigame.h"
+#include "CommandCombat.h"
+#include "CommandAttack.h"
+#include "CommandFlee.h"
+#include "CommandCast.h"
+#include "CommandCreateItem.h"
+
+#endif
+
+
+#endif /* GamePrefixHeader_pch */

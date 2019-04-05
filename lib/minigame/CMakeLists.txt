@@ -1,36 +1,49 @@
-add_library(${libminigame}
-        src/Board.cpp
-        src/MoveValidator.cpp
-        src/Piece.cpp
-        src/MiniGameLobby.cpp
-        src/MiniGameMatch.cpp)
+#
+#   Minigame CMakeLists
+#
 
 
 cmake_minimum_required(VERSION 3.12)
-find_package(Boost 1.68 COMPONENTS system REQUIRED)
+project(${minigame} VERSION 1.0)
 
 
-target_include_directories(${libminigame}
-        PUBLIC
-            $<INSTALL_INTERFACE:include>
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> # this line here fixes the include/include issues
-        PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}/src
-            ${Boost_INCLUDE_DIR}
-        )
+add_library(${PROJECT_NAME}
+    src/Board.cpp
+    src/MoveValidator.cpp
+    src/Piece.cpp
+    src/MiniGameLobby.cpp
+    src/MiniGameMatch.cpp
+)
 
-target_link_libraries(${libminigame}
+
+target_include_directories(${PROJECT_NAME}
+    PUBLIC
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${Boost_INCLUDE_DIR}
+)
+
+
+target_link_libraries(${PROJECT_NAME}
+    PUBLIC
+        ${libstrings}
+    PRIVATE
+        ${time}
         ${Boost_LIBRARIES}
-        ${libtime}
-	${libstrings}
-        )
+)
 
-set_target_properties(${libminigame}
-        PROPERTIES
+
+set_target_properties(${PROJECT_NAME}
+    PROPERTIES
+        COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"
         LINKER_LANGUAGE CXX
         CXX_STANDARD 17
-        )
+)
 
-install(TARGETS ${libminigame}
-        ARCHIVE DESTINATION lib
-        )
+
+install(TARGETS ${PROJECT_NAME}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+)

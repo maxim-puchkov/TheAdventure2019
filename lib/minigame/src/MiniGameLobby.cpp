@@ -76,7 +76,7 @@ std::string MiniGameLobby::printGames() const{
         }
         result += game.getAdminName() + ": " + playerNames + "\n";
     }
-    return result;
+    return std::move(result);
 }
 
 std::string MiniGameLobby::printInvites() const{
@@ -84,5 +84,44 @@ std::string MiniGameLobby::printInvites() const{
     for(auto& invite : pendingInvites){
         result += std::get<0>(invite) + ", " + std::get<1>(invite) + "\n";
     }
-    return result;
+    return std::move(result);
 }
+
+
+/**
+ * Spectates a game that is currently being played by the userName
+ * @param userName - The userName the observer wants to watch
+ * @param observer - the observer's name
+ * @return
+ */
+std::string MiniGameLobby::spectate(const std::string &userName, const std::string &observer) {
+
+    //find game with a specific userName
+
+    const auto game = std::find_if(gameList.begin(), gameList.end(),
+            [&](const auto &iter) {return (iter.hasPlayer(userName)); } );
+
+    if(game != gameList.end()){
+        (*game).addSpectator(observer);
+        return std::move(" Currently spectating " + userName + "\n");
+    }
+
+    return std::move(" Couldn't find a game with " + userName + " playing!\n");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

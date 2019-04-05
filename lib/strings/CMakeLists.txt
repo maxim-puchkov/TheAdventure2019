@@ -12,7 +12,7 @@ target_include_directories(${libstrings}
 
 target_link_libraries(${libstrings}
   PUBLIC
-    ${libparsers}
+    ${parsers}
 )
 
 set_target_properties(${libstrings}
@@ -23,5 +23,6 @@ set_target_properties(${libstrings}
 
 install(TARGETS ${libstrings}
     ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
 )
 

@@ -182,19 +182,16 @@ std::string CommandEditAva::spawnAvatar(const std::string& username) {
     auto isFirstTime = characterManager.isThisFirstTimeSetup(username);
     if(isFirstTime == CharacterManager::CHARACTER_CODE::CHARACTER_THIS_IS_FIRST_TIME_SET_UP) {
         auto roomToSpawnUser = worldManager.getRoomToSpawnUser();
-        auto spawnLocation = characterManager.spawnCharacter(username, LocationCoordinates{"Mirkwood", roomToSpawnUser});
-        worldManager.spawn(username, spawnLocation);      
-        answer << 
-        (
-            stringManager.getString(Internationalization::STRING_CODE::CURRENT_LOCATION), 
-            " ", 
-            stringManager.getString(Internationalization::STRING_CODE::AREA), 
-            ":"
-        ) << 
-        spawnLocation.area << 
-        (", ", stringManager.getString(Internationalization::STRING_CODE::ROOM), ": ") << 
-        spawnLocation.room << 
-        "\n";
+		auto areaToSpawnUser = worldManager.getAreaToSpawnUser();
+		auto spawnLocation = LocationCoordinates{areaToSpawnUser, roomToSpawnUser};
+        worldManager.spawn(username, spawnLocation);
+        auto room = worldManager.findRoomByLocation(spawnLocation);      
+        answer << (
+                    stringManager.getString(Internationalization::STRING_CODE::CURRENT_LOCATION), 
+                    " ", 
+                    stringManager.getString(Internationalization::STRING_CODE::AREA), 
+                    ":"
+                  ) << spawnLocation.area << (", ", stringManager.getString(Internationalization::STRING_CODE::ROOM), ": ") << room.getName() << "\n";
     }
     return answer.str();
 }
