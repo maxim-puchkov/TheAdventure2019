@@ -41,22 +41,11 @@ V Environment<K, V>::lookup(const K &k) const {
 }
 
 
-//template<class K, class V>
-//std::unique_ptr<V> Environment<K, V>::lookup_ptr(const K &k) const {
-//    auto it = this->find(k);
-//    return it->second;
-//}
-
-
 template<class K, class V>
 V Environment<K, V>::lookup(K &&k) const {
     auto it = this->find(std::forward<K>(k));
     return it->second;
 }
-
-
-// template<class K, class V>
-// std::queue<V> Environment<K, V>::lookupAll(
 
 
 template<class K, class V>
@@ -126,7 +115,8 @@ bool Environment<K, V>::empty() const noexcept {
 /* Retrieval */
 
 template<class K, class V>
-typename std::unordered_map<K, V>::const_iterator Environment<K, V>::find(const K &k) const noexcept(false) {
+typename std::unordered_map<K, V>::const_iterator
+Environment<K, V>::find(const K &k) const noexcept(false) {
     auto it = this->map.find(k);
     if (it == this->map.end()) {
         throw std::invalid_argument(ENV_FIND_ERROR);
@@ -136,7 +126,8 @@ typename std::unordered_map<K, V>::const_iterator Environment<K, V>::find(const 
 
 
 template<class K, class V>
-typename std::unordered_map<K, V>::size_type Environment<K, V>::size() const {
+typename std::unordered_map<K, V>::size_type
+Environment<K, V>::size() const noexcept {
     return this->map.size();
 }
 
@@ -205,12 +196,14 @@ std::string Environment<K, V>::toString() const noexcept {
 /* Iterator */
 
 template<class K, class V>
-typename unordered_map<K, V>::const_iterator Environment<K, V>::begin() const {
+typename std::unordered_map<K, V>::const_iterator
+Environment<K, V>::begin() const {
     return this->map.cbegin();
 }
 
 template<class K, class V>
-typename unordered_map<K, V>::const_iterator Environment<K, V>::end() const {
+typename std::unordered_map<K, V>::const_iterator
+Environment<K, V>::end() const {
     return this->map.cend();
 }
 

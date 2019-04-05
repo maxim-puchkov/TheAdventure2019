@@ -16,16 +16,12 @@
 #include <exception>
 #include <queue>
 #include <type_traits>
-#include "convertible.h"
+#include "traits__convertible.h"
 
 
-using std::string;
-using std::unordered_map;
-
-
-const string ENV_BIND_ERROR = "Map Environment error: Key is already defined.";
-const string ENV_FIND_ERROR = "Map Environment error: Unable to find specified key.";
-const string ENV_CONV_ERROR = "Map Environment error: Template argument does not have .toString() function.";
+const std::string ENV_BIND_ERROR = "Map Environment error: Key is already defined.";
+const std::string ENV_FIND_ERROR = "Map Environment error: Unable to find specified key.";
+const std::string ENV_CONV_ERROR = "Map Environment error: Template argument does not have .toString() function.";
 
 
 /*!
@@ -92,9 +88,11 @@ public:
     
     bool empty() const noexcept;
     
-    typename unordered_map<K, V>::const_iterator find(const K &k) const noexcept(false);
+    typename std::unordered_map<K, V>::const_iterator
+    find(const K &k) const noexcept(false);
     
-    typename unordered_map<K, V>::size_type size() const;
+    typename std::unordered_map<K, V>::size_type
+    size() const noexcept;
     
     
     
@@ -121,8 +119,8 @@ public:
     
     /* Iterator */
     
-    typename unordered_map<K, V>::const_iterator begin() const;
-    typename unordered_map<K, V>::const_iterator end() const;
+    typename std::unordered_map<K, V>::const_iterator begin() const;
+    typename std::unordered_map<K, V>::const_iterator end() const;
     
     
     
@@ -142,7 +140,7 @@ public:
     
 private:
     
-    unordered_map<K, V> map;
+    std::unordered_map<K, V> map;
     
 };
 
