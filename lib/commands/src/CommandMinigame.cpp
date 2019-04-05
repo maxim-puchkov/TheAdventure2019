@@ -72,7 +72,10 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         if (playerMatch.getAdminName() == "null") {
             onlineUserManager.addMessageToUser(username, "You are not a player in any minigames.\n");
         }
+
         playerMatch.removePlayer(username);
+        playerMatch.removeSpectator(username);
+
         if (playerMatch.getCurrentPlayers() == 0) {
             miniGameLobby.deleteGame(playerMatch.getAdminName());
         }
@@ -84,8 +87,19 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
             onlineUserManager.addMessageToUser(username, miniGameLobby.printGames());
         if (fullCommand.at(2) == "invites")
             onlineUserManager.addMessageToUser(username, miniGameLobby.printInvites());
+            return;
+    } else if (firstCommand == "view-all-games"){
+        onlineUserManager.addMessageToUser(username,miniGameLobby.printGames() + "\n");
         return;
+    } else if (firstCommand == "spectate"){
+        const std::string &userSpectating = fullCommand.at(2);
+        const std::string& rst = miniGameLobby.spectate(userSpectating, username);
+        onlineUserManager.addMessageToUser(username, rst );
+
     }
+
+
+
 
 
     vector<string> &players = playerMatch.getPlayers();
@@ -104,6 +118,7 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         sendWinMessage( playerMatch.getPlayers(), playerMatch.getSpectators(), std::move(playerMatch.getWinMessage()) );
     }
 
+
 }
 
 std::vector<std::string> CommandMinigame::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
@@ -115,6 +130,8 @@ std::vector<std::string> CommandMinigame::reassembleCommand(std::string& fullCom
     //Format: minigame accept [username]
     //Format: minigame join [username]
     //Format: minigame move [location-of-piece-to-be-moved],[new-location]
+    //Format: minigame spectate [username]
+    //Format: minitamge view-all-games
     boost::trim_if(fullCommand, boost::is_any_of(" \t"));
 
     //Split by ","
@@ -130,14 +147,15 @@ std::vector<std::string> CommandMinigame::reassembleCommand(std::string& fullCom
         if(processedCommand.size() == 2) {
             commandIsValid = (processedCommand[1] == "accept" ||
                                 processedCommand[1] == "start" ||
-                                processedCommand[1] == "quit");
-        
+                                processedCommand[1] == "quit") ||
+                                processedCommand[1] == "view-all-games";
         } else if(processedCommand.size() == 3) {
             //reassemble the command
-            commandIsValid = (processedCommand[1] == "accept" ||
+              commandIsValid = (processedCommand[1] == "accept" ||
                                 processedCommand[1] == "join" ||
                                 processedCommand[1] == "challenge" ||
-                                processedCommand[1] == "print");
+                                processedCommand[1] == "print") ||
+                                processedCommand[1] == "spectate" ;
         }
     }
 

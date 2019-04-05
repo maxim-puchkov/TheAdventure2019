@@ -48,6 +48,8 @@ else()
         src/CommandAttack.cpp
         src/CommandFlee.cpp
         src/CommandCast.cpp
+        src/CommandCreateItem.cpp
+        src/CommandDeleteRoom.cpp
     )
 
 endif()

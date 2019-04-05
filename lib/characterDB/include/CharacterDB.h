@@ -29,5 +29,9 @@ class CharacterDB {
     Character getCharacter(const std::string&);
 
     bool deleteCharacter(const std::string& );
+
+    std::string getArea(const std::string& userName);
+    int getRoom(const std::string& userName);
+    bool updateCharLocation(const std::string& userName, LocationCoordinates location);
 };
 #endif

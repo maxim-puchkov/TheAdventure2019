@@ -240,4 +240,17 @@ std::string CharacterManager::listNPCs() {
     return NPCList;
 }
 
+std::string CharacterManager::getCharArea(const std::string& userName){
+	std::string charArea = characterDB.getArea(userName);
+	return charArea;
+}
+int CharacterManager::getCharRoom(const std::string& userName){
+	int charRoom = characterDB.getRoom(userName);
+	return charRoom;
+}
+
+bool CharacterManager::updateCharLocation(const std::string& userName, LocationCoordinates location){
+	bool result = characterDB.updateCharLocation(userName, location);
+	return result;
+}
 

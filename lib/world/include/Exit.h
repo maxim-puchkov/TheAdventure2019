@@ -9,9 +9,7 @@
 #include <algorithm>
 #include "LocationCoordinates.h"
 #include <unordered_map>
-#include <boost/bimap/bimap.hpp>
-#include <boost/bimap/unordered_set_of.hpp>
-using  namespace boost::bimaps;
+
 
 class Exit{
 
@@ -25,7 +23,9 @@ public:
         SOUTH,
         SOUTHWEST,
         WEST,
-        NORTHWEST
+        NORTHWEST,
+        UP,
+        DOWN
     };
 
 

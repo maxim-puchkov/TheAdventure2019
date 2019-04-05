@@ -41,6 +41,18 @@ bool MiniGameMatch::hasSpectator(const std::string& spectatorName) const{
     return result != spectators.end();
 }
 
+//
+bool MiniGameMatch::addSpectator(const std::string &userName) {
+    if(hasPlayer(userName)){
+        return false;
+    }
+    spectators.push_back(userName);
+    return true;
+}
+
+
+
+
 bool MiniGameMatch::isPlayersTurn(const std::string& playerName) const{
     return players.at(currentPlayerTurn) == playerName;
 }
@@ -72,6 +84,15 @@ void MiniGameMatch::removePlayer(const std::string& playerName){
                                         [&playerName](std::string& name){return name == playerName;}),
                          players.end());
 }
+
+
+void MiniGameMatch::removeSpectator(const std::string &spectatorName) {
+    spectators.erase(std::remove_if(spectators.begin(), spectators.end(),
+                                 [&](const auto &iter){return iter == spectatorName;}),
+                  players.end());
+
+}
+
 
 unsigned long MiniGameMatch::getCurrentPlayers() const{
     return players.size();

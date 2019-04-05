@@ -202,13 +202,17 @@ void WorldManager::createRoom(const LocationCoordinates & location, const std::s
 
 int WorldManager::getRoomToSpawnUser() {
     //need to change this to dynamic
-    auto search = areas.find("Mirkwood");
+    auto search = areas.find(areaToSpawnFirstTimer);
 
     if(search != areas.end()) {
         return search->second.getFirstRoomID();
     }else{
         return -1;
     }
+}
+
+std::string WorldManager::getAreaToSpawnUser() {
+    return areaToSpawnFirstTimer;
 }
 
 std::string WorldManager::worldDetail(LocationCoordinates location) {
@@ -248,4 +252,13 @@ Area& WorldManager::getAreaByLocation(LocationCoordinates location){
         return search->second;
     }
     return nullArea;
+}
+
+bool WorldManager::deleteRoom(LocationCoordinates location){
+    bool result = false;
+    auto search = areas.find(location.area);
+    if(search != areas.end()){
+        result = search->second.removeRoom(location.room);
+    }
+    return result;
 }
