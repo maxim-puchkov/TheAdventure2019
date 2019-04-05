@@ -23,7 +23,8 @@ class GameManager{
 
 private:
     Internationalization stringManager{};
-    WorldManager worldManager = WorldManager(stringManager);
+    //WorldManager worldManager = WorldManager(stringManager);
+    WorldManager world{};
     OnlineUserManager onlineUserManager{};
     CharacterManager characterManager{};
 
