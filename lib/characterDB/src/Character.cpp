@@ -10,12 +10,12 @@
 Character::Character(const std::string &name) {
     createCharacter(name);
 
-    debug::prefix("Character");
-    debug::print("Created character \"", name, "\"");
+    // debug::prefix("Character");
+    // debug::print("Created character \"", name, "\"");
 }
 
 Character::~Character() {
-    debug::print("Destroyed character \"", name, "\"");
+    // debug::print("Destroyed character \"", name, "\"");
 }
 
 
