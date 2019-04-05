@@ -9,6 +9,35 @@ using boost::bad_lexical_cast;
 
 
 
+void CommandLook::generalLook(const std::string &userName) const {
+
+    auto location = characterManager.getCharacterLocation(userName);
+    auto room = worldManager.findRoomByLocation(location);
+    const std::string &listOfExits = room.listExits();
+
+    std::string allUsersInRoom = " Users in room are : \n";
+    for (const std::string &userA : room.getUserNames()) {
+        allUsersInRoom.append( characterManager.getShortDescription(userA) );
+    }
+    onlineUserManager.addMessageToUser(userName, ("\n" + listOfExits + "\n" + allUsersInRoom + "\n" +
+                                                  worldManager.look(location) + "\n"));
+
+
+    const auto items = worldManager.items;
+    const auto &vectorItems= items.contentsOf(location.room); //return a vector of id's and keywords
+    std::string allItems;
+    for(const auto &iter : vectorItems){
+        const auto &itemRef = items.lookup(room.getRoomId(), iter.id );
+        allItems.append(itemRef.getIdAndBrief());
+    }
+
+    onlineUserManager.addMessageToUser(userName, allItems);
+
+}
+
+
+
+
 
 void CommandLook::executeInHeartbeat(const std::string& userName, const std::vector<std::string>& fullCommand) {
     auto location = characterManager.getCharacterLocation(userName);
@@ -30,18 +59,12 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     const std::string &listOfExits = room.listExits();
 
     if (fullCommand.size() == 1) {
-        std::string allUsersInRoom = " Users in room are : \n";
-        for (const std::string &userA : room.getUserNames()) {
-            allUsersInRoom.append( characterManager.getShortDescription(userA) );
-        }
-        onlineUserManager.addMessageToUser(userName, ("\n" + listOfExits + "\n" + allUsersInRoom + "\n" +
-                                                      worldManager.look(location) + "\n"));
-
+        generalLook(userName);
         return;
     } else if (fullCommand.at(1) == "exits") {
         onlineUserManager.addMessageToUser(userName, (worldManager.listExits(location) + "\n"));
         return;
-    }else if(fullCommand.at(1) == "world"){
+    } else if(fullCommand.at(1) == "world"){
         //use for admin. look world => output the list of room
         //TODO: for some reasons the server does not print the full string
         //      if the string is too long. Only print the second half of the string.
@@ -96,15 +119,10 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
      * so add that here when item's are finished
      */
 
-    //worldManager.items.lookup(location.room,);   //
-    const auto items = worldManager.items;
-    const auto vectorItems= items.contentsOf(location.room); //return a vector of id's and keywords
+     //items::ItemIdentifier =
+     //worldManager.items.lookup(room.getRoomId(), );
 
-    for(auto iter : vectorItems){
-        const auto &itemRef = items.lookup(location.room, iter.id );
-        itemRef.description.brief();   // Returns a short-description of the item you want to print, make sure you print ID as well
 
-    }
 
 
 

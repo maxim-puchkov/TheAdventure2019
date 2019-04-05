@@ -15,6 +15,9 @@ public:
 	virtual std::vector<std::string> reassembleCommand(std::string& fullCommand, bool& commandIsValid);
 
 
+private:
+    void generalLook(const std::string &userName) const ;
+
 
 };
 
