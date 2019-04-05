@@ -2,6 +2,8 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
+#include "ItemController.h"
+
 using boost::lexical_cast;
 using boost::bad_lexical_cast;
 
@@ -24,8 +26,6 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     // description of the room as well as a short description of the characters, objects,
     // and cardinal/ordinal/vertical exits within the room.
     //A room may have special keywords that when looked at provide deeper description.
-
-
     auto room = worldManager.findRoomByLocation(location);
     const std::string &listOfExits = room.listExits();
 
@@ -94,12 +94,22 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     /**
      * Requirements state that one must also be able to look at an item as well.....
      * so add that here when item's are finished
-     *
-     *
-     *
      */
 
+    //worldManager.items.lookup(location.room,);   //
+    const auto items = worldManager.items;
+    const auto vectorItems= items.contentsOf(location.room); //return a vector of id's and keywords
 
+    for(auto iter : vectorItems){
+        const auto &itemRef = items.lookup(location.room, iter.id );
+        itemRef.description.brief();   // Returns a short-description of the item you want to print, make sure you print ID as well
+
+    }
+
+
+
+
+    ////////////
 }
 
 std::vector<std::string> CommandLook::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {

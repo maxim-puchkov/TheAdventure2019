@@ -187,7 +187,7 @@ public:
     }
     
     
-    /*! */
+    /*! Key is room.id, itermIdentifier is it's id */
     Item lookup(Key key, ItemIdentifier id) const noexcept(false) {
         return this->env2d.lookup(key).lookup({id, {}});
     }
@@ -263,7 +263,9 @@ public:
         return vec;
         
     }
-    
+
+
+
     /*! */
     size_t containerSize(Key key) const noexcept {
         if (this->env2d.exists(key)) {

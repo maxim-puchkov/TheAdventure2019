@@ -16,6 +16,7 @@ if(NOT BUILD_ALL_TARGETS)
 
         # Testing items
         src/CommandTake.cpp
+        src/CommandLook.cpp
     )
 
 else()
@@ -69,6 +70,7 @@ target_link_libraries(${PROJECT_NAME}
         ${world}
         ${users}
         ${print}
+        ${item}
     PRIVATE
         ${Boost_LIBRARIES}
 )
