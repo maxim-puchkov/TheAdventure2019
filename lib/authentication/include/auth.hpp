@@ -12,14 +12,25 @@
 
 #include <stdint.h>
 #include <utility>
+#include <memory>
+
 #include "Authenticator.h"
+
 
 namespace auth {
     
 inline namespace {
     using Identifier = uint64_t;
+    using SharedAuthenticator = const Authenticator<Identifier> *const;
+    using SAuth = SharedAuthenticator;
+}
+
+
+namespace shared {
+    static const Authenticator<Identifier> authenticator = Authenticator<Identifier>();
 }
     
 }
+
 
 #endif /* auth_hpp */

@@ -30,37 +30,38 @@ namespace auth {
  @class Authenticator
  
  @brief Generate unique identifiers.
- 
- If only one Authenticator is used, all generated identifiers will
- be universally unique. Class was initially designed to identify
- all of: characters, rooms, and objects.
  */
 template<typename T>
 class Authenticator {
 public:
     
     /*! Authenticator parent's identificator (initial id) */
-    const T parent_id;
-    
-    /* */
-    Authenticator()
-    : Authenticator(0)
-    { }
-    
-    
-    Authenticator(T initial)
-    : parent_id(initial), current(initial)
-    { }
-    
+    const T parent_id = 0;
     
     /*! Identifiers are generated incrementaly */
-    T generateUniqueIdentifier() const {
-        return ++(const_cast<Authenticator *>(this))->current;
+    T requestUniqueIdentifier() const noexcept {
+        (const_cast<Authenticator *>(this))->current++;
+        return this->current;
     }
     
+    /*! Alias function */
+    T uuid() const noexcept {
+        return this->requestUniqueIdentifier();
+    }
+    
+    
+    /* */
+    Authenticator() { }
+//    : Authenticator(0)
+//    { }
+    
+//    Authenticator(T initial)
+//    : parent_id(initial), current(initial)
+//    { }
+//    
 private:
     
-    mutable T current;
+    T current = 0;
 
 };
 
