@@ -127,7 +127,10 @@ main(int argc, char* argv[]) {
   unsigned short port = std::stoi(argv[1]);
   Server server{port, getHTTPMessage(argv[2]), onConnect, onDisconnect};
 
+  unsigned long long heartbeatTimer = getTimeStamp();
+
   while (!done) {
+    if(getTimeStamp() - heartbeatTimer > 200) {
     try {
       server.update();
     } catch (std::exception& e) {
@@ -142,9 +145,12 @@ main(int argc, char* argv[]) {
     
     auto logs = includeHeartbeatMessages(std::move(promptReplies), std::move(heartbeatReplies));
 
-    auto outgoing = buildOutgoing(std::move(logs));
-    server.send(outgoing);
-    sleep(1);
+    
+      auto outgoing = buildOutgoing(std::move(logs));
+      server.send(outgoing);
+      heartbeatTimer = getTimeStamp();
+    }
+    //sleep(1);
   }
 
   return 0;

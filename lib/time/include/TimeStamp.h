@@ -13,8 +13,6 @@ static unsigned long long getTimeStamp(){
     unsigned long long ms =
         std::chrono::duration_cast<std::chrono::milliseconds>
         (std::chrono::system_clock::now().time_since_epoch()).count();
-
-    //std::cout << ms << "\n";
     return ms;
 }
 
