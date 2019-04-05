@@ -25,6 +25,12 @@ User OnlineUserManager::removeUser(const std::string& id){
     }
 }
 
+bool OnlineUserManager::checkUserIsOnline(const std::string &userName)  {
+     auto &user = getUserByUsername(userName);
+     return ( !(user == nullUser) );
+
+}
+
 User& OnlineUserManager::getUserById(const std::string& id){
     auto search = onlineUsers.find(id);
     if (search != onlineUsers.end()) {

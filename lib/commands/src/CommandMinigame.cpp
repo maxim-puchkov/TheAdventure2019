@@ -6,7 +6,7 @@
 
 void CommandMinigame::sendWinMessage(vector<std::string> &players, vector<std::string> &spectators, std::string msg) {
 
-    msg.append(" Type 'minigame exit' to leave this game \n");
+    msg.append(" Type 'minigame quit' to leave this game \n");
     for(const std::string &iter : spectators){
         onlineUserManager.addMessageToUser(iter,  msg + "\n");
     }
@@ -52,6 +52,13 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
             onlineUserManager.addMessageToUser(username, " You can't challenge yourself! \n");
             return;
         }
+
+        if( !onlineUserManager.checkUserIsOnline(challengedName) ){
+            onlineUserManager.addMessageToUser(username, " The user you tried to challenge isn't online \n");
+            return;
+        }
+
+
         miniGameLobby.createInvite(username, challengedName);
         onlineUserManager.addMessageToUser(challengedName, username + " has challenged you to a game, type 'minigame accept'"
                                                                       " to accept challenge\n");
@@ -82,7 +89,7 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         }
 
         playerMatch.removePlayer(username);
-        playerMatch.removeSpectator(username);   //This line currenlty causes crash
+        playerMatch.removeSpectator(username);
 
         if (playerMatch.getCurrentPlayers() == 0) {
             miniGameLobby.deleteGame(playerMatch.getAdminName());
@@ -111,14 +118,26 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
 
     ////DEBUG
     stringstream ostream;
-    ostream << players.size() << " <-- number of players in the minigame";
+    ostream << players.size() << " <-- number of players in the minigame (for debug) \n";
     //DEBUG
 
-    onlineUserManager.addMessageToUser(username, ostream.str() );
+    //onlineUserManager.addMessageToUser(username, ostream.str() );
 
-    if (players.size() == 2) {
+
+    if (players.size() >= 2) {
         onlineUserManager.addMessageToUser(players.at(0), playerMatch.reverseDisplay() + "\n" );
         onlineUserManager.addMessageToUser(players.at(1), playerMatch.display() + "\n" );
+    }
+
+
+    //Really ghetto way of doing things
+    for(unsigned int i = 0; i < players.size(); i++){
+        if(i == 0) {
+            onlineUserManager.addMessageToUser(players.at(0), playerMatch.reverseDisplay() + "\n");
+        }
+        if(i == 1) {
+            onlineUserManager.addMessageToUser(players.at(1), playerMatch.display() + "\n");
+        }
     }
 
 

@@ -5,8 +5,8 @@ MiniGameLobby::MiniGameLobby() {}
 
 MiniGameMatch& MiniGameLobby::createGame(const std::string& userName) {
     MiniGameMatch newGame{userName};
-
-    return newGame;
+    this->gameList.emplace_back(newGame);
+    return gameList.back();
 }
 
 //potential issue: deletes all games owned by adminName. may switch to unique matchID

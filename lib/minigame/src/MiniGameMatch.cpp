@@ -71,7 +71,7 @@ bool MiniGameMatch::makePlayerMove(const std::string& playerName, std::string& m
 }
 
 bool MiniGameMatch::addPlayer(const std::string& playerName){
-    int maxPlayers = 2; //get this from Game.getMaxPlayers()
+    unsigned int maxPlayers = 2; //get this from Game.getMaxPlayers()
     if(players.size() >= maxPlayers) {
         return false;
     }
