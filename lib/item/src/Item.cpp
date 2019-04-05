@@ -52,7 +52,7 @@ Text Item::toString() const {
     stream << "Item (";
     stream << "id: " << this->id << DELIM;
     stream << "keywords: {" << this->keywords.toString() << "}" << DELIM;
-    stream << "description: " << this->description.toString() << "" << DELIM;
+    stream << "description: \"" << this->description.toString() << "\"" << DELIM;
     stream << "actions: {" << this->actions.toString() << "}";
     stream << ")";
     
