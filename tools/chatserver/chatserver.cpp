@@ -153,7 +153,7 @@ main(int argc, char* argv[]) {
     std::unique_ptr<std::unordered_map<std::string, std::string>> heartbeatReplies;
     std::unique_ptr<std::unordered_map<std::string, std::string>> logs;
 
-    if(getTimeStamp() - heartbeatTimer > 2000) {
+    if(getTimeStamp() - heartbeatTimer > 200) {
       heartbeatReplies = gm.heartbeat();
       logs = includeHeartbeatMessages(std::move(promptReplies), std::move(heartbeatReplies));
       heartbeatTimer = getTimeStamp();
