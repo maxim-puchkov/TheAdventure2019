@@ -1,7 +1,7 @@
-#include "CommandCreateItem.h"
+#include "CommandDeleteRoom.h"
 #include <boost/algorithm/string.hpp>
 
-void CommandCreateItem::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
+void CommandDeleteRoom::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	//TODO
     //if (role == admin) then allow to edit
     //else notify no permissions
@@ -15,13 +15,19 @@ void CommandCreateItem::executeInHeartbeat(const std::string& username, const st
             std::cout <<  "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
+            std::string returnMessage;
             auto location = characterManager.getCharacterLocation(username);
-            worldManager.items.builder.setKeywords({fullCommand[1]});
-            worldManager.items.builder.setDescription(fullCommand[2]);
-            worldManager.items.create(location.room);
-            worldManager.items.print_contentsOf(location.room);
-            std::cout << "Item name: " << fullCommand[1] << "\n";
-            std::cout << "Item desc: " << fullCommand[2] << "\n";
+            if(location.room == stoi(fullCommand[1])){
+                onlineUserManager.addMessageToUser(username, "You cannot delete the room you are in\n");
+            }else{
+                auto result = worldManager.deleteRoom(LocationCoordinates{location.area, stoi(fullCommand[1])});
+                if(result){
+                    returnMessage = "You have deleted room ID: " + fullCommand[1] + " in area: " + location.area + "\n";
+                }else{
+                    returnMessage = "The room you enter is invalid\n";
+                }
+                onlineUserManager.addMessageToUser(username, returnMessage);
+            }
         }
         case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
         case usermanager::OnlineUserManager::USER_CODE::ACCOUNT_CREATED: {} 
@@ -34,33 +40,14 @@ void CommandCreateItem::executeInHeartbeat(const std::string& username, const st
     }
 }
 
-std::vector<std::string> CommandCreateItem::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
+std::vector<std::string> CommandDeleteRoom::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
     std::vector<std::string> processedCommand;
 
-    //Format: create-item <name>: <description>
-    commandIsValid = false;
-
+    //Format: delete-room <room ID>
     boost::trim_if(fullCommand, boost::is_any_of(" \t"));
 
-    //Split by ":"
-    std::vector<std::string> splitByColon;
-    boost::split(splitByColon, fullCommand, boost::is_any_of(":"), boost::token_compress_on);
-    if(splitByColon.size() != 2) {  
-        return processedCommand;
-    }
-
-    //trim any space before and after ":"
-    boost::trim_if(splitByColon[0], boost::is_any_of(" \t"));
-    boost::trim_if(splitByColon[1], boost::is_any_of(" \t"));
-
-    //split the left side of ":" by " "
-    boost::split(processedCommand, splitByColon[0], boost::is_any_of(" \t"), boost::token_compress_on);
-    if(processedCommand.size() != 2) {
-        return processedCommand;
-    }
-
-    //reassemble the command
-    processedCommand.push_back(splitByColon[1]);
-    commandIsValid = true;
+    //split by " " and compress all long spaces
+    boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
+    commandIsValid = (processedCommand.size() == 2);
     return processedCommand;
 }

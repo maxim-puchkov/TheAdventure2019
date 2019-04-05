@@ -48,6 +48,7 @@ public:
 
     std::string listExits() const;
     int getRoomId();
+    bool removeExitToRoom(int id);
 
 
     //getters

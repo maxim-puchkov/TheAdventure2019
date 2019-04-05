@@ -56,6 +56,7 @@ public:
     void setAreaToSpawnFirstTimer(std::string locationName){
         areaToSpawnFirstTimer = locationName;
     }
+    bool deleteRoom(LocationCoordinates location);
 
     Area& getAreaByLocation(LocationCoordinates location);
 

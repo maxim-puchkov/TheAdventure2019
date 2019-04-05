@@ -34,46 +34,48 @@ void GameManager::createTableOfCommands() {
 
 #ifndef BUILD_ALL_TARGETS
     
-    tableOfCommands.insert({"help", make_unique<CommandHelp>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"login", make_unique<CommandLogin>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_HELP), make_unique<CommandHelp>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_LOGIN), make_unique<CommandLogin>(characterManager, onlineUserManager, world, stringManager)});
     
-    tableOfCommands.insert({"take", make_unique<CommandTake>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_TAKE), make_unique<CommandTake>(characterManager, onlineUserManager, world, stringManager)});
 
 #else
     
-    tableOfCommands.insert({"help", make_unique<CommandHelp>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"login", make_unique<CommandLogin>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"logout", make_unique<CommandLogout>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"create-account", make_unique<CommandCreate>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_HELP), make_unique<CommandHelp>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_LOGIN), make_unique<CommandLogin>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_LOGOUT), make_unique<CommandLogout>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_CREATE_ACCOUNT), make_unique<CommandCreate>(characterManager, onlineUserManager, world, stringManager)});
     
-    tableOfCommands.insert({"create-avatar", make_unique<CommandCreateAva>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"edit-avatar", make_unique<CommandEditAva>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_CREATE_AVATAR), make_unique<CommandCreateAva>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_EDIT_AVATAR), make_unique<CommandEditAva>(characterManager, onlineUserManager, world, stringManager)});
 
-    tableOfCommands.insert({"say", make_unique<CommandSay>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"tell", make_unique<CommandTell>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"yell", make_unique<CommandYell>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_SAY), make_unique<CommandSay>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_TELL), make_unique<CommandTell>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_YELL), make_unique<CommandYell>(characterManager, onlineUserManager, world, stringManager)});
     
-    tableOfCommands.insert({"look", make_unique<CommandLook>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"examine", make_unique<CommandExamine>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"move", make_unique<CommandMove>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_LOOK), make_unique<CommandLook>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_EXAMINE), make_unique<CommandExamine>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_MOVE), make_unique<CommandMove>(characterManager, onlineUserManager, world, stringManager)});
 
-    tableOfCommands.insert({"create-room", make_unique<CommandCreateRoom>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"edit-room", make_unique<CommandEditRoom>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_CREATE_ROOM), make_unique<CommandCreateRoom>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_EDIT_ROOM), make_unique<CommandEditRoom>(characterManager, onlineUserManager, world, stringManager)});
     
-    tableOfCommands.insert({"take", make_unique<CommandTake>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"use", make_unique<CommandUse>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"equip", make_unique<CommandEquip>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"drop", make_unique<CommandDrop>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"put", make_unique<CommandPut>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_TAKE), make_unique<CommandTake>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_USE), make_unique<CommandUse>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_EQUIP), make_unique<CommandEquip>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_DROP), make_unique<CommandDrop>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_PUT), make_unique<CommandPut>(characterManager, onlineUserManager, world, stringManager)});
     
-    tableOfCommands.insert({"minigame", make_unique<CommandMinigame>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_MINIGAME), make_unique<CommandMinigame>(characterManager, onlineUserManager, world, stringManager)});
     
-    tableOfCommands.insert({"combat", make_unique<CommandCombat>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"attack", make_unique<CommandAttack>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"flee", make_unique<CommandFlee>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_COMBAT), make_unique<CommandCombat>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_ATTACK), make_unique<CommandAttack>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_FLEE), make_unique<CommandFlee>(characterManager, onlineUserManager, world, stringManager)});
     
-    tableOfCommands.insert({"cast", make_unique<CommandCast>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"create-item", make_unique<CommandCreateItem>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_CAST), make_unique<CommandCast>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_CREATE_ITEM), make_unique<CommandCreateItem>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_DELETE_ROOM), make_unique<CommandDeleteRoom>(characterManager, onlineUserManager, world, stringManager)});
+
     
 #endif
     

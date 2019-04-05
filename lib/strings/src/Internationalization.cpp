@@ -52,6 +52,9 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_ATTACK, "command_attack");
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_FLEE, "command_flee");
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_CAST, "command_cast");
+    generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_CREATE_ITEM, "command_create_item");
+    generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_DELETE_ROOM, "command_delete_room");
+    generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_TAKE, "command_take");
 
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_NOT_FOUND, "command_not_found");
     generateDefaultStrings(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX, "wrong_command_syntax");

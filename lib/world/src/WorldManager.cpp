@@ -260,3 +260,12 @@ Area& WorldManager::getAreaByLocation(LocationCoordinates location){
     }
     return nullArea;
 }
+
+bool WorldManager::deleteRoom(LocationCoordinates location){
+    bool result = false;
+    auto search = areas.find(location.area);
+    if(search != areas.end()){
+        result = search->second.removeRoom(location.room);
+    }
+    return result;
+}

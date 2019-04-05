@@ -37,6 +37,9 @@ class Internationalization {
        COMMAND_ATTACK,
        COMMAND_FLEE,
        COMMAND_CAST,
+       COMMAND_CREATE_ITEM,
+       COMMAND_DELETE_ROOM,
+       COMMAND_TAKE,
 
        COMMAND_NOT_FOUND,
        WRONG_COMMAND_SYNTAX,
