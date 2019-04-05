@@ -72,5 +72,38 @@ Character CharacterDB::getCharacter(const std::string& name){
     }
 }
 
+std::string CharacterDB::getArea(const std::string& name){
+    std::string area = "";
+    if(characters_json[name] == nullptr){
+        return area;
+    }
+    if(characters_json[name]["LocationCoordinates"]["area"] != "") {
+        area = characters_json[name]["LocationCoordinates"]["area"];
+    }
+    return area;
+}
+int CharacterDB::getRoom(const std::string& name){
+    int room = -1;
+    if(characters_json[name] == nullptr){
+        return room;
+    }
+    if(characters_json[name]["LocationCoordinates"]["room"] != "") {
+        room = characters_json[name]["LocationCoordinates"]["room"];
+    }
+    return room;
+}
+
+bool CharacterDB::updateCharLocation(const std::string& userName, LocationCoordinates location){
+    bool result = false;
+    if(characters_json[userName] == nullptr){
+        result = false;
+    }else{
+        characters_json[userName]["LocationCoordinates"]["area"] = location.area;
+        characters_json[userName]["LocationCoordinates"]["room"] = location.room;
+        result = true;
+    }
+    return result;
+}
+
 
 

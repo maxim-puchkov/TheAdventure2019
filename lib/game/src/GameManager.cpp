@@ -17,7 +17,13 @@ GameManager::GameManager() {
         areas.push_back(area);
     }
 
+    //get the first area name to spawn first time login user
+    int count = 0;
     for(auto& area: areas){
+        if(count == 0) {
+            world.setAreaToSpawnFirstTimer(area.getName());
+            count++;
+        }
         area = areaGen.generateExits(area);
         world.addArea(area);
     }    
@@ -68,6 +74,7 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"flee", make_unique<CommandFlee>(characterManager, onlineUserManager, world)});
     
     tableOfCommands.insert({"cast", make_unique<CommandCast>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"create-item", make_unique<CommandCreateItem>(characterManager, onlineUserManager, world)});
     
 #endif
     

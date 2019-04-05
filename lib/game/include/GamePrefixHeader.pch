@@ -45,6 +45,7 @@
 #include "CommandAttack.h"
 #include "CommandFlee.h"
 #include "CommandCast.h"
+#include "CommandCreateItem.h"
 
 #endif
 
