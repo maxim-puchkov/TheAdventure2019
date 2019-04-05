@@ -11,6 +11,7 @@
 #include "CharacterManager.h"
 #include "Internationalization.h"
 #include "AreaGenerator.h"
+#include "JsonParser.h"
 
 #include "GamePrefixHeader.pch"
 
@@ -24,6 +25,7 @@ class GameManager{
 private:
     Internationalization stringManager{};
     //WorldManager worldManager = WorldManager(stringManager);
+	JsonParser jsonParser{};
     WorldManager world{};
     OnlineUserManager onlineUserManager{};
     CharacterManager characterManager{};

@@ -30,6 +30,7 @@ target_link_libraries(${game}
         ${minigame}
         ${commands}
         ${libstrings}
+        ${parsers}
     PRIVATE
         ${Boost_LIBRARIES}
 )
