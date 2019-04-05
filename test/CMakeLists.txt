@@ -7,7 +7,7 @@ add_executable(runAllTests
     AwardsTests.cpp
 
 # Character
-#	  AttributesTest.cpp
+    AttributesTest.cpp
 
 # Minigame
     TestChessBoard.cpp
@@ -31,7 +31,7 @@ target_link_libraries(runAllTests
     simpleLibrary
 
     ${minigame}
-#    ${characters}
+    ${characters}
 
 #    ${authentication}
 #    ${builder}

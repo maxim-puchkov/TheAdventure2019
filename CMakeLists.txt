@@ -29,15 +29,6 @@ set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
 
 
 
-# Build type
-
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug)
-endif(NOT CMAKE_BUILD_TYPE)
-
-
-
-
 
 # Choose to build all targets including all commands and game
 
@@ -75,14 +66,13 @@ set(environment "environment")
 set(exceptions "exceptions")
 set(game "game")
 set(item "item")
-set(location "location")
 set(minigame "minigame")
 set(network "network")
 set(object "object")
 set(print "print")
+set(properties "properties")
 set(parsers "parsers")
 set(time "time")
-set(traits "traits")
 set(user-interface "user-interface")
 set(users "userdb")
 set(world "world")
@@ -91,7 +81,7 @@ set(world "world")
 
 
 
-#       set(libcharacters "characters")   # Deleted. Files moved to characterDB
+#       set(libcharacters "characters")       # Deleted. Files moved to characterDB
 #       set(libuserdb "userdb")               # Deleted. Files moved to user
 
 

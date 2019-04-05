@@ -20,6 +20,12 @@ target_include_directories(${PROJECT_NAME}
 )
 
 
+target_link_libraries(${PROJECT_NAME}
+    PUBLIC
+        ${print}
+)
+
+
 set_target_properties(${PROJECT_NAME}
     PROPERTIES
         COMPILE_FLAGS "${CXX_COVERAGE_FLAGS}"

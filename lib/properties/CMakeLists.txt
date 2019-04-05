@@ -1,14 +1,16 @@
 #
-#   Traits CMakeLists
+#   Propeties CMakeLists
 #
 
 
 cmake_minimum_required(VERSION 3.12)
-project(${traits} VERSION 1.0)
+project(${properties} VERSION 1.0)
 
 
 add_library(${PROJECT_NAME} SHARED
-    include/convertible.h
+    include/traits__convertible.h
+    include/LocationCoordinates.h
+    src/Attributes.cpp
 )
 
 
@@ -16,8 +18,6 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 

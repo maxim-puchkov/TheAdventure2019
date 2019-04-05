@@ -9,7 +9,6 @@ project(${characters} VERSION 1.0)
 add_library(${PROJECT_NAME}
     src/Character.cpp
     src/CharacterManager.cpp
-    src/Attributes.cpp
     src/CharacterDB.cpp
 )
 
@@ -33,11 +32,12 @@ set_target_properties(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
-        ${location}
+        ${properties}
         ${minigame}
         ${combat}
         ${print}
         ${parsers}
+    PRIVATE
         ${authentication}
 )
 

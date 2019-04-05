@@ -10,7 +10,7 @@ add_library(${PROJECT_NAME}
     src/Item.cpp
     src/ItemBuilder.cpp
     src/ItemSearchKey.cpp
-    src/ItemController.cpp
+    src/controller/ItemController.cpp
     src/Keywords.cpp
     src/Description.cpp
     src/Actions.cpp
@@ -21,6 +21,8 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:src/controller>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/controller>
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
@@ -34,15 +36,13 @@ set_target_properties(${PROJECT_NAME}
 )
 
 
-
-
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         ${authentication}
         ${object}
         ${user-interface}
         ${builder}
-        ${print}
+        ${properties}
 )
 
 
