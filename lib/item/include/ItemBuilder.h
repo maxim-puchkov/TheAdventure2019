@@ -17,11 +17,13 @@ namespace items {
 
 using builders::Builder;
 
+
 inline namespace builder_defaults {
+
     const Keywords EMPTY_KEYS{};
-    
     const Description DEF_DESC{"No description"};
     const Actions DEF_ACTS{{}};
+
 }
 
 
@@ -36,10 +38,10 @@ public:
     /* Constructors */
     
     /*! ItemBuilder constructor */
-    ItemBuilder();
+    ItemBuilder() = default;
     
     /*! ItemBuilder destructor */
-    ~ItemBuilder() override;
+    ~ItemBuilder() override = default;
 
     
     
@@ -69,9 +71,13 @@ public:
     /* Item Builder */
     
     /* Item's data members */
-    mutable Keywords keywords;
-    mutable Description description;
-    mutable Actions actions;
+    mutable Keywords keywords = EMPTY_KEYS;
+    
+    mutable Description description = DEF_DESC;
+    
+    mutable Actions actions = DEF_ACTS;
+    
+    
     
     
     /*! Build using specified keywords, descriptions, and actions */
@@ -100,7 +106,6 @@ private:
     
     /*! Clear builder's settings and reset to default value */
     void clearAll() const;
-    
     
 };
 

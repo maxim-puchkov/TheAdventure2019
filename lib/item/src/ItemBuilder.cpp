@@ -12,20 +12,6 @@
 namespace items {
 
 
-/* Constructors */
-
-ItemBuilder::ItemBuilder() {
-    this->reset();
-}
-
-
-ItemBuilder::~ItemBuilder()
-{ }
-
-
-
-
-
 /* Builder Interface */
 
 void ItemBuilder::reset() const noexcept {
