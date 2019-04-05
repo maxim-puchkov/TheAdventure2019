@@ -46,6 +46,7 @@
 #include "CommandFlee.h"
 #include "CommandCast.h"
 #include "CommandCreateItem.h"
+#include "CommandDeleteRoom.h"
 
 #endif
 
