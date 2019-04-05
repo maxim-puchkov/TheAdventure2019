@@ -7,17 +7,10 @@
 
 #include "Character.h"
 
-Character::Character(const std::string &name) {
+
+Character::Character(const std::string &name)
+: id(shared::authenticator.uuid()) {
     createCharacter(name);
-
-    debug::prefix("Character");
-    debug::print("Created character \"", name, "\"");
-    
-    
-}
-
-Character::~Character() {
-    debug::print("Destroyed character \"", name, "\"");
 }
 
 

@@ -3,14 +3,13 @@
 
 #include "JsonParser.h"
 #include "Area.h"
-
-#include <unordered_map>
-#include <string>
-#include <iostream> 
-#include <fstream>
 #include "CharacterManager.h"
+#include "auth.hpp"
 
+
+using namespace auth;
 using charactermanager::CharacterManager;
+
 
 class AreaGenerator {
 
@@ -25,10 +24,12 @@ class AreaGenerator {
     void generateObjects(json rooms, Area& area);
 
     void generateExitsTo(Area& area);
-
+    
   public:
+    
     Area getArea(std::string filepath, CharacterManager&);
     Area generateExits(Area area);
-
+    
 };
+
 #endif

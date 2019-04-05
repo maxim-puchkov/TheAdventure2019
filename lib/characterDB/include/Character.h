@@ -15,9 +15,8 @@
 #include "LocationCoordinates.h"
 #include "auth.hpp"
 
-#include "print.h"
 
-using auth::Identifier;
+using namespace auth;
 
 
 const std::string DEF_CHAR_NAME = "DEF_CHAR_NAME";
@@ -35,11 +34,12 @@ const int DEF_CHAR_DAMAGE = 10;
 class Character {
 public:
     
-    /*! Debug */
-    const Identifier id = 0;
+    /*! Unique identifier */
+    const Identifier id;
 
+    
     Character(const std::string &name);
-    ~Character();
+    ~Character() = default;
 
     //TODO: create control mode interface for combat
 

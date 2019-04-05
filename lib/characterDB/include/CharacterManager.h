@@ -9,11 +9,6 @@
 #include "LocationCoordinates.h"
 #include "MiniGameLobby.h"
 #include "CombatManager.h"
-#include "auth.hpp"
-
-
-using auth::Authenticator;
-using auth::Identifier;
 
 
 namespace charactermanager {
@@ -34,13 +29,12 @@ private:
     const std::string LONG_DESC = "longdesc";
     const std::string DESCRIPTION = "description";
     
-    const Authenticator<Identifier> *const authenticator;
-
+    /*! Authenticator shared between characters, rooms, an items */
+    //SharedAuthenticator authenticator;
+    
 public:
     
-    CharacterManager(const Authenticator<Identifier> *const authenticator)
-    : authenticator(authenticator)
-    { }
+    //CharacterManager(SharedAuthenticator authenticator);
     
     enum class CHARACTER_CODE : uint8_t {
       CHARACTER_CREATED,
