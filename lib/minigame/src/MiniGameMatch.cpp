@@ -9,26 +9,26 @@ MiniGameMatch::MiniGameMatch() {
     this->adminName = "null";
 }
 
+
 MiniGameMatch::MiniGameMatch(const std::string& userName) {
     this->adminName = userName;
     this->players.push_back(userName);
     this->currentPlayerTurn = 0;
 
-    MoveValidator newGame;
-    this->game = newGame;
-    newGame.setPlayerOne(userName);
-
+    this->game = MoveValidator(userName);
+    game.setPlayerOne(userName);  // for cautios
 }
 
 MiniGameMatch::MiniGameMatch(const std::string& player1Name, const std::string& player2Name) {
     this->adminName = player1Name;
     this->players.push_back(player1Name);
     this->players.push_back(player2Name);
+
     this->currentPlayerTurn = 0;
-    MoveValidator newGame;
-    newGame.setPlayerOne(player1Name);
-    newGame.setPlayerTwo(player2Name);
-    this->game = newGame;
+
+    this->game = MoveValidator{player1Name,player2Name};
+    game.setPlayerOne(player1Name);
+    game.setPlayerTwo(player2Name);
 }
 
 bool MiniGameMatch::hasPlayer(const std::string& playerName) const{
@@ -71,11 +71,12 @@ bool MiniGameMatch::makePlayerMove(const std::string& playerName, std::string& m
 }
 
 bool MiniGameMatch::addPlayer(const std::string& playerName){
-    int maxPlayers = 2; //get this from Game.getMaxPlayers()
+    unsigned int maxPlayers = 2; //get this from Game.getMaxPlayers()
     if(players.size() >= maxPlayers) {
         return false;
     }
     players.push_back(playerName);
+    game.setPlayerTwo(playerName);
     return true;
 }
 
@@ -88,9 +89,8 @@ void MiniGameMatch::removePlayer(const std::string& playerName){
 
 void MiniGameMatch::removeSpectator(const std::string &spectatorName) {
     spectators.erase(std::remove_if(spectators.begin(), spectators.end(),
-                                 [&](const auto &iter){return iter == spectatorName;}),
-                  players.end());
-
+                                 [&spectatorName](const auto &iter){return iter == spectatorName;}),
+                  spectators.end());
 }
 
 

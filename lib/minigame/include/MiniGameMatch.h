@@ -15,6 +15,9 @@ class MiniGameMatch {
 public:
     MiniGameMatch();
     MiniGameMatch(const std::string& userName);
+
+
+
     MiniGameMatch(const std::string& player1Name, const std::string& player2Name);
 
     bool hasPlayer(const std::string& playerName) const;
