@@ -29,7 +29,6 @@ MiniGameMatch& MiniGameLobby::getMatchWithPlayer(const std::string& playerName) 
 void MiniGameLobby::createInvite(const std::string& inviterName, const std::string& invitedName){
     //auto invite = std::make_tuple(inviterName, invitedName, TimeStamp::getTimeStamp());
     auto invite = std::make_tuple(inviterName, invitedName, 0);
-
     pendingInvites.emplace_back(invite);
 }
 
@@ -40,24 +39,56 @@ void MiniGameLobby::clearStaleInvites() {
 }
 
 //potential issue: if inviter logs out before invited accepts, game is still made for both
+//Function is called when player accepts an invite.
 bool MiniGameLobby::confirmInvite(const std::string& invitedName){
+    /*
     for(auto& invite : pendingInvites){
         auto& invited = std::get<1>(invite);
-        if(invited == invitedName){
-            auto& inviter = std::get<0>(invite);
-            auto& match = getMatchWithPlayer(inviter);
+        if(invited == invitedName) {
+            auto &inviter = std::get<0>(invite);  //
+            auto &match = getMatchWithPlayer(inviter);
 
             if (match.getAdminName() == "null"){ //if inviter is not in a match, create new one
                 std::cerr << stringManager.getString(Internationalization::STRING_CODE::MAKING_NEW_MATCH);
+
                 //match = createGame(inviter); //PROBLEM HERE. when accepting challenge when no game exists, challengee is not properly added to game (or game is not added to gameList)
+
                 match = MiniGameMatch{inviter, invited}; //new constructor as temp solution. 1hr+ of debugging could not find solution to previous line
+                
                 gameList.emplace_back(match);
             }
-            //return match.addPlayer(invited);
+            else {
+                return match.addPlayer(invited);
+            }
+
             return true;
         }
     }
     return false;
+    */
+
+
+    for(const auto& invite : pendingInvites){
+        auto &invitedPlayer = std::get<1>(invite);
+        if(invitedPlayer == invitedName){
+            //we found the correct invite!
+
+            auto &hostPlayer = std::get<0>(invite);
+            auto &match = getMatchWithPlayer(hostPlayer);
+
+            if(match.getAdminName() == "null"){
+                match = MiniGameMatch{hostPlayer,invitedPlayer};
+            } else{
+                match.addPlayer(invitedPlayer); //the match has already been created since the adminName isn't null
+            }
+            gameList.emplace_back(match);
+            return true;
+        }
+    }
+
+    return false; //The name was never found in the list of invited people
+
+
 }
 
 void MiniGameLobby::removeInvite(const std::string& eitherName){
@@ -79,6 +110,7 @@ std::string MiniGameLobby::printGames() const{
     return std::move(result);
 }
 
+
 std::string MiniGameLobby::printInvites() const{
     std::string result = stringManager.getString(Internationalization::STRING_CODE::MINIGAME_LOBBY_INVITELIST);
     for(auto& invite : pendingInvites){
@@ -92,7 +124,7 @@ std::string MiniGameLobby::printInvites() const{
  * Spectates a game that is currently being played by the userName
  * @param userName - The userName the observer wants to watch
  * @param observer - the observer's name
- * @return
+ * @return - A message to the user
  */
 std::string MiniGameLobby::spectate(const std::string &userName, const std::string &observer) {
 

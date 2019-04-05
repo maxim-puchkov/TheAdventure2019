@@ -18,6 +18,7 @@ target_link_libraries(chatserver
     ${network}
     ${CMAKE_THREAD_LIBS_INIT}
     ${game}
+    ${config}
 )
 
 

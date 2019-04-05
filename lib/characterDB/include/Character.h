@@ -59,7 +59,7 @@ public:
     void setDescription(const std::string& description);
     void setFirstTimeSetup(const bool value);
     void setName(const std::string& newName){name = newName;}
-void setID(int newID){id = newID;}
+    void setID(int newID){id = newID;}
 
     // States ...
     bool isInCombat();

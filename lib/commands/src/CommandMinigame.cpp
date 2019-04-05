@@ -39,6 +39,10 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
             );
         }
 
+        if(playerMatch.getCurrentPlayers() != 2){
+            onlineUserManager.addMessageToUser(username, "Not enough players in a game!");
+        }
+
         auto moveFrom = fullCommand.at(2);
         auto moveTo = fullCommand.at(3);
         if (!playerMatch.makePlayerMove(username, moveFrom, moveTo)) {
@@ -50,6 +54,17 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
     } else if (firstCommand == stringManager.getString(Internationalization::STRING_CODE::CHALLENGE) || firstCommand == "invite") {
 
         auto &challengedName = fullCommand.at(2);
+        if(challengedName == username){
+            onlineUserManager.addMessageToUser(username, " You can't challenge yourself! \n");
+            return;
+        }
+
+        if( !onlineUserManager.checkUserIsOnline(challengedName) ){
+            onlineUserManager.addMessageToUser(username, " The user you tried to challenge isn't online \n");
+            return;
+        }
+
+
         miniGameLobby.createInvite(username, challengedName);
         onlineUserManager.addMessageToUser(challengedName, username + stringManager.getString(Internationalization::STRING_CODE::HAS_CHALLENGED_TO_MINIGAME));
 
@@ -60,7 +75,7 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
 
         if (miniGameLobby.confirmInvite(username)) {
             miniGameLobby.removeInvite(username);
-            auto &playerMatch = miniGameLobby.getMatchWithPlayer(username);
+
             auto &playerList = playerMatch.getPlayers();
             std::string pNames;
             for (auto &pName : playerList) {
@@ -121,11 +136,8 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
     }
 
 
-
-
-
     vector<string> &players = playerMatch.getPlayers();
-    if (players.size() == 2) {
+    if (players.size() >= 2) {
         onlineUserManager.addMessageToUser(players.at(0), playerMatch.reverseDisplay() + "\n" );
         onlineUserManager.addMessageToUser(players.at(1), playerMatch.display() + "\n" );
     }

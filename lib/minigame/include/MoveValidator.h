@@ -15,6 +15,9 @@ using internationalization::Internationalization;
 struct ChessPlayer {
     std::string playerName;
     Color playerColor;
+
+    ChessPlayer() : playerName(""),playerColor(RED_LOWERCASE){}
+
 };
 
 
@@ -29,7 +32,7 @@ class MoveValidator {
                 const std::string &player);
 
 
-        void initializeSide(const std::string &playerOne, const std::string &playerTwo);
+    void initializeSide(const std::string &playerOne, const std::string &playerTwo);
 
         bool isGameFinished() const;
         std::string gameOverMessage() const;
@@ -40,9 +43,12 @@ class MoveValidator {
         void setPlayerOne(const std::string &playerOne);
         void setPlayerTwo(const std::string &playerTwo);
 
+        MoveValidator(const std::string &playerOne);
+        MoveValidator(const std::string &playerOne, const std::string &playerTwo);
+        MoveValidator();
 
 
-    private:
+private:
         Board gameBoard;
         ChessPlayer playerOne;
         ChessPlayer playerTwo;

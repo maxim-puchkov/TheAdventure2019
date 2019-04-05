@@ -106,6 +106,7 @@ void AreaGenerator::generateNPC(json allNPC, Area& area, CharacterManager& chara
         characterNPC.setLongdesc(longDesc);
         characterNPC.setDescription(description);
         characterNPC.setID(NPC["id"]);
+        characterNPC.setFirstTimeSetup(true);
        
         characterManager.addNPC(characterNPC);
     }

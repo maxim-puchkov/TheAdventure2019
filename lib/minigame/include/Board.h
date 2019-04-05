@@ -28,7 +28,6 @@ public:
 
     const Piece getLastPieceKilled() const;
 
-
 private:
     vector< vector<Piece> > boardView;
     Piece lastPieceKilled;
