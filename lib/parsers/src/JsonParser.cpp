@@ -27,11 +27,7 @@ void JsonParser::saveJSON(json j, const std::string& filePath){
     file << j;
 }
 
-char* string2charArray(std::string& str){
-    char char_filePath[str.length()+1];
-    strcpy(char_filePath, str.c_str());
-    return char_filePath;
-}
+
 
 std::string JsonParser::removeQuotes( std::string str){
     return str.substr(1, str.size() - 2);
@@ -51,4 +47,19 @@ std::vector<std::string> JsonParser::json2Vector(json j){
         strVec.push_back(removeQuotes(line.dump()));
     }
     return strVec;
+}
+
+std::vector<std::string> JsonParser::getFileNamesInPath(const char* path){
+    
+    std::vector<std::string> fileNames;
+    DIR* dirp = opendir(path);
+    struct dirent * dp = readdir(dirp); dp = readdir(dirp);
+
+    while ((dp = readdir(dirp)) != NULL) {
+
+        std::string fileName(dp->d_name);
+        fileNames.push_back(dp->d_name);
+    }
+    closedir(dirp);
+    return fileNames;
 }
