@@ -103,10 +103,18 @@ std::string MiniGameLobby::spectate(const std::string &userName, const std::stri
 
     if(game != gameList.end()){
         (*game).addSpectator(observer);
-        return std::move(" Currently spectating " + userName + "\n");
+        return std::move(
+            stringManager.getString(Internationalization::STRING_CODE::CURRENTLY_SPECTATING) + 
+            userName + 
+            "\n"
+        );
     }
 
-    return std::move(" Couldn't find a game with " + userName + " playing!\n");
+    return std::move(
+        stringManager.getString(Internationalization::STRING_CODE::COULDNT_FIND_GAME_WITH) + 
+        userName + 
+        stringManager.getString(Internationalization::STRING_CODE::PLAYING)
+    );
 }
 
 

@@ -210,6 +210,13 @@ class Internationalization {
        START,
        INVITE,
        INVALID_MESSAGE,
+       READ,
+       ITEMS_NOW_WORKING,
+       VIEW_ALL_GAMES,
+       SPECTATE,
+       CURRENTLY_SPECTATING,
+       COULDNT_FIND_GAME_WITH,
+       PLAYING,
 
        CHARACTERS_JSON_FILE_NAME,
        SHORTDESC,

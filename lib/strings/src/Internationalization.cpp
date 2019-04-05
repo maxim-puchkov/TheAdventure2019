@@ -225,6 +225,13 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::START, "start");
     generateDefaultStrings(Internationalization::STRING_CODE::INVITE, "invites");
     generateDefaultStrings(Internationalization::STRING_CODE::INVALID_MESSAGE, "invalid_message");
+    generateDefaultStrings(Internationalization::STRING_CODE::READ, "read");
+    generateDefaultStrings(Internationalization::STRING_CODE::ITEMS_NOW_WORKING, "items_now_working");
+    generateDefaultStrings(Internationalization::STRING_CODE::VIEW_ALL_GAMES, "view_all_games");
+    generateDefaultStrings(Internationalization::STRING_CODE::SPECTATE, "spectate");
+    generateDefaultStrings(Internationalization::STRING_CODE::CURRENTLY_SPECTATING, "currently_spectating");
+    generateDefaultStrings(Internationalization::STRING_CODE::COULDNT_FIND_GAME_WITH, "couldnt_find_game_with");
+    generateDefaultStrings(Internationalization::STRING_CODE::PLAYING, "playing");
 
     generateDefaultStrings(Internationalization::STRING_CODE::CHARACTERS_JSON_FILE_NAME, "characters_json_file_name");
     generateDefaultStrings(Internationalization::STRING_CODE::SHORTDESC, "shortdesc");
