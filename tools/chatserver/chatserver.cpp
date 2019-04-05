@@ -130,7 +130,6 @@ main(int argc, char* argv[]) {
   unsigned long long heartbeatTimer = getTimeStamp();
 
   while (!done) {
-    if(getTimeStamp() - heartbeatTimer > 200) {
     try {
       server.update();
     } catch (std::exception& e) {
@@ -141,16 +140,21 @@ main(int argc, char* argv[]) {
 
     auto incoming = server.receive();
     auto promptReplies = processMessages(server, incoming, done, gm);
-    auto heartbeatReplies = gm.heartbeat();
-    
-    auto logs = includeHeartbeatMessages(std::move(promptReplies), std::move(heartbeatReplies));
 
-    
-      auto outgoing = buildOutgoing(std::move(logs));
-      server.send(outgoing);
+    std::unique_ptr<std::unordered_map<std::string, std::string>> heartbeatReplies;
+    std::unique_ptr<std::unordered_map<std::string, std::string>> logs;
+
+    if(getTimeStamp() - heartbeatTimer > 200) {
+      heartbeatReplies = gm.heartbeat();
+      logs = includeHeartbeatMessages(std::move(promptReplies), std::move(heartbeatReplies));
       heartbeatTimer = getTimeStamp();
     }
-    //sleep(1);
+    else {
+      logs = std::move(promptReplies);
+    }
+    
+    auto outgoing = buildOutgoing(std::move(logs));
+    server.send(outgoing);
   }
 
   return 0;
