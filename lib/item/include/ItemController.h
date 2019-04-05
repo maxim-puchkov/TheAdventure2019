@@ -171,7 +171,20 @@ public:
     ItemController()
     { }
     
+    
     ~ItemController() = default; // { this->deallocateContainers(); }
+    
+    
+    Text detailsOfList(Key key, const vector<ItemIdentifier> &vec) const {
+        std::ostringstream stream("");
+        
+        stream << "Listing items:\n";
+        for (auto &id : vec) {
+            stream << '\t' << this->env2d.lookup(key).lookup(id).toString() << '\n';
+        }
+        
+        return stream.str();
+    }
     
     
     //Text detailsOfList(vector<ItemSearchKey> &&vec) const noexcept {

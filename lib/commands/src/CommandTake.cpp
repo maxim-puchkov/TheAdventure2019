@@ -48,20 +48,24 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
     
     
     
-    
+    // No matching items found
     if (items_found == 0) {
-        debug::print("Nothing found");
+        auto message = "Nothing found";
+        Command::onlineUserManager.addMessageToUser(username, message);
         return;
     }
     
     
     
-    // Otherwise, an error message containing all matching items is sent
-    // to the user so they can choose another unambigious keyword, or
-    // select item to take by its identifier
+    // If search is ambiguous, an error message containing all matching
+    // items is sent to the user so they can choose another unambigious
+    // keyword, or select item to take by its identifier
     if (items_found != 1) {
         debug::print("Ambiguous search");
-        /* ... */
+        //auto keys = Command::worldManager.items.contentsOf(room_id);
+        auto message = std::to_string(ids.size()) + " items match this keyword. Choose item id: \n\n";
+        message     += Command::worldManager.items.detailsOfList(room_id, ids);
+        Command::onlineUserManager.addMessageToUser(username, message);
         return;
     }
     
