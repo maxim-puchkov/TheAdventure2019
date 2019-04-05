@@ -137,3 +137,16 @@ void Room::updateExits(int id, std::string name){
 		}
 	}
 }
+
+bool Room::removeExitToRoom(int id){
+	bool result = false;
+	int count = 0;
+	for(auto tmpExit: exitsInRoom){
+		if(tmpExit.getTargetLocation().room == id){
+			exitsInRoom.erase(exitsInRoom.begin() + count);
+			result = true;
+		}
+		count++;
+	}
+	return result;
+}
