@@ -8,11 +8,15 @@ void CommandCreateItem::executeInHeartbeat(const std::string& username, const st
     auto role = onlineUserManager.getUserRole(username);
     switch(role) {
         case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
-            std::cout << "Please log in again.\n";
+            std::string returnMessage =  "Please log in again.\n";
+            onlineUserManager.addMessageToUser(username, returnMessage);
+            return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
             //don't let normal user know that this syntax exists
-            std::cout <<  "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+            std::string returnMessage =  "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+            onlineUserManager.addMessageToUser(username, returnMessage);
+            return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
             auto location = characterManager.getCharacterLocation(username);
@@ -22,6 +26,9 @@ void CommandCreateItem::executeInHeartbeat(const std::string& username, const st
             worldManager.items.print_contentsOf(location.room);
             std::cout << "Item name: " << fullCommand[1] << "\n";
             std::cout << "Item desc: " << fullCommand[2] << "\n";
+            std::string returnMessage = "Item name: " + fullCommand[1] + " has been created\n";
+            onlineUserManager.addMessageToUser(username, returnMessage);
+            return;
         }
         case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
         case usermanager::OnlineUserManager::USER_CODE::ACCOUNT_CREATED: {} 

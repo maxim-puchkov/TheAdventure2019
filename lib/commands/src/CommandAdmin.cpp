@@ -1,7 +1,7 @@
-#include "CommandCreateRoom.h"
+#include "CommandAdmin.h"
 #include <boost/algorithm/string.hpp>
 
-void CommandCreateRoom::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
+void CommandAdmin::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	//TODO
     //if (role == admin) then allow to edit
     //else notify no permissions
@@ -19,10 +19,28 @@ void CommandCreateRoom::executeInHeartbeat(const std::string& username, const st
             return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
+            std::string returnMessage = "Invalid user for the priviledge!\n";
+            bool userFound = false;
             auto location = characterManager.getCharacterLocation(username);
-            worldManager.createRoom(location, fullCommand[1], fullCommand[2]);
-            std::string returnMessage = "Room: " + fullCommand[2] + " has been created\n";
-            onlineUserManager.addMessageToUser(username, returnMessage);
+            auto userInRoom = worldManager.getUserNamesInRoom(location);
+            for(auto user : userInRoom){
+                if(user == fullCommand[1]){
+                    userFound = true;
+                    break;
+                }
+            }
+            if(userFound){
+                auto& promoUser = onlineUserManager.getUserByUsername(fullCommand[1]);
+                promoUser.setRole(User::USER_ROLE::ADMIN);
+                returnMessage = "User: " + fullCommand[1] + " is promoted\n";
+                onlineUserManager.addMessageToUser(username, returnMessage);
+                returnMessage = "You has been promoted to Admin \nThe promotion is in this session only!\nIf you logout, you will loose the promotion\n";
+                onlineUserManager.addMessageToUser(fullCommand[1], returnMessage);
+                return;
+            }else{
+                onlineUserManager.addMessageToUser(username, returnMessage);
+            }
+            return;
         }
         case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
         case usermanager::OnlineUserManager::USER_CODE::ACCOUNT_CREATED: {} 
@@ -35,14 +53,16 @@ void CommandCreateRoom::executeInHeartbeat(const std::string& username, const st
     }
 }
 
-std::vector<std::string> CommandCreateRoom::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
+std::vector<std::string> CommandAdmin::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
     std::vector<std::string> processedCommand;
+    commandIsValid = false;
 
-    //Format: create-room <direction> <name>
+    //Format: admin <username>
     boost::trim_if(fullCommand, boost::is_any_of(" \t"));
 
     //split by " " and compress all long spaces
     boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
-    commandIsValid = (processedCommand.size() == 3);
+    commandIsValid = (processedCommand.size() == 2);
+
     return processedCommand;
 }
