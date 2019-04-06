@@ -86,6 +86,8 @@ std::string CommandHelp::printWorldInteractionCommands(OnlineUserManager::USER_C
     answer << "look\n";
     answer << "look [object/username]\n";
     answer << "look [object/username] [object/username-index]\n";
+    answer << "look item [item id] \n";
+    answer << "look keyword [keyword]\n";
     answer << "examine [object/username]\n";
     if(userRole == admin) {
         answer << "create-room [direction] [name]\n";
