@@ -16,8 +16,10 @@ find_package(Threads REQUIRED)
 
 target_link_libraries(chatserver
     ${network}
+    ${time}
     ${CMAKE_THREAD_LIBS_INIT}
     ${game}
+    ${config}
 )
 
 

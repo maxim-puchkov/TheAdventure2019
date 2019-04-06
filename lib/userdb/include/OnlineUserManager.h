@@ -38,6 +38,9 @@ class OnlineUserManager{
         User& getUserByUsername(const std::string& userName);
         bool insertUser(const std::string &id, const User &user);      
         User removeUser(const std::string& id);
+        bool checkUserIsOnline(const std::string &userName);
+
+
         long currentTimeStamp();
         std::string getConnectionID(const std::string& userName);
         std::string getUsernameFromConnectionID(const std::string& connectionID);

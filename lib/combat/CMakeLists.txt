@@ -27,6 +27,7 @@ target_link_libraries(${PROJECT_NAME}
     PRIVATE
         ${Boost_LIBRARIES}
         ${time}
+        ${config}
 )
 
 

@@ -6,8 +6,9 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include "../../config/include/Config.h"
 
-const static unsigned int HEARTBEATS_PER_ROUND = 10;
+const static unsigned int HEARTBEATS_PER_ROUND = Config{}.heartbeat_combat;
 
 class Combat{
 public:

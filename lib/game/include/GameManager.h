@@ -10,6 +10,7 @@
 #include "WorldManager.h"
 #include "CharacterManager.h"
 #include "AreaGenerator.h"
+#include "JsonParser.h"
 
 #include "GamePrefixHeader.pch"
 
@@ -20,6 +21,7 @@ using charactermanager::CharacterManager;
 class GameManager{
 
 private:
+	JsonParser jsonParser{};
     WorldManager world{};
     OnlineUserManager onlineUserManager{};
     CharacterManager characterManager{};
