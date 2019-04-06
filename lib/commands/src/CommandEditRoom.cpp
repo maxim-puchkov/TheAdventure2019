@@ -8,11 +8,15 @@ void CommandEditRoom::executeInHeartbeat(const std::string& username, const std:
     auto role = onlineUserManager.getUserRole(username);
     switch(role) {
         case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
-            std::cout << "Please log in again.\n";
+            std::string returnMessage =  "Please log in again.\n";
+            onlineUserManager.addMessageToUser(username, returnMessage);
+            return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
             //don't let normal user know that this syntax exists
-            std::cout <<  "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+            std::string returnMessage =  "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+            onlineUserManager.addMessageToUser(username, returnMessage);
+            return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
             // Need to implement createArea in Area class and add that method in WorldManager
