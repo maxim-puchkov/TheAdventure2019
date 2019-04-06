@@ -27,6 +27,7 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
 
 
     auto room = worldManager.findRoomByLocation(location);
+    std::cout << room.getName() << "\n";
     const std::string &listOfExits = room.listExits();
 
     if (fullCommand.size() == 1) {
