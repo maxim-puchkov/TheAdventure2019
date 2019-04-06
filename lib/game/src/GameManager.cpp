@@ -31,7 +31,7 @@ GameManager::GameManager() {
         std::cout<< "data/world/"+path << "\n";
     }
         
-
+    cerr << "GameManager being created\n\n\n";
 }
 
 void GameManager::createTableOfCommands() {
