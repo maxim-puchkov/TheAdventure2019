@@ -44,7 +44,7 @@ const std::string CharacterManager::getLongDescription(const std::string &userNa
         result.append(" No object with name " + userName + "\n");
     }
 
-    return std::move(result);
+    return (result);
 }
 
 //Returns the string of a userName along with a short description of that particular character
@@ -74,7 +74,7 @@ const std::string CharacterManager::getShortDescription(const std::string &userN
     }
 
 
-    return std::move(result);
+    return (result);
 }
 
 
