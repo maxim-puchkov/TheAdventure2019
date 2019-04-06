@@ -50,7 +50,6 @@ void CommandCast::executeCombatRound(const std::string& username, const std::vec
         onlineUserManager.addMessageToUser(username, "You created a decoy!\n");
         onlineUserManager.addMessageToUser(opponentName, "Your opponent made a decoy!\n");
     }
-    auto attackValue = characterManager.getCharacterAttack(username);
 
 }
 
