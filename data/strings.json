@@ -26,6 +26,7 @@
 	"command_take":{"string": "take"},
 	"command_create_item":{"string": "create-item"},
 	"command_delete_room":{"string": "delete-room"},
+	"command_admin":{"string": "admin"},
 	"spell_swap":{"string": "swap"},
 	"spell_confuse":{"string": "confuse"},
 	"spell_decoy":{"string": "decoy"},
@@ -186,7 +187,6 @@
 	"deleting_room_message":{"string": "You have deleted room ID: "},
 	"in_area":{"string": " in area: "},
 	"invalid_room_enter":{"string": "The room you enter is invalid\n"},
-	"admin":{"string": "admin"},
 	"has_been_create":{"string": " has been created\n"},
 
 	"keyword":{"string": "keyword"},

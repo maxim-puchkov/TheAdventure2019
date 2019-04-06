@@ -40,6 +40,7 @@ class Internationalization {
        COMMAND_CREATE_ITEM,
        COMMAND_DELETE_ROOM,
        COMMAND_TAKE,
+       COMMAND_ADMIN,
 
        SPELL_SWAP,
        SPELL_CONFUSE,
@@ -229,7 +230,6 @@ class Internationalization {
        DELETING_ROOM_MESSAGE,
        IN_AREA,
        INVALID_ROOM_ENTER,
-       ADMIN,
        HAS_BEEN_CREATED,
 
        KEYWORD,

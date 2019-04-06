@@ -55,6 +55,7 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_CREATE_ITEM, "command_create_item");
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_DELETE_ROOM, "command_delete_room");
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_TAKE, "command_take");
+    generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_ADMIN, "command_admin");
 
     generateDefaultStrings(Internationalization::STRING_CODE::SPELL_SWAP, "spell_swap");
     generateDefaultStrings(Internationalization::STRING_CODE::SPELL_CONFUSE, "spell_confuse");
@@ -244,7 +245,6 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::DELETING_ROOM_MESSAGE, "deleting_room_message");
     generateDefaultStrings(Internationalization::STRING_CODE::IN_AREA, "in_area");
     generateDefaultStrings(Internationalization::STRING_CODE::INVALID_ROOM_ENTER, "invalid_room_enter");
-    generateDefaultStrings(Internationalization::STRING_CODE::ADMIN, "admin");
     generateDefaultStrings(Internationalization::STRING_CODE::HAS_BEEN_CREATED, "has_been_create");
 
     generateDefaultStrings(Internationalization::STRING_CODE::KEYWORD, "keyword");
