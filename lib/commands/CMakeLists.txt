@@ -6,7 +6,6 @@
 cmake_minimum_required(VERSION 3.12)
 project(${commands} VERSION 1.0)
 
-if(NOT BUILD_ALL_TARGETS)
 
     add_library(${PROJECT_NAME}
             src/Command.cpp
@@ -38,43 +37,9 @@ if(NOT BUILD_ALL_TARGETS)
             src/CommandCreateItem.cpp
             src/CommandDeleteRoom.cpp
             src/CommandAdmin.cpp
-    )
+            )
 
-else()
 
-    add_library(${PROJECT_NAME}
-        src/Command.cpp
-        src/CommandLogin.cpp
-        src/CommandCreate.cpp
-        src/CommandLogout.cpp
-        src/CommandHelp.cpp
-        src/CommandSay.cpp
-        src/CommandTell.cpp
-        src/CommandYell.cpp
-        src/CommandLook.cpp
-        src/CommandExamine.cpp
-        src/CommandMove.cpp
-        src/CommandCreateAva.cpp
-        src/CommandEditAva.cpp
-        src/CommandCreateRoom.cpp
-        src/CommandEditRoom.cpp
-        src/CommandTake.cpp
-        src/CommandPut.cpp
-        src/CommandDrop.cpp
-        src/CommandUse.cpp
-        src/CommandEquip.cpp
-#       src/CommandUnequip.cpp
-        src/CommandMinigame.cpp
-        src/CommandCombat.cpp
-        src/CommandAttack.cpp
-        src/CommandFlee.cpp
-        src/CommandCast.cpp
-        src/CommandCreateItem.cpp
-        src/CommandDeleteRoom.cpp
-        src/CommandAdmin.cpp
-    )
-
-endif()
 
 
 target_include_directories(${PROJECT_NAME}
