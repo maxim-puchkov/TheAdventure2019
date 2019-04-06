@@ -93,6 +93,8 @@ public:
     bool swapCharacters(const std::string& username1, const std::string& username2);
     std::string confuseMessage(std::string& message);
 
+    void spellCooldown(const std::string& username);
+
     // NPC STUFF
     void addNPC(Character NPC){
         NPCs.push_back(NPC);

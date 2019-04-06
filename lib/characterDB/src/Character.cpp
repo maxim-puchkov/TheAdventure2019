@@ -6,6 +6,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "Character.h"
+#include <iostream>
 
 Character::Character(const std::string &name) {
     createCharacter(name);
@@ -119,17 +120,39 @@ bool Character::isDecoy() const{
 }
 
 void Character::setConfused(const bool status) {
+    if(status){
+        this->swapped = false;
+        this->decoy = false;
+    }
     this->confused = status;
 }
 void Character::setSwapped(const bool status) {
+    if(status){
+        this->confused = false;
+        this->decoy = false;
+    }
     this->swapped = status;
 }
 void Character::setDecoy(const bool status) {
+    if(status){
+        this->swapped = false;
+        this->confused = false;
+    }
     this->decoy = status;
 }
 
 void Character::setSpellTime(int rounds){
     this->spellEffectTime = rounds;
+}
+
+void Character::spellCooldown(){
+    this->spellEffectTime --;
+    if(spellEffectTime <= 0){
+        setConfused(false);
+        setSwapped(false);
+        setDecoy(false);
+        spellEffectTime = 0;
+    }
 }
 
 bool Character::isInCombat() {
@@ -156,6 +179,10 @@ std::string Character::getCombatReply(){
 std::string Character::getAttackReply(){
     return this->mode->getAttackReply();
 }
+std::string Character::getCastReply(){
+    return this->mode->getCastReply();
+}
+
 
 void Character::characterTakeDamage(const int &damage) {
     currentAttr.setHealth(currentAttr.getHealth() - damage);

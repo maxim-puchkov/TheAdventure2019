@@ -69,6 +69,7 @@ public:
     void setSwapped(const bool status);
     void setDecoy(const bool status);
     void setSpellTime(int rounds);
+    void spellCooldown();
 
     // States ...
     bool isInCombat();
@@ -81,6 +82,7 @@ public:
     // Combat WIP
     std::string getCombatReply();
     std::string getAttackReply();
+    std::string getCastReply();
     void characterTakeDamage(const int &damage);
 
 private:

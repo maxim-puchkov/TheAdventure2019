@@ -350,9 +350,27 @@ bool CharacterManager::swapCharacters(const std::string& username1, const std::s
     return true;
 }
 
+bool isVowel(char c){
+	c = tolower(c);
+	return (
+			c == 'a' ||
+			c == 'e' ||
+			c == 'i' ||
+			c == 'o' ||
+			c == 'u' ||
+			c == 'y'
+	);
+}
+
 std::string CharacterManager::confuseMessage(std::string& message){
-	std::string newMessage = message.append("abba");
-	return std::move(newMessage);
+	auto it = std::find_if(message.begin(), message.end(), isVowel);
+	if(it == message.begin()){
+		message += "way\n";
+	} else if(it != message.end()) {
+		rotate(message.begin(), it, message.end());
+		message += "ay\n";
+	}
+	return message;
 }
 
 std::string CharacterManager::listNPCs() {
@@ -364,6 +382,20 @@ std::string CharacterManager::listNPCs() {
     }
     return NPCList;
 }
+
+void CharacterManager::spellCooldown(const std::string& username){
+	auto found = onlineCharacters.find(username);
+	if (found == onlineCharacters.end()) {
+		auto npc = std::find_if(NPCs.begin(), NPCs.end(), [&username](Character& x){return x.getName() == username;});
+		if(npc == NPCs.end()) return;
+
+		auto& npc1 = *npc;
+		npc1.spellCooldown();
+	} else {
+		found->second.spellCooldown();
+	}
+}
+
 
 std::string CharacterManager::getCharArea(const std::string& userName){
 	std::string charArea = characterDB.getArea(userName);

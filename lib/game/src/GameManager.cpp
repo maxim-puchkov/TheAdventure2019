@@ -137,6 +137,7 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
         if(found != tableOfCommands.end()) {
             found->second->executeCombatRound(username, command);
         }
+        characterManager.spellCooldown(username);
     }
 
 
@@ -161,6 +162,8 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
     	//confuse spell application
     	const auto& username = onlineUserManager.getUsernameFromConnectionID(connectionID);
     	if(characterManager.isConfused(username)){
+    	    message.pop_back();
+    	    message.pop_back(); //remove \n
             message = characterManager.confuseMessage(message);
     	}
 
