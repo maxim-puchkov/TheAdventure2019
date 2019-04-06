@@ -9,7 +9,7 @@ using charactermanager::CharacterManager;
 
 struct CommandSplittingTest : testing::Test {
     Internationalization stringManager{};
-    WorldManager w = WorldManager(stringManager);
+    WorldManager w;
     OnlineUserManager u;
     CharacterManager c;
     bool isValid = true;

@@ -9,7 +9,7 @@ using charactermanager::CharacterManager;
 
 struct CommandValidTest : testing::Test {
     Internationalization stringManager{};
-    WorldManager w = WorldManager(stringManager);
+    WorldManager w;
     OnlineUserManager u;
     CharacterManager c;
     bool isValid = true;
@@ -168,13 +168,13 @@ TEST_F(CommandValidTest, DISABLED_TellCommandIsValidOtherCommand) {
 TEST_F(CommandValidTest, TellCommandIsValidWithDifferentSpaces) {
     CommandTell testCommand(c, u, w, stringManager);
 
-//     commandToPut = "tell       user    :                     hello";
-//     testCommand.reassembleCommand(commandToPut, isValid);
-//     EXPECT_TRUE(isValid);
+    commandToPut = "tell       user    :                     hello";
+    testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_TRUE(isValid);
 
-//     commandToPut = "tell       user    :                     hel lo";
-//     testCommand.reassembleCommand(commandToPut, isValid);
-//     EXPECT_TRUE(isValid);
+    commandToPut = "tell       user    :                     hel lo";
+    testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_TRUE(isValid);
 
     commandToPut = "tell user:hello";
     testCommand.reassembleCommand(commandToPut, isValid);
@@ -184,13 +184,13 @@ TEST_F(CommandValidTest, TellCommandIsValidWithDifferentSpaces) {
 TEST_F(CommandValidTest, TellCommandIsValidNotCaseSensitive) {
     CommandTell testCommand(c, u, w, stringManager);
 
-//     commandToPut = "TEll user: hello";
-//     testCommand.reassembleCommand(commandToPut, isValid);
-//     EXPECT_TRUE(isValid);
+    commandToPut = "TEll user: hello";
+    testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_TRUE(isValid);
 
-//     commandToPut = "tELL user: hello";
-//     testCommand.reassembleCommand(commandToPut, isValid);
-//     EXPECT_TRUE(isValid);
+    commandToPut = "tELL user: hello";
+    testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_TRUE(isValid);
 
     commandToPut = "TELL USER: hello";
     testCommand.reassembleCommand(commandToPut, isValid);
@@ -365,18 +365,18 @@ TEST_F(CommandValidTest, YellCommandIsValidWithDifferentSpaces) {
 TEST_F(CommandValidTest, YellCommandIsValidNotCaseSensitive) {
     CommandYell testCommand(c, u, w, stringManager);
 
-//     commandToPut = "Yell: hello";
-//     testCommand.reassembleCommand(commandToPut, isValid);
-//     EXPECT_TRUE(isValid);
+    commandToPut = "Yell: hello";
+    testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_TRUE(isValid);
 
-//     commandToPut = "yELL: hello";
-//     testCommand.reassembleCommand(commandToPut, isValid);
-//     EXPECT_TRUE(isValid);
+    commandToPut = "yELL: hello";
+    testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_TRUE(isValid);
 
-//     commandToPut = "YELL: hello";
-//     testCommand.reassembleCommand(commandToPut, isValid);
-//     EXPECT_TRUE(isValid);
-// }
+    commandToPut = "YELL: hello";
+    testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_TRUE(isValid);
+}
 
 //HELP
 TEST_F(CommandValidTest, HelpCommandIsValid) {
@@ -394,10 +394,10 @@ TEST_F(CommandValidTest, HelpCommandIsValid) {
 TEST_F(CommandValidTest, HelpCommandIsValidOwnCommand) {
     CommandHelp testCommand(c, u, w, stringManager);
 
-//     commandToPut = "help help";
-//     testCommand.reassembleCommand(commandToPut, isValid);
-//     EXPECT_TRUE(isValid);
-// }
+    commandToPut = "help help";
+    testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_TRUE(isValid);
+}
 
 
 TEST_F(CommandValidTest, HelpCommandIsValidWithSpaces) {
@@ -411,3 +411,15 @@ TEST_F(CommandValidTest, HelpCommandIsValidWithSpaces) {
 TEST_F(CommandValidTest, HelpCommandIsValidNotCaseSensitive) {
     CommandHelp testCommand(c, u, w, stringManager);
 
+    commandToPut = "hELP";
+    testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_TRUE(isValid);
+
+    commandToPut = "HELP";
+    testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_TRUE(isValid);
+
+    commandToPut = "heLp aCcOunt";
+    testCommand.reassembleCommand(commandToPut, isValid);
+    EXPECT_TRUE(isValid);
+}

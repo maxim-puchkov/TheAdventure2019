@@ -144,6 +144,6 @@ set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}")
 
 add_subdirectory(lib)
 add_subdirectory(tools)
-# add_subdirectory(test)
+add_subdirectory(test)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

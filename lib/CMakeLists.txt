@@ -32,7 +32,6 @@ add_subdirectory(${libstrings})
 
 # Added
 add_subdirectory(simple)
-add_subdirectory(test)
 
 
 
