@@ -44,6 +44,20 @@ int Room::getRoomId(){
 	return this->roomId;
 }
 
+
+std::string Room::getExtendDescription(const std::string &userInput) const {
+
+    const auto &keyWord = extendDescription.keywords;
+    const auto &result = std::find_if(keyWord.begin(),keyWord.end(),
+            [&](const auto &iter) {return iter == userInput;}  );
+
+    if(result!=keyWord.end()){
+        return (*result);
+    }
+
+    return "No keyword of that exist in the room\n";
+}
+
 /**
  *Removes username from Room. Note that it removes duplicates (but we shouldn't have duplicates)
  * @param userName - UserName you want to remove
@@ -150,3 +164,13 @@ bool Room::removeExitToRoom(int id){
 	}
 	return result;
 }
+
+Room::extended_descriptions::extended_descriptions(const std::vector<std::string> &keywords,
+                                                   const std::string &description) : keywords(keywords),
+                                                                                     description(description) {}
+
+Room::extended_descriptions::extended_descriptions() {}
+
+Room::extended_descriptions::extended_descriptions(const std::vector<std::string> &keywords) : keywords(keywords) {}
+
+Room::extended_descriptions::extended_descriptions(const std::string &description) : description(description) {}

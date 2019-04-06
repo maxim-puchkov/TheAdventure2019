@@ -92,6 +92,9 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
        }
 
         onlineUserManager.addMessageToUser(userName,ostream.str());
+
+       //Keywords in the room
+        onlineUserManager.addMessageToUser( userName,room.getExtendDescription(fullCommand.at(2)) );
         return;
 
     } else if (fullCommand.at(1) == "item"){

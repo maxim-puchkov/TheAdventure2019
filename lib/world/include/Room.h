@@ -17,6 +17,19 @@
 
 class Room {
 
+
+struct extended_descriptions {
+    std::vector<std::string> keywords;
+    std::string description;
+
+    extended_descriptions();
+    extended_descriptions(const std::vector<std::string> &keywords);
+    extended_descriptions(const std::string &description);
+    extended_descriptions(const std::vector<std::string> &keywords, const std::string &description);
+};
+
+
+
 private:
     int roomId;
     std::string roomName;
@@ -24,6 +37,8 @@ private:
     std::vector<std::string> charactersInRoom;
     std::vector<std::string> NPCsInRoom;
     std::vector<Exit> exitsInRoom;
+    extended_descriptions extendDescription;
+
 public:
     Room()
             : roomName("NO_ROOM_NAME"),
@@ -57,6 +72,9 @@ public:
     const std::vector<std::string>& getUserNames() const { return charactersInRoom; }
     std::vector<Exit>& getExits() { return exitsInRoom; }
     int getRoomID(){return roomId;}
+    std::string getExtendDescription(const std::string &keyWord) const;
+
+
     //setters
     void setName(std::string newName) { roomName = newName; }
     void setDescription(std::string newDescription) { roomDescription = newDescription; }
@@ -67,6 +85,8 @@ public:
     bool removeNPC(const std::string &name);
     std::vector<std::string>& getNPCs(){return NPCsInRoom;}
     void updateExits(int id, std::string name);
+
+
 
 
 
