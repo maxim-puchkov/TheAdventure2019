@@ -5,6 +5,8 @@ add_executable(runAllTests
     TriangleTests.cpp
     HailstoneTests.cpp
     AwardsTests.cpp
+    CommandSplittingTest.cpp
+    CommandValidTest.cpp
 
 # Character
     AttributesTest.cpp
@@ -13,12 +15,12 @@ add_executable(runAllTests
     TestChessBoard.cpp
 
 # Item Data Classes
-#     KeywordsTests.cpp
-#     DescriptionTests.cpp
+    KeywordsTests.cpp
+#    DescriptionTests.cpp
 
 # Item Use Classess
 #    InventoryTests.cpp
-#    ItemBuilderTests.cpp
+    ItemBuilderTests.cpp
 #    ItemControllerTests.cpp
 )
 
@@ -33,11 +35,11 @@ target_link_libraries(runAllTests
     ${minigame}
     ${characters}
 
-#    ${authentication}
-#    ${builder}
-#    ${object}
-#    ${item}
-#    ${print}
+    ${authentication}
+    ${builder}
+    ${object}
+    ${item}
+    ${print}
 )
 
 
