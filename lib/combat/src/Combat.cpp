@@ -3,18 +3,20 @@
 
 Combat::Combat(){
     this->roundTime = HEARTBEATS_PER_ROUND;
-    combatants.push_back("");
-    combatants.push_back("");
-    queuedActions.push_back("");
-    queuedActions.push_back("");
+    combatants.emplace_back("");
+    combatants.emplace_back("");
+    std::vector<std::string> emptyVec;
+    queuedActions.push_back(emptyVec);
+    queuedActions.push_back(emptyVec);
 }
 
 Combat::Combat(const std::string& player1Name, const std::string& player2Name){
     this->roundTime = HEARTBEATS_PER_ROUND;
     combatants.push_back(player1Name);
     combatants.push_back(player2Name);
-    queuedActions.push_back("");
-    queuedActions.push_back("");
+    std::vector<std::string> emptyVec;
+    queuedActions.push_back(emptyVec);
+    queuedActions.push_back(emptyVec);
 }
 
 bool Combat::hasPlayer(const std::string& name) const{
@@ -29,19 +31,19 @@ int Combat::getRoundTime() const {
     return this->roundTime;
 }
 
-void Combat::queueCommand(const std::string& name, const std::string& command){ //PROBABLY PROBLEM HERE
+void Combat::queueCommand(const std::string& name, std::vector<std::string> command){
     auto iterator = std::find(combatants.begin(), combatants.end(), name);
     auto index = iterator - combatants.begin();
 
-    queuedActions.at(index) = command;
+    queuedActions.at(index) = std::move(command);
 }
 
 void Combat::clearCommands(){
-    queuedActions.at(0) = "";
-    queuedActions.at(1) = "";
+    for (auto& queue : queuedActions){
+        queue.clear();
+    }
 }
 
-//for now return first non-input combatant. currently supporting 2 people per combat
 std::string Combat::getOpponent(const std::string& name) const{
     for(auto& combatantName : combatants){
         if(combatantName != name)
@@ -62,8 +64,8 @@ std::string Combat::getPlayer(int playerNum) const{
     if(playerNum < 0 || playerNum >= combatants.size()) return "";
     return combatants.at(playerNum);
 }
-std::string Combat::getCommand(int playerNum) const{
-    if(playerNum < 0 || playerNum >= queuedActions.size()) return "";
+std::vector<std::string> Combat::getCommand(int playerNum){
+    if(playerNum < 0 || playerNum >= queuedActions.size()) return std::vector<std::string>{};
     return queuedActions.at(playerNum);
 }
 

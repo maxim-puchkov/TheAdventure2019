@@ -2,20 +2,42 @@
 #include <boost/algorithm/string.hpp>
 
 void CommandCombat::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
-    auto& combatManager = characterManager.getCombatManager();
     auto& currentCombat = combatManager.getCombatWithPlayer(username);
-    if(currentCombat.hasPlayer(username)){
-        onlineUserManager.addMessageToUser(username, "One of you are already in a combat!\n");
-    }
-
     auto& firstCommand = fullCommand.at(1);
 
+
+    if(firstCommand == "print"){
+        if(fullCommand.at(2) == "combats"){
+            onlineUserManager.addMessageToUser(username, combatManager.printCombats());
+        }else if(fullCommand.at(2) == "invites"){
+            onlineUserManager.addMessageToUser(username, combatManager.printInvites());
+        }
+        return;
+    }
+
+    if(currentCombat.hasPlayer(username)){
+        onlineUserManager.addMessageToUser(username, "One of you are already in a combat!\n");
+        return;
+    }
+
     if(firstCommand == "challenge"){
+        auto userLocation = characterManager.getCharacterLocation(username);
+        worldManager.spawn("jeff", userLocation);
+        characterManager.addNPC("jeff");
+
         auto& challengedName = fullCommand.at(2);
         if(combatManager.createInvite(username, challengedName)){
             onlineUserManager.addMessageToUser(username, "Waiting for " + challengedName +" to accept challenge.\n");
             onlineUserManager.addMessageToUser(challengedName, "You were challenged to combat by " + username +".\n");
         }
+        //handle npc opponent
+        auto response = characterManager.getCombatReply(challengedName);
+        if(response == "combat accept") { //temp until merge with actions stored in char
+            combatManager.confirmInvite(challengedName);
+        } else {
+            onlineUserManager.addMessageToUser(username, challengedName + " says " + response + " and does not fight you.\n");
+        }
+
     }else if(firstCommand == "join" || firstCommand == "accept"){
         if(combatManager.confirmInvite(username)){
             combatManager.removeInvite(username);
@@ -47,7 +69,8 @@ std::vector<std::string> CommandCombat::reassembleCommand(std::string& fullComma
         //reassemble the command
         commandIsValid = (processedCommand[1] == "accept" ||
                             processedCommand[1] == "join" ||
-                            processedCommand[1] == "challenge");
+                            processedCommand[1] == "challenge" ||
+                            processedCommand[1] == "print" && (processedCommand[2] == "combats" || processedCommand[2] == "invites"));
     } else {
         commandIsValid = false;
     }

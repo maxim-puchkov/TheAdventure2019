@@ -13,6 +13,7 @@
 #include "Attributes.h"
 #include "Equipment.h" // !
 #include "LocationCoordinates.h"
+#include "CharacterMode.h"
 #include "print.h"
 
 // using items::Inventory;
@@ -36,8 +37,6 @@ public:
     Character(const std::string &name);
     ~Character();
 
-    //TODO: create control mode interface for combat
-
     // Get
     std::string getName() const;
     Attributes getAttributes() const;
@@ -60,6 +59,7 @@ public:
     void setFirstTimeSetup(const bool value);
     void setName(const std::string& newName){name = newName;}
     void setID(int newID){id = newID;}
+    void setMode(const std::string& modeName);
 
     // States ...
     bool isInCombat();
@@ -70,6 +70,8 @@ public:
     bool operator!=(const Character &other);
 
     // Combat WIP
+    std::string getCombatReply();
+    std::string getAttackReply();
     void characterTakeDamage(const int &damage);
 
 private:
@@ -87,6 +89,13 @@ private:
 
     //first time set up flag
     bool isDoneFirstTimeSetup = false;
+
+    //modes
+    UserControlled userControl{};
+    AggressiveNPC aggroNPC{};
+    PacifistNPC pacifistNPC{};
+    //combat
+    CharacterMode* mode = &userControl;
 
     void createCharacter(const std::string &name);
 };

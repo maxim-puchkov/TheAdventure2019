@@ -59,7 +59,7 @@ void GameManager::createTableOfCommands() {
     
     tableOfCommands.insert({"look", make_unique<CommandLook>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"examine", make_unique<CommandExamine>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"move", make_unique<CommandMove>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"move", make_unique<CommandMove>(characterManager, onlineUserManager, world, combatManager)});
 
     tableOfCommands.insert({"create-room", make_unique<CommandCreateRoom>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"edit-room", make_unique<CommandEditRoom>(characterManager, onlineUserManager, world)});
@@ -69,14 +69,14 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"equip", make_unique<CommandEquip>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"drop", make_unique<CommandDrop>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"put", make_unique<CommandPut>(characterManager, onlineUserManager, world)});
-    
-    tableOfCommands.insert({"minigame", make_unique<CommandMinigame>(characterManager, onlineUserManager, world)});
-    
-    tableOfCommands.insert({"combat", make_unique<CommandCombat>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"attack", make_unique<CommandAttack>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"flee", make_unique<CommandFlee>(characterManager, onlineUserManager, world)});
-    
-    tableOfCommands.insert({"cast", make_unique<CommandCast>(characterManager, onlineUserManager, world)});
+
+    tableOfCommands.insert({"minigame", make_unique<CommandMinigame>(characterManager, onlineUserManager, world, combatManager)});
+
+    tableOfCommands.insert({"combat", make_unique<CommandCombat>(characterManager, onlineUserManager, world, combatManager)});
+    tableOfCommands.insert({"attack", make_unique<CommandAttack>(characterManager, onlineUserManager, world, combatManager)});
+    tableOfCommands.insert({"flee", make_unique<CommandFlee>(characterManager, onlineUserManager, world, combatManager)});
+    tableOfCommands.insert({"cast", make_unique<CommandCast>(characterManager, onlineUserManager, world, combatManager)});
+
     tableOfCommands.insert({"create-item", make_unique<CommandCreateItem>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"delete-room", make_unique<CommandDeleteRoom>(characterManager, onlineUserManager, world)});
 
@@ -127,16 +127,15 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
     heartBeatDuration--;
 
     //Combat round
-    auto& combatManager = characterManager.getCombatManager();
-    combatManager.roundTick();
-    auto combatCommands = combatManager.getCombatCommands();
+    //reduces all combat roundtimers and returns commands from all combats with 0 roundtime
+    auto combatCommands = combatManager.resolveCombatStep();
     for (auto& element : combatCommands){
         auto& username = element.first;
         auto& command = element.second;
-
+        if(command.empty()) continue;
         auto found = tableOfCommands.find(command[0]);
         if(found != tableOfCommands.end()) {
-            found->second->executeInHeartbeat(username, command);
+            found->second->executeCombatRound(username, command);
         }
     }
 
@@ -158,6 +157,13 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
     for (auto& element : userMessages) {
     	auto& connectionID = element.first;
     	auto& message = element.second;
+
+    	//confuse spell application
+//    	const auto& username = onlineUserManager.getUsernameFromConnectionID(connectionID);
+//    	if(combatManager.playerIsInCombat(username)){
+//
+//    	}
+
     	map->insert(make_pair(connectionID, message));
 	}
 

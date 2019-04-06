@@ -2,6 +2,7 @@
 #define CHARACTER_MANAGER_H
 
 #include <unordered_map>
+#include <algorithm>
 #include <string>
 #include <vector>
 #include "Character.h"
@@ -15,13 +16,11 @@ namespace charactermanager{
 class CharacterManager{
 private:
     std::unordered_map<std::string, Character> onlineCharacters;
-    std::vector<Character> computerControlledCharacters;
     std::vector<Character> NPCs;
 
     Character nullCharacter{""};
     CharacterDB characterDB;
     MiniGameLobby minigameLobby;
-    CombatManager combatManager;
     LocationCoordinates nullLocation{"WRONG AREA", -1};
 
     const std::string SHORT_DESC = "shortdesc";
@@ -49,8 +48,8 @@ public:
 
     void kickCharacter(const std::string& username);
 
-    std::string getUsernameFromCharacter(const std::string& username) const; //for now character name and user name are the same
-    //std::string getCharacterNameFromUser(const std::string& username) const;
+    std::string getUsernameFromCharacter(const std::string& username) const;
+    std::string getCharacterNameFromUser(const std::string& username) const;
 
     LocationCoordinates getCharacterLocation(const std::string& username) const;
     void changeCharacterLocation(const std::string& username, LocationCoordinates newLocation);
@@ -69,11 +68,14 @@ public:
 
     //MiniGame commands
     MiniGameLobby& getMiniGameLobby();
-    //Combat commands
-    CombatManager& getCombatManager();
+    //combat commands
+    std::string getCombatReply(const std::string& username);
+    std::string getAttackReply(const std::string& username);
     CHARACTER_CODE damageCharacter(const std::string& username, int amount);
     int getCharacterAttack(const std::string& username);
     int getCharacterHealth(const std::string& username);
+    //spells
+    bool swapCharacters(const std::string& username1, const std::string& username2);
 
     // NPC STUFF
     void addNPC(Character NPC){
@@ -90,6 +92,16 @@ public:
 
     std::vector<Character>& getListNPCs(){return NPCs;}
     std::string listNPCs();
+    //for combat testing
+    void addNPC(const std::string& name){
+        Character newNPC = Character{name};
+        newNPC.setMode("aggro");
+        auto description = name + " is the toughest guy around.\n";
+        newNPC.setDescription(description);
+        newNPC.setLongdesc(description);
+        newNPC.setShortdesc(description);
+        NPCs.push_back(newNPC);
+    }
 };
 
 }

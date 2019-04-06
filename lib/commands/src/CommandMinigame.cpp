@@ -22,7 +22,12 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
     auto &playerMatch = miniGameLobby.getMatchWithPlayer(username);
     auto &firstCommand = fullCommand.at(1);
 
-    if (firstCommand == "start") {
+    if(combatManager.playerIsInCombat(username)){
+        onlineUserManager.addMessageToUser(username, "Cannot do this while in combat.\n");
+        return;
+    }
+
+    if(firstCommand == "start"){
 
         miniGameLobby.createGame(username);
         onlineUserManager.addMessageToUser(username, "Started game.\n");

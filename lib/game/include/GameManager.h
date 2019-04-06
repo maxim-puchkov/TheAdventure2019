@@ -8,6 +8,7 @@
 
 #include "OnlineUserManager.h"
 #include "WorldManager.h"
+#include "LocationCoordinates.h"
 #include "CharacterManager.h"
 #include "AreaGenerator.h"
 #include "JsonParser.h"
@@ -25,6 +26,8 @@ private:
     WorldManager world{};
     OnlineUserManager onlineUserManager{};
     CharacterManager characterManager{};
+    CombatManager combatManager{};
+
     std::unordered_map<std::string, std::unique_ptr<Command>> tableOfCommands;
     
     std::string extractKeyword(std::string& fullCommand);
