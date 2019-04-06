@@ -14,7 +14,7 @@ WorldManager::WorldManager() {
     vector<Action> vec{Action("read", " < items are now working > ")};
 
     // Choose where item is created
-    Identifier room_id = 0;
+    Identifier room_id = 8800;
     Identifier character_id = 123;
     
     
@@ -28,15 +28,20 @@ WorldManager::WorldManager() {
     
     // Creates a second item in room (id: 0). Keyword letter is the same, no actions
     this->items.builder.setKeywords({"letter", "cat"});
-    this->items.builder.setDescription("You received a cat letter");
+    this->items.builder.setDescription("You received a CAT letter");
     this->items.create(room_id);
 
     // Creates a third item in room (id: 0). Description defaults to "No description"
-    this->items.builder.setKeywords({"book", "apple"});
+    this->items.builder.setKeywords({"book", "magic"});
     this->items.create(room_id);
-
     
+    // Creates more test items
+    this->items.builder.setKeywords({"sword", "long"});
+    this->items.create(room_id);
     
+    // Creates more test items
+    this->items.builder.setKeywords({"shield", "legendary"});
+    this->items.create(room_id);
     
     // Creates first item for in character's (id: 123) inventory.
     //      Two lines of description

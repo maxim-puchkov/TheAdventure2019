@@ -20,7 +20,6 @@ private:
     std::vector<Character> NPCs;
 
     Character nullCharacter{""};
-    CharacterDB characterDB;
     MiniGameLobby minigameLobby;
     CombatManager combatManager;
     LocationCoordinates nullLocation{"WRONG AREA", -1};
@@ -28,13 +27,10 @@ private:
     const std::string SHORT_DESC = "shortdesc";
     const std::string LONG_DESC = "longdesc";
     const std::string DESCRIPTION = "description";
-    
-    /*! Authenticator shared between characters, rooms, an items */
-    //SharedAuthenticator authenticator;
-    
+
 public:
     
-    //CharacterManager(SharedAuthenticator authenticator);
+    CharacterDB characterDB;
     
     enum class CHARACTER_CODE : uint8_t {
       CHARACTER_CREATED,
@@ -82,7 +78,7 @@ public:
     void addNPC(Character NPC){
         NPCs.push_back(NPC);
     }
-
+    
     std::vector<Character>& getListNPCs(){return NPCs;}
     std::string listNPCs();
 };
