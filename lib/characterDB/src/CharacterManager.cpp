@@ -326,28 +326,35 @@ int CharacterManager::getCharacterHealth(const std::string& username){
 }
 
 bool CharacterManager::swapCharacters(const std::string& username1, const std::string& username2) {
-    /*auto user1 = onlineCharacters.find(username1);
+    auto user1 = onlineCharacters.find(username1);
     auto user2 = onlineCharacters.find(username2);
     auto npc1 = std::find_if(NPCs.begin(), NPCs.end(), [&username1](Character& c){ return c.getName() == username1; });
     auto npc2 = std::find_if(NPCs.begin(), NPCs.end(), [&username2](Character& c){ return c.getName() == username2; });
 
     if(user1 != onlineCharacters.end() && user2 != onlineCharacters.end()){ //both users online
-        auto& temp = user1->second;
-        user1->second = user2->second;
-        user2->second = temp;
-    } else if(user1 != onlineCharacters.end() && npc2 != NPCs.end()) {
-        Character temp = *npc2;
-        *npc2 = user1->second;
-        user1->second = temp;
+        //const auto& temp = user1->second;
+        //user1->second = user2->second;
+        //user2->second = temp;
+        std::swap(user1->second,user2->second);
+
+    } else if(user1 != onlineCharacters.end() && npc2 != NPCs.end()) { // user1 online, swap w/a npc
+        //Character temp = *npc2;
+        //*npc2 = user1->second;
+        //user1->second = temp;
+        std::swap(user1->second,(*npc2));
+
+
     } else if(user2 != onlineCharacters.end() && npc1 != NPCs.end()) {
-        Character temp = *npc1;
-        *npc1 = user2->second;
-        user2->second = temp;
+        //Character temp = *npc1;
+        //*npc1 = user2->second;
+        //user2->second = temp;
+        std::swap(user2->second,*npc1);
+        
     } else {
         return false;
     }
 
-    return true;*/
+    return true;
 //    Character *char1 = nullptr;
 //    Character *char2 = nullptr;
 
@@ -359,6 +366,14 @@ bool CharacterManager::swapCharacters(const std::string& username1, const std::s
 //            char2 = &element.second;
 //        }
 //    }
+
+
+
+
+
+
+
+    /*
     auto char1 = std::find_if(onlineCharacters.begin(), onlineCharacters.end(), [&username1](auto& c){ return c.second.getName() == username1; });
     auto char2 = std::find_if(onlineCharacters.begin(), onlineCharacters.end(), [&username2](auto& c){ return c.second.getName() == username2; });
 
@@ -396,6 +411,7 @@ bool CharacterManager::swapCharacters(const std::string& username1, const std::s
         char2->second = temp;
     }
     return true;
+    */
 }
 
 std::string CharacterManager::confuseMessage(std::string& message){
