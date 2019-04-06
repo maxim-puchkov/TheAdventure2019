@@ -244,6 +244,60 @@ bool CharacterManager::isConfused(const std::string& username)const{
 	return found->second.isConfused();
 }
 
+bool CharacterManager::isSwapped(const std::string& username) const{
+	auto found = onlineCharacters.find(username);
+	if (found == onlineCharacters.end()) {
+		return false;
+	}
+	return found->second.isSwapped();
+}
+bool CharacterManager::isDecoy(const std::string& username) const{
+	auto found = onlineCharacters.find(username);
+	if (found == onlineCharacters.end()) {
+		return false;
+	}
+	return found->second.isDecoy();
+}
+
+void CharacterManager::setConfused(const std::string& username, const bool status){
+	auto found = onlineCharacters.find(username);
+	if (found == onlineCharacters.end()) {
+		return;
+	}
+	found->second.setConfused(status);
+	if(status){
+		found->second.setSpellTime(CONFUSE_SPELL_LENGTH);
+	} else {
+		found->second.setSpellTime(0);
+	}
+}
+
+void CharacterManager::setSwapped(const std::string& username, const bool status){
+	auto found = onlineCharacters.find(username);
+	if (found == onlineCharacters.end()) {
+		return;
+	}
+	found->second.setSwapped(status);
+	if(status){
+		found->second.setSpellTime(SWAP_SPELL_LENGTH);
+	} else {
+		found->second.setSpellTime(0);
+	}
+}
+
+void CharacterManager::setDecoy(const std::string& username, const bool status){
+	auto found = onlineCharacters.find(username);
+	if (found == onlineCharacters.end()) {
+		return;
+	}
+	found->second.setDecoy(status);
+	if(status){
+		found->second.setSpellTime(DECOY_SPELL_LENGTH);
+	} else {
+		found->second.setSpellTime(0);
+	}
+}
+
 int CharacterManager::getCharacterAttack(const std::string& username){
 	auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {
@@ -333,6 +387,10 @@ bool CharacterManager::swapCharacters(const std::string& username1, const std::s
         char2->second = temp;
     }
     return true;
+}
+
+std::string& CharacterManager::confuseMessage(std::string& message){
+	return message.append("aba.");
 }
 
 std::string CharacterManager::listNPCs() {

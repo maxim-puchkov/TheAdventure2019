@@ -124,6 +124,10 @@ void Character::setDecoy(const bool status) {
     this->decoy = status;
 }
 
+void Character::setSpellTime(int rounds){
+    this->spellEffectTime = rounds;
+}
+
 bool Character::isInCombat() {
     return false;
 }

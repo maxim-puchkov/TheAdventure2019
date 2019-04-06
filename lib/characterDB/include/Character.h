@@ -68,6 +68,7 @@ public:
     void setConfused(const bool status);
     void setSwapped(const bool status);
     void setDecoy(const bool status);
+    void setSpellTime(int rounds);
 
     // States ...
     bool isInCombat();

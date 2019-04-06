@@ -13,8 +13,13 @@
 
 namespace charactermanager{
 
+    const static unsigned int SWAP_SPELL_LENGTH = 2;
+    const static unsigned int CONFUSE_SPELL_LENGTH = 3;
+    const static unsigned int DECOY_SPELL_LENGTH = 1;
+
 class CharacterManager{
 private:
+
     std::unordered_map<std::string, Character> onlineCharacters;
     std::vector<Character> NPCs;
 
@@ -76,7 +81,15 @@ public:
     int getCharacterHealth(const std::string& username);
     //spells
     bool isConfused(const std::string& username) const;
+    bool isSwapped(const std::string& username) const;
+    bool isDecoy(const std::string& username) const;
+
+    void setConfused(const std::string& username, const bool status);
+    void setSwapped(const std::string& username, const bool status);
+    void setDecoy(const std::string& username, const bool status);
+
     bool swapCharacters(const std::string& username1, const std::string& username2);
+    std::string& confuseMessage(std::string& message);
 
     // NPC STUFF
     void addNPC(Character NPC){

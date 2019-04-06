@@ -31,17 +31,19 @@ void CommandCast::executeCombatRound(const std::string& username, const std::vec
     cerr << "round time 0, executing cast\n";
     if(spellName == "swap"){
         if(characterManager.swapCharacters(username, opponentName)){
+            characterManager.setSwapped(opponentName, true);
             cerr << "swap should have worked\n";
             cerr << "your char name: " + characterManager.getCharacterNameFromUser(username) + "\n";
         } else {
             cerr << "swap should have failed\n";
             cerr << "your char name: " + characterManager.getCharacterNameFromUser(username) + "\n";
         }
+    } else if(spellName == "confuse"){
+        characterManager.setConfused(opponentName, true);
+    } else if(spellName == "decoy"){
+        characterManager.setDecoy(opponentName, true);
     }
     auto attackValue = characterManager.getCharacterAttack(username);
-
-
-    characterManager.damageCharacter(opponentName, attackValue);
 
 }
 
