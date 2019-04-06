@@ -5,8 +5,8 @@ MiniGameLobby::MiniGameLobby() {}
 
 MiniGameMatch& MiniGameLobby::createGame(const std::string& userName) {
     MiniGameMatch newGame{userName};
-    this->gameList.emplace_back(newGame);
-    return gameList.back();
+
+    return newGame;
 }
 
 //potential issue: deletes all games owned by adminName. may switch to unique matchID
@@ -41,31 +41,6 @@ void MiniGameLobby::clearStaleInvites() {
 //potential issue: if inviter logs out before invited accepts, game is still made for both
 //Function is called when player accepts an invite.
 bool MiniGameLobby::confirmInvite(const std::string& invitedName){
-    /*
-    for(auto& invite : pendingInvites){
-        auto& invited = std::get<1>(invite);
-        if(invited == invitedName) {
-            auto &inviter = std::get<0>(invite);  //
-            auto &match = getMatchWithPlayer(inviter);
-
-            if (match.getAdminName() == "null") { //if inviter is not in a match, create new one
-                std::cerr << "making new match\n";
-                match = createGame(inviter); //PROBLEM HERE. when accepting challenge when no game exists, challenge is not properly added to game (or game is not added to gameList)
-
-
-                //match = MiniGameMatch{inviter, invited}; //new constructor as temp solution. 1hr+ of debugging could not find solution to previous line
-
-                gameList.emplace_back(match);
-            }
-            else {
-                return match.addPlayer(invited);
-            }
-
-            return true;
-        }
-    }
-    return false;
-    */
 
 
     for(const auto& invite : pendingInvites){
