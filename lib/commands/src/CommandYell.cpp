@@ -1,6 +1,8 @@
 #include "CommandYell.h"
 #include <boost/algorithm/string.hpp>
 
+using internationalization::Internationalization;
+
 void CommandYell::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	auto location = characterManager.getCharacterLocation(username);
     if(location.area == "") {
@@ -10,13 +12,20 @@ void CommandYell::executeInHeartbeat(const std::string& username, const std::vec
     
     auto& userNamesInRoom = worldManager.getUserNamesInRange(location, YELL_RANGE);
     for(auto name: userNamesInRoom) {
-    	if(name == username) {
-    		continue;
-    	}
-        onlineUserManager.addMessageToUser(name, username + " yelled: \"" + fullCommand[1] + "\"\n");
-    }
+    	std::string message;
 
-    onlineUserManager.addMessageToUser(username, "You yelled: \"" + fullCommand[1] + "\"\n");
+        if(name == username) {
+            message = stringManager.getString(Internationalization::STRING_CODE::YOU) + " " +
+                        stringManager.getString(Internationalization::STRING_CODE::YELLED) + ": \"" +
+                        fullCommand[1] + "\"\n";
+    		onlineUserManager.addMessageToUser(username, message);
+    	} else {
+            message = username + " " +
+                    stringManager.getString(Internationalization::STRING_CODE::SAID) + ": \"" +
+                    fullCommand[1] + "\"\n";
+            onlineUserManager.addMessageToUser(name, message);
+        }
+    }
 }
 
 std::vector<std::string> CommandYell::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {

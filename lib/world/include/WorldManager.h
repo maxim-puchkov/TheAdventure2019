@@ -19,12 +19,14 @@ using WorldIdentifier = uint64_t;
 
 class WorldManager {
 private:
+    Internationalization stringManager{};
     // std::vector<Area> areas;
     std::unordered_map<std::string, Area> areas;
     int roomToSpawnUser;
     Area nullArea{};
     std::string areaToSpawnFirstTimer = "";
 public:
+    //WorldManager(Internationalization& i): stringManager(i) {}
     
     
     WorldManager();

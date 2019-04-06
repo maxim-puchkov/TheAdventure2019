@@ -73,7 +73,7 @@ void MiniGameLobby::removeInvite(const std::string& eitherName){
 }
 
 std::string MiniGameLobby::printGames() const{
-    std::string result = "Game List:\n";
+    std::string result = stringManager.getString(Internationalization::STRING_CODE::MINIGAME_LOBBY_GAMELIST);
     for(auto game : gameList){
         std::string playerNames;
         auto& playerList = game.getPlayers();
@@ -87,7 +87,7 @@ std::string MiniGameLobby::printGames() const{
 
 
 std::string MiniGameLobby::printInvites() const{
-    std::string result = "Invite List:\n";
+    std::string result = stringManager.getString(Internationalization::STRING_CODE::MINIGAME_LOBBY_INVITELIST);
     for(auto& invite : pendingInvites){
         result += std::get<0>(invite) + ", " + std::get<1>(invite) + "\n";
     }
@@ -110,10 +110,18 @@ std::string MiniGameLobby::spectate(const std::string &userName, const std::stri
 
     if(game != gameList.end()){
         (*game).addSpectator(observer);
-        return std::move(" Currently spectating " + userName + "\n");
+        return std::move(
+            stringManager.getString(Internationalization::STRING_CODE::CURRENTLY_SPECTATING) + 
+            userName + 
+            "\n"
+        );
     }
 
-    return std::move(" Couldn't find a game with " + userName + " playing!\n");
+    return std::move(
+        stringManager.getString(Internationalization::STRING_CODE::COULDNT_FIND_GAME_WITH) + 
+        userName + 
+        stringManager.getString(Internationalization::STRING_CODE::PLAYING)
+    );
 }
 
 
