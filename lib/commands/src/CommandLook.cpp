@@ -20,11 +20,16 @@ void CommandLook::generalLook(const std::string &userName) const {
     for (const std::string &userA : room.getUserNames()) {
         allUsersInRoom.append( characterManager.getShortDescription(userA) );
     }
+
+    allUsersInRoom.append(" NPCs are : \n");
+    for (const std::string &npc : room.getNPCs() ) {
+        allUsersInRoom.append( characterManager.getShortDescription(npc) );
+    }
+
     onlineUserManager.addMessageToUser(userName, ("\n" + listOfExits + "\n" + allUsersInRoom + "\n" +
                                                   worldManager.look(location)  +   "\n"));
 
-
-
+    
     const auto items = worldManager.items;
     const auto &vectorItems= items.contentsOf(location.room); //return a vector of id's and keywords
     std::string allItems;
