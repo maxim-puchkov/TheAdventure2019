@@ -16,7 +16,7 @@ WorldManager::WorldManager()
     vector<Action> vec{Action("read", " < items are now working > ")};
 
     // Choose where item is created
-    WorldIdentifier room_id = 0;
+    WorldIdentifier room_id = 8800;
     WorldIdentifier character_id = 123;
     
     

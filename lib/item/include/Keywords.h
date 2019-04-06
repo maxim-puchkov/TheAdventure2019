@@ -37,7 +37,6 @@ public:
     /* Constructors */
     
     Keywords() = default;
-    
     Keywords(const std::vector<Key> &container);
 
     
@@ -47,7 +46,6 @@ public:
     /* ObjectData Protocol */
     
     string toString() const noexcept override;
-    
     vector<string> toVector() const noexcept override;
     
     

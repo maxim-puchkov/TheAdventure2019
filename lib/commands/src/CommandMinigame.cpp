@@ -59,6 +59,7 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
             return;
         }
 
+
         if( !onlineUserManager.checkUserIsOnline(challengedName) ){
             onlineUserManager.addMessageToUser(username, " The user you tried to challenge isn't online \n");
             return;
@@ -108,7 +109,7 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         }
 
         playerMatch.removePlayer(username);
-        playerMatch.removeSpectator(username);
+        playerMatch.removeSpectator(username);   //This line currenlty causes crash
 
         if (playerMatch.getCurrentPlayers() == 0) {
             miniGameLobby.deleteGame(playerMatch.getAdminName());
@@ -137,7 +138,7 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
 
 
     vector<string> &players = playerMatch.getPlayers();
-    if (players.size() >= 2) {
+    if (players.size() == 2) {
         onlineUserManager.addMessageToUser(players.at(0), playerMatch.reverseDisplay() + "\n" );
         onlineUserManager.addMessageToUser(players.at(1), playerMatch.display() + "\n" );
     }

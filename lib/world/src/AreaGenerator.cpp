@@ -118,13 +118,10 @@ void AreaGenerator::generateObjects(json objects, Area& area, const items::ItemC
         std::string shortDesc = object["shortdesc"];
         std::string longDesc = jsonParser.json2string(object["longdesc"]);
         
-        std::vector<std::string> extra_keywords = jsonParser.json2Vector(object["extra"][0]);
+        std::string extra_keywords = jsonParser.json2string(object["extra"][0]);
         std::string extra_desc = jsonParser.json2string(object["extra"][1]);
         
-        vector<items::Action> vec{items::Action(
-            stringManager.getString(Internationalization::STRING_CODE::READ), 
-            stringManager.getString(Internationalization::STRING_CODE::ITEMS_NOW_WORKING)
-        )};
+        vector<items::Action> vec{items::Action(extra_keywords, extra_desc)};
 
         worldItems.builder.setItemProperties(items::Keywords(keywords), items::Description(longDesc), items::Actions(vec));
 
