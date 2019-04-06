@@ -159,10 +159,10 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
     	auto& message = element.second;
 
     	//confuse spell application
-//    	const auto& username = onlineUserManager.getUsernameFromConnectionID(connectionID);
-//    	if(combatManager.playerIsInCombat(username)){
-//
-//    	}
+    	const auto& username = onlineUserManager.getUsernameFromConnectionID(connectionID);
+    	if(characterManager.isConfused(username)){
+
+    	}
 
     	map->insert(make_pair(connectionID, message));
 	}

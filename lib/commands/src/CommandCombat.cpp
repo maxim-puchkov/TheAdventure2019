@@ -70,7 +70,7 @@ std::vector<std::string> CommandCombat::reassembleCommand(std::string& fullComma
         commandIsValid = (processedCommand[1] == "accept" ||
                             processedCommand[1] == "join" ||
                             processedCommand[1] == "challenge" ||
-                            processedCommand[1] == "print" && (processedCommand[2] == "combats" || processedCommand[2] == "invites"));
+                            (processedCommand[1] == "print" && (processedCommand[2] == "combats" || processedCommand[2] == "invites")));
     } else {
         commandIsValid = false;
     }

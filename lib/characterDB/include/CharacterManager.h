@@ -75,6 +75,7 @@ public:
     int getCharacterAttack(const std::string& username);
     int getCharacterHealth(const std::string& username);
     //spells
+    bool isConfused(const std::string& username) const;
     bool swapCharacters(const std::string& username1, const std::string& username2);
 
     // NPC STUFF

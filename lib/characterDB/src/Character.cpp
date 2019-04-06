@@ -104,6 +104,25 @@ void Character::setMode(const std::string& modeName){
     }
 }
 
+bool Character::isConfused() const{
+    return this->confused;
+}
+bool Character::isSwapped() const{
+    return this->swapped;
+}
+bool Character::isDecoy() const{
+    return this->decoy;
+}
+
+void Character::setConfused(const bool status) {
+    this->confused = status;
+}
+void Character::setSwapped(const bool status) {
+    this->swapped = status;
+}
+void Character::setDecoy(const bool status) {
+    this->decoy = status;
+}
 
 bool Character::isInCombat() {
     return false;

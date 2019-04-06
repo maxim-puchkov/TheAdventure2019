@@ -236,6 +236,14 @@ CharacterManager::CHARACTER_CODE CharacterManager::damageCharacter(const std::st
 	return CharacterManager::CHARACTER_CODE::CHARACTER_UPDATED;
 }
 
+bool CharacterManager::isConfused(const std::string& username)const{
+	auto found = onlineCharacters.find(username);
+	if (found == onlineCharacters.end()) {
+		return false;
+	}
+	return found->second.isConfused();
+}
+
 int CharacterManager::getCharacterAttack(const std::string& username){
 	auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {

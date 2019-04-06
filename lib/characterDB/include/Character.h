@@ -50,6 +50,10 @@ public:
     bool getIsDoneFirstTimeSetup() const;
     int getID(){return id;}
 
+    bool isConfused() const;
+    bool isSwapped() const;
+    bool isDecoy() const;
+
     // Set
     void setCurrentLocation(LocationCoordinates newLocation);
     void damageCharacter(int amount);
@@ -60,6 +64,10 @@ public:
     void setName(const std::string& newName){name = newName;}
     void setID(int newID){id = newID;}
     void setMode(const std::string& modeName);
+
+    void setConfused(const bool status);
+    void setSwapped(const bool status);
+    void setDecoy(const bool status);
 
     // States ...
     bool isInCombat();
@@ -89,6 +97,12 @@ private:
 
     //first time set up flag
     bool isDoneFirstTimeSetup = false;
+
+    //spell effects
+    bool confused = false;
+    bool swapped = false;
+    bool decoy = false;
+    int spellEffectTime = 0;
 
     //modes
     UserControlled userControl{};
