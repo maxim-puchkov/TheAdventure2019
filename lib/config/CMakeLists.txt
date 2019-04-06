@@ -1,15 +1,14 @@
 #
-#   Combat CMakeLists
+#   Users CMakeLists
 #
 
 
 cmake_minimum_required(VERSION 3.12)
-project(${combat} VERSION 1.0)
+project(${config} VERSION 1.0)
 
 
 add_library(${PROJECT_NAME}
-    src/CombatManager.cpp
-    src/Combat.cpp
+    src/Config.cpp
 )
 
 
@@ -19,15 +18,13 @@ target_include_directories(${PROJECT_NAME}
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
-        ${Boost_INCLUDE_DIR}
 )
 
 
 target_link_libraries(${PROJECT_NAME}
-    PRIVATE
+    PUBLIC
         ${Boost_LIBRARIES}
-        ${time}
-        ${config}
+        ${parsers}
 )
 
 

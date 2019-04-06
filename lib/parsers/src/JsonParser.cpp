@@ -49,17 +49,40 @@ std::vector<std::string> JsonParser::json2Vector(json j){
     return strVec;
 }
 
+// https://stackoverflow.com/questions/16286095/similar-function-to-javas-string-split-in-c
+
+std::vector<std::string> split(std::string str,std::string sep){
+    char* cstr=const_cast<char*>(str.c_str());
+    char* current;
+    std::vector<std::string> arr;
+    current=strtok(cstr,sep.c_str());
+    while(current!=NULL){
+        arr.push_back(current);
+        current=strtok(NULL,sep.c_str());
+    }
+    return arr;
+}
+
 std::vector<std::string> JsonParser::getFileNamesInPath(const char* path){
     
     std::vector<std::string> fileNames;
     DIR* dirp = opendir(path);
-    struct dirent * dp = readdir(dirp); dp = readdir(dirp);
+    struct dirent * dp ; //= readdir(dirp); dp = readdir(dirp);
 
     while ((dp = readdir(dirp)) != NULL) {
-
+        
         std::string fileName(dp->d_name);
-        fileNames.push_back(dp->d_name);
+        std::string invalid = ".";
+        std::string invalid_second = "..";
+        // std::vector<std::string> tokens = split(fileName,".");
+
+        if(invalid.compare(fileName) != 0 && invalid_second.compare(fileName) != 0){
+            fileNames.push_back(dp->d_name);
+            std::cout << fileName << "\n";
+        }
+            
     }
     closedir(dirp);
     return fileNames;
 }
+
