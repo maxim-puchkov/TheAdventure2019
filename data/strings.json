@@ -26,6 +26,9 @@
 	"command_take":{"string": "take"},
 	"command_create_item":{"string": "create-item"},
 	"command_delete_room":{"string": "delete-room"},
+	"spell_swap":{"string": "swap"},
+	"spell_confuse":{"string": "confuse"},
+	"spell_decoy":{"string": "decoy"},
 	"command_not_found":{"string": "Command not found."},
 	"wrong_command_syntax":{"string": "Wrong command syntax."},
 	"idle_for_too_long":{"string": "You have been idle for too long.\n"},
@@ -197,6 +200,14 @@
 	"not_enough_players":{"string": "Not enough players in a game!"},
 	"cant_challenge_yourself":{"string": " You can't challenge yourself! \n"},
 	"challenge_user_offline":{"string": " The user you tried to challenge isn't online \n"},
+
+	"you_missed_and_hit_decoy":{"string": "You missed your opponent and hit their decoy.\n"},
+	"opponent_missed_and_hit_decoy":{"string": "Your opponent hit your decoy\n"},
+	"combat_prepares":{"string": " prepares a(n) "},
+
+	"admin_invalid_user":{"string": "Invalid user for the priviledge!\n"},
+	"admin_is_promoted":{"string": " is promoted\n"},
+	"admin_youve_been_promoted":{"string": "You has been promoted to Admin \nThe promotion is in this session only!\nIf you logout, you will loose the promotion\n"},
 
 	"characters_json_file_name":{"string": "charaters_db.json"},
 	"shortdesc":{"string": "shortdesc"},

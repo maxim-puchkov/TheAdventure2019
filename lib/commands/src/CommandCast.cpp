@@ -30,7 +30,7 @@ void CommandCast::executeCombatRound(const std::string& username, const std::vec
     auto spellName = fullCommand.at(1);
 
     cerr << "round time 0, executing cast\n";
-    if(spellName == "swap"){
+    if(spellName == stringManager.getString(Internationalization::STRING_CODE::SPELL_SWAP)){
         if(characterManager.swapCharacters(username, opponentName)){
             characterManager.setSwapped(opponentName, true);
             cerr << "swap should have worked\n";
@@ -41,11 +41,11 @@ void CommandCast::executeCombatRound(const std::string& username, const std::vec
             cerr << "swap should have failed\n";
             cerr << "your char name: " + characterManager.getCharacterNameFromUser(username) + "\n";
         }
-    } else if(spellName == "confuse"){
+    } else if(spellName == stringManager.getString(Internationalization::STRING_CODE::SPELL_CONFUSE)){
         characterManager.setConfused(opponentName, true);
         onlineUserManager.addMessageToUser(username, "You confused!\n");
         onlineUserManager.addMessageToUser(opponentName, "You were confused!\n");
-    } else if(spellName == "decoy"){
+    } else if(spellName == stringManager.getString(Internationalization::STRING_CODE::SPELL_DECOY)){
         characterManager.setDecoy(opponentName, true);
         onlineUserManager.addMessageToUser(username, "You created a decoy!\n");
         onlineUserManager.addMessageToUser(opponentName, "Your opponent made a decoy!\n");

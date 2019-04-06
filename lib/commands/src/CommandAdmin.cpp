@@ -8,18 +8,22 @@ void CommandAdmin::executeInHeartbeat(const std::string& username, const std::ve
     auto role = onlineUserManager.getUserRole(username);
     switch(role) {
         case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
-            std::string returnMessage =  "Please log in again.\n";
+            std::string returnMessage =  stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN);
             onlineUserManager.addMessageToUser(username, returnMessage);
             return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
             //don't let normal user know that this syntax exists
-            std::string returnMessage =  "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+            std::string returnMessage =  (
+                    stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX), 
+                    stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX)
+                );;
             onlineUserManager.addMessageToUser(username, returnMessage);
             return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
-            std::string returnMessage = "Invalid user for the priviledge!\n";
+            std::string returnMessage = 
+                stringManager.getString(Internationalization::STRING_CODE::ADMIN_INVALID_USER);
             bool userFound = false;
             auto location = characterManager.getCharacterLocation(username);
             auto userInRoom = worldManager.getUserNamesInRoom(location);
@@ -32,9 +36,13 @@ void CommandAdmin::executeInHeartbeat(const std::string& username, const std::ve
             if(userFound){
                 auto& promoUser = onlineUserManager.getUserByUsername(fullCommand[1]);
                 promoUser.setRole(User::USER_ROLE::ADMIN);
-                returnMessage = "User: " + fullCommand[1] + " is promoted\n";
+                returnMessage = 
+                    "User: " + 
+                    fullCommand[1] + 
+                    stringManager.getString(Internationalization::STRING_CODE::ADMIN_IS_PROMOTED);
                 onlineUserManager.addMessageToUser(username, returnMessage);
-                returnMessage = "You has been promoted to Admin \nThe promotion is in this session only!\nIf you logout, you will loose the promotion\n";
+                returnMessage = 
+                    stringManager.getString(Internationalization::STRING_CODE::ADMIN_YOUVE_BEEN_PROMOTED);
                 onlineUserManager.addMessageToUser(fullCommand[1], returnMessage);
                 return;
             }else{

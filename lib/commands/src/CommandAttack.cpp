@@ -15,7 +15,13 @@ void CommandAttack::executeInHeartbeat(const std::string& username, const std::v
         auto opponentResponse = characterManager.getAttackReply(opponentName);
         //if response is empty then non-ai opponent
         if(!opponentResponse.empty()) {
-            onlineUserManager.addMessageToUser(username, opponentName + " prepares a(n) " + opponentResponse + "\n");
+            onlineUserManager.addMessageToUser(
+                username, 
+                opponentName + 
+                stringManager.getString(Internationalization::STRING_CODE::COMBAT_PREPARES) + 
+                opponentResponse + 
+                "\n"
+            );
             std::vector<std::string> opponentCommand;
             opponentCommand.push_back(opponentResponse);
             currentCombat.queueCommand(opponentName, opponentCommand);
@@ -34,8 +40,14 @@ void CommandAttack::executeCombatRound(const std::string& username, const std::v
     auto opponentName = currentCombat.getOpponent(username);
 
     if(characterManager.isDecoy(opponentName)){
-        onlineUserManager.addMessageToUser(username, "You missed your opponent and hit their decoy.\n");
-        onlineUserManager.addMessageToUser(opponentName, "Your opponent hit your decoy\n");
+        onlineUserManager.addMessageToUser(
+            username, 
+            stringManager.getString(Internationalization::STRING_CODE::YOU_MISSED_AND_HIT_DECOY)
+        );
+        onlineUserManager.addMessageToUser(
+            opponentName, 
+            stringManager.getString(Internationalization::STRING_CODE::OPPONENT_MISSED_AND_HIT_DECOY)
+        );
     } else {
         characterManager.damageCharacter(opponentName, attackValue);
         onlineUserManager.addMessageToUser(

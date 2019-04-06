@@ -56,6 +56,10 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_DELETE_ROOM, "command_delete_room");
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_TAKE, "command_take");
 
+    generateDefaultStrings(Internationalization::STRING_CODE::SPELL_SWAP, "spell_swap");
+    generateDefaultStrings(Internationalization::STRING_CODE::SPELL_CONFUSE, "spell_confuse");
+    generateDefaultStrings(Internationalization::STRING_CODE::SPELL_DECOY, "spell_decoy");
+
     generateDefaultStrings(Internationalization::STRING_CODE::COMMAND_NOT_FOUND, "command_not_found");
     generateDefaultStrings(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX, "wrong_command_syntax");
     generateDefaultStrings(Internationalization::STRING_CODE::NAME, "name");
@@ -254,6 +258,14 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::NOT_ENOUGH_PLAYERS, "not_enough_players");
     generateDefaultStrings(Internationalization::STRING_CODE::CANT_CHALLENGE_YOURSELF, "cant_challenge_yourself");
     generateDefaultStrings(Internationalization::STRING_CODE::CHALLENGE_USER_OFFLINE, "challenge_user_offline");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::YOU_MISSED_AND_HIT_DECOY, "you_missed_and_hit_decoy");
+    generateDefaultStrings(Internationalization::STRING_CODE::OPPONENT_MISSED_AND_HIT_DECOY, "opponent_missed_and_hit_decoy");
+    generateDefaultStrings(Internationalization::STRING_CODE::COMBAT_PREPARES, "combat_prepares");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::ADMIN_INVALID_USER, "admin_invalid_user");
+    generateDefaultStrings(Internationalization::STRING_CODE::ADMIN_IS_PROMOTED, "admin_is_promoted");
+    generateDefaultStrings(Internationalization::STRING_CODE::ADMIN_YOUVE_BEEN_PROMOTED, "admin_youve_been_promoted");
 
     generateDefaultStrings(Internationalization::STRING_CODE::CHARACTERS_JSON_FILE_NAME, "characters_json_file_name");
     generateDefaultStrings(Internationalization::STRING_CODE::SHORTDESC, "shortdesc");

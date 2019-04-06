@@ -25,7 +25,7 @@ void CommandCreateRoom::executeInHeartbeat(const std::string& username, const st
             auto location = characterManager.getCharacterLocation(username);
             worldManager.createRoom(location, fullCommand[1], fullCommand[2]);
             std::string returnMessage = 
-                stringManager.getString(Internationalization::STRING_CODE::ROOM); +
+                stringManager.getString(Internationalization::STRING_CODE::ROOM) +
                 ": " + 
                 fullCommand[2] + 
                 stringManager.getString(Internationalization::STRING_CODE::HAS_BEEN_CREATED);

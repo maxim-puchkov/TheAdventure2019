@@ -41,6 +41,10 @@ class Internationalization {
        COMMAND_DELETE_ROOM,
        COMMAND_TAKE,
 
+       SPELL_SWAP,
+       SPELL_CONFUSE,
+       SPELL_DECOY,
+
        COMMAND_NOT_FOUND,
        WRONG_COMMAND_SYNTAX,
        NAME,
@@ -239,6 +243,14 @@ class Internationalization {
        NOT_ENOUGH_PLAYERS,
        CANT_CHALLENGE_YOURSELF,
        CHALLENGE_USER_OFFLINE,
+
+       YOU_MISSED_AND_HIT_DECOY,
+       OPPONENT_MISSED_AND_HIT_DECOY,
+       COMBAT_PREPARES,
+
+       ADMIN_INVALID_USER,
+       ADMIN_IS_PROMOTED,
+       ADMIN_YOUVE_BEEN_PROMOTED,
 
        CHARACTERS_JSON_FILE_NAME,
        SHORTDESC,
