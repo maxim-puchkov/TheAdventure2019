@@ -26,13 +26,12 @@ add_subdirectory(${traits})
 add_subdirectory(${user-interface})
 add_subdirectory(${users})
 add_subdirectory(${world})
-
+add_subdirectory(${libstrings})
 
 
 
 # Added
 add_subdirectory(simple)
-add_subdirectory(test)
 
 
 

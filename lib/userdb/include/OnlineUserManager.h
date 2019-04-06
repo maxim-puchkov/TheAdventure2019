@@ -7,8 +7,10 @@
 #include <chrono>
 #include "User.h"
 #include "UserDB.h"
+#include "Internationalization.h"
 
 using user::User; 
+using internationalization::Internationalization;
 
 namespace usermanager{
 class OnlineUserManager{
@@ -32,7 +34,7 @@ class OnlineUserManager{
         User nullUser{"", ""};
 
         User& getUserById(const std::string& id);
-        
+        Internationalization stringManager{};
         
     public:
         User& getUserByUsername(const std::string& userName);

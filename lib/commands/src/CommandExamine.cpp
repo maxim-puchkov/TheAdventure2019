@@ -1,6 +1,8 @@
 #include "CommandExamine.h"
 #include <boost/algorithm/string.hpp>
 
+using internationalization::Internationalization;
+
 void CommandExamine::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	auto location = characterManager.getCharacterLocation(username);
     if(location.area == "") {
@@ -8,12 +10,12 @@ void CommandExamine::executeInHeartbeat(const std::string& username, const std::
     	return;
     }
 
-	if(fullCommand[1] == "exits"){
+	if(fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::EXITS)){
 	    onlineUserManager.addMessageToUser(username, (worldManager.listExits(location) + "\n"));
-    }else if(fullCommand[1] == "npcs"){
+    }else if(fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::NPCS)){
         auto currentRoom = worldManager.findRoomByLocation(location);
         auto NPCs = currentRoom.getNPCs();
-        std::string returnMessage = "NPC in room: \n";
+        std::string returnMessage = stringManager.getString(Internationalization::STRING_CODE::NPC_IN_ROOM);
         for(auto npc : NPCs) {
             returnMessage += "- " + npc;
             returnMessage += "\n";

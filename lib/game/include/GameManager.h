@@ -9,6 +9,7 @@
 #include "OnlineUserManager.h"
 #include "WorldManager.h"
 #include "CharacterManager.h"
+#include "Internationalization.h"
 #include "AreaGenerator.h"
 #include "JsonParser.h"
 
@@ -17,16 +18,21 @@
 
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
+using internationalization::Internationalization;
 
 class GameManager{
 
 private:
+    Internationalization stringManager{};
+    //WorldManager worldManager = WorldManager(stringManager);
 	JsonParser jsonParser{};
     WorldManager world{};
     OnlineUserManager onlineUserManager{};
     CharacterManager characterManager{};
+
     std::unordered_map<std::string, std::unique_ptr<Command>> tableOfCommands;
-    
+    int heartBeatDuration = 50;
+
     std::string extractKeyword(std::string& fullCommand);
     void createTableOfCommands();
 

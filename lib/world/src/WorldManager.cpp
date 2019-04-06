@@ -3,6 +3,7 @@
 #include "WorldManager.h"
 #include "AreaGenerator.h"
 
+using internationalization::Internationalization;
 WorldManager::WorldManager()
 : items(ItemController<WorldIdentifier>()) {
     debug::prefix("World");
@@ -58,14 +59,20 @@ WorldManager::WorldManager()
 
 Room& WorldManager::findRoomByLocation(LocationCoordinates location) {
     if (areas.empty() || location.area == ""){
-        throw std::domain_error("Area out of bounds");
+        throw std::domain_error(
+            stringManager.getString(Internationalization::STRING_CODE::AREA) +
+            stringManager.getString(Internationalization::STRING_CODE::OUT_OF_BOUND)
+        );
     }
     // auto& areaOfInterest = areas.at((unsigned long)location.area);
     auto search = areas.find(location.area);
     if (search != areas.end()) {
         return search->second.getRoom(location.room);
     }else{
-        throw std::domain_error("Room out of bounds");
+        throw std::domain_error(
+            stringManager.getString(Internationalization::STRING_CODE::ROOM) +
+            stringManager.getString(Internationalization::STRING_CODE::OUT_OF_BOUND)
+        );
     }
 }
 
@@ -141,7 +148,7 @@ std::string WorldManager::listExits(LocationCoordinates location) {
         std::string result = currentRoom.listExits();
         return result;
     } catch(const std::domain_error& e){
-        return "No exits found! uh oh!";
+        return stringManager.getString(Internationalization::STRING_CODE::NO_EXITS_FOUND);
     }
 }
 
@@ -168,7 +175,7 @@ std::string WorldManager::look(LocationCoordinates location) {
         auto& roomOfInterest = findRoomByLocation(location);
         return roomOfInterest.getDescription();
     } catch (const std::domain_error &e) {
-        return "You've become terribly lost...";
+        return stringManager.getString(Internationalization::STRING_CODE::YOU_ARE_LOST);
     }
 }
 
@@ -177,7 +184,7 @@ std::string WorldManager::look(LocationCoordinates location, std::string objName
         auto& roomOfInterest = findRoomByLocation(location);
         return roomOfInterest.lookForExitName(objName);
     } catch(const std::domain_error& e){
-        return "You've become terribly lost...";
+        return stringManager.getString(Internationalization::STRING_CODE::YOU_ARE_LOST);
     }
 }
 

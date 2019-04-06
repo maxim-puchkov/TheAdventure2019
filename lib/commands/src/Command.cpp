@@ -1,5 +1,7 @@
 #include "Command.h"
 
+using internationalization::Internationalization;
+
 //Default behavior: add command to action queue
 std::string Command::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
 	//check if the avatar is fully customized to play or not
@@ -7,13 +9,18 @@ std::string Command::executePromptReply(const std::string& connectionID, const s
     
 
 	if (characterManager.isCharacterFullyCustomized(username) != CharacterManager::CHARACTER_CODE::CHARACTER_IS_CUSTOMIZED) {
-		return "Please customize your avatar first.\nEnter \"help Avatar\" for more information.\n"; 
+		return (stringManager.getString(Internationalization::STRING_CODE::PLEASE_CUSTOMIZE_AVATAR_FIRST) + " " +
+				stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER) + " \"" +
+				stringManager.getString(Internationalization::STRING_CODE::COMMAND_HELP) + " " +
+				stringManager.getString(Internationalization::STRING_CODE::AVATAR) + "\" " +
+				stringManager.getString(Internationalization::STRING_CODE::TO_SEE_MORE_INFO)
+		);
 	}
 
 
 	bool success = onlineUserManager.onlineUserAddCommandToList(connectionID, fullCommand);
     if(!success) {
-    	return "User is not online.\n";
+    	return stringManager.getString(Internationalization::STRING_CODE::USER_NOT_ONLINE);
     }
     //Do nothing, answer only when executing command 
     return "";

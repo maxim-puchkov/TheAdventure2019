@@ -10,11 +10,14 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
         auto role = onlineUserManager.getUserRole(username);
         switch(role) {
             case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
-                return "Please log in again.\n";
+                return stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN);
             }
             case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
                 //don't let normal user know that this syntax exists
-                return "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+                return (
+                    stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX), 
+                    stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX)
+                );
             }
             //Creating non-user characters
             case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
@@ -30,7 +33,11 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
                 // add new NPC to current room
                 characterManager.addNPC(characterNPC);
                 currentArea.addNPCtoRooms(characterNPC.getName(), location.room);
-                std::string returnString = "NPC " + characterNPC.getName() + " has created\n";
+                std::string returnString = 
+                    stringManager.getString(Internationalization::STRING_CODE::NPC) + 
+                    " " + 
+                    characterNPC.getName() + 
+                    stringManager.getString(Internationalization::STRING_CODE::HAS_BEEN_CREATED);
                 return returnString;
                 
             }
@@ -51,7 +58,7 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
         auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
         //kicked for being idle for too long
         if(username == "") {
-            return "Please log in again.\n";
+            return stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN);
         }
 
         //TODO: split avatar name and username (now only use username)
@@ -62,7 +69,7 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
 				auto areaToSpawnUser = worldManager.getAreaToSpawnUser();
 				auto spawnLocation = LocationCoordinates{areaToSpawnUser, roomToSpawnUser};
                 characterManager.spawnCharacter(username, spawnLocation);
-                return "Avatar created.\nPlease enter \"edit-avatar shortdesc: [value]\" to customize your character.\n";
+                return stringManager.getString(Internationalization::STRING_CODE::AVATAR_CREATED);
             }
             default:
             //error
@@ -81,7 +88,7 @@ std::vector<std::string> CommandCreateAva::reassembleCommand(std::string& fullCo
     //split by " " and compress all long spaces
     boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
     if(processedCommand.size() == 3) {
-        if(processedCommand[2] == "npc"){
+        if(processedCommand[2] == stringManager.getString(Internationalization::STRING_CODE::NPC)){
             std::cout << processedCommand[2] << "\n";
             commandIsValid = true;
         }

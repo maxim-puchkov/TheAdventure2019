@@ -21,6 +21,7 @@ class AreaGenerator {
     JsonParser jsonParser;
     //Store the roomsMap[roomID] -> pair<AreaName, RoomName>
     std::unordered_map<int,std::pair<std::string,std::string>> roomsMap;
+    Internationalization stringManager{};
 
 
     void generateRooms(json rooms, Area& area);
