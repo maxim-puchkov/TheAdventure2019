@@ -15,7 +15,7 @@ build:
   script:
     - mkdir build
     - cd build
-    - cmake -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_CXX_COMPILER=clang++ -DBUILD_ALL_TARGETS=NO -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -fprofile-instr-generate -fcoverage-mapping ../
+    - cmake -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_CXX_COMPILER=clang++ -DBUILD_ALL_TARGETS=NO -DCMAKE_EXPORT_COMPILE_COMMANDS=YES ../
     - make
   artifacts:
     expire_in: 30 mins
@@ -112,13 +112,4 @@ gatherheaderdoc:
 test:
   stage: test
   script:
-    - LLVM_PROFILE_FILE="runAllTests.profraw" build/bin/runAllTests
-    - llvm-profdata merge -sparse runAllTests.profraw -o runAllTests.profdata
-    - llvm-cov show build/bin/runAllTests -instr-profile=runAllTests.profdata -show-line-counts-or-regions -output-dir=coverage/ -format="html"
-    - llvm-cov report build/bin/runAllTests -instr-profile=runAllTests.profdata
-  coverage: '/TOTAL.*\s+(\S+\%)/'
-  allow_failure: true
-  artifacts:
-    expire_in: 1 hour
-    paths:
-      - coverage/*
+    - build/bin/runAllTests
