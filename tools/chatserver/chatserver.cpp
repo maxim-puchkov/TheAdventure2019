@@ -124,7 +124,6 @@ includeHeartbeatMessages(std::unique_ptr<std::unordered_map<std::string, std::st
 
 int
 main(int argc, char* argv[]) {
-  GameManager gm{};
 
   if (argc < 3) {
     std::cerr << "Usage:\n  " << argv[0] << " <port> <html response>\n"

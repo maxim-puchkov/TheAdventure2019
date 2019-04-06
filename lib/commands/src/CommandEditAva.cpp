@@ -72,6 +72,14 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
                 }
                 return answer;
             }
+            case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
+            case usermanager::OnlineUserManager::USER_CODE::ACCOUNT_CREATED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_UPDATED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_DELETED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_OUT: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN: {}
+            case usermanager::OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN: {}
+            case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE: {} 
         }
 
     } else {
@@ -171,6 +179,7 @@ std::string CommandEditAva::spawnAvatar(const std::string& username) {
 		auto areaToSpawnUser = worldManager.getAreaToSpawnUser();
 		auto spawnLocation = LocationCoordinates{areaToSpawnUser, roomToSpawnUser};
         worldManager.spawn(username, spawnLocation);
+        characterManager.changeCharacterLocation(username, spawnLocation);
         auto room = worldManager.findRoomByLocation(spawnLocation);      
         answer << "Current location: Area:" << spawnLocation.area << ", Room: " << room.getName() << "\n";
     }

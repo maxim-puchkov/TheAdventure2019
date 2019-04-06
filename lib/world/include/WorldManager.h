@@ -17,9 +17,6 @@
 using items::ItemController;
 using WorldIdentifier = uint64_t;
 
-// Debug WM construction counter
-static long wmcc = 0;
-
 class WorldManager {
 private:
     // std::vector<Area> areas;

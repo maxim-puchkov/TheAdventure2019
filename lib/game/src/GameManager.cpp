@@ -79,6 +79,8 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"cast", make_unique<CommandCast>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"create-item", make_unique<CommandCreateItem>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"delete-room", make_unique<CommandDeleteRoom>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"admin", make_unique<CommandAdmin>(characterManager, onlineUserManager, world)});
+
 
     
 #endif
