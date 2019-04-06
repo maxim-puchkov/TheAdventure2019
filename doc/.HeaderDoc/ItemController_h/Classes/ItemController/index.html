@@ -268,43 +268,73 @@ function disclosure_triangle(elt) {
 <h2>Introduction</h2>
 <p><!-- headerDoc=abstract;uid=//apple_ref/cpp/cl/ItemController;name=start --><!-- begin abstract --></p>
 <p>Controlls location and ownership of all items in the game world.<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/cpp/cl/ItemController;name=end --></p>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/cl/ItemController;name=start --><p><b>Idea was to use composite template Key (simiar to ItemSearchKey):</b><br></p>
+<div class="note_indent"><p>to allow chaining a container to a container.
+</p></div>
+<p><b>Obviously missing the capacities and all containers are infinite.:</b><br></p>
+<div class="note_indent"><p></p></div>
+<p><b>Security seems pointless as commands could overwrite the world itself:</b><br></p>
+<div class="note_indent"><p></p></div>
+<!-- headerDoc=discussion;uid=//apple_ref/cpp/cl/ItemController;name=end --><!-- end discussion -->
 <hr class="afterClassOrHeaderInfo">
 <br><a name="HeaderDoc_functions"></a>
 <h2 class="h2tight">Member Functions</h2>
 <dl>
-<dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/containerSize/size_t/(Key)" target="_top">containerSize</a></tt></dt>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/buildUniqueItem/Item/()" target="_top">buildUniqueItem</a></tt></dt>
+<dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/containerSize/std::size_t/(Key)" target="_top">containerSize</a></tt></dt>
 <dd></dd>
 <dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/contentsOf/vector/(Key)" target="_top">contentsOf</a></tt></dt>
 <dd></dd>
 <dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key)" target="_top">create(Key)</a></tt></dt>
 <dd></dd>
-<dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key,unsignedint)" target="_top">create(Key, unsigned int)</a></tt></dt>
-<dd></dd>
-<dt><tt><a href="index.html#//apple_ref/cpp/ftmplt/ItemController/Environment/mutable/(size_t,constAuthenticator*const)" target="_top">Environment</a></tt></dt>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key,int)" target="_top">create(Key, int)</a></tt></dt>
 <dd></dd>
 <dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/exists/bool/(Key,constKeywords%26)" target="_top">exists(Key, const Keywords &amp;)</a></tt></dt>
 <dd></dd>
 <dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/exists/bool/(Key,ItemIdentifier)" target="_top">exists(Key, ItemIdentifier)</a></tt></dt>
 <dd></dd>
-<dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/itemsCreated/size_t/()" target="_top">itemsCreated</a></tt></dt>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/itemsCreated/std::size_t/()" target="_top">itemsCreated</a></tt></dt>
 <dd></dd>
 <dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/lookup/Item/(false)" target="_top">lookup(false)</a></tt></dt>
 <dd></dd>
 <dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/lookup/Item/(false)_DONTLINK_1" target="_top">lookup(false)</a></tt></dt>
 <dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/reassign/void/(Key,Key,ItemIdentifier)" target="_top">reassign</a></tt></dt>
+<dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/removeItem/bool/(Container%26,ItemIdentifier)" target="_top">removeItem</a></tt></dt>
+<dd></dd>
 <dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/search/vector/(Key,conststring%26)" target="_top">search</a></tt></dt>
+<dd></dd>
+<dt><tt><a href="index.html#//apple_ref/cpp/instm/ItemController/update/void/(Key,Container%26)" target="_top">update</a></tt></dt>
 <dd></dd>
 </dl>
 <hr class="betweenAPIEntries">
-<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/containerSize/size_t/(Key);   name=ItemController::containerSize -->
-<a name="//apple_ref/cpp/instm/ItemController/containerSize/size_t/(Key)"></a>
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/buildUniqueItem/Item/();   name=ItemController::buildUniqueItem -->
+<a name="//apple_ref/cpp/instm/ItemController/buildUniqueItem/Item/()"></a>
+<h3><a name="buildUniqueItem">buildUniqueItem</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>private</tt>
+<br><a machinegenerated="true" href="../../../Item_h/Classes/Item/index.html#//apple_ref/cpp/cl/Item" logicalPath="//apple_ref/cpp/cl/Item" target="_top"><span class="type">Item</span></a> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/buildUniqueItem/Item/()" logicalPath="//apple_ref/cpp/instm/ItemController/buildUniqueItem" target="_top"><span class="function">buildUniqueItem</span></a>() <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/econst/noexcept //apple_ref/cpp/data/ItemController/noexcept //apple_ref/cpp/data/noexcept //apple_ref/cpp/clconst/ItemController/noexcept " machineGenerated="true" --><span class="var">noexcept</span><!-- /a --> </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/buildUniqueItem/Item/();name=start --><p>Request unique id and build a new item <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/buildUniqueItem/Item/();name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/containerSize/std::size_t/(Key);   name=ItemController::containerSize -->
+<a name="//apple_ref/cpp/instm/ItemController/containerSize/std::size_t/(Key)"></a>
 <h3><a name="containerSize">containerSize</a></h3>
 <hr class="afterName">
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><!-- a logicalPath="//apple_ref/cpp/cl/size_t //apple_ref/cpp/tdef/size_t //apple_ref/cpp/tag/size_t //apple_ref/cpp/struct/size_t //apple_ref/cpp/intf/size_t //apple_ref/doc/anysymbol/size_t" machineGenerated="true" --><span class="type">size_t</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/containerSize/size_t/(Key)" logicalPath="//apple_ref/cpp/instm/ItemController/containerSize" target="_top"><span class="function">containerSize</span></a>(
-    <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/noexcept //apple_ref/cpp/tdef/noexcept //apple_ref/cpp/tag/noexcept //apple_ref/cpp/struct/noexcept //apple_ref/cpp/intf/noexcept //apple_ref/doc/anysymbol/noexcept" machineGenerated="true" --><span class="type">noexcept</span><!-- /a --> </pre>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/std //apple_ref/cpp/tdef/std //apple_ref/cpp/tag/std //apple_ref/cpp/struct/std //apple_ref/cpp/intf/std //apple_ref/doc/anysymbol/std" machineGenerated="true" --><span class="type">std</span><!-- /a -->::<!-- a logicalPath="//apple_ref/cpp/cl/size_t //apple_ref/cpp/tdef/size_t //apple_ref/cpp/tag/size_t //apple_ref/cpp/struct/size_t //apple_ref/cpp/intf/size_t //apple_ref/doc/anysymbol/size_t" machineGenerated="true" --><span class="type">size_t</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/containerSize/std::size_t/(Key)" logicalPath="//apple_ref/cpp/instm/ItemController/containerSize" target="_top"><span class="function">containerSize</span></a>(
+    <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/econst/noexcept //apple_ref/cpp/data/ItemController/noexcept //apple_ref/cpp/data/noexcept //apple_ref/cpp/clconst/ItemController/noexcept " machineGenerated="true" --><span class="var">noexcept</span><!-- /a -->; </pre>
 </div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/containerSize/std::size_t/(Key);name=start --><p>Quantity of items in a container <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/containerSize/std::size_t/(Key);name=end --><!-- end discussion -->
+</p>
 <hr class="betweenAPIEntries">
 <!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/contentsOf/vector/(Key);   name=ItemController::contentsOf -->
 <a name="//apple_ref/cpp/instm/ItemController/contentsOf/vector/(Key)"></a>
@@ -313,7 +343,7 @@ function disclosure_triangle(elt) {
 <div class="declaration_indent">
 <pre><tt>public</tt>
 <br><!-- a logicalPath="//apple_ref/cpp/cl/vector //apple_ref/cpp/tdef/vector //apple_ref/cpp/tag/vector //apple_ref/cpp/struct/vector //apple_ref/cpp/intf/vector //apple_ref/doc/anysymbol/vector" machineGenerated="true" --><span class="type">vector</span><!-- /a -->&lt;<span class="template">ItemSearchKey</span>&gt; <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/contentsOf/vector/(Key)" logicalPath="//apple_ref/cpp/instm/ItemController/contentsOf" target="_top"><span class="function">contentsOf</span></a>(
-    <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key</span>) <span class="keyword">const</span> </pre>
+    <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key</span>) <span class="keyword">const</span>; </pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
 <p><!-- begin return value --></p>
@@ -331,8 +361,8 @@ function disclosure_triangle(elt) {
 <hr class="afterName">
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><!-- a logicalPath="//apple_ref/cpp/cl/ItemIdentifier //apple_ref/cpp/tdef/ItemIdentifier //apple_ref/cpp/tag/ItemIdentifier //apple_ref/cpp/struct/ItemIdentifier //apple_ref/cpp/intf/ItemIdentifier //apple_ref/doc/anysymbol/ItemIdentifier" machineGenerated="true" --><span class="type">ItemIdentifier</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key)" logicalPath="//apple_ref/cpp/instm/ItemController/create" target="_top"><span class="function">create</span></a>(
-    <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key</span>) <span class="keyword">const</span> </pre>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/ItemIdentifier //apple_ref/cpp/tdef/ItemIdentifier //apple_ref/cpp/tag/ItemIdentifier //apple_ref/cpp/struct/ItemIdentifier //apple_ref/cpp/intf/ItemIdentifier //apple_ref/doc/anysymbol/ItemIdentifier" machineGenerated="true" --><span class="type">ItemIdentifier</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key,int)" logicalPath="//apple_ref/cpp/instm/ItemController/create" target="_top"><span class="function">create</span></a>(
+    <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/noexcept //apple_ref/cpp/tdef/noexcept //apple_ref/cpp/tag/noexcept //apple_ref/cpp/struct/noexcept //apple_ref/cpp/intf/noexcept //apple_ref/doc/anysymbol/noexcept" machineGenerated="true" --><span class="type">noexcept</span><!-- /a --> </pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
 <div class="param_indent">
@@ -355,15 +385,15 @@ function disclosure_triangle(elt) {
 </p>
 <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key);name=end --><!-- end discussion -->
 <hr class="betweenAPIEntries">
-<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key,unsignedint);   name=ItemController::create -->
-<a name="//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key,unsignedint)"></a>
-<h3><a name="create(Key,unsignedint)">create(Key, unsigned int)</a></h3>
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key,int);   name=ItemController::create -->
+<a name="//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key,int)"></a>
+<h3><a name="create(Key,int)">create(Key, int)</a></h3>
 <hr class="afterName">
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><!-- a logicalPath="//apple_ref/cpp/cl/ItemIdentifier //apple_ref/cpp/tdef/ItemIdentifier //apple_ref/cpp/tag/ItemIdentifier //apple_ref/cpp/struct/ItemIdentifier //apple_ref/cpp/intf/ItemIdentifier //apple_ref/doc/anysymbol/ItemIdentifier" machineGenerated="true" --><span class="type">ItemIdentifier</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key)" logicalPath="//apple_ref/cpp/instm/ItemController/create" target="_top"><span class="function">create</span></a>(
+<br><!-- a logicalPath="//apple_ref/cpp/cl/ItemIdentifier //apple_ref/cpp/tdef/ItemIdentifier //apple_ref/cpp/tag/ItemIdentifier //apple_ref/cpp/struct/ItemIdentifier //apple_ref/cpp/intf/ItemIdentifier //apple_ref/doc/anysymbol/ItemIdentifier" machineGenerated="true" --><span class="type">ItemIdentifier</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key,int)" logicalPath="//apple_ref/cpp/instm/ItemController/create" target="_top"><span class="function">create</span></a>(
     <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key</span>,
-    <span class="keyword">unsigned</span> <!-- a logicalPath="//apple_ref/cpp/cl/int //apple_ref/cpp/tdef/int //apple_ref/cpp/tag/int //apple_ref/cpp/struct/int //apple_ref/cpp/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">json_id</span>) <span class="keyword">const</span> </pre>
+    <!-- a logicalPath="//apple_ref/cpp/cl/int //apple_ref/cpp/tdef/int //apple_ref/cpp/tag/int //apple_ref/cpp/struct/int //apple_ref/cpp/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">json_id</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/econst/noexcept //apple_ref/cpp/data/ItemController/noexcept //apple_ref/cpp/data/noexcept //apple_ref/cpp/clconst/ItemController/noexcept " machineGenerated="true" --><span class="var">noexcept</span><!-- /a -->; </pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
 <div class="param_indent">
@@ -388,22 +418,9 @@ function disclosure_triangle(elt) {
 
 <!-- end return value --></p>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
-<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key,unsignedint);name=start --><p>Create a new item in a container
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key,int);name=start --><p>Create a new item in a container
 </p>
-<!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key,unsignedint);name=end --><!-- end discussion -->
-<hr class="betweenAPIEntries">
-<!-- headerDoc=ftmplt;  uid=//apple_ref/cpp/ftmplt/ItemController/Environment/mutable/(size_t,constAuthenticator*const);   name=ItemController::Environment -->
-<a name="//apple_ref/cpp/ftmplt/ItemController/Environment/mutable/(size_t,constAuthenticator*const)"></a>
-<h3><a name="Environment">Environment</a></h3>
-<hr class="afterName">
-<div class="declaration_indent">
-<pre><tt>private</tt>
-<br><span class="keyword">mutable</span> <a machinegenerated="true" href="../../../Environment_h/Classes/Environment/index.html#//apple_ref/cpp/cl/Environment" logicalPath="//apple_ref/cpp/cl/Environment" target="_top"><span class="type">Environment</span></a>&lt;<span class="template">Key</span>, <span class="template">Environment</span>&lt;<span class="template">ItemSearchKey</span>, <span class="template">Item</span>&gt;&gt; <span class="template">env2d</span>;  <span class="template">size_t</span> <span class="template">items_created</span> = 
-        <span class="number">0</span>;   <span class="template">const</span> <span class="template">Authenticator</span>&lt;<span class="template">Identifier</span>&gt; <span class="template">*</span><span class="template">const</span> <span class="template">authenticator</span>;    <span class="template">void</span> <!-- a logicalPath="//apple_ref/cpp/instm/ItemController/init //apple_ref/cpp/clm/ItemController/init //apple_ref/cpp/intfcm/ItemController/init //apple_ref/cpp/intfm/ItemController/init //apple_ref/cpp/func/init //apple_ref/cpp/ftmplt/ItemController/init //apple_ref/cpp/defn/init //apple_ref/cpp/macro/init //apple_ref/doc/anysymbol/init" machineGenerated="true" --><span class="function">init</span><!-- /a -->() </pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
-<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/ftmplt/ItemController/Environment/mutable/(size_t,constAuthenticator*const);name=start --><p>All existing items are stored in the two-dimensional environment <!-- headerDoc=discussion;uid=//apple_ref/cpp/ftmplt/ItemController/Environment/mutable/(size_t,constAuthenticator*const);name=end --><!-- end discussion -->
-</p>
+<!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/create/ItemIdentifier/(Key,int);name=end --><!-- end discussion -->
 <hr class="betweenAPIEntries">
 <!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/exists/bool/(Key,constKeywords%26);   name=ItemController::exists -->
 <a name="//apple_ref/cpp/instm/ItemController/exists/bool/(Key,constKeywords%26)"></a>
@@ -411,9 +428,9 @@ function disclosure_triangle(elt) {
 <hr class="afterName">
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><!-- a logicalPath="//apple_ref/cpp/cl/bool //apple_ref/cpp/tdef/bool //apple_ref/cpp/tag/bool //apple_ref/cpp/struct/bool //apple_ref/cpp/intf/bool //apple_ref/doc/anysymbol/bool" machineGenerated="true" --><span class="type">bool</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/exists/bool/(Key,ItemIdentifier)" logicalPath="//apple_ref/cpp/instm/ItemController/exists" target="_top"><span class="function">exists</span></a>(
+<br><!-- a logicalPath="//apple_ref/cpp/cl/bool //apple_ref/cpp/tdef/bool //apple_ref/cpp/tag/bool //apple_ref/cpp/struct/bool //apple_ref/cpp/intf/bool //apple_ref/doc/anysymbol/bool" machineGenerated="true" --><span class="type">bool</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/exists/bool/(Key,constKeywords%26)" logicalPath="//apple_ref/cpp/instm/ItemController/exists" target="_top"><span class="function">exists</span></a>(
     <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key</span>,
-    <span class="keyword">const</span> <a machinegenerated="true" href="../../../Keywords_h/Classes/Keywords/index.html#//apple_ref/cpp/cl/Keywords" logicalPath="//apple_ref/cpp/cl/Keywords" target="_top"><span class="type">Keywords</span></a> &amp;<span class="param">keywords</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/noexcept //apple_ref/cpp/tdef/noexcept //apple_ref/cpp/tag/noexcept //apple_ref/cpp/struct/noexcept //apple_ref/cpp/intf/noexcept //apple_ref/doc/anysymbol/noexcept" machineGenerated="true" --><span class="type">noexcept</span><!-- /a --> </pre>
+    <span class="keyword">const</span> <a machinegenerated="true" href="../../../Keywords_h/Classes/Keywords/index.html#//apple_ref/cpp/cl/Keywords" logicalPath="//apple_ref/cpp/cl/Keywords" target="_top"><span class="type">Keywords</span></a> &amp;<span class="param">keywords</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/econst/noexcept //apple_ref/cpp/data/ItemController/noexcept //apple_ref/cpp/data/noexcept //apple_ref/cpp/clconst/ItemController/noexcept " machineGenerated="true" --><span class="var">noexcept</span><!-- /a -->; </pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
 <!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/exists/bool/(Key,constKeywords%26);name=start --><p>Check if item matching the keywords exists in a container <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/exists/bool/(Key,constKeywords%26);name=end --><!-- end discussion -->
@@ -425,21 +442,21 @@ function disclosure_triangle(elt) {
 <hr class="afterName">
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><!-- a logicalPath="//apple_ref/cpp/cl/bool //apple_ref/cpp/tdef/bool //apple_ref/cpp/tag/bool //apple_ref/cpp/struct/bool //apple_ref/cpp/intf/bool //apple_ref/doc/anysymbol/bool" machineGenerated="true" --><span class="type">bool</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/exists/bool/(Key,ItemIdentifier)" logicalPath="//apple_ref/cpp/instm/ItemController/exists" target="_top"><span class="function">exists</span></a>(
+<br><!-- a logicalPath="//apple_ref/cpp/cl/bool //apple_ref/cpp/tdef/bool //apple_ref/cpp/tag/bool //apple_ref/cpp/struct/bool //apple_ref/cpp/intf/bool //apple_ref/doc/anysymbol/bool" machineGenerated="true" --><span class="type">bool</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/exists/bool/(Key,constKeywords%26)" logicalPath="//apple_ref/cpp/instm/ItemController/exists" target="_top"><span class="function">exists</span></a>(
     <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key</span>,
-    <!-- a logicalPath="//apple_ref/cpp/cl/ItemIdentifier //apple_ref/cpp/tdef/ItemIdentifier //apple_ref/cpp/tag/ItemIdentifier //apple_ref/cpp/struct/ItemIdentifier //apple_ref/cpp/intf/ItemIdentifier //apple_ref/doc/anysymbol/ItemIdentifier" machineGenerated="true" --><span class="type">ItemIdentifier</span><!-- /a --> <span class="param">id</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/noexcept //apple_ref/cpp/tdef/noexcept //apple_ref/cpp/tag/noexcept //apple_ref/cpp/struct/noexcept //apple_ref/cpp/intf/noexcept //apple_ref/doc/anysymbol/noexcept" machineGenerated="true" --><span class="type">noexcept</span><!-- /a --> </pre>
+    <!-- a logicalPath="//apple_ref/cpp/cl/ItemIdentifier //apple_ref/cpp/tdef/ItemIdentifier //apple_ref/cpp/tag/ItemIdentifier //apple_ref/cpp/struct/ItemIdentifier //apple_ref/cpp/intf/ItemIdentifier //apple_ref/doc/anysymbol/ItemIdentifier" machineGenerated="true" --><span class="type">ItemIdentifier</span><!-- /a --> <span class="param">id</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/econst/noexcept //apple_ref/cpp/data/ItemController/noexcept //apple_ref/cpp/data/noexcept //apple_ref/cpp/clconst/ItemController/noexcept " machineGenerated="true" --><span class="var">noexcept</span><!-- /a -->; </pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
-<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/exists/bool/(Key,ItemIdentifier);name=start --><p>Determine if item exists by its identifier <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/exists/bool/(Key,ItemIdentifier);name=end --><!-- end discussion -->
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/exists/bool/(Key,ItemIdentifier);name=start --><p>Check if item exists in a container by its identifier <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/exists/bool/(Key,ItemIdentifier);name=end --><!-- end discussion -->
 </p>
 <hr class="betweenAPIEntries">
-<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/itemsCreated/size_t/();   name=ItemController::itemsCreated -->
-<a name="//apple_ref/cpp/instm/ItemController/itemsCreated/size_t/()"></a>
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/itemsCreated/std::size_t/();   name=ItemController::itemsCreated -->
+<a name="//apple_ref/cpp/instm/ItemController/itemsCreated/std::size_t/()"></a>
 <h3><a name="itemsCreated">itemsCreated</a></h3>
 <hr class="afterName">
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><!-- a logicalPath="//apple_ref/cpp/cl/size_t //apple_ref/cpp/tdef/size_t //apple_ref/cpp/tag/size_t //apple_ref/cpp/struct/size_t //apple_ref/cpp/intf/size_t //apple_ref/doc/anysymbol/size_t" machineGenerated="true" --><span class="type">size_t</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/itemsCreated/size_t/()" logicalPath="//apple_ref/cpp/instm/ItemController/itemsCreated" target="_top"><span class="function">itemsCreated</span></a>() <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/noexcept //apple_ref/cpp/tdef/noexcept //apple_ref/cpp/tag/noexcept //apple_ref/cpp/struct/noexcept //apple_ref/cpp/intf/noexcept //apple_ref/doc/anysymbol/noexcept" machineGenerated="true" --><span class="type">noexcept</span><!-- /a --> </pre>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/std //apple_ref/cpp/tdef/std //apple_ref/cpp/tag/std //apple_ref/cpp/struct/std //apple_ref/cpp/intf/std //apple_ref/doc/anysymbol/std" machineGenerated="true" --><span class="type">std</span><!-- /a -->::<!-- a logicalPath="//apple_ref/cpp/cl/size_t //apple_ref/cpp/tdef/size_t //apple_ref/cpp/tag/size_t //apple_ref/cpp/struct/size_t //apple_ref/cpp/intf/size_t //apple_ref/doc/anysymbol/size_t" machineGenerated="true" --><span class="type">size_t</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/itemsCreated/std::size_t/()" logicalPath="//apple_ref/cpp/instm/ItemController/itemsCreated" target="_top"><span class="function">itemsCreated</span></a>() <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/econst/noexcept //apple_ref/cpp/data/ItemController/noexcept //apple_ref/cpp/data/noexcept //apple_ref/cpp/clconst/ItemController/noexcept " machineGenerated="true" --><span class="var">noexcept</span><!-- /a -->; </pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
 <p><!-- begin return value --></p>
@@ -452,11 +469,14 @@ function disclosure_triangle(elt) {
 <hr class="afterName">
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><a machinegenerated="true" href="../../../Item_h/Classes/Item/index.html#//apple_ref/cpp/cl/Item" logicalPath="//apple_ref/cpp/cl/Item" target="_top"><span class="type">Item</span></a> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/lookup/Item/(false)_DONTLINK_1" logicalPath="//apple_ref/cpp/instm/ItemController/lookup" target="_top"><span class="function">lookup</span></a>(
+<br><a machinegenerated="true" href="../../../Item_h/Classes/Item/index.html#//apple_ref/cpp/cl/Item" logicalPath="//apple_ref/cpp/cl/Item" target="_top"><span class="type">Item</span></a> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/lookup/Item/(false)" logicalPath="//apple_ref/cpp/instm/ItemController/lookup" target="_top"><span class="function">lookup</span></a>(
     <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key</span>,
     <!-- a logicalPath="//apple_ref/cpp/cl/ItemIdentifier //apple_ref/cpp/tdef/ItemIdentifier //apple_ref/cpp/tag/ItemIdentifier //apple_ref/cpp/struct/ItemIdentifier //apple_ref/cpp/intf/ItemIdentifier //apple_ref/doc/anysymbol/ItemIdentifier" machineGenerated="true" --><span class="type">ItemIdentifier</span><!-- /a --> <span class="param">id</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/instm/ItemController/noexcept //apple_ref/cpp/clm/ItemController/noexcept //apple_ref/cpp/intfcm/ItemController/noexcept //apple_ref/cpp/intfm/ItemController/noexcept //apple_ref/cpp/func/noexcept //apple_ref/cpp/ftmplt/ItemController/noexcept //apple_ref/cpp/defn/noexcept //apple_ref/cpp/macro/noexcept //apple_ref/doc/anysymbol/noexcept" machineGenerated="true" --><span class="function">noexcept</span><!-- /a -->(
-    <span class="keyword">false</span>) </pre>
+    <span class="keyword">false</span>); </pre>
 </div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/lookup/Item/(false);name=start --><p>Lookup item object by its identifier <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/lookup/Item/(false);name=end --><!-- end discussion -->
+</p>
 <hr class="betweenAPIEntries">
 <!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/lookup/Item/(false)_DONTLINK_1;   name=ItemController::lookup -->
 <a name="//apple_ref/cpp/instm/ItemController/lookup/Item/(false)_DONTLINK_1"></a>
@@ -464,11 +484,43 @@ function disclosure_triangle(elt) {
 <hr class="afterName">
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><a machinegenerated="true" href="../../../Item_h/Classes/Item/index.html#//apple_ref/cpp/cl/Item" logicalPath="//apple_ref/cpp/cl/Item" target="_top"><span class="type">Item</span></a> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/lookup/Item/(false)_DONTLINK_1" logicalPath="//apple_ref/cpp/instm/ItemController/lookup" target="_top"><span class="function">lookup</span></a>(
+<br><a machinegenerated="true" href="../../../Item_h/Classes/Item/index.html#//apple_ref/cpp/cl/Item" logicalPath="//apple_ref/cpp/cl/Item" target="_top"><span class="type">Item</span></a> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/lookup/Item/(false)" logicalPath="//apple_ref/cpp/instm/ItemController/lookup" target="_top"><span class="function">lookup</span></a>(
     <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key</span>,
     <span class="keyword">const</span> <a machinegenerated="true" href="../../../Keywords_h/Classes/Keywords/index.html#//apple_ref/cpp/cl/Keywords" logicalPath="//apple_ref/cpp/cl/Keywords" target="_top"><span class="type">Keywords</span></a> &amp;<span class="param">keywords</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/instm/ItemController/noexcept //apple_ref/cpp/clm/ItemController/noexcept //apple_ref/cpp/intfcm/ItemController/noexcept //apple_ref/cpp/intfm/ItemController/noexcept //apple_ref/cpp/func/noexcept //apple_ref/cpp/ftmplt/ItemController/noexcept //apple_ref/cpp/defn/noexcept //apple_ref/cpp/macro/noexcept //apple_ref/doc/anysymbol/noexcept" machineGenerated="true" --><span class="function">noexcept</span><!-- /a -->(
-    <span class="keyword">false</span>) </pre>
+    <span class="keyword">false</span>); </pre>
 </div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/lookup/Item/(false)_DONTLINK_1;name=start --><p>Lookup item object by its keywords <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/lookup/Item/(false)_DONTLINK_1;name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/reassign/void/(Key,Key,ItemIdentifier);   name=ItemController::reassign -->
+<a name="//apple_ref/cpp/instm/ItemController/reassign/void/(Key,Key,ItemIdentifier)"></a>
+<h3><a name="reassign">reassign</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/void //apple_ref/cpp/tdef/void //apple_ref/cpp/tag/void //apple_ref/cpp/struct/void //apple_ref/cpp/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/reassign/void/(Key,Key,ItemIdentifier)" logicalPath="//apple_ref/cpp/instm/ItemController/reassign" target="_top"><span class="function">reassign</span></a>(
+    <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key_owner</span>, 
+    <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key_recipient</span>, 
+    <!-- a logicalPath="//apple_ref/cpp/cl/ItemIdentifier //apple_ref/cpp/tdef/ItemIdentifier //apple_ref/cpp/tag/ItemIdentifier //apple_ref/cpp/struct/ItemIdentifier //apple_ref/cpp/intf/ItemIdentifier //apple_ref/doc/anysymbol/ItemIdentifier" machineGenerated="true" --><span class="type">ItemIdentifier</span><!-- /a --> <span class="param">id</span>) <span class="keyword">const</span>; </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/reassign/void/(Key,Key,ItemIdentifier);name=start --><p>Change ownership <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/reassign/void/(Key,Key,ItemIdentifier);name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/removeItem/bool/(Container%26,ItemIdentifier);   name=ItemController::removeItem -->
+<a name="//apple_ref/cpp/instm/ItemController/removeItem/bool/(Container%26,ItemIdentifier)"></a>
+<h3><a name="removeItem">removeItem</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>public</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/bool //apple_ref/cpp/tdef/bool //apple_ref/cpp/tag/bool //apple_ref/cpp/struct/bool //apple_ref/cpp/intf/bool //apple_ref/doc/anysymbol/bool" machineGenerated="true" --><span class="type">bool</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/removeItem/bool/(Container%26,ItemIdentifier)" logicalPath="//apple_ref/cpp/instm/ItemController/removeItem" target="_top"><span class="function">removeItem</span></a>(
+    <!-- a logicalPath="//apple_ref/cpp/cl/Container //apple_ref/cpp/tdef/Container //apple_ref/cpp/tag/Container //apple_ref/cpp/struct/Container //apple_ref/cpp/intf/Container //apple_ref/doc/anysymbol/Container" machineGenerated="true" --><span class="type">Container</span><!-- /a --> &amp;<span class="param">owner</span>, 
+    <!-- a logicalPath="//apple_ref/cpp/cl/ItemIdentifier //apple_ref/cpp/tdef/ItemIdentifier //apple_ref/cpp/tag/ItemIdentifier //apple_ref/cpp/struct/ItemIdentifier //apple_ref/cpp/intf/ItemIdentifier //apple_ref/doc/anysymbol/ItemIdentifier" machineGenerated="true" --><span class="type">ItemIdentifier</span><!-- /a --> <span class="param">id</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/noexcept //apple_ref/cpp/tdef/noexcept //apple_ref/cpp/tag/noexcept //apple_ref/cpp/struct/noexcept //apple_ref/cpp/intf/noexcept //apple_ref/doc/anysymbol/noexcept" machineGenerated="true" --><span class="type">noexcept</span><!-- /a --> </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/removeItem/bool/(Container%26,ItemIdentifier);name=start --><p>Remove an item from its owner <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/removeItem/bool/(Container%26,ItemIdentifier);name=end --><!-- end discussion -->
+</p>
 <hr class="betweenAPIEntries">
 <!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/search/vector/(Key,conststring%26);   name=ItemController::search -->
 <a name="//apple_ref/cpp/instm/ItemController/search/vector/(Key,conststring%26)"></a>
@@ -478,10 +530,24 @@ function disclosure_triangle(elt) {
 <pre><tt>public</tt>
 <br><!-- a logicalPath="//apple_ref/cpp/cl/vector //apple_ref/cpp/tdef/vector //apple_ref/cpp/tag/vector //apple_ref/cpp/struct/vector //apple_ref/cpp/intf/vector //apple_ref/doc/anysymbol/vector" machineGenerated="true" --><span class="type">vector</span><!-- /a -->&lt;<span class="template">ItemIdentifier</span>&gt; <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/search/vector/(Key,conststring%26)" logicalPath="//apple_ref/cpp/instm/ItemController/search" target="_top"><span class="function">search</span></a>(
     <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key</span>,
-    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/string //apple_ref/cpp/tdef/string //apple_ref/cpp/tag/string //apple_ref/cpp/struct/string //apple_ref/cpp/intf/string //apple_ref/doc/anysymbol/string" machineGenerated="true" --><span class="type">string</span><!-- /a --> &amp;<span class="param">keyword</span>) <span class="keyword">const</span> </pre>
+    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/string //apple_ref/cpp/tdef/string //apple_ref/cpp/tag/string //apple_ref/cpp/struct/string //apple_ref/cpp/intf/string //apple_ref/doc/anysymbol/string" machineGenerated="true" --><span class="type">string</span><!-- /a --> &amp;<span class="param">keyword</span>) <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/econst/noexcept //apple_ref/cpp/data/ItemController/noexcept //apple_ref/cpp/data/noexcept //apple_ref/cpp/clconst/ItemController/noexcept " machineGenerated="true" --><span class="var">noexcept</span><!-- /a -->; </pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
-<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/search/vector/(Key,conststring%26);name=start --><p>Search for all items matching a keyword <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/search/vector/(Key,conststring%26);name=end --><!-- end discussion -->
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/search/vector/(Key,conststring%26);name=start --><p>Search for all items matching a keyword in a container <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/search/vector/(Key,conststring%26);name=end --><!-- end discussion -->
+</p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=instm;  uid=//apple_ref/cpp/instm/ItemController/update/void/(Key,Container%26);   name=ItemController::update -->
+<a name="//apple_ref/cpp/instm/ItemController/update/void/(Key,Container%26)"></a>
+<h3><a name="update">update</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>private</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/void //apple_ref/cpp/tdef/void //apple_ref/cpp/tag/void //apple_ref/cpp/struct/void //apple_ref/cpp/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/instm/ItemController/update/void/(Key,Container%26)" logicalPath="//apple_ref/cpp/instm/ItemController/update" target="_top"><span class="function">update</span></a>(
+    <!-- a logicalPath="//apple_ref/cpp/cl/Key //apple_ref/cpp/tdef/Key //apple_ref/cpp/tag/Key //apple_ref/cpp/struct/Key //apple_ref/cpp/intf/Key //apple_ref/doc/anysymbol/Key" machineGenerated="true" --><span class="type">Key</span><!-- /a --> <span class="param">key</span>,
+    <!-- a logicalPath="//apple_ref/cpp/cl/Container //apple_ref/cpp/tdef/Container //apple_ref/cpp/tag/Container //apple_ref/cpp/struct/Container //apple_ref/cpp/intf/Container //apple_ref/doc/anysymbol/Container" machineGenerated="true" --><span class="type">Container</span><!-- /a --> &amp;<span class="param">container</span>) <span class="keyword">const</span> </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/update/void/(Key,Container%26);name=start --><p>Update <!-- headerDoc=discussion;uid=//apple_ref/cpp/instm/ItemController/update/void/(Key,Container%26);name=end --><!-- end discussion -->
 </p>
 <hr class="betweenSections">
 <a name="HeaderDoc_constants"></a>
@@ -501,7 +567,7 @@ function disclosure_triangle(elt) {
 <p>Properties of to-be-created items are set in the builder<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/cpp/clconst/ItemController/builder;name=end --></p>
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><span class="keyword">const</span> <a machinegenerated="true" href="../../../ItemBuilder_h/Classes/ItemBuilder/index.html#//apple_ref/cpp/cl/ItemBuilder" logicalPath="//apple_ref/cpp/cl/ItemBuilder" target="_top"><span class="type">ItemBuilder</span></a> <a machinegenerated="true" href="index.html#//apple_ref/cpp/clconst/ItemController/builder" logicalPath="//apple_ref/cpp/cl/builder //apple_ref/cpp/tdef/builder //apple_ref/cpp/tag/builder //apple_ref/cpp/struct/builder //apple_ref/cpp/intf/builder //apple_ref/doc/anysymbol/builder" target="_top"><span class="type">builder</span></a> = <a machinegenerated="true" href="../../../ItemBuilder_h/Classes/ItemBuilder/index.html#//apple_ref/cpp/instm/ItemBuilder/ItemBuilder//()" logicalPath="//apple_ref/cpp/instm/ItemController/ItemBuilder //apple_ref/cpp/clm/ItemController/ItemBuilder //apple_ref/cpp/intfcm/ItemController/ItemBuilder //apple_ref/cpp/intfm/ItemController/ItemBuilder //apple_ref/cpp/func/ItemBuilder //apple_ref/cpp/ftmplt/ItemController/ItemBuilder //apple_ref/cpp/defn/ItemBuilder //apple_ref/cpp/macro/ItemBuilder //apple_ref/doc/anysymbol/ItemBuilder" target="_top"><span class="function">ItemBuilder</span></a>(); </pre>
+<br><span class="keyword">const</span> <a machinegenerated="true" href="../../../ItemBuilder_h/Classes/ItemBuilder/index.html#//apple_ref/cpp/cl/ItemBuilder" logicalPath="//apple_ref/cpp/cl/ItemBuilder" target="_top"><span class="type">ItemBuilder</span></a> <a machinegenerated="true" href="index.html#//apple_ref/cpp/clconst/ItemController/builder" logicalPath="//apple_ref/cpp/econst/builder //apple_ref/cpp/data/ItemController/builder //apple_ref/cpp/data/builder //apple_ref/cpp/clconst/ItemController/builder" target="_top"><span class="var">builder</span></a>; </pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
 <!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/clconst/ItemController/builder;name=start --><p>Before creating a new item, specify its keywords (required)
@@ -523,15 +589,34 @@ builder.setKeywords( {"keyword1", "keyword 2"} )
 <hr class="afterName">
 <div class="declaration_indent">
 <pre><tt>public</tt>
-<br><span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/auth //apple_ref/cpp/tdef/auth //apple_ref/cpp/tag/auth //apple_ref/cpp/struct/auth //apple_ref/cpp/intf/auth //apple_ref/doc/anysymbol/auth" machineGenerated="true" --><span class="type">auth</span><!-- /a -->::<!-- a logicalPath="//apple_ref/cpp/cl/Identifier //apple_ref/cpp/tdef/Identifier //apple_ref/cpp/tag/Identifier //apple_ref/cpp/struct/Identifier //apple_ref/cpp/intf/Identifier //apple_ref/doc/anysymbol/Identifier" machineGenerated="true" --><span class="type">Identifier</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/clconst/ItemController/controller_id" logicalPath="//apple_ref/cpp/econst/controller_id //apple_ref/cpp/data/ItemController/controller_id //apple_ref/cpp/data/controller_id //apple_ref/cpp/clconst/ItemController/controller_id" target="_top"><span class="var">controller_id</span></a>; </pre>
+<br><span class="keyword">const</span> <!-- a logicalPath="//apple_ref/cpp/cl/Identifier //apple_ref/cpp/tdef/Identifier //apple_ref/cpp/tag/Identifier //apple_ref/cpp/struct/Identifier //apple_ref/cpp/intf/Identifier //apple_ref/doc/anysymbol/Identifier" machineGenerated="true" --><span class="type">Identifier</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/clconst/ItemController/controller_id" logicalPath="//apple_ref/cpp/cl/controller_id //apple_ref/cpp/tdef/controller_id //apple_ref/cpp/tag/controller_id //apple_ref/cpp/struct/controller_id //apple_ref/cpp/intf/controller_id //apple_ref/doc/anysymbol/controller_id" target="_top"><span class="type">controller_id</span></a> = <span class="number">0</span>; </pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
 <!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/clconst/ItemController/controller_id;name=start --><p>Item Controller identifier <!-- headerDoc=discussion;uid=//apple_ref/cpp/clconst/ItemController/controller_id;name=end --><!-- end discussion -->
 </p>
+<hr class="betweenSections">
+<a name="HeaderDoc_vars"></a>
+<h2 class="h2tight">Member Data</h2>
+<dl>
+<dt><tt><a href="index.html#//apple_ref/cpp/data/ItemController/env2d" target="_top">env2d</a></tt></dt>
+<dd></dd>
+</dl>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=data;  uid=//apple_ref/cpp/data/ItemController/env2d;   name=ItemController::env2d -->
+<a name="//apple_ref/cpp/data/ItemController/env2d"></a>
+<h3><a name="env2d">env2d</a></h3>
+<hr class="afterName">
+<div class="declaration_indent">
+<pre><tt>private</tt>
+<br><!-- a logicalPath="//apple_ref/cpp/cl/Container2d //apple_ref/cpp/tdef/Container2d //apple_ref/cpp/tag/Container2d //apple_ref/cpp/struct/Container2d //apple_ref/cpp/intf/Container2d //apple_ref/doc/anysymbol/Container2d" machineGenerated="true" --><span class="type">Container2d</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/cpp/data/ItemController/env2d" logicalPath="//apple_ref/cpp/econst/env2d //apple_ref/cpp/data/ItemController/env2d" target="_top"><span class="var">env2d</span></a>; </pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/cpp/data/ItemController/env2d;name=start --><p>All existing items are stored in the two-dimensional environment <!-- headerDoc=discussion;uid=//apple_ref/cpp/data/ItemController/env2d;name=end --><!-- end discussion -->
+</p>
 <p class="gapBeforeFooter">&nbsp;</p>
 <hr class="afterFooter">
 <div class="hd_copyright_and_timestamp">
-<p class="hd_timestamp">Last Updated: Thursday, April 04, 2019
+<p class="hd_timestamp">Last Updated: Friday, April 05, 2019
 </p>
 </div>
 </td>
