@@ -56,37 +56,34 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
         roomObj.setName(room["name"]);
         roomObj.setDescription(roomDesc);
         
-        
         // roomsMap[roomID] -> pair<AreaName, RoomName>
         roomsMap.insert(std::pair(roomObj.getRoomID(), std::pair(area.getName(), roomObj.getName())));
-
-        //keep track the first room to spawn character
-        //idk how to access the element using index LOL
 
         if(count == 0) {
             area.setFirstRoomInArea(room["id"]);
             count ++;
         }
         
-        int index = 0;
         for(auto tmpExit : room["doors"]){
-
             std::string exitDesc = jsonParser.json2string(tmpExit["desc"]);
             auto creatExit = roomObj.createExit(
-                (stringManager.getString(Internationalization::STRING_CODE::EXIT_TO) + ":" + std::to_string(index)), 
+                (stringManager.getString(Internationalization::STRING_CODE::EXIT_TO) + ":"), 
                 exitDesc, 
                 jsonParser.removeQuotes(tmpExit["dir"].dump()), 
                 area.getName(), 
                 tmpExit["to"]
             );
-            index++;
         }
+
+        for(auto keyword: room["extended_descriptions"][0]["keywords"]){
+            roomObj.addExtendedKeyword(keyword);
+        }
+        roomObj.setExtended_desc(jsonParser.json2string(room["extended_descriptions"][0]["desc"]));
+        
         area.addRoom(roomObj);
         lastRoomID = room["id"];
     }
-    // generateExitsTo(area);
     area.setNextRoomID(lastRoomID);
-    // Updating the Exit Names to the corresponding room they lead to
 }
 
 void AreaGenerator::generateNPC(json allNPC, Area& area, CharacterManager& characterManager){

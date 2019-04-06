@@ -1,5 +1,5 @@
 {
-    "heartbeat_freq":1,
+    "heartbeat_freq":200,
     "heartbeat_combat":10,
     "reset_freq":5
 }

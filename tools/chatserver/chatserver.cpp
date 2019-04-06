@@ -23,12 +23,11 @@
 #include <utility>
 
 #include "Server.h"
-
-
-
 #include "GameManager.h"
-GameManager gm{};
+#include "Config.h"
 
+GameManager gm{};
+const int heartbeat_freq = Config{}.heartbeat_freq;
 
 
 using networking::Server;

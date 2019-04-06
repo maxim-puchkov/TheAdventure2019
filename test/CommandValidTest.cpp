@@ -411,15 +411,3 @@ TEST_F(CommandValidTest, HelpCommandIsValidWithSpaces) {
 TEST_F(CommandValidTest, HelpCommandIsValidNotCaseSensitive) {
     CommandHelp testCommand(c, u, w, stringManager);
 
-//     commandToPut = "hELP";
-//     testCommand.reassembleCommand(commandToPut, isValid);
-//     EXPECT_TRUE(isValid);
-
-//     commandToPut = "HELP";
-//     testCommand.reassembleCommand(commandToPut, isValid);
-//     EXPECT_TRUE(isValid);
-
-//     commandToPut = "heLp aCcOunt";
-//     testCommand.reassembleCommand(commandToPut, isValid);
-//     EXPECT_TRUE(isValid);
-// }
