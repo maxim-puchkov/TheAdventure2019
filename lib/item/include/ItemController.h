@@ -39,8 +39,8 @@ template<typename Key>
 class ItemController {
 public:
     
-    using Container = Environment<ItemSearchKey, Item>;
-    using Container2d = Environment<Key, Container>;
+    using Container = Environment<ItemSearchKey, Item>; // Container of a character or room
+    using Container2d = Environment<Key, Container>; // World is container of containers
     // using Container3d = Environment<Key, Container2d>
     // using Container4d = ...
 
@@ -201,7 +201,7 @@ public:
     
     
     /*! Remove an item from its owner */
-    bool removeItem(Environment<ItemSearchKey, Item> &owner,
+    bool removeItem(Container &owner,
                     ItemIdentifier id) const noexcept {
         
         ItemSearchKey key(id);
@@ -217,7 +217,7 @@ public:
 private:
 
     /*! All existing items are stored in the two-dimensional environment */
-    Environment<Key, Environment<ItemSearchKey, Item>> env2d;
+    Container2d env2d;
     
     std::size_t items_created = 0;
     
@@ -232,14 +232,14 @@ private:
     void deallocateContainers() const noexcept(false) {
         for (auto &binding : this->env2d) {
             Key key = binding.first;
-            Environment<ItemSearchKey, Item> env = binding.second;
+            Container env = binding.second;
             // this->env2d.unbind(key);  cast
         }
     }
     
     
     /*! Update */
-    void update(Key key, Environment<ItemSearchKey, Item> &container) const {
+    void update(Key key, Container &container) const {
         (const_cast<ItemController *>(this))->env2d.unbind(key);
         (const_cast<ItemController *>(this))->env2d.bind(key, container);
     }

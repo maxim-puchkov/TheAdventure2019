@@ -29,13 +29,13 @@ ItemIdentifier ItemController<Key>::create(Key key, int json_id) const noexcept 
     
     // Create a new container if it does not exist
     if (!this->env2d.exists(key)) {
-        Environment<ItemSearchKey, Item> emptyContainer;
+        Container emptyContainer;
         (const_cast<ItemController *>(this))->env2d.bind(key, emptyContainer);
     }
     
     
     // Lookup container by its search key
-    Environment<ItemSearchKey, Item> container = this->env2d.lookup(key);
+    Container container = this->env2d.lookup(key);
     
     
     // Build an item with unique identifier and put it in the container
@@ -166,18 +166,15 @@ void ItemController<Key>::reassign(Key key_owner,
                                    ItemIdentifier id) const {
     
     
-    debug::cout << "Own:\n" << key_owner << "\n\n";
     // Create a new container if it does not exist
     if (!this->env2d.exists(key_owner)) {
-        Environment<ItemSearchKey, Item> emptyContainer;
+        Container emptyContainer;
         (const_cast<ItemController *>(this))->env2d.bind(key_owner, emptyContainer);
     }
     
-    debug::cout << "Rec:\n" << key_recipient << "\n\n";
-
     // Create a new container if it does not exist
     if (!this->env2d.exists(key_recipient)) {
-        Environment<ItemSearchKey, Item> emptyContainer;
+        Container emptyContainer;
         (const_cast<ItemController *>(this))->env2d.bind(key_recipient, emptyContainer);
     }
     
