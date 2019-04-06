@@ -47,9 +47,9 @@ endif(NOT CMAKE_BUILD_TYPE)
 #  Choose this option to include all game commands and force 23 additional builds of all code:
 #       'cmake -DBUILD_ALL_TARGETS=YES ../adventure2019/'
 
-if(BUILD_ALL_TARGETS)
+
     add_compile_definitions(BUILD_ALL_TARGETS)
-endif()
+
 
 
 

@@ -66,6 +66,7 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
         
         for(auto tmpExit : room["doors"]){
             std::string exitDesc = jsonParser.json2string(tmpExit["desc"]);
+            roomObj.createExit("exit to:", exitDesc, jsonParser.removeQuotes(tmpExit["dir"].dump()), area.getName(), tmpExit["to"]);
         }
 
         for(auto keyword: room["extended_descriptions"][0]["keywords"]){
