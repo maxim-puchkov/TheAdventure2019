@@ -24,10 +24,12 @@ public:
     std::string printGames() const;
     std::string printInvites() const;
 
+    std::string spectate(const std::string &userName, const std::string &observingGame);
+
+
 private:
     MiniGameMatch nullMatch{};
     std::vector<MiniGameMatch> gameList;
-
     std::vector<std::tuple<std::string, std::string, long>> pendingInvites; // {inviterName, invitedName, timestamp}
 
 };

@@ -28,7 +28,7 @@ class UserDB {
   private:
     JsonParser jsonParser;
     json users_json;
-    std::string json_filePath = "../adventure2019/data/db/users.json";
+    std::string json_filePath = "data/db/users.json";
   public:
     UserDB();
     ~UserDB();

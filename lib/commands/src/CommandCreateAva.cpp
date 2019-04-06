@@ -30,6 +30,8 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
                 // add new NPC to current room
                 characterManager.addNPC(characterNPC);
                 currentArea.addNPCtoRooms(characterNPC.getName(), location.room);
+                std::string returnString = "NPC " + characterNPC.getName() + " has created\n";
+                return returnString;
                 
             }
             case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
@@ -57,7 +59,9 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
         switch(answer) {
             case charactermanager::CharacterManager::CHARACTER_CODE::CHARACTER_CREATED: {
                 auto roomToSpawnUser = worldManager.getRoomToSpawnUser();
-                characterManager.spawnCharacter(username, LocationCoordinates{"Mirkwood", roomToSpawnUser});
+				auto areaToSpawnUser = worldManager.getAreaToSpawnUser();
+				auto spawnLocation = LocationCoordinates{areaToSpawnUser, roomToSpawnUser};
+                characterManager.spawnCharacter(username, spawnLocation);
                 return "Avatar created.\nPlease enter \"edit-avatar shortdesc: [value]\" to customize your character.\n";
             }
             default:

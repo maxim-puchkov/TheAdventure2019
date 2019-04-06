@@ -9,7 +9,7 @@
 
 
 Character::Character(const std::string &name)
-: id(shared::authenticator.uuid()) {
+: uid(shared::authenticator.uuid()) {
     createCharacter(name);
 }
 

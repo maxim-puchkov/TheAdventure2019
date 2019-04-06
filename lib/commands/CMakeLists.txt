@@ -17,6 +17,7 @@ if(NOT BUILD_ALL_TARGETS)
         # Testing items
         src/CommandTake.cpp
         src/CommandDrop.cpp
+        src/CommandMinigame.cpp
     )
 
 else()
@@ -48,6 +49,9 @@ else()
         src/CommandAttack.cpp
         src/CommandFlee.cpp
         src/CommandCast.cpp
+        src/CommandCreateItem.cpp
+        src/CommandDeleteRoom.cpp
+        src/CommandAdmin.cpp
     )
 
 endif()

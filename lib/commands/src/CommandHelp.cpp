@@ -58,6 +58,7 @@ std::string CommandHelp::printAvatarCommands(OnlineUserManager::USER_CODE userRo
     answer << "edit-avatar: [what-to-edit] [value]\n";
     if(userRole == admin) {
         answer << "edit-avatar [name-of-NPC] [what-to-edit]: [value]\n";
+        answer << "edit-avatar [name-of-NPC] [delete]: [reason]\n";
     }
     answer << "--------------------------------------------------\n\n";
     return answer.str();
@@ -89,6 +90,9 @@ std::string CommandHelp::printWorldInteractionCommands(OnlineUserManager::USER_C
     if(userRole == admin) {
         answer << "create-room [direction] [name]\n";
         answer << "edit-room [what-to-edit]: [value]\n";
+        answer << "delete-room [room-ID]\n";
+        answer << "create-item [item-name]: [item-description]\n";
+
     }
     answer << "--------------------------------------------------\n\n";
     return answer.str();
@@ -121,6 +125,8 @@ std::string CommandHelp::printMinigameCommands(OnlineUserManager::USER_CODE user
     answer << "minigame accept\n";
     answer << "minigame join [username]\n";
     answer << "minigame move [location-of-piece-to-be-moved],[new-location]\n";
+    answer << "minigame spectate [username]\n";
+    answer << "minigame view-all-games\n";
     answer << "--------------------------------------------------\n\n"; 
     return answer.str();
 }

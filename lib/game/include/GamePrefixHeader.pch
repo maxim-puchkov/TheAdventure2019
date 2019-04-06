@@ -46,6 +46,9 @@
 #include "CommandAttack.h"
 #include "CommandFlee.h"
 #include "CommandCast.h"
+#include "CommandCreateItem.h"
+#include "CommandDeleteRoom.h"
+#include "CommandAdmin.h"
 
 #endif
 

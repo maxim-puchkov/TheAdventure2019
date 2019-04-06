@@ -32,11 +32,15 @@ class OnlineUserManager{
         User nullUser{"", ""};
 
         User& getUserById(const std::string& id);
-        User& getUserByUsername(const std::string& userName);
+        
         
     public:
+        User& getUserByUsername(const std::string& userName);
         bool insertUser(const std::string &id, const User &user);      
         User removeUser(const std::string& id);
+        bool checkUserIsOnline(const std::string &userName);
+
+
         long currentTimeStamp();
         std::string getConnectionID(const std::string& userName);
         std::string getUsernameFromConnectionID(const std::string& connectionID);
@@ -60,6 +64,7 @@ class OnlineUserManager{
         USER_CODE login(const std::string& userName, const std::string& pwd, const std::string& id);
         USER_CODE logout(const std::string& id);  
         UserDB::DB_CODE createUser(const std::string& userName, const std::string& pwd);
+        void updateAdmin(const std::string& userName);
 
 };
 }

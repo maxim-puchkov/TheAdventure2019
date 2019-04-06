@@ -19,6 +19,7 @@ add_subdirectory(${print})
 # Libraries
 add_subdirectory(${authentication})
 add_subdirectory(${characters})
+add_subdirectory(${config})
 add_subdirectory(${combat})
 add_subdirectory(${commands})
 add_subdirectory(${environment})

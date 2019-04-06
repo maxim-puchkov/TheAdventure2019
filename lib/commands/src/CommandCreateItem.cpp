@@ -1,8 +1,8 @@
-#include "CommandEditRoom.h"
+#include "CommandCreateItem.h"
 #include <boost/algorithm/string.hpp>
 
-void CommandEditRoom::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
-    //TODO
+void CommandCreateItem::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
+	//TODO
     //if (role == admin) then allow to edit
     //else notify no permissions
     auto role = onlineUserManager.getUserRole(username);
@@ -19,40 +19,16 @@ void CommandEditRoom::executeInHeartbeat(const std::string& username, const std:
             return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
-            // Need to implement createArea in Area class and add that method in WorldManager
-            // Need to implement createRoom in Room class
-            // edit-room exit: <direction>, <target room ID>
-            // can only connect room in the same area
-            if(fullCommand.at(1) == "exit") { 
-                std::vector<std::string> splitByComma;
-                boost::split(splitByComma, fullCommand[2], boost::is_any_of(","), boost::token_compress_on);
-                boost::trim_if(splitByComma[1], boost::is_any_of(" \t"));
-            
-                auto location = characterManager.getCharacterLocation(username);
-                auto targetArea = worldManager.getAreaByLocation(location);
-                if(targetArea.getName() != "DEFAULT_NAME"){
-                    auto targetRoom = targetArea.getRoom(stoi(splitByComma[1]));
-                    if(targetRoom.getName() != "NO_ROOM_NAME") {
-                        auto& currentRoom = worldManager.findRoomByLocation(location);
-                        currentRoom.createExit("-1", "admin exit", splitByComma[0], location.area, stoi(splitByComma[1]));
-
-                        auto& exitList = currentRoom.getExits();
-                        for(auto& ext : exitList) {
-                            if(ext.getExitName() == "-1"){
-                                std::string exitName = "exit to, Area: " + location.area;
-                                exitName += " Room: " + targetRoom.getName();
-                                ext.setExitTargetLocation(exitName);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }else if(fullCommand.at(1) == "desc") {
-                auto location = characterManager.getCharacterLocation(username);
-                auto& room = worldManager.findRoomByLocation(location);
-                room.setDescription(fullCommand.at(2));
-
-            }
+            auto location = characterManager.getCharacterLocation(username);
+            worldManager.items.builder.setKeywords({fullCommand[1]});
+            worldManager.items.builder.setDescription(fullCommand[2]);
+            worldManager.items.create(location.room);
+            worldManager.items.print_contentsOf(location.room);
+            std::cout << "Item name: " << fullCommand[1] << "\n";
+            std::cout << "Item desc: " << fullCommand[2] << "\n";
+            std::string returnMessage = "Item name: " + fullCommand[1] + " has been created\n";
+            onlineUserManager.addMessageToUser(username, returnMessage);
+            return;
         }
         case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
         case usermanager::OnlineUserManager::USER_CODE::ACCOUNT_CREATED: {} 
@@ -65,11 +41,12 @@ void CommandEditRoom::executeInHeartbeat(const std::string& username, const std:
     }
 }
 
-std::vector<std::string> CommandEditRoom::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
+std::vector<std::string> CommandCreateItem::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
     std::vector<std::string> processedCommand;
+
+    //Format: create-item <name>: <description>
     commandIsValid = false;
 
-    //Format: edit-room <what-to-edit>: <value>
     boost::trim_if(fullCommand, boost::is_any_of(" \t"));
 
     //Split by ":"

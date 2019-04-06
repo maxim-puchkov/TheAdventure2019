@@ -15,10 +15,23 @@ std::string CommandLogin::executePromptReply(const std::string& connectionID, co
 				//tmr, when user login, get the location from json, then pass to characterManager
 				// if user is first time, then get the first area name from worldManager.
 				auto roomToSpawnUser = worldManager.getRoomToSpawnUser();
-				auto spawnLocation = characterManager.spawnCharacter(fullCommand[1], LocationCoordinates{"Mirkwood", roomToSpawnUser});
-				auto room = worldManager.findRoomByLocation(spawnLocation);
+				auto areaToSpawnUser = worldManager.getAreaToSpawnUser();
+				auto spawnLocation = LocationCoordinates{areaToSpawnUser, roomToSpawnUser};
+				std::string spawnArea = characterManager.getCharArea(fullCommand[1]);
+				int spawnRoom = characterManager.getCharRoom(fullCommand[1]);
+				if(spawnArea != "" && spawnRoom != -1) {
+					spawnLocation = characterManager.spawnCharacter(fullCommand[1], LocationCoordinates{spawnArea, spawnRoom});
+				}else{
+					spawnLocation = characterManager.spawnCharacter(fullCommand[1], spawnLocation);
+				}
+				//auto room = worldManager.findRoomByLocation(spawnLocation);
+				if(worldManager.findRoomByLocation(spawnLocation).getName() == "NO_ROOM_NAME"){
+					std::cout << roomToSpawnUser << "\n";
+					spawnLocation = LocationCoordinates{areaToSpawnUser, roomToSpawnUser};
+				}
+				//room = worldManager.findRoomByLocation(spawnLocation);
 			    worldManager.spawn(fullCommand[1], spawnLocation);	    
-			    reply << "Current location: Area:" << spawnLocation.area << ", Room: " << room.getName() << "\n";
+			    reply << "Current location: Area:" << spawnLocation.area << ", Room: " << worldManager.findRoomByLocation(spawnLocation).getName() << "\n";
 			}
 
 			return reply.str();

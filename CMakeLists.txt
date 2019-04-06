@@ -1,6 +1,6 @@
 #
 #   Root CMakeLists.txt
-#   Updated: 2019-04-04
+#   Updated: 2019-04-05
 #
 
 
@@ -59,6 +59,7 @@ find_package(Threads REQUIRED)
 
 set(authentication "authentication")
 set(builder "builder")
+set(config "config")
 set(characters "characterDB")
 set(combat "combat")
 set(commands "commands")
@@ -112,10 +113,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-rtti")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -fsanitize=undefined -fno-omit-frame-pointer")
 # set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra  -Wstrict-aliasing -pedantic -Wunreachable-code -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option")
-
-
-
-
 
 
 
@@ -181,3 +178,6 @@ add_subdirectory(test)
 
 unset(BUILD_ALL_TARGETS CACHE)
 unset(CXX_COVERAGE_FLAGS CACHE)
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+

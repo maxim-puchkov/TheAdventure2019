@@ -66,6 +66,10 @@ public:
     CHARACTER_CODE isThisFirstTimeSetup(const std::string& username) const;
     void setCharacterIsDoneFirstTimeSetup(std::string& username);
 
+    std::string getCharArea(const std::string& userName);
+    int getCharRoom(const std::string& userName);
+    bool updateCharLocation(const std::string& userName, LocationCoordinates location);
+
     //MiniGame commands
     MiniGameLobby& getMiniGameLobby();
     //Combat commands
@@ -79,6 +83,16 @@ public:
         NPCs.push_back(NPC);
     }
     
+    std::string getNPCshortDesc(int id){
+         for(auto npc: NPCs){
+             if (npc.getID() == id){
+                 return npc.getShortdesc();
+             }
+         }
+        return "NO NPC";
+    }
+
+
     std::vector<Character>& getListNPCs(){return NPCs;}
     std::string listNPCs();
 };

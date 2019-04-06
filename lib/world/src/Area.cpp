@@ -110,3 +110,16 @@ void Area::updateRoomExits(int id, std::string name){
     }
 }
 
+bool Area::removeRoom(int roomId){
+    bool result = false;
+    auto search = roomList.find(roomId);
+    if(search != roomList.end()) {
+        for(auto& room : roomList) {
+            room.second.removeExitToRoom(roomId);
+        }
+        roomList.erase(roomId);
+        result = true;
+    }
+    return result;
+}
+

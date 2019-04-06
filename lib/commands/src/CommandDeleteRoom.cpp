@@ -1,7 +1,7 @@
-#include "CommandCreateRoom.h"
+#include "CommandDeleteRoom.h"
 #include <boost/algorithm/string.hpp>
 
-void CommandCreateRoom::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
+void CommandDeleteRoom::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	//TODO
     //if (role == admin) then allow to edit
     //else notify no permissions
@@ -19,10 +19,20 @@ void CommandCreateRoom::executeInHeartbeat(const std::string& username, const st
             return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
+            std::string returnMessage;
             auto location = characterManager.getCharacterLocation(username);
-            worldManager.createRoom(location, fullCommand[1], fullCommand[2]);
-            std::string returnMessage = "Room: " + fullCommand[2] + " has been created\n";
-            onlineUserManager.addMessageToUser(username, returnMessage);
+            if(location.room == stoi(fullCommand[1])){
+                onlineUserManager.addMessageToUser(username, "You cannot delete the room you are in\n");
+            }else{
+                auto result = worldManager.deleteRoom(LocationCoordinates{location.area, stoi(fullCommand[1])});
+                if(result){
+                    returnMessage = "You have deleted room ID: " + fullCommand[1] + " in area: " + location.area + "\n";
+                }else{
+                    returnMessage = "The room you enter is invalid\n";
+                }
+                onlineUserManager.addMessageToUser(username, returnMessage);
+            }
+            return;
         }
         case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
         case usermanager::OnlineUserManager::USER_CODE::ACCOUNT_CREATED: {} 
@@ -35,14 +45,14 @@ void CommandCreateRoom::executeInHeartbeat(const std::string& username, const st
     }
 }
 
-std::vector<std::string> CommandCreateRoom::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
+std::vector<std::string> CommandDeleteRoom::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
     std::vector<std::string> processedCommand;
 
-    //Format: create-room <direction> <name>
+    //Format: delete-room <room ID>
     boost::trim_if(fullCommand, boost::is_any_of(" \t"));
 
     //split by " " and compress all long spaces
     boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
-    commandIsValid = (processedCommand.size() == 3);
+    commandIsValid = (processedCommand.size() == 2);
     return processedCommand;
 }

@@ -31,6 +31,8 @@ class Area {
 
         Room& getRoom(int roomId);
 
+        bool removeRoom(int roomId);
+
         std::unordered_map<int, Room>& getRoomList();
 
         void addRoom(Room room);

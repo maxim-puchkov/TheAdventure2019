@@ -29,7 +29,7 @@ void CommandDrop::executeInHeartbeat(const std::string& username, const std::vec
     // Owner of the item
     debug::cout << "USER: " << username << "\n";
     auto character = Command::characterManager.characterDB.getCharacter(username);
-    auto character_id = character.id;
+    auto character_id = character.uid;
     debug::cout << "ID: " << character_id << "\n\n";
     
     

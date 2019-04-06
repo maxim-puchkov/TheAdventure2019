@@ -10,6 +10,7 @@
 #include "WorldManager.h"
 #include "CharacterManager.h"
 #include "AreaGenerator.h"
+#include "JsonParser.h"
 
 #include "GamePrefixHeader.pch"
 #include "auth.hpp"
@@ -23,7 +24,7 @@ using auth::Identifier;
 
 class GameManager {
 private:
-    
+	JsonParser jsonParser{};
     WorldManager world{};
     OnlineUserManager onlineUserManager{};
     CharacterManager characterManager{};

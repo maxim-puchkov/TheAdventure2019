@@ -4,25 +4,34 @@
 int heartBeatDuration = 50;
 
 GameManager::GameManager() {
+    
     // Making the World using the JSON files
     AreaGenerator areaGen{};
-    std::vector<std::string> areaJSONs = 
-        {"../adventure2019/data/world/mirkwood.json",
-        "../adventure2019/data/world/shire.json",
-        "../adventure2019/data/world/solace.json"};
+    std::vector<std::string> areaJSONs = jsonParser.getFileNamesInPath("data/world");
     std::vector<Area> areas;
 
     for (auto filePath : areaJSONs){
-        auto area = areaGen.getArea(filePath, characterManager);
+        auto area = areaGen.getArea("data/world/" + filePath, characterManager, world.items);
         areas.push_back(area);
     }
 
+    //get the first area name to spawn first time login user
+    int count = 0;
     for(auto& area: areas){
+        if(count == 0) {
+            world.setAreaToSpawnFirstTimer(area.getName());
+            count++;
+        }
         area = areaGen.generateExits(area);
         world.addArea(area);
-    }
+    }    
 
     createTableOfCommands();
+    for(auto path: areaJSONs){
+        std::cout<< "data/world/"+path << "\n";
+    }
+        
+
 }
 
 void GameManager::createTableOfCommands() {
@@ -69,6 +78,11 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"flee", make_unique<CommandFlee>(characterManager, onlineUserManager, world)});
     
     tableOfCommands.insert({"cast", make_unique<CommandCast>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"create-item", make_unique<CommandCreateItem>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"delete-room", make_unique<CommandDeleteRoom>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"admin", make_unique<CommandAdmin>(characterManager, onlineUserManager, world)});
+
+
     
 #endif
     

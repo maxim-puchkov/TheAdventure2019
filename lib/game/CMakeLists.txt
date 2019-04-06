@@ -29,6 +29,7 @@ target_link_libraries(${game}
         ${users}
         ${minigame}
         ${commands}
+        ${parsers}
     PRIVATE
         ${Boost_LIBRARIES}
         ${authentication}

@@ -25,6 +25,12 @@ User OnlineUserManager::removeUser(const std::string& id){
     }
 }
 
+bool OnlineUserManager::checkUserIsOnline(const std::string &userName)  {
+     auto &user = getUserByUsername(userName);
+     return ( !(user == nullUser) );
+
+}
+
 User& OnlineUserManager::getUserById(const std::string& id){
     auto search = onlineUsers.find(id);
     if (search != onlineUsers.end()) {
@@ -220,6 +226,10 @@ OnlineUserManager::USER_CODE OnlineUserManager::logout(const std::string& id){
 
 UserDB::DB_CODE OnlineUserManager::createUser(const std::string& userName, const std::string& pwd){
     return userDB.createUser(userName, pwd);
-}      
+} 
+
+void OnlineUserManager::updateAdmin(const std::string& userName){
+    userDB.updateUser(getUserByUsername(userName));
+}
 
 
