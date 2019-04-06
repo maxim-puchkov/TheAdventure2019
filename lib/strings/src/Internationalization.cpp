@@ -243,6 +243,18 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::ADMIN, "admin");
     generateDefaultStrings(Internationalization::STRING_CODE::HAS_BEEN_CREATED, "has_been_create");
 
+    generateDefaultStrings(Internationalization::STRING_CODE::KEYWORD, "keyword");
+    generateDefaultStrings(Internationalization::STRING_CODE::NO_KEYWORD_ENTERED, "no_keyword_entered");
+    generateDefaultStrings(Internationalization::STRING_CODE::ITEMS_WITH_KEYWORD, "items_with_keyword");
+    generateDefaultStrings(Internationalization::STRING_CODE::NO_ITEMS_WITH_KEYWORD, "no_items_with_keyword");
+    generateDefaultStrings(Internationalization::STRING_CODE::NO_ITEM_LOOKUP, "no_item_lookup");
+    generateDefaultStrings(Internationalization::STRING_CODE::ITEM_DOESNT_EXIST, "item_doesnt_exist");
+    generateDefaultStrings(Internationalization::STRING_CODE::INVALID_ITEM_ID, "invalid_item_id");
+
+    generateDefaultStrings(Internationalization::STRING_CODE::NOT_ENOUGH_PLAYERS, "not_enough_players");
+    generateDefaultStrings(Internationalization::STRING_CODE::CANT_CHALLENGE_YOURSELF, "cant_challenge_yourself");
+    generateDefaultStrings(Internationalization::STRING_CODE::CHALLENGE_USER_OFFLINE, "challenge_user_offline");
+
     generateDefaultStrings(Internationalization::STRING_CODE::CHARACTERS_JSON_FILE_NAME, "characters_json_file_name");
     generateDefaultStrings(Internationalization::STRING_CODE::SHORTDESC, "shortdesc");
     generateDefaultStrings(Internationalization::STRING_CODE::LONGDESC, "longdesc");

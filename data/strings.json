@@ -186,6 +186,18 @@
 	"admin":{"string": "admin"},
 	"has_been_create":{"string": " has been created\n"},
 
+	"keyword":{"string": "keyword"},
+	"no_keyword_entered":{"string": " No keyword entered \n"},
+	"items_with_keyword":{"string": "Items that identify with keyword id - (to examine more closely type 'look item [id]') \n"},
+	"no_items_with_keyword":{"string": "No items with that keyword exist in this room\n"},
+	"no_item_lookup":{"string": " No item specified for lookup "},
+	"item_doesnt_exist":{"string": " Item specified doesn't exist \n "},
+	"invalid_item_id":{"string": "Invalid item id! (not a number) \n"},
+
+	"not_enough_players":{"string": "Not enough players in a game!"},
+	"cant_challenge_yourself":{"string": " You can't challenge yourself! \n"},
+	"challenge_user_offline":{"string": " The user you tried to challenge isn't online \n"},
+
 	"characters_json_file_name":{"string": "charaters_db.json"},
 	"shortdesc":{"string": "shortdesc"},
 	"longdesc":{"string": "longdesc"},

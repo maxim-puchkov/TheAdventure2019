@@ -40,7 +40,10 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
         }
 
         if(playerMatch.getCurrentPlayers() != 2){
-            onlineUserManager.addMessageToUser(username, "Not enough players in a game!");
+            onlineUserManager.addMessageToUser(
+                username, 
+                stringManager.getString(Internationalization::STRING_CODE::NOT_ENOUGH_PLAYERS)
+            );
         }
 
         auto moveFrom = fullCommand.at(2);
@@ -55,13 +58,19 @@ void CommandMinigame::executeInHeartbeat(const std::string& username, const std:
 
         auto &challengedName = fullCommand.at(2);
         if(challengedName == username){
-            onlineUserManager.addMessageToUser(username, " You can't challenge yourself! \n");
+            onlineUserManager.addMessageToUser(
+                username, 
+                stringManager.getString(Internationalization::STRING_CODE::CANT_CHALLENGE_YOURSELF)
+            );
             return;
         }
 
 
         if( !onlineUserManager.checkUserIsOnline(challengedName) ){
-            onlineUserManager.addMessageToUser(username, " The user you tried to challenge isn't online \n");
+            onlineUserManager.addMessageToUser(
+                username, 
+                stringManager.getString(Internationalization::STRING_CODE::CHALLENGE_USER_OFFLINE)
+            );
             return;
         }
 

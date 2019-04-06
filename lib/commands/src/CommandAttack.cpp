@@ -33,7 +33,10 @@ void CommandAttack::executeInHeartbeat(const std::string& username, const std::v
             );
         } else {
             cerr << stringManager.getString(Internationalization::STRING_CODE::ROUND_TIME_NOT_EXPIRING);
-            currentCombat.queueCommand(username, "attack");
+            currentCombat.queueCommand(
+                username, 
+                stringManager.getString(Internationalization::STRING_CODE::COMMAND_ATTACK)
+            );
         }
 
     } else { //player is not in a combat

@@ -16,7 +16,7 @@ void CommandLook::generalLook(const std::string &userName) const {
     auto room = worldManager.findRoomByLocation(location);
     const std::string &listOfExits = room.listExits();
 
-    std::string allUsersInRoom = " Users in room are : \n";
+    std::string allUsersInRoom = stringManager.getString(Internationalization::STRING_CODE::USERS_IN_ROOM_ARE);
     for (const std::string &userA : room.getUserNames()) {
         allUsersInRoom.append( characterManager.getShortDescription(userA) );
     }
@@ -76,11 +76,14 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     } else if (fullCommand.at(1) == stringManager.getString(Internationalization::STRING_CODE::EXITS)) {
         onlineUserManager.addMessageToUser(userName, (worldManager.listExits(location) + "\n"));
         return;
-    } else if(fullCommand.at(1) == "keyword"){
+    } else if(fullCommand.at(1) == stringManager.getString(Internationalization::STRING_CODE::KEYWORD)){
 
         bool itemFound = true;
         if(fullCommand.size() == 2){
-            onlineUserManager.addMessageToUser(userName, " No keyword entered \n");
+            onlineUserManager.addMessageToUser(
+                userName, 
+                stringManager.getString(Internationalization::STRING_CODE::NO_KEYWORD_ENTERED)
+            );
             return;
         }
 
@@ -90,7 +93,7 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
            itemFound = false;
        } else {
            stringstream ostream;
-           ostream << "Items that identify with keyword id - (to examine more closely type 'look item [id]') \n"
+           ostream << stringManager.getString(Internationalization::STRING_CODE::ITEMS_WITH_KEYWORD)
                    << fullCommand.at(2) << " \n";
            for (const items::ItemIdentifier &iter : keyWordList) {
                ostream << iter << "\n";
@@ -108,7 +111,10 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
        }
 
        if(!itemFound){
-           onlineUserManager.addMessageToUser(userName, "No items with that keyword exist in this room\n" );
+           onlineUserManager.addMessageToUser(
+               userName, 
+               stringManager.getString(Internationalization::STRING_CODE::NO_ITEMS_WITH_KEYWORD) 
+            );
        }
 
 
@@ -119,7 +125,10 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
         std::string detailedItem;
 
         if(fullCommand.size() == 2){
-            onlineUserManager.addMessageToUser(userName, " No item specified for lookup ");
+            onlineUserManager.addMessageToUser(
+                userName, 
+                stringManager.getString(Internationalization::STRING_CODE::NO_ITEM_LOOKUP)
+            );
             return;
         }
 
