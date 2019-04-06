@@ -30,6 +30,8 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
                 // add new NPC to current room
                 characterManager.addNPC(characterNPC);
                 currentArea.addNPCtoRooms(characterNPC.getName(), location.room);
+                std::string returnString = "NPC " + characterNPC.getName() + " has created\n";
+                return returnString;
                 
             }
             case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 

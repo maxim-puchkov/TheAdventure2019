@@ -51,6 +51,7 @@ else()
         src/CommandCast.cpp
         src/CommandCreateItem.cpp
         src/CommandDeleteRoom.cpp
+        src/CommandAdmin.cpp
     )
 
 endif()
