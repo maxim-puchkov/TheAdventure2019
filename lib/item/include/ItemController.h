@@ -200,6 +200,20 @@ public:
     }
     
     
+    /*! Remove an item from its owner */
+    bool removeItem(Environment<ItemSearchKey, Item> &owner,
+                    ItemIdentifier id) const noexcept {
+        
+        ItemSearchKey key(id);
+        if (owner.exists(key)) {
+            owner.unbind(key);
+            return true;
+        }
+        
+        return false;
+    }
+    
+    
 private:
 
     /*! All existing items are stored in the two-dimensional environment */
@@ -223,19 +237,6 @@ private:
         }
     }
     
-    
-    /*! Remove an item from its owner */
-    bool removeItem(Environment<ItemSearchKey, Item> &owner,
-                    ItemIdentifier id) const noexcept {
-        
-        ItemSearchKey key(id);
-        if (owner.exists(key)) {
-            owner.unbind(key);
-            return true;
-        }
-        
-        return false;
-    }
     
     /*! Update */
     void update(Key key, Environment<ItemSearchKey, Item> &container) const {
