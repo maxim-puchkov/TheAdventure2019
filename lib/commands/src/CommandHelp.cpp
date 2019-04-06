@@ -149,9 +149,13 @@ std::string CommandHelp::printCombatCommands(OnlineUserManager::USER_CODE userRo
 }
 
 std::string CommandHelp::printUtilityCommands(OnlineUserManager::USER_CODE userRole) {
+    auto admin = OnlineUserManager::USER_CODE::USER_ADMIN;
     std::stringstream answer;
     answer << "Enter one of these to see more.\n";
     answer << "--------------------------------------------------\n";
+    if(userRole == admin) {
+        answer << "admin [user-name-in-the-room-to-promote-to-admin]\n";
+    }
     answer << "help Account\n";
     answer << "help Avatar\n";
     answer << "help Communication\n";
