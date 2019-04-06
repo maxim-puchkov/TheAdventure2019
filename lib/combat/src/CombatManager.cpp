@@ -58,6 +58,7 @@ bool CombatManager::createInvite(const std::string& inviterName, const std::stri
     auto invite = std::make_tuple(inviterName, invitedName, 0);
 
     pendingInvites.emplace_back(invite);
+    return true;
 }
 
 void CombatManager::removeInvite(const std::string& eitherName){

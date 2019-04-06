@@ -21,8 +21,8 @@ public:
     void clearCommands();
     void decrementRoundTime();
     void resetRoundTime();
-    std::string getPlayer(int playerNum) const;
-    std::string getCommand(int playerNum) const;
+    std::string getPlayer(unsigned int playerNum) const;
+    std::string getCommand(unsigned int playerNum) const;
 
 private:
     std::vector<std::string> combatants;

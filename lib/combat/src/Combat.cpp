@@ -58,11 +58,12 @@ void Combat::resetRoundTime(){
     this->roundTime = HEARTBEATS_PER_ROUND;
 }
 
-std::string Combat::getPlayer(int playerNum) const{
-    if(playerNum < 0 || playerNum >= combatants.size()) return "";
+std::string Combat::getPlayer(unsigned int playerNum) const{
+    if(playerNum < 0 || playerNum >= combatants.size())
+        return "";
     return combatants.at(playerNum);
 }
-std::string Combat::getCommand(int playerNum) const{
+std::string Combat::getCommand(unsigned int playerNum) const{
     if(playerNum < 0 || playerNum >= queuedActions.size()) return "";
     return queuedActions.at(playerNum);
 }

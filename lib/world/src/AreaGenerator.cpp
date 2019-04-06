@@ -66,13 +66,6 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
         
         for(auto tmpExit : room["doors"]){
             std::string exitDesc = jsonParser.json2string(tmpExit["desc"]);
-            auto creatExit = roomObj.createExit(
-                (stringManager.getString(Internationalization::STRING_CODE::EXIT_TO) + ":"), 
-                exitDesc, 
-                jsonParser.removeQuotes(tmpExit["dir"].dump()), 
-                area.getName(), 
-                tmpExit["to"]
-            );
         }
 
         for(auto keyword: room["extended_descriptions"][0]["keywords"]){
@@ -90,7 +83,6 @@ void AreaGenerator::generateNPC(json allNPC, Area& area, CharacterManager& chara
 
     //vector of room ids
     auto roomIds = area.getRoomIdList();
-    int index = 0;
     for(auto NPC: allNPC){
         //std::cout << NPC["id"] << "\n";
         std::vector<std::string> keywords = jsonParser.json2Vector(NPC["keywords"]);
