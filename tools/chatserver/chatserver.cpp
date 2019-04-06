@@ -5,6 +5,10 @@
 // for details.
 /////////////////////////////////////////////////////////////////////////////
 
+#include "Server.h"
+//#include "User.h"
+#include "GameManager.h"
+#include "TimeStamp.h"
 
 // #include <experimental/filesystem>
 #include <fstream>
@@ -33,7 +37,6 @@ using networking::Message;
 
 std::vector<Connection> clients;
 
-
 void
 onConnect(Connection c) {
   std::cout << "New connection found: " << c.id << "\n";
@@ -52,7 +55,7 @@ onDisconnect(Connection c) {
 std::unique_ptr<std::unordered_map<std::string, std::string>>
 processMessages(Server &server,
                 const std::deque<Message> &incoming,
-                bool &quit) {
+                bool &quit, GameManager& gm) {
 
   auto result = std::make_unique<std::unordered_map<std::string, std::string>>();
   for (auto& message : incoming) {
@@ -121,6 +124,7 @@ includeHeartbeatMessages(std::unique_ptr<std::unordered_map<std::string, std::st
 
 int
 main(int argc, char* argv[]) {
+
   if (argc < 3) {
     std::cerr << "Usage:\n  " << argv[0] << " <port> <html response>\n"
               << "  e.g. " << argv[0] << " 4002 ./webchat.html\n";
@@ -130,6 +134,8 @@ main(int argc, char* argv[]) {
   bool done = false;
   unsigned short port = std::stoi(argv[1]);
   Server server{port, getHTTPMessage(argv[2]), onConnect, onDisconnect};
+
+  unsigned long long heartbeatTimer = getTimeStamp();
 
   while (!done) {
     try {
@@ -141,14 +147,22 @@ main(int argc, char* argv[]) {
     }
 
     auto incoming = server.receive();
-    auto promptReplies = processMessages(server, incoming, done);
-    auto heartbeatReplies = gm.heartbeat();
+    auto promptReplies = processMessages(server, incoming, done, gm);
 
-    auto logs = includeHeartbeatMessages(std::move(promptReplies), std::move(heartbeatReplies));
+    std::unique_ptr<std::unordered_map<std::string, std::string>> heartbeatReplies;
+    std::unique_ptr<std::unordered_map<std::string, std::string>> logs;
 
+    if(getTimeStamp() - heartbeatTimer > 200) {
+      heartbeatReplies = gm.heartbeat();
+      logs = includeHeartbeatMessages(std::move(promptReplies), std::move(heartbeatReplies));
+      heartbeatTimer = getTimeStamp();
+    }
+    else {
+      logs = std::move(promptReplies);
+    }
+    
     auto outgoing = buildOutgoing(std::move(logs));
     server.send(outgoing);
-    sleep(1);
   }
 
   return 0;

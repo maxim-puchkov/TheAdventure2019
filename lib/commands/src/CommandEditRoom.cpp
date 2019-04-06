@@ -8,16 +8,18 @@ void CommandEditRoom::executeInHeartbeat(const std::string& username, const std:
     auto role = onlineUserManager.getUserRole(username);
     switch(role) {
         case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
-            onlineUserManager.addMessageToUser(username,
-                stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN));
+            std::string returnMessage = stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN);
+            onlineUserManager.addMessageToUser(username, returnMessage);
+            return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
             //don't let normal user know that this syntax exists
-            onlineUserManager.addMessageToUser(username,
-                stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX) + " " +
-                stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER) + "\"" +
-                stringManager.getString(Internationalization::STRING_CODE::COMMAND_HELP) + "\"" +
-                stringManager.getString(Internationalization::STRING_CODE::TO_SEE_SUPPORTED_SYNTAX));
+            std::string returnMessage =  (
+                stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX), 
+                stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX)
+            );
+            onlineUserManager.addMessageToUser(username, returnMessage);
+            return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
             // Need to implement createArea in Area class and add that method in WorldManager

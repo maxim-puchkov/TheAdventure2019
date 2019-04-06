@@ -3,6 +3,7 @@
 
 #include "json.hpp"
 #include <dirent.h>
+#include <iostream>
 
 using nlohmann::json;
 

@@ -1,7 +1,7 @@
-#include "CommandDeleteRoom.h"
+#include "CommandAdmin.h"
 #include <boost/algorithm/string.hpp>
 
-void CommandDeleteRoom::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
+void CommandAdmin::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
 	//TODO
     //if (role == admin) then allow to edit
     //else notify no permissions
@@ -19,26 +19,25 @@ void CommandDeleteRoom::executeInHeartbeat(const std::string& username, const st
             return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
-            std::string returnMessage;
+            std::string returnMessage = "Invalid user for the priviledge!\n";
+            bool userFound = false;
             auto location = characterManager.getCharacterLocation(username);
-            if(location.room == stoi(fullCommand[1])){
-                onlineUserManager.addMessageToUser(
-                    username, 
-                    stringManager.getString(Internationalization::STRING_CODE::DELETING_ROOM_YOU_ARE_IN)
-                );
-            }else{
-                auto result = worldManager.deleteRoom(LocationCoordinates{location.area, stoi(fullCommand[1])});
-                if(result){
-                    returnMessage = 
-                        stringManager.getString(Internationalization::STRING_CODE::DELETING_ROOM_MESSAGE) + 
-                        fullCommand[1] + 
-                        stringManager.getString(Internationalization::STRING_CODE::IN_AREA) + 
-                        location.area + 
-                        "\n";
-                }else{
-                    returnMessage = 
-                        stringManager.getString(Internationalization::STRING_CODE::INVALID_ROOM_ENTER);
+            auto userInRoom = worldManager.getUserNamesInRoom(location);
+            for(auto user : userInRoom){
+                if(user == fullCommand[1]){
+                    userFound = true;
+                    break;
                 }
+            }
+            if(userFound){
+                auto& promoUser = onlineUserManager.getUserByUsername(fullCommand[1]);
+                promoUser.setRole(User::USER_ROLE::ADMIN);
+                returnMessage = "User: " + fullCommand[1] + " is promoted\n";
+                onlineUserManager.addMessageToUser(username, returnMessage);
+                returnMessage = "You has been promoted to Admin \nThe promotion is in this session only!\nIf you logout, you will loose the promotion\n";
+                onlineUserManager.addMessageToUser(fullCommand[1], returnMessage);
+                return;
+            }else{
                 onlineUserManager.addMessageToUser(username, returnMessage);
             }
             return;
@@ -54,14 +53,16 @@ void CommandDeleteRoom::executeInHeartbeat(const std::string& username, const st
     }
 }
 
-std::vector<std::string> CommandDeleteRoom::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
+std::vector<std::string> CommandAdmin::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
     std::vector<std::string> processedCommand;
+    commandIsValid = false;
 
-    //Format: delete-room <room ID>
+    //Format: admin <username>
     boost::trim_if(fullCommand, boost::is_any_of(" \t"));
 
     //split by " " and compress all long spaces
     boost::split(processedCommand, fullCommand, boost::is_any_of(" \t"), boost::token_compress_on);
     commandIsValid = (processedCommand.size() == 2);
+
     return processedCommand;
 }
