@@ -8,26 +8,43 @@ void CommandDeleteRoom::executeInHeartbeat(const std::string& username, const st
     auto role = onlineUserManager.getUserRole(username);
     switch(role) {
         case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND: {
-            std::cout << "Please log in again.\n";
+            std::string returnMessage = stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN);
+            onlineUserManager.addMessageToUser(username, returnMessage);
+            return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
             //don't let normal user know that this syntax exists
-            std::cout <<  "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+            std::string returnMessage =  (
+                stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX), 
+                stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX)
+            );
+            onlineUserManager.addMessageToUser(username, returnMessage);
+            return;
         }
         case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN: {
             std::string returnMessage;
             auto location = characterManager.getCharacterLocation(username);
             if(location.room == stoi(fullCommand[1])){
-                onlineUserManager.addMessageToUser(username, "You cannot delete the room you are in\n");
+                onlineUserManager.addMessageToUser(
+                    username, 
+                    stringManager.getString(Internationalization::STRING_CODE::DELETING_ROOM_YOU_ARE_IN)
+                );
             }else{
                 auto result = worldManager.deleteRoom(LocationCoordinates{location.area, stoi(fullCommand[1])});
                 if(result){
-                    returnMessage = "You have deleted room ID: " + fullCommand[1] + " in area: " + location.area + "\n";
+                    returnMessage = 
+                        stringManager.getString(Internationalization::STRING_CODE::DELETING_ROOM_MESSAGE) + 
+                        fullCommand[1] + 
+                        stringManager.getString(Internationalization::STRING_CODE::IN_AREA) + 
+                        location.area + 
+                        "\n";
                 }else{
-                    returnMessage = "The room you enter is invalid\n";
+                    returnMessage = 
+                        stringManager.getString(Internationalization::STRING_CODE::INVALID_ROOM_ENTER);
                 }
                 onlineUserManager.addMessageToUser(username, returnMessage);
             }
+            return;
         }
         case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
         case usermanager::OnlineUserManager::USER_CODE::ACCOUNT_CREATED: {} 

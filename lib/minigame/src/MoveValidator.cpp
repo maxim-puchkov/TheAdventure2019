@@ -6,7 +6,6 @@
 #include <boost/algorithm/string.hpp>
 #include <iostream>
 
-
 /**
  * Converts a column to a integer Ex. the move a2 will convert the 'a' into a 0
  */
@@ -86,13 +85,7 @@ bool MoveValidator::processChessMove(const ChessCoordinate &startPos, const Ches
  */
 std::string MoveValidator::helpMessage() const{
 
-    std::string msg = "Welcome to chess2019!. Some of the rules are modified from standard chess\n"
-                      "such as checks/checkmates aren't declared, game ends when king is terminated, \n"
-                      "you cannot execute the En passant maneuver, when you reach the end of the board \n"
-                      "with a pawn your piece is promoted to a queen automatically. To input a move enter\n"
-                      "the source coordinate followed by a , followed by another coordinate \n"
-                      "EX. a2,a4  is move piece at column A, row 2 to column A row 4.\n"
-                      "Coordinates are printed on board for reference.  ";
+    std::string msg = stringManager.getString(Internationalization::STRING_CODE::MINIGAME_CHESS_WELCOME_MESSAGE);
 
     return std::move(msg);
 }
@@ -114,12 +107,12 @@ std::string MoveValidator::gameOverMessage() const {
     const Piece &piece = gameBoard.getLastPieceKilled();
 
     if(piece.getPieceUnit() != KING){
-        stream = "King isn't dead!, try calling isGameFinished first";
+        stream = stringManager.getString(Internationalization::STRING_CODE::MINIGAME_CHESS_KING_NOT_DEAD);
     }
     else if( piece.getColor() == RED_LOWERCASE ){
-        stream = "team lowerCase has won the game ";
+        stream = stringManager.getString(Internationalization::STRING_CODE::MINIGAME_CHESS_TEAM_LOWER_WON);
     } else {
-        stream = "team upperCase has won the game ";
+        stream = stringManager.getString(Internationalization::STRING_CODE::MINIGAME_CHESS_TEAM_UPPER_WON);
     }
     return std::move(stream);
 }

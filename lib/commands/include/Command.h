@@ -8,10 +8,11 @@
 #include "OnlineUserManager.h"
 #include "WorldManager.h"
 #include "LocationCoordinates.h"
-// #include <boost/algorithm/string.hpp>
+#include "Internationalization.h"
 
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
+using internationalization::Internationalization;
 
 
 /*!
@@ -25,11 +26,12 @@ protected:
 	CharacterManager& characterManager;
 	OnlineUserManager& onlineUserManager;
 	WorldManager& worldManager;
+	Internationalization& stringManager;
 
 public:
-	Command(CharacterManager& c, OnlineUserManager& u, WorldManager& w): characterManager(c), onlineUserManager(u), worldManager(w) {}
-	//Command(CharacterManager& c, OnlineUserManager& u, WorldManager& w, CombatManager& x): characterManager(c), onlineUserManager(u), worldManager(w), combatManager(x) {}
-
+	Command(CharacterManager& c, OnlineUserManager& u, WorldManager& w, Internationalization& s):
+			characterManager(c), onlineUserManager(u), worldManager(w), stringManager(s) {}
+	
 	virtual std::vector<std::string> reassembleCommand(std::string& fullCommand, bool& commandIsValid) = 0;
 	virtual std::string executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand);
 	virtual void executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand);

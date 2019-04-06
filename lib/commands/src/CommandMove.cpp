@@ -1,6 +1,8 @@
 #include "CommandMove.h"
 #include <boost/algorithm/string.hpp>
 
+using internationalization::Internationalization;
+
 void CommandMove::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
     if(combatManager.playerIsInCombat(username)){
         onlineUserManager.addMessageToUser(username, "Cannot do this while in combat.\n");
@@ -17,7 +19,12 @@ void CommandMove::executeInHeartbeat(const std::string& username, const std::vec
     characterManager.changeCharacterLocation(username, newLocation);
     auto room = worldManager.findRoomByLocation(newLocation);
     std::stringstream answer;
-    answer << "Current location: Area:" << newLocation.area << ", Room: " << room.getName() << "\n";
+    answer << stringManager.getString(Internationalization::STRING_CODE::CURRENT_LOCATION);
+    answer << stringManager.getString(Internationalization::STRING_CODE::AREA) << ": " << newLocation.area;
+    answer << " ";
+    answer << stringManager.getString(Internationalization::STRING_CODE::ROOM) << ": " << room.getName();
+    answer << "\n";
+    
     onlineUserManager.addMessageToUser(username, answer.str());
 }
 

@@ -174,6 +174,12 @@ public:
     /// Search for all items matching a keyword
     vector<ItemIdentifier> search(Key key, const string &keyword) const {
         vector<Identifier> vec;
+
+        //Return an empty vector if env2d. doesn't exist for that char.id or room.id
+        if(!env2d.exists(key)){
+            return vector<Identifier>();
+        }
+
         auto env = this->env2d.lookup(key);
         
         for (auto element : env) {
@@ -187,11 +193,14 @@ public:
     }
     
     
-    /*! */
+    /*! Key is room.id, itermIdentifier is it's id */
     Item lookup(Key key, ItemIdentifier id) const noexcept(false) {
         return this->env2d.lookup(key).lookup({id, {}});
     }
-    
+
+
+
+
     /*! */
     Item lookup(Key key, const Keywords &keywords) const noexcept(false) {
         /// return this->env2d.lookup(key)->lookup({0, keywords});
@@ -249,7 +258,13 @@ public:
      @return Vector of {id, keywords} pairs
      */
     vector<ItemSearchKey> contentsOf(Key key) const {
-        
+
+        //Return an empty vector if env2d. doesn't exist for that char.id or room.id
+        if(!env2d.exists(key)){
+            return vector<ItemSearchKey>();
+        }
+
+
         auto env = this->env2d.lookup(key);
         vector<ItemSearchKey> vec;
         vec.reserve(env.size());
@@ -263,7 +278,10 @@ public:
         return vec;
         
     }
-    
+
+
+
+
     /*! */
     size_t containerSize(Key key) const noexcept {
         if (this->env2d.exists(key)) {

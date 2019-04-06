@@ -1,6 +1,8 @@
 #include "CommandEditAva.h"
 #include <boost/algorithm/string.hpp>
 
+using internationalization::Internationalization;
+
 std::string CommandEditAva::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
 	//Format: edit-avatar <name-of-NPC> <what-to-edit>: <value>
     // <what-to-edit> : name, desc, delete
@@ -10,14 +12,17 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
         auto location = characterManager.getCharacterLocation(username);
         switch(role) {
             case usermanager::OnlineUserManager::USER_CODE::USER_NOT_FOUND:{
-                return "Please log in again.\n";
+                return stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN);
             }
             case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER:{
                 //don't let normal user know that this syntax exists
-                return "Wrong command syntax. Please enter \"help\" to see the syntax.\n";
+                return (stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX) + " " +
+                    stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER) + "\"" +
+                    stringManager.getString(Internationalization::STRING_CODE::COMMAND_HELP) + "\"" +
+                    stringManager.getString(Internationalization::STRING_CODE::TO_SEE_SUPPORTED_SYNTAX));
             }
             case usermanager::OnlineUserManager::USER_CODE::USER_ADMIN:{
-                std::string answer = "NPC does not exist. Please enter NPC name\n";
+                std::string answer = stringManager.getString(Internationalization::STRING_CODE::NPC_DOES_NOT_EXIST);
                 bool found = false;
                 auto& currentRoom = worldManager.findRoomByLocation(location);
                 auto& listNPCsInRoom = currentRoom.getNPCs();
@@ -28,7 +33,7 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
                 }
                 if(found){
                     auto& listNPCs = characterManager.getListNPCs();
-                    if(fullCommand[2] == "name"){   
+                    if(fullCommand[2] == stringManager.getString(Internationalization::STRING_CODE::NAME)){   
                         //update npc in room
                         for(auto& npc : listNPCsInRoom){
                             if(npc == fullCommand[1]){
@@ -41,16 +46,22 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
                                 npc.setName(fullCommand[3]);
                             }
                         }
-                        answer = "Edited NPC's name: " + fullCommand[3] + "\n";
-                    }else if(fullCommand[2] == "desc"){
+                        answer = 
+                            stringManager.getString(Internationalization::STRING_CODE::EDITED_NPC_NAME) + 
+                            fullCommand[3] + 
+                            "\n";
+                    }else if(fullCommand[2] == stringManager.getString(Internationalization::STRING_CODE::DESC)){
                         //update npc in characterManager
                         for(auto& npc : listNPCs){
                             if(npc.getName() == fullCommand[1]){
                                 npc.setLongdesc(fullCommand[3]);
                             }
                         }
-                        answer = "Edited NPC's description: " + fullCommand[1] + "\n";
-                    }else if(fullCommand[2] == "delete"){
+                        answer = 
+                        stringManager.getString(Internationalization::STRING_CODE::EDITED_NPC_DESCRIPTION) + 
+                        fullCommand[1] + 
+                        "\n";
+                    }else if(fullCommand[2] == stringManager.getString(Internationalization::STRING_CODE::DELETE)){
                         //update npc in room
                         int index = 0;
                         for(auto& npc : listNPCsInRoom){
@@ -67,11 +78,22 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
                             }
                             indexChar++;
                         }
-                        answer = "Deleted NPC: " + fullCommand[1] + "\n";
+                        answer = 
+                        stringManager.getString(Internationalization::STRING_CODE::DELETED_NPC) + 
+                        fullCommand[1] + 
+                        "\n";
                     }
                 }
                 return answer;
             }
+            case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {} 
+            case usermanager::OnlineUserManager::USER_CODE::ACCOUNT_CREATED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_UPDATED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_DELETED: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_OUT: {} 
+            case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN: {}
+            case usermanager::OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN: {}
+            case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE: {} 
         }
 
     } else {
@@ -79,7 +101,7 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
         auto username = onlineUserManager.getUsernameFromConnectionID(connectionID);
         //kicked for being idle for too long
         if(username == "") {
-            return "Please log in again.\n";
+            return stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN);
         }
         std::stringstream answer;
         answer << editUserAvatar(username, fullCommand);
@@ -87,20 +109,20 @@ std::string CommandEditAva::executePromptReply(const std::string& connectionID, 
         auto avatarCustomizationStatus = characterManager.isCharacterFullyCustomized(username);
         switch(avatarCustomizationStatus) {
             case CharacterManager::CHARACTER_CODE::CHARACTER_CUSTOMIZED_MISSING_SHORT_DESC: {
-                answer << "Enter \"edit-avatar shortdesc: [text]\" to customize Short description\n";
+                answer << stringManager.getString(Internationalization::STRING_CODE::EDIT_AVATAR_SHORTDESC);
                 return answer.str();
             }
             case CharacterManager::CHARACTER_CODE::CHARACTER_CUSTOMIZED_MISSING_LONG_DESC: {
-                answer << "Enter \"edit-avatar longdesc: [text]\" to customize Long description\n";
+                answer << stringManager.getString(Internationalization::STRING_CODE::EDIT_AVATAR_LONGDESC);
                 return answer.str();
             }
             case CharacterManager::CHARACTER_CODE::CHARACTER_CUSTOMIZED_MISSING_DESCRIPTION: {
-                answer << "Enter \"edit-avatar description: [text]\" to customize Description\n";
+                answer << stringManager.getString(Internationalization::STRING_CODE::EDIT_AVATAR_DESC);
                 return answer.str();
             }
             case CharacterManager::CHARACTER_CODE::CHARACTER_IS_CUSTOMIZED: {
                 answer << spawnAvatar(username);
-                answer << "Your avatar is fully customized and ready to play.\n";
+                answer << stringManager.getString(Internationalization::STRING_CODE::AVATAR_FULLY_CUSTOMIZED);
                 return answer.str();
             }
             default:
@@ -150,11 +172,11 @@ std::string CommandEditAva::editUserAvatar(const std::string& username, const st
     auto answer = characterManager.editCharacter(username, attribute, value);
     switch(answer) {
         case charactermanager::CharacterManager::CHARACTER_CODE::CHARACTER_UPDATED:
-            return "Avatar updated.\n";
+            return stringManager.getString(Internationalization::STRING_CODE::AVATAR_UPDATED);
         case charactermanager::CharacterManager::CHARACTER_CODE::CHARACTER_FAILED:
-            return "Attribute to be updated not found.\n";
+            return stringManager.getString(Internationalization::STRING_CODE::ATTRIBUTE_TO_BE_UPDATED);
         case charactermanager::CharacterManager::CHARACTER_CODE::CHARACTER_NOT_FOUND:
-            return "Please log in again.\n";
+            return stringManager.getString(Internationalization::STRING_CODE::PLEASE_LOG_IN_AGAIN);
         default:
         //error
             return "";
@@ -171,8 +193,17 @@ std::string CommandEditAva::spawnAvatar(const std::string& username) {
 		auto areaToSpawnUser = worldManager.getAreaToSpawnUser();
 		auto spawnLocation = LocationCoordinates{areaToSpawnUser, roomToSpawnUser};
         worldManager.spawn(username, spawnLocation);
+        characterManager.changeCharacterLocation(username, spawnLocation);
         auto room = worldManager.findRoomByLocation(spawnLocation);      
-        answer << "Current location: Area:" << spawnLocation.area << ", Room: " << room.getName() << "\n";
+        answer << stringManager.getString(Internationalization::STRING_CODE::CURRENT_LOCATION);
+        answer << stringManager.getString(Internationalization::STRING_CODE::AREA);
+        answer << ": ";
+        answer << spawnLocation.area;
+        answer << ", ";
+        answer << stringManager.getString(Internationalization::STRING_CODE::ROOM);
+        answer << ": ";
+        answer << room.getName();
+        answer << "\n";
     }
     return answer.str();
 }

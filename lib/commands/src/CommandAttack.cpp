@@ -2,12 +2,13 @@
 #include <boost/algorithm/string.hpp>
 #include <iostream>
 
+using internationalization::Internationalization;
+
 void CommandAttack::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
     auto& currentCombat = combatManager.getCombatWithPlayer(username);
 
     if(currentCombat.hasPlayer(username)){
 
-        cerr << "round time not expired, queuing attack\n";
         currentCombat.queueCommand(username, fullCommand);
         //handle npc opponent. does nothing if character is user controlled
         auto opponentName = currentCombat.getOpponent(username);
@@ -22,14 +23,13 @@ void CommandAttack::executeInHeartbeat(const std::string& username, const std::v
 
 
     } else { //player is not in a combat
-        onlineUserManager.addMessageToUser(username, "You are not in combat with anyone!\n");
+        onlineUserManager.addMessageToUser(username, stringManager.getString(Internationalization::STRING_CODE::NOT_IN_COMBAT));
     }
 }
 
 void CommandAttack::executeCombatRound(const std::string& username, const std::vector<std::string>& fullCommand) {
     auto& currentCombat = combatManager.getCombatWithPlayer(username);
 
-    cerr << "round time 0, executing attack\n";
     auto attackValue = characterManager.getCharacterAttack(username);
     auto opponentName = currentCombat.getOpponent(username);
 
@@ -38,18 +38,28 @@ void CommandAttack::executeCombatRound(const std::string& username, const std::v
         onlineUserManager.addMessageToUser(opponentName, "Your opponent hit your decoy\n");
     } else {
         characterManager.damageCharacter(opponentName, attackValue);
-        onlineUserManager.addMessageToUser(username, "You attacked " + opponentName + " for " + std::to_string(attackValue) + ".\n");
-        onlineUserManager.addMessageToUser(opponentName,
-                                           "You were attacked for " + std::to_string(attackValue) +
-                                           ".\nCurrent HP: " + std::to_string(characterManager.getCharacterHealth(opponentName)) + "\n");
+        onlineUserManager.addMessageToUser(
+                username,
+                stringManager.getString(Internationalization::STRING_CODE::YOU_ATTACKED) +
+                opponentName +
+                stringManager.getString(Internationalization::STRING_CODE::FOR) +
+                std::to_string(attackValue) +
+                ".\n"
+        );
+        onlineUserManager.addMessageToUser(
+                opponentName,
+                stringManager.getString(Internationalization::STRING_CODE::YOU_WERE_ATTACKED_FOR) +
+                std::to_string(attackValue) +
+                ".\n" + stringManager.getString(Internationalization::STRING_CODE::CURRENT_HP) +
+                std::to_string(characterManager.getCharacterHealth(opponentName)) +
+                "\n"
+        );
     }
 
 
     if(characterManager.getCharacterHealth(opponentName) <= 0){
         //end combat & respawn opponent if user
     }
-
-
 }
 
 std::vector<std::string> CommandAttack::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {

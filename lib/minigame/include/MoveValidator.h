@@ -8,7 +8,9 @@
 
 #include <string>
 #include "Board.h"
+#include "Internationalization.h"
 
+using internationalization::Internationalization;
 
 struct ChessPlayer {
     std::string playerName;
@@ -50,6 +52,7 @@ private:
         Board gameBoard;
         ChessPlayer playerOne;
         ChessPlayer playerTwo;
+        Internationalization stringManager{};
 
 
         int convertCharColToInt(char input);

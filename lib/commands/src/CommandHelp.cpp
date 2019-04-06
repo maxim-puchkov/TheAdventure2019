@@ -1,6 +1,8 @@
 #include "CommandHelp.h"
 #include <boost/algorithm/string.hpp>
 
+using internationalization::Internationalization;
+
 std::string CommandHelp::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     //TODO: check user's role to print out appropriate text
     //test role
@@ -12,22 +14,24 @@ std::string CommandHelp::executePromptReply(const std::string& connectionID, con
     if(fullCommand.size() == 1) {
         answer << printUtilityCommands(userRole);
     } else {
-        if(fullCommand[1] == "account") {
+        if(fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::ACCOUNT)) {
             answer << printAccountCommands(userRole);
-        } else if (fullCommand[1] == "avatar") {
+        } else if (fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::AVATAR_LOWER)) {
             answer << printAvatarCommands(userRole);
-        } else if (fullCommand[1] == "communication") {
+        } else if (fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::COMMUNICATION)) {
             answer << printCommunicationCommands(userRole);
-        } else if (fullCommand[1] == "world-interaction") {
+        } else if (fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::WORLD_INTERACTION)) {
             answer << printWorldInteractionCommands(userRole);
-        } else if (fullCommand[1] == "inventory") {
+        } else if (fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::INVENTORY)) {
             answer << printInventoryCommands(userRole);
-        } else if (fullCommand[1] == "minigame") {
+        } else if (fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::COMMAND_MINIGAME)) {
             answer << printMinigameCommands(userRole);
-        } else if (fullCommand[1] == "combat") {
+        } else if (fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::COMMAND_COMBAT)) {
             answer << printCombatCommands(userRole);
         } else {
-            answer << "Command type not found. Please enter \"help\" to see the supported syntax.\n";
+            answer << (stringManager.getString(Internationalization::STRING_CODE::COMMAND_NOT_FOUND),
+                       " ",
+                       stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX));
         }
     }
     return answer.str();
@@ -35,12 +39,7 @@ std::string CommandHelp::executePromptReply(const std::string& connectionID, con
 
 std::string CommandHelp::printAccountCommands(OnlineUserManager::USER_CODE userRole) {
     std::stringstream answer;
-    answer << "Account\n";
-    answer << "--------------------------------------------------\n";
-    answer << "login [username] [password]\n";
-    answer << "logout\n";
-    answer << "create-account [username] [password]\n";
-    answer << "--------------------------------------------------\n\n";
+    answer << stringManager.getString(Internationalization::STRING_CODE::ACCOUNT_COMMANDS);
     return answer.str();
 }
 
@@ -49,28 +48,21 @@ std::string CommandHelp::printAvatarCommands(OnlineUserManager::USER_CODE userRo
     auto admin = OnlineUserManager::USER_CODE::USER_ADMIN;
 
     std::stringstream answer;
-    answer << "Avatar\n";
-    answer << "--------------------------------------------------\n";
-    answer << "create-avatar [name]\n";
+    answer << stringManager.getString(Internationalization::STRING_CODE::AVATAR_COMMANDS);
     if(userRole == admin) {
-        answer << "create-avatar [name] NPC\n";
+        answer << stringManager.getString(Internationalization::STRING_CODE::CREATE_AVATAR_INSTRUCTIONS);
     }
-    answer << "edit-avatar: [what-to-edit] [value]\n";
+    answer << stringManager.getString(Internationalization::STRING_CODE::EDIT_AVATAR_INSTRUCTIONS);
     if(userRole == admin) {
-        answer << "edit-avatar [name-of-NPC] [what-to-edit]: [value]\n";
+        answer << stringManager.getString(Internationalization::STRING_CODE::EDIT_AVATAR_INSTRUCTIONS_VALUE);
     }
-    answer << "--------------------------------------------------\n\n";
+    answer << stringManager.getString(Internationalization::STRING_CODE::LINE_WITH_SINGE_NEWLINE);
     return answer.str();
 }
 
 std::string CommandHelp::printCommunicationCommands(OnlineUserManager::USER_CODE userRole) {
     std::stringstream answer;
-    answer << "Communication\n";
-    answer << "--------------------------------------------------\n";
-    answer << "say: [message]\n";
-    answer << "yell: [message]\n";
-    answer << "tell [other-username]: [message]\n";
-    answer << "--------------------------------------------------\n\n";
+    answer << stringManager.getString(Internationalization::STRING_CODE::COMMUNICATION_COMMANDS);
     return answer.str();
 }
 
@@ -79,81 +71,41 @@ std::string CommandHelp::printWorldInteractionCommands(OnlineUserManager::USER_C
     auto admin = OnlineUserManager::USER_CODE::USER_ADMIN;
 
     std::stringstream answer;
-    answer << "World Interaction\n";
-    answer << "--------------------------------------------------\n";    
-    answer << "move [direction]\n";
-    answer << "look\n";
-    answer << "look [object/username]\n";
-    answer << "look [object/username] [object/username-index]\n";
-    answer << "examine [object/username]\n";
+    answer << stringManager.getString(Internationalization::STRING_CODE::WORLD_INTERACTION_COMMANDS);
     if(userRole == admin) {
-        answer << "create-room [direction] [name]\n";
-        answer << "edit-room [what-to-edit]: [value]\n";
+        answer << stringManager.getString(Internationalization::STRING_CODE::WORLD_INTERACTION_COMMANDS_ADMIN);
     }
-    answer << "--------------------------------------------------\n\n";
+    answer << stringManager.getString(Internationalization::STRING_CODE::LINE_WITH_DOUBLE_NEWLINE);
     return answer.str();
 }
 
 std::string CommandHelp::printInventoryCommands(OnlineUserManager::USER_CODE userRole) {
     std::stringstream answer;
-    answer << "Inventory\n";
-    answer << "--------------------------------------------------\n";    
-    answer << "use [object-in-inventory]\n";
-    answer << "use [object-in-inventory] [object-index]\n";
-    answer << "equip [object-in-inventory]\n";
-    answer << "equip [object-in-inventory] [object-index]\n";
-    answer << "pickup [object]\n";
-    answer << "pickup [object] [object-index]\n";
-    answer << "drop [object-in-inventory]\n";
-    answer << "drop [object-in-inventory] [object-index]\n";
-    answer << "put [container-name]\n";
-    answer << "put [container-name] [container-index]  \n";
-    answer << "move [direction]\n";
-    answer << "--------------------------------------------------\n\n"; 
+    answer << stringManager.getString(Internationalization::STRING_CODE::INVENTORY_COMMANDS); 
     return answer.str();
 }
 
 std::string CommandHelp::printMinigameCommands(OnlineUserManager::USER_CODE userRole) {
     std::stringstream answer;
-    answer << "Minigame\n";
-    answer << "--------------------------------------------------\n";    
-    answer << "minigame challenge [username]\n";
-    answer << "minigame accept\n";
-    answer << "minigame join [username]\n";
-    answer << "minigame move [location-of-piece-to-be-moved],[new-location]\n";
-    answer << "minigame spectate [username]\n";
-    answer << "minigame view-all-games\n";
-    answer << "--------------------------------------------------\n\n"; 
+    answer << stringManager.getString(Internationalization::STRING_CODE::MINIGAME_COMMANDS); 
     return answer.str();
 }
 
 std::string CommandHelp::printCombatCommands(OnlineUserManager::USER_CODE userRole) {
     std::stringstream answer;
-    answer << "Combat\n";
-    answer << "--------------------------------------------------\n";    
-    answer << "combat challenge [username]\n";
-    answer << "combat accept\n";
-    answer << "combat accept [username]\n";
-    answer << "combat join [username]\n";
-    answer << "attack\n";
-    answer << "flee\n";
-    answer << "cast [spell-name]\n";
-    answer << "--------------------------------------------------\n\n"; 
+    answer << stringManager.getString(Internationalization::STRING_CODE::COMBAT_COMMANDS); 
     return answer.str();
 }
 
 std::string CommandHelp::printUtilityCommands(OnlineUserManager::USER_CODE userRole) {
+    auto admin = OnlineUserManager::USER_CODE::USER_ADMIN;
     std::stringstream answer;
     answer << "Enter one of these to see more.\n";
     answer << "--------------------------------------------------\n";
-    answer << "help Account\n";
-    answer << "help Avatar\n";
-    answer << "help Communication\n";
-    answer << "help World-interaction\n";
-    answer << "help Inventory\n";
-    answer << "help Minigame\n";
-    answer << "help Combat\n";
-    answer << "--------------------------------------------------\n\n";
+    if(userRole == admin) {
+        answer << "admin [user-name-in-the-room-to-promote-to-admin]\n";
+    }
+    answer << stringManager.getString(Internationalization::STRING_CODE::UTILITY_COMMANDS);
     return answer.str();
 }
 

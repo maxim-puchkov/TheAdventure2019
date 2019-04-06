@@ -25,6 +25,8 @@ target_include_directories(${PROJECT_NAME}
 
 
 target_link_libraries(${PROJECT_NAME}
+    PUBLIC
+        ${libstrings}
     PRIVATE
 	    ${parsers}
         ${Boost_LIBRARIES}

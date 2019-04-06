@@ -5,11 +5,13 @@
 
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
+using internationalization::Internationalization;
 
 class CommandYell : public Command
 {
 public:
-	CommandYell(CharacterManager& c, OnlineUserManager& u, WorldManager& w): Command(c, u, w) {}
+	CommandYell(CharacterManager& c, OnlineUserManager& u, WorldManager& w, Internationalization& s):
+					Command(c, u, w, s) {}
 
 	virtual void executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand);
 	virtual std::vector<std::string> reassembleCommand(std::string& fullCommand, bool& commandIsValid);

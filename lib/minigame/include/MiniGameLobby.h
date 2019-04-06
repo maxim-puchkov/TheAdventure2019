@@ -30,6 +30,8 @@ public:
 private:
     MiniGameMatch nullMatch{};
     std::vector<MiniGameMatch> gameList;
+    Internationalization stringManager{};
+
     std::vector<std::tuple<std::string, std::string, long>> pendingInvites; // {inviterName, invitedName, timestamp}
 
 };

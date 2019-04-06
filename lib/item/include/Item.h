@@ -74,6 +74,8 @@ public:
     
     /*! Check if object has additional actions */
     bool isInteractable() const override;
+
+    const std::string getIdAndBrief() const ;
     
     
     

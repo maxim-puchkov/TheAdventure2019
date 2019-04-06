@@ -26,7 +26,8 @@ using namespace std;
             return search->second;
         }
 
-        return "Direction not found\n";
+        return (stringManager.getString(Internationalization::STRING_CODE::DIRECTION_NOT_FOUND), "\n");
+
     }
 
     //REARRANGE THIS TO TAKE ADVANTAGE OF MAP "directionMap"
@@ -75,6 +76,51 @@ using namespace std;
             {DOWN,"down"}
     };
 
+    /*
+    Exit::CardinalDirection Exit::getCardinalDirection(const std::string& direction) {
+        std::string input = direction;
+        std::transform(input.begin(), input.end(), input.begin(), ::tolower);
+
+        if(input == stringManager.getString(Internationalization::STRING_CODE::NORTH)){
+            return Exit::CardinalDirection::NORTH;
+        } else if(input == stringManager.getString(Internationalization::STRING_CODE::NORTHEAST)){
+            return Exit::CardinalDirection::NORTHEAST;
+        } else if(input == stringManager.getString(Internationalization::STRING_CODE::EAST)){
+            return Exit::CardinalDirection::EAST;
+        } else if(input == stringManager.getString(Internationalization::STRING_CODE::SOUTHEAST)){
+            return Exit::CardinalDirection::SOUTHEAST;
+        } else if(input == stringManager.getString(Internationalization::STRING_CODE::SOUTH)){
+            return Exit::CardinalDirection::SOUTH;
+        } else if(input == stringManager.getString(Internationalization::STRING_CODE::SOUTHWEST)){
+            return Exit::CardinalDirection::SOUTHWEST;
+        } else if(input == stringManager.getString(Internationalization::STRING_CODE::WEST)){
+            return Exit::CardinalDirection::WEST;
+        } else if(input == stringManager.getString(Internationalization::STRING_CODE::NORTHWEST)){
+            return Exit::CardinalDirection::NORTHWEST;
+        } else if(input == "up"){
+            return Exit::CardinalDirection::UP;
+        } else if(input == "down"){
+            return Exit::CardinalDirection::DOWN;
+        }
+
+        return Exit::CardinalDirection::NONE;
+    }
+
+    //A map that is used to convert ENUM's into strings for viewing
+    const std::unordered_map<Exit::CardinalDirection, std::string> Exit::directionMap = {
+            {NONE,stringManager.getString(Internationalization::STRING_CODE::NONE)},
+            {NORTH,stringManager.getString(Internationalization::STRING_CODE::NORTH)},
+            {NORTHEAST,stringManager.getString(Internationalization::STRING_CODE::NORTHEAST)},
+            {EAST,stringManager.getString(Internationalization::STRING_CODE::EAST)},
+            {SOUTHEAST,stringManager.getString(Internationalization::STRING_CODE::SOUTHEAST)},
+            {SOUTH,stringManager.getString(Internationalization::STRING_CODE::SOUTH)},
+            {SOUTHWEST,stringManager.getString(Internationalization::STRING_CODE::SOUTHWEST)},
+            {WEST,stringManager.getString(Internationalization::STRING_CODE::WEST)},
+            {NORTHWEST,stringManager.getString(Internationalization::STRING_CODE::NORTHWEST)},
+            {UP,"up"},
+            {DOWN,"down"}
+    };
+    */
 
     const string &Exit::getExitName() const {return exitName;}
 
@@ -87,7 +133,7 @@ using namespace std;
 
     const string Exit::getExitDescription() const {
         if (exitDescription.empty()) {
-            return " This exit has no description! \n";
+            return stringManager.getString(Internationalization::STRING_CODE::THIS_EXIT_HAS_NO_DESC);
         }
         return exitDescription;
     }

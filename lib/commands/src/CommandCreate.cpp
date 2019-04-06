@@ -2,6 +2,8 @@
 #include <boost/algorithm/string.hpp>
 #include <iostream>
 
+using internationalization::Internationalization;
+
 bool validateUserName(const std::string& userName){
     bool stringIsCorrect = true;
     for(const auto& ch : userName){
@@ -15,16 +17,21 @@ bool validateUserName(const std::string& userName){
 
 std::string CommandCreate::executePromptReply(const std::string& connectionID, const std::vector<std::string>& fullCommand) {
     if (!validateUserName(fullCommand[1])) {
-        return "Error! Invalid username.\nPlease use character from a-z or 0-9 for your username\n";
+        return stringManager.getString(Internationalization::STRING_CODE::INVALID_USERNAME_CREATE_MESSAGE);
     }  
 	auto answer = onlineUserManager.createUser(fullCommand[1], fullCommand[2]);
 	switch(answer) {
 		case UserDB::DB_CODE::INVALID_USERNAME:
-			return "Error! Invalid username.\n";
+            return (
+                stringManager.getString(Internationalization::STRING_CODE::ERROR) + 
+                " " +
+                stringManager.getString(Internationalization::STRING_CODE::INVALID_USERNAME)
+            );
+
 		case UserDB::DB_CODE::ACCOUNT_CREATED:
-			return "Account created. Please log in to play the game.\n";
+			return stringManager.getString(Internationalization::STRING_CODE::ACCOUNT_CREATED);
 		default:
-            std::cout << "ERROR SHOULD NOT GET HERE! \n";
+            //error, should never get here, log problem
         break;
 	}
 	//swallow

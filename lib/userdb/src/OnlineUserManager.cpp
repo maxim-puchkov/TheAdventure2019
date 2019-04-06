@@ -56,7 +56,7 @@ std::string OnlineUserManager::getConnectionID(const std::string& userName) {
             return element.first;
         }
     }
-    return "Invalid";
+    return stringManager.getString(Internationalization::STRING_CODE::INVALID_MESSAGE);
 }
 
 std::string OnlineUserManager::getUsernameFromConnectionID(const std::string& connectionID){
@@ -226,6 +226,10 @@ OnlineUserManager::USER_CODE OnlineUserManager::logout(const std::string& id){
 
 UserDB::DB_CODE OnlineUserManager::createUser(const std::string& userName, const std::string& pwd){
     return userDB.createUser(userName, pwd);
-}      
+} 
+
+void OnlineUserManager::updateAdmin(const std::string& userName){
+    userDB.updateUser(getUserByUsername(userName));
+}
 
 

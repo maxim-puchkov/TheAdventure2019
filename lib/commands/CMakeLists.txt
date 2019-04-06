@@ -16,6 +16,7 @@ if(NOT BUILD_ALL_TARGETS)
 
         # Testing items
         src/CommandTake.cpp
+        src/CommandLook.cpp
         src/CommandMinigame.cpp
     )
 
@@ -50,6 +51,7 @@ else()
         src/CommandCast.cpp
         src/CommandCreateItem.cpp
         src/CommandDeleteRoom.cpp
+        src/CommandAdmin.cpp
     )
 
 endif()
@@ -72,6 +74,7 @@ target_link_libraries(${PROJECT_NAME}
         ${world}
         ${users}
         ${print}
+        ${item}
     PRIVATE
         ${Boost_LIBRARIES}
 )

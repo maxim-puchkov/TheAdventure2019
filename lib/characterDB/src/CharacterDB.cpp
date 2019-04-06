@@ -6,7 +6,7 @@ CharacterDB::CharacterDB(){
 
     if(characters_json == nullptr){
         cout<< "CHARACTERDB JSON NOT FOUND\n Creating new JSON file.\n";
-        std::ofstream("charaters_db.json");
+        std::ofstream(stringManager.getString(Internationalization::STRING_CODE::CHARACTERS_JSON_FILE_NAME));
     }
 }
 
@@ -67,7 +67,13 @@ Character CharacterDB::getCharacter(const std::string& name){
         character.setDescription(characters_json[name]["description"]);
         character.setFirstTimeSetup(characters_json[name]["FirstTimeSetup"]);
         character.setCurrentLocation(LocationCoordinates{characters_json[name]["LocationCoordinates"]["area"],characters_json[name]["LocationCoordinates"]["room"]});
-
+/*
+        cout << character.getName() << " \n";
+        cout << character.getShortdesc() << " \n";
+        cout << character.getLongdesc() << " \n";
+        cout << character.getDescription() << " \n";
+        cout << character.getIsDoneFirstTimeSetup() << " \n";
+*/
         return character;
     }
 }
@@ -100,6 +106,7 @@ bool CharacterDB::updateCharLocation(const std::string& userName, LocationCoordi
     }else{
         characters_json[userName]["LocationCoordinates"]["area"] = location.area;
         characters_json[userName]["LocationCoordinates"]["room"] = location.room;
+        jsonParser.saveJSON(characters_json, json_filePath);
         result = true;
     }
     return result;

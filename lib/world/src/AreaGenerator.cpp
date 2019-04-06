@@ -56,38 +56,33 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
         roomObj.setName(room["name"]);
         roomObj.setDescription(roomDesc);
         
-        
         // roomsMap[roomID] -> pair<AreaName, RoomName>
         roomsMap.insert(std::pair(roomObj.getRoomID(), std::pair(area.getName(), roomObj.getName())));
-
-        //keep track the first room to spawn character
-        //idk how to access the element using index LOL
 
         if(count == 0) {
             area.setFirstRoomInArea(room["id"]);
             count ++;
         }
         
-        int index = 0;
         for(auto tmpExit : room["doors"]){
-
             std::string exitDesc = jsonParser.json2string(tmpExit["desc"]);
-            auto creatExit = roomObj.createExit(("exit to:" + std::to_string(index)), exitDesc, jsonParser.removeQuotes(tmpExit["dir"].dump()), area.getName(), tmpExit["to"]);
-            index++;
         }
+
+        for(auto keyword: room["extended_descriptions"][0]["keywords"]){
+            roomObj.addExtendedKeyword(keyword);
+        }
+        roomObj.setExtended_desc(jsonParser.json2string(room["extended_descriptions"][0]["desc"]));
+        
         area.addRoom(roomObj);
         lastRoomID = room["id"];
     }
-    // generateExitsTo(area);
     area.setNextRoomID(lastRoomID);
-    // Updating the Exit Names to the corresponding room they lead to
 }
 
 void AreaGenerator::generateNPC(json allNPC, Area& area, CharacterManager& characterManager){
 
     //vector of room ids
     auto roomIds = area.getRoomIdList();
-    int index = 0;
     for(auto NPC: allNPC){
         //std::cout << NPC["id"] << "\n";
         std::vector<std::string> keywords = jsonParser.json2Vector(NPC["keywords"]);
@@ -115,10 +110,10 @@ void AreaGenerator::generateObjects(json objects, Area& area, const items::ItemC
         std::string shortDesc = object["shortdesc"];
         std::string longDesc = jsonParser.json2string(object["longdesc"]);
         
-        std::vector<std::string> extra_keywords = jsonParser.json2Vector(object["extra"][0]);
+        std::string extra_keywords = jsonParser.json2string(object["extra"][0]);
         std::string extra_desc = jsonParser.json2string(object["extra"][1]);
         
-        vector<items::Action> vec{items::Action("read", " < items are now working > ")};
+        vector<items::Action> vec{items::Action(extra_keywords, extra_desc)};
 
         worldItems.builder.setItemProperties(items::Keywords(keywords), items::Description(longDesc), items::Actions(vec));
 
@@ -139,7 +134,10 @@ void AreaGenerator::generateExitsTo(Area& area){
         for(auto& ext : room.second.getExits()) {
             auto exitLocation = ext.getTargetLocation();
             auto nextRoom = area.getRoom(exitLocation.room);
-            std::string exitTo = "exit to: " + nextRoom.getName();
+            std::string exitTo = 
+                stringManager.getString(Internationalization::STRING_CODE::EXIT_TO) + 
+                ": " + 
+                nextRoom.getName();
             ext.setExitTargetLocation(exitTo);
         }
     }
@@ -151,7 +149,16 @@ Area AreaGenerator::generateExits(Area area){
 
             auto exitID = ext.getTargetLocation().room;
             ext.getTargetLocation().area = roomsMap[exitID].first;
-            std::string exitName = "exit to, Area: " + roomsMap[exitID].first + " Room: " + roomsMap[exitID].second; 
+            std::string exitName = 
+                stringManager.getString(Internationalization::STRING_CODE::EXIT_TO) + 
+                ", " + 
+                stringManager.getString(Internationalization::STRING_CODE::AREA) + 
+                ": " + 
+                roomsMap[exitID].first + 
+                " " + 
+                stringManager.getString(Internationalization::STRING_CODE::ROOM) + 
+                ": " + 
+                roomsMap[exitID].second; 
             // area.updateRoomExits(exitID,exitName);
             ext.setExitTargetLocation(exitName);
             ext.setExitName(exitName);
@@ -165,7 +172,7 @@ void AreaGenerator::reset_Area(json resetValues, Area& area, CharacterManager& c
 
     for( auto val : resetValues){
         // std::cout << val.dump() << "\n";
-        if(val["action"] == "npc"){
+        if(val["action"] == stringManager.getString(Internationalization::STRING_CODE::NPC)){
             area.addNPCtoRooms(characterManager.getNPCshortDesc(val["id"]), val["room"]);
         }
         

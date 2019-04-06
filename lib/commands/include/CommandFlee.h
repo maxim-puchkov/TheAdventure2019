@@ -5,13 +5,14 @@
 
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
+using internationalization::Internationalization;
 
 class CommandFlee : public Command
 {
 protected:
 	CombatManager& combatManager;
 public:
-	CommandFlee(CharacterManager& c, OnlineUserManager& u, WorldManager& w, CombatManager& x): Command(c, u, w), combatManager(x) {}
+	CommandFlee(CharacterManager& c, OnlineUserManager& u, WorldManager& w, Internationalization& s, CombatManager& x): Command(c, u, w, s), combatManager(x) {}
 	
 	virtual void executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand);
 	virtual void executeCombatRound(const std::string& username, const std::vector<std::string>& fullCommand);
