@@ -225,6 +225,8 @@ class Internationalization {
        DELETING_ROOM_MESSAGE,
        IN_AREA,
        INVALID_ROOM_ENTER,
+       ADMIN,
+       HAS_BEEN_CREATED,
 
        CHARACTERS_JSON_FILE_NAME,
        SHORTDESC,

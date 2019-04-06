@@ -77,7 +77,7 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_CAST), make_unique<CommandCast>(characterManager, onlineUserManager, world, stringManager)});
     tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_CREATE_ITEM), make_unique<CommandCreateItem>(characterManager, onlineUserManager, world, stringManager)});
     tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::COMMAND_DELETE_ROOM), make_unique<CommandDeleteRoom>(characterManager, onlineUserManager, world, stringManager)});
-    tableOfCommands.insert({"admin", make_unique<CommandAdmin>(characterManager, onlineUserManager, world, stringManager)});
+    tableOfCommands.insert({stringManager.getString(Internationalization::STRING_CODE::ADMIN), make_unique<CommandAdmin>(characterManager, onlineUserManager, world, stringManager)});
 
     
 #endif

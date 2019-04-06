@@ -240,6 +240,8 @@ void Internationalization::bindEnumToKey() {
     generateDefaultStrings(Internationalization::STRING_CODE::DELETING_ROOM_MESSAGE, "deleting_room_message");
     generateDefaultStrings(Internationalization::STRING_CODE::IN_AREA, "in_area");
     generateDefaultStrings(Internationalization::STRING_CODE::INVALID_ROOM_ENTER, "invalid_room_enter");
+    generateDefaultStrings(Internationalization::STRING_CODE::ADMIN, "admin");
+    generateDefaultStrings(Internationalization::STRING_CODE::HAS_BEEN_CREATED, "has_been_create");
 
     generateDefaultStrings(Internationalization::STRING_CODE::CHARACTERS_JSON_FILE_NAME, "characters_json_file_name");
     generateDefaultStrings(Internationalization::STRING_CODE::SHORTDESC, "shortdesc");

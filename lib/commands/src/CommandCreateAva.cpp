@@ -33,7 +33,11 @@ std::string CommandCreateAva::executePromptReply(const std::string& connectionID
                 // add new NPC to current room
                 characterManager.addNPC(characterNPC);
                 currentArea.addNPCtoRooms(characterNPC.getName(), location.room);
-                std::string returnString = "NPC " + characterNPC.getName() + " has created\n";
+                std::string returnString = 
+                    stringManager.getString(Internationalization::STRING_CODE::NPC) + 
+                    " " + 
+                    characterNPC.getName() + 
+                    stringManager.getString(Internationalization::STRING_CODE::HAS_BEEN_CREATED);
                 return returnString;
                 
             }

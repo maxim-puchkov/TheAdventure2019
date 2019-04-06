@@ -32,12 +32,13 @@ std::string CommandLogin::executePromptReply(const std::string& connectionID, co
 					spawnLocation = characterManager.spawnCharacter(fullCommand[1], spawnLocation);
 				}
 				auto room = worldManager.findRoomByLocation(spawnLocation);
-				if(room.getName() == "NO_ROOM_NAME"){
+				if(room.getName() == stringManager.getString(Internationalization::STRING_CODE::NO_ROOM_NAME)){
 					std::cout << roomToSpawnUser << "\n";
 					spawnLocation = LocationCoordinates{areaToSpawnUser, roomToSpawnUser};
 				}
 				room = worldManager.findRoomByLocation(spawnLocation);
-			    worldManager.spawn(fullCommand[1], spawnLocation);	    
+			    worldManager.spawn(fullCommand[1], spawnLocation);
+				characterManager.changeCharacterLocation(fullCommand[1], spawnLocation);	    
 			    reply << stringManager.getString(Internationalization::STRING_CODE::CURRENT_LOCATION);
 				reply << stringManager.getString(Internationalization::STRING_CODE::AREA);
 				reply << ": ";

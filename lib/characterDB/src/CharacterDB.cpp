@@ -106,6 +106,7 @@ bool CharacterDB::updateCharLocation(const std::string& userName, LocationCoordi
     }else{
         characters_json[userName]["LocationCoordinates"]["area"] = location.area;
         characters_json[userName]["LocationCoordinates"]["room"] = location.room;
+        jsonParser.saveJSON(characters_json, json_filePath);
         result = true;
     }
     return result;

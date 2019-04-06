@@ -88,6 +88,7 @@ bool WorldManager::kick(const std::string& characterName, LocationCoordinates lo
 bool WorldManager::spawn(const std::string& characterName, LocationCoordinates location) {
     try {
         auto& spawnRoom = findRoomByLocation(location);
+        std::cout << spawnRoom.getName() << "\n";
         spawnRoom.addCharacter(characterName);
     } catch(const std::domain_error& e){
         return false;
