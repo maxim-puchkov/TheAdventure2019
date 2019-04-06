@@ -36,8 +36,6 @@ void CommandCombat::executeInHeartbeat(const std::string& username, const std::v
         auto response = characterManager.getCombatReply(challengedName);
         if(response == "combat accept") {
             combatManager.confirmInvite(challengedName);
-        } else {
-            onlineUserManager.addMessageToUser(username, challengedName + " says " + response + " and does not fight you.\n");
         }
 
     }else if(
