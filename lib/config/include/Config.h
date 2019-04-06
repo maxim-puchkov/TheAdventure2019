@@ -31,9 +31,10 @@ class Config {
         if(config_json == nullptr){
             cout<< "JSON NOT FOUND\n";
         }else{
-            this->heartbeat_freq = config_json["heartbeat_freq"];
+            heartbeat_freq = config_json["heartbeat_freq"];
             this->heartbeat_combat = config_json["heartbeat_combat"];
             this->reset_freq = config_json["reset_freq"];
+            std::cout << "heartbeat_freq: " << heartbeat_freq << "\n\n\n\n";
         }
     };
 
