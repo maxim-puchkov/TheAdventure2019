@@ -15,7 +15,7 @@ WorldManager::WorldManager() {
 
     // Choose where item is created
     Identifier room_id = 8800;
-    Identifier character_id = 123;
+    Identifier character_id = 101;
     
     
     // Creates first item in room (id: 0)

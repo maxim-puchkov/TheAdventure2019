@@ -16,6 +16,7 @@ if(NOT BUILD_ALL_TARGETS)
 
         # Testing items
         src/CommandTake.cpp
+        src/CommandDrop.cpp
     )
 
 else()

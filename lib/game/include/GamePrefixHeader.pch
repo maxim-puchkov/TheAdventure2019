@@ -17,6 +17,7 @@
 #include "CommandHelp.h"
 #include "CommandLogin.h"
 #include "CommandTake.h"
+#include "CommandDrop.h"
 
 #else
 

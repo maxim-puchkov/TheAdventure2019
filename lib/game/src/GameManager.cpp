@@ -33,6 +33,7 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"login", make_unique<CommandLogin>(characterManager, onlineUserManager, world)});
     
     tableOfCommands.insert({"take", make_unique<CommandTake>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"drop", make_unique<CommandDrop>(characterManager, onlineUserManager, world)});
 
 #else
     
