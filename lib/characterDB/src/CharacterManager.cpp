@@ -245,32 +245,55 @@ CharacterManager::CHARACTER_CODE CharacterManager::damageCharacter(const std::st
 	return CharacterManager::CHARACTER_CODE::CHARACTER_UPDATED;
 }
 
-bool CharacterManager::isConfused(const std::string& username)const{
-	auto found = onlineCharacters.find(username);
+bool CharacterManager::isConfused(const std::string& username){
+    auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {
-		return false;
+        auto npc = std::find_if(NPCs.begin(), NPCs.end(), [&username](Character& x){return x.getName() == username;});
+        if(npc == NPCs.end()) return false;
+
+        auto& npc1 = *npc;
+        return npc1.isConfused();
 	}
 	return found->second.isConfused();
 }
 
-bool CharacterManager::isSwapped(const std::string& username) const{
+bool CharacterManager::isSwapped(const std::string& username) {
 	auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {
-		return false;
+		auto npc = std::find_if(NPCs.begin(), NPCs.end(), [&username](Character& x){return x.getName() == username;});
+		if(npc == NPCs.end()) return false;
+
+		auto& npc1 = *npc;
+		return npc1.isSwapped();
 	}
 	return found->second.isSwapped();
 }
-bool CharacterManager::isDecoy(const std::string& username) const{
+
+bool CharacterManager::isDecoy(const std::string& username) {
 	auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {
-		return false;
+		auto npc = std::find_if(NPCs.begin(), NPCs.end(), [&username](Character &x) { return x.getName() == username; });
+		if (npc == NPCs.end()) return false;
+
+		auto &npc1 = *npc;
+		return npc1.isDecoy();
 	}
 	return found->second.isDecoy();
 }
 
-void CharacterManager::setConfused(const std::string& username, const bool status){
+void CharacterManager::setConfused(const std::string& username, bool status){
 	auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {
+		auto npc = std::find_if(NPCs.begin(), NPCs.end(), [&username](Character &x) { return x.getName() == username; });
+		if (npc == NPCs.end()) return;
+
+		auto &npc1 = *npc;
+		npc1.setConfused(status);
+		if(status){
+			npc1.setSpellTime(CONFUSE_SPELL_LENGTH);
+		} else {
+			npc1.setSpellTime(0);
+		}
 		return;
 	}
 	found->second.setConfused(status);
@@ -281,9 +304,19 @@ void CharacterManager::setConfused(const std::string& username, const bool statu
 	}
 }
 
-void CharacterManager::setSwapped(const std::string& username, const bool status){
+void CharacterManager::setSwapped(const std::string& username, bool status){
 	auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {
+		auto npc = std::find_if(NPCs.begin(), NPCs.end(), [&username](Character &x) { return x.getName() == username; });
+		if (npc == NPCs.end()) return;
+
+		auto &npc1 = *npc;
+		npc1.setSwapped(status);
+		if(status){
+			npc1.setSpellTime(SWAP_SPELL_LENGTH);
+		} else {
+			npc1.setSpellTime(0);
+		}
 		return;
 	}
 	found->second.setSwapped(status);
@@ -294,9 +327,19 @@ void CharacterManager::setSwapped(const std::string& username, const bool status
 	}
 }
 
-void CharacterManager::setDecoy(const std::string& username, const bool status){
+void CharacterManager::setDecoy(const std::string& username, bool status){
 	auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {
+		auto npc = std::find_if(NPCs.begin(), NPCs.end(), [&username](Character &x) { return x.getName() == username; });
+		if (npc == NPCs.end()) return;
+
+		auto &npc1 = *npc;
+		npc1.setDecoy(status);
+		if(status){
+			npc1.setSpellTime(DECOY_SPELL_LENGTH);
+		} else {
+			npc1.setSpellTime(0);
+		}
 		return;
 	}
 	found->second.setDecoy(status);
@@ -383,17 +426,42 @@ std::string CharacterManager::listNPCs() {
     return NPCList;
 }
 
-void CharacterManager::spellCooldown(const std::string& username){
+int CharacterManager::spellCooldown(const std::string& username){
+	int spellTime = 0;
 	auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {
 		auto npc = std::find_if(NPCs.begin(), NPCs.end(), [&username](Character& x){return x.getName() == username;});
-		if(npc == NPCs.end()) return;
+		if(npc == NPCs.end()) return 0;
 
 		auto& npc1 = *npc;
-		npc1.spellCooldown();
+		spellTime = npc1.getSpellTime();
+		npc1.setSpellTime(spellTime--);
 	} else {
-		found->second.spellCooldown();
+		auto& char1 = found->second;
+		spellTime = char1.getSpellTime();
+		char1.setSpellTime(spellTime--);
 	}
+	return spellTime;
+}
+
+void CharacterManager::resetSpellEffects(const std::string &username) {
+    auto found = onlineCharacters.find(username);
+    if (found == onlineCharacters.end()) {
+        auto npc = std::find_if(NPCs.begin(), NPCs.end(), [&username](Character& x){return x.getName() == username;});
+        if(npc == NPCs.end()) return;
+
+        auto& npc1 = *npc;
+        npc1.setConfused(false);
+        npc1.setSwapped(false);
+        npc1.setDecoy(false);
+        npc1.setSpellTime(0);
+    } else {
+        auto& char1 = found->second;
+        char1.setConfused(false);
+        char1.setSwapped(false);
+        char1.setDecoy(false);
+        char1.setSpellTime(0);
+    }
 }
 
 

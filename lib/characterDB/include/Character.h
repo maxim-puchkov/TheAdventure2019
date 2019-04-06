@@ -53,6 +53,7 @@ public:
     bool isConfused() const;
     bool isSwapped() const;
     bool isDecoy() const;
+    int getSpellTime() const;
 
     // Set
     void setCurrentLocation(LocationCoordinates newLocation);
@@ -69,7 +70,6 @@ public:
     void setSwapped(const bool status);
     void setDecoy(const bool status);
     void setSpellTime(int rounds);
-    void spellCooldown();
 
     // States ...
     bool isInCombat();

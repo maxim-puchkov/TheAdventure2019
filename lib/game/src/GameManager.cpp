@@ -137,7 +137,17 @@ std::unique_ptr<std::unordered_map<std::string, std::string>> GameManager::heart
         if(found != tableOfCommands.end()) {
             found->second->executeCombatRound(username, command);
         }
-        characterManager.spellCooldown(username);
+        if(characterManager.spellCooldown(username) <= 0){
+            if(characterManager.isSwapped(username)){
+                auto& currentMatch = combatManager.getCombatWithPlayer(username);
+                auto opponentName = currentMatch.getOpponent(username);
+                characterManager.swapCharacters(username, opponentName);
+                onlineUserManager.addMessageToUser(username, "You've returned to your original form.\n");
+                onlineUserManager.addMessageToUser(opponentName, "You've returned to your original form.\n");
+            }
+            characterManager.resetSpellEffects(username);
+
+        }
     }
 
 

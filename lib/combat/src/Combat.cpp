@@ -53,7 +53,7 @@ std::string Combat::getOpponent(const std::string& name) const{
 }
 
 void Combat::decrementRoundTime(){
-    std::cerr << "round time left: " << std::to_string(roundTime - 1) << "\n";
+    //std::cerr << "round time left: " << std::to_string(roundTime - 1) << "\n";
     this->roundTime --;
 }
 void Combat::resetRoundTime(){

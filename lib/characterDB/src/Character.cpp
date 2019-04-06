@@ -145,14 +145,8 @@ void Character::setSpellTime(int rounds){
     this->spellEffectTime = rounds;
 }
 
-void Character::spellCooldown(){
-    this->spellEffectTime --;
-    if(spellEffectTime <= 0){
-        setConfused(false);
-        setSwapped(false);
-        setDecoy(false);
-        spellEffectTime = 0;
-    }
+int Character::getSpellTime() const{
+    return this->spellEffectTime;
 }
 
 bool Character::isInCombat() {

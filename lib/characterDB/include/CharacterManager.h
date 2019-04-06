@@ -82,18 +82,19 @@ public:
     int getCharacterAttack(const std::string& username);
     int getCharacterHealth(const std::string& username);
     //spells
-    bool isConfused(const std::string& username) const;
-    bool isSwapped(const std::string& username) const;
-    bool isDecoy(const std::string& username) const;
+    bool isConfused(const std::string& username) ;
+    bool isSwapped(const std::string& username) ;
+    bool isDecoy(const std::string& username) ;
 
-    void setConfused(const std::string& username, const bool status);
-    void setSwapped(const std::string& username, const bool status);
-    void setDecoy(const std::string& username, const bool status);
+    void setConfused(const std::string& username, bool status);
+    void setSwapped(const std::string& username, bool status);
+    void setDecoy(const std::string& username, bool status);
 
     bool swapCharacters(const std::string& username1, const std::string& username2);
     std::string confuseMessage(std::string& message);
 
-    void spellCooldown(const std::string& username);
+    int spellCooldown(const std::string& username);
+    void resetSpellEffects(const std::string& username);
 
     // NPC STUFF
     void addNPC(Character NPC){
