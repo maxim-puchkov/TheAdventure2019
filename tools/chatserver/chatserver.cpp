@@ -151,7 +151,7 @@ main(int argc, char* argv[]) {
     std::unique_ptr<std::unordered_map<std::string, std::string>> heartbeatReplies;
     std::unique_ptr<std::unordered_map<std::string, std::string>> logs;
 
-    if(getTimeStamp() - heartbeatTimer > heartbeat_freq) {
+    if( getTimeStamp() - heartbeatTimer > (unsigned)heartbeat_freq) {
       heartbeatReplies = gm.heartbeat();
       logs = includeHeartbeatMessages(std::move(promptReplies), std::move(heartbeatReplies));
       heartbeatTimer = getTimeStamp();

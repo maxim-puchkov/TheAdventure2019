@@ -42,7 +42,7 @@ std::string JsonParser::json2string(json j){
 }
 
 std::vector<std::string> JsonParser::json2Vector(json j){
-    std:vector<std::string> strVec;
+    std::vector<std::string> strVec;
     for(auto line : j){
         strVec.push_back(removeQuotes(line.dump()));
     }
