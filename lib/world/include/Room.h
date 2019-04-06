@@ -30,7 +30,10 @@ private:
     std::vector<std::string> charactersInRoom;
     std::vector<std::string> NPCsInRoom;
     std::vector<Exit> exitsInRoom;
-    
+
+    std::vector<std::string> extended_keywords;
+    std::string extended_desc;
+
 public:
     
     const Identifier container_id;
@@ -82,8 +85,10 @@ public:
     std::vector<std::string>& getNPCs(){return NPCsInRoom;}
     void updateExits(int id, std::string name);
 
-
-
+    void addExtendedKeyword(std::string keyword){extended_keywords.push_back(keyword);}
+    void setExtended_desc(std::string desc){extended_desc = desc;}
+    std::vector<std::string> getExtendedKeyword(){return extended_keywords;}
+    std::string getExtendedDesc(){return extended_desc;}
 
 };
 

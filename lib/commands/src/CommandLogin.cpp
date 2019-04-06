@@ -29,9 +29,10 @@ std::string CommandLogin::executePromptReply(const std::string& connectionID, co
 					std::cout << roomToSpawnUser << "\n";
 					spawnLocation = LocationCoordinates{areaToSpawnUser, roomToSpawnUser};
 				}
-				//room = worldManager.findRoomByLocation(spawnLocation);
-			    worldManager.spawn(fullCommand[1], spawnLocation);	    
-			    reply << "Current location: Area:" << spawnLocation.area << ", Room: " << worldManager.findRoomByLocation(spawnLocation).getName() << "\n";
+				room = worldManager.findRoomByLocation(spawnLocation);
+			    worldManager.spawn(fullCommand[1], spawnLocation);
+				characterManager.changeCharacterLocation(fullCommand[1], spawnLocation);	    
+			    reply << "Current location: Area:" << spawnLocation.area << ", Room: " << room.getName() << "\n";
 			}
 
 			return reply.str();

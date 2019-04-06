@@ -23,12 +23,11 @@
 #include <utility>
 
 #include "Server.h"
-
-
-
 #include "GameManager.h"
-GameManager gm{};
+#include "Config.h"
 
+GameManager gm{};
+const int heartbeat_freq = Config{}.heartbeat_freq;
 
 
 using networking::Server;
@@ -152,7 +151,7 @@ main(int argc, char* argv[]) {
     std::unique_ptr<std::unordered_map<std::string, std::string>> heartbeatReplies;
     std::unique_ptr<std::unordered_map<std::string, std::string>> logs;
 
-    if(getTimeStamp() - heartbeatTimer > 200) {
+    if( getTimeStamp() - heartbeatTimer > (unsigned)heartbeat_freq) {
       heartbeatReplies = gm.heartbeat();
       logs = includeHeartbeatMessages(std::move(promptReplies), std::move(heartbeatReplies));
       heartbeatTimer = getTimeStamp();

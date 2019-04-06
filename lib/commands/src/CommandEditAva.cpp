@@ -179,6 +179,7 @@ std::string CommandEditAva::spawnAvatar(const std::string& username) {
 		auto areaToSpawnUser = worldManager.getAreaToSpawnUser();
 		auto spawnLocation = LocationCoordinates{areaToSpawnUser, roomToSpawnUser};
         worldManager.spawn(username, spawnLocation);
+        characterManager.changeCharacterLocation(username, spawnLocation);
         auto room = worldManager.findRoomByLocation(spawnLocation);      
         answer << "Current location: Area:" << spawnLocation.area << ", Room: " << room.getName() << "\n";
     }
