@@ -225,6 +225,15 @@ std::string CharacterManager::getAttackReply(const std::string& username){
 	//return found->getAttackReply();
 }
 
+std::string CharacterManager::getCastReply(const std::string& username){
+	auto found = std::find_if(NPCs.begin(), NPCs.end(), [&username](Character& x){return x.getName() == username;});
+	if (found == NPCs.end()) {
+		return "";
+	}
+	return "cast confuse";
+	//return found->getCastReply();
+}
+
 CharacterManager::CHARACTER_CODE CharacterManager::damageCharacter(const std::string& username, int amount){
 	auto found = onlineCharacters.find(username);
 	if (found == onlineCharacters.end()) {
@@ -389,8 +398,9 @@ bool CharacterManager::swapCharacters(const std::string& username1, const std::s
     return true;
 }
 
-std::string& CharacterManager::confuseMessage(std::string& message){
-	return message.append("aba.");
+std::string CharacterManager::confuseMessage(std::string& message){
+	std::string newMessage = message.append("abba");
+	return std::move(newMessage);
 }
 
 std::string CharacterManager::listNPCs() {

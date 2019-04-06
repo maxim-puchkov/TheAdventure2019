@@ -33,15 +33,23 @@ void CommandAttack::executeCombatRound(const std::string& username, const std::v
     auto attackValue = characterManager.getCharacterAttack(username);
     auto opponentName = currentCombat.getOpponent(username);
 
-    characterManager.damageCharacter(opponentName, attackValue);
+    if(characterManager.isDecoy(opponentName)){
+        onlineUserManager.addMessageToUser(username, "You missed your opponent and hit their decoy.\n");
+        onlineUserManager.addMessageToUser(opponentName, "Your opponent hit your decoy\n");
+    } else {
+        characterManager.damageCharacter(opponentName, attackValue);
+        onlineUserManager.addMessageToUser(username, "You attacked " + opponentName + " for " + std::to_string(attackValue) + ".\n");
+        onlineUserManager.addMessageToUser(opponentName,
+                                           "You were attacked for " + std::to_string(attackValue) +
+                                           ".\nCurrent HP: " + std::to_string(characterManager.getCharacterHealth(opponentName)) + "\n");
+    }
 
-    //check character hp
-    //kill/respawn character
 
-    onlineUserManager.addMessageToUser(username, "You attacked " + opponentName + " for " + std::to_string(attackValue) + ".\n");
-    onlineUserManager.addMessageToUser(opponentName,
-                                       "You were attacked for " + std::to_string(attackValue) +
-                                       ".\nCurrent HP: " + std::to_string(characterManager.getCharacterHealth(opponentName)) + "\n");
+    if(characterManager.getCharacterHealth(opponentName) <= 0){
+        //end combat & respawn opponent if user
+    }
+
+
 }
 
 std::vector<std::string> CommandAttack::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {

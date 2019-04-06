@@ -76,6 +76,8 @@ public:
     //combat commands
     std::string getCombatReply(const std::string& username);
     std::string getAttackReply(const std::string& username);
+    std::string getCastReply(const std::string& username);
+
     CHARACTER_CODE damageCharacter(const std::string& username, int amount);
     int getCharacterAttack(const std::string& username);
     int getCharacterHealth(const std::string& username);
@@ -89,7 +91,7 @@ public:
     void setDecoy(const std::string& username, const bool status);
 
     bool swapCharacters(const std::string& username1, const std::string& username2);
-    std::string& confuseMessage(std::string& message);
+    std::string confuseMessage(std::string& message);
 
     // NPC STUFF
     void addNPC(Character NPC){

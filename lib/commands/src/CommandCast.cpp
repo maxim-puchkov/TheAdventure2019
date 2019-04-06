@@ -10,11 +10,12 @@ void CommandCast::executeInHeartbeat(const std::string& username, const std::vec
 
         //handle npc opponent. does nothing if character is user controlled
         auto opponentName = currentCombat.getOpponent(username);
-        auto opponentResponse = characterManager.getAttackReply(opponentName);
+        auto opponentResponse = characterManager.getCastReply(opponentName);
         if(!opponentResponse.empty()) {
             onlineUserManager.addMessageToUser(username, opponentName + " prepares a(n) " + opponentResponse + "\n");
             std::vector<std::string> opponentCommand;
-            opponentCommand.push_back(opponentResponse);
+            boost::split(opponentCommand, opponentResponse, boost::is_any_of(" \t"), boost::token_compress_on);
+            //opponentCommand.push_back(opponentResponse);
             currentCombat.queueCommand(opponentName, opponentCommand);
         }
 
@@ -34,14 +35,20 @@ void CommandCast::executeCombatRound(const std::string& username, const std::vec
             characterManager.setSwapped(opponentName, true);
             cerr << "swap should have worked\n";
             cerr << "your char name: " + characterManager.getCharacterNameFromUser(username) + "\n";
+            onlineUserManager.addMessageToUser(username, "You swapped!\n");
+            onlineUserManager.addMessageToUser(opponentName, "You were swapped!\n");
         } else {
             cerr << "swap should have failed\n";
             cerr << "your char name: " + characterManager.getCharacterNameFromUser(username) + "\n";
         }
     } else if(spellName == "confuse"){
         characterManager.setConfused(opponentName, true);
+        onlineUserManager.addMessageToUser(username, "You confused!\n");
+        onlineUserManager.addMessageToUser(opponentName, "You were confused!\n");
     } else if(spellName == "decoy"){
         characterManager.setDecoy(opponentName, true);
+        onlineUserManager.addMessageToUser(username, "You created a decoy!\n");
+        onlineUserManager.addMessageToUser(opponentName, "Your opponent made a decoy!\n");
     }
     auto attackValue = characterManager.getCharacterAttack(username);
 
