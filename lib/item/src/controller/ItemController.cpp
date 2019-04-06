@@ -55,8 +55,13 @@ ItemIdentifier ItemController<Key>::create(Key key, int json_id) const noexcept 
 
 template<typename Key>
 vector<ItemIdentifier> ItemController<Key>::search(Key key,
-                                                   const string &keyword) const {
-    vector<Identifier> vec;
+                                                   const string &keyword) const noexcept {
+    vector<Identifier> vec{};
+    if (!this->env2d.exists(key)) {
+        return vec;
+    }
+    
+    
     auto env = this->env2d.lookup(key);
     
     for (auto element : env) {
@@ -159,6 +164,23 @@ template<typename Key>
 void ItemController<Key>::reassign(Key key_owner,
                                    Key key_recipient,
                                    ItemIdentifier id) const {
+    
+    
+    debug::cout << "Own:\n" << key_owner << "\n\n";
+    // Create a new container if it does not exist
+    if (!this->env2d.exists(key_owner)) {
+        Environment<ItemSearchKey, Item> emptyContainer;
+        (const_cast<ItemController *>(this))->env2d.bind(key_owner, emptyContainer);
+    }
+    
+    debug::cout << "Rec:\n" << key_recipient << "\n\n";
+
+    // Create a new container if it does not exist
+    if (!this->env2d.exists(key_recipient)) {
+        Environment<ItemSearchKey, Item> emptyContainer;
+        (const_cast<ItemController *>(this))->env2d.bind(key_recipient, emptyContainer);
+    }
+    
     
     // Find containers of owner and recipient
     auto owner = this->env2d.lookup(key_owner);

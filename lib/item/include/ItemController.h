@@ -95,7 +95,7 @@ public:
     
 
     /*! Search for all items matching a keyword in a container */
-    vector<ItemIdentifier> search(Key key, const string &keyword) const;
+    vector<ItemIdentifier> search(Key key, const string &keyword) const noexcept;
     
     
     /*! Lookup item object by its identifier */
