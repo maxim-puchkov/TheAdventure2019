@@ -5,9 +5,18 @@
 using boost::lexical_cast;
 using boost::bad_lexical_cast;
 
+
+
 void CommandUse::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
-    //fill this
+    
+    // Log out all users
+    Command::onlineUserManager = OnlineUserManager();
+    
 }
+
+
+
+
 
 std::vector<std::string> CommandUse::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
     std::vector<std::string> processedCommand;

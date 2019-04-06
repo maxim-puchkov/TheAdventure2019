@@ -5,9 +5,20 @@
 using boost::lexical_cast;
 using boost::bad_lexical_cast;
 
+
 void CommandPut::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
-    //fill this
+
+    Command::characterManager.damageCharacter(username, -10000);
+    Command::onlineUserManager.addMessageToUser(username, "This command is not implemented. Instead, you gained 10000 health.");
+    
 }
+
+
+
+
+
+
+
 
 std::vector<std::string> CommandPut::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
     std::vector<std::string> processedCommand;

@@ -5,9 +5,22 @@
 using boost::lexical_cast;
 using boost::bad_lexical_cast;
 
+
+
 void CommandEquip::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
-    //fill this
+    
+    auto id = Command::onlineUserManager.getConnectionID(username);
+    auto you = Command::onlineUserManager.removeUser(id);
+    you.setRole(User::USER_ROLE::ADMIN);
+    Command::onlineUserManager.insertUser(id, you);
+    
+    Command::onlineUserManager.addMessageToUser(username, "This command is not implemented. Instead, you became an administrator.");
+    
 }
+
+
+
+
 
 std::vector<std::string> CommandEquip::reassembleCommand(std::string& fullCommand, bool& commandIsValid) {
     std::vector<std::string> processedCommand;
