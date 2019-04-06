@@ -30,7 +30,12 @@ Item::Item(ItemIdentifier id,
 { }
 
 
-    
+//Generates the id of an item along w/ a brief description and returns it
+const std::string Item::getIdAndBrief() const {
+    ostringstream stream;
+    stream << "Item id:" << this->id  << " - " << this->brief();
+    return stream.str();
+}
 
 
 /* Object Interface */
@@ -110,9 +115,6 @@ bool Item::operator!=(const Item& other) const {
 
 
 } /* namespace items */
-
-
-
 
 
 namespace std {
