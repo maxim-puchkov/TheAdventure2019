@@ -21,7 +21,8 @@ void CommandLook::generalLook(const std::string &userName) const {
         allUsersInRoom.append( characterManager.getShortDescription(userA) );
     }
     onlineUserManager.addMessageToUser(userName, ("\n" + listOfExits + "\n" + allUsersInRoom + "\n" +
-                                                  worldManager.look(location) + "\n"));
+                                                  worldManager.look(location)  +   "\n"));
+
 
 
     const auto items = worldManager.items;
@@ -29,7 +30,7 @@ void CommandLook::generalLook(const std::string &userName) const {
     std::string allItems;
     for(const auto &iter : vectorItems){
         const auto &itemRef = items.lookup(room.getRoomId(), iter.id );
-        allItems.append(itemRef.getIdAndBrief());
+        allItems.append(itemRef.getIdAndBrief() + "\n");
     }
 
     onlineUserManager.addMessageToUser(userName, allItems);
@@ -72,22 +73,22 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
             return;
         }
 
-       const auto &keyWordList = worldManager.items.search(room.getRoomID(),fullCommand.at(2));
 
+       const auto &keyWordList = worldManager.items.search(room.getRoomID(),fullCommand.at(2));
        if(keyWordList.empty()){
            onlineUserManager.addMessageToUser(userName, "No items with that keyword exist in this room\n" );
            return;
        }
 
        stringstream ostream;
-
-       ostream << "Items that identify with keyword " << fullCommand.at(2)  << " \n";
+       ostream << "Items that identify with keyword id - (to examine more closely type 'look item [id]' " << fullCommand.at(2)  << " \n";
        for(const items::ItemIdentifier &iter : keyWordList){
            ostream << iter << "\n";
        }
 
         onlineUserManager.addMessageToUser(userName,ostream.str());
         return;
+
     } else if (fullCommand.at(1) == "item"){
         std::string detailedItem;
 
@@ -102,9 +103,9 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
             if(exist){
                 const auto &item = worldManager.items.lookup(room.getRoomID(), itemId);
                 onlineUserManager.addMessageToUser(userName,item.description.full() + "\n");
+            } else {
+                onlineUserManager.addMessageToUser(userName, " Item specified doesn't exist \n ");
             }
-            onlineUserManager.addMessageToUser(userName, " Item specified doesn't exist \n ");
-
         }catch (const std::exception &e){
             onlineUserManager.addMessageToUser(userName, "Invalid item id! (not a number) \n");
         }
@@ -129,6 +130,7 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
                 auto resultMessage = worldManager.worldDetail(location);
                 onlineUserManager.addMessageToUser(userName, resultMessage);
             }
+            /* Someone else wrote this code... Not sure what I should do with it so, commented it out
             case usermanager::OnlineUserManager::USER_CODE::INVALID_USERNAME: {}
             case usermanager::OnlineUserManager::USER_CODE::ACCOUNT_CREATED: {}
             case usermanager::OnlineUserManager::USER_CODE::USER_UPDATED: {}
@@ -137,6 +139,7 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
             case usermanager::OnlineUserManager::USER_CODE::USER_LOGGED_IN: {}
             case usermanager::OnlineUserManager::USER_CODE::USER_ALREADY_LOGGED_IN: {}
             case usermanager::OnlineUserManager::USER_CODE::USER_NOT_ONLINE: {}
+            */
         }
         return;
     }
@@ -151,7 +154,7 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
 
 
     std::string appendedCommand;
-    for(int i = 1; i < fullCommand.size(); i++){
+    for(unsigned int i = 1; i < fullCommand.size(); i++){
         appendedCommand.append( fullCommand.at(i) + " " );
     }
     boost::trim(appendedCommand);

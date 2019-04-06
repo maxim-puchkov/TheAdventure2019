@@ -174,6 +174,12 @@ public:
     /// Search for all items matching a keyword
     vector<ItemIdentifier> search(Key key, const string &keyword) const {
         vector<Identifier> vec;
+
+        //Return an empty vector if env2d. doesn't exist for that char.id or room.id
+        if(!env2d.exists(key)){
+            return vector<Identifier>();
+        }
+
         auto env = this->env2d.lookup(key);
         
         for (auto element : env) {
