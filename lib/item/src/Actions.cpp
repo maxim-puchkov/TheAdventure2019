@@ -12,23 +12,17 @@
 
 namespace items {
 
-inline namespace actions_defaults {
-    const Text DISPLAY_PREFIX = "Actions: ";
-    const Text ENV_DELIMITER = ", ";
-}
+const std::initializer_list<Action> Actions::ACTIONS_IL = std::initializer_list<Action>{};
+const Actions Actions::DEFAULT_INSTANCE = Actions(ACTIONS_IL);
 
 
 /* Action helper structure */
 
-Action::Action(const string &keyword, const string &desc)
+Action::Action(const Keyword &keyword, const string &desc)
 : keyword(keyword), description(Description(desc))
 { }
 
-//Action::Action(const string &keyword, const vector<string> &longdesc)
-//: keyword(keyword), description(Description(longdesc))
-//{ }
-
-inline pair<Text, Description> Action::toPair() {
+inline pair<Text, Description> Action::toPair() const {
     return {keyword, description};
 }
 
@@ -53,9 +47,9 @@ Actions::Actions(const vector<pair<string, string>> &actions) {
 }
 
 
-Actions::Actions(vector<Action> &actions) {
+Actions::Actions(const vector<Action> &actions) {
     for (auto &action : actions) {
-        this->add(std::forward<Action>(action));
+        this->add(action);
     }
 }
 
@@ -67,16 +61,16 @@ Actions::Actions(vector<Action> &actions) {
 
 string Actions::toString() const noexcept {
     if (this->env.empty()) {
-        return "";
+        return EMPTY;
     }
     
-    ostringstream stream{""};
+    data_ostream stream;
     auto iterator = this->env.begin();
 
     stream << (*iterator).first;
     iterator++;
     
-    auto delimiter = ENV_DELIMITER;
+    auto delimiter = ui::text::styles::CS;
     while (iterator != this->env.end()) {
         stream << delimiter << (*iterator).first;
         iterator++;
@@ -87,7 +81,7 @@ string Actions::toString() const noexcept {
 
 
 vector<string> Actions::toVector() const noexcept {
-    vector<string> vec = {};
+    vector<string> vec;
     for (auto &bind : this->env) {
         vec.push_back(bind.first);
         vec.push_back(bind.second.toString());
@@ -101,13 +95,8 @@ vector<string> Actions::toVector() const noexcept {
 
 /* Environment functions */
 
-void Actions::add(Action &&action) {
+void Actions::add(const Action &action) {
     this->env.bind(action.toPair());
-}
-
-
-void Actions::clear() {
-    this->env.clear();
 }
 
 
@@ -116,6 +105,15 @@ bool Actions::empty() const {
 }
 
 
+bool Actions::isInteractable() const noexcept {
+    return (!this->env.empty());
+}
+
+
+std::size_t Actions::size() const noexcept {
+    return this->env.size();
+}
+    
 
 
 
@@ -140,5 +138,13 @@ bool Actions::operator==(const Actions &other) const {
     return (this->env == other.env);
 }
 
+
+void Actions::clear() noexcept {
+    this->env.clear();
+}
+
+Actions Actions::default_data_instance() const noexcept {
+    return Actions::DEFAULT_INSTANCE;
+}
 
 } /* namespace items */

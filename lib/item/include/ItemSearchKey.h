@@ -26,15 +26,16 @@ public:
     ItemSearchKey(ItemIdentifier id);
     ItemSearchKey(const Keywords &keywords);
     ItemSearchKey(ItemIdentifier id, const Keywords &keywords);
+    ItemSearchKey(Item const *item);
     ItemSearchKey(const Item &item);
     ItemSearchKey(const ItemSearchKey &key);
     
     
+    std::string toString() const noexcept;
+    
+    
     bool operator==(ItemSearchKey &other) const;
     bool operator==(const ItemSearchKey &other) const;
-    
-    
-    string toString() const noexcept;
     
 };
 

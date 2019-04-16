@@ -7,4 +7,19 @@
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
 
-#include <stdio.h>
+#include "ItemBuilderConfiguration.h"
+
+
+
+namespace items {
+    void ItemBuilderConfiguration::reset() noexcept {
+        this->keywords = Keywords::DEFAULT_INSTANCE;
+        
+        this->description = Description::DEFAULT_INSTANCE;
+        this->actions = Actions::DEFAULT_INSTANCE;
+        this->attributes = ItemAttributes::DEFAULT_INSTANCE;
+    }
+}
+
+
+/* namespace items */

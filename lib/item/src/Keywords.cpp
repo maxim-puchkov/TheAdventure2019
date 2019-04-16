@@ -21,21 +21,16 @@
 
 #include "Keywords.h"
 
-
 namespace items {
-
-using Key = string;
-
-inline namespace keywords_defaults {
-    const string SET_DELIMITER = ", ";
-}
+    
+const Keywords Keywords::DEFAULT_INSTANCE = Keywords{};
 
 
 /* Constructors */
 
-
-Keywords::Keywords(const std::vector<Key> &container)
-: set(std::make_move_iterator(container.cbegin()), std::make_move_iterator(container.cend()))
+Keywords::Keywords(const std::vector<Keyword> &keywords)
+: set(std::make_move_iterator(keywords.cbegin()),
+      std::make_move_iterator(keywords.cend()))
 { }
 
 
@@ -44,55 +39,56 @@ Keywords::Keywords(const std::vector<Key> &container)
 
 /* ObjectData Protocol */
 
-string Keywords::toString() const noexcept {
+
+std::size_t Keywords::size() const noexcept {
+    return this->set.size();
+}
+    
+
+std::string Keywords::toString() const noexcept {
     // If set is empty, return empty string
     if (this->empty()) {
-        return "";
+        return EMPTY;
     }
     
     // Start from the first keyword
     auto iterator = this->set.cbegin();
-    ostringstream stream{""};
+    data_ostream stream;
     stream << *iterator;
     iterator++;
     
     // Add delimiter and next keyword until the end
-    auto delimiter = SET_DELIMITER;
-    while (iterator != this->set.cend()) {
-        stream << delimiter << *iterator;
-        iterator++;
+    const auto DEL = ui::text::styles::CS;
+    for (iterator++; iterator != this->set.cend(); iterator++) {
+    // while (iterator != this->set.cend()) {
+        stream << DEL << *iterator;
+        // iterator++;
     }
     
     return stream.str();
 }
 
+
 vector<string> Keywords::toVector() const noexcept {
-    return {this->set.cbegin(), this->set.cend()};
+    return {
+        this->set.cbegin(), this->set.cend()
+    };
 }
+
+
 
 
 
 /* Set functions */
 
-void Keywords::clear() {
-    this->set.clear();
-}
-
-
-bool Keywords::contains(const Key &key) const {
-    return this->set.find(key) != this->set.cend();
+bool Keywords::contains(const Keyword &key) const {
+    return (this->set.find(key) != this->set.cend());
 }
 
 
 bool Keywords::empty() const {
     return this->set.empty();
 }
-
-
-size_t Keywords::size() const {
-    return this->set.size();
-}
-
 
 
 
@@ -104,13 +100,13 @@ Set Keywords::all() const {
 }
 
 
-Key Keywords::first() const {
-    return *this->set.cbegin();
+Keyword Keywords::first() const {
+    return *(this->set.cbegin());
 }
 
 
-Key Keywords::last() const {
-    return *this->set.crbegin();
+Keyword Keywords::last() const {
+    return *(this->set.crbegin());
 }
 
 
@@ -121,7 +117,7 @@ Key Keywords::last() const {
 
 // Assignment
 Keywords& Keywords::operator=(Keywords &other) {
-    this->set = other.set;
+    this->set = std::move(other.set);
     return *this;
 }
 
@@ -151,20 +147,17 @@ bool Keywords::operator!=(const Keywords &other) const {
 }
 
 
+void Keywords::clear() noexcept {
+    this->set.clear();
+}
+    
+Keywords Keywords::default_data_instance() const noexcept {
+    return Keywords::DEFAULT_INSTANCE;
+}
+
+    
+//    Keywords Keywords::restoreDefaults() noexcept {
+//        return Keywords{};
+//    }
+
 } /* namespace items */
-
-
-
-
-
-
-
-
-
-
-// Stream insertion
-//std::ostream& operator<<(std::ostream& stream,
-//                        const Keywords &keywords) {
-//    stream << keywords.asString();
-//    return stream;
-//}

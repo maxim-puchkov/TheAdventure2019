@@ -11,9 +11,7 @@
 
 #include "items.hpp"
 
-#include "Keywords.h"
-#include "Description.h"
-#include "Actions.h"
+#include "ItemData.h"
 
 
 namespace items {
@@ -30,8 +28,8 @@ public:
     /*! Unique identifier */
     const ItemIdentifier id;
     
-    /*! Item ID used in JSON file */
-    const unsigned int json_id;
+    /*! Item can store its ID used in a JSON input file */
+    const int json_id;
     
     
     /*!
@@ -47,10 +45,13 @@ public:
          const Actions &actions);
     
     Item(ItemIdentifier id,
-         unsigned int json_id,
+         int json_id,
          const Keywords &keywords,
          const Description &description,
          const Actions &actions);
+    
+    Item(Item &&other) noexcept;
+    
     
     ~Item() override = default;
     
@@ -63,40 +64,51 @@ public:
     /*! Unique identifier assigned to this object */
     ItemIdentifier identifier() const override;
     
-    /*! Display item's short description */
-    Text brief() const override;
+    /*! Item's brief description containing its keywords */
+    Text info() const override;
     
-    /*! Represent this object as string */
-    Text toString() const override;
+    /*! Full text of the description */
+    Text details() const override;
+    
+    
     
     /*! Examine an action to see its description @warning undefined */
     Text examine(const Text &keyword) const override;
     
+    
+    
+    /*! Represent this object as string */
+    Text toText() const override;
+    
     /*! Check if object has additional actions */
     bool isInteractable() const override;
     
+    /*! Check if object provides bonus attributes when equipped */
+    bool isEquipable() const override;
     
     
     
     
     /* Item data */
     
-    /*! Set of keywords describing this item */
+    /*! Several keywords describing this item */
     Keywords keywords;
     
-    /*! Formatted description text */
+    /*! Item's description text */
     Description description;
     
     /*! Interactable actions */
     Actions actions;
     
+    /*! Bonus attributes */
+    ItemAttributes attributes;
     
     
     
     
     /* Operators */
     
-    Item& operator=(Item &other);
+    Item& operator=(Item &&other) noexcept;
     Item& operator=(const Item &other);
     
     bool operator==(Item &other) const;

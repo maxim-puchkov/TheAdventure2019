@@ -10,29 +10,30 @@
 #define Builder_h
 
 #include "BuilderPrefixHeader.pch"
+
 #include "Object.h"
 
 
 namespace builders {
 
-using objects::Object;
 using std::string;
 using std::pair;
 using std::vector;
+using objects::Object;
+using objects::AttributeValue;
 
 
 /*!
- @class Builder Interface
+ @class Builder
  
  @brief Interface for building describable and interactable objects
  */
 class Builder {
 public:
     
-    /*! Builder constructor */
+    /*! Builder's default constructor and virtual destructor */
     Builder() = default;
     
-    /*! Builder destructor */
     virtual ~Builder() = default;
     
     
@@ -40,12 +41,6 @@ public:
     
     
     /* Builder Interface */
-    
-    /*! Reset current object creation */
-    virtual void reset() const noexcept = 0;
-    
-    /*! Validate current settings */
-    virtual bool validate() const noexcept = 0;
     
     /*! Set object's identifying keywords */
     virtual void setKeywords(const vector<string> &keywords) const noexcept = 0;
@@ -55,6 +50,19 @@ public:
     
     /*! Set object's interactable actions */
     virtual void setActions(const vector<pair<string, string>> &actions) const noexcept = 0;
+    
+    /*! Set equipable object's bonus attributes */
+    virtual void setAttributes(initializer_list<AttributeValue> values) const noexcept = 0;
+    
+    
+    
+    
+    
+    /*! Reset current object creation */
+    [[deprecated]] virtual void reset() const noexcept = 0;
+    
+    /*! Validate current settings */
+    [[deprecated]] virtual bool validate() const noexcept = 0;
     
 };
 

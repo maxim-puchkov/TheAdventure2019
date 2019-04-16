@@ -1,18 +1,18 @@
 //
-//  ICStore.h
+//  ICData.h
 //  adventure2019: adventure2019
-//  com.maximpuchkov.Faworki.adventure2019.ICStore
+//  com.maximpuchkov.Faworki.adventure2019.ICData
 //
 //  Created by mpuchkov on 2019-04-16. macOS 10.13, Xcode 10.1.
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
 
-#ifndef ICStore_h
-#define ICStore_h
+#ifndef ICData_h
+#define ICData_h
 
 
 template<typename Key>
-class ICStore {
+class ICData {
 public:
     
     /*! Search for all items matching a keyword in a container */
@@ -88,4 +88,4 @@ private:
 };
 
 
-#endif /* ICStore_h */
+#endif /* ICData_h */

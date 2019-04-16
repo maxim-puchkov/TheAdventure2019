@@ -10,16 +10,9 @@
 #ifndef Keywords_h
 #define Keywords_h
 
-#include "objects.hpp"
-#include "ObjectData.h"
-
+#include "items.hpp"
 
 namespace items {
-
-inline namespace data {
-
-using Key = string;
-using Set = std::set<Key>;
 
 
 /*!
@@ -34,17 +27,21 @@ using Set = std::set<Key>;
 class Keywords: public objects::ObjectData<Keywords> {
 public:
     
-    /* Constructors */
+    static const Keywords DEFAULT_INSTANCE;
     
+    
+    /* Constructors */
     Keywords() = default;
     
-    Keywords(const std::vector<Key> &container);
-
+    Keywords(const std::vector<Keyword> &keywords);
+    
     
     
     
     
     /* ObjectData Protocol */
+        
+    std::size_t size() const noexcept override;
     
     string toString() const noexcept override;
     
@@ -54,16 +51,17 @@ public:
     
     
     
-    /* Keywords */
     
-    /*! All keywords */
+    /* Keywords original functionality */
+    
+    /*! Set of all keywords */
     Set all() const;
     
     /*! First keyword in the set */
-    Key first() const;
+    Keyword first() const;
     
     /*! Last keyword in the set */
-    Key last() const;
+    Keyword last() const;
     
     
     
@@ -84,17 +82,10 @@ public:
     void erase(); /* undefined */
     
     /*! Check if keyword is in the set */
-    bool contains(const Key &key) const;
+    bool contains(const Keyword &keyword) const;
     
     /*! Check if set is empty */
     bool empty() const;
-    
-    /*! Clear set contents */
-    void clear();
-    
-    /*! Current set size */
-    size_t size() const;
-    
     
     
     
@@ -106,25 +97,36 @@ public:
     Keywords& operator=(const Keywords &);
     
     // Equality
-    bool operator==(Keywords &other) const;
-    bool operator==(const Keywords &other) const;
+    bool operator==(Keywords &) const;
+    bool operator==(const Keywords &) const;
     
     // Inequality
-    bool operator!=(Keywords &other) const;
-    bool operator!=(const Keywords &other) const;
+    bool operator!=(Keywords &) const;
+    bool operator!=(const Keywords &) const;
     
     // Stream insertion
     // friend std::ostream& operator<<(std::ostream& stream, const ObjectData *data);
     
 private:
     
-    /*! Set that contains all of the keywords */
-    Set set{};
+    /*! Container of all keywords */
+    Set set;
+    
+    void clear() noexcept override;
+    
+    Keywords default_data_instance() const noexcept override;
+
+    
+    // Keywords& reset() noexcept override;
+    
+//    Keywords default_object() const noexcept {
+//        return {};
+//    }
+    
+    //static Keywords default_object() noexcept override;
     
 };
 
-
-} /* namespace data */
 
 } /* namespace items */
 

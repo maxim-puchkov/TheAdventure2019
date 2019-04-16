@@ -23,14 +23,31 @@ ItemSearchKey::ItemSearchKey(const Keywords &keywords)
 ItemSearchKey::ItemSearchKey(ItemIdentifier id, const Keywords &keywords)
 : id(id), keywords(keywords)
 { }
+    
+ItemSearchKey::ItemSearchKey(Item const *item)
+: ItemSearchKey(item->id, item->keywords)
+{ }
 
 ItemSearchKey::ItemSearchKey(const Item &item)
-: id(item.id), keywords(item.keywords)
+: ItemSearchKey(item.id, item.keywords)
 { }
 
-ItemSearchKey::ItemSearchKey(const ItemSearchKey &key)
-: id(key.id), keywords(key.keywords)
+ItemSearchKey::ItemSearchKey(const ItemSearchKey &search_key)
+: ItemSearchKey(search_key.id, search_key.keywords)
 { }
+
+
+
+
+
+std::string ItemSearchKey::toString() const noexcept {
+    data_ostream stream;
+    stream << "(id: " << id << ", keywords: " << keywords.toString() << ")";
+    return stream.str();
+}
+
+
+
 
 
 bool ItemSearchKey::operator==(ItemSearchKey &other) const {
@@ -39,13 +56,6 @@ bool ItemSearchKey::operator==(ItemSearchKey &other) const {
 
 bool ItemSearchKey::operator==(const ItemSearchKey &other) const {
     return ((this->id == other.id) || (this->keywords == other.keywords));
-}
-
-
-string ItemSearchKey::toString() const noexcept {
-    ostringstream stream{""};
-    stream << "(id: " << id << ", keywords: " << keywords.toString() << ")";
-    return stream.str();
 }
 
 

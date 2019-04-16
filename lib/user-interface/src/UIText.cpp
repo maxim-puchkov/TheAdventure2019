@@ -11,21 +11,18 @@
 
 
 namespace ui {
+namespace text {
 
 
 /* Constructors */
 
-UIText::UIText(const string &source)
-: source(source), width(WIDTH) {
-    this->text_lines.reserve(RESERVE);
-}
+UIText::UIText(const Text &source)
+: source(source), width(LINE_WIDTH)
+{ }
 
-
-UIText::UIText(const string &source, size_t width)
-: source(source), width(width) {
-    this->text_lines.reserve(RESERVE);
-}
-
+UIText::UIText(const Text &source, std::size_t width)
+: source(source), width(width)
+{ }
 
 
 
@@ -33,9 +30,9 @@ UIText::UIText(const string &source, size_t width)
 /* Change text style */
 
 void UIText::format() {
-    UITextPartitionResult result = this->partition(this->words());
-    this->text_lines = result.content;
-    this->text_length = result.length;
+    UITextPartitionResult partition = this->partition(this->words());
+    this->block = partition.block;
+    this->block_length = partition.length;
 }
 
 
@@ -43,13 +40,12 @@ void UIText::format() {
 
 /* Text */
 
-string UIText::data() const {
+Text UIText::sourceText() const {
     return this->source;
 }
 
-
-vector<string> UIText::arrangedSource() const {
-    return this->text_lines;
+TextBlock UIText::sourceBlock() const {
+    return this->block;
 }
 
 
@@ -64,57 +60,61 @@ vector<string> UIText::arrangedSource() const {
 /* * *   Private   * * */
 
 UITextPartition UIText::words() const {
-    std::istringstream stream(this->source);
-    return UITextPartition({std::istream_iterator<string>{stream},
-        std::istream_iterator<string>{}});
+    ui_istream stream(this->source);
+    return UITextPartition({
+        ui_istream_iterator{stream},
+        ui_istream_iterator{}
+    });
 }
 
-string UIText::nextLine(UITextPartition &partition) const {
 
-    const char delimiter = ' ';
-    const unsigned long start = partition.index();
-
-    std::ostringstream output("");
-    size_t length = 0;
-
+TextLine UIText::nextLine(UITextPartition &partition) const {
+    auto start = partition.index();
     if (partition[start].length() > this->width) {
         partition.invalidate();
-        return "";
+        return EMPTY;
     }
+    
+    ui_ostream stream;
+    length_t length = 0;
+    
+    auto DEL = ui::text::styles::WS;
+    length_t del_length = DEL.length();
 
-    for (unsigned long i = partition.index(); i < partition.max_index; i++) {
-        string word = partition[i];
+    for (auto i = partition.index(); i < partition.max_index; i++) {
+        Word word = partition[i];
         if (length + word.length() > this->width) {
             break;
         }
 
         if (i > start) {
-            output << delimiter;
-            length += 1;
+            stream << DEL;
+            length += del_length;
         }
 
-        output << word;
-        length += word.size();
+        stream << word;
+        length += word.length();
         partition.advance();
     }
 
-    return output.str();
-    
+    return stream.str();
 }
 
+
 UITextPartitionResult UIText::partition(UITextPartition &&partition) const {
-    vector<string> lines;
-    size_t length = 0;
+    TextBlock block;
+    std::size_t width = this->width;
+    length_t length = 0;
     
     while (!partition.done()) {
-        string line = this->nextLine(partition);
-        lines.push_back(line);
+        TextLine line = this->nextLine(partition);
+        block.push_back(line);
         length += line.size();
     }
     
-    UITextPartitionResult result({lines, length});
-    return result;
+    return {block, width, length};
 }
 
 
+} /* namespace text */
 } /* namespace ui */

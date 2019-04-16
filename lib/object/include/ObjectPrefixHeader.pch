@@ -11,17 +11,18 @@
 #define ObjectPrefixHeader_pch
 
 
+#include <set>
+#include <vector>
 #include <string>
 #include <sstream>
+
 #include <iterator>
+#include <initializer_list>
 
 #include <utility>
 #include <functional>
 #include <cstddef>
 #include <cstdint>
-
-#include <set>
-#include <vector>
 
 
 #endif /* ObjectPrefixHeader_pch */

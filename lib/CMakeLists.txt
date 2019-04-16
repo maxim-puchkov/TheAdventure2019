@@ -39,7 +39,7 @@ add_subdirectory(${world})
 
 
 # Added (coverage tests)
-add_subdirectory(simple)
+# add_subdirectory(simple)
 
 
 # Moved

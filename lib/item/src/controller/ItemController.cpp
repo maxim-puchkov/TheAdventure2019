@@ -7,8 +7,6 @@
 //  Copyright © 2019 Maxim Puchkov. All rights reserved.
 //
 
-
-
 #ifndef ItemController_cpp
 #define ItemController_cpp
 
@@ -17,6 +15,20 @@
 
 namespace items {
 
+
+//template<typename Key>
+//ItemController<Key>::ItemController()
+//{ }
+    
+
+
+
+/* Create */
+    
+template<typename Key>
+ItemIdentifier ItemController<Key>::create(Key key) const noexcept {
+    return this->create(key, -1);
+}
 
 template<typename Key>
 ItemIdentifier ItemController<Key>::create(Key key, int json_id) const noexcept {
@@ -53,15 +65,24 @@ ItemIdentifier ItemController<Key>::create(Key key, int json_id) const noexcept 
 }
 
 
+
+
+/* Search, lookup, and existance */
+
+/*!
+ @function search (safe)
+ Find identifiers of all items in a container matching specified keyword.
+ */
 template<typename Key>
-vector<ItemIdentifier> ItemController<Key>::search(Key key,
-                                                   const string &keyword) const noexcept {
-    vector<Identifier> vec{};
+vector<ItemIdentifier>
+ICContainerStorage<Key>::search(Key key,
+                                const string &keyword) const noexcept {
+    
     if (!this->env2d.exists(key)) {
-        return vec;
+        return {};
     }
     
-    
+    vector<ItemIdentifier> vec{};
     auto env = this->env2d.lookup(key);
     
     for (auto element : env) {
@@ -72,44 +93,24 @@ vector<ItemIdentifier> ItemController<Key>::search(Key key,
     }
     
     return vec;
-}
-
-
-
-
-
-template<typename Key>
-Item ItemController<Key>::lookup(Key key,
-                                 ItemIdentifier id) const noexcept(false) {
-    return this->env2d.lookup(key).lookup({id, {}});
-}
-
-
-template<typename Key>
-Item ItemController<Key>::lookup(Key key,
-                                 const Keywords &keywords) const noexcept(false) {
-    auto env = this->env2d.lookup(key);
-    for (auto element : env) {
-        ItemSearchKey key = element.first;
-        if (key == ItemSearchKey{0, keywords}) {
-            return element.second;
-        }
-    }
     
-    throw std::invalid_argument("IC lookup");
 }
 
 
 
 
-
+/*!
+ @function exists (safe)
+ Check if item exists in a container
+ @note noexcept - Never throws
+ */
 template<typename Key>
-bool ItemController<Key>::exists(Key key,
-                                 ItemIdentifier id) const noexcept {
+bool ICContainerStorage<Key>::exists(Key key,
+                                     ItemIdentifier id) const noexcept {
     if (this->env2d.exists(key)) {
         auto env = this->env2d.lookup(key);
         
-        for (auto element : env) {
+        for (auto &element : env) {
             ItemSearchKey key = element.first;
             if (key == ItemSearchKey{id, {}}) {
                 return true;
@@ -121,15 +122,14 @@ bool ItemController<Key>::exists(Key key,
     return false;
 }
 
-
 template<typename Key>
-bool ItemController<Key>::exists(Key key,
-                                 const Keywords &keywords) const noexcept {
+bool ICContainerStorage<Key>::exists(Key key,
+                                     const Keywords &keywords) const noexcept {
     if (this->env2d.exists(key)) {
         auto env = this->env2d.lookup(key);
         
-        for (auto element : env) {
-            ItemSearchKey key = element.first;
+        for (auto &binding : env) {
+            ItemSearchKey key = binding.first;
             if (key == ItemSearchKey{0, keywords}) {
                 return true;
             }
@@ -143,10 +143,40 @@ bool ItemController<Key>::exists(Key key,
 
 
 
+/*!
+ @function lookup (unsafe)
+ Lookup symbolic data for specified item. Item value can only be looked up if
+ the search key is defined. Checking if item exists is recommended prior to lookup.
+ @throw invalid_argument Exception is thrown if attempting to look up value bound to an undefined search key.
+ */
+template<typename Key>
+Item ICContainerStorage<Key>::lookup(Key key,
+                                     ItemIdentifier id) const noexcept(false) {
+    return this->env2d.lookup(key).lookup({id, {}});
+}
 
 
 template<typename Key>
-vector<ItemSearchKey> ItemController<Key>::contentsOf(Key key) const {
+Item ICContainerStorage<Key>::lookup(Key key,
+                                     const Keywords &keywords) const noexcept(false) {
+    auto env = this->env2d.lookup(key);
+    
+    for (auto &binding : env) {
+        ItemSearchKey key = binding.first;
+        if (key == ItemSearchKey{0, keywords}) {
+            return binding.second;
+        }
+    }
+    
+    throw std::invalid_argument("IC lookup");
+}
+
+
+
+
+
+template<typename Key>
+vector<ItemSearchKey> ICContainerStorage<Key>::contentsOf(Key key) const {
     auto env = this->env2d.lookup(key);
     vector<ItemSearchKey> vec;
     vec.reserve(env.size());
@@ -161,21 +191,22 @@ vector<ItemSearchKey> ItemController<Key>::contentsOf(Key key) const {
 
 
 template<typename Key>
-void ItemController<Key>::reassign(Key key_owner,
+void ICContainerStorage<Key>::reassign(Key key_owner,
                                    Key key_recipient,
                                    ItemIdentifier id) const {
     
+    // - TODO: Refactor Unnecessary Repeats & Branching
+
     
     // Create a new container if it does not exist
     if (!this->env2d.exists(key_owner)) {
         Container emptyContainer;
-        (const_cast<ItemController *>(this))->env2d.bind(key_owner, emptyContainer);
+        (const_cast<ICContainerStorage *>(this))->env2d.bind(key_owner, emptyContainer);
     }
-    
     // Create a new container if it does not exist
     if (!this->env2d.exists(key_recipient)) {
         Container emptyContainer;
-        (const_cast<ItemController *>(this))->env2d.bind(key_recipient, emptyContainer);
+        (const_cast<ICContainerStorage *>(this))->env2d.bind(key_recipient, emptyContainer);
     }
     
     
@@ -188,13 +219,16 @@ void ItemController<Key>::reassign(Key key_owner,
     owner.unbind(id);
     recipient.bind({id, item.keywords}, item);
     
+    this->containers.updateList({{key_owner, owner}, {key_recipient, recipient}});
     
-    // Update both containers
-    (const_cast<ItemController *>(this))->env2d.unbind(key_owner);
-    (const_cast<ItemController *>(this))->env2d.bind(key_owner, owner);
-    
-    (const_cast<ItemController *>(this))->env2d.unbind(key_recipient);
-    (const_cast<ItemController *>(this))->env2d.bind(key_recipient, recipient);
+//
+//    // - TODO: Copies
+//    // Update both containers
+//    (const_cast<ItemController *>(this))->env2d.unbind(key_owner);
+//    (const_cast<ItemController *>(this))->env2d.bind(key_owner, owner);
+//
+//    (const_cast<ItemController *>(this))->env2d.unbind(key_recipient);
+//    (const_cast<ItemController *>(this))->env2d.bind(key_recipient, recipient);
     
 //        std::cout << "\n";
 //        print_contentsOf(key_owner);
@@ -204,13 +238,13 @@ void ItemController<Key>::reassign(Key key_owner,
 
 
 template<typename Key>
-size_t ItemController<Key>::itemsCreated() const noexcept {
+std::size_t ICContainerStorage<Key>::itemsCreated() const noexcept {
     return this->items_created;
 }
 
 
 template<typename Key>
-size_t ItemController<Key>::containerSize(Key key) const noexcept {
+std::size_t ICContainerStorage<Key>::containerSize(Key key) const noexcept {
     if (this->env2d.exists(key)) {
         auto env = this->env2d.lookup(key);
         return env.size();
@@ -219,7 +253,47 @@ size_t ItemController<Key>::containerSize(Key key) const noexcept {
     return 0;
 }
 
-
+template<typename Key>
+void ICContainerStorage<Key>::update(Key key, Container &container) const {
+    (const_cast<ICContainerStorage *>(this))->env2d.unbind(key);
+    (const_cast<ICContainerStorage *>(this))->env2d.bind(key, container);
 }
+
+
+
+
+
+
+
+
+
+
+template<typename Key>
+Text ICContainerStorage<Key>::detailsOfList(Key key, const vector<ItemIdentifier> &vec) const {
+    object_ostream stream;
+    
+    stream << "Listing items:\n";
+    for (auto &id : vec) {
+        stream << '\t' << this->env2d.lookup(key).lookup(id).toString() << '\n';
+    }
+    
+    return stream.str();
+}
+    
+    
+template<typename Key>
+Text ICContainerStorage<Key>::detailsOfList(const vector<ItemSearchKey> &vec) const noexcept {
+    object_ostream stream;
+    
+    stream << "Listing items:\n";
+    for (auto &skey : vec) {
+        stream << '\t' << skey.toString() << '\n';
+    }
+    
+    return stream.str();
+}
+
+
+} /* namespace items */
 
 #endif /* ItemController_cpp */

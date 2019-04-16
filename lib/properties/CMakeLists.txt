@@ -8,7 +8,7 @@ project(${properties} VERSION 1.0)
 
 
 add_library(${PROJECT_NAME} SHARED
-    include/traits__convertible.h
+#    include/traits__convertible.h
     include/LocationCoordinates.h
     src/Attributes.cpp
 )

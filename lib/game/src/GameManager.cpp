@@ -36,15 +36,7 @@ GameManager::GameManager() {
 
 void GameManager::createTableOfCommands() {
 
-#ifndef BUILD_ALL_TARGETS
-    
-    tableOfCommands.insert({"help", make_unique<CommandHelp>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"login", make_unique<CommandLogin>(characterManager, onlineUserManager, world)});
-    
-    tableOfCommands.insert({"take", make_unique<CommandTake>(characterManager, onlineUserManager, world)});
-    tableOfCommands.insert({"drop", make_unique<CommandDrop>(characterManager, onlineUserManager, world)});
-
-#else
+#ifdef BUILD_ALL_TARGETS
     
     tableOfCommands.insert({"help", make_unique<CommandHelp>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"login", make_unique<CommandLogin>(characterManager, onlineUserManager, world)});
@@ -82,6 +74,17 @@ void GameManager::createTableOfCommands() {
     tableOfCommands.insert({"delete-room", make_unique<CommandDeleteRoom>(characterManager, onlineUserManager, world)});
     tableOfCommands.insert({"admin", make_unique<CommandAdmin>(characterManager, onlineUserManager, world)});
 
+
+#else
+    
+    
+    tableOfCommands.insert({"help", make_unique<CommandHelp>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"login", make_unique<CommandLogin>(characterManager, onlineUserManager, world)});
+    
+    tableOfCommands.insert({"take", make_unique<CommandTake>(characterManager, onlineUserManager, world)});
+    tableOfCommands.insert({"drop", make_unique<CommandDrop>(characterManager, onlineUserManager, world)});
+    
+    tableOfCommands.insert({"minigame", make_unique<CommandMinigame>(characterManager, onlineUserManager, world)});
 
     
 #endif

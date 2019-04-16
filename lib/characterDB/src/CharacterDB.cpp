@@ -14,11 +14,11 @@ CharacterDB::~CharacterDB(){
     jsonParser.saveJSON(characters_json, json_filePath);
 }
 
-bool CharacterDB::createCharacter(const std::string& name){
-    if(characters_json[name] != nullptr){
-        return false;
-    }
-    else{
+bool CharacterDB::createCharacter(const std::string& name) {
+    bool alreadyExists = (characters_json[name] != nullptr);
+    
+    if (!alreadyExists) {
+        characters_json[name]["id"] = shared::authenticator.requestUniqueIdentifier();
         characters_json[name]["shortdesc"] = "";
         characters_json[name]["longdesc"] = "";
         characters_json[name]["description"] = "";
@@ -28,8 +28,9 @@ bool CharacterDB::createCharacter(const std::string& name){
 
         //cout << characters_json << "\n";
         jsonParser.saveJSON(characters_json, json_filePath);
-        return true;
     }
+    
+    return !alreadyExists;
 }
 
 bool CharacterDB::updateCharacter(Character& character){

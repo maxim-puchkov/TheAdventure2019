@@ -19,76 +19,67 @@
 #include "traits__convertible.h"
 
 
-const std::string ENV_BIND_ERROR = "Map Environment error: Key is already defined.";
-const std::string ENV_FIND_ERROR = "Map Environment error: Unable to find specified key.";
-const std::string ENV_CONV_ERROR = "Map Environment error: Template argument does not have .toString() function.";
+const std::string ENV_BIND_ERROR = "Environment exception: unable to bind a key which is already defined.";
+const std::string ENV_FIND_ERROR = "Environment exception: unable to find specified key.";
+const std::string ENV_CONV_ERROR = "Environment exception: template argument does not have .toString() function.";
 
 
 /*!
  *  @class Environment
  *
- *  @brief Custom safe map environment.
+ *  @brief Environment of game world Custom safe map environment.
  *
- *  Binds search key K to value V.
- *  Most operations validate the key and
- *  throw exceptions if invalid.
+ *  Modified unordered map that binds search key K to value V.
+ *  Exceptions may be thrown if an element already exists or not defined.
  */
 template<class K, class V>
 class Environment {
 public:
     
-    /* Constructors */
+    /*  Default, Copy, and Move Constructors */
     
     Environment() = default;
+    Environment(const Environment &);
+    Environment(Environment &&) noexcept;
     
-    Environment(const Environment &other);
-    
-    Environment(Environment &&other) noexcept;
-    
-    ~Environment() = default;
     
     
     
     /* Map operations */
     
-    /*! Lookup value by search key */
-    V lookup(const K &k) const;
-    
-    /*! Lookup value by search key */
-    V lookup(K &&k) const;
-    
-    /*! Lookup values by composite search key */
-    // std::queue<V>
-    
-    /* Bind key to value */
+    /*! Create associations from map lookup Key and its Value;
+     Or add existing {Key, Value} assoications to the map.  */
     void bind(const K &k, const V &v);
-    
-    /*! Bind a pair of key and value */
+    void bind(K &&k, V &&v);
     void bind(const std::pair<const K, V> &binding);
-    
-    /*! Bind a pair of key and value */
     void bind(std::pair<const K, V> &&binding);
     
-    /*! Unbind key */
+    /*! Delete a search key and its associated value from the map. */
     void unbind(const K &k);
+    
+    /*! Lookup value bound to a search key */
+    V lookup(const K &k) const;
+    V lookup(K &&k) const;
+    
+    
+    
+    
+    
+    /* Additional map operations */
     
     /*! Modify key's value */
     void modify(const K &k, const V &v);
     
-    /*! Check if a key exists in the environment */
+    /*! Check if a key is defined in the environment */
     bool exists(const K &k) const noexcept;
-    
-    /*! */
-    void validate(const K &k) const noexcept(false);
     
     /*! Clear all data */
     void clear() noexcept;
     
+    /*! Check if underlying map is empty */
     bool empty() const noexcept;
     
-    typename std::unordered_map<K, V>::const_iterator
-    find(const K &k) const noexcept(false);
-    
+    /*! Number of stored elements */
     typename std::unordered_map<K, V>::size_type
     size() const noexcept;
     
@@ -96,13 +87,11 @@ public:
     
     
     
-    /* Retrieval */
+    /* Collection retrieval */
     
     std::queue<const K> keys() const;
     
     std::queue<std::pair<const K, V>> pairs() const;
-    
-    
     
     
     
@@ -114,15 +103,20 @@ public:
     
     
     
-    
     /* Iterator */
     
-    typename std::unordered_map<K, V>::const_iterator begin() const;
-    typename std::unordered_map<K, V>::const_iterator end() const;
+    /*! Find location of a search key */
+    typename std::unordered_map<K, V>::const_iterator
+    find(const K &k) const noexcept(false);
     
+    /*! Range-based iteration */
+    typename std::unordered_map<K, V>::const_iterator
+    begin() const;
     
+    typename std::unordered_map<K, V>::const_iterator
+    end() const;
     
-    
+
     
     
     /* Operators */
@@ -136,8 +130,18 @@ public:
     template<class FK, class FV>
     friend std::ostream& operator<<(std::ostream &stream, Environment<FK, FV> &env);
     
+    
+    
+    
+    
+    ~Environment() = default;
+    
 private:
     
+    /*! */
+    void validate(const K &k) const noexcept(false);
+    
+    /*! */
     std::unordered_map<K, V> map;
     
 };

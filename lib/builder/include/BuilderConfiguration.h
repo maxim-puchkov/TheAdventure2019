@@ -10,5 +10,44 @@
 #ifndef BuilderConfiguration_h
 #define BuilderConfiguration_h
 
+#include "BuilderPrefixHeader.pch"
+
+#include "Object.h"
+
+
+namespace builders {
+
+
+/*!
+ @class BuilderConfiguration
+ 
+ @brief Determine how to create items.
+ 
+ Builder configuration interface.
+ */
+class BuilderConfiguration {
+public:
+    
+    /*! Configuration's default constructor and virtual destructor */
+    BuilderConfiguration() = default;
+    
+    virtual ~BuilderConfiguration() = default;
+    
+    
+    
+    
+    
+    /* BuilderConfiguration Interface */
+
+    /*! Reset current object creation */
+    virtual void reset() noexcept = 0;
+    
+    /*! Validate current settings */
+    virtual bool validate() const noexcept = 0;
+    
+};
+    
+
+} /* namespace builders */
 
 #endif /* BuilderConfiguration_h */

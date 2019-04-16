@@ -10,94 +10,99 @@
 #define ItemBuilder_h
 
 #include "Item.h"
+#include "ItemData.h"
 #include "Builder.h"
+#include "ItemBuilderConfiguration.h"
 
 
 namespace items {
 
 using builders::Builder;
-
-
-inline namespace builder_defaults {
-
-    const Keywords EMPTY_KEYS{};
-    const Description DEF_DESC{"No description"};
-    const Actions DEF_ACTS{{}};
-
-}
+using objects::AttributeValue;
 
 
 /*!
- @class ItemBuilder (IB)
+  @class ItemBuilder (IB)
  
- @brief Creates items with keywords, descriptions, and additional actions
+  @brief Creates customizable items
+ 
+  @discussion
+     Before creating a new item, specify its keywords (required)
+        builder.setKeywords( {"keyword1", "keyword 2"} )
+
+     Other optional properties may be changed
+        •   .setDescription(string)
+        •   .setActions( { {string, string}, {string, string}, ...} )
+        •   .setAttributes( {int, int, ...})
  */
 class ItemBuilder: public Builder {
 public:
     
     /* Constructors */
     
-    /*! ItemBuilder constructor */
+    /*! ItemBuilder constructor, destructor */
     ItemBuilder() = default;
-    
-    /*! ItemBuilder destructor */
     ~ItemBuilder() override = default;
-
     
     
     
     
-    /* Builder Interface */
+    /* Configurable item properties */
     
-    /*! Reset current item settings */
-    void reset() const noexcept override;
+    mutable ItemBuilderConfiguration configuration;
     
-    /*! Validate current settings */
-    bool validate() const noexcept override;
+    
     
     /*! Set item's unique keywords */
     void setKeywords(const vector<string> &keywords) const noexcept override;
     
-    /*! Set item's description text */
+    /*! Set item's short and long descriptions from source text */
     void setDescription(const string &text) const noexcept override;
     
     /*! Set item's interactable actions */
     void setActions(const vector<pair<string, string>> &actions) const noexcept override;
     
+    /*! Set item's bonus attributes */
+    void setAttributes(initializer_list<AttributeValue> values) const noexcept override;
+    
+    
+    
+    
+    /* Builder Configuration */
+    
+    /*! Reset configuration to default values */
+    void reset() const noexcept override;
+    
+    /*! Validate configuration integrity */
+    bool validate() const noexcept override;
     
     
     
     
     /* Item Builder */
     
-    /* Item's data members */
-    mutable Keywords keywords = EMPTY_KEYS;
-    
-    mutable Description description = DEF_DESC;
-    
-    mutable Actions actions = DEF_ACTS;
-    
-    
-    
-    
-    /*! Build using specified keywords, descriptions, and actions */
+    /*!
+     @function build
+     Build using specified keywords, descriptions, and actions.
+     Optionally, its original JSON identifier can be specified.
+     */
     Item build(ItemIdentifier id) const;
-    
-    /*! Build using specified keywords, descriptions, and actions */
     Item build(ItemIdentifier id, unsigned int json_id) const;
 
     /*! Add a new action */
     void addAction(Action &&action) const noexcept;
     
-    /*! Overload for convenience */
+    
+    
+    
+    /* * * Overloaded for convenience * * */
+    
     void setDescription(const vector<string> &lines) const noexcept;
     
-    /*! Overload for convenience */
     void setItemProperties(const vector<string> &keywords,
                            const string &description,
                            const vector<pair<string, string>> &actions) const noexcept;
 
-    /*! Overload for convenience */
     void setItemProperties(const Keywords &keywords,
                            const Description &description,
                            const Actions &actions) const noexcept;

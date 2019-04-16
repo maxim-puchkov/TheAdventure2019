@@ -16,6 +16,8 @@
 #include "ItemBuilder.h"
 #include "auth.hpp"
 
+#include "ICData.h"
+
 #include "print.h"
 
 
@@ -23,6 +25,8 @@ namespace items {
 
 using namespace auth;
 using ItemIdentifier = Identifier;
+using Container = _TContainer<ItemSearchKey, Item>;
+using Container2d = _TContainer2d<Identifier, Container<ItemSearchKey, Item>>;
 
 
 /*!
@@ -39,187 +43,61 @@ template<typename Key>
 class ItemController {
 public:
     
-    using Container = Environment<ItemSearchKey, Item>; // Container of a character or room
-    using Container2d = Environment<Key, Container>; // World is container of containers
-    // using Container3d = Environment<Key, Container2d>
-    // using Container4d = ...
-
+    /* Default constructor and destructor */
     
-    /*!
-     @brief
-        Properties of to-be-created items are set in the builder
-     
-     @discussion
-         Before creating a new item, specify its keywords (required)
-            builder.setKeywords( {"keyword1", "keyword 2"} )
-     
-         Optionally, other properties may be specified
-            .setDescription(string)
-            .setActions( { {string, string}, {string, string}, ...} )
-     
-     @note
-        Upcoming for equipable items:
-            .setAttributes( )
-     */
-    const ItemBuilder builder;
-    
-    
-    
-    
-    /*!
-     Create a new item in a container
-     
-     @param key Unique key that identifies the container
-     
-     @return Unique identifier of the new item
-     */
-    ItemIdentifier create(Key key) const noexcept {
-        return this->create(key, -1);
-    }
-    
-    
-    /*!
-     Create a new item in a container
-     
-     @param key Unique key that identifies the container
-     @param json_id Specify item's original id read from input JSON files
-     
-     @return Unique identifier of the new item
-     */
-    ItemIdentifier create(Key key, int json_id) const noexcept;
-    
-    
-    
-    
-    
-    
-
-    /*! Search for all items matching a keyword in a container */
-    vector<ItemIdentifier> search(Key key, const string &keyword) const noexcept;
-    
-    
-    /*! Lookup item object by its identifier */
-    Item lookup(Key key, ItemIdentifier id) const noexcept(false);
-    
-    /*! Lookup item object by its keywords */
-    Item lookup(Key key, const Keywords &keywords) const noexcept(false);
-    
-    
-    /*! Check if item exists in a container by its identifier */
-    bool exists(Key key, ItemIdentifier id) const noexcept;
-    
-    /*! Check if item matching the keywords exists in a container */
-    bool exists(Key key, const Keywords &keywords) const noexcept;
-    
-    
-    
-    
-    /*!
-     Contents of a container
-     @return Vector of {id, keywords} pairs
-     */
-    vector<ItemSearchKey> contentsOf(Key key) const;
-    
-    /*! Change ownership */
-    void reassign(Key key_owner,
-                  Key key_recipient,
-                  ItemIdentifier id) const;
-    
-    
-    /*! Quantity of items in a container */
-    std::size_t containerSize(Key key) const noexcept;
-    
-    /*! @return Total number of items created in the world */
-    std::size_t itemsCreated() const noexcept;
-    
-        
-        
-        
-        
-
-
-
-    
-  
-    /* * * * * * * * * * * *       Deprecated      * * * * * * * * * * * */
-    
-    void display_all() const {
-        debug::print(this->env2d);
-    }
-    
-    void print_contentsOf(Key key) const {
-        for (auto &x : contentsOf(key)) {
-            debug::print("Container id ", key, " owns ", x.toString());
-        }
-    }
-
-    /* * * * * * * * * * * *       Deprecated      * * * * * * * * * * * */
+    ItemController() = default;
+    ~ItemController() = default;
     
 
     
-    /*! Item Controller identifier */
+    /*! Item Controller's unique identifier */
     const Identifier controller_id = 0;
     
     
-//    // Using shared authenticator
-//    ItemController(SharedAuthenticator authenticator)
-//    : authenticator(authenticator) { //, controller_id(authenticator->parent_id) {
-//        this->init();
-//    }
+    /*! Properties of to-be-created items are set in the builder */
+    const ItemBuilder builder;
     
     
-    ItemController()
-    { }
+    /*!
+     - Allocate additional item containers.
+     - Create unique objects in existing containers.
+     - Check existance, search for matches, or lookup object's symbolic data.
+     - Specify identifier of owner's item container.
+     */
+    const ICData<Key> storage;
+
     
     
-    ~ItemController() = default; // { this->deallocateContainers(); }
+    
+    /* Use Item Builder */
+    
+    /*!
+     Create a new item in a container
+     @param key Composition of properties that defines each container's
+     location, type of contained objects, and structure
+     @param json_id Original ID read from an input file (optional)
+     @return Unique identifier of the new item
+     */
+    ItemIdentifier create(Key key) const noexcept;
+    ItemIdentifier create(Key key, int json_id = 0) const noexcept;
     
     
-    Text detailsOfList(Key key, const vector<ItemIdentifier> &vec) const {
-        std::ostringstream stream("");
-        
-        stream << "Listing items:\n";
-        for (auto &id : vec) {
-            stream << '\t' << this->env2d.lookup(key).lookup(id).toString() << '\n';
-        }
-        
-        return stream.str();
-    }
     
     
-    //Text detailsOfList(vector<ItemSearchKey> &&vec) const noexcept {
-    Text detailsOfList(const vector<ItemSearchKey> &vec) const noexcept {
-        std::ostringstream stream("");
-        
-        stream << "Listing items:\n";
-        for (auto &skey : vec) {
-            stream << '\t' << skey.toString() << '\n';
-        }
-        
-        return stream.str();
-    }
+    // Display for debugging
+    Text detailsOfList(Key key, const vector<ItemIdentifier> &vec) const;
+    Text detailsOfList(const vector<ItemSearchKey> &vec) const noexcept;
     
-    
-    /*! Remove an item from its owner */
-    bool removeItem(Container &owner,
-                    ItemIdentifier id) const noexcept {
-        
-        ItemSearchKey key(id);
-        if (owner.exists(key)) {
-            owner.unbind(key);
-            return true;
-        }
-        
-        return false;
-    }
-    
+
     
 private:
 
     /*! All existing items are stored in the two-dimensional environment */
     Container2d env2d;
     
+    /*! Quantity of items created by this builder */
     std::size_t items_created = 0;
+    
     
     void init() {
         debug::prefix("ItemController");
@@ -227,7 +105,6 @@ private:
         debug::silenced = true;
     }
     
-
     // Not called
     void deallocateContainers() const noexcept(false) {
         for (auto &binding : this->env2d) {
@@ -240,8 +117,8 @@ private:
     
     /*! Update */
     void update(Key key, Container &container) const {
-        (const_cast<ItemController *>(this))->env2d.unbind(key);
-        (const_cast<ItemController *>(this))->env2d.bind(key, container);
+        (const_cast<ItemController<Key> *>(this))->env2d.unbind(key);
+        (const_cast<ItemController<Key> *>(this))->env2d.bind(key, container);
     }
     
     /*! Request unique id and build a new item */
@@ -249,18 +126,9 @@ private:
         ItemIdentifier id = auth::shared::authenticator.requestUniqueIdentifier();
         return this->builder.build(id);
     }
-    
-    /*! Keeps trakey of dynamic memory deallocations */
-    //mutable ICMemory memory;
-    
-    //    /// Create an item in the container
-    //    ItemIdentifier updateContainer(Key key, Environment<ItemSearchKey, Item> &container) const {
-    //        return this->contrller_id;
-    //    }
 
 };
 
-    
 
 } /* namespace items */
 

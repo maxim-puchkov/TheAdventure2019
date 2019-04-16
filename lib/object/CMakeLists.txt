@@ -10,6 +10,7 @@ project(${object} VERSION 1.0)
 add_library(${PROJECT_NAME}
     include/Object.h
     include/ObjectData.h
+# include/ObjectAttributes.h
 )
 
 
@@ -23,6 +24,7 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         ${environment}
+        ${user-interface}
 )
 
 
