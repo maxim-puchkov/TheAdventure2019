@@ -21,7 +21,7 @@ inline namespace builder_defaults {
     const Keywords EMPTY_KEYS{};
     
     const Description DEF_DESC{"No description"};
-    const Actions DEF_ACTS{{}};
+    const Actions DEF_ACTS;
 }
 
 

@@ -14,8 +14,9 @@
 #include "print.h"
 
 
-using items::ItemController;
 using WorldIdentifier = uint64_t;
+using namespace items; // Keywords, Description, Actions classes
+
 
 class WorldManager {
 private:

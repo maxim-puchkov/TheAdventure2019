@@ -12,23 +12,16 @@
 
 namespace items {
 
-inline namespace actions_defaults {
-    const Text DISPLAY_PREFIX = "Actions: ";
-    const Text ENV_DELIMITER = ", ";
-}
-
 
 /* Action helper structure */
 
-Action::Action(const string &keyword, const string &desc)
-: keyword(keyword), description(Description(desc))
+Action::Action(const Keyword &keyword, const string &desc)
+    : keyword(keyword),
+    description(Description(desc))
 { }
 
-//Action::Action(const string &keyword, const vector<string> &longdesc)
-//: keyword(keyword), description(Description(longdesc))
-//{ }
 
-inline pair<Text, Description> Action::toPair() {
+std::pair<Keyword, Description> Action::toPair() const {
     return {keyword, description};
 }
 
@@ -41,9 +34,8 @@ inline pair<Text, Description> Action::toPair() {
 
 
 
-/* Object's Actions environment Constructors */
+/* Object's Actions Constructors */
     
-
 Actions::Actions(const vector<pair<string, string>> &actions) {
     for (auto &pair : actions) {
         Text keyword = pair.first;
@@ -52,10 +44,9 @@ Actions::Actions(const vector<pair<string, string>> &actions) {
     }
 }
 
-
-Actions::Actions(vector<Action> &actions) {
+Actions::Actions(const vector<Action> &actions) {
     for (auto &action : actions) {
-        this->add(std::forward<Action>(action));
+        this->add(action);
     }
 }
 
@@ -67,27 +58,28 @@ Actions::Actions(vector<Action> &actions) {
 
 string Actions::toString() const noexcept {
     if (this->env.empty()) {
-        return "";
+        return EMPTY;
     }
     
-    ostringstream stream{""};
+    OStream stream;
     auto iterator = this->env.begin();
 
     stream << (*iterator).first;
-    iterator++;
+    // iterator++;
     
-    auto delimiter = ENV_DELIMITER;
-    while (iterator != this->env.end()) {
+    auto end = this->env.end();
+    auto delimiter = ui::text::styles::CS;
+    for (iterator++; iterator != end; iterator++) {
+    // while (iterator != this->env.end()) {
         stream << delimiter << (*iterator).first;
-        iterator++;
+        // iterator++;
     }
     
     return stream.str();
 }
 
-
 vector<string> Actions::toVector() const noexcept {
-    vector<string> vec = {};
+    vector<string> vec;
     for (auto &bind : this->env) {
         vec.push_back(bind.first);
         vec.push_back(bind.second.toString());
@@ -101,43 +93,53 @@ vector<string> Actions::toVector() const noexcept {
 
 /* Environment functions */
 
-void Actions::add(Action &&action) {
+void Actions::add(const Action &action) {
     this->env.bind(action.toPair());
 }
-
-
-void Actions::clear() {
-    this->env.clear();
-}
-
 
 bool Actions::empty() const {
     return this->env.empty();
 }
 
+bool Actions::isInteractable() const noexcept {
+    return (!this->env.empty());
+}
 
+size_type Actions::size() const noexcept {
+    return this->env.size();
+}
+    
 
 
 
 /* Operators */
 
-Actions& Actions::operator=(Actions &other) {
+Actions& Actions::operator=(Actions &&other) noexcept {
+    this->env = std::move(other.env);
+    return *this;
+}
+
+Actions& Actions::operator=(const Actions &other) noexcept {
     this->env = other.env;
     return *this;
 }
 
-Actions& Actions::operator=(const Actions &other) {
-    this->env = other.env;
-    return *this;
-}
 
-
-bool Actions::operator==(Actions &other) const {
+bool Actions::operator==(Actions &&other) const noexcept {
     return (this->env == other.env);
 }
 
-bool Actions::operator==(const Actions &other) const {
+bool Actions::operator==(const Actions &other) const noexcept {
     return (this->env == other.env);
+}
+
+
+
+
+/* */
+
+void Actions::clear() noexcept {
+    this->env = Interactions();
 }
 
 

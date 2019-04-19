@@ -10,14 +10,14 @@
 #ifndef Actions_h
 #define Actions_h
 
-#include "ObjectData.h"
+#include "items.hpp"
 #include "Description.h"
 #include "Environment.h"
 
-
 namespace items {
 
-inline namespace data {
+
+typedef Environment<Keyword, Description> Interactions;
 
 
 /*!
@@ -30,15 +30,14 @@ inline namespace data {
 class Action {
 public:
     
-    Action(const string &keyword, const string &desc);
+    Action(const Keyword &keyword, const string &desc);
+    Action(const Keyword &keyword, const vector<string> &longdesc);
     
-    Action(const string &keyword, const vector<string> &longdesc);
-    
-    pair<string, Description> toPair();
+    std::pair<Keyword, Description> toPair() const;
     
 private:
 
-    string keyword{""};
+    Keyword keyword;
     
     Description description{"No description"};
     
@@ -67,12 +66,14 @@ private:
  */
 class Actions: public objects::ObjectData<Actions> {
 public:
-    
+
     Actions() = default;
+    
+    Actions(const Actions &actions) = default;
     
     Actions(const vector<pair<string, string>> &actions);
     
-    Actions(vector<Action> &actions);
+    Actions(const vector<Action> &actions);
     
     
     
@@ -88,40 +89,39 @@ public:
     
     
     
-    /* Environment operations */
+    /* Operations and states */
     
     /*!
      Add new action to the environment
-     @throws std::invalid_argument If action already exists
+     @throws std::invalid_argument Exception is thrown if action already exists
      */
-    void add(Action &&action);
-    
-    /*! Remove all object's actons */
-    void clear();
-    
+    void add(const Action &action);
+
     bool empty() const;
     
+    bool isInteractable() const noexcept;
     
+    size_type size() const noexcept override;
     
+    /*! Remove all object's actions */
+    void clear() noexcept override;
     
     
     /* Operators */
 
-    Actions& operator=(Actions &other);
-    Actions& operator=(const Actions &other);
+    Actions& operator=(Actions &&other) noexcept;
+    Actions& operator=(const Actions &other) noexcept;
     
-    bool operator==(Actions &other) const;
-    bool operator==(const Actions &other) const;
+    bool operator==(Actions &&other) const noexcept;
+    bool operator==(const Actions &other) const noexcept;
     
 private:
     
-    /*! Environment that maps all actions */
-    Environment<Text, Description> env;
+    /*! Keywords that can be interacted with */
+    Interactions env;
     
 };
 
-
-} /* namespace data */
 
 } /* namepsace items */
 

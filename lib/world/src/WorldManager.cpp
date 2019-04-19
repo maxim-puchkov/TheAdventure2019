@@ -9,9 +9,7 @@ WorldManager::WorldManager()
     debug::prefix("World");
     debug::print("World created");
     
-    
-    using namespace items::data; // Keywords, Description, Actions classes
-    
+        
     // Test action. Actions cannot be used yet
     vector<Action> vec{Action("read", " < items are now working > ")};
 

@@ -10,25 +10,25 @@
 #ifndef UITextPartition_h
 #define UITextPartition_h
 
-#include "UIPrefixHeader.pch"
-
-using std::string;
-using std::vector;
+#include "ui.hpp"
 
 
 namespace ui {
+namespace text {
 
 
 /*!
- @struct UITextPartitionResult
+ @struct Result
  
- @brief Stores lines and total length of source text partitioning
+ @brief Parsed Stores lines and total length of source text parsed wa
  */
-struct UITextPartitionResult {
+struct Result {
     
-    vector<string> content;
+    TextBlock block;
     
-    size_t length;
+    std::size_t width;
+    
+    std::size_t length;
     
 };
 
@@ -44,53 +44,48 @@ struct UITextPartitionResult {
  */
 class UITextPartition {
 public:
+
+    /* Constructors */
+    UITextPartition(TextBlock &&block) noexcept;
+    
     
     /* Constant values */
-    
-    const size_t max_index;
-    
-    
-    
-    /* Constructors */
-    
-    UITextPartition(vector<string> &&elements);
+    const std::size_t max_index;
+   
     
     
     
     /* Partitioning state */
-    
     bool done() const;
-    
-    size_t index() const;
-    
-    size_t size() const;
+    std::size_t index() const;
+    std::size_t length() const;
     
     
     
-    /* Mutable current index control */
-    
-    string next();
-    
+    /* Scan every word */
+    Word next();
     void advance();
-    
     void invalidate();
     
     
     
     /* Operators */
+    UITextPartition& operator++();
+    UITextPartition operator++(int);
     
-    string operator[](size_t index);
-    string operator[](size_t index) const;
+    TextLine& operator[](std::size_t index);
+    const TextLine& operator[](std::size_t index) const;
     
 private:
     
-    size_t currentIndex = 0;
+    TextBlock lines;
     
-    vector<string> elements;
+    std::size_t currentIndex = 0;
     
 };
 
 
+} /* namespace text */
 } /* namespace ui */
 
 #endif /* UITextPartition_h */

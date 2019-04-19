@@ -9,14 +9,15 @@
 
 #include "UITextPartition.h"
 
-
 namespace ui {
+namespace text {
 
 
 /* Constructors */
 
-UITextPartition::UITextPartition(vector<string> &&elements)
-: max_index(elements.size()), elements(std::move(elements))
+UITextPartition::UITextPartition(TextBlock &&block) noexcept
+    : max_index(block.size()),
+    lines(std::move(block))
 { }
 
 
@@ -31,13 +32,13 @@ bool UITextPartition::done() const {
 }
 
 
-size_t UITextPartition::index() const {
+std::size_t UITextPartition::index() const {
     return this->currentIndex;
 }
 
 
-size_t UITextPartition::size() const {
-    return this->elements.size();
+std::size_t UITextPartition::length() const {
+    return this->lines.size();
 }
 
 
@@ -46,10 +47,10 @@ size_t UITextPartition::size() const {
 
 /* Mutable current index control */
 
-string UITextPartition::next() {
-    string element = this->elements.at(currentIndex);
+Word UITextPartition::next() {
+    Word word = this->lines.at(this->currentIndex);
     this->advance();
-    return element;
+    return word;
 }
 
 
@@ -68,13 +69,26 @@ void UITextPartition::invalidate() {
 
 /* Operators */
 
-string UITextPartition::operator[](size_t index) {
-    return this->elements[index];
+UITextPartition& UITextPartition::operator++() {
+    this->advance();
+    return *this;
 }
 
-string UITextPartition::operator[](size_t index) const {
-    return this->elements[index];
+UITextPartition UITextPartition::operator++(int) {
+    UITextPartition advanced(*this);
+    operator++();
+    return advanced;
 }
 
 
+TextLine& UITextPartition::operator[](std::size_t index) {
+    return this->lines[index];
+}
+
+const TextLine& UITextPartition::operator[](std::size_t index) const {
+    return this->lines[index];
+}
+
+
+} /* namespace text */
 } /* namespace ui */

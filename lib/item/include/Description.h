@@ -9,15 +9,9 @@
 #ifndef Description_h
 #define Description_h
 
-#include "ObjectData.h"
-#include "UIText.h"
-
+#include "items.hpp"
 
 namespace items {
-
-inline namespace data {
-
-using Text = string;
 
 
 /*!
@@ -32,6 +26,9 @@ using Text = string;
 class Description: public objects::ObjectData<Description> {
 public:
     
+    static const Text DEFAULT_DESCRIPTION_TEXT;
+    
+    
     /* Constructors */
     
     /*! Empty description */
@@ -40,17 +37,21 @@ public:
     /*! Description from text */
     Description(const Text &source);
     
-    /*! Description from multiple text lines */
-    Description(const vector<Text> &source);
+    /*! Description from text block containing multiple lines */
+    Description(const TextBlock &block);
     
     /*! Description with specified line width */
-    Description(const Text &source, uint16_t lineWidth);
+    Description(const Text &source, std::size_t width);
     
     
     
     
     
     /* ObjectData Protocol */
+    
+    // Description& reset() noexcept override;
+    
+    std::size_t size() const noexcept override;
     
     string toString() const noexcept override;
     
@@ -63,34 +64,33 @@ public:
     /* Description properties */
     
     /*! Set description line width */
-    void setWidth(uint16_t width);
+    void setWidth(std::size_t width);
     
-    /*! Overwrite brief description */
+    /*! Overwrite brief description (shortdesc) */
     void setBrief(const Text &description);
     
-    /*! Overwrite full description */
-    void setFull(const vector<Text> &description);
+    /*! Overwrite full description (longdesc) */
+    void setFull(const TextBlock &description);
     
-    /*! Clear all descriptions */
-    void clear();
-    
+    /*! Clear descriptions */
+    void clear() noexcept override;
     
     
     
     
     /* Retrieval */
     
-    /*! Retrieve short description */
+    /*! Short description */
     Text brief() const;
     
-    /*! Retrieve long description */
+    /*! Long description combined to one string */
     Text full() const;
     
     /*! Retrieve total line count of long description */
-    size_t lineCount() const;
+    std::size_t lineCount() const;
     
     /*! Retrieve width of the first line */
-    size_t lineWidth() const;
+    std::size_t lineWidth() const;
     
     
     
@@ -101,32 +101,41 @@ public:
     bool operator==(Description &other) const;
     bool operator==(const Description &other) const;
     
-    Text operator[](size_t index);
-    Text operator[](size_t index) const;
+    TextLine& operator[](std::size_t index);
+    const TextLine& operator[](std::size_t index) const;
+    
+private:
+    
+    /*! Short description is the first line of full description (mutable) */
+    Text shortdesc;
+    
+    /*! Full description breaks down source text into a vector
+     of text lines, such that every line fits on a line (mutable) */
+    TextBlock longdesc;
+    
+    /*! Number of description text characters that can fit on a line (mutable) */
+    std::size_t width;
     
 private:
     
     void init();
     
-    Text cut() const;
+    [[deprecated]] Text cut() const;
     
-    /// First line of long description
-    Text shortdesc;
+    bool validate() const noexcept;
     
-    /// Full description broken down into lines of
-    /// specified length
-    vector<Text> longdesc;
+    /*! Generate default object of this class */
+    //objects::ObjectData<Description>::default_object() const noexcept override {
+    //Description default_object() const noexcept override;
     
-    /// Source string is saved to allow reformatting
-    ui::UIText source;
+    //Description& reset() noexcept override;
     
-    /// Width of one line
-    size_t width;
+    
+    /*! Description original source text */
+    UIText source;
     
 };
 
-
-} /* namespace data */
 
 } /* namespace items */
 

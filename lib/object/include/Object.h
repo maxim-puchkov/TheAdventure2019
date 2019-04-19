@@ -16,10 +16,10 @@
 namespace objects {
 
 /*! Type aliases */
-inline namespace typenames {
-    using ObjectIdentifier = uint64_t;
-    using Text = string;
-} /* namespace typenames */
+//inline namespace typenames {
+//    using ObjectIdentifier = uint64_t;
+//    using Text = string;
+//} /* namespace typenames */
 
 
 /*!

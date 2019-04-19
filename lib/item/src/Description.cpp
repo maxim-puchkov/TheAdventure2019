@@ -8,39 +8,36 @@
 
 #include "Description.h"
 
-
 namespace items {
 
-inline namespace description_defaults {
-    const Text EMPTY;
-    const Text DELIMITER = ", ";
-    const Text WS = " ";
-    const size_t LINE_WIDTH = ui::text::WIDTH;
-}
+const Text Description::DEFAULT_DESCRIPTION_TEXT = "No description.";
 
 
 /* Constructors */
 
 Description::Description()
-: source(EMPTY), shortdesc(EMPTY), longdesc({EMPTY}), width(LINE_WIDTH)
+    : shortdesc(EMPTY),
+    longdesc({EMPTY}),
+    width(LINE_WIDTH),
+    source(EMPTY)
 { }
 
 
 Description::Description(const Text &source)
-: source(source, LINE_WIDTH), width(LINE_WIDTH) {
+    : width(LINE_WIDTH), source(source, LINE_WIDTH) {
     this->init();
 }
 
 
-Description::Description(const vector<Text> &source)
-: longdesc(source), source(toString()) {
+Description::Description(const TextBlock &block)
+    : longdesc(block), source(toString()) {
     this->shortdesc = this->cut();
     this->width = this->lineWidth();
 }
 
 
-Description::Description(const Text &source, uint16_t lineWidth)
-: source(source, lineWidth), width(lineWidth) {
+Description::Description(const Text &source, std::size_t width)
+    : width(width), source(source, width) {
     this->init();
 }
 
@@ -49,6 +46,16 @@ Description::Description(const Text &source, uint16_t lineWidth)
 
 
 /* ObjectData Protocol */
+
+//Description& Description::reset() noexcept {
+//    return DEFAULT_DESCRIPTION;
+//}
+
+
+std::size_t Description::size() const noexcept {
+    return (this->lineCount() * this->lineWidth());
+}
+
 
 string Description::toString() const noexcept {
     return this->full();
@@ -65,7 +72,7 @@ vector<string> Description::toVector() const noexcept {
 
 /* Description properties */
 
-void Description::setWidth(uint16_t width) {
+void Description::setWidth(std::size_t width) {
     this->width = width;
 }
 
@@ -75,17 +82,9 @@ void Description::setBrief(const Text &description) {
 }
 
 
-void Description::setFull(const vector<Text> &description) {
+void Description::setFull(const TextBlock &description) {
     this->longdesc = description;
 }
-
-
-void Description::clear() {
-    this->shortdesc.empty();
-    this->longdesc.empty();
-}
-
-
 
 
 
@@ -96,28 +95,26 @@ Text Description::brief() const {
     return this->shortdesc;
 }
 
-
 Text Description::full() const {
-    ostringstream stream{""};
-    
+    OStream stream;
     auto iterator = this->longdesc.cbegin();
     stream << *iterator;
     
     auto end = this->longdesc.cend();
-    for (iterator = iterator + 1; iterator < end; iterator++) {
-        stream << '\n' << *iterator;
+    auto DEL = ui::text::styles::NL;
+    for (iterator++; iterator < end; iterator++) {
+        stream << DEL << *iterator;
     }
     
     return stream.str();
 }
 
 
-size_t Description::lineCount() const {
+std::size_t Description::lineCount() const {
     return this->longdesc.size();
 }
 
-
-size_t Description::lineWidth() const {
+std::size_t Description::lineWidth() const {
     return this->shortdesc.size();
 }
 
@@ -129,19 +126,19 @@ size_t Description::lineWidth() const {
 /* Operators */
 
 bool Description::operator==(Description &other) const {
-    return (this->source.data() == other.source.data());
+    return ((this->longdesc == other.longdesc) && (this->shortdesc == other.shortdesc));
 }
 
 bool Description::operator==(const Description &other) const {
-    return (this->source.data() == other.source.data());
+    return ((this->longdesc == other.longdesc) && (this->shortdesc == other.shortdesc));
 }
 
 
-Text Description::operator[](size_t index) {
+TextLine& Description::operator[](std::size_t index) {
     return this->longdesc[index];
 }
 
-Text Description::operator[](size_t index) const {
+const TextLine& Description::operator[](std::size_t index) const {
     return this->longdesc[index];
 }
 
@@ -155,19 +152,46 @@ Text Description::operator[](size_t index) const {
 
 void Description::init() {
     
-    if (this->source.data() == EMPTY) {
-        this->longdesc = {};
-        this->shortdesc = EMPTY;
-        return;
-    }
+//    if (this->source.data() == EMPTY) {
+//        this->longdesc = {};
+//        this->shortdesc = EMPTY;
+//        return;
+//    }
+    if (!this->validate()) { return; }
     
     this->source.format();
-    
-    vector<Text> lines = this->source.arrangedSource();
+    TextBlock lines = this->source.sourceBlock();
+
+    this->shortdesc = lines[0];
     this->longdesc = lines;
-    
-    this->shortdesc = this->cut();
 }
+
+
+void Description::clear() noexcept {
+    this->shortdesc.empty();
+    this->longdesc.empty();
+}
+
+
+bool Description::validate() const noexcept {
+    bool valid = (this->source.sourceText() != EMPTY);
+    if (!valid) {
+        // this->longdesc = {};
+        (const_cast<Description *>(this))->longdesc = {};
+        (const_cast<Description *>(this))->shortdesc = EMPTY;
+        // this->shortdesc = EMPTY;
+    }
+    return valid;
+}
+
+
+
+
+
+
+
+
+
 
 
 Text Description::cut() const {

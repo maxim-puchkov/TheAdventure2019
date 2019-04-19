@@ -10,17 +10,14 @@
 #ifndef UIText_h
 #define UIText_h
 
-#include "UIPrefixHeader.pch"
+#include "ui.hpp"
 #include "UITextPartition.h"
 
-
 namespace ui {
+namespace text {
 
-inline namespace text {
-    const size_t WIDTH = 80;
-    const uint8_t RESERVE = 5;
-}
-
+    
+// using namespace styles;
 
 /*!
  @class UIText
@@ -34,9 +31,9 @@ public:
     
     /* Constructors */
     
-    UIText(const string &source);
+    UIText(const Text &source);
     
-    UIText(const string &source, size_t width);
+    UIText(const Text &source, std::size_t width);
     
     
     
@@ -48,9 +45,9 @@ public:
     
     /* Text */
     
-    string data() const;
+    Text sourceText() const;
     
-    vector<string> arrangedSource() const;
+    TextBlock sourceBlock() const;
     
 private:
     
@@ -65,30 +62,29 @@ private:
      @param partition Text partition with current index
      @return Next line that can fit within the line width
      */
-    string nextLine(UITextPartition &partition) const;
+    TextLine nextLine(UITextPartition &partition) const;
     
     /*!
      @function breakLines
      @param partition Partitioned words of full text input
      @return Lines of words with specified width
      */
-    UITextPartitionResult partition(UITextPartition &&partition) const;
+    Result partition(UITextPartition &&partition) const;
     
     
     
     /* Data members */
     
-    string source;
+    Text source;
+    TextBlock block;
     
-    vector<string> text_lines;
-    
-    size_t text_length = 0;
-    
-    size_t width = 0;
+    std::size_t block_length = 0;
+    std::size_t width = LINE_WIDTH; // !
     
 };
 
 
+} /* namespace text */
 } /* namespace ui */
 
 #endif /* UIText_h */
