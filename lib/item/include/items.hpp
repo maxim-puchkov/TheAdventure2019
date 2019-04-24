@@ -14,97 +14,35 @@
 #include "ObjectData.h"
 
 #include "UIText.h"
-
 #include "Environment.h"
-#include "print.h"
 
-// #include "ItemData.h"
+#include "print.h" // debug
 
-
-using std::string;
-using std::vector;
-using std::pair;
-using std::ostringstream;
-using std::initializer_list;
-
-
-// using ItemAttributes = objects::ObjectAttributes;
-// using IAValue = uint32_t;
-// using ItemAttributeValue =
-
-
-/*! Item Library scope type definitions */
-namespace items {
-
-
-// Object Interface
-
-
-
-
-
-// UI Text
-
-
-
-
-    
-// Equipment
-using ItemIdentifier = objects::ObjectIdentifier;
-using AttributeValue = objects::AttributeValue;
-
-
-
-
-// Data class property types
-inline namespace data {
-    
-    using objects::Object;
-    using namespace objects::typenames;
-    using namespace ui::text;
-    
-    using Keyword = std::string;
-    
-    using Set = std::set<Keyword>;
-    
-    using Vec = std::vector<Keyword>;
-    
-//
-//    using keyword_t = Text;
-//    using keywordset_t = std::set<keyword_t>;
-//
-//    using source_t = std::string;
-//
-//
-//    using KeywordType = keyword_t;
-//    using KeywordSetType = keywordset_t;
-    //using KeywordType = std::string;
-    //using KeywordSetType = std::set<KeywordType>;
-    //using Key = std::string;
-    //using Set = std::set<Key>;
-    //using Text = std::string;
+inline namespace [[deprecated]] defs {
+//    using std::string;
+    using std::vector;
+    using std::pair;
+    using std::ostringstream;
+    using std::initializer_list;
 }
 
 
-// Container storage type
-inline namespace container_types {
-//
-//    // Contain items
-//    template<typename SK, class Value>
-//    using _TContainer   = Environment<SK, Value>;
-//
-//    // Contain collections
-//    template<typename SK, class Value>
-//    using _TContainer2d = Environment<Key, _TContainer<SK, Value> >;
-//
-//    // Contain containers
-//    template<typename SK, class Value>
-//    using _TContainer3d = Environment<Key, _TContainer2d<SK, Value> >;
-    
-} /* namespace container_types */
+/*! Item scope */
+namespace items {
 
+// Keywords, Description, Actions, Attributes data members' typenames
+inline namespace data {
+    using namespace objects::io;
+    using namespace objects::typenames;
+    
+    using objects::Object;
+    
+    using ItemIdentifier = objects::ObjectIdentifier;
+    using Keyword = std::string;
+    using Set = std::set<Keyword>;
+    using Vec = std::vector<Keyword>;
+} /* namespace data */
 
 } /* namespace items */
-
 
 #endif /* items_hpp */

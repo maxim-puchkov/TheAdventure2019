@@ -13,30 +13,23 @@
 #include "ObjectPrefixHeader.pch"
 #include "ui.hpp"
 
-/*! Object Library scope type definitions */
+/*! Object Interface scope */
 namespace objects {
+    
+namespace io {
+    using namespace ui::text;
+} /* namespace io */
+
+
 inline namespace typenames {
+    using namespace ui::text;
     
     typedef std::size_t size_type;
     
-    using namespace ui::text;
-    
     using ObjectIdentifier = uint64_t;
-    using AttributeValue = int32_t;
-    
-    
-//    inline namespace streams {
-//
-//        using data_ostream = std::ostringstream;
-//        using data_ostream_iterator = std::ostream_iterator<std::string>;
-//
-//        using data_istream = std::istringstream;
-//        using data_istream_iterator = std::istream_iterator<std::string>;
-//
-//    } /* namespace data */
-    
-    
+    using AttributeValue = int32_t;    
 } /* namespace typenames */
+
 } /* namespace objects */
 
 #endif /* objects_hpp */
