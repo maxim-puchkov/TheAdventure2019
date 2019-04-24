@@ -114,15 +114,15 @@ size_type Actions::size() const noexcept {
 
 /* Operators */
 
-Actions& Actions::operator=(Actions &&other) noexcept {
-    this->env = std::move(other.env);
-    return *this;
-}
-
-Actions& Actions::operator=(const Actions &other) noexcept {
-    this->env = other.env;
-    return *this;
-}
+//Actions& Actions::operator=(Actions &&other) noexcept {
+//    this->env = std::move(other.env);
+//    return *this;
+//}
+//
+//Actions& Actions::operator=(const Actions &other) noexcept {
+//    this->env = other.env;
+//    return *this;
+//}
 
 
 bool Actions::operator==(Actions &&other) const noexcept {

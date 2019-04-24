@@ -93,8 +93,8 @@ public:
     /* Operators */
     
     // Assignment
-    Keywords& operator=(Keywords &&) noexcept;
-    Keywords& operator=(const Keywords &) noexcept;
+//    Keywords& operator=(Keywords &&) noexcept;
+//    Keywords& operator=(const Keywords &) noexcept;
     
     // Equality
     bool operator==(Keywords &&) const noexcept;

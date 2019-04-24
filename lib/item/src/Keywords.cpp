@@ -115,15 +115,15 @@ Keyword Keywords::last() const {
 /* Operators */
 
 // Assignment
-Keywords& Keywords::operator=(Keywords &&other) noexcept {
-    this->set = std::move(other.set);
-    return *this;
-}
-
-Keywords& Keywords::operator=(const Keywords &other) noexcept {
-    this->set = other.set;
-    return *this;
-}
+//Keywords& Keywords::operator=(Keywords &&other) noexcept {
+//    this->set = std::move(other.set);
+//    return *this;
+//}
+//
+//Keywords& Keywords::operator=(const Keywords &other) noexcept {
+//    this->set = other.set;
+//    return *this;
+//}
 
 
 // Equality

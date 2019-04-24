@@ -10,10 +10,12 @@ add_library(${PROJECT_NAME}
     src/Item.cpp
     src/ItemBuilder.cpp
     src/ItemSearchKey.cpp
-    src/ItemController.cpp
     src/Keywords.cpp
     src/Description.cpp
     src/Actions.cpp
+    src/ItemAttributes.cpp
+    src/controllers/ICData.cpp
+    src/controllers/ItemController.cpp
 )
 
 
@@ -21,6 +23,8 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:src/controllers>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/controllers>
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )

@@ -34,7 +34,7 @@ public:
     bool operator==(const ItemSearchKey &other) const;
     
     
-    string toString() const noexcept;
+    std::string toString() const noexcept;
     
 };
 

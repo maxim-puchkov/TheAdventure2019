@@ -109,8 +109,8 @@ public:
     
     /* Operators */
 
-    Actions& operator=(Actions &&other) noexcept;
-    Actions& operator=(const Actions &other) noexcept;
+//    Actions& operator=(Actions &&other) noexcept;
+//    Actions& operator=(const Actions &other) noexcept;
     
     bool operator==(Actions &&other) const noexcept;
     bool operator==(const Actions &other) const noexcept;

@@ -11,15 +11,10 @@
 #define Object_h
 
 #include "objects.hpp"
-
+#include "ObjectData.h"
+#include "ObjectAttributes.h"
 
 namespace objects {
-
-/*! Type aliases */
-//inline namespace typenames {
-//    using ObjectIdentifier = uint64_t;
-//    using Text = string;
-//} /* namespace typenames */
 
 
 /*!
@@ -33,39 +28,41 @@ namespace objects {
 class Object {
 public:
     
-    
-    /*! Object constructor */
-    Object() = default;
-    
-    /*! Object destructor */
-    virtual ~Object() = default;
-    
-    
-    
-    
-    
     /* Object Interface */
     
-    /*! Unique identifier assigned to this object */
-    virtual ObjectIdentifier identifier() const = 0;
+    /*! Very short description of this object */
+    virtual Text info() const = 0;
     
-    
-    /*! Display item's short description */
-    virtual Text brief() const = 0;
-    
+    /*! Full and detailed description of this object that may span multiple lines */
+    virtual Text details() const = 0;
     
     /*! Examine an action to see its description */
     virtual Text examine(const Text &keyword) const = 0;
     
+    /*! Represent this object and its properties as text */
+    virtual Text toText() const = 0;
+
     
-    /*! Represent this object as string */
-    virtual Text toString() const = 0;
     
+
     
     /*! Check if object has additional actions */
     virtual bool isInteractable() const = 0;
     
+    /*! Check if object allowed to be equipped */
+    virtual bool isEquipable() const = 0;
     
+    
+    
+    
+    /*! Object's virtual base destructor */
+    virtual ~Object() noexcept = default;
+    
+    
+    
+    
+    /*! Unique identifier assigned to this object */
+    [[deprecated]] virtual ObjectIdentifier identifier() const = 0;
 };
 
 

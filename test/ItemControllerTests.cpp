@@ -63,11 +63,13 @@ protected:
     ContainerSearchKey test_container_id = 0;
 
     /// Authenticator that will start at id = 1
-    Authenticator<ItemIdentifier> test_authenticator = Authenticator<ItemIdentifier>(0);
+    // Authenticator<ItemIdentifier> test_authenticator = Authenticator<ItemIdentifier>(0);
+    
+    Authenticator<ItemIdentifier> test_authenticator{};
 
     /// Fixture controller
-    ItemController<ContainerSearchKey> test_controller{test_authenticator};
-
+    // ItemController<ContainerSearchKey> test_controller{test_authenticator};
+    ItemController<ContainerSearchKey> test_controller{};
 
 
 
