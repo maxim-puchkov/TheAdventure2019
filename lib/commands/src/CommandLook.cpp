@@ -22,25 +22,24 @@ void CommandLook::generalLook(const std::string &userName) const {
     }
 
     allUsersInRoom.append(" NPCs are : \n");
-    for (const std::string &npc : room.getNPCs() ) {
+    for (const std::string &npc : room.getNPCs()) {
         allUsersInRoom.append( characterManager.getShortDescription(npc) );
     }
 
-    onlineUserManager.addMessageToUser(userName, ("\n" + listOfExits + "\n" + allUsersInRoom + "\n" +
-                                                  worldManager.look(location)  +   "\n"));
+    onlineUserManager.addMessageToUser(userName, ("\n" + listOfExits + "\n" + allUsersInRoom + "\n" +  worldManager.look(location)  + "\n"));
 
     
-    const auto items = worldManager.items;
-    const auto &vectorItems= items.contentsOf(location.room); //return a vector of id's and keywords
+    // const auto items = worldManager.items;
+    auto room_items = worldManager.items.storage.contentsOf(location.room); //return a vector of id's and keywords
     std::string allItems;
-    for(const auto &iter : vectorItems){
-        const auto &itemRef = items.lookup(room.getRoomId(), iter.id );
-        allItems.append(itemRef.getIdAndBrief() + "\n");
+    for(const auto &item_key : room_items) {
+        auto item = worldManager.items.storage.lookup(room.getRoomId(), item_key.id );
+        allItems.append(item.getIdAndBrief() + "\n");
     }
 
     allItems.append("Room keywords : \n\t");
-    for(const auto &iter : room.getExtendedKeyword()){
-        allItems.append(iter + ", ");
+    for(const auto &keyword : room.getExtendedKeyword()) {
+        allItems.append(keyword + ", ");
     }
     allItems.append("\n");
 
@@ -69,85 +68,79 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     auto room = worldManager.findRoomByLocation(location);
     std::cout << room.getName() << "\n";
     const std::string &listOfExits = room.listExits();
-
+    
     if (fullCommand.size() == 1) {
         generalLook(userName);
         return;
     } else if (fullCommand.at(1) == stringManager.getString(Internationalization::STRING_CODE::EXITS)) {
         onlineUserManager.addMessageToUser(userName, (worldManager.listExits(location) + "\n"));
         return;
-    } else if(fullCommand.at(1) == stringManager.getString(Internationalization::STRING_CODE::KEYWORD)){
+    } else if (fullCommand.at(1) == stringManager.getString(Internationalization::STRING_CODE::KEYWORD)) {
 
         bool itemFound = true;
         if(fullCommand.size() == 2){
-            onlineUserManager.addMessageToUser(
-                userName, 
-                stringManager.getString(Internationalization::STRING_CODE::NO_KEYWORD_ENTERED)
-            );
+            onlineUserManager.addMessageToUser(userName, stringManager.getString(Internationalization::STRING_CODE::NO_KEYWORD_ENTERED));
             return;
         }
 
 
-       const auto &keyWordList = worldManager.items.search(room.getRoomID(),fullCommand.at(2));
-       if(keyWordList.empty()){
-           itemFound = false;
-       } else {
-           stringstream ostream;
-           ostream << stringManager.getString(Internationalization::STRING_CODE::ITEMS_WITH_KEYWORD)
-                   << fullCommand.at(2) << " \n";
-           for (const items::ItemIdentifier &iter : keyWordList) {
-               ostream << iter << "\n";
-           }
-           onlineUserManager.addMessageToUser(userName, ostream.str());
-       }
+        auto keyWordList = worldManager.items.storage.search(room.getRoomID(), fullCommand.at(2));
+        
+        if (keyWordList.empty()) {
+            itemFound = false;
+        } else {
+            stringstream ostream;
+            ostream << stringManager.getString(Internationalization::STRING_CODE::ITEMS_WITH_KEYWORD) << fullCommand.at(2) << " \n";
+            
+            for (const auto &iter : keyWordList) {
+                ostream << iter << "\n";
+            }
+            
+            onlineUserManager.addMessageToUser(userName, ostream.str());
+        }
 
-       //Room Keywords
+        //Room Keywords
 
-       const auto &roomKeyWords =room.getExtendedKeyword();
-       const auto &target = std::find(roomKeyWords.begin(),roomKeyWords.end(), fullCommand.at(2));
+        const auto &roomKeyWords =room.getExtendedKeyword();
+        const auto &target = std::find(roomKeyWords.begin(),roomKeyWords.end(), fullCommand.at(2));
 
-       if(target!=roomKeyWords.end()){
-           onlineUserManager.addMessageToUser(userName, (*target) + " " + room.getExtendedDesc());
-       }
+        if (target!=roomKeyWords.end()) {
+            onlineUserManager.addMessageToUser(userName, (*target) + " " + room.getExtendedDesc());
+        }
 
-       if(!itemFound){
-           onlineUserManager.addMessageToUser(
-               userName, 
-               stringManager.getString(Internationalization::STRING_CODE::NO_ITEMS_WITH_KEYWORD) 
-            );
-       }
-
-
-
+        if (!itemFound) {
+            onlineUserManager.addMessageToUser(userName, stringManager.getString(Internationalization::STRING_CODE::NO_ITEMS_WITH_KEYWORD));
+        }
+        
         return;
-
-    } else if (fullCommand.at(1) == "item"){
+        
+    } else if (fullCommand.at(1) == "item") {
         std::string detailedItem;
 
-        if(fullCommand.size() == 2){
+        if(fullCommand.size() == 2) {
             onlineUserManager.addMessageToUser(
-                userName, 
+                userName,
                 stringManager.getString(Internationalization::STRING_CODE::NO_ITEM_LOOKUP)
             );
             return;
         }
 
         try {
-            int itemId = std::stoi(fullCommand.at(2));
-            bool exist = worldManager.items.exists(room.getRoomID(), itemId);
-            if(exist){
-                const auto &item = worldManager.items.lookup(room.getRoomID(), itemId);
-                onlineUserManager.addMessageToUser(userName,item.description.full() + "\n");
+            auto itemID = std::stoll(fullCommand.at(2));
+            bool exist = worldManager.items.storage.exists(room.getRoomID(), itemID);
+            if (exist) {
+                auto item = worldManager.items.storage.lookup(room.getRoomID(), itemID);
+                onlineUserManager.addMessageToUser(userName, item.description.full() + "\n");
             } else {
                 onlineUserManager.addMessageToUser(userName, " Item specified doesn't exist \n ");
             }
-        }catch (const std::exception &e){
+        } catch (const std::exception &e) {
             onlineUserManager.addMessageToUser(userName, "Invalid item id! (not a number) \n");
         }
-
-
+        
         return;
-    } else if(fullCommand.at(1) == "world"){
+        
+    } else if(fullCommand.at(1) == "world") {
         //use for admin. look world => output the list of room
         //TODO: for some reasons the server does not print the full string
         //      if the string is too long. Only print the second half of the string.
@@ -159,7 +152,7 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
             case usermanager::OnlineUserManager::USER_CODE::USER_NORMAL_USER: {
                 //don't let normal user know that this syntax exists
                 std::cout <<  (
-                    stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX), 
+                    stringManager.getString(Internationalization::STRING_CODE::WRONG_COMMAND_SYNTAX),
                     stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX)
                 );
             }
@@ -185,7 +178,7 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
 
     //Return's "empty string if invalid direction/fails"
     const std::string& roomDescription = room.lookCardinalDirection(fullCommand.at(1));
-    if( !roomDescription.empty() ) {
+    if (!roomDescription.empty()) {
         onlineUserManager.addMessageToUser(userName, roomDescription + "\n");
         //If a user happens to have the same name as a cardinalDirection send all the output to the user
     }
@@ -199,7 +192,7 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
 
     //For looking at a specific user
     const std::string& characterDescription = ( characterManager.getLongDescription(appendedCommand) ); // This line causes the crash
-    onlineUserManager.addMessageToUser(userName, characterDescription );
+    onlineUserManager.addMessageToUser(userName, characterDescription);
 
 
 

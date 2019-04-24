@@ -28,7 +28,7 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
 
     
     // Search for identifiers of all items matching the keyword
-    auto ids = Command::worldManager.items.search(room_id, keyword);
+    auto ids = Command::worldManager.items.storage.search(room_id, keyword);
     auto items_found = ids.size();
 
 
@@ -44,7 +44,7 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
     debug::print("In room id = ", room_id);
     debug::print("By character id = ", character_id);
     debug::print("Matching items found: ", ids.size());
-    debug::print("Total count of created items: ", Command::worldManager.items.itemsCreated());
+    debug::print("Total count of created items: ", Command::worldManager.items.storage.itemsCreated());
     
     
     
@@ -69,15 +69,15 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
     
     
     debug::print("Items in the room before update: ",
-          Command::worldManager.items.containerSize(room_id));
+          Command::worldManager.items.storage.containerSize(room_id));
     debug::print("Items in character's inventory before update: ",
-          Command::worldManager.items.containerSize(character_id));
+          Command::worldManager.items.storage.containerSize(character_id));
     
     
     // If search is not ambiguous, owner will be changed from
     // room_id to character_id
     auto item_id = ids[0];
-    Command::worldManager.items.reassign(room_id, character_id, item_id);
+    Command::worldManager.items.storage.reassign(room_id, character_id, item_id);
     
     
     debug::print("Item id = ", item_id,
@@ -85,9 +85,9 @@ void CommandTake::executeInHeartbeat(const std::string& username, const std::vec
           " to ", character_id);
     
     debug::print("Items in the room after update: ",
-          Command::worldManager.items.containerSize(room_id));
+          Command::worldManager.items.storage.containerSize(room_id));
     debug::print("Items in character's inventory after update: ",
-          Command::worldManager.items.containerSize(character_id));
+          Command::worldManager.items.storage.containerSize(character_id));
     
     
 }

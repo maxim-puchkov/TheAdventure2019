@@ -11,6 +11,14 @@
 #define GamePrefixHeader_pch
 
 
+#include <string>
+#include <vector>
+#include <iostream>
+#include <unordered_map>
+
+
+
+
 #ifndef BUILD_ALL_TARGETS
 
 #include "Command.h"

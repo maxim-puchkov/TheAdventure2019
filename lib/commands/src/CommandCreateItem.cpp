@@ -23,7 +23,7 @@ void CommandCreateItem::executeInHeartbeat(const std::string& username, const st
             worldManager.items.builder.setKeywords({fullCommand[1]});
             worldManager.items.builder.setDescription(fullCommand[2]);
             worldManager.items.create(location.room);
-            worldManager.items.print_contentsOf(location.room);
+            // worldManager.items.print_contentsOf(location.room);
             std::cout << "Item name: " << fullCommand[1] << "\n";
             std::cout << "Item desc: " << fullCommand[2] << "\n";
             std::string returnMessage = "Item name: " + fullCommand[1] + " has been created\n";
