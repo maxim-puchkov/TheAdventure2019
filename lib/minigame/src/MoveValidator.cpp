@@ -159,6 +159,45 @@ bool MoveValidator::validatePlayer(const std::string &playerName, const Color &c
 }
 
 
+
+bool MoveValidator::readMoveValidator(vector<std::string> &result, ChessCoordinate &start, ChessCoordinate &finish) {
+
+    if(result.size() > 2  || result.at(0).size() != 2 || result.at(1).size() != 2 ){
+        return false;
+    }
+
+
+    int sCol =  convertCharColToInt(result.at(0).at(0));
+    int sRow = convertChessRowToInt(result.at(0).at(1));
+    if( sCol == -1 || sRow == -1){
+        return false;
+    }
+
+    start.row = sRow;
+    start.col = sCol;
+
+    int finishPositionColumn = convertCharColToInt(result.at(1).at(0));
+    int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
+    if(finishPositionColumn == -1 || finishPositionRow == -1){
+        return false;
+    }
+
+    finish.row = finishPositionRow;
+    finish.col = finishPositionColumn;
+
+
+    if(start.col <= -1 || start.row <= -1){
+        return false;
+    }
+
+    if(finish.col <= -1 || finish.row <= -1){
+        return false;
+    }
+
+    return true;
+}
+
+
 /**
  * @param input - Takes in a chess move. First specify the location of a piece then specify the
  * end spot next.
@@ -169,35 +208,20 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo, co
     std::vector<std::string> result;
     result.push_back(moveFrom);
     result.push_back(moveTo);
+    ChessCoordinate start{-1,-1};
+    ChessCoordinate finish{-1,-1};
 
-    if(result.size() > 2  || result.at(0).size() != 2 || result.at(1).size() != 2 ){
+    if(!readMoveValidator(result,start,finish)){
         return false;
     }
 
 
-    int sCol =  convertCharColToInt(result.at(0).at(0));
-    int sRow = convertChessRowToInt(result.at(0).at(1));
-    if(sCol == -1 || sRow == -1){
-        return false;
-    }
-
-
-    ChessCoordinate startPos{sRow,sCol};
-
-    int finishPositionColumn = convertCharColToInt(result.at(1).at(0));
-    int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
-    if(finishPositionColumn == -1 || finishPositionRow == -1){
-        return false;
-    }
-
-    ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
-
-    const Color &pieceColor = gameBoard.requestPiece(startPos).getColor();
+    const Color &pieceColor = gameBoard.requestPiece(start).getColor();
     if( !validatePlayer(player, pieceColor) ) {
         return false ;
     }
-    return processChessMove( startPos, finishPos );
 
+    return processChessMove( start, finish );
 }
 
 
@@ -212,32 +236,15 @@ bool MoveValidator::readChessMove(std::string &moveFrom, std::string &moveTo) {
     result.push_back(moveFrom);
     result.push_back(moveTo);
 
+    ChessCoordinate start{-1,-1};
+    ChessCoordinate finish{-1,-1};
 
-
-
-    if(result.size() > 2  || result.at(0).size() != 2 || result.at(1).size() != 2 ){
+    if(!readMoveValidator(result,start,finish)){
         return false;
     }
 
-    int sCol =  convertCharColToInt(result.at(0).at(0));
-    int sRow = convertChessRowToInt(result.at(0).at(1));
+    return processChessMove( start, finish );
 
-    if(sCol == -1 || sRow == -1){
-        return false;
-    }
-
-    ChessCoordinate startPos{sRow,sCol};
-
-    int finishPositionColumn = convertCharColToInt(result.at(1).at(0));
-    int finishPositionRow = convertChessRowToInt(result.at(1).at(1));
-
-    if(finishPositionColumn == -1 || finishPositionRow == -1){
-        return false;
-    }
-    ChessCoordinate finishPos{ finishPositionRow,finishPositionColumn };
-
-
-    return processChessMove( startPos, finishPos );
 }
 
 MoveValidator::MoveValidator(const std::string &playerOne) {

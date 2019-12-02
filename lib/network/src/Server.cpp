@@ -299,7 +299,7 @@ HTTPSession::handleRequest() {
 void
 ServerImpl::listenForConnections() {
   auto session =
-    std::make_shared<HTTPSession>(acceptor.get_io_service(), *this);
+    std::make_shared<HTTPSession>(ioService, *this);
 
   acceptor.async_accept(session->getSocket(),
     [this, session] (auto errorCode) {
