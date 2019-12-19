@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include "GameManager.h"
+#include "GamePrefixHeader.pch"
 #include "Command.h"
 #include <boost/algorithm/string.hpp>
 

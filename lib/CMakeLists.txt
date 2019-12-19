@@ -3,7 +3,6 @@
 #
 
 
-
 # Add subdirectories in alphabetical order
 
 add_subdirectory(${location})
@@ -27,18 +26,3 @@ add_subdirectory(${user-interface})
 add_subdirectory(${users})
 add_subdirectory(${world})
 add_subdirectory(${libstrings})
-
-
-
-# Added
-add_subdirectory(simple)
-
-
-
-# Moved
-#   add_subdirectory(${libuserdb})
-#   add_subdirectory(characterDB)
-
-
-# Excluded
-#   add_subdirectory(${exceptions})

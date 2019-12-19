@@ -19,7 +19,6 @@ using builders::Builder;
 
 inline namespace builder_defaults {
     const Keywords EMPTY_KEYS{};
-    
     const Description DEF_DESC{"No description"};
     const Actions DEF_ACTS{{}};
 }
@@ -33,12 +32,9 @@ inline namespace builder_defaults {
 class ItemBuilder: public Builder {
 public:
     
-    /* Constructors */
-    
-    /*! ItemBuilder constructor */
+    /// ItemBuilder constructor
     ItemBuilder();
-    
-    /*! ItemBuilder destructor */
+    /// ItemBuilder destructor
     ~ItemBuilder() override;
 
     
@@ -47,19 +43,15 @@ public:
     
     /* Builder Interface */
     
-    /*! Reset current item settings */
+    /// Reset current item settings
     void reset() const noexcept override;
-    
-    /*! Validate current settings */
+    /// Validate current settings
     bool validate() const noexcept override;
-    
-    /*! Set item's unique keywords */
+    /// Set item's unique keywords
     void setKeywords(const vector<string> &keywords) const noexcept override;
-    
-    /*! Set item's description text */
+    /// Set item's description text
     void setDescription(const string &text) const noexcept override;
-    
-    /*! Set item's interactable actions */
+    /// Set item's interactable actions
     void setActions(const vector<pair<string, string>> &actions) const noexcept override;
     
     
@@ -73,24 +65,19 @@ public:
     mutable Description description;
     mutable Actions actions;
     
-    
-    /*! Build using specified keywords, descriptions, and actions */
+	/// Build using specified keywords, descriptions, and actions
     Item build(ItemIdentifier id) const;
-    
-    /*! Build using specified keywords, descriptions, and actions */
+    /// Build using specified keywords, descriptions, and actions, and original ID
     Item build(ItemIdentifier id, unsigned int json_id) const;
 
-    /*! Add a new action */
+    /// Add a new action
     void addAction(Action &&action) const noexcept;
-    
     /*! Overload for convenience */
     void setDescription(const vector<string> &lines) const noexcept;
-    
     /*! Overload for convenience */
     void setItemProperties(const vector<string> &keywords,
                            const string &description,
                            const vector<pair<string, string>> &actions) const noexcept;
-
     /*! Overload for convenience */
     void setItemProperties(const Keywords &keywords,
                            const Description &description,
@@ -100,7 +87,6 @@ private:
     
     /*! Clear builder's settings and reset to default value */
     void clearAll() const;
-    
     
 };
 

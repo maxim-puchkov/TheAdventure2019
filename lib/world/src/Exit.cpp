@@ -4,7 +4,8 @@
 // #include <boost/bimap/unordered_set_of.hpp>
 // using  namespace boost::bimaps;
 
-using namespace std;
+//using namespace std;
+using std::string;
 
 
     //Constructors
@@ -26,7 +27,8 @@ using namespace std;
             return search->second;
         }
 
-        return (stringManager.getString(Internationalization::STRING_CODE::DIRECTION_NOT_FOUND), "\n");
+//        return (stringManager.getString(Internationalization::STRING_CODE::DIRECTION_NOT_FOUND), "\n");
+        return (stringManager.getString(Internationalization::STRING_CODE::DIRECTION_NOT_FOUND));
 
     }
 
@@ -125,10 +127,10 @@ using namespace std;
     const string &Exit::getExitName() const {return exitName;}
 
     const string Exit::getLowerCaseExitName() const {
-        std::string result = exitName;
-        // boost::algorithm::to_lower(result);
-        return std::move(result);
-
+//        std::string result = exitName;
+//        // boost::algorithm::to_lower(result);
+//        return std::move(result);
+        return exitName;
     }
 
     const string Exit::getExitDescription() const {

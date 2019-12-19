@@ -57,7 +57,7 @@ void AreaGenerator::generateRooms(json rooms, Area& area){
         roomObj.setDescription(roomDesc);
         
         // roomsMap[roomID] -> pair<AreaName, RoomName>
-        roomsMap.insert(std::pair(roomObj.getRoomID(), std::pair(area.getName(), roomObj.getName())));
+        roomsMap.insert(std::pair<int, std::pair<string, string>>(roomObj.getRoomID(), std::pair<string, string>(area.getName(), roomObj.getName())));
 
         if(count == 0) {
             area.setFirstRoomInArea(room["id"]);
@@ -121,6 +121,7 @@ void AreaGenerator::generateObjects(json objects, Area& area, const items::ItemC
         for( auto val : resetValues){
             // std::cout << val.dump() << "\n";
             if(val["action"] == "object" && val["id"] == object["id"]){
+                std::cout << "RM:" << val["room"] << ", ID:" << val["id"] << '\n';
                 worldItems.create(val["room"], val["id"]);
                 std::cout << val["room"] << " "<< val["id"];
                 std::cout << " ITEM MADE \n";

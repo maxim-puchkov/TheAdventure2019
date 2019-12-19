@@ -33,7 +33,7 @@ std::vector<std::pair<std::string, std::vector<std::string>>> CombatManager::res
 
     roundTick();
 
-    return std::move(getCombatCommands());
+    return getCombatCommands();
 }
 
 void CombatManager::roundTick(){
@@ -73,7 +73,7 @@ std::vector<std::pair<std::string, std::vector<std::string>>> CombatManager::get
         }
     }
 
-    return std::move(commandList);
+    return commandList;
 }
 
 bool CombatManager::createInvite(const std::string& inviterName, const std::string& invitedName){

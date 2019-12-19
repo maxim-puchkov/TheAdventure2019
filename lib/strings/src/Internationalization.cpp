@@ -288,7 +288,7 @@ INTERNATIONALIZATION COPY AND PASTE STUFF:
 */
 
 void Internationalization::generateDefaultStrings(Internationalization::STRING_CODE codeName, const std::string& defaultString) {
-    auto pair = std::pair(codeName, defaultString);
+    auto pair = std::pair<STRING_CODE, std::string>(codeName, defaultString);
     stringMap.insert(std::move(pair));
 }
 

@@ -82,7 +82,7 @@ std::string MiniGameLobby::printGames() const{
         }
         result += game.getAdminName() + ": " + playerNames + "\n";
     }
-    return std::move(result);
+    return result;
 }
 
 
@@ -91,7 +91,7 @@ std::string MiniGameLobby::printInvites() const{
     for(auto& invite : pendingInvites){
         result += std::get<0>(invite) + ", " + std::get<1>(invite) + "\n";
     }
-    return std::move(result);
+    return result;
 }
 
 
@@ -110,18 +110,10 @@ std::string MiniGameLobby::spectate(const std::string &userName, const std::stri
 
     if(game != gameList.end()){
         (*game).addSpectator(observer);
-        return std::move(
-            stringManager.getString(Internationalization::STRING_CODE::CURRENTLY_SPECTATING) + 
-            userName + 
-            "\n"
-        );
+        return stringManager.getString(Internationalization::STRING_CODE::CURRENTLY_SPECTATING) +userName + "\n";
     }
 
-    return std::move(
-        stringManager.getString(Internationalization::STRING_CODE::COULDNT_FIND_GAME_WITH) + 
-        userName + 
-        stringManager.getString(Internationalization::STRING_CODE::PLAYING)
-    );
+    return stringManager.getString(Internationalization::STRING_CODE::COULDNT_FIND_GAME_WITH) + userName + stringManager.getString(Internationalization::STRING_CODE::PLAYING);
 }
 
 

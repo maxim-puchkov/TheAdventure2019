@@ -7,17 +7,20 @@ add_executable(runAllTests
 )
 
 target_link_libraries(runAllTests
-  ${libminigame}
-  gmock
-  gtest
-  gtest_main
-  commands
-  game
-  network
-  world
-  parsers
-  userdb
-  item
+    PUBLIC
+        gmock
+        gtest
+        gtest_main
+        commands
+        game
+        minigame
+        network
+        world
+        parsers
+        userdb
+        item
+    PRIVATE
+        ${Boost_LIBRARIES}
 )
 
 set_target_properties(runAllTests

@@ -87,7 +87,7 @@ std::string MoveValidator::helpMessage() const{
 
     std::string msg = stringManager.getString(Internationalization::STRING_CODE::MINIGAME_CHESS_WELCOME_MESSAGE);
 
-    return std::move(msg);
+    return msg;
 }
 
 
@@ -114,7 +114,7 @@ std::string MoveValidator::gameOverMessage() const {
     } else {
         stream = stringManager.getString(Internationalization::STRING_CODE::MINIGAME_CHESS_TEAM_UPPER_WON);
     }
-    return std::move(stream);
+    return stream;
 }
 
 

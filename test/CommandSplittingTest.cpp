@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include "GameManager.h"
-#include "Command.h"
 #include <boost/algorithm/string.hpp>
+
+#include "GamePrefixHeader.pch"
 
 using usermanager::OnlineUserManager;
 using charactermanager::CharacterManager;
@@ -10,9 +10,9 @@ using charactermanager::CharacterManager;
 struct CommandSplittingTest : testing::Test {
     Internationalization stringManager{};
     CombatManager cm{};
-    WorldManager w;
-    OnlineUserManager u;
-    CharacterManager c;
+	WorldManager w{};
+	OnlineUserManager u{};
+	CharacterManager c{};
     bool isValid = true;
     std::vector<std::string> testVector;
     std::string commandToPut;

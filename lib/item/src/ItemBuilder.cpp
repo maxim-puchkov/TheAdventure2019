@@ -104,13 +104,16 @@ void ItemBuilder::setItemProperties(const Keywords &keywords,
 
 void ItemBuilder::clearAll() const {
     this->keywords.clear();
-    this->keywords = EMPTY_KEYS;
+//    this->keywords = EMPTY_KEYS;
+    this->keywords = Keywords{};
     
     this->description.clear();
-    this->description = DEF_DESC;
+//    this->description = DEF_DESC;
+    this->description = Description{""};
     
     this->actions.clear();
-    this->actions = DEF_ACTS;
+//    this->actions = DEF_ACTS;
+    this->actions = Actions{{}};
 }
 
 

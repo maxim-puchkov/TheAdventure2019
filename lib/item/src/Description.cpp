@@ -22,7 +22,7 @@ inline namespace description_defaults {
 /* Constructors */
 
 Description::Description()
-: source(EMPTY), shortdesc(EMPTY), longdesc({EMPTY}), width(LINE_WIDTH)
+: shortdesc(EMPTY), longdesc({EMPTY}), source(EMPTY), width(LINE_WIDTH)
 { }
 
 

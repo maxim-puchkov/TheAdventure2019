@@ -35,14 +35,14 @@ public:
     }
     
     
+    /// @bug
     bool operator==(SearchKey &sk) const {
         for (int i = 0; i < this->data.size(); i++) {
             if (this->data[i] == sk.data[i]) return true;
         }
         return false;
     }
-    
-    
+    /// @bug
     bool operator==(const SearchKey &sk) const {
         for (int i = 0; i < this->data.size(); i++) {
             if (this->data[i] == sk.data[i]) return true;

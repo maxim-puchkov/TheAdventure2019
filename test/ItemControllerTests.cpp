@@ -63,7 +63,7 @@ protected:
     ContainerSearchKey test_container_id = 0;
 
     /// Authenticator that will start at id = 1
-    Authenticator<ItemIdentifier> test_authenticator = Authenticator<ItemIdentifier>(0);
+    Authenticator<ItemIdentifier> test_authenticator = Authenticator<ItemIdentifier>{0};
 
     /// Fixture controller
     ItemController<ContainerSearchKey> test_controller{test_authenticator};
@@ -73,24 +73,24 @@ protected:
 
 
     // Raw variables that could be read from file or entered by characters
-    vector<string> input_keys;
-    string input_desc;
-    vector<pair<string, string>> input_acts;
+    vector<Key> input_keys{};
+    string input_desc{};
+    vector<pair<string, string>> input_acts{};
 
 
     // ItemBuilder converts raw variables to easy-to-use
     // self-managing classes. These can be converted back via
     // .toString() and/or .toVector()
-    Keywords keys;
-    Description desc;
-    Actions acts;
+    Keywords keys{};
+    Description desc{};
+    Actions acts{};
 
 
     // Keywords are required; Description and Actions are optional.
     // If value is not specified when creating an object,
     // builder will assign default values.
-    Description def_desc;
-    Actions def_acts;
+    Description def_desc{};
+    Actions def_acts{};
 
 
 };
@@ -104,7 +104,7 @@ protected:
 
 /* ItemController Fixture Tests */
 
-/*
+
 // Testing test fixture set up
 TEST_F(ItemControllerTests, FixtureInitialization) {
     EXPECT_TRUE(initialized);
@@ -139,17 +139,11 @@ TEST_F(ItemControllerTests, Create) {
     test_controller.builder.setDescription(input_desc);
     test_controller.builder.setActions(input_acts);
 
-    // Create function will generate unique item in a container.
-    // Container can be a Character (== same as Inventory), a Room,
-    // or anything else.
-    // ALL used containers must be unique (cannot simply store a character with id = 123 and room with id = 123, yet)
-
-    // If test_container_id = 0, then an item will be owned by
-    // anything that has id = 0
-    ItemIdentifier id = test_controller.create(test_container_id);
-
     // Creating a valid item returns its id. First id = 1
+    ItemIdentifier id = test_controller.create(test_container_id);
+    
     EXPECT_EQ(1, test_controller.itemsCreated());
+//    EXPECT_EQ(1, id);
 
 }
 
@@ -163,7 +157,7 @@ TEST_F(ItemControllerTests, CreateEmpty) {
     ItemIdentifier id = test_controller.create(test_container_id);
 
     // Trying to create an invalid item returns controller's id
-    EXPECT_EQ(id, test_controller.id);
+    EXPECT_EQ(id, test_controller.controller_id);
     EXPECT_EQ(count, test_controller.itemsCreated());
 
 }
@@ -178,6 +172,7 @@ TEST_F(ItemControllerTests, CreateNoActs) {
     ItemIdentifier id = test_controller.create(test_container_id);
 
     EXPECT_EQ(1, test_controller.itemsCreated());
+    EXPECT_EQ(1, id);
 
 }
 
@@ -190,6 +185,7 @@ TEST_F(ItemControllerTests, CreateNoDescActs) {
     ItemIdentifier id = test_controller.create(test_container_id);
 
     EXPECT_EQ(1, test_controller.itemsCreated());
+    EXPECT_EQ(1, id);
 
 }
 
@@ -304,12 +300,9 @@ TEST_F(ItemControllerTests, Search) {
     // Both identifiers will be returned
     EXPECT_EQ(2, ids.size());
 
-
-//        EXPECT_EQ(id_1, ids[0]);
-//        EXPECT_EQ(id_2, ids[1]);
+    EXPECT_EQ(id_1, ids[0]);
+    EXPECT_EQ(id_2, ids[1]);
 
 }
-
-*/
 
 } /* namespace items */

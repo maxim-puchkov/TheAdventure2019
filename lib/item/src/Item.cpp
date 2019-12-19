@@ -68,7 +68,7 @@ Text Item::toString() const {
 Text Item::examine(const Text &keyword) const {
     
     // .....
-    return "callee: Item::examine(const Key&)";
+    return "Item::examine keyword " + keyword;
     
 }
 

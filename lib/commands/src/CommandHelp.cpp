@@ -29,9 +29,7 @@ std::string CommandHelp::executePromptReply(const std::string& connectionID, con
         } else if (fullCommand[1] == stringManager.getString(Internationalization::STRING_CODE::COMMAND_COMBAT)) {
             answer << printCombatCommands(userRole);
         } else {
-            answer << (stringManager.getString(Internationalization::STRING_CODE::COMMAND_NOT_FOUND),
-                       " ",
-                       stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX));
+            answer << (stringManager.getString(Internationalization::STRING_CODE::COMMAND_NOT_FOUND), stringManager.getString(Internationalization::STRING_CODE::PLEASE_ENTER_HELP_SYNTAX));
         }
     }
     return answer.str();

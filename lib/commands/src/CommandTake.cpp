@@ -9,45 +9,30 @@ using boost::bad_lexical_cast;
 
 /// Execute command
 void CommandTake::executeInHeartbeat(const std::string& username, const std::vector<std::string>& fullCommand) {
-
-    debug::prefix("TAKE");
-    
-    
     // Find character's location
     auto location = Command::characterManager.getCharacterLocation(username);
 
-    
-    // Room owns items that may be taken
-    // Note: location.room actually means the id of the room
-    // Note 2: debug creates items in room 0
+    // ID of the room from which an item is taken,
+    //  and the character who takes the item.
+    // Debug creates items in room 0 and character 123
     auto room_id = 0; //location.room;
-    
+	auto character_id = 123;
     
     // Keyword is the second element of the vector
     auto keyword = fullCommand.at(1);
-
     
     // Search for identifiers of all items matching the keyword
     auto ids = Command::worldManager.items.search(room_id, keyword);
     auto items_found = ids.size();
-
-
-    // Recepient of the item
-    // Note: debug creates items in character 123
-    auto character_id = 123;
-
     
-    // Debug
+    /* DEBUG */
+    debug::prefix("TAKE");
     debug::print("Searched keyword: ", keyword);
-    
-    debug::prefix("TAKE\t");
     debug::print("In room id = ", room_id);
     debug::print("By character id = ", character_id);
-    debug::print("Matching items found: ", ids.size());
-    debug::print("Total count of created items: ", Command::worldManager.items.itemsCreated());
-    
-    
-    
+    debug::print("Number of matching items: ", ids.size());
+    debug::print("Number of created items: ", Command::worldManager.items.itemsCreated());
+    /* DEBUG */
     
     if (items_found == 0) {
         debug::print("Nothing found");

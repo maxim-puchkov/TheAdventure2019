@@ -5,11 +5,12 @@
 
 using internationalization::Internationalization;
 WorldManager::WorldManager()
-: items(ItemController<WorldIdentifier>()) {
+: items(ItemController<WorldIdentifier>{}) {
     debug::prefix("World");
     debug::print("World created");
+}
     
-    
+    /*
     using namespace items::data; // Keywords, Description, Actions classes
     
     // Test action. Actions cannot be used yet
@@ -28,7 +29,7 @@ WorldManager::WorldManager()
     
     // Different ways ways to create items
     
-    // Creates a second item in room (id: 0). Keyword letter is the same, no actions
+    // Creates a second item in room (id: 0). Keyword "letter" is the same, no actions
     this->items.builder.setKeywords({"letter", "cat"});
     this->items.builder.setDescription("You received a cat letter");
     this->items.create(room_id);
@@ -56,6 +57,7 @@ WorldManager::WorldManager()
 //    this->items.create(character_id);
     
 }
+*/
 
 Room& WorldManager::findRoomByLocation(LocationCoordinates location) {
     if (areas.empty() || location.area == ""){

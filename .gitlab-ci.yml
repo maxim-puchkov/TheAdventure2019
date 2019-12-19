@@ -7,18 +7,42 @@ stages:
   - test
 
 
-build:
+build-debug:
   stage: build
   script:
-    - mkdir build
-    - cd build
+    - mkdir build-debug
+    - cd build-debug
     - cmake -DCMAKE_CXX_COMPILER=clang++ -DENABLE_COVERAGE=True -DCMAKE_EXPORT_COMPILE_COMMANDS=True ../
     - make
   artifacts:
     expire_in: 30 mins
     paths:
-      - build/*
+      - build-debug/*
 
+build-ninja:
+  stage: build
+  script:
+    - mkdir build-ninja
+    - cd build-ninja
+    - cmake -DCMAKE_CXX_COMPILER=clang++ -GNinja -S ../ -B .
+    - ninja --version
+    - ninja
+  artifacts:
+    expire_in: 30 mins
+    paths:
+      - build-ninja/*
+
+build-xcode:
+  stage: build
+  script:
+    - mkdir build-xcode
+    - cd build-xcode
+    - cmake -DCMAKE_CXX_COMPILER=clang++ -GXcode
+    - xcodebuild 
+  artifacts:
+    expire_in: 30 mins
+    paths:
+      - build-ninja/*
 
 build-release:
   stage: build
@@ -30,7 +54,7 @@ build-release:
   artifacts:
     expire_in: 5 mins
     paths:
-      - build/*
+      - build-release/*
   allow_failure: true
   only:
     - master
@@ -76,9 +100,9 @@ headerdoc2html:
 gatherheaderdoc:
   stage: analyze
   script:
-    - find . -regex '.*\.h'
-    - find lib -regex '.*\.h'
-    - echo 'sh bin/headerdoc2html doc/.HeaderDoc/ $(find lib -regex '.*\.h')'
+    - find . -regex ".*\.h"
+    - find lib -regex ".*\.h"
+    - echo "sh bin/headerdoc2html doc/.HeaderDoc/ $(find lib -regex \".*\.h\")"
   allow_failure: true
   only:
     - docs
@@ -90,8 +114,8 @@ test:
   script:
     - LLVM_PROFILE_FILE="runAllTests.profraw" build/bin/runAllTests
     - llvm-profdata merge -sparse runAllTests.profraw -o runAllTests.profdata
-    - llvm-cov show build/bin/runAllTests -instr-profile=runAllTests.profdata -show-line-counts-or-regions -output-dir=coverage/ -format="html"
-    - llvm-cov report build/bin/runAllTests -instr-profile=runAllTests.profdata
+    - llvm-cov show build/bin/runAllTests -instr-profile="runAllTests.profdata" -show-line-counts-or-regions -output-dir="coverage/" -format="html"
+    - llvm-cov report build/bin/runAllTests -instr-profile="runAllTests.profdata"
   coverage: '/TOTAL.*\s+(\S+\%)/'
   allow_failure: true
   artifacts:

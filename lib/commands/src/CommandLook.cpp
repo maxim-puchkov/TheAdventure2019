@@ -68,7 +68,7 @@ void CommandLook::executeInHeartbeat(const std::string& userName, const std::vec
     //A room may have special keywords that when looked at provide deeper description.
     auto room = worldManager.findRoomByLocation(location);
     std::cout << room.getName() << "\n";
-    const std::string &listOfExits = room.listExits();
+//    const std::string &listOfExits = room.listExits();
 
     if (fullCommand.size() == 1) {
         generalLook(userName);

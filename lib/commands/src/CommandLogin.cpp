@@ -43,7 +43,7 @@ std::string CommandLogin::executePromptReply(const std::string& connectionID, co
 				reply << stringManager.getString(Internationalization::STRING_CODE::AREA);
 				reply << ": ";
 				reply << spawnLocation.area;
-				reply << (", ", stringManager.getString(Internationalization::STRING_CODE::ROOM), ": ");
+				reply << (stringManager.getString(Internationalization::STRING_CODE::ROOM));
 				reply << room.getName();
 				reply << "\n";
 			}

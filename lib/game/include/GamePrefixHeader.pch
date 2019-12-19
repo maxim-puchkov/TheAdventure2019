@@ -11,18 +11,18 @@
 #define GamePrefixHeader_pch
 
 
-#ifndef BUILD_ALL_TARGETS
+//#ifndef BUILD_ALL_TARGETS
 
 #include "Command.h"
 #include "CommandHelp.h"
 #include "CommandLogin.h"
 #include "CommandTake.h"
 
-#else
+//#else
 
-#include "Command.h"
-#include "CommandHelp.h"
-#include "CommandLogin.h"
+//#include "Command.h"
+//#include "CommandHelp.h"
+//#include "CommandLogin.h"
 #include "CommandLogout.h"
 #include "CommandCreate.h"
 #include "CommandSay.h"
@@ -37,7 +37,7 @@
 #include "CommandCreateRoom.h"
 #include "CommandUse.h"
 #include "CommandEquip.h"
-#include "CommandTake.h"
+//#include "CommandTake.h"
 #include "CommandDrop.h"
 #include "CommandPut.h"
 #include "CommandMinigame.h"
@@ -49,7 +49,7 @@
 #include "CommandDeleteRoom.h"
 #include "CommandAdmin.h"
 
-#endif
+//#endif
 
 
 #endif /* GamePrefixHeader_pch */

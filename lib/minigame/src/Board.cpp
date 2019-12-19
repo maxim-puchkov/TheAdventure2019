@@ -233,7 +233,7 @@ const std::string Board::getBoardView() const {
     }
     stream << "___________\n";
 
-    return std::move(stream.str());
+    return stream.str();
 }
 
 
@@ -248,7 +248,7 @@ const std::string Board::getReverseBoardView() const {
         drawRowReverse(row,stream);
     }
 
-    return std::move(stream.str());
+    return stream.str();
 
 }
 

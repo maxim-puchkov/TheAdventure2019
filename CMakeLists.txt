@@ -1,70 +1,59 @@
 #
 #   Root CMakeLists.txt
-#   Updated: 2019-04-03
+#   Updated: 2019-12-14
 #
 
 
 # CMakeLists configuration
-
 cmake_minimum_required(VERSION 3.12)
-project(adventure2019 VERSION 1.0)
-
-# set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-set(BUILD_SHARED_LIBS ON)
-
-
-
-
-
+project("TheAdventure" VERSION 3.0)
 # Package name and version
-
-set(PACKAGE_NAME ImmersiveWorlds)
+set(PACKAGE_NAME "ImmersiveWorlds")
 set(PACKAGE_VERSION 1.0)
 set(PACKAGE_STRING "${PACKAGE_NAME} ${PACKAGE_VERSION}")
-set(PACKAGE_BUGREPORT "wsumner@sfu.ca")
+set(PACKAGE_BUGREPORT "mpuchkov@sfu.ca")
 
 
 
-
-
-# Build type
-
+# Build options
+set(BUILD_SHARED_LIBS ON)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
-endif(NOT CMAKE_BUILD_TYPE)
-
-
-
-
-
-# Choose to build all targets including all commands and game
-
-#  Default option to build quickly is chosen by default
-#       'cmake -DBUILD_ALL_TARGETS=NO ../adventure2019/'
-#
-#  Choose this option to include all game commands and force 23 additional builds of all code:
-#       'cmake -DBUILD_ALL_TARGETS=YES ../adventure2019/'
-
-
-    add_compile_definitions(BUILD_ALL_TARGETS)
-
-
-
+endif()
+# Complier flags including additional warnings
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-rtti")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} \
+    -O0 -g -fsanitize=address,undefined -fno-omit-frame-pointer")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} \
+    -Wall -Wextra -Wstrict-aliasing -pedantic -Wunreachable-code -Wcast-align \
+    -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 \
+    -Winit-self -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual \
+    -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-overflow=5 \
+    -Wswitch-default -Wundef -Wno-unused -Wno-variadic-macros \
+    -Wno-parentheses -fdiagnostics-show-option")
+# Statement coverage
+# NOTE: Coverage only works/makes sense with debug builds
+if(ENABLE_COVERAGE)
+    if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang")
+        set(CXX_COVERAGE_FLAGS "-fprofile-instr-generate -fcoverage-mapping")
+        message("-- Enabling coverage instrumentation with: ${CXX_COVERAGE_FLAGS}")
+    else()
+        message(FATAL_ERROR "-- Coverage generation is only supported for clang")
+    endif()
+endif()
 
 
 
 # Find dependencies
-
-find_package(Boost 1.68 COMPONENTS system REQUIRED)
-
-
+find_package(Boost 1.71 COMPONENTS system REQUIRED)
 
 
 
 # Declare new libraries here (in alphabetical order)
-
 set(location "location")
 set(authentication "authentication")
 set(builder "builder")
@@ -90,72 +79,28 @@ set(libstrings "strings")
 
 
 
-
-#       set(libcharacters "characters")   # Deleted. Files moved to characterDB
-#       set(libuserdb "userdb")               # Deleted. Files moved to user
-
-
-
-
-
-# Statement coverage
-# NOTE: Coverage only works/makes sense with debug builds
-
-if(ENABLE_COVERAGE)
-
-    if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang")
-        set(CXX_COVERAGE_FLAGS "-fprofile-instr-generate -fcoverage-mapping")
-        message("-- Enabling coverage instrumentation with: ${CXX_COVERAGE_FLAGS}")
-    else()
-        message(FATAL_ERROR "-- Coverage generation is only supported for clang")
-    endif()
-
-endif()
-
-
-
-
-
-# Complier flags including additional warnings
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-rtti")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-set(CMAKE_CXX_FLAGS_DEBUG
-    "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -fsanitize=address,undefined -fno-omit-frame-pointer")
-set(CMAKE_CXX_FLAGS_RELEASE
-    "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra  -Wstrict-aliasing -pedantic -Wunreachable-code -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option")
-
-
-# cmake -DCMAKE_BUILD_TYPE=RELEASE ../adventure2019
-message("")
-message("Building " ${CMAKE_BUILD_TYPE} ". Try RELEASE when pushing important code... ")
-message("   cmake -DCMAKE_BUILD_TYPE=RELEASE ../adventure2019")
-message("")
-
-
-
+# Set the project header and library paths
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
-
-
-# And the project header and library paths
-link_directories(${LIBRARY_OUTPUT_PATH})
 set(CMAKE_TEMP_LIBRARY_PATH "${PROJECT_BINARY_DIR}/lib")
-
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
-
-
-# And the project header and library paths
 link_directories(${LIBRARY_OUTPUT_PATH})
-set(CMAKE_TEMP_LIBRARY_PATH "${PROJECT_BINARY_DIR}/lib")
-
-
 add_subdirectory(lib)
 add_subdirectory(tools)
 add_subdirectory(test)
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+
+### cmake -DCMAKE_BUILD_TYPE=RELEASE ../adventure2019
+#message("")
+#message("Building " ${CMAKE_BUILD_TYPE} ". Try RELEASE when pushing important code... ")
+#message("   cmake -DCMAKE_BUILD_TYPE=RELEASE ../adventure2019")
+#message("")
+# Choose to build all targets including all commands and game
+#       'cmake -DBUILD_ALL_TARGETS=NO ../adventure2019/'
+#       'cmake -DBUILD_ALL_TARGETS=YES ../adventure2019/'
+#add_compile_definitions(BUILD_ALL_TARGETS)
+#unset(BUILD_ALL_TARGETS)
+#message("")
+#message("DONE")
+# file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
