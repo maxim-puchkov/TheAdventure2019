@@ -8,128 +8,128 @@ stages:
 #  - test
 
 
-build-debug:
-  stage: build
-  script:
-    - mkdir build-debug
-    - cd build-debug
-#    - cmake -DCMAKE_CXX_COMPILER=clang++ -DENABLE_COVERAGE=True -DCMAKE_EXPORT_COMPILE_COMMANDS=True -S ../ -B .
-    - cmake -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_EXPORT_COMPILE_COMMANDS=TRUE -DENABLE_COVERAGE=TRUE -S ../ -B .
-    - make
-  allow_failure: true
-  artifacts:
-    expire_in: 30 mins
-    paths:
-      - build-debug/*
-
-build-ninja:
-  stage: build
-  script:
-    - mkdir build-ninja
-    - cd build-ninja
-    - cmake -DCMAKE_CXX_COMPILER=clang++ -GNinja -S ../ -B .
-    - ninja --version
-    - ninja
-  allow_failure: true
-  artifacts:
-    expire_in: 30 mins
-    paths:
-      - build-ninja/*
-
-build-xcode:
-  stage: build
-  script:
-    - mkdir build-xcode
-    - cd build-xcode
-    - cmake -DCMAKE_CXX_COMPILER=clang++ -G Xcode -S ../ -B .
-    - xcodebuild
-  allow_failure: true
-  artifacts:
-    expire_in: 30 mins
-    paths:
-      - build-xcode/*
-
-build-release:
-  stage: build
-  script:
-    - mkdir build-release
-    - cd build-release
-    - cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_CXX_COMPILER=clang++ ../
-    - make
-  allow_failure: true
-  artifacts:
-    expire_in: 5 mins
-    paths:
-      - build-release/*
-  only:
-    - master
-
-
-analyze:
-  stage: analyze
-  script:
-    - cppcheck lib/* 2> build-ninja/cppcheck-results.txt
-    - cd build-ninja
-    - >-
-     /usr/local/Cellar/llvm/9.0.0_1/bin/clang-tidy
-     -checks='*,-fuchsia-*,-google-readability-todo,-llvm-*,
-     -google-runtime-references,-misc-unused-parameters,
-     -google-readability-namespace-comments,
-     -readability-else-after-return' '^(?!.*(googletest|test|networking|nlohmann)).*' > clang-tidy-results.txt
-  artifacts:
-    expire_in: 1 hour
-    paths:
-      - build-ninja/cppcheck-results.txt
-      - build-ninja/clang-tidy-results.txt
-  allow_failure: true
-  except:
-    - docs
-    - libraries
-
-
-headerdoc2html:
-  stage: analyze
-  script:
-    - echo '...Debugging...'
-    - ls
-    - cd bin/
-    - ls
-    - ls build-debug/
-    - ls build-ninja/
-    - ls build-xcode/
-    - cd ../../
-    - ls
-  allow_failure: true
-  only:
-    - docs
-    - libraries
-
-
-gatherheaderdoc:
-  stage: analyze
-  script:
-    - find . -regex ".*\.h"
-    - find lib -regex ".*\.h"
-    - echo "sh bin/headerdoc2html doc/.HeaderDoc/ $(find lib -regex \".*\.h\")"
-  allow_failure: true
-  only:
-    - docs
-    - libraries
-
-
-test:
-  stage: test
-  script:
-    - LLVM_PROFILE_FILE="runAllTests.profraw" build/bin/runAllTests
-    - llvm-profdata merge -sparse runAllTests.profraw -o runAllTests.profdata
-    - llvm-cov show build/bin/runAllTests -instr-profile="runAllTests.profdata" -show-line-counts-or-regions -output-dir="coverage/" -format="html"
-    - llvm-cov report build/bin/runAllTests -instr-profile="runAllTests.profdata"
-  coverage: '/TOTAL.*\s+(\S+\%)/'
-  allow_failure: true
-  artifacts:
-    expire_in: 1 hour
-    paths:
-      - coverage/*
+#build-debug:
+#  stage: build
+#  script:
+#    - mkdir build-debug
+#    - cd build-debug
+##    - cmake -DCMAKE_CXX_COMPILER=clang++ -DENABLE_COVERAGE=True -DCMAKE_EXPORT_COMPILE_COMMANDS=True -S ../ -B .
+#    - cmake -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_EXPORT_COMPILE_COMMANDS=TRUE -DENABLE_COVERAGE=TRUE -S ../ -B .
+#    - make
+#  allow_failure: true
+#  artifacts:
+#    expire_in: 30 mins
+#    paths:
+#      - build-debug/*
+#
+#build-ninja:
+#  stage: build
+#  script:
+#    - mkdir build-ninja
+#    - cd build-ninja
+#    - cmake -DCMAKE_CXX_COMPILER=clang++ -GNinja -S ../ -B .
+#    - ninja --version
+#    - ninja
+#  allow_failure: true
+#  artifacts:
+#    expire_in: 30 mins
+#    paths:
+#      - build-ninja/*
+#
+#build-xcode:
+#  stage: build
+#  script:
+#    - mkdir build-xcode
+#    - cd build-xcode
+#    - cmake -DCMAKE_CXX_COMPILER=clang++ -G Xcode -S ../ -B .
+#    - xcodebuild
+#  allow_failure: true
+#  artifacts:
+#    expire_in: 30 mins
+#    paths:
+#      - build-xcode/*
+#
+#build-release:
+#  stage: build
+#  script:
+#    - mkdir build-release
+#    - cd build-release
+#    - cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_CXX_COMPILER=clang++ ../
+#    - make
+#  allow_failure: true
+#  artifacts:
+#    expire_in: 5 mins
+#    paths:
+#      - build-release/*
+#  only:
+#    - master
+#
+#
+#analyze:
+#  stage: analyze
+#  script:
+#    - cppcheck lib/* 2> build-ninja/cppcheck-results.txt
+#    - cd build-ninja
+#    - >-
+#     /usr/local/Cellar/llvm/9.0.0_1/bin/clang-tidy
+#     -checks='*,-fuchsia-*,-google-readability-todo,-llvm-*,
+#     -google-runtime-references,-misc-unused-parameters,
+#     -google-readability-namespace-comments,
+#     -readability-else-after-return' '^(?!.*(googletest|test|networking|nlohmann)).*' > clang-tidy-results.txt
+#  artifacts:
+#    expire_in: 1 hour
+#    paths:
+#      - build-ninja/cppcheck-results.txt
+#      - build-ninja/clang-tidy-results.txt
+#  allow_failure: true
+#  except:
+#    - docs
+#    - libraries
+#
+#
+#headerdoc2html:
+#  stage: analyze
+#  script:
+#    - echo '...Debugging...'
+#    - ls
+#    - cd bin/
+#    - ls
+#    - ls build-debug/
+#    - ls build-ninja/
+#    - ls build-xcode/
+#    - cd ../../
+#    - ls
+#  allow_failure: true
+#  only:
+#    - docs
+#    - libraries
+#
+#
+#gatherheaderdoc:
+#  stage: analyze
+#  script:
+#    - find . -regex ".*\.h"
+#    - find lib -regex ".*\.h"
+#    - echo "sh bin/headerdoc2html doc/.HeaderDoc/ $(find lib -regex \".*\.h\")"
+#  allow_failure: true
+#  only:
+#    - docs
+#    - libraries
+#
+#
+#test:
+#  stage: test
+#  script:
+#    - LLVM_PROFILE_FILE="runAllTests.profraw" build/bin/runAllTests
+#    - llvm-profdata merge -sparse runAllTests.profraw -o runAllTests.profdata
+#    - llvm-cov show build/bin/runAllTests -instr-profile="runAllTests.profdata" -show-line-counts-or-regions -output-dir="coverage/" -format="html"
+#    - llvm-cov report build/bin/runAllTests -instr-profile="runAllTests.profdata"
+#  coverage: '/TOTAL.*\s+(\S+\%)/'
+#  allow_failure: true
+#  artifacts:
+#    expire_in: 1 hour
+#    paths:
+#      - coverage/*
 
 
 build-newtest:
