@@ -71,7 +71,7 @@ analyze:
     - cppcheck lib/* 2> build-ninja/cppcheck-results.txt
     - cd build-ninja
     - >-
-     /usr/lib/llvm-6.0/share/clang/run-clang-tidy.py
+     /usr/local/Cellar/llvm/9.0.0_1/bin/clang-tidy
      -checks='*,-fuchsia-*,-google-readability-todo,-llvm-*,
      -google-runtime-references,-misc-unused-parameters,
      -google-readability-namespace-comments,
