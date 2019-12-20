@@ -16,12 +16,12 @@ set(PACKAGE_BUGREPORT "mpuchkov@sfu.ca")
 
 
 # Build options
-set(BUILD_SHARED_LIBS ON)
+set(BUILD_SHARED_LIBS TRUE)
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug)
+    set(CMAKE_BUILD_TYPE DEBUG)
 endif()
 # Complier flags including additional warnings
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-rtti")
@@ -38,6 +38,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} \
 # Statement coverage
 # NOTE: Coverage only works/makes sense with debug builds
 if(ENABLE_COVERAGE)
+	set(BUILD_SHARED_LIBS FALSE)
     if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang")
         set(CXX_COVERAGE_FLAGS "-fprofile-instr-generate -fcoverage-mapping")
         message("-- Enabling coverage instrumentation with: ${CXX_COVERAGE_FLAGS}")
@@ -84,6 +85,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 set(CMAKE_TEMP_LIBRARY_PATH "${PROJECT_BINARY_DIR}/lib")
+
+
+
 link_directories(${LIBRARY_OUTPUT_PATH})
 add_subdirectory(lib)
 add_subdirectory(tools)

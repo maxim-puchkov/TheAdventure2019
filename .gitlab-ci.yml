@@ -5,6 +5,7 @@ stages:
   - build
   - analyze
   - test
+  - newtest
 
 
 build-debug:
@@ -12,8 +13,10 @@ build-debug:
   script:
     - mkdir build-debug
     - cd build-debug
-    - cmake -DCMAKE_CXX_COMPILER=clang++ -DENABLE_COVERAGE=True -DCMAKE_EXPORT_COMPILE_COMMANDS=True ../
+#    - cmake -DCMAKE_CXX_COMPILER=clang++ -DENABLE_COVERAGE=True -DCMAKE_EXPORT_COMPILE_COMMANDS=True -S ../ -B .
+    - cmake -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_EXPORT_COMPILE_COMMANDS=TRUE -DENABLE_COVERAGE=TRUE -S ../ -B .
     - make
+  allow_failure: true
   artifacts:
     expire_in: 30 mins
     paths:
@@ -27,6 +30,7 @@ build-ninja:
     - cmake -DCMAKE_CXX_COMPILER=clang++ -GNinja -S ../ -B .
     - ninja --version
     - ninja
+  allow_failure: true
   artifacts:
     expire_in: 30 mins
     paths:
@@ -37,12 +41,13 @@ build-xcode:
   script:
     - mkdir build-xcode
     - cd build-xcode
-    - cmake -DCMAKE_CXX_COMPILER=clang++ -GXcode
-    - xcodebuild 
+    - cmake -DCMAKE_CXX_COMPILER=clang++ -G Xcode -S ../ -B .
+    - xcodebuild
+  allow_failure: true
   artifacts:
     expire_in: 30 mins
     paths:
-      - build-ninja/*
+      - build-xcode/*
 
 build-release:
   stage: build
@@ -51,11 +56,11 @@ build-release:
     - cd build-release
     - cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_CXX_COMPILER=clang++ ../
     - make
+  allow_failure: true
   artifacts:
     expire_in: 5 mins
     paths:
       - build-release/*
-  allow_failure: true
   only:
     - master
 
@@ -63,8 +68,8 @@ build-release:
 analyze:
   stage: analyze
   script:
-    - cppcheck lib/* 2> build/cppcheck-results.txt
-    - cd build
+    - cppcheck lib/* 2> build-ninja/cppcheck-results.txt
+    - cd build-ninja
     - >-
      /usr/lib/llvm-6.0/share/clang/run-clang-tidy.py
      -checks='*,-fuchsia-*,-google-readability-todo,-llvm-*,
@@ -74,8 +79,8 @@ analyze:
   artifacts:
     expire_in: 1 hour
     paths:
-      - build/cppcheck-results.txt
-      - build/clang-tidy-results.txt
+      - build-ninja/cppcheck-results.txt
+      - build-ninja/clang-tidy-results.txt
   allow_failure: true
   except:
     - docs
@@ -89,6 +94,9 @@ headerdoc2html:
     - ls
     - cd bin/
     - ls
+    - ls build-debug/
+    - ls build-ninja/
+    - ls build-xcode/
     - cd ../../
     - ls
   allow_failure: true
@@ -116,6 +124,36 @@ test:
     - llvm-profdata merge -sparse runAllTests.profraw -o runAllTests.profdata
     - llvm-cov show build/bin/runAllTests -instr-profile="runAllTests.profdata" -show-line-counts-or-regions -output-dir="coverage/" -format="html"
     - llvm-cov report build/bin/runAllTests -instr-profile="runAllTests.profdata"
+  coverage: '/TOTAL.*\s+(\S+\%)/'
+  allow_failure: true
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - coverage/*
+
+
+build-newtest:
+  stage: newtest
+  script:
+    - mkdir build-newtest
+    - cd build-newtest
+    - cmake -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_EXPORT_COMPILE_COMMANDS=TRUE -DENABLE_COVERAGE=TRUE -G Ninja -S ../ -B .
+    - ninja --version
+    - ninja runAllTests
+  allow_failure: true
+  artifacts:
+    expire_in: 30 mins
+    paths:
+      - build-newtest/*
+
+
+cov-newtest:
+  stage: newtest
+  script:
+    - LLVM_PROFILE_FILE="runAllTests.profraw" build-newtest/bin/runAllTests
+    - llvm-profdata merge -sparse runAllTests.profraw -o runAllTests.profdata
+    - llvm-cov show build-newtest/bin/runAllTests -instr-profile="runAllTests.profdata" -show-line-counts-or-regions -output-dir="coverage/" -format="html"
+    - llvm-cov report build-newtest/bin/runAllTests -instr-profile="runAllTests.profdata"
   coverage: '/TOTAL.*\s+(\S+\%)/'
   allow_failure: true
   artifacts:
